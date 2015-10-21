@@ -1,4 +1,4 @@
-package com.ibm.spark.javascript;
+package com.ibm.eclair;
 
 
 import java.io.BufferedReader;

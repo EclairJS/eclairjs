@@ -1,7 +1,7 @@
 <project>
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.ibm</groupId>
-  <artifactId>eclair</artifactId>
+  <artifactId>eclair-nashorn</artifactId>
   <version>0.1</version>
 
   <build>

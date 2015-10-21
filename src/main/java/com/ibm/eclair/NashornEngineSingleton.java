@@ -1,9 +1,8 @@
-package com.ibm.spark.javascript;
+package com.ibm.eclair;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;

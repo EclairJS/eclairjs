@@ -1,4 +1,4 @@
-package com.ibm.spark.javascript;
+package com.ibm.eclair;
 
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
