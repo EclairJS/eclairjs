@@ -39,6 +39,10 @@ with (imported) {
     //com.ibm.spark.javascript.NashornEngineSingleton.loadSparkJS();
   };
 
+  SparkContext.prototype.getJavaObject = function() {
+      return this.jvmSC;
+  };
+
   SparkContext.prototype.parallelize = function(seq) {
     print("==============parallelize ============");
     return new RDD(this.jvmSC.parallelize(seq));

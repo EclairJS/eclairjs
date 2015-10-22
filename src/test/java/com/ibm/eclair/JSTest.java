@@ -20,4 +20,15 @@ public class JSTest {
 
         System.out.println(ret);
     }
+
+    @Test
+    public void dataFrame() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/test.json");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("test", file);
+
+        System.out.println(ret);
+    }
 }
