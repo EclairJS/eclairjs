@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import java.io.InputStreamReader;
 
-public class BootstrapTest {
+public class SparkBootstrapTest {
 
 
     @Test
@@ -22,8 +22,8 @@ public class BootstrapTest {
         SparkContext sc = new SparkContext("local[*]", "testapp");
         engine.put("sc", sc);
 
-        Bootstrap b = new Bootstrap(engine);
-        b.bootstrap();
+        SparkBootstrap b = new SparkBootstrap();
+        b.load(engine);
 
         engine.eval(new InputStreamReader(getClass().getResourceAsStream("/rddtest.js")));
         Object ret = ((Invocable)engine).invokeFunction("test");

@@ -24,7 +24,7 @@ public class NashornEngineSingleton {
 
     public static void loadSparkJS ()  {
         if (sparkJSLoaded != true) {
-            engine = new Bootstrap(engine).bootstrap();
+            new SparkBootstrap().load(engine);
             sparkJSLoaded = true;
         }
     }

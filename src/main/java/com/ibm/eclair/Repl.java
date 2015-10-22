@@ -9,7 +9,7 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 
 public class Repl{
-	//public static ScriptEngine engine = Bootstrap.getEngine(); //engineManager.getEngineByName("nashorn");
+	//public static ScriptEngine engine = SparkBootstrap.getEngine(); //engineManager.getEngineByName("nashorn");
 
 	public static void main (String args[]) {
 	
@@ -18,7 +18,7 @@ public class Repl{
                       new BufferedReader(new InputStreamReader(System.in));
 		//ScriptEngineManager engineManager = new ScriptEngineManager();
   	  //ScriptEngine engine = engineManager.getEngineByName("nashorn");
-  	//ScriptEngine engine = Bootstrap.getEngine();
+  	//ScriptEngine engine = SparkBootstrap.getEngine();
 		String input;
 			
 		while((input=br.readLine())!=null){
