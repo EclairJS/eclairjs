@@ -1,0 +1,12 @@
+{
+  "display_name": "Spark 1.4.1 (Javascript)",
+  "language": "javascript",
+  "argv": [
+    "<absolute path to sparkkernel executable>",
+    "--default-interpreter",
+    "javascript",
+    "--profile",
+    "{connection_file}"
+  ],
+  "codemirror_mode": "scala"
+}
