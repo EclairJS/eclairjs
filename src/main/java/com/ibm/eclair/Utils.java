@@ -35,10 +35,8 @@ public class Utils {
     	if (o instanceof LabeledPoint) {
     		try {
     			Logger logger = Logger.getLogger("Utils:javaToJs");
-    			logger.info("eval LabledPoint.js");
-	  			engine.eval(new FileReader(SparkFiles.get("LabeledPoint.js")));
 	  			Invocable invocable = (Invocable) engine;
-	  			logger.info("create LabledPoint.js");
+	  			logger.info("create LabledPoint");
 	  			Object parm = invocable.invokeFunction("labeledPointFromJavaObject", o);
 	  			logger.info(parm);
 	  			return parm;
@@ -70,17 +68,6 @@ public class Utils {
 
         return o;
     }
-    /*
-    public static Object jsToJava(Object o) {
-        if(o instanceof JSObject) {
-            Object obj = ScriptObjectMirror.wrapAsJSONCompatible(o, null);
-            String j = JSONValue.toJSONString(obj);
-            return JSONValue.parse(j);
-        }
-
-        return o;
-    }
-    */
 
     public static String getUniqeFunctionName() {
         return "EXPORTEDFUNCTION" + java.util.UUID.randomUUID().toString().replace("-", "_");
