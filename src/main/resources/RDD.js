@@ -22,7 +22,7 @@ load(
   RDD.prototype.flatMap = function() { // Wrapper filter method
     //print("===== Filter =====  ");
     var sv = Utils.createJavaParams(arguments);
-    var fn = new com.ibm.eclair.JSFlatMapFunction(funcStr, sv);
+    var fn = new com.ibm.eclair.JSFlatMapFunction(sv.funcStr, sv.scopeVars);
     //var fn = new com.ibm.spark.javascript.JSFlatMapFunction(funcStr);
     var result = new RDD(this.jvmRdd.flatMap(fn));
 
@@ -30,18 +30,11 @@ load(
 
   };
 
-  RDD.prototype.reduceByKey = function(func, scopeVars) { // Wrapper filter method
+  RDD.prototype.reduceByKey = function() { // Wrapper filter method
     //print("===== Filter =====  ");
-    /*var nw2 = new NashornWrapper();
-      var funcStr = func.toString();
-      nw2.setFunc(funcStr);
-      var lrdd = this.jvmRdd.map(nw2);
-      return new RDD(lrdd);*/
 
-    var sv = Utils.createJavaHashMap(scopeVars);
-    var funcStr = func.toString();
-    //var fn = new com.ibm.spark.javascript.JSFunction(funcStr, sv);
-    var fn = new com.ibm.spark.javascript.JSFunction2(funcStr);
+    var sv = Utils.createJavaParams(arguments);
+    var fn = new com.ibm.spark.javascript.JSFunction2(sv.funcStr, sv.scopeVars);
     var result = new RDD(this.jvmRdd.reduceByKey(fn));
 
     return result;
