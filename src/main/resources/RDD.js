@@ -41,11 +41,20 @@
     return result;
   }
 
+  RDD.prototype.map = function() { 
+	  var sv = Utils.createJavaParams(arguments);
+	  var fn = new com.ibm.eclair.JSFunction(sv.funcStr, sv.scopeVars);
+      var result = new RDD(this.jvmRdd.map(fn));
+
+      return result;
+
+   };
+   
   RDD.prototype.mapToPair = function() { 
   
-      var parmas = Utils.createJavaParmas(arguments);
+      var sv = Utils.createJavaParams(arguments);
       
-      var fn = new com.ibm.spark.javascript.JSPairFunction(parmas.funcStr, parmas.scopeVars);
+      var fn = new com.ibm.eclair.JSPairFunction(sv.funcStr, sv.scopeVars);
       var result = new RDD(this.jvmRdd.mapToPair(fn));
 
       return result;

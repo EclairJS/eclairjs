@@ -35,10 +35,8 @@ public class Utils {
     	if (o instanceof LabeledPoint) {
     		try {
     			Logger logger = Logger.getLogger("Utils:javaToJs");
-    			logger.info("eval LabledPoint.js");
-	  			engine.eval(new FileReader(SparkFiles.get("LabeledPoint.js")));
 	  			Invocable invocable = (Invocable) engine;
-	  			logger.info("create LabledPoint.js");
+	  			logger.info("create LabledPoint");
 	  			Object parm = invocable.invokeFunction("labeledPointFromJavaObject", o);
 	  			logger.info(parm);
 	  			return parm;

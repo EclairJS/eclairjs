@@ -23,7 +23,7 @@ import java.util.Properties;
 
 public class SparkJS{
 	//public static ScriptEngine engine = NashornEngineSingleton.getEngine(); //engineManager.getEngineByName("nashorn");
-	static final String LOG_PROPERTIES_FILE = "conf/Log4J.properties";
+	static final String LOG_PROPERTIES_FILE = "/conf/Log4J.properties";
 	public static void main (String args[]) throws FileNotFoundException {
 		SparkJS.initializeLogger();
 		// for debugging Logger.getLogger("com.ibm.spark.javascript").setLevel(Level.INFO);
@@ -43,7 +43,9 @@ public class SparkJS{
 	    try
 	    {
 	      // load our log4j properties / configuration file
-	      logProperties.load(new FileInputStream(LOG_PROPERTIES_FILE));
+	    	InputStreamReader f = new InputStreamReader(SparkJS.class.getResourceAsStream(LOG_PROPERTIES_FILE));
+	      logProperties.load(f	);
+	      //logProperties.load(new FileInputStream(LOG_PROPERTIES_FILE));
 	      PropertyConfigurator.configure(logProperties);
 	      //log.info("Logging initialized.");
 	    }

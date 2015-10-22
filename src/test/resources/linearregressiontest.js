@@ -3,8 +3,8 @@
  * The SparkContext will load the rest of sparkJS files. So these are the oly two 
  * the user has to explicitly load. 
  */
-load("javascript/nashorn/SparkContext.js");
-load("javascript/nashorn/SparkConf.js");
+//load("javascript/nashorn/SparkContext.js");
+//load("javascript/nashorn/SparkConf.js");
 var logger = org.apache.log4j.Logger.getLogger("linearregressiontest");
 
 var sparkConf = new SparkConf()
