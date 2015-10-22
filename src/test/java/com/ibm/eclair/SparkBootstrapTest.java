@@ -16,14 +16,8 @@ public class SparkBootstrapTest {
 
     @Test
     public void getEngine() throws Exception {
-        ScriptEngineManager engineManager = new ScriptEngineManager();
-        ScriptEngine engine = engineManager.getEngineByName("nashorn");
-        SparkContext sc = new SparkContext("local[*]", "testapp");
-        engine.put("sc", sc);
 
-        SparkBootstrap b = new SparkBootstrap();
-        b.load(engine);
-
+        ScriptEngine engine = TestUtils.getEngine();
         engine.eval(new InputStreamReader(getClass().getResourceAsStream("/rddtest.js")));
         Object ret = ((Invocable)engine).invokeFunction("test");
 
