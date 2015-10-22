@@ -2,7 +2,6 @@ load(
   "nashorn:mozilla_compat.js"
 );
 
-
 var DataFrameReader = function(javaDataFrameReader) {
     this.javaDataFrameReader = javaDataFrameReader;
 }
