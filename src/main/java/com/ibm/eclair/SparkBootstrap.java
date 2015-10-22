@@ -23,6 +23,7 @@ public class SparkBootstrap implements Bootstrap {
 
     public void load(ScriptEngine engine) {
         try {
+        	engine.eval("load('" + getResourceAsURLStirng("/SparkConf.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/SparkContext.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/RDD.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/Utils.js") + "');");

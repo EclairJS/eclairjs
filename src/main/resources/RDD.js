@@ -1,7 +1,6 @@
-load(
-  "nashorn:mozilla_compat.js");
 
-  var RDD = function(jrdd) { // RDD wrapper object
+
+  var RDD = function(jrdd) { 
     this.jvmRdd = jrdd;
   };
 
@@ -9,8 +8,7 @@ load(
     return this.jvmRdd;
   };
 
-  RDD.prototype.filter = function() { // Wrapper filter method
-    //print("===== Filter =====  ");
+  RDD.prototype.filter = function() { 
     var sv = Utils.createJavaParams(arguments);
     var fn = new com.ibm.eclair.JSFunction(sv.funcStr, sv.scopeVars);
     var result = new RDD(this.jvmRdd.filter(fn));
@@ -19,71 +17,47 @@ load(
 
   };
 
-  RDD.prototype.flatMap = function() { // Wrapper filter method
-    //print("===== Filter =====  ");
+  RDD.prototype.flatMap = function() { 
     var sv = Utils.createJavaParams(arguments);
     var fn = new com.ibm.eclair.JSFlatMapFunction(sv.funcStr, sv.scopeVars);
-    //var fn = new com.ibm.spark.javascript.JSFlatMapFunction(funcStr);
     var result = new RDD(this.jvmRdd.flatMap(fn));
 
     return result;
 
   };
 
-  RDD.prototype.reduceByKey = function() { // Wrapper filter method
-    //print("===== Filter =====  ");
-
+  RDD.prototype.reduceByKey = function() { 
     var sv = Utils.createJavaParams(arguments);
-    var fn = new com.ibm.spark.javascript.JSFunction2(sv.funcStr, sv.scopeVars);
+    var fn = new com.ibm.eclair.JSFunction(sv.funcStr, sv.scopeVars);
     var result = new RDD(this.jvmRdd.reduceByKey(fn));
 
     return result;
 
   };
 
-  RDD.prototype.sortByKey = function(ascending, scopeVars) { // Wrapper filter method
-    //var funcStr = func.toString();
-    //var fn = new com.ibm.spark.javascript.JSFunction(funcStr, sv);
-    //var fn = new com.ibm.spark.javascript.JSFunction2(funcStr);
-    var result = new RDD(this.jvmRdd.sortByKey(ascending));
+  RDD.prototype.sortByKey = function(ascending) { 
+     var result = new RDD(this.jvmRdd.sortByKey(ascending));
 
     return result;
   }
 
-  RDD.prototype.mapToPair = function() { // Wrapper filter method
-    //print("===== Filter =====  ");
-    /*       var nw2 = new NashornWrapperPair();
-             print("name = " + name + " value= " + obj);
-             nw2.addVar(name, obj);
-             var funcStr = func.toString();
-             nw2.setFunc(funcStr);
-             var lrdd = this.jvmRdd.mapToPair(nw2);
-             return new RDD(lrdd);*/
+  RDD.prototype.mapToPair = function() { 
+  
+      var parmas = Utils.createJavaParmas(arguments);
+      
+      var fn = new com.ibm.spark.javascript.JSPairFunction(parmas.funcStr, parmas.scopeVars);
+      var result = new RDD(this.jvmRdd.mapToPair(fn));
 
-    //var sv = Utils.createJavaHashMap(scopeVars);
+      return result;
 
-    var funcStr = arguments[0].toString();
-    var scopeVars = [];
-    for (var i = 1; i < arguments.length; i++) {
-      print(arguments[i]);
-      scopeVars.push(arguments[i]);
-    }
-
-    //var fn = new com.ibm.spark.javascript.JSPairFunction2(funcStr, scopeVars);
-    var fn = new com.ibm.spark.javascript.JSPairFunction(funcStr);
-    var result = new RDD(this.jvmRdd.mapToPair(fn));
-
-    return result;
   };
 
   RDD.prototype.cache = function () {
-    print("==========cache==========")
     this.jvmRdd.cache();
     return this;
   };
 
   RDD.prototype.count = function() {
-    print ("=== count ====");
     var c = this.jvmRdd.count();
     return c;
   };

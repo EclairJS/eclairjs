@@ -70,17 +70,6 @@ public class Utils {
 
         return o;
     }
-    /*
-    public static Object jsToJava(Object o) {
-        if(o instanceof JSObject) {
-            Object obj = ScriptObjectMirror.wrapAsJSONCompatible(o, null);
-            String j = JSONValue.toJSONString(obj);
-            return JSONValue.parse(j);
-        }
-
-        return o;
-    }
-    */
 
     public static String getUniqeFunctionName() {
         return "EXPORTEDFUNCTION" + java.util.UUID.randomUUID().toString().replace("-", "_");

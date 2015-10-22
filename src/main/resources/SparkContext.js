@@ -12,10 +12,15 @@ with (imported) {
   Logger.getLogger("org").setLevel(Level.WARN);
   Logger.getLogger("akka").setLevel(Level.WARN);
 
-  //var SparkContext = function(conf) {
-  var SparkContext = function() {
+  var SparkContext = function(conf) {
+  //var SparkContext = function() {
     print("==========SparkContext=================");
-    this.jvmSC = new JavaSparkContext(sc);
+    if (conf) {
+    	this.jvmSC = new JavaSparkContext(conf.jvmConf);
+    } else {
+    	this.jvmSC = new JavaSparkContext(sc);
+    }
+    
     //this.jvmSC = new JavaSparkContext("local[*]", "foo");
     //this.jvmSC = new JavaSparkContext(conf.jvmConf);
     /*
