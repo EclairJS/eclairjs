@@ -58,7 +58,6 @@ public class Utils {
             return wrapObject(o);
     }
 
-
     public static Object jsToJava(Object o) {
     	if ( (o instanceof ScriptObjectMirror) && ((ScriptObjectMirror) o).hasMember("getJavaObject") ) {
     		Object r = ((ScriptObjectMirror) o).callMember("getJavaObject");
@@ -71,9 +70,24 @@ public class Utils {
 
         return o;
     }
-    
+    /*
+    public static Object jsToJava(Object o) {
+        if(o instanceof JSObject) {
+            Object obj = ScriptObjectMirror.wrapAsJSONCompatible(o, null);
+            String j = JSONValue.toJSONString(obj);
+            return JSONValue.parse(j);
+        }
+
+        return o;
+    }
+    */
+
+    public static String getUniqeFunctionName() {
+        return "EXPORTEDFUNCTION" + java.util.UUID.randomUUID().toString().replace("-", "_");
+    }
+
     public static ScriptEngine addScopeVarsToEngine(HashMap scopeVars, ScriptEngine engine) {
-    	System.out.println("addScopeVarsToEngine");
+    	//System.out.println("addScopeVarsToEngine");
     	if (scopeVars != null) {
         	Iterator it = scopeVars.entrySet().iterator();
             while (it.hasNext()) {

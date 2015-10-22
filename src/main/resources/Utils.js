@@ -20,5 +20,21 @@ var Utils = {};
     return sv;
 
   };
+
+  Utils.createJavaParams = function(args) {
+  	  var parmas = {};
+  	  parmas.scopeVars = null;
+  	  parmas.funcStr = args[0].toString();
+  	  // if (arguments.length > 1) {
+  		  parmas.scopeVars = [];
+  		  for (var i = 1; i < args.length; i++) {
+  			  print(args[i]);
+  			  parmas.scopeVars.push(args[i]);
+  		  }
+  	  //}
+      print("parmas.funcStr " + parmas.funcStr);
+  	  return parmas;
+
+    };
   
 

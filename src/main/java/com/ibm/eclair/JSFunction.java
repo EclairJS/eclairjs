@@ -2,36 +2,36 @@ package com.ibm.eclair;
 
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
-
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.spark.api.java.function.Function;
 
-import java.util.HashMap;
-
-
 public class JSFunction implements Function {
-	private String func = null;
-	private HashMap scopeVar = null;
+    private String func = null;
+    private Object args[] = null;
+    private String functionName = null;
 
-    public JSFunction(String func, HashMap o) {
-        this.func = "var EXPORTEDFUNCTION = " + func;
-        this.scopeVar = o;
+    public JSFunction(String func, Object[] o) {
+        this.functionName = Utils.getUniqeFunctionName();
+        this.func = "var " + this.functionName +" = " + func;
+        this.args = o;
     }
 
+    @SuppressWarnings("null")
     @Override
     public Object call(Object o) throws Exception {
 
-        
-    	System.out.println(" call");
-        //ScriptEngineManager m = new ScriptEngineManager();
-        ScriptEngine e =  NashornEngineSingleton.getEngine(); //m.getEngineByName("nashorn");
-        System.out.println(" adding scope vars");
-        e = Utils.addScopeVarsToEngine(this.scopeVar, e);
+
+        ScriptEngine e =  NashornEngineSingleton.getEngine();
 
         e.eval(this.func);
         Invocable invocable = (Invocable) e;
         Object arg0 = Utils.javaToJs(o, e);
-        Object ret = invocable.invokeFunction("EXPORTEDFUNCTION", arg0);
+        Object params[] = {arg0};
+
+        params = ArrayUtils.addAll(params, this.args);
+        Object ret = invocable.invokeFunction(this.functionName, params);
 
         return Utils.jsToJava(ret);
     }
 }
+

@@ -22,7 +22,6 @@ public class JSFlatMapFunction implements FlatMapFunction {
     public Iterable call(Object o) throws Exception {
 
         
-    	System.out.println(" call");
         //ScriptEngineManager m = new ScriptEngineManager();
         ScriptEngine e =  NashornEngineSingleton.getEngine(); //m.getEngineByName("nashorn");
         //System.out.println(" adding scope vars");

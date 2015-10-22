@@ -14,7 +14,6 @@ import java.io.InputStreamReader;
 
 public class SparkBootstrapTest {
 
-
     @Test
     public void getEngine() throws Exception {
         ScriptEngineManager engineManager = new ScriptEngineManager();
@@ -31,5 +30,4 @@ public class SparkBootstrapTest {
         System.out.println(ret);
         assertNotNull(ret);
     }
-
 }
