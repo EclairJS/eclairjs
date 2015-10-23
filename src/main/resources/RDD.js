@@ -1,4 +1,4 @@
-var RDD = function(jrdd) { 
+var RDD = function(jrdd) {
     this.jvmRdd = jrdd;
 };
 
