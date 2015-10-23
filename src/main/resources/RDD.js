@@ -6,8 +6,8 @@ RDD.prototype.getJavaObject = function() {
     return this.jvmRdd;
 };
 
-RDD.prototype.filter = function() { 
-    var sv = Utils.createJavaParams(arguments);
+RDD.prototype.filter = function(func) { 
+    var sv = Utils.createJavaParams(func);
     var fn = new com.ibm.eclair.JSFunction(sv.funcStr, sv.scopeVars);
     var result = new RDD(this.jvmRdd.filter(fn));
 
@@ -15,8 +15,8 @@ RDD.prototype.filter = function() {
 
 };
 
-RDD.prototype.flatMap = function() { 
-    var sv = Utils.createJavaParams(arguments);
+RDD.prototype.flatMap = function(func) { 
+    var sv = Utils.createJavaParams(func);
     var fn = new com.ibm.eclair.JSFlatMapFunction(sv.funcStr, sv.scopeVars);
     var result = new RDD(this.jvmRdd.flatMap(fn));
 
@@ -24,8 +24,8 @@ RDD.prototype.flatMap = function() {
 
 };
 
-RDD.prototype.reduceByKey = function() { 
-    var sv = Utils.createJavaParams(arguments);
+RDD.prototype.reduceByKey = function(func) { 
+    var sv = Utils.createJavaParams(func, 2);
     var fn = new com.ibm.eclair.JSFunction2(sv.funcStr, sv.scopeVars);
     var result = new RDD(this.jvmRdd.reduceByKey(fn));
 
@@ -39,8 +39,8 @@ RDD.prototype.sortByKey = function(ascending) {
     return result;
 }
 
-RDD.prototype.map = function() { 
-    var sv = Utils.createJavaParams(arguments);
+RDD.prototype.map = function(func) { 
+    var sv = Utils.createJavaParams(func);
     var fn = new com.ibm.eclair.JSFunction(sv.funcStr, sv.scopeVars);
     var result = new RDD(this.jvmRdd.map(fn));
 
@@ -48,9 +48,9 @@ RDD.prototype.map = function() {
 
 };
 
-RDD.prototype.mapToPair = function() { 
+RDD.prototype.mapToPair = function(func) { 
 
-    var sv = Utils.createJavaParams(arguments);
+    var sv = Utils.createJavaParams(func);
 
     var fn = new com.ibm.eclair.JSPairFunction(sv.funcStr, sv.scopeVars);
     var result = new RDD(this.jvmRdd.mapToPair(fn));

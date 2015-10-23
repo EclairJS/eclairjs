@@ -18,6 +18,22 @@ with (imported) {
     } else {
     	this.jvmSC = new JavaSparkContext(sc);
     }
+    var decodedPath = com.ibm.eclair.Utils.jarLoc();
+    var devEnvPath = "/target/classes/";
+    var jarEnvPath = ".jar";
+    print("jar decodedPath = " + decodedPath);
+    if (decodedPath.indexOf(devEnvPath, decodedPath.length - devEnvPath.length) !== -1) {
+    	/*
+    	 * we are in the dev environment I hope...
+    	 */
+    	this.jvmSC.addJar(decodedPath + "../eclair-nashorn-0.1.jar");
+    } else if (decodedPath.indexOf(jarEnvPath, decodedPath.length - jarEnvPath.length) !== -1) {
+    	/*
+    	 * We are running from a jar
+    	 */
+    	this.jvmSC.addJar(decodedPath);
+    }
+
   };
 
   SparkContext.prototype.getJavaObject = function() {

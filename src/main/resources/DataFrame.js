@@ -174,7 +174,7 @@ DataFrame.prototype.groupBy = function() {
 };
 
 DataFrame.prototype.flatMap = function(func) {
-    var sv = Utils.createJavaParams(arguments);
+    var sv = Utils.createJavaParams(func);
     var fn = new com.ibm.eclair.JSFlatMapFunction(sv.funcStr, sv.scopeVars);
     return new RDD(this.jvmDataFrame.flatMap(fn));
 };

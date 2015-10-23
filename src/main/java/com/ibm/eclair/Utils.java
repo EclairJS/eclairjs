@@ -12,6 +12,8 @@ import org.json.simple.JSONValue;
 import scala.Tuple2;
 
 import java.io.FileReader;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.*;
 
 /**
@@ -93,5 +95,26 @@ public class Utils {
         }
 
         return ScriptObjectMirror.wrapAsJSONCompatible(o,null);
+    }
+    
+    public static String jarLoc() {
+    	String jarPath = null;
+    	Map<String, String> env = System.getenv();
+    	jarPath = env.get("ECLAIR_JAR_LOC");
+    	if (jarPath == null) {
+    		String path = Utils.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+            System.out.println("jar path = " + path);
+            String decodedPath = null;
+    		try {
+    			decodedPath = URLDecoder.decode(path, "UTF-8");
+    		} catch (UnsupportedEncodingException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    		jarPath = decodedPath;
+    	}
+    	System.out.println("env = "+ jarPath);
+    	return jarPath;
+    	
     }
 }

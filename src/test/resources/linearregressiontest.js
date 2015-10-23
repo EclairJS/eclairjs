@@ -9,15 +9,18 @@ var logger = org.apache.log4j.Logger.getLogger("linearregressiontest");
 
 var sparkConf = new SparkConf()
   .setAppName("Linear Regression Test")
-  .setMaster("local[*]");
-  //.setMaster("spark://MacBook-Pro.local:7077");
+  //.setMaster("local[*]");
+  .setMaster("spark://MacBook-Pro.local:7077");
 
 var sc = new SparkContext(sparkConf);
+//sc.addJar("/Users/billreed/cfa_dev/eclair-nashorn/target/eclair-nashorn-0.1.jar");
+//sc.addJar("target/eclair-nashorn-0.1.jar");
 /* 
  * All the sparkJS required JavaScrit and jar files are 
  * added when the SparkContext is created in SparkContex.js
  * 
 sc.addJar("/Users/billreed/cfa_workspace/nashhorn/cfa.jar");
+
 
 sc.addFile("javascript/nashorn/RDD.js");
 sc.addFile("javascript/nashorn/SparkContext.js");
@@ -54,10 +57,7 @@ logger.info("Total count: " + y);
 var numIterations = 10;
 var linearRegressionModel = linearRegressionModelBC = LinearRegressionWithSGD.train(parsedData, numIterations);
 logger.info("after LinearRegressionWithSGD" );
-var bc = sc.broadcast(linearRegressionModelBC);
 
-scopeVars["bc"] = bc;
-scopeVars["linearRegressionModel"] = linearRegressionModel;
 var delta = 17;
 var valuesAndPreds = parsedData.mapToPair(function(lp, linearRegressionModel, delta) { // FIXME
 					var logger = org.apache.log4j.Logger.getLogger("linearregressiontest:mapPair LAMBDA");
@@ -70,8 +70,7 @@ var valuesAndPreds = parsedData.mapToPair(function(lp, linearRegressionModel, de
 		    	    logger.info("=====perdiction  = " + prediction );
 		    	    return [prediction, label];
 
-		        }, linearRegressionModel, delta); // end MapToPair
-				//},scopeVars); // end MapToPair
+		        }); // end MapToPair
 logger.info("after mapPair");
 var c = valuesAndPreds.count()
 logger.info("Total count: " + c);
