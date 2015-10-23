@@ -14,25 +14,38 @@ with (imported) {
 
   var SparkContext = function(conf) {
     if (conf) {
+    	/*
+    	 * Create a new JavaSparkContext from a conf
+    	 * 
+    	 */
     	this.jvmSC = new JavaSparkContext(conf.jvmConf);
+    	/*
+    	 * add the jar for the cluster
+    	 */
+    	var decodedPath = com.ibm.eclair.Utils.jarLoc();
+        var devEnvPath = "/target/classes/";
+        var jarEnvPath = ".jar";
+        print("jar decodedPath = " + decodedPath);
+        if (decodedPath.indexOf(devEnvPath, decodedPath.length - devEnvPath.length) !== -1) {
+        	/*
+        	 * we are in the dev environment I hope...
+        	 */
+        	this.jvmSC.addJar(decodedPath + "../eclair-nashorn-0.1.jar");
+        } else if (decodedPath.indexOf(jarEnvPath, decodedPath.length - jarEnvPath.length) !== -1) {
+        	/*
+        	 * We are running from a jar
+        	 */
+        	this.jvmSC.addJar(decodedPath);
+        }
     } else {
+    	/*
+    	 * Create a JavaSparkContext from a existing SparkContext.
+    	 * this is most likely from the spark-kernel, we will assume that 
+    	 * they have already added the our jar files needed for the cluster.
+    	 */
     	this.jvmSC = new JavaSparkContext(sc);
     }
-    var decodedPath = com.ibm.eclair.Utils.jarLoc();
-    var devEnvPath = "/target/classes/";
-    var jarEnvPath = ".jar";
-    print("jar decodedPath = " + decodedPath);
-    if (decodedPath.indexOf(devEnvPath, decodedPath.length - devEnvPath.length) !== -1) {
-    	/*
-    	 * we are in the dev environment I hope...
-    	 */
-    	this.jvmSC.addJar(decodedPath + "../eclair-nashorn-0.1.jar");
-    } else if (decodedPath.indexOf(jarEnvPath, decodedPath.length - jarEnvPath.length) !== -1) {
-    	/*
-    	 * We are running from a jar
-    	 */
-    	this.jvmSC.addJar(decodedPath);
-    }
+    
 
   };
 
