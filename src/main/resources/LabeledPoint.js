@@ -3,8 +3,9 @@
  */
 
 var LabeledPoint = function(x, y) { 
+	this.logger = Logger.getLogger("LabeledPoint_js");
 	if ( y == null) {
-		print("Java object");
+  	 	this.logger.debug("Java object ");
 		this._jvmLabeledPoint = x;
 	} else {
 		var features = org.apache.spark.mllib.linalg.Vectors.dense(y)
@@ -33,12 +34,13 @@ LabeledPoint.prototype.parse = function(string) {
 }
 
 LabeledPoint.prototype.getJavaObject = function(string) {
-	//print("getJavaObject");
+	logger.debug("getJavaObject");
 	return this._jvmLabeledPoint;
 }
 
 var labeledPointFromJavaObject = function(javaObject) {
-	print("labeledPointFromJavaObject");
+	var l = Logger.getLogger("LabeledPoint_js");
+	l.debug("labeledPointFromJavaObject");
 	return new LabeledPoint(javaObject);
 }
 

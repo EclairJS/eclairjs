@@ -98,12 +98,13 @@ public class Utils {
     }
     
     public static String jarLoc() {
+    	Logger logger = Logger.getLogger(Utils.class);
     	String jarPath = null;
     	Map<String, String> env = System.getenv();
     	jarPath = env.get("ECLAIR_JAR_LOC");
     	if (jarPath == null) {
     		String path = Utils.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-            System.out.println("jar path = " + path);
+    		logger.info("jar path = " + path);
             String decodedPath = null;
     		try {
     			decodedPath = URLDecoder.decode(path, "UTF-8");
@@ -113,7 +114,7 @@ public class Utils {
     		}
     		jarPath = decodedPath;
     	}
-    	System.out.println("env = "+ jarPath);
+    	logger.info("env = "+ jarPath);
     	return jarPath;
     	
     }

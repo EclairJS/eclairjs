@@ -6,13 +6,14 @@
       
      
       LinearRegressionWithSGD.train = function(rdd, numIterations) {
-    	  print("JavaRDD " + rdd);
+    	 var logger = Logger.getLogger("LinearRegressionWithSGD_js");
+    	 logger.debug("JavaRDD " + rdd);
     	 var jo = rdd.getJavaObject();
-    	 print("jo = " + jo);
+    	 logger.debug("jo = " + jo);
 	  	var lrdd = org.apache.spark.api.java.JavaRDD.toRDD(jo);
-	  	print("calling train");
+	  	logger.debug("calling train");
 		var model = org.apache.spark.mllib.regression.LinearRegressionWithSGD.train(lrdd, numIterations);
-		print("return model");
+		logger.debug("return model");
 		return model;
 		
 	  }

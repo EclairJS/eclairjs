@@ -35,6 +35,7 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/Utils.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/LinearRegressionWithSGD.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/LabeledPoint.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/Logger.js") + "');");
         } catch(Exception e) {
             e.printStackTrace();
         }

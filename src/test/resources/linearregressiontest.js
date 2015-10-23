@@ -9,8 +9,8 @@ var logger = org.apache.log4j.Logger.getLogger("linearregressiontest");
 
 var sparkConf = new SparkConf()
   .setAppName("Linear Regression Test")
-  //.setMaster("local[*]");
-  .setMaster("spark://MacBook-Pro.local:7077");
+  .setMaster("local[*]");
+  //.setMaster("spark://MacBook-Pro.local:7077");
 
 var sc = new SparkContext(sparkConf);
 //sc.addJar("/Users/billreed/cfa_dev/eclair-nashorn/target/eclair-nashorn-0.1.jar");
