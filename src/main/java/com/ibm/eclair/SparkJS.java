@@ -23,9 +23,9 @@ import java.util.Properties;
 
 public class SparkJS{
 	//public static ScriptEngine engine = NashornEngineSingleton.getEngine(); //engineManager.getEngineByName("nashorn");
-	static final String LOG_PROPERTIES_FILE = "/conf/Log4J.properties";
+	static final String LOG_PROPERTIES_FILE = "conf/Log4J.properties";
 	public static void main (String args[]) throws FileNotFoundException {
-		SparkJS.initializeLogger();
+		//SparkJS.initializeLogger();
 		// for debugging Logger.getLogger("com.ibm.spark.javascript").setLevel(Level.INFO);
 		SparkJS js = new SparkJS();
 		if (args.length > 0) {
@@ -88,11 +88,11 @@ public class SparkJS{
 			BufferedReader br = 
 	                      new BufferedReader(new InputStreamReader(System.in));
 			String input;
-			System.out.print("sparkjs>");	
+			System.out.print("eclairjs>");	
 			while((input=br.readLine())!=null){
 		    	Object ret = this.eval(input);
 		    	System.out.println(ret);
-		    	System.out.print("sparkjs>");
+		    	System.out.print("eclairjs>");
 			}	
 		}catch(IOException io){
 			io.printStackTrace();
