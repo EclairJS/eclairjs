@@ -70,14 +70,14 @@ var sparkContext = new SparkContext(conf);
 **Prerequisites**
 - [Jupyter](http://jupyter.org/)
  
-1) edit kernel.json ```<absolute path to sparkkernel executable>``` to be ```/Users/<yourName>/local/bin/sparkkernel```
-2) edit kernel.json ```ECLAIR_JAR``` to point eclair-nashorn-0.1.jar location
-3) copy kernel.json to ```~/.ipython/kernels/eclair/kernel.json```
-4) Create a directory for your notebook ```mkdir ~/jsNotebook```
-5) Change to that directory ```cd ~/jsNotebook```
-6) Start jupyter ```ipython notebook```
-7) A browser will open ```http://localhost:8889/tree``` select the *new->Spark 1.4.1 (javascript)*
-8) Enter the following code in notebook cell and run
+1. edit kernel.json ```<absolute path to sparkkernel executable>``` to be ```/Users/<yourName>/local/bin/sparkkernel```
+2. edit kernel.json ```ECLAIR_JAR``` to point eclair-nashorn-0.1.jar location
+3. copy kernel.json to ```~/.ipython/kernels/eclair/kernel.json```
+4. Create a directory for your notebook ```mkdir ~/jsNotebook```
+5. Change to that directory ```cd ~/jsNotebook```
+6. Start jupyter ```ipython notebook```
+7. A browser will open ```http://localhost:8889/tree``` select the *new->Spark 1.4.1 (javascript)*
+8. Enter the following code in notebook cell and run
 ```javascript
 var logFile = "/Users/billreed/cfa_dev/fallside/srv/tmp/dream.txt";
 var jsc = new SparkContext();
