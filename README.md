@@ -78,6 +78,7 @@ var sparkContext = new SparkContext(conf);
 6. Start jupyter ```ipython notebook```
 7. A browser will open ```http://localhost:8889/tree``` select the *new->Spark 1.4.1 (javascript)*
 8. Enter the following code in notebook cell and run
+
 ```javascript
 var logFile = "/Users/billreed/cfa_dev/fallside/srv/tmp/dream.txt";
 var jsc = new SparkContext();
