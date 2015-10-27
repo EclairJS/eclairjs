@@ -14,7 +14,9 @@ The eclairJS-nashorn API exposes the [Spark](http://spark.apache.org/) programmi
 
  - [Java 8 SE](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
  - [git](http://git-scm.com/)
-```
+ - [Maven](https://maven.apache.org/)
+ 
+```bash
 git clone git@github.rtp.raleigh.ibm.com:cfa/eclair-nashorn.git
 mvn package
 ```
@@ -23,12 +25,12 @@ mvn package
 
 
 ----------
-```
+```bash
 bin/eclairJS examples/word_count.js
 ```
 
 or
-```
+```bash
 bin/eclairJS
 eclairJS>var conf = new SparkConf().setAppName("Sample App").setMaster("local[*]"); 
 var sparkContext = new SparkContext(conf);
