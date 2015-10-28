@@ -44,7 +44,7 @@ public class SparkJS{
 	    {
 	      // load our log4j properties / configuration file
 	    	InputStreamReader f = new InputStreamReader(SparkJS.class.getResourceAsStream(LOG_PROPERTIES_FILE));
-	      logProperties.load(f	);
+	      logProperties.load(f);
 	      //logProperties.load(new FileInputStream(LOG_PROPERTIES_FILE));
 	      PropertyConfigurator.configure(logProperties);
 	      //log.info("Logging initialized.");
@@ -83,7 +83,49 @@ public class SparkJS{
 		
 	}
 	
+	public void displayWelcome() {
+		System.out.println("Welcome to eclairJS-nashorn, Type in expressions to have them evaluated.");
+	}
+	
+	private String getMaster() {
+		String master = System.getProperty("spark.master");
+		if (master == null) {
+			master = System.getenv("MASTER");
+			if (master == null) {
+				master = "local[*]";
+			}
+		}
+		return master;			
+	}
+	
+	private String getAppName() {
+		String name = System.getProperty("spark.appname");
+		if (name == null) {
+			name = System.getenv("APP_NAME");
+			if (name == null) {
+				name = "eclairJS REPL application";
+			}
+			
+		}
+		return name;	
+	}
+	
+	private String createSparkContext() {
+		String master = this.getMaster();
+		String name = this.getAppName();
+		String sparkContext = "var conf = new SparkConf()";
+		sparkContext += ".setMaster(\""+master+"\")";
+		if (name != null) {
+			sparkContext += ".setAppName(\""+name+"\")";
+		}
+		sparkContext += "; ";
+		sparkContext += "var sc = new SparkContext(conf);";
+		return sparkContext;
+	}
+	
 	public void repl() {
+		this.eval(this.createSparkContext());
+		this.displayWelcome();
 		try{
 			BufferedReader br = 
 	                      new BufferedReader(new InputStreamReader(System.in));
