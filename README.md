@@ -81,8 +81,9 @@ var sparkContext = new SparkContext(conf);
 8. Enter the following code in notebook cell and run
 
 ```javascript
-var logFile = "/Users/billreed/cfa_dev/fallside/srv/tmp/dream.txt";
-var jsc = new SparkContext();
-var logData = jsc.textFile(logFile).cache();
-print(" count = " + logData.count()); 
+
+    var jsc = new SparkContext();
+    var rdd = jsc.parallelize([10, 4, 2, 12, 3]);
+    eval("count = " + rdd.count());
+    
 ```
