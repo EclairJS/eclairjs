@@ -1,6 +1,4 @@
-/**
- * New LabeledPoint node file
- */
+
 
 var Tuple2 = function(x, y) { 
 	if ( y == null) {

@@ -41,10 +41,9 @@ var sparkContext = new SparkContext(conf);
 
 ```javascript
 
-    var file = "/Users/billreed/cfa_dev/fallside/srv/tmp/dream.txt"; 
-    var conf = new SparkConf()
-                   .setAppName("JavaScript word count")
-                   .setMaster(master); 
+    var file = "src/test/resources/dream.txt"; // Should be some file on your system
+    var conf = new SparkConf().setAppName("JavaScript word count")
+                          .setMaster("local[*]"); 
     var sparkContext = new SparkContext(conf);
     var rdd = sparkContext.textFile(file).cache();
     var rdd2 = rdd.flatMap(function(sentence) {
@@ -64,7 +63,7 @@ var sparkContext = new SparkContext(conf);
     })
     var rdd7 = rdd6.sortByKey(false);
     print("top 10 words = " + rdd7.take(10));
-    
+
 ```
 
 ### Usage with Jupyter notebooks

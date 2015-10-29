@@ -40,7 +40,7 @@ load(org.apache.spark.SparkFiles.get("LinearRegressionWithSGD.js"));
 load(org.apache.spark.SparkFiles.get("LabeledPoint.js"));
 //load(org.apache.spark.SparkFiles.get("SparkFiles.js"));*/
 
-var data = sc.textFile("/Users/billreed/cfa_dev/spark/data/mllib/ridge-data/lpsa.data").cache();
+var data = sc.textFile("examples/data/lpsa.data").cache();
 var scopeVars = {};
 var parsedData = data.map( function(s) { 
 	//load(org.apache.spark.SparkFiles.get("LabeledPoint.js"));
@@ -54,7 +54,14 @@ var parsedData = data.map( function(s) {
 logger.info("after map");
 var y = parsedData.count()
 logger.info("Total count: " + y);
-var numIterations = 10;
+var t = parsedData.take(5);
+//print(t.getClass().getName());
+//for (var i = 0; i < t.size(); i++) {
+//    var value = t.get(i);
+//    print("value: " + value.getClass().getName());
+//}
+print("take 5 = " + JSON.stringify(parsedData.take(5)));
+var numIterations = 3;
 var linearRegressionModel = linearRegressionModelBC = LinearRegressionWithSGD.train(parsedData, numIterations);
 logger.info("after LinearRegressionWithSGD" );
 
@@ -72,7 +79,7 @@ var valuesAndPreds = parsedData.mapToPair(function(lp, linearRegressionModel, de
 
 		        }); // end MapToPair
 logger.info("after mapPair");
-var c = valuesAndPreds.count()
+var c = valuesAndPreds.count();
 logger.info("Total count: " + c);
 
 

@@ -4,6 +4,7 @@ import jdk.nashorn.api.scripting.JSObject;
 import jdk.nashorn.api.scripting.ScriptObjectMirror;
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
+import javax.script.ScriptException;
 
 import org.apache.log4j.Logger;
 import org.apache.spark.SparkFiles;
@@ -34,28 +35,39 @@ public class Utils {
     }
     */
     public static Object javaToJs(Object o, ScriptEngine engine) {
+    	Logger logger = Logger.getLogger(Utils.class);
+    	logger.debug(o.getClass().getName());
     	if (o instanceof LabeledPoint) {
     		try {
-    			Logger logger = Logger.getLogger("Utils:javaToJs");
-	  			Invocable invocable = (Invocable) engine;
+ 	  			Invocable invocable = (Invocable) engine;
 	  			logger.info("create LabledPoint");
 	  			Object parm = invocable.invokeFunction("labeledPointFromJavaObject", o);
 	  			logger.info(parm);
 	  			return parm;
   			} catch (Exception e) {
-    			// FIXME need better error handling for File exception and Script exception
-    			System.out.println(e);
+    			logger.error(" LabeledPoint convertion " + e);
     			return null;
     		}
 
     	} else if(o instanceof Tuple2) {
             Tuple2 t = (Tuple2)o;
-            ArrayList l = new ArrayList();
-            l.add(wrapObject(t._1()));
-            l.add(wrapObject(t._2()));
-            return l.toArray();
-        } else
+            logger.debug("Tupple2 " + t.toString());
+            Object er = null;
+            Object o1 = javaToJs(t._1(),engine);
+            Object o2 = javaToJs(t._2(), engine);
+            logger.debug("o1 = " + o1);
+             try {
+				//engine.eval("function convertTuple2(o1, o2) { return [o1 ,o2 ]}");
+				Invocable invocable = (Invocable) engine;
+				 Object params[] = {o1, o2};
+				 er  = invocable.invokeFunction("convertJavaTuple2",params);
+			} catch (ScriptException | NoSuchMethodException e) {
+				logger.error(" Tuple2 convertion " + e);
+			}
+            return er;
+        }  else
             return wrapObject(o);
+
     }
 
     public static Object jsToJava(Object o) {
@@ -89,11 +101,12 @@ public class Utils {
     }
 
     private static Object wrapObject(Object o) {
+    	Logger logger = Logger.getLogger(Utils.class);
         if(o instanceof String ||
            o instanceof Number) {
             return o;
         }
-
+        logger.debug("wrapAsJSONCompatible " + o);
         return ScriptObjectMirror.wrapAsJSONCompatible(o,null);
     }
     

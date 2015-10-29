@@ -24,9 +24,14 @@ LabeledPoint.prototype.getFeatures = function() {
 	return this._jvmLabeledPoint.features();
 }
 
-/*LabeledPoint.prototype.toString() = function() {
-	return this._jvmLabeledPoint.toString();
-}*/
+LabeledPoint.prototype.toString = function() {
+	//return this._jvmLabeledPoint.toString();
+	return "{label: " + this.getLabel() + ", features: " + this.getFeatures() + " }";
+}
+
+LabeledPoint.prototype.toJSON = function() {
+	return this.toString();
+}
 
 LabeledPoint.prototype.parse = function(string) {
 	var lp = org.apache.spark.mllib.regression.LabeledPoint.parse(s);
