@@ -29,6 +29,11 @@ public class NashornEngineSingleton {
         }
     }
 
+	public static void setEngine(ScriptEngine e) {
+    	engine = e;
+    	sparkJSLoaded = true;
+    }
+
 	/**
 	 * @param args
 	 */

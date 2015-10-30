@@ -26,5 +26,5 @@ var wordCount = function(file) {
 
     var rdd7 = rdd6.sortByKey(false);
 
-    return rdd7.take(10);
+    return JSON.stringify(rdd7.take(10));
 }
