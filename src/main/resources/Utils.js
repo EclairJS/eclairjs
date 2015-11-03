@@ -42,15 +42,16 @@ var Utils = {};
       return parmas;
 
   };
-   
-  /**
-   * 
-   */
+
   Utils.javaToJs = function(javaObj) {
 	  return com.ibm.eclair.Utils.javaToJs(javaObj,com.ibm.eclair.NashornEngineSingleton.getEngine()); 
   };
   
   
   function convertJavaTuple2(o1, o2) { 
-	  return [o1 ,o2 ]}
-  ;
+	  return [o1 ,o2 ]
+  };
+  
+  function convertJavaJSONObject(str) {
+	  return JSON.parse(str);
+  };
