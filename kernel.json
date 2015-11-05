@@ -3,13 +3,12 @@
   "language": "javascript",
   "argv": [
     "/Users/bburns/dev/spark-kernel/kernel/target/pack/bin/sparkkernel",
+    "--interpreter-plugin",
+    "eclair:com.ibm.eclair.JavascriptInterpreter",
     "--default-interpreter",
-    "javascript",
+    "eclair",
     "--profile",
     "{connection_file}"
   ],
-  "env": {
-      "ECLAIR_JAR": "file:/Users/bburns/dev/eclair-nashorn/target/eclair-nashorn-0.1.jar"
-  },
   "codemirror_mode": "scala"
 }
