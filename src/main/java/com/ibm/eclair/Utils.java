@@ -25,6 +25,8 @@ import javax.script.ScriptException;
 import org.apache.log4j.Logger;
 import org.apache.spark.SparkFiles;
 import org.apache.spark.mllib.regression.LabeledPoint;
+import org.apache.spark.sql.Row;
+import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import scala.Tuple2;
 
@@ -65,6 +67,19 @@ public class Utils {
     			return null;
     		}
 
+    	}if (o instanceof Row) {
+    		try {
+ 	  			Invocable invocable = (Invocable) engine;
+	  			logger.info("create Row");
+	  			Object params[] = {"Row", o};
+	  			Object parm = invocable.invokeFunction("createJavaWrapperObject", params);
+	  			logger.info(parm);
+	  			return parm;
+  			} catch (Exception e) {
+    			logger.error(" Row convertion " + e);
+    			return null;
+    		}
+
     	} else if(o instanceof Tuple2) {
             Tuple2 t = (Tuple2)o;
             logger.debug("Tupple2 " + t.toString());
@@ -81,14 +96,29 @@ public class Utils {
 				logger.error(" Tuple2 convertion " + e);
 			}
             return er;
-        }  else
+        }  else if (o instanceof JSONObject) {
+        	Object er = null;
+        	try {
+        		logger.debug("JSONObject " + o.toString());
+				Invocable invocable = (Invocable) engine;
+				 Object params[] = {o.toString()};
+				 er  = invocable.invokeFunction("convertJavaJSONObject",params);
+			} catch (ScriptException | NoSuchMethodException e) {
+				logger.error(" JSONObject convertion " + e);
+			}
+        	return er;
+        } else
             return wrapObject(o);
+
 
     }
 
     public static Object jsToJava(Object o) {
+    	Logger logger = Logger.getLogger(Utils.class);
+    	logger.debug("jsToJava" + o.getClass().getName());
     	if ( (o instanceof ScriptObjectMirror) && ((ScriptObjectMirror) o).hasMember("getJavaObject") ) {
     		Object r = ((ScriptObjectMirror) o).callMember("getJavaObject");
+    		logger.debug("getJavaObject" + r.getClass().getName());
     		return r;
     	} else if(o instanceof JSObject) {
             Object obj = ScriptObjectMirror.wrapAsJSONCompatible(o, null);
