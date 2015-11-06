@@ -28,44 +28,19 @@ var people = ctx.textFile("examples/data/people.txt").map(function(line) {
     		};
 });
 
-print("people = " + JSON.stringify(people.take(10)));
-
 //Generate the schema
-
-//StructType schema = DataTypes.createStructType(fields);
-
 var fields = [];
-var f1 = DataTypes.createStructField("name", DataTypes.StringType, true);
-var f2 = DataTypes.createStructField("age", DataTypes.IntegerType, true);
-fields.push(f1);
-fields.push(f2);
-print(fields)
-//StructType schema = DataType.createStructType(fields);
+fields.push(DataTypes.createStructField("name", DataTypes.StringType, true));
+fields.push(DataTypes.createStructField("age", DataTypes.IntegerType, true));
 var schema = DataTypes.createStructType(fields);
-print(schema)
+
 // Convert records of the RDD (people) to Rows.
-/*
-JavaRDD<Row> rowRDD = people.map(
-  new Function<String, Row>() {
-    public Row call(String record) throws Exception {
-      String[] fields = record.split(",");
-      return RowFactory.create(fields[0], fields[1].trim());
-    }
-  });
-   */
 var rowRDD = people.map(function(person){
-	print("row name= " + person.name);
-	//var row = org.apache.spark.sql.RowFactory.create(person.name, person.age);
-	var row = RowFactory.create([person.name, person.age])
-	print("row = " + row);
-	return row
+	return RowFactory.create([person.name, person.age]);
 });
 
-//print("peopleRow = " + JSON.stringify(peopleRows.take(10)));
-print("rowRDD = " + JSON.stringify(rowRDD.take(10)));
 
 //Apply the schema to the RDD.
-//DataFrame peopleDataFrame = sqlContext.createDataFrame(rowRDD, schema);
 var peopleDataFrame = sqlContext.createDataFrame(rowRDD, schema);
 
 // Register the DataFrame as a table.
@@ -74,12 +49,10 @@ peopleDataFrame.registerTempTable("people");
 // SQL can be run over RDDs that have been registered as tables.
 var results = sqlContext.sql("SELECT name FROM people");
 
-print(results.count());
-
 //The results of SQL queries are DataFrames and support all the normal RDD operations.
 //The columns of a row in the result can be accessed by ordinal.
 var names = results.toRDD().map(function(row) {
-print("Row name" + row);
- return "Name: " + row.getString(0);
+	return "Name: " + row.getString(0);
 });
+
 print("names = " + names.take(10));
