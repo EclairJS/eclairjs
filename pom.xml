@@ -69,26 +69,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>com.phasebash.jsdoc</groupId>
-                <artifactId>jsdoc3-maven-plugin</artifactId>
-                <version>1.1.0</version>
-                <executions>
-                    <execution>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>jsdoc3</goal>
-                        </goals>
-                    </execution>
-                </executions>    
-                <configuration>
-                    <recursive>true</recursive>
-                    <directoryRoots>
-                        <directoryRoot>src/main/resources</directoryRoot>
-                    </directoryRoots>
-                     <outputDirectory>docs/jsdoc</outputDirectory> 
-                </configuration>
-            </plugin>
         </plugins>
         <pluginManagement>
         	<plugins>
@@ -213,6 +193,34 @@
                 </execution>
             </executions>
         </plugin>
+        </plugins>
+        </build>
+    </profile>
+       <profile>
+        <id>docs</id>
+        <build>
+        <plugins>
+            <plugin>
+                <groupId>com.phasebash.jsdoc</groupId>
+                <artifactId>jsdoc3-maven-plugin</artifactId>
+                <version>1.1.0</version>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>jsdoc3</goal>
+                        </goals>
+                    </execution>
+                </executions>    
+                <configuration>
+                    <recursive>true</recursive>
+                    <directoryRoots>
+                        <directoryRoot>src/main/resources</directoryRoot>
+                    </directoryRoots>
+                     <outputDirectory>docs/jsdoc</outputDirectory> 
+                </configuration>
+            </plugin>
+ 
         </plugins>
         </build>
     </profile>
