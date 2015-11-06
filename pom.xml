@@ -86,6 +86,7 @@
                     <directoryRoots>
                         <directoryRoot>src/main/resources</directoryRoot>
                     </directoryRoots>
+                     <outputDirectory>docs/jsdoc</outputDirectory> 
                 </configuration>
             </plugin>
         </plugins>
