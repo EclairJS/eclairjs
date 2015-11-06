@@ -39,6 +39,7 @@ public class SparkBootstrap implements Bootstrap {
 
     public void load(ScriptEngine engine) {
         try {
+        	engine.eval("load('" + getResourceAsURLStirng("/JavaWrapper.js") + "');");
         	engine.eval("load('" + getResourceAsURLStirng("/SparkConf.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/SparkContext.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/RDD.js") + "');");
@@ -52,6 +53,12 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/LinearRegressionWithSGD.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/LabeledPoint.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/Logger.js") + "');");
+            // sql
+            engine.eval("load('" + getResourceAsURLStirng("/sql/DataTypes.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/sql/Row.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/sql/RowFactory.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/sql/StructField.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/sql/StructType.js") + "');");
             NashornEngineSingleton.setEngine(engine);
         } catch(Exception e) {
             e.printStackTrace();
