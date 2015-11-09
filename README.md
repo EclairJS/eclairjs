@@ -13,12 +13,14 @@ The **EclairJS Nashorn** API exposes the [Spark](http://spark.apache.org/) progr
 **Prerequisites**
 
  - [Java 8 SE](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+ - [Spark](http://spark.apache.org/downloads.html)
  - [git](http://git-scm.com/)
  - [Maven](https://maven.apache.org/)
  
 ```bash
 git clone git@github.rtp.raleigh.ibm.com:cfa/eclair-nashorn.git
 mvn package
+export SPARK_JAR=<location of Spark assembly jar>
 ```
 
 ### Usage
