@@ -1,4 +1,4 @@
-package com.ibm.eclair
+package org.eclairjs.nashorn
 
 import java.net.{URLClassLoader, URL}
 import javax.script.ScriptEngineManager

@@ -14,19 +14,20 @@
  * limitations under the License.
  */
 
-package com.ibm.eclair;
+package org.eclairjs.nashorn;
+
+import org.apache.commons.lang.ArrayUtils;
 
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.spark.api.java.function.Function;
 
-public class JSFunction implements Function {
+public class JSFunction2 implements org.apache.spark.api.java.function.Function2 {
+
     private String func = null;
     private Object args[] = null;
     private String functionName = null;
 
-    public JSFunction(String func, Object[] o) {
+    public JSFunction2(String func, Object[] o) {
         this.functionName = Utils.getUniqeFunctionName();
         this.func = "var " + this.functionName +" = " + func;
         this.args = o;
@@ -34,15 +35,14 @@ public class JSFunction implements Function {
 
     @SuppressWarnings("null")
     @Override
-    public Object call(Object o) throws Exception {
-
-
+    public Object call(Object o, Object o2) throws Exception {
         ScriptEngine e =  NashornEngineSingleton.getEngine();
 
         e.eval(this.func);
         Invocable invocable = (Invocable) e;
         Object arg0 = Utils.javaToJs(o, e);
-        Object params[] = {arg0};
+        Object arg1 = Utils.javaToJs(o2, e);
+        Object params[] = {arg0, arg1};
 
         params = ArrayUtils.addAll(params, this.args);
         Object ret = invocable.invokeFunction(this.functionName, params);
@@ -50,4 +50,3 @@ public class JSFunction implements Function {
         return Utils.jsToJava(ret);
     }
 }
-

@@ -60,7 +60,7 @@ var Utils = {};
   };
 
   Utils.javaToJs = function(javaObj) {
-	  return com.ibm.eclair.Utils.javaToJs(javaObj,com.ibm.eclair.NashornEngineSingleton.getEngine()); 
+	  return org.eclairjs.nashorn.Utils.javaToJs(javaObj,org.eclairjs.nashorn.NashornEngineSingleton.getEngine()); 
   };
   
   Utils.unwrapObject = function(obj) {

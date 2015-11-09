@@ -80,7 +80,7 @@ RDD.prototype.count = function() {
  */
 RDD.prototype.filter = function(func) {
 	var sv = Utils.createJavaParams(func);
-	var fn = new com.ibm.eclair.JSFunction(sv.funcStr, sv.scopeVars);
+	var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
 	var result = new RDD(this.jvmRdd.filter(fn));
 
 	return result;
@@ -93,7 +93,7 @@ RDD.prototype.filter = function(func) {
 */
 RDD.prototype.flatMap = function(func) {
 	var sv = Utils.createJavaParams(func);
-	var fn = new com.ibm.eclair.JSFlatMapFunction(sv.funcStr, sv.scopeVars);
+	var fn = new org.eclairjs.nashorn.JSFlatMapFunction(sv.funcStr, sv.scopeVars);
 	var result = new RDD(this.jvmRdd.flatMap(fn));
 
 	return result;
@@ -109,7 +109,7 @@ RDD.prototype.getJavaObject = function() {
  */
 RDD.prototype.map = function(func) {
 	var sv = Utils.createJavaParams(func);
-	var fn = new com.ibm.eclair.JSFunction(sv.funcStr, sv.scopeVars);
+	var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
 	var result = new RDD(this.jvmRdd.map(fn));
 
 	return result;
@@ -124,7 +124,7 @@ RDD.prototype.mapToPair = function(func) {
 
 	var sv = Utils.createJavaParams(func);
 
-	var fn = new com.ibm.eclair.JSPairFunction(sv.funcStr, sv.scopeVars);
+	var fn = new org.eclairjs.nashorn.JSPairFunction(sv.funcStr, sv.scopeVars);
 	var result = new RDD(this.jvmRdd.mapToPair(fn));
 
 	return result;
@@ -138,7 +138,7 @@ RDD.prototype.mapToPair = function(func) {
  */
 RDD.prototype.reduceByKey = function(func) {
 	var sv = Utils.createJavaParams(func, 2);
-	var fn = new com.ibm.eclair.JSFunction2(sv.funcStr, sv.scopeVars);
+	var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
 	var result = new RDD(this.jvmRdd.reduceByKey(fn));
 
 	return result;

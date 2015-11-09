@@ -22,6 +22,6 @@
 var Logger = {};
 
 Logger.getLogger = function(str) {
-	var logger = org.apache.log4j.Logger.getLogger("com.ibm.eclair.resource."+str);
+	var logger = org.apache.log4j.Logger.getLogger("org.eclairjs.nashorn.resource."+str);
 	return logger;
 }

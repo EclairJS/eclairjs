@@ -14,39 +14,44 @@
  * limitations under the License.
  */
 
-package com.ibm.eclair;
-
-import org.apache.commons.lang.ArrayUtils;
+package org.eclairjs.nashorn;
 
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 
-public class JSFunction2 implements org.apache.spark.api.java.function.Function2 {
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.spark.api.java.function.FlatMapFunction;
+import jdk.nashorn.api.scripting.ScriptObjectMirror;
 
-    private String func = null;
-    private Object args[] = null;
-    private String functionName = null;
+import java.util.HashMap;
 
-    public JSFunction2(String func, Object[] o) {
-        this.functionName = Utils.getUniqeFunctionName();
+
+public class JSFlatMapFunction implements FlatMapFunction {
+	private String func = null;
+	private Object args[] = null;
+	private String functionName = null;
+
+    public JSFlatMapFunction(String func,  Object[] o) {
+    	this.functionName = Utils.getUniqeFunctionName();
         this.func = "var " + this.functionName +" = " + func;
         this.args = o;
     }
 
-    @SuppressWarnings("null")
     @Override
-    public Object call(Object o, Object o2) throws Exception {
-        ScriptEngine e =  NashornEngineSingleton.getEngine();
+    public Iterable call(Object o) throws Exception {
+
+
+        ScriptEngine e =  NashornEngineSingleton.getEngine(); 
+      //  e = Utils.addScopeVarsToEngine(this.scopeVar, e);
 
         e.eval(this.func);
         Invocable invocable = (Invocable) e;
         Object arg0 = Utils.javaToJs(o, e);
-        Object arg1 = Utils.javaToJs(o2, e);
-        Object params[] = {arg0, arg1};
+        Object params[] = {arg0};
 
         params = ArrayUtils.addAll(params, this.args);
-        Object ret = invocable.invokeFunction(this.functionName, params);
+        ScriptObjectMirror ret = (ScriptObjectMirror)invocable.invokeFunction(this.functionName, params);
 
-        return Utils.jsToJava(ret);
+        return (Iterable)ret.values();
     }
 }

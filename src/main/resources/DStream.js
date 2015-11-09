@@ -39,7 +39,7 @@ DStream.prototype.getJavaObject = function() {
  */
 DStream.prototype.flatMap = function(func) {
     var sv = Utils.createJavaParams(func);
-    var fn = new com.ibm.eclair.JSFlatMapFunction(sv.funcStr, sv.scopeVars);
+    var fn = new org.eclairjs.nashorn.JSFlatMapFunction(sv.funcStr, sv.scopeVars);
     return new DStream(this.jDStream.flatMap(fn));
 };
 
@@ -50,7 +50,7 @@ DStream.prototype.flatMap = function(func) {
  */
 DStream.prototype.map = function(func) {
     var sv = Utils.createJavaParams(func);
-    var fn = new com.ibm.eclair.JSFunction(sv.funcStr, sv.scopeVars);
+    var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
     return new DStream(this.jDStream.map(fn));
 };
 
@@ -70,7 +70,7 @@ DStream.prototype.window = function(duration) {
  */
 DStream.prototype.foreachRDD = function(func) {
     var sv = Utils.createJavaParams(func);
-    var fn = new com.ibm.eclair.JSFunction(sv.funcStr, sv.scopeVars);
+    var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
     this.jDStream.foreachRDD(fn);
 }
 

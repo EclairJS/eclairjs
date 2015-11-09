@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 IBM Corp.
+s * Copyright 2015 IBM Corp.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,35 +14,30 @@
  * limitations under the License.
  */
 
-package com.ibm.eclair;
+package org.eclairjs.nashorn;
 
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
-
 import org.apache.commons.lang.ArrayUtils;
-import org.apache.spark.api.java.function.FlatMapFunction;
-import jdk.nashorn.api.scripting.ScriptObjectMirror;
+import org.apache.spark.api.java.function.Function;
 
-import java.util.HashMap;
+public class JSFunction implements Function {
+    private String func = null;
+    private Object args[] = null;
+    private String functionName = null;
 
-
-public class JSFlatMapFunction implements FlatMapFunction {
-	private String func = null;
-	private Object args[] = null;
-	private String functionName = null;
-
-    public JSFlatMapFunction(String func,  Object[] o) {
-    	this.functionName = Utils.getUniqeFunctionName();
+    public JSFunction(String func, Object[] o) {
+        this.functionName = Utils.getUniqeFunctionName();
         this.func = "var " + this.functionName +" = " + func;
         this.args = o;
     }
 
+    @SuppressWarnings("null")
     @Override
-    public Iterable call(Object o) throws Exception {
+    public Object call(Object o) throws Exception {
 
 
-        ScriptEngine e =  NashornEngineSingleton.getEngine(); 
-      //  e = Utils.addScopeVarsToEngine(this.scopeVar, e);
+        ScriptEngine e =  NashornEngineSingleton.getEngine();
 
         e.eval(this.func);
         Invocable invocable = (Invocable) e;
@@ -50,8 +45,9 @@ public class JSFlatMapFunction implements FlatMapFunction {
         Object params[] = {arg0};
 
         params = ArrayUtils.addAll(params, this.args);
-        ScriptObjectMirror ret = (ScriptObjectMirror)invocable.invokeFunction(this.functionName, params);
+        Object ret = invocable.invokeFunction(this.functionName, params);
 
-        return (Iterable)ret.values();
+        return Utils.jsToJava(ret);
     }
 }
+

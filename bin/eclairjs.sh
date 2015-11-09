@@ -38,7 +38,7 @@ fi
 # Check for eclairJS-nashorn jar
 #
 if [ -z "$ECLAIRJS_JAR" ]; then
-	export ECLAIRJS_JAR=./target/eclair-nashorn-0.1.jar
+	export ECLAIRJS_JAR=./target/eclairjs-nashorn-0.1.jar
 fi
 
 # 
@@ -103,4 +103,4 @@ fi
 #
 # start the REPL
 #
-$_java -cp $ECLAIRJS_JAR:$SPARK_JAR com.ibm.eclair.SparkJS $SCRIPT_FILE
+$_java -cp $ECLAIRJS_JAR:$SPARK_JAR org.eclairjs.nashorn.SparkJS $SCRIPT_FILE

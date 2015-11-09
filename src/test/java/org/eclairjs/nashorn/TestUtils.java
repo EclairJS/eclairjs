@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ibm.eclair;
+package org.eclairjs.nashorn;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ibm.eclair;
+package org.eclairjs.nashorn;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
