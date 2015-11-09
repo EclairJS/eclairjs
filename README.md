@@ -73,6 +73,7 @@ var sparkContext = new SparkContext(conf);
 **Prerequisites**
 - [Jupyter](http://jupyter.org/)
  
+
 1. ```mvn package -Pnotebook```
 2. edit kernel.json ```<absolute path to sparkkernel executable>``` to be ```/Users/<yourName>/local/bin/sparkkernel```
 3. edit kernel.json ```ECLAIR_JAR``` to point eclair-nashorn-0.1.jar location
