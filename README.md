@@ -87,3 +87,7 @@ var sparkContext = new SparkContext(conf);
     eval("count = " + rdd.count());
     
 ```
+
+## Resources
+----------
+**Please see the [EclairJS Nashorn Wiki](https://github.com/EclairJS/eclairjs-nashorn/wiki) for more information.**
