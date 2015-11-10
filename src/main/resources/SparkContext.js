@@ -29,6 +29,8 @@ with (imported) {
   Logger.getLogger("akka").setLevel(Level.WARN);
 
   var SparkContext = function(conf) {
+    if (kernel) {
+    }
     if (conf) {
     	/*
     	 * Create a new JavaSparkContext from a conf
@@ -88,4 +90,8 @@ with (imported) {
   SparkContext.prototype.broadcast = function(o) {
     return this.jvmSC.broadcast(o);
   };
+
+  SparkContext.prototype.stop = function() {
+    this.jvmSC.stop();
+  }
 }
