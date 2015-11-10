@@ -2,11 +2,12 @@
   "display_name": "Spark 1.4.1 (Javascript)",
   "language": "javascript",
   "argv": [
-    "/Users/bburns/dev/spark-kernel/kernel/target/pack/bin/sparkkernel",
+    "<location of sparkkernel executable",
     "--interpreter-plugin",
     "eclairjs:org.eclairjs.nashorn.JavascriptInterpreter",
     "--default-interpreter",
     "eclairjs",
+    "--nosparkcontext",
     "--profile",
     "{connection_file}"
   ],
