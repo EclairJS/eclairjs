@@ -56,3 +56,9 @@ SQLContext.prototype.table = function(name) {
 SQLContext.prototype.sql = function(sqlString) {
     return new DataFrame(this.javaSQLContext.sql(sqlString));
 };
+
+SQLContext.prototype.createDataFrame = function(rowRDD, schema) {
+	var s = schema.getJavaObject ? schema.getJavaObject() : schema; //get the Java Object
+    return new DataFrame(this.javaSQLContext.createDataFrame(rowRDD.getJavaObject(), s));
+};
+

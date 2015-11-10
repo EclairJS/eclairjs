@@ -4,9 +4,9 @@
   "argv": [
     "/Users/bburns/dev/spark-kernel/kernel/target/pack/bin/sparkkernel",
     "--interpreter-plugin",
-    "eclair:com.ibm.eclair.JavascriptInterpreter",
+    "eclairjs:org.eclairjs.nashorn.JavascriptInterpreter",
     "--default-interpreter",
-    "eclair",
+    "eclairjs",
     "--profile",
     "{connection_file}"
   ],

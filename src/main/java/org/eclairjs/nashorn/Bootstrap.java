@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
+package org.eclairjs.nashorn;
+
+import javax.script.ScriptEngine;
+
 /**
- * http://usejsdoc.org/
+ * Created by bburns on 10/21/15.
  */
-
-
-var Logger = {};
-
-Logger.getLogger = function(str) {
-	var logger = org.apache.log4j.Logger.getLogger("org.eclairjs.nashorn.resource."+str);
-	return logger;
+public interface Bootstrap {
+    public void load(ScriptEngine engine);
 }

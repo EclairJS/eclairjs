@@ -54,8 +54,8 @@ LabeledPoint.prototype.parse = function(string) {
 	var l = new LabeledPoint(lp);
 }
 
-LabeledPoint.prototype.getJavaObject = function(string) {
-	logger.debug("getJavaObject");
+LabeledPoint.prototype.getJavaObject = function() {
+	this.logger.debug("getJavaObject");
 	return this._jvmLabeledPoint;
 }
 

@@ -40,7 +40,7 @@ with (imported) {
     	/*
     	 * add the jar for the cluster
     	 */
-    	var decodedPath = com.ibm.eclair.Utils.jarLoc();
+    	var decodedPath = org.eclairjs.nashorn.Utils.jarLoc();
         var devEnvPath = "/target/classes/";
         var jarEnvPath = ".jar";
         print("jar decodedPath = " + decodedPath);
@@ -48,7 +48,7 @@ with (imported) {
         	/*
         	 * we are in the dev environment I hope...
         	 */
-        	this.jvmSC.addJar(decodedPath + "../eclair-nashorn-0.1.jar");
+        	this.jvmSC.addJar(decodedPath + "../eclairjs-nashorn-0.1.jar");
         } else if (decodedPath.indexOf(jarEnvPath, decodedPath.length - jarEnvPath.length) !== -1) {
         	/*
         	 * We are running from a jar
