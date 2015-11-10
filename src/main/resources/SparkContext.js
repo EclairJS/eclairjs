@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-load(
-  "nashorn:mozilla_compat.js");
+load("nashorn:mozilla_compat.js");
 
-  var imported = new JavaImporter(
+var imported = new JavaImporter(
     org.apache.spark.api.java,
     org.apache.log4j.Logger,
     org.apache.log4j.Level
@@ -25,73 +24,84 @@ load(
 
 with (imported) {
 
-  Logger.getLogger("org").setLevel(Level.WARN);
-  Logger.getLogger("akka").setLevel(Level.WARN);
+    Logger.getLogger("org").setLevel(Level.WARN);
+    Logger.getLogger("akka").setLevel(Level.WARN);
 
-  var SparkContext = function(conf) {
-    if (kernel) {
-    }
-    if (conf) {
-    	/*
-    	 * Create a new JavaSparkContext from a conf
-    	 * 
-    	 */
-    	this.jvmSC = new JavaSparkContext(conf.jvmConf);
-    	/*
-    	 * add the jar for the cluster
-    	 */
-    	var decodedPath = org.eclairjs.nashorn.Utils.jarLoc();
+    var initSparkContext = function(conf) {
+        if(kernel) {
+            if(kernel.javaSparkContext() != null) {
+                return kernel.javaSparkContext();
+            } else {
+                return kernel.createSparkContext(conf.jvmConf);
+            }
+        }
+
+        /*
+         * Create a new JavaSparkContext from a conf
+         * 
+         */
+        var jvmSC = new JavaSparkContext(conf.jvmConf);
+        /*
+         * add the jar for the cluster
+         */
+        var decodedPath = org.eclairjs.nashorn.Utils.jarLoc();
         var devEnvPath = "/target/classes/";
         var jarEnvPath = ".jar";
         print("jar decodedPath = " + decodedPath);
-        if (decodedPath.indexOf(devEnvPath, decodedPath.length - devEnvPath.length) !== -1) {
-        	/*
-        	 * we are in the dev environment I hope...
-        	 */
-        	this.jvmSC.addJar(decodedPath + "../eclairjs-nashorn-0.1.jar");
-        } else if (decodedPath.indexOf(jarEnvPath, decodedPath.length - jarEnvPath.length) !== -1) {
-        	/*
-        	 * We are running from a jar
-        	 */
-        	this.jvmSC.addJar(decodedPath);
+        if (decodedPath.indexOf(devEnvPath, 
+                                decodedPath.length - devEnvPath.length) !== -1) 
+        {
+            /*
+             * we are in the dev environment I hope...
+             */
+            jvmSC.addJar(decodedPath + "../eclairjs-nashorn-0.1.jar");
+        } else if (decodedPath.indexOf(jarEnvPath, 
+                                       decodedPath.length - jarEnvPath.length) !== -1) {
+            /*
+             * We are running from a jar
+             */
+            jvmSC.addJar(decodedPath);
         }
-    } else {
-    	/*
-    	 * Create a JavaSparkContext from a existing SparkContext.
-    	 * this is most likely from the spark-kernel, we will assume that 
-    	 * they have already added the our jar files needed for the cluster.
-    	 */
-    	this.jvmSC = new JavaSparkContext(sc);
+
+        return jvmSC
+    };
+
+    var SparkContext = function() {
+        if(arguments.length == 2) {
+            var conf = new SparkConf()
+            conf.setMaster(arguments[0])
+            conf.setAppName(arguments[1])
+            this.jvmSC = initSparkContext(conf)
+        } else {
+            this.jvmSC = initSparkContext(arguments[0])
+        }
+    };
+
+    SparkContext.prototype.getJavaObject = function() {
+        return this.jvmSC;
+    };
+
+    SparkContext.prototype.parallelize = function(seq) {
+        return new RDD(this.jvmSC.parallelize(seq));
+    };
+
+    SparkContext.prototype.textFile = function(path) {
+        return new RDD(this.jvmSC.textFile(path));
+    };
+
+    SparkContext.prototype.addJar = function(path) {
+        this.jvmSC.addJar(path);
+    };
+
+    SparkContext.prototype.addFile = function(path) {
+        this.jvmSC.addFile(path);
+    };
+
+    SparkContext.prototype.broadcast = function(o) {
+        return this.jvmSC.broadcast(o);
+    };
+
+    SparkContext.prototype.stop = function() {
+        this.jvmSC.stop();
     }
-    
-
-  };
-
-  SparkContext.prototype.getJavaObject = function() {
-      return this.jvmSC;
-  };
-
-  SparkContext.prototype.parallelize = function(seq) {
-    return new RDD(this.jvmSC.parallelize(seq));
-  };
-
-  SparkContext.prototype.textFile = function(path) {
-    return new RDD(this.jvmSC.textFile(path));
-  };
-
-  SparkContext.prototype.addJar = function(path) {
-    this.jvmSC.addJar(path);
-  };
-
-  SparkContext.prototype.addFile = function(path) {
-    this.jvmSC.addFile(path);
-  };
-
-  SparkContext.prototype.broadcast = function(o) {
-    return this.jvmSC.broadcast(o);
-  };
-
-  SparkContext.prototype.stop = function() {
-    this.jvmSC.stop();
-  }
 }

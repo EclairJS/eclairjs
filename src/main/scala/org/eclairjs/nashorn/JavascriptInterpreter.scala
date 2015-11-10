@@ -4,6 +4,7 @@ import java.net.{URLClassLoader, URL}
 import javax.script.ScriptEngineManager
 
 import com.ibm.spark.interpreter._
+import com.ibm.spark.interpreter.Results
 import com.ibm.spark.interpreter.Results.Result
 import com.ibm.spark.kernel.api.KernelLike
 import org.apache.spark.SparkContext
@@ -12,18 +13,22 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future}
-import scala.tools.nsc.interpreter
 
-class JavascriptInterpreter(val kernel:KernelLike) extends Interpreter {
+import scala.tools.nsc.interpreter._
+
+class JavascriptInterpreter() extends com.ibm.spark.interpreter.Interpreter {
 
   private val engine = {
     val manager = new ScriptEngineManager()
     val e = manager.getEngineByName("nashorn")
     val bootstrap = new SparkBootstrap()
-
     bootstrap.load(e)
-    e.put("kernel", kernel)
     e
+  }
+
+  override def init(kernel: KernelLike): Interpreter = {
+    engine.put("kernel", kernel)
+    this
   }
 
   /**
@@ -77,7 +82,7 @@ class JavascriptInterpreter(val kernel:KernelLike) extends Interpreter {
    * @param out The new output stream
    * @param err The new error stream
    */
-  override def updatePrintStreams(in: interpreter.InputStream, out: interpreter.OutputStream, err: interpreter.OutputStream): Unit = ???
+  override def updatePrintStreams(in: InputStream, out: OutputStream, err: OutputStream): Unit = ???
 
   /**
    * Returns the class loader used by this interpreter.

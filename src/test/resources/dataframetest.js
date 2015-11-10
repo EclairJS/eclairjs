@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-var sparkContext = new SparkContext();
+var sparkContext = new SparkContext("local[*]", "dataframe");
 var sqlContext = new SQLContext(sparkContext);
 
 var test = function(file) {

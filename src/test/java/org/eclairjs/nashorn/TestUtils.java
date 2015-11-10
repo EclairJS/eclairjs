@@ -28,14 +28,18 @@ import java.net.URI;
 
 public class TestUtils {
 
+    private static TestKernel kernel = new TestKernel();
+
     private static ScriptEngine engine = null;
 
     public static ScriptEngine getEngine() {
         if(engine == null) {
             ScriptEngineManager engineManager = new ScriptEngineManager();
             engine = engineManager.getEngineByName("nashorn");
-            SparkContext sc = new SparkContext("local[*]", "testapp");
-            engine.put("sc", sc);
+            //SparkContext sc = new SparkContext("local[*]", "testapp");
+            //engine.put("sc", sc);
+
+            engine.put("kernel", kernel);
 
             SparkBootstrap b = new SparkBootstrap();
             b.load(engine);
