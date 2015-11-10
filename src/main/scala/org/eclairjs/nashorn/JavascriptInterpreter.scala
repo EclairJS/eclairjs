@@ -1,20 +1,20 @@
 package org.eclairjs.nashorn
 
-import java.net.{URLClassLoader, URL}
+import java.net.URL
 import javax.script.ScriptEngineManager
 
 import com.ibm.spark.interpreter._
-import com.ibm.spark.interpreter.Results
+import com.ibm.spark.interpreter.Interpreter
 import com.ibm.spark.interpreter.Results.Result
 import com.ibm.spark.kernel.api.KernelLike
 import org.apache.spark.SparkContext
 
-import scala.concurrent.ExecutionContext.Implicits.global
-
-import scala.concurrent.duration.Duration
+import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
 
-import scala.tools.nsc.interpreter._
+import scala.tools.nsc.interpreter.{InputStream, OutputStream}
+
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class JavascriptInterpreter() extends com.ibm.spark.interpreter.Interpreter {
 
@@ -26,15 +26,12 @@ class JavascriptInterpreter() extends com.ibm.spark.interpreter.Interpreter {
     e
   }
 
-  override def init(kernel: KernelLike): Interpreter = {
+  override def init(kernel: KernelLike) = {
     engine.put("kernel", kernel)
     this
   }
 
-  /**
-   * Starts the interpreter, initializing any internal state.
-   * @return A reference to the interpreter
-   */
+
   override def start(): Interpreter = this
 
   /**
@@ -147,4 +144,5 @@ class JavascriptInterpreter() extends com.ibm.spark.interpreter.Interpreter {
    * @return The cursor position and list of possible completions
    */
   override def completion(code: String, pos: Int): (Int, scala.List[String]) = ???
+
 }

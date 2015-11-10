@@ -32,7 +32,8 @@ with (imported) {
             if(kernel.javaSparkContext() != null) {
                 return kernel.javaSparkContext();
             } else {
-                return kernel.createSparkContext(conf.jvmConf);
+                kernel.createSparkContext(conf.jvmConf);
+                return kernel.javaSparkContext();
             }
         }
 
