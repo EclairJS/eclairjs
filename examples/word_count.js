@@ -43,4 +43,6 @@ var rdd6 = rdd5.mapToPair(function(tuple) {
 var rdd7 = rdd6.sortByKey(false);
 print("top 10 words = " + JSON.stringify(rdd7.take(10)));
 
+sparkContext.stop()
+
 
