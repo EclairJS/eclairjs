@@ -14,29 +14,6 @@
  * limitations under the License.
  */
 
-var Row = function(jvmRow) {
-    this.jvmRow = jvmRow;
-}
-
-Row.prototype.get = function(i) {
-    return jvmRow.get(i);
-};
-
-Row.prototype.mkString = function(sep) {
-    return jvmRow.mkString(sep);
-};
-
-Row.prototype.length = function() {
-    return jvmRow.length();
-};
-
-Row.prototype.size = function() {
-    return jvmRow.size();
-};
-
-Row.prototype.getValuesMap = function(fields) {
-    return jvmRow.getValuesMap(fields);
-};
 
 var Column = function(jvmColumn) {
     this.jvmColumn = jvmColumn;
