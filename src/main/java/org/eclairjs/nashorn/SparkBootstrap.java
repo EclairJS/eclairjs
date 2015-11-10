@@ -43,8 +43,8 @@ public class SparkBootstrap implements Bootstrap {
         	engine.eval("load('" + getResourceAsURLStirng("/SparkConf.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/SparkContext.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/RDD.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/DataFrame.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/SQLContext.js") + "');");
+            
+
             engine.eval("load('" + getResourceAsURLStirng("/Duration.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/DStream.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/StreamingContext.js") + "');");
@@ -54,7 +54,10 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/LabeledPoint.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/Logger.js") + "');");
             // sql
+            engine.eval("load('" + getResourceAsURLStirng("/sql/DataFrame.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/sql/DataFrameReader.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/DataTypes.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/sql/SQLContext.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/Row.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/RowFactory.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/StructField.js") + "');");

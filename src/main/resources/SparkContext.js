@@ -66,43 +66,92 @@ with (imported) {
 
         return jvmSC
     };
-
+	/**
+	 * A Java-friendly version of SparkContext that returns JavaRDDs and works with Java collections instead of Scala ones.
+	 * Only one SparkContext may be active per JVM. You must stop() the active SparkContext before creating a new one. 
+	 * This limitation may eventually be removed; see SPARK-2243 for more details.
+	 * @constructor
+	 * @param {SparkConf} conf - a object specifying Spark parameters
+	 */
     var SparkContext = function() {
+    	var jvmObj;
         if(arguments.length == 2) {
             var conf = new SparkConf()
             conf.setMaster(arguments[0])
             conf.setAppName(arguments[1])
-            this.jvmSC = initSparkContext(conf)
+            jvmObj = initSparkContext(conf)
         } else {
-            this.jvmSC = initSparkContext(arguments[0])
+        	jvmObj = initSparkContext(arguments[0])
         }
+        JavaWrapper.call(this, jvmObj);
     };
+    
+    SparkContext.prototype = Object.create(JavaWrapper.prototype);
 
-    SparkContext.prototype.getJavaObject = function() {
-        return this.jvmSC;
+	//Set the "constructor" property to refer to SparkContext
+	SparkContext.prototype.constructor = SparkContext;
+
+	/**
+	 * Add a file to be downloaded with this Spark job on every node. The path passed can be either a local file, 
+	 * a file in HDFS (or other Hadoop-supported filesystems), or an HTTP, HTTPS or FTP URI. 
+	 * To access the file in Spark jobs, use SparkFiles.get(fileName) to find its download location.
+	 * @param {string} path - Path to the file
+	 */
+	SparkContext.prototype.addFile = function(path) {		
+		this.getJavaObject().addFile(path);
+	};
+	/**
+	 * Adds a JAR dependency for all tasks to be executed on this SparkContext in the future. The path passed can be either a local file, a file in HDFS (or other Hadoop-supported filesystems), or an HTTP, HTTPS or FTP URI.
+	 * @param {string} path - Path to the jar
+	 */
+	SparkContext.prototype.addJar = function(path) {
+		//public void addJar(java.lang.String path)
+		this.getJavaObject().addJar(path);
+	};
+	/**
+	 * Broadcast a read-only variable to the cluster, returning a Broadcast object for reading it in distributed functions. 
+	 * The variable will be sent to each cluster only once.
+	 * @param {object} value
+	 * @returns {Broadcast} 
+	 */
+	SparkContext.prototype.broadcast = function(value) {
+		return this.getJavaObject().broadcast(value);
+	};
+
+	/**
+	 * Distribute a local Scala collection to form an RDD.
+	 * @param {array} list
+	 * @param {integer} numSlices - Optional
+	 * @returns {RDD}
+	 */
+	SparkContext.prototype.parallelize = function(list, numSlices) {
+		//public <T> JavaRDD<T> parallelize(java.util.List<T> list, int numSlices)
+		if (numSlices) {
+			return new RDD(this.getJavaObject().parallelize(list, numSlices));
+		} else {
+			return new RDD(this.getJavaObject().parallelize(list));
+		}
+		
+	};
+	/**
+	 * Read a text file from HDFS, a local file system (available on all nodes), or any Hadoop-supported file system URI, 
+	 * and return it as an RDD of Strings.
+	 * @param {string} path - path to file
+	 * @param {int} minPartitions - Optional
+	 * @returns {RDD}
+	 */
+	SparkContext.prototype.textFile = function(path, minPartitions) {
+		if (minPartitions) {
+			return new RDD(this.getJavaObject().textFile(path, minPartitions));
+		} else {
+			return new RDD(this.getJavaObject().textFile(path));
+		}
+		
+	};
+	/**
+	 * Shut down the SparkContext.
+	 */
+	SparkContext.prototype.stop = function() {
+		  this.getJavaObject().stop();
     };
-
-    SparkContext.prototype.parallelize = function(seq) {
-        return new RDD(this.jvmSC.parallelize(seq));
-    };
-
-    SparkContext.prototype.textFile = function(path) {
-        return new RDD(this.jvmSC.textFile(path));
-    };
-
-    SparkContext.prototype.addJar = function(path) {
-        this.jvmSC.addJar(path);
-    };
-
-    SparkContext.prototype.addFile = function(path) {
-        this.jvmSC.addFile(path);
-    };
-
-    SparkContext.prototype.broadcast = function(o) {
-        return this.jvmSC.broadcast(o);
-    };
-
-    SparkContext.prototype.stop = function() {
-        this.jvmSC.stop();
-    }
 }
