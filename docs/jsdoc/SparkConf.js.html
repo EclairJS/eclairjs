@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: sql/StructField.js</title>
+    <title>JSDoc: Source: SparkConf.js</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: sql/StructField.js</h1>
+    <h1 class="page-title">Source: SparkConf.js</h1>
     
     
 
@@ -41,79 +41,44 @@
  * limitations under the License.
  */
 /**
- * A field inside a StructType. 
  * @constructor
- * @param {string} name - The name of this field. 
- * @param {DataType} dataType - The data type of this field. 
- * @param {boolean}  nullable -  Indicates if values of this field can be null values. 
- * @param {Metadata} metadata - The metadata of this field. The metadata should be preserved during transformation if the content of the column is not modified, e.g, in selection.
-*/
-function StructField(name, dataType, nullable, metadata) {
-	// StructField(java.lang.String name, DataType dataType, boolean nullable, Metadata metadata) 
-	var jvmObj = null;
-	this.logger = Logger.getLogger("StructField_js");
-	if ( dataType == null) {
-  	 	this.logger.debug("Java object ");
-  	 	jvmObj = name; // the name is really a jvmObject created by one of our wrappers.
-	} else {
-		var dt = Utils.unwrapObject(dataType); 
-		var md = Utils.unwrapObject(metadata); 
-		jvmObj = new org.apache.spark.sql.types.StructField(name, dt, nullable, md);
-
-	}
-  // Call the parent constructor, making sure (using Function#call)
-  // that "this" is set correctly during the call
-  JavaWrapper.call(this, jvmObj);
-
-  // Initialize our Row-specific properties
-  this.logger = Logger.getLogger("StructField_js");
-  this.logger.debug("StructField constructor");
+ * @classdesc Configuration for a Spark application. Used to set various Spark parameters as key-value pairs.
+ * Most of the time, you would create a SparkConf object with new SparkConf(),  parameters you set directly on the SparkConf 
+ * object take priority over system properties. 
+ * All setter methods in this class support chaining. For example, you can write new SparkConf().setMaster("local").setAppName("My app").
+ * Note that once a SparkConf object is passed to Spark, it is cloned and can no longer be modified by the user. 
+ * Spark does not support modifying the configuration at runtime.
+ */
+var SparkConf = function(conf) {
+	var jvmObj = new org.apache.spark.SparkConf();
+	this.logger = Logger.getLogger("SparkConf_js");
+	JavaWrapper.call(this, jvmObj);
 };
 
-//Create a StructField.prototype object that inherits from JavaWrapper.prototype.
+SparkConf.prototype = Object.create(JavaWrapper.prototype); 
 
-StructField.prototype = Object.create(JavaWrapper.prototype); 
+SparkConf.prototype.constructor = SparkConf;
 
-//Set the "constructor" property to refer to StructField
-StructField.prototype.constructor = StructField;
 /**
- * @returns {DataType}
+ * Set a name for your application.
+ * @param {string} appName
+ * @returns {SparkConf}
  */
-StructField.prototype.dataType = function() {
-	//DataType	dataType() 
-	return this.getJavaObject().dataType();
+SparkConf.prototype.setAppName = function(appName) {
+    this.getJavaObject().setAppName(appName);
+    return this;
 };
 /**
- * @returns {Metadata}
+ * The master URL to connect to, such as "local" to run locally with one thread,
+ * "local[4]" to run locally with 4 cores, or "spark://master:7077" to run on a Spark standalone cluster.
+ * @param {string} master
+ * @returns {SparkConf}
  */
-StructField.prototype.metadata = function() {
-	//Metadata	metadata()  
-	return this.getJavaObject().metadata();
+SparkConf.prototype.setMaster = function(master) {
+    this.getJavaObject().setMaster(master);
+    return this;
 };
-/**
- * @returns {string}
- */
-StructField.prototype.name = function() {
-	//java.lang.String	name()   
-	return this.getJavaObject().name();
-};
-/**
- * @returns {boolean}
- */
-StructField.prototype.nullable = function() {
-	//boolean	nullable()  
-	return this.getJavaObject().nullable();
-};
-/**
- * @returns {string}
- */
-/*StructField.prototype.toString = function() {
-	return this.toString();
-};*/
 
-/*StructField.prototype.toJSON = function() {
-	return this.toString();
-};*/
 
 
 </code></pre>

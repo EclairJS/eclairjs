@@ -17,8 +17,14 @@
 var JavaDuration = Java.type("org.apache.spark.streaming.Duration");
 
 var Duration = function(millis) { 
-    this.jDuration = new JavaDuration(millis);
-}
+	var jvmObj = new JavaDuration(millis);
+	this.logger = Logger.getLogger("streaming.Duration_js");
+	JavaWrapper.call(this, jvmObj);
+};
+
+Duration.prototype = Object.create(JavaWrapper.prototype); 
+
+Duration.prototype.constructor = Duration;
 
 Duration.prototype.getJavaObject = function() {
     return this.jDuration;

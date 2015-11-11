@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * @author billreed
- *
- */
 
 /**
  * Represents a Discretized Stream (DStream), the basic abstraction in Spark Streaming, is a continuous sequence of RDDs (of the same type) representing a continuous stream of data.
@@ -25,12 +21,14 @@
  * @param {object} jDStream 
   */
 var DStream = function(jDStream) {
-    this.jDStream = jDStream;
-}
+	var jvmObj = jDStream;
+	this.logger = Logger.getLogger("streaming.dtream.DStream_js");
+	JavaWrapper.call(this, jvmObj);
+};
 
-DStream.prototype.getJavaObject = function() {
-    return this.jDStream;
-}
+DStream.prototype = Object.create(JavaWrapper.prototype); 
+
+DStream.prototype.constructor = DStream;
 
 /**
  * Return a new DStream by first applying a function to all elements of this DStream, and then flattening the results.
@@ -40,7 +38,7 @@ DStream.prototype.getJavaObject = function() {
 DStream.prototype.flatMap = function(func) {
     var sv = Utils.createJavaParams(func);
     var fn = new org.eclairjs.nashorn.JSFlatMapFunction(sv.funcStr, sv.scopeVars);
-    return new DStream(this.jDStream.flatMap(fn));
+    return new DStream(this.getJavaObject().flatMap(fn));
 };
 
 /**
@@ -51,7 +49,7 @@ DStream.prototype.flatMap = function(func) {
 DStream.prototype.map = function(func) {
     var sv = Utils.createJavaParams(func);
     var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
-    return new DStream(this.jDStream.map(fn));
+    return new DStream(this.getJavaObject().map(fn));
 };
 
 /**
@@ -60,7 +58,7 @@ DStream.prototype.map = function(func) {
  * @returns {DStream}
  */
 DStream.prototype.window = function(duration) {
-    return new DStream(this.jDStream.window(duration.getJavaObject()));
+    return new DStream(this.getJavaObject().window(Utils.unwrapObject(duration)));
 };
 
 /**
@@ -71,7 +69,7 @@ DStream.prototype.window = function(duration) {
 DStream.prototype.foreachRDD = function(func) {
     var sv = Utils.createJavaParams(func);
     var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
-    this.jDStream.foreachRDD(fn);
+    this.getJavaObject().foreachRDD(fn);
 }
 
 /**
@@ -79,5 +77,5 @@ DStream.prototype.foreachRDD = function(func) {
  * @returns {void}
  */
 DStream.prototype.print = function() {
-    this.jDStream.print();
+    this.getJavaObject().print();
 };

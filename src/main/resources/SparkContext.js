@@ -67,10 +67,11 @@ with (imported) {
         return jvmSC
     };
 	/**
-	 * A Java-friendly version of SparkContext that returns JavaRDDs and works with Java collections instead of Scala ones.
+	 * 
+	 * @constructor
+	 * @classdesc A JavaScript-friendly version of SparkContext that returns RDDs 
 	 * Only one SparkContext may be active per JVM. You must stop() the active SparkContext before creating a new one. 
 	 * This limitation may eventually be removed; see SPARK-2243 for more details.
-	 * @constructor
 	 * @param {SparkConf} conf - a object specifying Spark parameters
 	 */
     var SparkContext = function() {
