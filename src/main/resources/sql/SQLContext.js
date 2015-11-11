@@ -38,7 +38,7 @@ SQLContext.prototype = Object.create(JavaWrapper.prototype);
 SQLContext.prototype.constructor = SQLContext;
 /**
  * Creates a DataFrame from RDD of Rows using the schema
- * @param {RDD[Row]} rowRDD - 
+ * @param {RDD[]} rowRDD - 
  * @param {StructType} schema - 
  * @returns {DataFrame}
  */
@@ -46,23 +46,23 @@ SQLContext.prototype.createDataFrame = function(rowRDD, schema) {
     return new DataFrame(this.getJavaObject().createDataFrame(Utils.unwrapObject(rowRDD), Utils.unwrapObject(schema)));
 };
 /**
- * 
+ * Returns DataFrameReader
  * @returns {DataFrameReader}
  */
 SQLContext.prototype.read = function() {
     return new DataFrameReader(this.getJavaObject().read());
 };
 /**
- * 
- * @param sqlString
+ * Returns DataFrame 
+ * @param {string} sqlString
  * @returns {DataFrame}
  */
 SQLContext.prototype.sql = function(sqlString) {
     return new DataFrame(this.getJavaObject().sql(sqlString));
 };
 /**
- *
- * @param name
+ * Returns DataFrame for table
+ * @param {string} name
  * @returns {DataFrame}
  */
 SQLContext.prototype.table = function(name) {
