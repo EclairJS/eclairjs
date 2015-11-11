@@ -18,29 +18,36 @@ var JavaStreamingContext =
     Java.type('org.apache.spark.streaming.api.java.JavaStreamingContext');
 
 var StreamingContext = function(sparkContext, duration) {
-    this.javaStreamingContext = 
+	var jvmObj = 
         new JavaStreamingContext(sparkContext.getJavaObject(), 
                                  duration.getJavaObject());
+	this.logger = Logger.getLogger("streaming.Duration_js");
+	JavaWrapper.call(this, jvmObj);
 };
 
+StreamingContext.prototype = Object.create(JavaWrapper.prototype); 
+
+StreamingContext.prototype.constructor = StreamingContext;
+
+
 StreamingContext.prototype.start = function() {
-    this.javaStreamingContext.start();
+    this.getJavaObject().start();
 };
 
 StreamingContext.prototype.stop = function() {
-    this.javaStreamingContext.stop();
+    this.getJavaObject().stop();
 };
 
 StreamingContext.prototype.socketTextStream = function(host, port) {
-    var jDStream = this.javaStreamingContext.socketTextStream(host, port);
+    var jDStream = this.getJavaObject().socketTextStream(host, port);
 
     return new DStream(jDStream);
 };
 
 StreamingContext.prototype.awaitTerminationOrTimeout = function(millis) {
-    return this.javaStreamingContext.awaitTerminationOrTimeout(millis);
+    return this.getJavaObject().awaitTerminationOrTimeout(millis);
 };
 
 StreamingContext.prototype.awaitTermination = function() {
-    return this.javaStreamingContext.awaitTermination();
+    return this.getJavaObject().awaitTermination();
 };
