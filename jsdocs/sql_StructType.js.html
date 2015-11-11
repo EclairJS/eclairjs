@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: sql/StructType.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: sql/StructType.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*
+
+NOTE: not implemented
+protected static StructType	fromAttributes(scala.collection.Seq&lt;org.apache.spark.sql.catalyst.expressions.Attribute> attributes) 
+org.apache.spark.sql.catalyst.expressions.InterpretedOrdering	interpretedOrdering() 
+scala.collection.Iterator&lt;StructField>	iterator() 
+protected scala.collection.Seq&lt;org.apache.spark.sql.catalyst.expressions.AttributeReference>	toAttributes() 
+*/
+
+/**
+ * For a StructType object, one or multiple StructFields can be extracted by names. If multiple StructFields are extracted, a StructType object will be returned. If a provided name does not have a matching field, it will be ignored.
+ * @constructor
+ * @param {StructField[]} fields - The name of this field. 
+ */
+function StructType(fields) {
+	
+	Array.isArray(fields)
+	var jvmObj = null;
+	this.logger = Logger.getLogger("StructField_js");
+	if (!Array.isArray(fields)) {
+  	 	this.logger.debug("Java object ");
+  	 	jvmObj = fields; // the name is really a jvmObject created by one of our wrappers.
+	} else {
+		var f = [];
+		fields.forEach(function(field) {
+			f.push(Utils.unwrapObject(field));
+		});
+		jvmObj = new org.apache.spark.sql.types.StructType(f);
+
+	}
+  // Call the parent constructor, making sure (using Function#call)
+  // that "this" is set correctly during the call
+  JavaWrapper.call(this, jvmObj);
+
+  // Initialize our Row-specific properties
+
+this.logger = Logger.getLogger("StructType_js");
+  this.logger.debug("Row constructor");
+};
+
+//Create a StructType.prototype object that inherits from JavaWrapper.prototype.
+
+StructType.prototype = Object.create(JavaWrapper.prototype); 
+
+//Set the "constructor" property to refer to StructType
+StructType.prototype.constructor = StructType;
+/**
+ * Creates a new StructType by adding a new nullable field with no metadata.
+ * @param {string | StructField} name
+ * @param {DataType | string} dataType
+ * @param {boolean} nullable - optional defaults true, nullable field
+ * @param {Metadata} metadata - Optional defaults to null, specifying metadata
+ * @returns {StructType}
+ */
+StructType.prototype.add = function(name, dataType, nullable, metadata) {
+	/*
+	StructType	add(java.lang.String name, DataType dataType)
+	Creates a new StructType by adding a new nullable field with no metadata.
+	
+	StructType	add(java.lang.String name, DataType dataType, boolean nullable)
+	Creates a new StructType by adding a new field with no metadata.
+
+	StructType	add(java.lang.String name, DataType dataType, boolean nullable, Metadata metadata)
+	Creates a new StructType by adding a new field and specifying metadata.
+
+	StructType	add(java.lang.String name, java.lang.String dataType)
+	Creates a new StructType by adding a new nullable field with no metadata where the dataType is specified as a String.
+
+	StructType	add(java.lang.String name, java.lang.String dataType, boolean nullable)
+	Creates a new StructType by adding a new field with no metadata where the dataType is specified as a String.
+
+	StructType	add(java.lang.String name, java.lang.String dataType, boolean nullable, Metadata metadata)
+	Creates a new StructType by adding a new field and specifying metadata where the dataType is specified as a String.
+
+	StructType	add(StructField field)
+	Creates a new StructType by adding a new field.
+    */
+	return new StructType(this.getJavaObject().add(Utils.unwrapObject(name), Utils.unwrapObject(dataType)), nullable, Utils.unwrapObject(metadata));
+};
+/**
+ * Extracts a StructField of the given name or index.
+ * @param {integer | string} field - index or name
+ * @returns {StructField}
+ */
+StructType.prototype.apply = function(field) {
+
+	/*
+	StructField	apply(int fieldIndex) 
+	StructField	apply(java.lang.String name)
+	Extracts a StructField of the given name.
+	NOTE: method below is not supported.
+	StructType	apply(scala.collection.immutable.Set&lt;java.lang.String> names)
+	Returns a StructType containing StructFields of the given names, preserving the original order of fields.	
+	*/
+	return new StructField(this.getJavaObject().apply(fields));
+
+};
+/**
+ * The default size of a value of the StructType is the total default sizes of all field types.
+ * @returns {integer}
+ */
+StructType.prototype.defaultSize = function() {
+
+	/*
+	int	defaultSize()
+	The default size of a value of the StructType is the total default sizes of all field types.	
+	*/
+	return this.getJavaObject().defaultSize();
+
+};
+/**
+ * Returns index of a given field	
+ * @param {string} name 
+ * @returns {integer}
+ */
+StructType.prototype.fieldIndex = function(name) {
+
+	/*
+	int	fieldIndex(java.lang.String name)
+	Returns index of a given field	
+	*/
+	return this.getJavaObject().fieldIndex(name);
+
+};
+/**
+ * Returns all field names in an array.
+ * @returns {string[]}
+ */
+StructType.prototype.fieldNames = function() {
+
+	/*
+	java.lang.String[]	fieldNames()
+	Returns all field names in an array.	
+	*/
+	return this.getJavaObject().fieldNames();
+
+};
+/**
+ * 
+ * @returns {StructField[]}
+ */
+StructType.prototype.fields = function() {
+
+	/*
+	StructField[]	fields() 	
+	*/
+	var fieldsJava = this.getJavaObject().fields();
+	var fields = [];
+	for (var i = 0; i &lt; fieldsJava.length; i++) {
+		fields.push(new StructType(fieldsJava[i])); // wrapper the object for javascipt
+	}
+	return fields;
+
+};
+/**
+ * @returns {integer}
+ */
+StructType.prototype.length = function() {
+
+	/*
+	int	length()  	
+	*/
+	return this.getJavaObject().length();
+};
+/**
+ * 
+ * @returns {void}
+ */
+StructType.prototype.printTreeString = function() {
+
+	/*
+	void	printTreeString()   	
+	*/
+	return this.getJavaObject().printTreeString();
+};
+/**
+ * 
+ * @returns {string} Readable string representation for the type.
+ */
+StructType.prototype.simpleString = function() {
+
+	/*
+	java.lang.String	simpleString()   	
+	*/
+	return this.getJavaObject().simpleString();
+};
+/**
+ * 
+ * @returns {string}
+ */
+StructType.prototype.treeString = function() {
+
+	/*
+	java.lang.String	treeString()  	
+	*/
+	return this.getJavaObject().treeString();
+};
+/*
+StructType.prototype.toJSON = function() {
+	return this.toString();
+};*/
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Accumulator.html">Accumulator</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DStream.html">DStream</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li></ul><h3>Global</h3><ul><li><a href="global.html#LabeledPoint">LabeledPoint</a></li><li><a href="global.html#Logger">Logger</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.3</a> on Wed Nov 11 2015 11:36:33 GMT-0500 (EST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

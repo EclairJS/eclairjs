@@ -162,7 +162,7 @@ DataFrame.prototype.registerTempTable = function(tableName) {
 /**
  * Selects a set of column based expressions.
  * @param {Column[] | string[]}
- * @returns
+ * @returns  {DataFrame}
  */
 DataFrame.prototype.select = function() {
     var args = Array.prototype.slice.call(arguments);
