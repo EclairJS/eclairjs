@@ -15,16 +15,23 @@
  */
 
 var SparkConf = function(conf) {
-     this.jvmConf = new org.apache.spark.SparkConf();
+	var jvmObj = new org.apache.spark.SparkConf();
+	this.logger = Logger.getLogger("SparkConf_js");
+	JavaWrapper.call(this, jvmObj);
 };
 
+SparkConf.prototype = Object.create(JavaWrapper.prototype); 
+
+SparkConf.prototype.constructor = SparkConf;
+
+
 SparkConf.prototype.setAppName = function(appName) {
-    this.jvmConf.setAppName(appName);
+    this.getJavaObject().setAppName(appName);
     return this;
 }
 
 SparkConf.prototype.setMaster = function(master) {
-    this.jvmConf.setMaster(master);
+    this.getJavaObject().setMaster(master);
     return this;
 }
 
