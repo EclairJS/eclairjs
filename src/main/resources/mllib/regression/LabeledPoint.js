@@ -19,29 +19,33 @@
  */
 
 var LabeledPoint = function(x, y) { 
-	this.logger = Logger.getLogger("LabeledPoint_js");
+	this.logger = Logger.getLogger("mllib.regression.LabeledPoint_js");
+	var jvmObj;
 	if ( y == null) {
   	 	this.logger.debug("Java object ");
-		this._jvmLabeledPoint = x;
+  	 	jvmObj = x;
 	} else {
 		var features = org.apache.spark.mllib.linalg.Vectors.dense(y)
-		this._jvmLabeledPoint = new org.apache.spark.mllib.regression.LabeledPoint(x, features);
+		jvmObj = new org.apache.spark.mllib.regression.LabeledPoint(x, features);
 
 	}
-	
-}
+	JavaWrapper.call(this, jvmObj);
+};
+
+LabeledPoint.prototype = Object.create(JavaWrapper.prototype); 
+
+LabeledPoint.prototype.constructor = LabeledPoint;
 
 LabeledPoint.prototype.getLabel = function() {
-	return this._jvmLabeledPoint.label();
+	return this.getJavaObject().label();
 }
 
 LabeledPoint.prototype.getFeatures = function() {
 	// FIXME: need to convert Vector to array before returning
-	return this._jvmLabeledPoint.features();
+	return this.getJavaObject().features();
 }
 
 LabeledPoint.prototype.toString = function() {
-	//return this._jvmLabeledPoint.toString();
 	return "{label: " + this.getLabel() + ", features: " + this.getFeatures() + " }";
 }
 
@@ -54,10 +58,6 @@ LabeledPoint.prototype.parse = function(string) {
 	var l = new LabeledPoint(lp);
 }
 
-LabeledPoint.prototype.getJavaObject = function() {
-	this.logger.debug("getJavaObject");
-	return this._jvmLabeledPoint;
-}
 
 var labeledPointFromJavaObject = function(javaObject) {
 	var l = Logger.getLogger("LabeledPoint_js");
