@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Column</title>
+    <title>JSDoc: Class: DataTypes</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Class: Column</h1>
+    <h1 class="page-title">Class: DataTypes</h1>
     
     
 
@@ -27,7 +27,7 @@
     
 <header>
     <h2>
-    Column
+    DataTypes
     </h2>
     
 </header>  
@@ -39,7 +39,7 @@
     
         
 <dt>
-    <h4 class="name" id="Column"><span class="type-signature"></span>new Column<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="DataTypes"><span class="type-signature"></span>new DataTypes<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -47,7 +47,7 @@
     
     
     <div class="description">
-        A column in a DataFrame.
+        The base type of all Spark SQL data types.
     </div>
     
 
@@ -80,7 +80,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Column.js.html">sql/Column.js</a>, <a href="Column.js.html#line20">line 20</a>
+        <a href="DataTypes.js.html">sql/DataTypes.js</a>, <a href="DataTypes.js.html#line20">line 20</a>
     </li></ul></dd>
     
     
@@ -126,7 +126,7 @@
         <dl>
             
 <dt>
-    <h4 class="name" id="equalTo"><span class="type-signature"></span>equalTo<span class="signature">(obj)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="createStructField"><span class="type-signature">&lt;static> </span>createStructField<span class="signature">(fieldName, dataType, nullable)</span><span class="type-signature"> &rarr; {<a href="StructField.html">StructField</a>}</span></h4>
     
     
 </dt>
@@ -134,7 +134,7 @@
     
     
     <div class="description">
-        Equality test
+        Creates a StructField with empty metadata.
     </div>
     
 
@@ -168,13 +168,59 @@
 	
         <tr>
             
-                <td class="name"><code>obj</code></td>
+                <td class="name"><code>fieldName</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>dataType</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">DataType</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>nullable</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
 
 
             
@@ -215,7 +261,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Column.js.html">sql/Column.js</a>, <a href="Column.js.html#line36">line 36</a>
+        <a href="DataTypes.js.html">sql/DataTypes.js</a>, <a href="DataTypes.js.html#line34">line 34</a>
     </li></ul></dd>
     
     
@@ -247,7 +293,142 @@
 	</dt>
 	<dd>
 		
-<span class="param-type"><a href="Column.html">Column</a></span>
+<span class="param-type"><a href="StructField.html">StructField</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="createStructType"><span class="type-signature">&lt;static> </span>createStructType<span class="signature">(fields)</span><span class="type-signature"> &rarr; {<a href="StructType.html">StructType</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Creates a StructType with the given StructField array (fields).
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>fields</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="DataTypes.js.html">sql/DataTypes.js</a>, <a href="DataTypes.js.html#line50">line 50</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="StructType.html">StructType</a></span>
 
 
 	</dd>
