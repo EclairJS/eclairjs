@@ -40,6 +40,7 @@ public class SparkBootstrap implements Bootstrap {
     public void load(ScriptEngine engine) {
         try {
         	engine.eval("load('" + getResourceAsURLStirng("/JavaWrapper.js") + "');");
+        	engine.eval("load('" + getResourceAsURLStirng("/Logger.js") + "');");
         	engine.eval("load('" + getResourceAsURLStirng("/Utils.js") + "');");
         	
         	//spark
@@ -53,9 +54,10 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/streaming/KafkaUtils.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/streaming/dstream/DStream.js") + "');");
             
-            engine.eval("load('" + getResourceAsURLStirng("/LinearRegressionWithSGD.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/LabeledPoint.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/Logger.js") + "');");
+            //mllib
+            engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/LinearRegressionWithSGD.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/LabeledPoint.js") + "');");
+            
             // sql
             engine.eval("load('" + getResourceAsURLStirng("/sql/Column.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/DataFrame.js") + "');");
