@@ -1,6 +1,24 @@
-
+/*
+ * Copyright 2015 IBM Corp.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * The base type of all Spark SQL data types.
+ * @constructor
+ */
 var DataTypes = function() {
-	//this.jvmObject = new org.apache.spark.sql.types.DataTypes();
+
 };
 
 DataTypes.StringType = org.apache.spark.sql.types.DataTypes.StringType;
@@ -19,8 +37,8 @@ DataTypes.createStructField = function(fieldName, dataType, nullable) {
             boolean nullable)
 Creates a StructField with empty metadata.
 */
-	print(dataType)
-	//var dt = dataType.getJavaObject ? dataType.getJavaObject() : dataType;
+	Logger.getLogger("DataType_js").debug(dataType);
+
 	return new StructField(org.apache.spark.sql.types.DataTypes.createStructField(fieldName, dataType, nullable));
 
 };
@@ -38,7 +56,8 @@ DataTypes.createStructType = function(fields) {
 	//return org.apache.spark.sql.types.DataTypes.createStructType(fields);
 	var f = [];
 	fields.forEach(function(field) {
-		field.getJavaObject ? f.push(field.getJavaObject()) : f.push(field);
+		f.push(Utils.unwrapObject(field));
+		//field.getJavaObject ? f.push(field.getJavaObject()) : f.push(field);
 	});
 	var ret = new StructType(org.apache.spark.sql.types.DataTypes.createStructType(f));
 	return ret;
