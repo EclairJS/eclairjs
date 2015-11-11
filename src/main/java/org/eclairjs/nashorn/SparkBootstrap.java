@@ -40,19 +40,24 @@ public class SparkBootstrap implements Bootstrap {
     public void load(ScriptEngine engine) {
         try {
         	engine.eval("load('" + getResourceAsURLStirng("/JavaWrapper.js") + "');");
+        	engine.eval("load('" + getResourceAsURLStirng("/Logger.js") + "');");
+        	engine.eval("load('" + getResourceAsURLStirng("/Utils.js") + "');");
+        	
+        	//spark
         	engine.eval("load('" + getResourceAsURLStirng("/SparkConf.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/SparkContext.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/RDD.js") + "');");
             
-
-            engine.eval("load('" + getResourceAsURLStirng("/Duration.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/DStream.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/StreamingContext.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/KafkaUtils.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/Utils.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/LinearRegressionWithSGD.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/LabeledPoint.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/Logger.js") + "');");
+            // streaming
+            engine.eval("load('" + getResourceAsURLStirng("/streaming/Duration.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/streaming/StreamingContext.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/streaming/KafkaUtils.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/streaming/dstream/DStream.js") + "');");
+            
+            //mllib
+            engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/LinearRegressionWithSGD.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/LabeledPoint.js") + "');");
+            
             // sql
             engine.eval("load('" + getResourceAsURLStirng("/sql/Column.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/DataFrame.js") + "');");

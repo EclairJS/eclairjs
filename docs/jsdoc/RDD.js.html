@@ -42,20 +42,27 @@
  */
 
 /**
- * A Resilient Distributed Dataset (RDD), the basic abstraction in Spark. Represents an immutable, 
+  * @constructor
+  * @classdesc A Resilient Distributed Dataset (RDD), the basic abstraction in Spark. Represents an immutable, 
  * partitioned collection of elements that can be operated on in parallel. 
- * @constructor
+
  */
 var RDD = function(jrdd) { // jrdd - JavaRDD object. don't expose this in the JSDocs for the public API
-	this.jvmRdd = jrdd;
+	var jvmObj = jrdd;
 	this.logger = Logger.getLogger("RDD_js");
+	JavaWrapper.call(this, jvmObj);
 };
+
+RDD.prototype = Object.create(JavaWrapper.prototype); 
+
+RDD.prototype.constructor = RDD;
+
 /**
  * Persist this RDD with the default storage level (`MEMORY_ONLY`).
  * @returns {RDD}
  */
 RDD.prototype.cache = function() {
-	this.jvmRdd.cache();
+	this.getJavaObject().cache();
 	return this;
 };
 /**
@@ -63,7 +70,7 @@ RDD.prototype.cache = function() {
  * @returns {Array}
  */
 RDD.prototype.collect = function() {
-	var res = this.jvmRdd.collect();
+	var res = this.getJavaObject().collect();
 	var results = [];
 	for (var i = 0; i &lt; res.size(); i++) {
 		var value = res.get(i);
@@ -81,7 +88,7 @@ RDD.prototype.collect = function() {
  * @returns {integer}
  */
 RDD.prototype.count = function() {
-	var c = this.jvmRdd.count();
+	var c = this.getJavaObject().count();
 	return c;
 };
 /**
@@ -92,7 +99,7 @@ RDD.prototype.count = function() {
 RDD.prototype.filter = function(func) {
 	var sv = Utils.createJavaParams(func);
 	var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
-	var result = new RDD(this.jvmRdd.filter(fn));
+	var result = new RDD(this.getJavaObject().filter(fn));
 
 	return result;
 
@@ -105,13 +112,10 @@ RDD.prototype.filter = function(func) {
 RDD.prototype.flatMap = function(func) {
 	var sv = Utils.createJavaParams(func);
 	var fn = new org.eclairjs.nashorn.JSFlatMapFunction(sv.funcStr, sv.scopeVars);
-	var result = new RDD(this.jvmRdd.flatMap(fn));
+	var result = new RDD(this.getJavaObject().flatMap(fn));
 
 	return result;
 
-};
-RDD.prototype.getJavaObject = function() {
-	return this.jvmRdd;
 };
 /**
  * Return a new RDD by applying a function to all elements of this RDD.
@@ -121,7 +125,7 @@ RDD.prototype.getJavaObject = function() {
 RDD.prototype.map = function(func) {
 	var sv = Utils.createJavaParams(func);
 	var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
-	var result = new RDD(this.jvmRdd.map(fn));
+	var result = new RDD(this.getJavaObject().map(fn));
 
 	return result;
 
@@ -136,7 +140,7 @@ RDD.prototype.mapToPair = function(func) {
 	var sv = Utils.createJavaParams(func);
 
 	var fn = new org.eclairjs.nashorn.JSPairFunction(sv.funcStr, sv.scopeVars);
-	var result = new RDD(this.jvmRdd.mapToPair(fn));
+	var result = new RDD(this.getJavaObject().mapToPair(fn));
 
 	return result;
 
@@ -150,7 +154,7 @@ RDD.prototype.mapToPair = function(func) {
 RDD.prototype.reduceByKey = function(func) {
 	var sv = Utils.createJavaParams(func, 2);
 	var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
-	var result = new RDD(this.jvmRdd.reduceByKey(fn));
+	var result = new RDD(this.getJavaObject().reduceByKey(fn));
 
 	return result;
 
@@ -161,7 +165,7 @@ RDD.prototype.reduceByKey = function(func) {
  * @returns {RDD}
  */
 RDD.prototype.sortByKey = function(ascending) {
-	var result = new RDD(this.jvmRdd.sortByKey(ascending));
+	var result = new RDD(this.getJavaObject().sortByKey(ascending));
 
 	return result;
 }
@@ -172,7 +176,7 @@ RDD.prototype.sortByKey = function(ascending) {
  * @returns {Array}
  */
 RDD.prototype.take = function(num) {
-	var res = this.jvmRdd.take(num);
+	var res = this.getJavaObject().take(num);
 	this.logger.debug("take " + res.getClass().getName());
 	var results = [];
 	for (var i = 0; i &lt; res.size(); i++) {
@@ -195,13 +199,13 @@ RDD.prototype.take = function(num) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulator.html">Accumulator</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DStream.html">DStream</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li></ul><h3>Global</h3><ul><li><a href="global.html#LabeledPoint">LabeledPoint</a></li><li><a href="global.html#Logger">Logger</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulator.html">Accumulator</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DStream.html">DStream</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li></ul><h3>Global</h3><ul><li><a href="global.html#LabeledPoint">LabeledPoint</a></li><li><a href="global.html#Logger">Logger</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Wed Nov 11 2015 14:28:18 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Wed Nov 11 2015 17:53:08 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>

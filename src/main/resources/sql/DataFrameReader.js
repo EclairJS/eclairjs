@@ -13,13 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * Interface used to load a DataFrame from external storage systems (e.g. file systems, key-value stores, etc). Use SQLContext.read() to access this.
- * @constructor
- */
+
 var DataFrameReader = function(javaDataFrameReader) {
 	var jvmObj;
-	this.logger = Logger.getLogger("DataFrameReader_js");
+	this.logger = Logger.getLogger("SQLContext_js");
 	jvmObj = javaDataFrameReader;
     JavaWrapper.call(this, jvmObj);
 }
@@ -28,38 +25,22 @@ DataFrameReader.prototype = Object.create(JavaWrapper.prototype);
 
 //Set the "constructor" property to refer to DataFrameReader
 DataFrameReader.prototype.constructor = DataFrameReader;
-/**
- * Loads a JSON file (one object per line) and returns the result as a DataFrame.
- * @param {string} path to JSON file
- * @returns {DataFrame}
- */
+
 DataFrameReader.prototype.jsonFromPath = function(path) {
     return new DataFrame(this.getJavaObject().json(path));
 }
-/**
- * Loads an RDD[String] storing JSON objects (one object per record) and returns the result as a DataFrame.
- * @param {RDD}
- * @returns {DataFrame}
- */
+
 DataFrameReader.prototype.jsonFromRDD = function(rdd) {
-    return new DataFrame(this.getJavaObject().json(Utils.unwrapObject(rdd)));
+    return new DataFrame(this.getJavaObject().json(rdd.getJavaObject()));
 }
-/**
- * Loads an RDD[String] or path, storing JSON objects (one object per record) and returns the result as a DataFrame.
- * @param {string | RDD} path to JSON file | RDD[String]
- * @returns {DataFrame}
- */
+
 DataFrameReader.prototype.json = function() {
     if(typeof arguments[0] === 'object')
         return this.jsonFromRDD(arguments[0]);
 
     return this.jsonFromPath(arguments[0]);
 }
-/**
- * Loads a Parquet file, returning the result as a DataFrame.
- * @param {string} path
- * @returns {DataFrame}
- */
+
 DataFrameReader.prototype.parquet = function(path) {
     return new DataFrame(this.getJavaObject().parquet(path));
 }
