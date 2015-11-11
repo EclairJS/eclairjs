@@ -15,11 +15,6 @@
  */
 
 /**
- * @author billreed
- *
- */
-
-/**
  * A Resilient Distributed Dataset (RDD), the basic abstraction in Spark. Represents an immutable, 
  * partitioned collection of elements that can be operated on in parallel. 
  * @constructor
@@ -135,7 +130,7 @@ RDD.prototype.reduceByKey = function(func) {
 };
 /**
  * Return this RDD sorted by the given key function.
- * @param {boolean} sascending
+ * @param {boolean} ascending
  * @returns {RDD}
  */
 RDD.prototype.sortByKey = function(ascending) {

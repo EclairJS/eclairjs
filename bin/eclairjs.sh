@@ -103,4 +103,8 @@ fi
 #
 # start the REPL
 #
-$_java -cp $ECLAIRJS_JAR:$SPARK_JAR org.eclairjs.nashorn.SparkJS $SCRIPT_FILE
+if [ -z "$ECLAIRJS_DEBUG" ]; then
+	$_java -cp $ECLAIRJS_JAR:$SPARK_JAR org.eclairjs.nashorn.SparkJS $SCRIPT_FILE
+else 
+	$_java -Dlog4j.configuration=file:"./src/main/resources/conf/log4j.prop" -cp $ECLAIRJS_JAR:$SPARK_JAR org.eclairjs.nashorn.SparkJS $SCRIPT_FILE
+fi

@@ -56,7 +56,6 @@ var names = results.toRDD().map(function(row) {
 });
 
 print("names = " + names.take(10));
-
 var dataFrame = sqlContext.read().json("examples/data/test.json");
 var gd = dataFrame.groupBy(dataFrame.col("first"));
 var df2 = gd.count();

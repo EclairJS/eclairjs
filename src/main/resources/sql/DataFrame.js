@@ -13,125 +13,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/**
+ * A distributed collection of data organized into named columns. A DataFrame is equivalent to a relational table in Spark SQL.
+ * @constructor
+ */
+var DataFrame = function(jvmDataFrame) {
+	JavaWrapper.call(this, jvmDataFrame);
 
-
-var Column = function(jvmColumn) {
-    this.jvmColumn = jvmColumn;
+	  // Initialize our Row-specific properties
+	this.logger = Logger.getLogger("DataFrame_js");
 };
 
-Column.prototype.equalTo = function(obj) {
-    return new Column(jvmColumn.equalTo(obj));
-};
+DataFrame.prototype = Object.create(JavaWrapper.prototype); 
 
-Column.prototype.getJavaObject = function() {
-    return this.jvmColumn;
-}
-
-var GroupedData = function(jvmGroupedData) {
-    this.jvmGroupedData = jvmGroupedData;
-}
-
-GroupedData.prototype.count = function() {
-    var jdf = this.jvmGroupedData.count();
-    var df = new DataFrame(jdf);
-
-    return df;
-};
-
-GroupedData.prototype.avg = function(cols) {
-    return new DataFrame(this.jvmGroupedData.avg(cols));
-};
-
-GroupedData.prototype.mean = function(cols) {
-    return new DataFrame(this.jvmGroupedData.mean(cols));
-};
-
-GroupedData.prototype.sum = function(cols) {
-    return new DataFrame(this.jvmGroupedData.sum(cols));
-};
-
-GroupedData.prototype.min = function(cols) {
-    return new DataFrame(this.jvmGroupedData.min(cols));
-};
-
-GroupedData.prototype.max = function(cols) {
-    return new DataFrame(this.jvmGroupedData.max(cols));
-};
-
-var DataFrameWriter = function(javaDataFrameWriter) {
-    this.javaDataFrameWriter = javaDataFrameWriter;
-}
-
-
-DataFrameWriter.prototype.mode = function(mode) {
-    return new DataFrameWriter(this.javaDataFrameWriter.mode(mode));
-};
-
-DataFrameWriter.prototype.saveAsTable = function(tableName) {
-    this.javaDataFrameWriter.saveAsTable(tableName);
-};
-
-
-var DataFrame = function(jvmDataFrame) { 
-    this.jvmDataFrame = jvmDataFrame;
-}
-
-DataFrame.prototype.groupByWithColumns = function(args) {
-    var jCols = args.map(function(v) {
-        return v.getJavaObject();
-    });
-
-    var jGroupedData = this.jvmDataFrame.groupBy(jCols);
-    var gd = new GroupedData(jGroupedData);
-
-    return gd;
-};
-
-DataFrame.prototype.groupByWithStrings = function(args) {
-    var jGroupedData = this.jvmDataFrame.groupBy(args);
-    var gd = new GroupedData(jGroupedData);
-
-    return gd;
-};
-
-DataFrame.prototype.selectWithStrings = function(args) {
-    var jdf = this.jvmDataFrame.select(args);
-    var df = new DataFrame(jdf);
-
-    return df;
-};
-
-DataFrame.prototype.filterWithString = function(columnExpr) {
-    return new DataFrame(this.jvmDataFrame.filter(columnExpr));
-};
-
-DataFrame.prototype.filterWithColumn = function(col) {
-    return new DataFrame(this.jvmDataFrame.filter(col.getJavaObject()));
-};
+//Set the "constructor" property to refer to DataFrame
+DataFrame.prototype.constructor = DataFrame;
 
 DataFrame.prototype.as = function(alias) {
-    return new DataFrame(this.jvmDataFrame.as(alias));
+    return new DataFrame(this.getJavaObject().as(alias));
 };
 
 DataFrame.prototype.cache = function() {
-    return new DataFrame(this.jvmDataFrame.cache());
+    return new DataFrame(this.getJavaObject().cache());
 };
 
 DataFrame.prototype.col = function(name) {
-    return new Column(this.jvmDataFrame.col(name));
+    return new Column(this.getJavaObject().col(name));
 };
 
-DataFrame.prototype.select = function() {
-    var args = Array.prototype.slice.call(arguments);
-    var len = args.length;
+DataFrame.prototype.columns = function() {
+    return this.getJavaObject().columns();
+};
 
-    if(args.length == 0)
-        return self;
-
-    if(typeof args[0] === 'object') 
-        return this.selectWithColumns(args);
-    else 
-        return this.selectWithStrings(args);
+DataFrame.prototype.count = function() {
+    return this.getJavaObject().count();
 };
 
 DataFrame.prototype.filter = function(arg) {
@@ -141,16 +56,18 @@ DataFrame.prototype.filter = function(arg) {
         return this.filterWithString(arguments[0]);
 };
 
-DataFrame.prototype.show = function() {
-    this.jvmDataFrame.show();
+DataFrame.prototype.filterWithColumn = function(col) {
+    return new DataFrame(this.getJavaObject().filter(col.getJavaObject()));
 };
 
-DataFrame.prototype.count = function() {
-    return this.jvmDataFrame.count();
+DataFrame.prototype.filterWithString = function(columnExpr) {
+    return new DataFrame(this.getJavaObject().filter(columnExpr));
 };
 
-DataFrame.prototype.columns = function() {
-    return this.jvmDataFrame.columns();
+DataFrame.prototype.flatMap = function(func) {
+    var sv = Utils.createJavaParams(func);
+    var fn = new org.eclairjs.nashorn.JSFlatMapFunction(sv.funcStr, sv.scopeVars);
+    return new RDD(this.getJavaObject().flatMap(fn));
 };
 
 DataFrame.prototype.groupBy = function() {
@@ -166,46 +83,82 @@ DataFrame.prototype.groupBy = function() {
         return this.groupByWithStrings(args);
 };
 
-DataFrame.prototype.flatMap = function(func) {
-    var sv = Utils.createJavaParams(func);
-    var fn = new org.eclairjs.nashorn.JSFlatMapFunction(sv.funcStr, sv.scopeVars);
-    return new RDD(this.jvmDataFrame.flatMap(fn));
+DataFrame.prototype.groupByWithColumns = function(args) {
+    var jCols = args.map(function(v) {
+        return v.getJavaObject();
+    });
+
+    var jGroupedData = this.getJavaObject().groupBy(jCols);
+    var gd = new GroupedData(jGroupedData);
+
+    return gd;
 };
 
-DataFrame.prototype.where = function(condition) {
-    return new DataFrame(this.jvmDataFrame.where(condition));
-};
+DataFrame.prototype.groupByWithStrings = function(args) {
+    var jGroupedData = this.getJavaObject().groupBy(args);
+    var gd = new GroupedData(jGroupedData);
 
-DataFrame.prototype.withColumn = function(name, col) {
-    return new DataFrame(this.jvmDataFrame.withColumn(name, col));
+    return gd;
 };
 
 DataFrame.prototype.head = function() {
-    return new Row(this.jvmDataFrame.head());
+    return new Row(this.getJavaObject().head());
 };
 
 DataFrame.prototype.registerTempTable = function(name) {
-    this.jvmDataFrame.registerTempTable(name);
+    this.getJavaObject().registerTempTable(name);
+};
+
+DataFrame.prototype.select = function() {
+    var args = Array.prototype.slice.call(arguments);
+    var len = args.length;
+
+    if(args.length == 0)
+        return self;
+
+    if(typeof args[0] === 'object') 
+        return this.selectWithColumns(args);
+    else 
+        return this.selectWithStrings(args);
+};
+
+DataFrame.prototype.selectWithStrings = function(args) {
+    var jdf = this.getJavaObject().select(args);
+    var df = new DataFrame(jdf);
+
+    return df;
+};
+
+DataFrame.prototype.show = function() {
+    this.getJavaObject().show();
 };
 
 DataFrame.prototype.take = function(num) {
-    var rows = this.jvmDataFrame.take(num);
+    var rows = this.getJavaObject().take(num);
     return rows.map(function(row) {
         return new Row(row);
     })
+};
+
+DataFrame.prototype.toJSON = function() {
+    return new RDD(this.getJavaObject().toJSON());
 };
 /**
  * Returns a RDD object.
  * @returns {RDD}
  */
 DataFrame.prototype.toRDD = function() {
-    return new RDD(this.jvmDataFrame.javaRDD());
+    return new RDD(this.getJavaObject().javaRDD());
 };
 
-DataFrame.prototype.toJSON = function() {
-    return new RDD(this.jvmDataFrame.toJSON());
+DataFrame.prototype.where = function(condition) {
+    return new DataFrame(this.getJavaObject().where(condition));
+};
+
+DataFrame.prototype.withColumn = function(name, col) {
+    return new DataFrame(this.getJavaObject().withColumn(name, col));
 };
 
 DataFrame.prototype.write = function() {
-    return new DataFrameWriter(this.jvmDataFrame.write());
+    return new DataFrameWriter(this.getJavaObject().write());
 };
