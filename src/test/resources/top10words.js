@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-var sparkContext = new SparkContext();
+var sparkContext = new SparkContext("local[*]", "top10");
 
 var wordCount = function(file) {
     var rdd = sparkContext.textFile(file);

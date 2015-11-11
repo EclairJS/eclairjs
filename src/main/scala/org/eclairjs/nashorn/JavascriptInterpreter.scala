@@ -1,35 +1,37 @@
 package org.eclairjs.nashorn
 
-import java.net.{URLClassLoader, URL}
+import java.net.URL
 import javax.script.ScriptEngineManager
 
 import com.ibm.spark.interpreter._
+import com.ibm.spark.interpreter.Interpreter
 import com.ibm.spark.interpreter.Results.Result
 import com.ibm.spark.kernel.api.KernelLike
 import org.apache.spark.SparkContext
 
+import scala.concurrent.duration._
+import scala.concurrent.{Await, Future}
+
+import scala.tools.nsc.interpreter.{InputStream, OutputStream}
+
 import scala.concurrent.ExecutionContext.Implicits.global
 
-import scala.concurrent.duration.Duration
-import scala.concurrent.{Await, Future}
-import scala.tools.nsc.interpreter
-
-class JavascriptInterpreter(val kernel:KernelLike) extends Interpreter {
+class JavascriptInterpreter() extends com.ibm.spark.interpreter.Interpreter {
 
   private val engine = {
     val manager = new ScriptEngineManager()
     val e = manager.getEngineByName("nashorn")
     val bootstrap = new SparkBootstrap()
-
     bootstrap.load(e)
-    e.put("kernel", kernel)
     e
   }
 
-  /**
-   * Starts the interpreter, initializing any internal state.
-   * @return A reference to the interpreter
-   */
+  override def init(kernel: KernelLike) = {
+    engine.put("kernel", kernel)
+    this
+  }
+
+
   override def start(): Interpreter = this
 
   /**
@@ -77,7 +79,7 @@ class JavascriptInterpreter(val kernel:KernelLike) extends Interpreter {
    * @param out The new output stream
    * @param err The new error stream
    */
-  override def updatePrintStreams(in: interpreter.InputStream, out: interpreter.OutputStream, err: interpreter.OutputStream): Unit = ???
+  override def updatePrintStreams(in: InputStream, out: OutputStream, err: OutputStream): Unit = ???
 
   /**
    * Returns the class loader used by this interpreter.
@@ -142,4 +144,5 @@ class JavascriptInterpreter(val kernel:KernelLike) extends Interpreter {
    * @return The cursor position and list of possible completions
    */
   override def completion(code: String, pos: Int): (Int, scala.List[String]) = ???
+
 }

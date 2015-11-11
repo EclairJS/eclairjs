@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: DataFrame.js</title>
+    <title>JSDoc: Source: sql/DataFrame.js</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: DataFrame.js</h1>
+    <h1 class="page-title">Source: sql/DataFrame.js</h1>
     
     
 
@@ -40,169 +40,100 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/**
+ * A distributed collection of data organized into named columns. A DataFrame is equivalent to a relational table in Spark SQL.
+ * @constructor
+ */
+var DataFrame = function(jvmDataFrame) {
+	JavaWrapper.call(this, jvmDataFrame);
 
-var Row = function(jvmRow) {
-    this.jvmRow = jvmRow;
-}
-
-Row.prototype.get = function(i) {
-    return jvmRow.get(i);
+	  // Initialize our Row-specific properties
+	this.logger = Logger.getLogger("DataFrame_js");
 };
 
-Row.prototype.mkString = function(sep) {
-    return jvmRow.mkString(sep);
-};
+DataFrame.prototype = Object.create(JavaWrapper.prototype); 
 
-Row.prototype.length = function() {
-    return jvmRow.length();
-};
-
-Row.prototype.size = function() {
-    return jvmRow.size();
-};
-
-Row.prototype.getValuesMap = function(fields) {
-    return jvmRow.getValuesMap(fields);
-};
-
-var Column = function(jvmColumn) {
-    this.jvmColumn = jvmColumn;
-};
-
-Column.prototype.equalTo = function(obj) {
-    return new Column(jvmColumn.equalTo(obj));
-};
-
-Column.prototype.getJavaObject = function() {
-    return this.jvmColumn;
-}
-
-var GroupedData = function(jvmGroupedData) {
-    this.jvmGroupedData = jvmGroupedData;
-}
-
-GroupedData.prototype.count = function() {
-    var jdf = this.jvmGroupedData.count();
-    var df = new DataFrame(jdf);
-
-    return df;
-};
-
-GroupedData.prototype.avg = function(cols) {
-    return new DataFrame(this.jvmGroupedData.avg(cols));
-};
-
-GroupedData.prototype.mean = function(cols) {
-    return new DataFrame(this.jvmGroupedData.mean(cols));
-};
-
-GroupedData.prototype.sum = function(cols) {
-    return new DataFrame(this.jvmGroupedData.sum(cols));
-};
-
-GroupedData.prototype.min = function(cols) {
-    return new DataFrame(this.jvmGroupedData.min(cols));
-};
-
-GroupedData.prototype.max = function(cols) {
-    return new DataFrame(this.jvmGroupedData.max(cols));
-};
-
-var DataFrameWriter = function(javaDataFrameWriter) {
-    this.javaDataFrameWriter = javaDataFrameWriter;
-}
-
-
-DataFrameWriter.prototype.mode = function(mode) {
-    return new DataFrameWriter(this.javaDataFrameWriter.mode(mode));
-};
-
-DataFrameWriter.prototype.saveAsTable = function(tableName) {
-    this.javaDataFrameWriter.saveAsTable(tableName);
-};
-
-
-var DataFrame = function(jvmDataFrame) { 
-    this.jvmDataFrame = jvmDataFrame;
-}
-
-DataFrame.prototype.groupByWithColumns = function(args) {
-    var jCols = args.map(function(v) {
-        return v.getJavaObject();
-    });
-
-    var jGroupedData = this.jvmDataFrame.groupBy(jCols);
-    var gd = new GroupedData(jGroupedData);
-
-    return gd;
-};
-
-DataFrame.prototype.groupByWithStrings = function(args) {
-    var jGroupedData = this.jvmDataFrame.groupBy(args);
-    var gd = new GroupedData(jGroupedData);
-
-    return gd;
-};
-
-DataFrame.prototype.selectWithStrings = function(args) {
-    var jdf = this.jvmDataFrame.select(args);
-    var df = new DataFrame(jdf);
-
-    return df;
-};
-
-DataFrame.prototype.filterWithString = function(columnExpr) {
-    return new DataFrame(this.jvmDataFrame.filter(columnExpr));
-};
-
-DataFrame.prototype.filterWithColumn = function(col) {
-    return new DataFrame(this.jvmDataFrame.filter(col.getJavaObject()));
-};
-
+//Set the "constructor" property to refer to DataFrame
+DataFrame.prototype.constructor = DataFrame;
+/**
+ * Returns a new DataFrame with an alias set.
+ * @param {string} alias
+ * @returns {DataFrame}
+ */
 DataFrame.prototype.as = function(alias) {
-    return new DataFrame(this.jvmDataFrame.as(alias));
+    return new DataFrame(this.getJavaObject().as(alias));
 };
-
+/**
+ * Persist this DataFrame with the default storage level (`MEMORY_ONLY`).
+ * @returns {DataFrame}
+ */
 DataFrame.prototype.cache = function() {
-    return new DataFrame(this.jvmDataFrame.cache());
+    return new DataFrame(this.getJavaObject().cache());
 };
-
+/**
+ * Selects column based on the column name and return it as a Column.
+ * @param name
+ * @returns {Column}
+ */
 DataFrame.prototype.col = function(name) {
-    return new Column(this.jvmDataFrame.col(name));
+    return new Column(this.getJavaObject().col(name));
 };
-
-DataFrame.prototype.select = function() {
-    var args = Array.prototype.slice.call(arguments);
-    var len = args.length;
-
-    if(args.length == 0)
-        return self;
-
-    if(typeof args[0] === 'object') 
-        return this.selectWithColumns(args);
-    else 
-        return this.selectWithStrings(args);
+/**
+ * Returns all column names as an array.
+ * @returns {string[]}
+ */
+DataFrame.prototype.columns = function() {
+    return this.getJavaObject().columns();
 };
-
+/**
+ * Returns the number of rows in the DataFrame.
+ * @returns {integer}
+ */
+DataFrame.prototype.count = function() {
+    return this.getJavaObject().count();
+};
+/**
+ * Filters rows using the given SQL expression string or Filters rows using the given Column..
+ * @param {string | Column} 
+ * @returns {DataFrame}
+ */
 DataFrame.prototype.filter = function(arg) {
     if(typeof arg === 'object') 
         return this.filterWithColumn(arguments[0]);
     else 
         return this.filterWithString(arguments[0]);
 };
-
-DataFrame.prototype.show = function() {
-    this.jvmDataFrame.show();
+/**
+ * Filters rows using the given Column
+ * @param {Column} col
+ * @returns {DataFrame}
+ */
+DataFrame.prototype.filterWithColumn = function(col) {
+    return new DataFrame(this.getJavaObject().filter(col.getJavaObject()));
 };
-
-DataFrame.prototype.count = function() {
-    return this.jvmDataFrame.count();
+/**
+ * Filters rows using the given SQL expression string
+ * @param {string} columnExpr
+ * @returns {DataFrame}
+ */
+DataFrame.prototype.filterWithString = function(columnExpr) {
+    return new DataFrame(this.getJavaObject().filter(columnExpr));
 };
-
-DataFrame.prototype.columns = function() {
-    return this.jvmDataFrame.columns();
+/**
+ * Returns a new RDD by first applying a function to all rows of this DataFrame, and then flattening the results.
+ * @param {function} func
+ * @returns {RDD}
+ */
+DataFrame.prototype.flatMap = function(func) {
+    var sv = Utils.createJavaParams(func);
+    var fn = new org.eclairjs.nashorn.JSFlatMapFunction(sv.funcStr, sv.scopeVars);
+    return new RDD(this.getJavaObject().flatMap(fn));
 };
-
+/**
+ * Groups the DataFrame using the specified columns, so we can run aggregation on them
+ * @param {string[] | Column[]} - Array of Column objects of column name strings
+ * @returns {GroupedData}
+ */
 DataFrame.prototype.groupBy = function() {
     var args = Array.prototype.slice.call(arguments);
     var len = args.length;
@@ -215,49 +146,139 @@ DataFrame.prototype.groupBy = function() {
     else 
         return this.groupByWithStrings(args);
 };
+/**
+ * Groups the DataFrame using the specified columns, so we can run aggregation on them
+ * @param {Columns[]}
+ * @returns {GroupedData}
+ */
+DataFrame.prototype.groupByWithColumns = function(args) {
+    var jCols = args.map(function(v) {
+        return v.getJavaObject();
+    });
 
-DataFrame.prototype.flatMap = function(func) {
-    var sv = Utils.createJavaParams(func);
-    var fn = new org.eclairjs.nashorn.JSFlatMapFunction(sv.funcStr, sv.scopeVars);
-    return new RDD(this.jvmDataFrame.flatMap(fn));
+    var jGroupedData = this.getJavaObject().groupBy(jCols);
+    var gd = new GroupedData(jGroupedData);
+
+    return gd;
 };
+/**
+ * Groups the DataFrame using the specified columns, so we can run aggregation on them
+ * @param {string[]} columnNames
+ * @returns {GroupedData}
+ */
+DataFrame.prototype.groupByWithStrings = function(args) {
+    var jGroupedData = this.getJavaObject().groupBy(args);
+    var gd = new GroupedData(jGroupedData);
 
-DataFrame.prototype.where = function(condition) {
-    return new DataFrame(this.jvmDataFrame.where(condition));
+    return gd;
 };
-
-DataFrame.prototype.withColumn = function(name, col) {
-    return new DataFrame(this.jvmDataFrame.withColumn(name, col));
-};
-
+/**
+ * Returns the first row.
+ * @returns {Row}
+ */
 DataFrame.prototype.head = function() {
-    return new Row(this.jvmDataFrame.head());
+    return new Row(this.getJavaObject().head());
 };
-
-DataFrame.prototype.registerTempTable = function(name) {
-    this.jvmDataFrame.registerTempTable(name);
+/**
+ * Registers this DataFrame as a temporary table using the given name.
+ * @param {string} tableName
+ */
+DataFrame.prototype.registerTempTable = function(tableName) {
+    this.getJavaObject().registerTempTable(tableName);
 };
+/**
+ * Selects a set of column based expressions.
+ * @param {Column[] | string[]}
+ * @returns  {DataFrame}
+ */
+DataFrame.prototype.select = function() {
+    var args = Array.prototype.slice.call(arguments);
+    var len = args.length;
 
+    if(args.length == 0)
+        return self;
+
+    if(typeof args[0] === 'object') 
+        return this.selectWithColumns(args);
+    else 
+        return this.selectWithStrings(args);
+};
+/**
+ * Selects a set of column based expressions.
+ * @param {Column[]}
+ * @returns {DataFrame}
+ */
+DataFrame.prototype.selectWithColumns = function(args) {
+    var jdf = this.getJavaObject().select(args);
+    var df = new DataFrame(jdf);
+
+    return df;
+};
+/**
+ * Selects a set of column based expressions.
+ * @param {string[]}
+ * @returns {DataFrame}
+ */
+DataFrame.prototype.selectWithStrings = function(args) {
+    var jdf = this.getJavaObject().select(args);
+    var df = new DataFrame(jdf);
+
+    return df;
+};
+/**
+ * Displays the top 20 rows of DataFrame in a tabular form.
+ */
+DataFrame.prototype.show = function() {
+    this.getJavaObject().show();
+};
+/**
+ * Returns the first n rows in the DataFrame.
+ * @param {integer} num
+ * @returns {Row[]}
+ */
 DataFrame.prototype.take = function(num) {
-    var rows = this.jvmDataFrame.take(num);
+    var rows = this.getJavaObject().take(num);
     return rows.map(function(row) {
         return new Row(row);
     })
+};
+/**
+ * Returns the content of the DataFrame as a RDD of JSON strings.
+ * @returns {RDD}
+ */
+DataFrame.prototype.toJSON = function() {
+    return new RDD(this.getJavaObject().toJSON());
 };
 /**
  * Returns a RDD object.
  * @returns {RDD}
  */
 DataFrame.prototype.toRDD = function() {
-    return new RDD(this.jvmDataFrame.javaRDD());
+    return new RDD(this.getJavaObject().javaRDD());
 };
-
-DataFrame.prototype.toJSON = function() {
-    return new RDD(this.jvmDataFrame.toJSON());
+/**
+ * Filters rows using the given Column or SQL expression.
+ * @param {Column | string} condition - .
+ * @returns {DataFrame}
+ */
+DataFrame.prototype.where = function(condition) {
+    return new DataFrame(this.getJavaObject().where(condition));
 };
-
+/**
+ * Returns a new DataFrame by adding a column or replacing the existing column that has the same name.
+ * @param {string} name
+ * @param {Column} col
+ * @returns {DataFrame}
+ */
+DataFrame.prototype.withColumn = function(name, col) {
+    return new DataFrame(this.getJavaObject().withColumn(name, col));
+};
+/**
+ * Interface for saving the content of the DataFrame out into external storage. 
+ * @returns {DataFrameWriter}
+ */
 DataFrame.prototype.write = function() {
-    return new DataFrameWriter(this.jvmDataFrame.write());
+    return new DataFrameWriter(this.getJavaObject().write());
 };
 </code></pre>
         </article>
@@ -269,13 +290,13 @@ DataFrame.prototype.write = function() {
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulator.html">Accumulator</a></li><li><a href="DStream.html">DStream</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li></ul><h3>Global</h3><ul><li><a href="global.html#LabeledPoint">LabeledPoint</a></li><li><a href="global.html#Logger">Logger</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulator.html">Accumulator</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DStream.html">DStream</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li></ul><h3>Global</h3><ul><li><a href="global.html#LabeledPoint">LabeledPoint</a></li><li><a href="global.html#Logger">Logger</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Mon Nov 09 2015 15:23:26 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Wed Nov 11 2015 11:36:56 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -73,9 +73,10 @@ var sparkContext = new SparkContext(conf);
 **Prerequisites**
 - [Jupyter](http://jupyter.org/)
  
+
 1. ```mvn package -Pnotebook```
 2. edit kernel.json ```<absolute path to sparkkernel executable>``` to be ```/Users/<yourName>/local/bin/sparkkernel```
-3. edit kernel.json ```ECLAIR_JAR``` to point eclair-nashorn-0.1.jar location
+3. copy ```target/eclairjs-nashorn-0.1.jar``` to  ```~/local/kernel/kernel-0.1.5-SNAPSHOT/lib/```
 4. copy kernel.json to ```~/.ipython/kernels/eclair/kernel.json```
 5. Create a directory for your notebook ```mkdir ~/jsNotebook```
 6. Change to that directory ```cd ~/jsNotebook```

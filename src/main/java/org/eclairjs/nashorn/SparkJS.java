@@ -100,6 +100,7 @@ public class SparkJS{
 	
 	public void displayWelcome() {
 		System.out.println("Welcome to eclairJS-nashorn, Type in expressions to have them evaluated.");
+		System.out.println("SQL context available as sc..");
 	}
 	
 	private String getMaster() {
