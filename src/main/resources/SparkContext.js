@@ -18,16 +18,16 @@ load("nashorn:mozilla_compat.js");
 
 var imported = new JavaImporter(
     org.apache.spark.api.java,
-    org.apache.log4j.Logger,
     org.apache.log4j.Level
 );
 
 with (imported) {
 
-    Logger.getLogger("org").setLevel(Level.WARN);
-    Logger.getLogger("akka").setLevel(Level.WARN);
+	org.apache.log4j.Logger.getLogger("org").setLevel(Level.WARN);
+	org.apache.log4j.Logger.getLogger("akka").setLevel(Level.WARN);
 
     var initSparkContext = function(conf) {
+    	var logger = Logger.getLogger("SparkContext_js");
         if(kernel) {
             if(kernel.javaSparkContext() != null) {
                 return kernel.javaSparkContext();
@@ -48,7 +48,7 @@ with (imported) {
         var decodedPath = org.eclairjs.nashorn.Utils.jarLoc();
         var devEnvPath = "/target/classes/";
         var jarEnvPath = ".jar";
-        print("jar decodedPath = " + decodedPath);
+        logger.info("jar decodedPath = " + decodedPath);
         if (decodedPath.indexOf(devEnvPath, 
                                 decodedPath.length - devEnvPath.length) !== -1) 
         {
@@ -75,6 +75,7 @@ with (imported) {
 	 */
     var SparkContext = function() {
     	var jvmObj;
+    	this.logger = Logger.getLogger("SparkContext_js");
         if(arguments.length == 2) {
             var conf = new SparkConf()
             conf.setMaster(arguments[0])
