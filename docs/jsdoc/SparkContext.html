@@ -30,6 +30,10 @@
     SparkContext
     </h2>
     
+        <div class="class-description">A JavaScript-friendly version of SparkContext that returns RDDs 
+Only one SparkContext may be active per JVM. You must stop() the active SparkContext before creating a new one. 
+This limitation may eventually be removed; see SPARK-2243 for more details.</div>
+    
 </header>  
 
 <article>
@@ -45,12 +49,6 @@
 </dt>
 <dd>
     
-    
-    <div class="description">
-        A Java-friendly version of SparkContext that returns JavaRDDs and works with Java collections instead of Scala ones.
-Only one SparkContext may be active per JVM. You must stop() the active SparkContext before creating a new one. 
-This limitation may eventually be removed; see SPARK-2243 for more details.
-    </div>
     
 
     
@@ -89,7 +87,7 @@ This limitation may eventually be removed; see SPARK-2243 for more details.
             <td class="type">
             
                 
-<span class="param-type">SparkConf</span>
+<span class="param-type"><a href="SparkConf.html">SparkConf</a></span>
 
 
             
@@ -130,7 +128,7 @@ This limitation may eventually be removed; see SPARK-2243 for more details.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line76">line 76</a>
+        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line77">line 77</a>
     </li></ul></dd>
     
     
@@ -267,7 +265,7 @@ To access the file in Spark jobs, use SparkFiles.get(fileName) to find its downl
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line101">line 101</a>
+        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line102">line 102</a>
     </li></ul></dd>
     
     
@@ -384,7 +382,7 @@ To access the file in Spark jobs, use SparkFiles.get(fileName) to find its downl
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line108">line 108</a>
+        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line109">line 109</a>
     </li></ul></dd>
     
     
@@ -502,7 +500,7 @@ The variable will be sent to each cluster only once.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line118">line 118</a>
+        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line119">line 119</a>
     </li></ul></dd>
     
     
@@ -660,7 +658,7 @@ The variable will be sent to each cluster only once.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line128">line 128</a>
+        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line129">line 129</a>
     </li></ul></dd>
     
     
@@ -747,7 +745,7 @@ The variable will be sent to each cluster only once.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line155">line 155</a>
+        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line156">line 156</a>
     </li></ul></dd>
     
     
@@ -888,7 +886,7 @@ and return it as an RDD of Strings.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line144">line 144</a>
+        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line145">line 145</a>
     </li></ul></dd>
     
     
@@ -947,13 +945,13 @@ and return it as an RDD of Strings.
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulator.html">Accumulator</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DStream.html">DStream</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li></ul><h3>Global</h3><ul><li><a href="global.html#LabeledPoint">LabeledPoint</a></li><li><a href="global.html#Logger">Logger</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulator.html">Accumulator</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DStream.html">DStream</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li></ul><h3>Global</h3><ul><li><a href="global.html#LabeledPoint">LabeledPoint</a></li><li><a href="global.html#Logger">Logger</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Wed Nov 11 2015 11:36:57 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Wed Nov 11 2015 17:53:08 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>
