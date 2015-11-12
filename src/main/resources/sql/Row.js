@@ -32,10 +32,10 @@ scala.collection.Seq<java.lang.Object>	toSeq()
 Return a Scala Seq representing the row.
 */
 /**
- * Represents one row of output from a relational operator. Allows both generic access by ordinal, which will incur boxing overhead for primitives, as well as native primitive access.
+ * @constructor
+ * @classdesc Represents one row of output from a relational operator. Allows both generic access by ordinal, which will incur boxing overhead for primitives, as well as native primitive access.
  * It is invalid to use the native primitive interface to retrieve a value that is null, instead a user must check isNullAt before attempting to retrieve a value that might be null.
  * To create a new Row, use RowFactory.create()
- *  @constructor
  *  
  */
 function Row(jvmObj) {
@@ -44,7 +44,7 @@ function Row(jvmObj) {
   JavaWrapper.call(this, jvmObj);
 
   // Initialize our Row-specific properties
-  this.logger = Logger.getLogger("Row_js");
+  this.logger = Logger.getLogger("sql.Row_js");
   this.logger.debug("Row constructor");
 };
 

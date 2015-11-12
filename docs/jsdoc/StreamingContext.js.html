@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: sql/RowFactory.js</title>
+    <title>JSDoc: Source: streaming/StreamingContext.js</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: sql/RowFactory.js</h1>
+    <h1 class="page-title">Source: streaming/StreamingContext.js</h1>
     
     
 
@@ -40,27 +40,73 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+var JavaStreamingContext = 
+    Java.type('org.apache.spark.streaming.api.java.JavaStreamingContext');
 /**
  * @constructor
- * @classdesc A factory class used to construct Row objects.
+ * @classdesc Main entry point for Spark Streaming functionality. It provides methods used to create DStreams from various input sources.
+ *  It can be either created by providing a Spark master URL and an appName, or from a org.apache.spark.SparkConf configuration 
+ *  (see core Spark documentation), or from an existing org.apache.spark.SparkContext. The associated SparkContext can be accessed 
+ *  using context.sparkContext. After creating and transforming DStreams, the streaming computation can be started and stopped using 
+ *  context.start() and context.stop(), respectively. context.awaitTermination() allows the current thread to wait for the termination 
+ *  of the context by stop() or by an exception.
+ *  @param {SparkContex} sparkContext
+ *  @param {Duration} duration
  */
+var StreamingContext = function(sparkContext, duration) {
+	var jvmObj = 
+        new JavaStreamingContext(Utils.unwrapObject(sparkContext), 
+    							 Utils.unwrapObject(duration)
+    							 );
+	this.logger = Logger.getLogger("streaming.Duration_js");
+	JavaWrapper.call(this, jvmObj);
+};
 
-var RowFactory =  {
-	
+StreamingContext.prototype = Object.create(JavaWrapper.prototype); 
+
+StreamingContext.prototype.constructor = StreamingContext;
+/**
+ * Wait for the execution to stop
+ */
+StreamingContext.prototype.awaitTermination = function() {
+    this.getJavaObject().awaitTermination();
 };
 /**
- * Create a Row from the given arguments. Position i in the argument list becomes position i in the created Row object.
- * @param {object} values
- * @returns {Row}
+ * Wait for the execution to stop, or timeout
+ * @param {long} millis
+ * @returns {boolean}
  */
-RowFactory.create = function(values) {
-	//public static Row create(java.lang.Object... values)
-	Logger.getLogger("sql.RowFactory_js").debug("RowFactory.create= " + values);
-	var row = org.apache.spark.sql.RowFactory.create(values);
-	var r = new Row(row);
-	//print("RowFactory.create row = " + r);
-	return r;
+StreamingContext.prototype.awaitTerminationOrTimeout = function(millis) {
+    return this.getJavaObject().awaitTerminationOrTimeout(millis);
 };
+/**
+ * Start the execution of the streams.
+ */
+StreamingContext.prototype.start = function() {
+    this.getJavaObject().start();
+};
+/**
+ * Stops the execution of the streams.
+ */
+StreamingContext.prototype.stop = function() {
+    this.getJavaObject().stop();
+};
+/**
+ * Create a input stream from TCP source hostname:port.
+ * @param {string} host
+ * @param {string} port
+ * @returns {DStream}
+ */
+StreamingContext.prototype.socketTextStream = function(host, port) {
+    var jDStream = this.getJavaObject().socketTextStream(host, port);
+
+    return new DStream(jDStream);
+};
+
+
+
+
 </code></pre>
         </article>
     </section>

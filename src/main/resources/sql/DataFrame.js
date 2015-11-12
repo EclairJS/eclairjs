@@ -13,21 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * A distributed collection of data organized into named columns. A DataFrame is equivalent to a relational table in Spark SQL.
+/** 
  * @constructor
+ * @classdesc A distributed collection of data organized into named columns. A DataFrame is equivalent to a relational table in Spark SQL.
  */
 var DataFrame = function(jvmDataFrame) {
 	JavaWrapper.call(this, jvmDataFrame);
 
 	  // Initialize our Row-specific properties
-	this.logger = Logger.getLogger("DataFrame_js");
+	this.logger = Logger.getLogger("sql.DataFrame_js");
 };
 
 DataFrame.prototype = Object.create(JavaWrapper.prototype); 
 
 //Set the "constructor" property to refer to DataFrame
 DataFrame.prototype.constructor = DataFrame;
+
 /**
  * Returns a new DataFrame with an alias set.
  * @param {string} alias

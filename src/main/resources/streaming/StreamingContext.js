@@ -16,11 +16,22 @@
 
 var JavaStreamingContext = 
     Java.type('org.apache.spark.streaming.api.java.JavaStreamingContext');
-
+/**
+ * @constructor
+ * @classdesc Main entry point for Spark Streaming functionality. It provides methods used to create DStreams from various input sources.
+ *  It can be either created by providing a Spark master URL and an appName, or from a org.apache.spark.SparkConf configuration 
+ *  (see core Spark documentation), or from an existing org.apache.spark.SparkContext. The associated SparkContext can be accessed 
+ *  using context.sparkContext. After creating and transforming DStreams, the streaming computation can be started and stopped using 
+ *  context.start() and context.stop(), respectively. context.awaitTermination() allows the current thread to wait for the termination 
+ *  of the context by stop() or by an exception.
+ *  @param {SparkContex} sparkContext
+ *  @param {Duration} duration
+ */
 var StreamingContext = function(sparkContext, duration) {
 	var jvmObj = 
-        new JavaStreamingContext(sparkContext.getJavaObject(), 
-                                 duration.getJavaObject());
+        new JavaStreamingContext(Utils.unwrapObject(sparkContext), 
+    							 Utils.unwrapObject(duration)
+    							 );
 	this.logger = Logger.getLogger("streaming.Duration_js");
 	JavaWrapper.call(this, jvmObj);
 };
@@ -28,26 +39,44 @@ var StreamingContext = function(sparkContext, duration) {
 StreamingContext.prototype = Object.create(JavaWrapper.prototype); 
 
 StreamingContext.prototype.constructor = StreamingContext;
-
-
+/**
+ * Wait for the execution to stop
+ */
+StreamingContext.prototype.awaitTermination = function() {
+    this.getJavaObject().awaitTermination();
+};
+/**
+ * Wait for the execution to stop, or timeout
+ * @param {long} millis
+ * @returns {boolean}
+ */
+StreamingContext.prototype.awaitTerminationOrTimeout = function(millis) {
+    return this.getJavaObject().awaitTerminationOrTimeout(millis);
+};
+/**
+ * Start the execution of the streams.
+ */
 StreamingContext.prototype.start = function() {
     this.getJavaObject().start();
 };
-
+/**
+ * Stops the execution of the streams.
+ */
 StreamingContext.prototype.stop = function() {
     this.getJavaObject().stop();
 };
-
+/**
+ * Create a input stream from TCP source hostname:port.
+ * @param {string} host
+ * @param {string} port
+ * @returns {DStream}
+ */
 StreamingContext.prototype.socketTextStream = function(host, port) {
     var jDStream = this.getJavaObject().socketTextStream(host, port);
 
     return new DStream(jDStream);
 };
 
-StreamingContext.prototype.awaitTerminationOrTimeout = function(millis) {
-    return this.getJavaObject().awaitTerminationOrTimeout(millis);
-};
 
-StreamingContext.prototype.awaitTermination = function() {
-    return this.getJavaObject().awaitTermination();
-};
+
+

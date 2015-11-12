@@ -14,11 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * http://usejsdoc.org/
- */
-
-
 var Logger = {};
 
 Logger.getLogger = function(str) {

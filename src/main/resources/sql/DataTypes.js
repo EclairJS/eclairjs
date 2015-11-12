@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 /**
- * The base type of all Spark SQL data types.
  * @constructor
+ * @classdesc The base type of all Spark SQL data types.
  */
 var DataTypes = function() {
 

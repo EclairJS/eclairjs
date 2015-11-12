@@ -46,10 +46,6 @@
 <dd>
     
     
-    <div class="description">
-        Represents a Discretized Stream (DStream), the basic abstraction in Spark Streaming, is a continuous sequence of RDDs (of the same type) representing a continuous stream of data.
-    </div>
-    
 
     
     
@@ -128,7 +124,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DStream.js.html">streaming/dstream/DStream.js</a>, <a href="DStream.js.html#line23">line 23</a>
+        <a href="DStream.js.html">streaming/dstream/DStream.js</a>, <a href="DStream.js.html#line24">line 24</a>
     </li></ul></dd>
     
     
@@ -258,7 +254,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DStream.js.html">streaming/dstream/DStream.js</a>, <a href="DStream.js.html#line38">line 38</a>
+        <a href="DStream.js.html">streaming/dstream/DStream.js</a>, <a href="DStream.js.html#line39">line 39</a>
     </li></ul></dd>
     
     
@@ -312,7 +308,8 @@
     
     
     <div class="description">
-        Apply a function to each RDD in this DStream. This is an output operator, so 'this' DStream will be registered as an output stream and therefore materialized.
+        Apply a function to each RDD in this DStream. This is an output operator, so 'this' DStream will be registered as an output 
+stream and therefore materialized.
     </div>
     
 
@@ -388,7 +385,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DStream.js.html">streaming/dstream/DStream.js</a>, <a href="DStream.js.html#line69">line 69</a>
+        <a href="DStream.js.html">streaming/dstream/DStream.js</a>, <a href="DStream.js.html#line72">line 72</a>
     </li></ul></dd>
     
     
@@ -518,7 +515,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DStream.js.html">streaming/dstream/DStream.js</a>, <a href="DStream.js.html#line49">line 49</a>
+        <a href="DStream.js.html">streaming/dstream/DStream.js</a>, <a href="DStream.js.html#line50">line 50</a>
     </li></ul></dd>
     
     
@@ -572,7 +569,8 @@
     
     
     <div class="description">
-        Print the first ten elements of each RDD generated in this DStream. This is an output operator, so this DStream will be registered as an output stream and there materialized.
+        Print the first ten elements of each RDD generated in this DStream. This is an output operator, so this DStream will be 
+registered as an output stream and there materialized.
     </div>
     
 
@@ -605,7 +603,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DStream.js.html">streaming/dstream/DStream.js</a>, <a href="DStream.js.html#line79">line 79</a>
+        <a href="DStream.js.html">streaming/dstream/DStream.js</a>, <a href="DStream.js.html#line83">line 83</a>
     </li></ul></dd>
     
     
@@ -659,7 +657,8 @@
     
     
     <div class="description">
-        Return a new DStream in which each RDD contains all the elements in seen in a sliding window of time over this DStream. The new DStream generates RDDs with the same interval as this DStream.
+        Return a new DStream in which each RDD contains all the elements in seen in a sliding window of time over this DStream. 
+The new DStream generates RDDs with the same interval as this DStream.
     </div>
     
 
@@ -735,7 +734,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DStream.js.html">streaming/dstream/DStream.js</a>, <a href="DStream.js.html#line60">line 60</a>
+        <a href="DStream.js.html">streaming/dstream/DStream.js</a>, <a href="DStream.js.html#line62">line 62</a>
     </li></ul></dd>
     
     
@@ -794,13 +793,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulator.html">Accumulator</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DStream.html">DStream</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li></ul><h3>Global</h3><ul><li><a href="global.html#LabeledPoint">LabeledPoint</a></li><li><a href="global.html#Logger">Logger</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulator.html">Accumulator</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Wed Nov 11 2015 17:53:08 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Thu Nov 12 2015 12:04:52 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>

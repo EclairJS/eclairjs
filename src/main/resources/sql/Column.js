@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 /**
- * A column in a DataFrame.
+ * 
  * @constructor
+ * @classdesc A column in a DataFrame.
  */
 var Column = function(jvmColumn) {
 	var jvmObj = jvmColumn;
-    this.logger = Logger.getLogger("Column_js");
+    this.logger = Logger.getLogger("sql.Column_js");
     JavaWrapper.call(this, jvmObj);
 };
 

@@ -16,8 +16,9 @@
 
 
 /**
- * Represents a Discretized Stream (DStream), the basic abstraction in Spark Streaming, is a continuous sequence of RDDs (of the same type) representing a continuous stream of data.
  * @constructor
+ * @classdec Represents a Discretized Stream (DStream), the basic abstraction in Spark Streaming, 
+ * is a continuous sequence of RDDs (of the same type) representing a continuous stream of data.
  * @param {object} jDStream 
   */
 var DStream = function(jDStream) {
@@ -53,7 +54,8 @@ DStream.prototype.map = function(func) {
 };
 
 /**
- * Return a new DStream in which each RDD contains all the elements in seen in a sliding window of time over this DStream. The new DStream generates RDDs with the same interval as this DStream.
+ * Return a new DStream in which each RDD contains all the elements in seen in a sliding window of time over this DStream. 
+ * The new DStream generates RDDs with the same interval as this DStream.
  * @param duration - width of the window; must be a multiple of this DStream's interval.
  * @returns {DStream}
  */
@@ -62,7 +64,8 @@ DStream.prototype.window = function(duration) {
 };
 
 /**
- * Apply a function to each RDD in this DStream. This is an output operator, so 'this' DStream will be registered as an output stream and therefore materialized.
+ * Apply a function to each RDD in this DStream. This is an output operator, so 'this' DStream will be registered as an output 
+ * stream and therefore materialized.
  * @param func
  * @returns {void}
  */
@@ -73,7 +76,8 @@ DStream.prototype.foreachRDD = function(func) {
 }
 
 /**
- * Print the first ten elements of each RDD generated in this DStream. This is an output operator, so this DStream will be registered as an output stream and there materialized.
+ * Print the first ten elements of each RDD generated in this DStream. This is an output operator, so this DStream will be 
+ * registered as an output stream and there materialized.
  * @returns {void}
  */
 DStream.prototype.print = function() {

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: SparkContext</title>
+    <title>JSDoc: Class: StreamingContext</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Class: SparkContext</h1>
+    <h1 class="page-title">Class: StreamingContext</h1>
     
     
 
@@ -27,12 +27,15 @@
     
 <header>
     <h2>
-    SparkContext
+    StreamingContext
     </h2>
     
-        <div class="class-description">A JavaScript-friendly version of SparkContext that returns RDDs 
-Only one SparkContext may be active per JVM. You must stop() the active SparkContext before creating a new one. 
-This limitation may eventually be removed; see SPARK-2243 for more details.</div>
+        <div class="class-description">Main entry point for Spark Streaming functionality. It provides methods used to create DStreams from various input sources.
+ It can be either created by providing a Spark master URL and an appName, or from a org.apache.spark.SparkConf configuration 
+ (see core Spark documentation), or from an existing org.apache.spark.SparkContext. The associated SparkContext can be accessed 
+ using context.sparkContext. After creating and transforming DStreams, the streaming computation can be started and stopped using 
+ context.start() and context.stop(), respectively. context.awaitTermination() allows the current thread to wait for the termination 
+ of the context by stop() or by an exception.</div>
     
 </header>  
 
@@ -43,7 +46,7 @@ This limitation may eventually be removed; see SPARK-2243 for more details.</div
     
         
 <dt>
-    <h4 class="name" id="SparkContext"><span class="type-signature"></span>new SparkContext<span class="signature">(conf)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="StreamingContext"><span class="type-signature"></span>new StreamingContext<span class="signature">(sparkContext, duration)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -81,13 +84,13 @@ This limitation may eventually be removed; see SPARK-2243 for more details.</div
 	
         <tr>
             
-                <td class="name"><code>conf</code></td>
+                <td class="name"><code>sparkContext</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type"><a href="SparkConf.html">SparkConf</a></span>
+<span class="param-type">SparkContex</span>
 
 
             
@@ -97,7 +100,30 @@ This limitation may eventually be removed; see SPARK-2243 for more details.</div
             
             
             
-            <td class="description last">a object specifying Spark parameters</td>
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>duration</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Duration.html">Duration</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
         </tr>
 	
 	
@@ -128,7 +154,7 @@ This limitation may eventually be removed; see SPARK-2243 for more details.</div
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line77">line 77</a>
+        <a href="StreamingContext.js.html">streaming/StreamingContext.js</a>, <a href="StreamingContext.js.html#line30">line 30</a>
     </li></ul></dd>
     
     
@@ -174,7 +200,7 @@ This limitation may eventually be removed; see SPARK-2243 for more details.</div
         <dl>
             
 <dt>
-    <h4 class="name" id="addFile"><span class="type-signature"></span>addFile<span class="signature">(path)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="awaitTermination"><span class="type-signature"></span>awaitTermination<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -182,9 +208,7 @@ This limitation may eventually be removed; see SPARK-2243 for more details.</div
     
     
     <div class="description">
-        Add a file to be downloaded with this Spark job on every node. The path passed can be either a local file, 
-a file in HDFS (or other Hadoop-supported filesystems), or an HTTP, HTTPS or FTP URI. 
-To access the file in Spark jobs, use SparkFiles.get(fileName) to find its download location.
+        Wait for the execution to stop
     </div>
     
 
@@ -192,54 +216,6 @@ To access the file in Spark jobs, use SparkFiles.get(fileName) to find its downl
     
     
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>path</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">Path to the file</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
     
     
     
@@ -265,7 +241,7 @@ To access the file in Spark jobs, use SparkFiles.get(fileName) to find its downl
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line102">line 102</a>
+        <a href="StreamingContext.js.html">streaming/StreamingContext.js</a>, <a href="StreamingContext.js.html#line45">line 45</a>
     </li></ul></dd>
     
     
@@ -293,7 +269,7 @@ To access the file in Spark jobs, use SparkFiles.get(fileName) to find its downl
         
             
 <dt>
-    <h4 class="name" id="addJar"><span class="type-signature"></span>addJar<span class="signature">(path)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="awaitTerminationOrTimeout"><span class="type-signature"></span>awaitTerminationOrTimeout<span class="signature">(millis)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
     
     
 </dt>
@@ -301,7 +277,7 @@ To access the file in Spark jobs, use SparkFiles.get(fileName) to find its downl
     
     
     <div class="description">
-        Adds a JAR dependency for all tasks to be executed on this SparkContext in the future. The path passed can be either a local file, a file in HDFS (or other Hadoop-supported filesystems), or an HTTP, HTTPS or FTP URI.
+        Wait for the execution to stop, or timeout
     </div>
     
 
@@ -335,131 +311,13 @@ To access the file in Spark jobs, use SparkFiles.get(fileName) to find its downl
 	
         <tr>
             
-                <td class="name"><code>path</code></td>
+                <td class="name"><code>millis</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">Path to the jar</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line109">line 109</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="broadcast"><span class="type-signature"></span>broadcast<span class="signature">(value)</span><span class="type-signature"> &rarr; {Broadcast}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Broadcast a read-only variable to the cluster, returning a Broadcast object for reading it in distributed functions. 
-The variable will be sent to each cluster only once.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
+<span class="param-type">long</span>
 
 
             
@@ -500,7 +358,7 @@ The variable will be sent to each cluster only once.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line119">line 119</a>
+        <a href="StreamingContext.js.html">streaming/StreamingContext.js</a>, <a href="StreamingContext.js.html#line53">line 53</a>
     </li></ul></dd>
     
     
@@ -532,7 +390,7 @@ The variable will be sent to each cluster only once.
 	</dt>
 	<dd>
 		
-<span class="param-type">Broadcast</span>
+<span class="param-type">boolean</span>
 
 
 	</dd>
@@ -546,7 +404,7 @@ The variable will be sent to each cluster only once.
         
             
 <dt>
-    <h4 class="name" id="parallelize"><span class="type-signature"></span>parallelize<span class="signature">(list, numSlices)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    <h4 class="name" id="socketTextStream"><span class="type-signature"></span>socketTextStream<span class="signature">(host, port)</span><span class="type-signature"> &rarr; {<a href="DStream.html">DStream</a>}</span></h4>
     
     
 </dt>
@@ -554,7 +412,7 @@ The variable will be sent to each cluster only once.
     
     
     <div class="description">
-        Distribute a local Scala collection to form an RDD.
+        Create a input stream from TCP source hostname:port.
     </div>
     
 
@@ -588,13 +446,13 @@ The variable will be sent to each cluster only once.
 	
         <tr>
             
-                <td class="name"><code>list</code></td>
+                <td class="name"><code>host</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">array</span>
+<span class="param-type">string</span>
 
 
             
@@ -611,13 +469,13 @@ The variable will be sent to each cluster only once.
 	
         <tr>
             
-                <td class="name"><code>numSlices</code></td>
+                <td class="name"><code>port</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">integer</span>
+<span class="param-type">string</span>
 
 
             
@@ -627,7 +485,7 @@ The variable will be sent to each cluster only once.
             
             
             
-            <td class="description last">Optional</td>
+            <td class="description last"></td>
         </tr>
 	
 	
@@ -658,7 +516,7 @@ The variable will be sent to each cluster only once.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line129">line 129</a>
+        <a href="StreamingContext.js.html">streaming/StreamingContext.js</a>, <a href="StreamingContext.js.html#line74">line 74</a>
     </li></ul></dd>
     
     
@@ -690,13 +548,82 @@ The variable will be sent to each cluster only once.
 	</dt>
 	<dd>
 		
-<span class="param-type"><a href="RDD.html">RDD</a></span>
+<span class="param-type"><a href="DStream.html">DStream</a></span>
 
 
 	</dd>
 </dl>
 
         
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="start"><span class="type-signature"></span>start<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Start the execution of the streams.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="StreamingContext.js.html">streaming/StreamingContext.js</a>, <a href="StreamingContext.js.html#line59">line 59</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
     
     
 </dd>
@@ -712,7 +639,7 @@ The variable will be sent to each cluster only once.
     
     
     <div class="description">
-        Shut down the SparkContext.
+        Stops the execution of the streams.
     </div>
     
 
@@ -745,7 +672,7 @@ The variable will be sent to each cluster only once.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line156">line 156</a>
+        <a href="StreamingContext.js.html">streaming/StreamingContext.js</a>, <a href="StreamingContext.js.html#line65">line 65</a>
     </li></ul></dd>
     
     
@@ -766,165 +693,6 @@ The variable will be sent to each cluster only once.
     
     
     
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="textFile"><span class="type-signature"></span>textFile<span class="signature">(path, minPartitions)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Read a text file from HDFS, a local file system (available on all nodes), or any Hadoop-supported file system URI, 
-and return it as an RDD of Strings.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>path</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">path to file</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>minPartitions</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">int</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">Optional</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line145">line 145</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="RDD.html">RDD</a></span>
-
-
-	</dd>
-</dl>
-
-        
     
     
 </dd>

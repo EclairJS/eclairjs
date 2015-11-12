@@ -59,6 +59,7 @@ public class Utils {
     		try {
  	  			Invocable invocable = (Invocable) engine;
 	  			logger.info("create LabledPoint");
+	  			// FIXME should be using createJavaWrapperObject
 	  			Object parm = invocable.invokeFunction("labeledPointFromJavaObject", o);
 	  			logger.info(parm);
 	  			return parm;
@@ -91,6 +92,7 @@ public class Utils {
 				//engine.eval("function convertTuple2(o1, o2) { return [o1 ,o2 ]}");
 				Invocable invocable = (Invocable) engine;
 				 Object params[] = {o1, o2};
+				// FIXME should be using createJavaWrapperObject
 				 er  = invocable.invokeFunction("convertJavaTuple2",params);
 			} catch (ScriptException | NoSuchMethodException e) {
 				logger.error(" Tuple2 convertion " + e);

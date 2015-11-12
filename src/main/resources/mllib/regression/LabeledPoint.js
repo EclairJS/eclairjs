@@ -15,18 +15,21 @@
  */
 
 /**
- * New LabeledPoint node file
+ * @constructor
+ * @classdesc Class that represents the features and labels of a data point.
+ * @param {double} label
+ * @param {double[]} features
  */
 
-var LabeledPoint = function(x, y) { 
+var LabeledPoint = function(label, features) { 
 	this.logger = Logger.getLogger("mllib.regression.LabeledPoint_js");
 	var jvmObj;
-	if ( y == null) {
+	if ( features == null) {
   	 	this.logger.debug("Java object ");
-  	 	jvmObj = x;
+  	 	jvmObj = label;
 	} else {
-		var features = org.apache.spark.mllib.linalg.Vectors.dense(y)
-		jvmObj = new org.apache.spark.mllib.regression.LabeledPoint(x, features);
+		var f = org.apache.spark.mllib.linalg.Vectors.dense(features)
+		jvmObj = new org.apache.spark.mllib.regression.LabeledPoint(label, f);
 
 	}
 	JavaWrapper.call(this, jvmObj);
@@ -35,30 +38,49 @@ var LabeledPoint = function(x, y) {
 LabeledPoint.prototype = Object.create(JavaWrapper.prototype); 
 
 LabeledPoint.prototype.constructor = LabeledPoint;
-
+/**
+ * Returns features
+ * @returns {double[]} 
+ */
+LabeledPoint.prototype.getFeatures = function() {
+	return this.getJavaObject().features().toArray();
+};
+/**
+ * Returns label
+ * @returns {double}
+ */
 LabeledPoint.prototype.getLabel = function() {
 	return this.getJavaObject().label();
-}
-
-LabeledPoint.prototype.getFeatures = function() {
-	// FIXME: need to convert Vector to array before returning
-	return this.getJavaObject().features();
-}
-
-LabeledPoint.prototype.toString = function() {
-	return "{label: " + this.getLabel() + ", features: " + this.getFeatures() + " }";
-}
-
-LabeledPoint.prototype.toJSON = function() {
-	return this.toString();
-}
-
+};
+/**
+ * Parses a string resulted from LabeledPoint#toString into an LabeledPoint.
+ * @param string
+ * @returns {LabeledPoint}
+ */
 LabeledPoint.prototype.parse = function(string) {
 	var lp = org.apache.spark.mllib.regression.LabeledPoint.parse(s);
 	var l = new LabeledPoint(lp);
+	return l;
+};
+/**
+ * Returns string representation of object
+ * @returns {string}
+ */
+LabeledPoint.prototype.toString = function() {
+	return "[" + this.getLabel() + ", [" + this.getFeatures() + "]]";
+};
+/**
+ * Returns string representation of JSON object
+ * @returns {string}
+ */
+LabeledPoint.prototype.toJSON = function() {
+	return "{label: " + this.getLabel() + ", features: " + this.getFeatures() + " }";
 }
 
 
+/*
+ * FIXME should be using createJavaWrapperObject in Utils.java not this.
+ */
 var labeledPointFromJavaObject = function(javaObject) {
 	var l = Logger.getLogger("LabeledPoint_js");
 	l.debug("labeledPointFromJavaObject");
