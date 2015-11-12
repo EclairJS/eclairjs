@@ -32,7 +32,7 @@ with (imported) {
             if(kernel.javaSparkContext() != null) {
                 return kernel.javaSparkContext();
             } else {
-                kernel.createSparkContext(conf.jvmConf);
+                kernel.createSparkContext(Utils.unwrapObject(conf));
                 return kernel.javaSparkContext();
             }
         }
@@ -41,7 +41,7 @@ with (imported) {
          * Create a new JavaSparkContext from a conf
          * 
          */
-        var jvmSC = new JavaSparkContext(conf.jvmConf);
+        var jvmSC = new JavaSparkContext( Utils.unwrapObject(conf));
         /*
          * add the jar for the cluster
          */
