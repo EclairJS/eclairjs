@@ -13,34 +13,70 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+/**
+ * @constructor
+ * @classdec A set of methods for aggregations on a DataFrame, created by DataFrame.groupBy.
+ */
 var GroupedData = function(jvmGroupedData) {
-    this.jvmGroupedData = jvmGroupedData;
+	
+    JavaWrapper.call(this, jvmGroupedData);
+
+	  // Initialize our Row-specific properties
+	this.logger = Logger.getLogger("sql.GroupData_js");
 }
 
+GroupedData.prototype = Object.create(JavaWrapper.prototype); 
+
+//Set the "constructor" property to refer to GroupedData
+GroupedData.prototype.constructor = GroupedData;
+/**
+ * Compute the avg value for each numeric columns for each group.
+ * @param {string[]} cols
+ * @returns {DataFrame}
+ */
+GroupedData.prototype.avg = function(cols) {
+    return new DataFrame(this.getJavaObject().avg(cols));
+};
+/**
+ * Count the number of rows for each group.
+ * @returns {DataFrame}
+ */
 GroupedData.prototype.count = function() {
-    var jdf = this.jvmGroupedData.count();
+    var jdf = this.getJavaObject().count();
     var df = new DataFrame(jdf);
 
     return df;
 };
-
-GroupedData.prototype.avg = function(cols) {
-    return new DataFrame(this.jvmGroupedData.avg(cols));
-};
-
-GroupedData.prototype.mean = function(cols) {
-    return new DataFrame(this.jvmGroupedData.mean(cols));
-};
-
-GroupedData.prototype.sum = function(cols) {
-    return new DataFrame(this.jvmGroupedData.sum(cols));
-};
-
-GroupedData.prototype.min = function(cols) {
-    return new DataFrame(this.jvmGroupedData.min(cols));
-};
-
+/**
+ * Compute the max value for each numeric columns for each group.
+ * @param {string[]} cols
+ * @returns {DataFrame}
+ */
 GroupedData.prototype.max = function(cols) {
-    return new DataFrame(this.jvmGroupedData.max(cols));
+    return new DataFrame(this.getJavaObject().max(cols));
 };
+/**
+ * Compute the mean value for each numeric columns for each group.
+ * @param {string[]} cols
+ * @returns {DataFrame}
+ */
+GroupedData.prototype.mean = function(cols) {
+    return new DataFrame(this.getJavaObject().mean(cols));
+};
+/**
+ * Compute the min value for each numeric columns for each group.
+ * @param {string[]} cols
+ * @returns {DataFrame}
+ */
+GroupedData.prototype.min = function(cols) {
+    return new DataFrame(this.getJavaObject().min(cols));
+};
+/**
+ * Compute the sum value for each numeric columns for each group.
+ * @param {string[]} cols
+ * @returns {DataFrame}
+ */
+GroupedData.prototype.sum = function(cols) {
+    return new DataFrame(this.getJavaObject().sum(cols));
+};
+

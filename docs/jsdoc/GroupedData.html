@@ -46,10 +46,6 @@
 <dd>
     
     
-    <div class="description">
-        A set of methods for aggregations on a DataFrame, created by DataFrame.groupBy().
-    </div>
-    
 
     
     
@@ -126,7 +122,7 @@
         <dl>
             
 <dt>
-    <h4 class="name" id="avg"><span class="type-signature"></span>avg<span class="signature">(column)</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
+    <h4 class="name" id="avg"><span class="type-signature"></span>avg<span class="signature">(cols)</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
     
     
 </dt>
@@ -134,7 +130,7 @@
     
     
     <div class="description">
-        Compute the mean value for each numeric columns for each group.
+        Compute the avg value for each numeric columns for each group.
     </div>
     
 
@@ -168,7 +164,7 @@
 	
         <tr>
             
-                <td class="name"><code>column</code></td>
+                <td class="name"><code>cols</code></td>
             
             
             <td class="type">
@@ -184,7 +180,7 @@
             
             
             
-            <td class="description last">names</td>
+            <td class="description last"></td>
         </tr>
 	
 	
@@ -348,7 +344,7 @@
         
             
 <dt>
-    <h4 class="name" id="max"><span class="type-signature"></span>max<span class="signature">(column)</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
+    <h4 class="name" id="max"><span class="type-signature"></span>max<span class="signature">(cols)</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
     
     
 </dt>
@@ -390,7 +386,7 @@
 	
         <tr>
             
-                <td class="name"><code>column</code></td>
+                <td class="name"><code>cols</code></td>
             
             
             <td class="type">
@@ -406,7 +402,7 @@
             
             
             
-            <td class="description last">names</td>
+            <td class="description last"></td>
         </tr>
 	
 	
@@ -483,7 +479,7 @@
         
             
 <dt>
-    <h4 class="name" id="mean"><span class="type-signature"></span>mean<span class="signature">(column)</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
+    <h4 class="name" id="mean"><span class="type-signature"></span>mean<span class="signature">(cols)</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
     
     
 </dt>
@@ -491,7 +487,7 @@
     
     
     <div class="description">
-        Compute the average value for each numeric columns for each group.
+        Compute the mean value for each numeric columns for each group.
     </div>
     
 
@@ -525,7 +521,7 @@
 	
         <tr>
             
-                <td class="name"><code>column</code></td>
+                <td class="name"><code>cols</code></td>
             
             
             <td class="type">
@@ -541,7 +537,7 @@
             
             
             
-            <td class="description last">names</td>
+            <td class="description last"></td>
         </tr>
 	
 	
@@ -618,7 +614,7 @@
         
             
 <dt>
-    <h4 class="name" id="min"><span class="type-signature"></span>min<span class="signature">(column)</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
+    <h4 class="name" id="min"><span class="type-signature"></span>min<span class="signature">(cols)</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
     
     
 </dt>
@@ -626,7 +622,7 @@
     
     
     <div class="description">
-        Compute the min value for each numeric column for each group.
+        Compute the min value for each numeric columns for each group.
     </div>
     
 
@@ -660,7 +656,7 @@
 	
         <tr>
             
-                <td class="name"><code>column</code></td>
+                <td class="name"><code>cols</code></td>
             
             
             <td class="type">
@@ -676,7 +672,7 @@
             
             
             
-            <td class="description last">names</td>
+            <td class="description last"></td>
         </tr>
 	
 	
@@ -753,7 +749,7 @@
         
             
 <dt>
-    <h4 class="name" id="sum"><span class="type-signature"></span>sum<span class="signature">(column)</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
+    <h4 class="name" id="sum"><span class="type-signature"></span>sum<span class="signature">(cols)</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
     
     
 </dt>
@@ -761,7 +757,7 @@
     
     
     <div class="description">
-        Compute the sum value for each numeric column for each group.
+        Compute the sum value for each numeric columns for each group.
     </div>
     
 
@@ -795,7 +791,7 @@
 	
         <tr>
             
-                <td class="name"><code>column</code></td>
+                <td class="name"><code>cols</code></td>
             
             
             <td class="type">
@@ -811,7 +807,7 @@
             
             
             
-            <td class="description last">names</td>
+            <td class="description last"></td>
         </tr>
 	
 	
@@ -901,13 +897,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulator.html">Accumulator</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DStream.html">DStream</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li></ul><h3>Global</h3><ul><li><a href="global.html#LabeledPoint">LabeledPoint</a></li><li><a href="global.html#Logger">Logger</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulator.html">Accumulator</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Wed Nov 11 2015 14:28:18 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Thu Nov 12 2015 12:04:52 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>

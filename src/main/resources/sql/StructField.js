@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 /**
- * A field inside a StructType. 
  * @constructor
+ * @classdesc A field inside a StructType. 
  * @param {string} name - The name of this field. 
  * @param {DataType} dataType - The data type of this field. 
  * @param {boolean}  nullable -  Indicates if values of this field can be null values. 
@@ -24,7 +24,7 @@
 function StructField(name, dataType, nullable, metadata) {
 	// StructField(java.lang.String name, DataType dataType, boolean nullable, Metadata metadata) 
 	var jvmObj = null;
-	this.logger = Logger.getLogger("StructField_js");
+	this.logger = Logger.getLogger("sql.StructField_js");
 	if ( dataType == null) {
   	 	this.logger.debug("Java object ");
   	 	jvmObj = name; // the name is really a jvmObject created by one of our wrappers.
@@ -37,9 +37,6 @@ function StructField(name, dataType, nullable, metadata) {
   // Call the parent constructor, making sure (using Function#call)
   // that "this" is set correctly during the call
   JavaWrapper.call(this, jvmObj);
-
-  // Initialize our Row-specific properties
-  this.logger = Logger.getLogger("StructField_js");
   this.logger.debug("StructField constructor");
 };
 

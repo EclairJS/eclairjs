@@ -14,17 +14,27 @@
  * limitations under the License.
  */
 
- var SparkFiles = {};
-  
-  
-  /**
-   * Public Static methods 
-   */
-  SparkFiles.get = function(fileName) {
+/**
+ * @constructor
+ * @classdesc Resolves paths to files added through SparkContext.addFile().
+ */
+var SparkFiles = function() {
 
-		  print("SparkFiles.get nash");
-		  return org.apache.spark.SparkFiles.get(fileName);  
-
-	  
-  };
+};
+/**
+ * Get the absolute path of a file added through SparkContext.addFile().
+ * @param {string} fileName
+ * @returns {string}
+ */
+SparkFiles.get = function(fileName) {
+	return org.apache.spark.SparkFiles.get(fileName);
+};
+/**
+ * Get the root directory that contains files added through SparkContext.addFile().
+ * @param {string} fileName
+ * @returns {string}
+ */
+SparkFiles.getRootDirectory = function(fileName) {
+	return org.apache.spark.SparkFiles.getRootDirectory(fileName);
+};
 

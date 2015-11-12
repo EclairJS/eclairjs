@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: DataTypes</title>
+    <title>JSDoc: Class: SparkFiles</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Class: DataTypes</h1>
+    <h1 class="page-title">Class: SparkFiles</h1>
     
     
 
@@ -27,10 +27,10 @@
     
 <header>
     <h2>
-    DataTypes
+    SparkFiles
     </h2>
     
-        <div class="class-description">The base type of all Spark SQL data types.</div>
+        <div class="class-description">Resolves paths to files added through SparkContext.addFile().</div>
     
 </header>  
 
@@ -41,7 +41,7 @@
     
         
 <dt>
-    <h4 class="name" id="DataTypes"><span class="type-signature"></span>new DataTypes<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="SparkFiles"><span class="type-signature"></span>new SparkFiles<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -78,7 +78,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataTypes.js.html">sql/DataTypes.js</a>, <a href="DataTypes.js.html#line20">line 20</a>
+        <a href="SparkFiles.js.html">SparkFiles.js</a>, <a href="SparkFiles.js.html#line21">line 21</a>
     </li></ul></dd>
     
     
@@ -124,7 +124,7 @@
         <dl>
             
 <dt>
-    <h4 class="name" id="createStructField"><span class="type-signature">&lt;static> </span>createStructField<span class="signature">(fieldName, dataType, nullable)</span><span class="type-signature"> &rarr; {<a href="StructField.html">StructField</a>}</span></h4>
+    <h4 class="name" id="get"><span class="type-signature">&lt;static> </span>get<span class="signature">(fileName)</span><span class="type-signature"> &rarr; {string}</span></h4>
     
     
 </dt>
@@ -132,7 +132,7 @@
     
     
     <div class="description">
-        Creates a StructField with empty metadata.
+        Get the absolute path of a file added through SparkContext.addFile().
     </div>
     
 
@@ -166,59 +166,13 @@
 	
         <tr>
             
-                <td class="name"><code>fieldName</code></td>
+                <td class="name"><code>fileName</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">String</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>dataType</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">DataType</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>nullable</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
+<span class="param-type">string</span>
 
 
             
@@ -259,7 +213,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataTypes.js.html">sql/DataTypes.js</a>, <a href="DataTypes.js.html#line34">line 34</a>
+        <a href="SparkFiles.js.html">SparkFiles.js</a>, <a href="SparkFiles.js.html#line29">line 29</a>
     </li></ul></dd>
     
     
@@ -291,7 +245,7 @@
 	</dt>
 	<dd>
 		
-<span class="param-type"><a href="StructField.html">StructField</a></span>
+<span class="param-type">string</span>
 
 
 	</dd>
@@ -305,7 +259,7 @@
         
             
 <dt>
-    <h4 class="name" id="createStructType"><span class="type-signature">&lt;static> </span>createStructType<span class="signature">(fields)</span><span class="type-signature"> &rarr; {<a href="StructType.html">StructType</a>}</span></h4>
+    <h4 class="name" id="getRootDirectory"><span class="type-signature">&lt;static> </span>getRootDirectory<span class="signature">(fileName)</span><span class="type-signature"> &rarr; {string}</span></h4>
     
     
 </dt>
@@ -313,7 +267,7 @@
     
     
     <div class="description">
-        Creates a StructType with the given StructField array (fields).
+        Get the root directory that contains files added through SparkContext.addFile().
     </div>
     
 
@@ -347,13 +301,13 @@
 	
         <tr>
             
-                <td class="name"><code>fields</code></td>
+                <td class="name"><code>fileName</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">Array</span>
+<span class="param-type">string</span>
 
 
             
@@ -394,7 +348,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataTypes.js.html">sql/DataTypes.js</a>, <a href="DataTypes.js.html#line50">line 50</a>
+        <a href="SparkFiles.js.html">SparkFiles.js</a>, <a href="SparkFiles.js.html#line37">line 37</a>
     </li></ul></dd>
     
     
@@ -426,7 +380,7 @@
 	</dt>
 	<dd>
 		
-<span class="param-type"><a href="StructType.html">StructType</a></span>
+<span class="param-type">string</span>
 
 
 	</dd>

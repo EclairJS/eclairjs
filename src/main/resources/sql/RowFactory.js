@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 /**
- * A factory class used to construct Row objects.
  * @constructor
+ * @classdesc A factory class used to construct Row objects.
  */
 
 var RowFactory =  {
@@ -28,7 +28,7 @@ var RowFactory =  {
  */
 RowFactory.create = function(values) {
 	//public static Row create(java.lang.Object... values)
-	Logger.getLogger("RowFactory_js").debug("RowFactory.create= " + values);
+	Logger.getLogger("sql.RowFactory_js").debug("RowFactory.create= " + values);
 	var row = org.apache.spark.sql.RowFactory.create(values);
 	var r = new Row(row);
 	//print("RowFactory.create row = " + r);

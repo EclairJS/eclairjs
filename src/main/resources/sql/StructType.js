@@ -23,15 +23,17 @@ protected scala.collection.Seq<org.apache.spark.sql.catalyst.expressions.Attribu
 */
 
 /**
- * For a StructType object, one or multiple StructFields can be extracted by names. If multiple StructFields are extracted, a StructType object will be returned. If a provided name does not have a matching field, it will be ignored.
  * @constructor
+ * @classdesc For a StructType object, one or multiple StructFields can be extracted by names. 
+ * If multiple StructFields are extracted, a StructType object will be returned. 
+ * If a provided name does not have a matching field, it will be ignored.
  * @param {StructField[]} fields - The name of this field. 
  */
 function StructType(fields) {
 	
 	Array.isArray(fields)
 	var jvmObj = null;
-	this.logger = Logger.getLogger("StructField_js");
+	this.logger = Logger.getLogger("sql.StructField_js");
 	if (!Array.isArray(fields)) {
   	 	this.logger.debug("Java object ");
   	 	jvmObj = fields; // the name is really a jvmObject created by one of our wrappers.
@@ -47,10 +49,6 @@ function StructType(fields) {
   // that "this" is set correctly during the call
   JavaWrapper.call(this, jvmObj);
 
-  // Initialize our Row-specific properties
-
-this.logger = Logger.getLogger("StructType_js");
-  this.logger.debug("Row constructor");
 };
 
 //Create a StructType.prototype object that inherits from JavaWrapper.prototype.
@@ -59,6 +57,7 @@ StructType.prototype = Object.create(JavaWrapper.prototype);
 
 //Set the "constructor" property to refer to StructType
 StructType.prototype.constructor = StructType;
+
 /**
  * Creates a new StructType by adding a new nullable field with no metadata.
  * @param {string | StructField} name

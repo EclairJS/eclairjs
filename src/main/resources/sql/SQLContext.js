@@ -15,14 +15,13 @@
  */
 
 /**
- * The entry point for working with structured data (rows and columns) in Spark. 
- * Allows the creation of DataFrame objects as well as the execution of SQL queries.
- * 
  * @constructor
+ * @classdesc  The entry point for working with structured data (rows and columns) in Spark. 
+ * Allows the creation of DataFrame objects as well as the execution of SQL queries.
  * @param {SparkContext}
  */
 var SQLContext = function(jsc) {
-	this.logger = Logger.getLogger("SQLContext_js");
+	this.logger = Logger.getLogger("sql.SQLContext_js");
     
     this.logger.debug("jsc type = " + jsc);
     var JavaSQLContext = Java.type("org.apache.spark.sql.SQLContext");
