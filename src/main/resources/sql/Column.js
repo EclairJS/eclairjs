@@ -17,10 +17,17 @@
  * 
  * @constructor
  * @classdesc A column in a DataFrame.
+ * @param {string} column name of the column
  */
-var Column = function(jvmColumn) {
-	var jvmObj = jvmColumn;
-    this.logger = Logger.getLogger("sql.Column_js");
+var Column = function(column) {
+	var jvmObj;
+	if (typeof column === 'string' || column instanceof String) {
+		jvmObj = new org.apache.spark.sql.Column(column);
+	} else {
+		jvmObj = column;
+    
+	}
+	this.logger = Logger.getLogger("sql.Column_js");
     JavaWrapper.call(this, jvmObj);
 };
 
@@ -28,7 +35,14 @@ Column.prototype = Object.create(JavaWrapper.prototype);
 
 //Set the "constructor" property to refer to Column
 Column.prototype.constructor = Column;
-
+/**
+ * Greater than.
+ * @param {object}
+ * @returns {Column}
+ */
+Column.prototype.gt = function(obj) {
+    return new Column(this.getJavaObject().gt(obj));
+};
 /**
  * Equality test
  * @param {object}

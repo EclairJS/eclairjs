@@ -119,7 +119,8 @@ public class JSTest {
     public void dataFrameFilterTest() throws Exception {
     	/*
     	 * tests
-    	 * DataFrame.columns()
+    	 * DataFrame.filter()
+    	 * DataFrame.filterWithString()
     	 */
         ScriptEngine engine = TestUtils.getEngine();
         String file = TestUtils.resourceToFile("/data/people.txt");
@@ -130,4 +131,38 @@ public class JSTest {
         String expected = "Name: Michael,Name: Andy";
         assertEquals("should be same", expected, ret.toString());
     }
+    
+    @Test
+    public void dataFrameFilterWithColumnTest() throws Exception {
+    	/*
+    	 * tests
+    	 * DataFrame.filterWithColumn()
+    	 * Column.gt()
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/people.txt");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeFilterWithColumnTest", file);
+
+        String expected = "Name: Michael,Name: Andy";
+        assertEquals("should be same", expected, ret.toString());
+    }
+    
+/*    @Test
+    public void dataFrameFlatMapTest() throws Exception {
+    	/*
+    	 * tests
+    	 * DataFrame.filterWithColumn()
+    	 * Column.gt()
+    	 */
+  /*      ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/people.txt");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeFlatMapTest", file);
+
+        String expected = "Name: Michael,Name: Andy";
+        assertEquals("should be same", expected, ret.toString());
+    }*/
 }

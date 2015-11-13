@@ -94,7 +94,35 @@ var dataframeFilterTest = function(file) {
 	var names = result.toRDD().map(function(row) {
 		return "Name: " + row.getString(0);
 	});
-	print("filter = "  + names.take(10).toString())
     return names.take(10).toString();
+}
+
+var dataframeFilterWithColumnTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var col = new Column("age");
+	var testCol = col.gt("20");
+	// SQL can be run over RDDs that have been registered as tables.
+	var result = peopleDataFrame.filterWithColumn(testCol);
+
+	//The results of SQL queries are DataFrames and support all the normal RDD operations.
+	//The columns of a row in the result can be accessed by ordinal.
+	var names = result.toRDD().map(function(row) {
+		return "Name: " + row.getString(0);
+	});
+    return names.take(10).toString();
+}
+
+var dataframeFlatMapTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var result = peopleDataFrame.flatMap(function(row) {
+		var r = [];
+		r.push(row.getString(0));
+		r.push(row.getString(1));
+		return r
+	});
+	print(result.take(10));
+    return result.take(10).toString();
 }
 
