@@ -46,7 +46,7 @@ DataFrame.prototype.cache = function() {
 };
 /**
  * Selects column based on the column name and return it as a Column.
- * @param name
+ * @param {string} name
  * @returns {Column}
  */
 DataFrame.prototype.col = function(name) {
@@ -57,7 +57,12 @@ DataFrame.prototype.col = function(name) {
  * @returns {string[]}
  */
 DataFrame.prototype.columns = function() {
-    return this.getJavaObject().columns();
+	var x = this.getJavaObject().columns();
+	var s = [];
+	for (var i = 0; i < x.length; i++) {
+		s.push(x[i]);
+	}
+    return s; 
 };
 /**
  * Returns the number of rows in the DataFrame.
@@ -83,7 +88,7 @@ DataFrame.prototype.filter = function(arg) {
  * @returns {DataFrame}
  */
 DataFrame.prototype.filterWithColumn = function(col) {
-    return new DataFrame(this.getJavaObject().filter(col.getJavaObject()));
+    return new DataFrame(this.getJavaObject().filter(Utils.unwrapObject(col)));
 };
 /**
  * Filters rows using the given SQL expression string
@@ -99,9 +104,7 @@ DataFrame.prototype.filterWithString = function(columnExpr) {
  * @returns {RDD}
  */
 DataFrame.prototype.flatMap = function(func) {
-    var sv = Utils.createJavaParams(func);
-    var fn = new org.eclairjs.nashorn.JSFlatMapFunction(sv.funcStr, sv.scopeVars);
-    return new RDD(this.getJavaObject().flatMap(fn));
+ 	return this.toRDD().flatMap(func);
 };
 /**
  * Groups the DataFrame using the specified columns, so we can run aggregation on them
@@ -127,7 +130,7 @@ DataFrame.prototype.groupBy = function() {
  */
 DataFrame.prototype.groupByWithColumns = function(args) {
     var jCols = args.map(function(v) {
-        return v.getJavaObject();
+        return Utils.unwrapObject(v);
     });
 
     var jGroupedData = this.getJavaObject().groupBy(jCols);
@@ -141,10 +144,12 @@ DataFrame.prototype.groupByWithColumns = function(args) {
  * @returns {GroupedData}
  */
 DataFrame.prototype.groupByWithStrings = function(args) {
-    var jGroupedData = this.getJavaObject().groupBy(args);
-    var gd = new GroupedData(jGroupedData);
+	var jCols = args.map(function(v) {
+		return this.col(v);
+    }.bind(this));
+	
+	return this.groupByWithColumns(jCols);
 
-    return gd;
 };
 /**
  * Returns the first row.
@@ -152,6 +157,14 @@ DataFrame.prototype.groupByWithStrings = function(args) {
  */
 DataFrame.prototype.head = function() {
     return new Row(this.getJavaObject().head());
+};
+/**
+ * Returns a new RDD by applying a function to all rows of this DataFrame.
+ * @param {function} func
+ * @returns {RDD}
+ */
+DataFrame.prototype.map = function(func) {
+ 	return this.toRDD().map(func);
 };
 /**
  * Registers this DataFrame as a temporary table using the given name.
@@ -183,10 +196,12 @@ DataFrame.prototype.select = function() {
  * @returns {DataFrame}
  */
 DataFrame.prototype.selectWithColumns = function(args) {
-    var jdf = this.getJavaObject().select(args);
-    var df = new DataFrame(jdf);
-
-    return df;
+	var jCols = args.map(function(v) {
+		return Utils.unwrapObject(v);
+	});
+	var jdf = this.getJavaObject().select(jCols);
+	var df = new DataFrame(jdf);
+	return df;
 };
 /**
  * Selects a set of column based expressions.
@@ -194,10 +209,12 @@ DataFrame.prototype.selectWithColumns = function(args) {
  * @returns {DataFrame}
  */
 DataFrame.prototype.selectWithStrings = function(args) {
-    var jdf = this.getJavaObject().select(args);
-    var df = new DataFrame(jdf);
+	var jCols = args.map(function(v) {
+		return this.col(v);
+    }.bind(this));
+	
+	return this.selectWithColumns(jCols);
 
-    return df;
 };
 /**
  * Displays the top 20 rows of DataFrame in a tabular form.
@@ -236,7 +253,7 @@ DataFrame.prototype.toRDD = function() {
  * @returns {DataFrame}
  */
 DataFrame.prototype.where = function(condition) {
-    return new DataFrame(this.getJavaObject().where(condition));
+    return this.filter(condition);
 };
 /**
  * Returns a new DataFrame by adding a column or replacing the existing column that has the same name.

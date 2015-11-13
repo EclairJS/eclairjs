@@ -311,12 +311,14 @@ Row.prototype.length = function() {
  */
 Row.prototype.mkString = function(separator, start, end) {
 	
-	if (start && end) {
+	if (separator && start && end) {
 		/*
 		java.lang.String	mkString(java.lang.String start, java.lang.String sep, java.lang.String end)
 		Displays all elements of this traversable or iterator in a string using start, end, and separator strings.
 		*/
 		return this.getJavaObject().mkString(start, separator, end);
+	} if (separator) {
+		return this.getJavaObject().mkString(separator);
 	} else {
 		/*
 		java.lang.String	mkString()
@@ -324,7 +326,7 @@ Row.prototype.mkString = function(separator, start, end) {
 		java.lang.String	mkString(java.lang.String sep)
 		Displays all elements of this sequence in a string using a separator string.
 		*/
-		return this.getJavaObject().mkString(separator);
+		return this.getJavaObject().mkString();
 	}
 	
 };

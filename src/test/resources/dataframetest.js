@@ -17,14 +17,7 @@
 var sparkContext = new SparkContext("local[*]", "dataframe");
 var sqlContext = new SQLContext(sparkContext);
 
-var groupBy = function(file) {
-    var dataFrame = sqlContext.read().json(file);
-    var gd = dataFrame.groupBy(dataFrame.col("first"));
-    var df2 = gd.count();
 
-    df2.show();
-    return df2.count();
-}
 
 var buildPeopleTable = function(file) {
 	// Load a text file and convert each line to a JavaScript Object.
@@ -80,7 +73,7 @@ var dataframeColTest = function(file) {
 
 var dataframeColumnsTest = function(file) {
 	var peopleDataFrame = buildPeopleTable(file);
-	return peopleDataFrame.columns();
+	return peopleDataFrame.columns().toString();
 }
 
 var dataframeFilterTest = function(file) {
@@ -119,10 +112,66 @@ var dataframeFlatMapTest = function(file) {
 	var result = peopleDataFrame.flatMap(function(row) {
 		var r = [];
 		r.push(row.getString(0));
-		r.push(row.getString(1));
 		return r
 	});
 	print(result.take(10));
     return result.take(10).toString();
+}
+
+var dataframeGroupByTest = function(file) {
+    var dataFrame = sqlContext.read().json(file);
+    var gd = dataFrame.groupBy(dataFrame.col("first"));
+    var df2 = gd.count();
+
+    df2.show();
+    return df2.count();
+}
+
+var dataframeGroupByWithStringsTest = function(file) {
+    var dataFrame = sqlContext.read().json(file);
+    var gd = dataFrame.groupBy("first");
+    var df2 = gd.count();
+
+    df2.show();
+    return df2.count();
+}
+
+var dataframeHeadTest = function(file) {
+    var dataFrame = sqlContext.read().json(file);
+    var row = dataFrame.head();
+    return row.mkString();
+}
+
+var dataframeMapTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var names = peopleDataFrame.map(function(row) {
+		return "Name: " + row.getString(0);
+	});
+
+	print("names = " + names.take(10));
+
+    return names.take(10).toString();
+}
+
+var dataframeSelectTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var result = peopleDataFrame.select("name", "age");
+    return result.toString();
+}
+
+var dataframeWhereTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	// SQL can be run over RDDs that have been registered as tables.
+	var result = peopleDataFrame.where("age > 20");
+
+	//The results of SQL queries are DataFrames and support all the normal RDD operations.
+	//The columns of a row in the result can be accessed by ordinal.
+	var names = result.toRDD().map(function(row) {
+		return "Name: " + row.getString(0);
+	});
+    return names.take(10).toString();
 }
 
