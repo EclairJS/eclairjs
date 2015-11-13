@@ -77,7 +77,5 @@ var Utils = {};
   };
   
   function createJavaWrapperObject(className, obj) {
-	  print("createJavaWrapperObject create " +  className + " with " + obj)
-	  //return new Row(obj);
 	  return eval("new " + className + "(obj)");
   };

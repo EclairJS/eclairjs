@@ -17,7 +17,7 @@
 var sparkContext = new SparkContext("local[*]", "dataframe");
 var sqlContext = new SQLContext(sparkContext);
 
-var test = function(file) {
+var groupBy = function(file) {
     var dataFrame = sqlContext.read().json(file);
     var gd = dataFrame.groupBy(dataFrame.col("first"));
     var df2 = gd.count();
@@ -25,3 +25,104 @@ var test = function(file) {
     df2.show();
     return df2.count();
 }
+
+var buildPeopleTable = function(file) {
+	// Load a text file and convert each line to a JavaScript Object.
+	var people = sparkContext.textFile(file).map(function(line) {
+		var parts = line.split(",");
+		return person = {
+	    				name: parts[0], 
+	    				age: parseInt(parts[1].trim())
+	    		};
+	});
+
+	//Generate the schema
+	var fields = [];
+	fields.push(DataTypes.createStructField("name", DataTypes.StringType, true));
+	fields.push(DataTypes.createStructField("age", DataTypes.IntegerType, true));
+	var schema = DataTypes.createStructType(fields);
+
+	// Convert records of the RDD (people) to Rows.
+	var rowRDD = people.map(function(person){
+		return RowFactory.create([person.name, person.age]);
+	});
+
+
+	//Apply the schema to the RDD.
+	var peopleDataFrame = sqlContext.createDataFrame(rowRDD, schema);
+
+	// Register the DataFrame as a table.
+	peopleDataFrame.registerTempTable("people");
+	return peopleDataFrame;
+}
+
+var programmaticallySpecifyingSchema = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	// SQL can be run over RDDs that have been registered as tables.
+	var results = sqlContext.sql("SELECT name FROM people");
+
+	//The results of SQL queries are DataFrames and support all the normal RDD operations.
+	//The columns of a row in the result can be accessed by ordinal.
+	var names = results.toRDD().map(function(row) {
+		return "Name: " + row.getString(0);
+	});
+
+    return names.take(10).toString();
+}
+
+var dataframeColTest = function(file) {
+	var peopleDataFrame = buildPeopleTable(file);
+	var result = peopleDataFrame.col("age");
+	return result.toString();
+	
+}
+
+var dataframeColumnsTest = function(file) {
+	var peopleDataFrame = buildPeopleTable(file);
+	return peopleDataFrame.columns();
+}
+
+var dataframeFilterTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	// SQL can be run over RDDs that have been registered as tables.
+	var result = peopleDataFrame.filter("age > 20");
+
+	//The results of SQL queries are DataFrames and support all the normal RDD operations.
+	//The columns of a row in the result can be accessed by ordinal.
+	var names = result.toRDD().map(function(row) {
+		return "Name: " + row.getString(0);
+	});
+    return names.take(10).toString();
+}
+
+var dataframeFilterWithColumnTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var col = new Column("age");
+	var testCol = col.gt("20");
+	// SQL can be run over RDDs that have been registered as tables.
+	var result = peopleDataFrame.filterWithColumn(testCol);
+
+	//The results of SQL queries are DataFrames and support all the normal RDD operations.
+	//The columns of a row in the result can be accessed by ordinal.
+	var names = result.toRDD().map(function(row) {
+		return "Name: " + row.getString(0);
+	});
+    return names.take(10).toString();
+}
+
+var dataframeFlatMapTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var result = peopleDataFrame.flatMap(function(row) {
+		var r = [];
+		r.push(row.getString(0));
+		r.push(row.getString(1));
+		return r
+	});
+	print(result.take(10));
+    return result.take(10).toString();
+}
+
