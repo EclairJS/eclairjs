@@ -17,29 +17,7 @@
 var sparkContext = new SparkContext("local[*]", "dataframe");
 var sqlContext = new SQLContext(sparkContext);
 
-var groupBy = function(file) {
-    var dataFrame = sqlContext.read().json(file);
-    var gd = dataFrame.groupBy(dataFrame.col("first"));
-    var df2 = gd.count();
 
-    df2.show();
-    return df2.count();
-}
-
-var groupByWithStrings = function(file) {
-    var dataFrame = sqlContext.read().json(file);
-    var gd = dataFrame.groupBy("first");
-    var df2 = gd.count();
-
-    df2.show();
-    return df2.count();
-}
-
-var head = function(file) {
-    var dataFrame = sqlContext.read().json(file);
-    var row = dataFrame.head();
-    return row.mkString();
-}
 
 var buildPeopleTable = function(file) {
 	// Load a text file and convert each line to a JavaScript Object.
@@ -139,5 +117,50 @@ var dataframeFlatMapTest = function(file) {
 	});
 	print(result.take(10));
     return result.take(10).toString();
+}
+
+var dataframeGroupByTest = function(file) {
+    var dataFrame = sqlContext.read().json(file);
+    var gd = dataFrame.groupBy(dataFrame.col("first"));
+    var df2 = gd.count();
+
+    df2.show();
+    return df2.count();
+}
+
+var dataframeGroupByWithStringsTest = function(file) {
+    var dataFrame = sqlContext.read().json(file);
+    var gd = dataFrame.groupBy("first");
+    var df2 = gd.count();
+
+    df2.show();
+    return df2.count();
+}
+
+var dataframeHeadTest = function(file) {
+    var dataFrame = sqlContext.read().json(file);
+    var row = dataFrame.head();
+    return row.mkString();
+}
+
+var dataframeSelectTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var result = peopleDataFrame.select("name", "age");
+    return result.toString();
+}
+
+var dataframeWhereTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	// SQL can be run over RDDs that have been registered as tables.
+	var result = peopleDataFrame.where("age > 20");
+
+	//The results of SQL queries are DataFrames and support all the normal RDD operations.
+	//The columns of a row in the result can be accessed by ordinal.
+	var names = result.toRDD().map(function(row) {
+		return "Name: " + row.getString(0);
+	});
+    return names.take(10).toString();
 }
 

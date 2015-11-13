@@ -83,7 +83,7 @@ DataFrame.prototype.filter = function(arg) {
  * @returns {DataFrame}
  */
 DataFrame.prototype.filterWithColumn = function(col) {
-    return new DataFrame(this.getJavaObject().filter(col.getJavaObject()));
+    return new DataFrame(this.getJavaObject().filter(Utils.unwrapObject(col)));
 };
 /**
  * Filters rows using the given SQL expression string
@@ -142,12 +142,11 @@ DataFrame.prototype.groupByWithColumns = function(args) {
  */
 DataFrame.prototype.groupByWithStrings = function(args) {
 	var jCols = args.map(function(v) {
-		return Utils.unwrapObject(this.col(v));
+		return this.col(v);
     }.bind(this));
-    var jGroupedData = this.getJavaObject().groupBy(jCols);
-    var gd = new GroupedData(jGroupedData);
+	
+	return this.groupByWithColumns(jCols);
 
-    return gd;
 };
 /**
  * Returns the first row.
@@ -186,10 +185,12 @@ DataFrame.prototype.select = function() {
  * @returns {DataFrame}
  */
 DataFrame.prototype.selectWithColumns = function(args) {
-    var jdf = this.getJavaObject().select(args);
-    var df = new DataFrame(jdf);
-
-    return df;
+	var jCols = args.map(function(v) {
+		return Utils.unwrapObject(v);
+	});
+	var jdf = this.getJavaObject().select(jCols);
+	var df = new DataFrame(jdf);
+	return df;
 };
 /**
  * Selects a set of column based expressions.
@@ -197,10 +198,12 @@ DataFrame.prototype.selectWithColumns = function(args) {
  * @returns {DataFrame}
  */
 DataFrame.prototype.selectWithStrings = function(args) {
-    var jdf = this.getJavaObject().select(args);
-    var df = new DataFrame(jdf);
+	var jCols = args.map(function(v) {
+		return this.col(v);
+    }.bind(this));
+	
+	return this.selectWithColumns(jCols);
 
-    return df;
 };
 /**
  * Displays the top 20 rows of DataFrame in a tabular form.
@@ -239,7 +242,7 @@ DataFrame.prototype.toRDD = function() {
  * @returns {DataFrame}
  */
 DataFrame.prototype.where = function(condition) {
-    return new DataFrame(this.getJavaObject().where(condition));
+    return this.filter(condition);
 };
 /**
  * Returns a new DataFrame by adding a column or replacing the existing column that has the same name.
