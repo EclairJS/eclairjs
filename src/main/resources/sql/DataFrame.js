@@ -46,7 +46,7 @@ DataFrame.prototype.cache = function() {
 };
 /**
  * Selects column based on the column name and return it as a Column.
- * @param name
+ * @param {string} name
  * @returns {Column}
  */
 DataFrame.prototype.col = function(name) {
@@ -127,7 +127,7 @@ DataFrame.prototype.groupBy = function() {
  */
 DataFrame.prototype.groupByWithColumns = function(args) {
     var jCols = args.map(function(v) {
-        return v.getJavaObject();
+        return Utils.unwrapObject(v);
     });
 
     var jGroupedData = this.getJavaObject().groupBy(jCols);
@@ -141,7 +141,10 @@ DataFrame.prototype.groupByWithColumns = function(args) {
  * @returns {GroupedData}
  */
 DataFrame.prototype.groupByWithStrings = function(args) {
-    var jGroupedData = this.getJavaObject().groupBy(args);
+	var jCols = args.map(function(v) {
+		return Utils.unwrapObject(this.col(v));
+    }.bind(this));
+    var jGroupedData = this.getJavaObject().groupBy(jCols);
     var gd = new GroupedData(jGroupedData);
 
     return gd;

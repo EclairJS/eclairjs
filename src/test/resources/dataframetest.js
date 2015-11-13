@@ -26,6 +26,21 @@ var groupBy = function(file) {
     return df2.count();
 }
 
+var groupByWithStrings = function(file) {
+    var dataFrame = sqlContext.read().json(file);
+    var gd = dataFrame.groupBy("first");
+    var df2 = gd.count();
+
+    df2.show();
+    return df2.count();
+}
+
+var head = function(file) {
+    var dataFrame = sqlContext.read().json(file);
+    var row = dataFrame.head();
+    return row.mkString();
+}
+
 var buildPeopleTable = function(file) {
 	// Load a text file and convert each line to a JavaScript Object.
 	var people = sparkContext.textFile(file).map(function(line) {

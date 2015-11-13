@@ -40,25 +40,6 @@ public class JSTest {
         assertEquals("failure - strings are not equal", expected, ret.toString());
 
     }
-
-    @Test
-    public void dataFrame() throws Exception {
-    	/*
-    	 * tests 
-    	 * SQLContext.read()
-    	 * DataFramerReader.json(path)
-    	 * DataFrame.groupBy()
-    	 * DataFrame.cout()
-    	 */
-        ScriptEngine engine = TestUtils.getEngine();
-        String file = TestUtils.resourceToFile("/test.json");
-
-        TestUtils.evalJSResource(engine, "/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("groupBy", file);
-
-        Long expected = (long) 2;
-        assertSame("should be same", expected, ret);
-    }
     
     @Test
     public void dataFrameProgrammaticallySpecifyingSchema() throws Exception {
@@ -116,6 +97,47 @@ public class JSTest {
     }
     
     @Test
+    public void dataFrameGroupBy() throws Exception {
+    	/*
+    	 * tests 
+    	 * SQLContext.read()
+    	 * DataFramerReader.json(path)
+    	 * DataFrame.col()
+    	 * DataFrame.groupBy()
+    	 * DataFrame.groupByWithColumns()
+    	 * DataFrame.cout()
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/test.json");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("groupBy", file);
+
+        Long expected = (long) 2;
+        assertSame("should be same", expected, ret);
+    }
+    
+    @Test
+    public void dataFrameGroupByWithStrings() throws Exception {
+    	/*
+    	 * tests 
+    	 * SQLContext.read()
+    	 * DataFramerReader.json(path)
+    	 * DataFrame.col()
+    	 * DataFrame.groupByWithStrings()
+    	 * DataFrame.cout()
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/test.json");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("groupByWithStrings", file);
+
+        Long expected = (long) 2;
+        assertSame("should be same", expected, ret);
+    }
+    
+    @Test
     public void dataFrameFilterTest() throws Exception {
     	/*
     	 * tests
@@ -165,4 +187,26 @@ public class JSTest {
         String expected = "Name: Michael,Name: Andy";
         assertEquals("should be same", expected, ret.toString());
     }*/
+    
+    @Test
+    public void dataFrameHead() throws Exception {
+    	/*
+    	 * tests 
+    	 * SQLContext.read()
+    	 * DataFramerReader.json(path)
+    	 * DataFrame.col()
+    	 * DataFrame.groupBy()
+    	 * DataFrame.groupByWithColumns()
+    	 * DataFrame.cout()
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/test.json");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("head", file);
+
+        assertEquals("should be same", "LukeSkywalker", ret);
+    }
+    
+    
 }
