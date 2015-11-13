@@ -112,7 +112,6 @@ var dataframeFlatMapTest = function(file) {
 	var result = peopleDataFrame.flatMap(function(row) {
 		var r = [];
 		r.push(row.getString(0));
-		r.push(row.getString(1));
 		return r
 	});
 	print(result.take(10));
@@ -141,6 +140,18 @@ var dataframeHeadTest = function(file) {
     var dataFrame = sqlContext.read().json(file);
     var row = dataFrame.head();
     return row.mkString();
+}
+
+var dataframeMapTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var names = peopleDataFrame.map(function(row) {
+		return "Name: " + row.getString(0);
+	});
+
+	print("names = " + names.take(10));
+
+    return names.take(10).toString();
 }
 
 var dataframeSelectTest = function(file) {
