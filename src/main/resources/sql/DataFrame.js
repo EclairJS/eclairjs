@@ -57,7 +57,12 @@ DataFrame.prototype.col = function(name) {
  * @returns {string[]}
  */
 DataFrame.prototype.columns = function() {
-    return this.getJavaObject().columns();
+	var x = this.getJavaObject().columns();
+	var s = [];
+	for (var i = 0; i < x.length; i++) {
+		s.push(x[i]);
+	}
+    return s; 
 };
 /**
  * Returns the number of rows in the DataFrame.
@@ -99,9 +104,7 @@ DataFrame.prototype.filterWithString = function(columnExpr) {
  * @returns {RDD}
  */
 DataFrame.prototype.flatMap = function(func) {
-    var sv = Utils.createJavaParams(func);
-    var fn = new org.eclairjs.nashorn.JSFlatMapFunction(sv.funcStr, sv.scopeVars);
-    return new RDD(this.getJavaObject().flatMap(fn));
+ 	return this.toRDD().flatMap(func);
 };
 /**
  * Groups the DataFrame using the specified columns, so we can run aggregation on them
@@ -154,6 +157,14 @@ DataFrame.prototype.groupByWithStrings = function(args) {
  */
 DataFrame.prototype.head = function() {
     return new Row(this.getJavaObject().head());
+};
+/**
+ * Returns a new RDD by applying a function to all rows of this DataFrame.
+ * @param {function} func
+ * @returns {RDD}
+ */
+DataFrame.prototype.map = function(func) {
+ 	return this.toRDD().map(func);
 };
 /**
  * Registers this DataFrame as a temporary table using the given name.

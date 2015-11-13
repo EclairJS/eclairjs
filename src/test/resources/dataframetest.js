@@ -73,7 +73,7 @@ var dataframeColTest = function(file) {
 
 var dataframeColumnsTest = function(file) {
 	var peopleDataFrame = buildPeopleTable(file);
-	return peopleDataFrame.columns();
+	return peopleDataFrame.columns().toString();
 }
 
 var dataframeFilterTest = function(file) {

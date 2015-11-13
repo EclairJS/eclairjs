@@ -96,8 +96,7 @@ public class JSTest {
         TestUtils.evalJSResource(engine, "/dataframetest.js");
         Object ret = ((Invocable)engine).invokeFunction("dataframeColumnsTest", file);
 
-        String[] expected = {"name", "age"};
-        assertArrayEquals("should be same", expected, (String [])ret);
+        assertEquals("should be same", "name,age", ret.toString());
     }
     
     @Test
