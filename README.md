@@ -73,7 +73,7 @@ var sparkContext = new SparkContext(conf);
 
 ```javascript
 
-    var jsc = new SparkContext();
+    var jsc = new SparkContext("local[*]", "myapp");
     var rdd = jsc.parallelize([10, 4, 2, 12, 3]);
     eval("count = " + rdd.count());
 
