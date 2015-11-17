@@ -6,7 +6,7 @@ The **EclairJS Nashorn** API exposes the [Spark](http://spark.apache.org/) progr
 **Prerequisites**
 
  - [Java 8 SE](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
- - [Spark](http://spark.apache.org/downloads.html)
+ - [Spark](http://spark.apache.org/downloads.html) (V1.4.1 built for Hadoop 2.6.0 and later)
  - [git](http://git-scm.com/)
  - [Maven](https://maven.apache.org/)
 
@@ -18,14 +18,14 @@ export SPARK_JAR=<location of Spark assembly jar>
 
 ## Usage
 ```bash
-bin/eclairJS examples/word_count.js
+bin/eclairjs.sh examples/word_count.js
 ```
 
 or
 ```bash
-bin/eclairJS
-eclairJS>var conf = new SparkConf().setAppName("Sample App").setMaster("local[*]");
-var sparkContext = new SparkContext(conf);
+bin/eclairjs.sh
+eclairJS>var list = sc.parallelize([1,10,20,30,40]);
+list.count();
 
 ```
 
