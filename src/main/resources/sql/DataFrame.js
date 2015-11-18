@@ -16,6 +16,13 @@
 /** 
  * @constructor
  * @classdesc A distributed collection of data organized into named columns. A DataFrame is equivalent to a relational table in Spark SQL.
+ * @example
+ * var people = sqlContext.read.parquet("...") 
+ * @example  
+ * // Once created, it can be manipulated using the various domain-specific-language (DSL) functions defined in: 
+ * // DataFrame (this class), Column, and functions.
+ * // To select a column from the data frame:
+ * var ageCol = people("age") 
  */
 var DataFrame = function(jvmDataFrame) {
 	JavaWrapper.call(this, jvmDataFrame);
@@ -29,6 +36,23 @@ DataFrame.prototype = Object.create(JavaWrapper.prototype);
 //Set the "constructor" property to refer to DataFrame
 DataFrame.prototype.constructor = DataFrame;
 
+/**
+ * aggregates on the entire DataFrame without groups.
+ * @example
+ * // df.agg(...) is a shorthand for df.groupBy().agg(...)
+ * var map = {};
+ * map["age"] = "max";
+ * map["salary"] = "avg";
+ * df.agg(map)
+ * df.groupBy().agg(map)
+ * @param {hashMap} - hashMap<String,String> exprs
+ * @returns {DataFrame}
+ */
+DataFrame.prototype.agg = function(hashMap) {
+
+    return new DataFrame(this.getJavaObject().agg(hashMap));
+
+};
 /**
  * Returns a new DataFrame with an alias set.
  * @param {string} alias
@@ -113,11 +137,7 @@ DataFrame.prototype.flatMap = function(func) {
  */
 DataFrame.prototype.groupBy = function() {
     var args = Array.prototype.slice.call(arguments);
-    var len = args.length;
-
-    if(args.length == 0)
-        return self;
-
+ 
     if(typeof args[0] === 'object') 
         return this.groupByWithColumns(args);
     else 
@@ -229,9 +249,11 @@ DataFrame.prototype.show = function() {
  */
 DataFrame.prototype.take = function(num) {
     var rows = this.getJavaObject().take(num);
-    return rows.map(function(row) {
-        return new Row(row);
-    })
+    var r = [];
+    for (var i = 0; i < rows.length; i++) {
+    	r.push(new Row(rows[i]));
+    }
+    return r;
 };
 /**
  * Returns the content of the DataFrame as a RDD of JSON strings.

@@ -81,8 +81,13 @@ StructField.prototype.nullable = function() {
 	return this.toString();
 };*/
 
-/*StructField.prototype.toJSON = function() {
-	return this.toString();
-};*/
+StructField.prototype.toJSON = function() {
+	var jsonObj = {};
+	jsonObj.name = this.name();
+	jsonObj.dataType = this.dataType().toString();
+	jsonObj.nullable = this.nullable();
+	jsonObj.metadata = "FIXME";
+	return jsonObj; 
+};
 
 
