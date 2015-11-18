@@ -77,7 +77,7 @@ var dataframeAggTest = function(file) {
 	var x = results.agg(m);
 	var rows = x.take(10);
 	var s = JSON.stringify(rows[0]);
-	print(s);
+
 	return s;
 	
 }

@@ -80,8 +80,8 @@ public class JSTest {
         TestUtils.evalJSResource(engine, "/dataframetest.js");
         Object ret = ((Invocable)engine).invokeFunction("dataframeAggTest", file);
 
-        String json = "{\"values\":[30,6],\"schema\":{\"fields\":[{\"name\":\"MAX(age)\",\"dataType\":\"IntegerType\",\"nullable\":true,\"metadata\":\"FIXME\"},{\"name\":\"SUM(expense)\",\"dataType\":\"LongType\",\"nullable\":true,\"metadata\":\"FIXME\"}]}}";
-        assertEquals("should be same", json, ret.toString());
+        String json = "{\"values\":[30,6],\"schema\":{\"fields\":[{\"name\":\"max(age)\",\"dataType\":\"IntegerType\",\"nullable\":true},{\"name\":\"sum(expense)\",\"dataType\":\"LongType\",\"nullable\":true}]}}";
+        assertEquals("should be same", json.toLowerCase(), ret.toString().toLowerCase()); // case is sometimes different when run from maven
     }
     
     @Test

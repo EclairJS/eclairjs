@@ -86,7 +86,7 @@ StructField.prototype.toJSON = function() {
 	jsonObj.name = this.name();
 	jsonObj.dataType = this.dataType().toString();
 	jsonObj.nullable = this.nullable();
-	jsonObj.metadata = "FIXME";
+	jsonObj.metadata = this.metadata();
 	return jsonObj; 
 };
 

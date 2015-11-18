@@ -362,7 +362,6 @@ Row.prototype.size = function() {
  */
 
 Row.prototype.toJSON = function() {
-	print("Row");
 	/*
 	 * Row
 	 *  | values
