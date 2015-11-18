@@ -25,7 +25,8 @@ var buildPeopleTable = function(file) {
 		var parts = line.split(",");
 		return person = {
 	    				name: parts[0], 
-	    				age: parseInt(parts[1].trim())
+	    				age: parseInt(parts[1].trim()),
+	    				expense: parseInt(parts[2].trim())
 	    		};
 	});
 
@@ -33,11 +34,12 @@ var buildPeopleTable = function(file) {
 	var fields = [];
 	fields.push(DataTypes.createStructField("name", DataTypes.StringType, true));
 	fields.push(DataTypes.createStructField("age", DataTypes.IntegerType, true));
+	fields.push(DataTypes.createStructField("expense", DataTypes.IntegerType, true));
 	var schema = DataTypes.createStructType(fields);
 
 	// Convert records of the RDD (people) to Rows.
 	var rowRDD = people.map(function(person){
-		return RowFactory.create([person.name, person.age]);
+		return RowFactory.create([person.name, person.age, person.expense]);
 	});
 
 
@@ -62,6 +64,22 @@ var programmaticallySpecifyingSchema = function(file) {
 	});
 
     return names.take(10).toString();
+}
+
+var dataframeAggTest = function(file) {
+	var peopleDataFrame = buildPeopleTable(file);
+	// SQL can be run over RDDs that have been registered as tables.
+	var results = sqlContext.sql("SELECT name, age, expense FROM people");
+
+	var m = {};
+	m["age"] = "max";
+	m["expense"] =  "sum";
+	var x = results.agg(m);
+	var rows = x.take(10);
+	var s = JSON.stringify(rows[0]);
+
+	return s;
+	
 }
 
 var dataframeColTest = function(file) {

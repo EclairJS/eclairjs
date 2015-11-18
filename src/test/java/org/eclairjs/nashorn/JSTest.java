@@ -69,6 +69,22 @@ public class JSTest {
     }
     
     @Test
+    public void dataFrameAggTest() throws Exception {
+    	/*
+    	 * test
+    	 * DataFrame.col("name")
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/people.txt");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeAggTest", file);
+
+        String json = "{\"values\":[30,6],\"schema\":{\"fields\":[{\"name\":\"max(age)\",\"dataType\":\"IntegerType\",\"nullable\":true},{\"name\":\"sum(expense)\",\"dataType\":\"LongType\",\"nullable\":true}]}}";
+        assertEquals("should be same", json.toLowerCase(), ret.toString().toLowerCase()); // case is sometimes different when run from maven
+    }
+    
+    @Test
     public void dataFrameColTest() throws Exception {
     	/*
     	 * test
@@ -96,7 +112,7 @@ public class JSTest {
         TestUtils.evalJSResource(engine, "/dataframetest.js");
         Object ret = ((Invocable)engine).invokeFunction("dataframeColumnsTest", file);
 
-        assertEquals("should be same", "name,age", ret.toString());
+        assertEquals("should be same", "name,age,expense", ret.toString());
     }
     
     @Test

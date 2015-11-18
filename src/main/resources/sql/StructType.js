@@ -31,7 +31,6 @@ protected scala.collection.Seq<org.apache.spark.sql.catalyst.expressions.Attribu
  */
 function StructType(fields) {
 	
-	Array.isArray(fields)
 	var jvmObj = null;
 	this.logger = Logger.getLogger("sql.StructField_js");
 	if (!Array.isArray(fields)) {
@@ -161,7 +160,7 @@ StructType.prototype.fields = function() {
 	var fieldsJava = this.getJavaObject().fields();
 	var fields = [];
 	for (var i = 0; i < fieldsJava.length; i++) {
-		fields.push(new StructType(fieldsJava[i])); // wrapper the object for javascipt
+		fields.push(new StructField(fieldsJava[i])); // wrapper the object for javascipt
 	}
 	return fields;
 
@@ -209,8 +208,15 @@ StructType.prototype.treeString = function() {
 	*/
 	return this.getJavaObject().treeString();
 };
-/*
+
 StructType.prototype.toJSON = function() {
-	return this.toString();
-};*/
+	var jsonObj = {};
+	jsonObj.fields = [];
+	var sf = this.fields();
+	sf.forEach(function(f){
+		jsonObj.fields.push(f.toJSON());
+	});
+	
+	return jsonObj;
+};
 

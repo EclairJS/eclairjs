@@ -340,7 +340,7 @@ Row.prototype.schema = function() {
 	StructType	schema()
 	Schema for the row.
 	*/
-	return this.getJavaObject().schema();
+	return new StructType(this.getJavaObject().schema());
 	
 };
 /**
@@ -362,8 +362,18 @@ Row.prototype.size = function() {
  */
 
 Row.prototype.toJSON = function() {
-	//var s = "[" + this.getJavaObject().mkString(",") + "]";
-	//print("row toJson " + s);
-	return this.toString();
-	//return s
+	/*
+	 * Row
+	 *  | values
+	 *    | [value, ...]
+	 *  | schema {StructType}
+	 *    | fields {StructField}
+	 */
+	var jsonObj = {};
+	jsonObj.values = [];
+	for (var i = 0; i < this.length(); i++) {
+		jsonObj.values.push(this.get(i)); 
+	}
+	jsonObj.schema = this.schema().toJSON();
+	return jsonObj;
 };

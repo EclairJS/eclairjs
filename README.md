@@ -1,12 +1,12 @@
 EclairJS Nashorn
 ===================
-The **EclairJS Nashorn** API exposes the [Spark](http://spark.apache.org/) programming model to JavaScript.  **EclairJS Nashorn** is built on top of [Spark's Java API](http://spark.apache.org/docs/latest/api/java/index.html). For a nodeJS implmentation of the Spark programming model vist the [eclairjs-node](https://github.com/EclairJS/eclairjs-node).
+The **EclairJS Nashorn** API exposes the [Spark](http://spark.apache.org/) programming model to JavaScript.  **EclairJS Nashorn** is built on top of [Spark's Java API](http://spark.apache.org/docs/latest/api/java/index.html). For a NodeJS implementation of the Spark programming model visit the [eclairjs-node](https://github.com/EclairJS/eclairjs-node) project.
 
 ## Build from source
 **Prerequisites**
 
  - [Java 8 SE](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
- - [Spark](http://spark.apache.org/downloads.html)
+ - [Spark](http://spark.apache.org/downloads.html) (V1.4.1 built for Hadoop 2.6.0 and later)
  - [git](http://git-scm.com/)
  - [Maven](https://maven.apache.org/)
 
@@ -18,14 +18,14 @@ export SPARK_JAR=<location of Spark assembly jar>
 
 ## Usage
 ```bash
-bin/eclairJS examples/word_count.js
+bin/eclairjs.sh examples/word_count.js
 ```
 
 or
 ```bash
-bin/eclairJS
-eclairJS>var conf = new SparkConf().setAppName("Sample App").setMaster("local[*]");
-var sparkContext = new SparkContext(conf);
+bin/eclairjs.sh
+eclairJS>var list = sc.parallelize([1,10,20,30,40]);
+list.count();
 
 ```
 
@@ -62,9 +62,10 @@ var sparkContext = new SparkContext(conf);
 - [Jupyter](http://jupyter.org/)
 
 1. ```mvn package -Pnotebook```
-2. edit kernel.json ```<absolute path to sparkkernel executable>``` to be ```/Users/<yourName>/local/bin/sparkkernel```
-3. copy ```target/eclairjs-nashorn-0.1.jar``` to  ```~/local/kernel/kernel-0.1.5-SNAPSHOT/lib/```
-4. copy kernel.json to ```~/.ipython/kernels/eclair/kernel.json```
+2. Edit kernel.json ```<absolute path to sparkkernel executable>``` to be ```/Users/<yourName>/local/bin/sparkkernel```
+3. Copy ```target/eclairjs-nashorn-0.1.jar``` to  ```~/local/kernel/kernel-0.1.5-SNAPSHOT/lib/```
+4. Copy kernel.json to ```~/.ipython/kernels/eclair/kernel.json```
+ * Gateway 4.0.0 and higher uses ```~/Library/Jupyter/kernels/eclair```
 5. Create a directory for your notebook ```mkdir ~/jsNotebook```
 6. Change to that directory ```cd ~/jsNotebook```
 7. Start jupyter ```ipython notebook```
@@ -73,7 +74,7 @@ var sparkContext = new SparkContext(conf);
 
 ```javascript
 
-    var jsc = new SparkContext();
+    var jsc = new SparkContext("local[*]", "myapp");
     var rdd = jsc.parallelize([10, 4, 2, 12, 3]);
     eval("count = " + rdd.count());
 
