@@ -82,6 +82,28 @@ var dataframeAggTest = function(file) {
 	
 }
 
+var dataframeApplyTest = function(file) {
+	var peopleDataFrame = buildPeopleTable(file);
+	// SQL can be run over RDDs that have been registered as tables.
+	//var results = sqlContext.sql("SELECT name, age, expense FROM people");
+	var col = peopleDataFrame.apply("name");
+	
+	var s = col.toString();
+	return s;
+	
+}
+
+var dataframeAsTest = function(file) {
+	var peopleDataFrame = buildPeopleTable(file);
+	// SQL can be run over RDDs that have been registered as tables.
+	//var results = sqlContext.sql("SELECT name, age, expense FROM people");
+	var df = peopleDataFrame.as("aliasname");
+	
+	var s = df.toString();
+	return s;
+	
+}
+
 var dataframeColTest = function(file) {
 	var peopleDataFrame = buildPeopleTable(file);
 	var result = peopleDataFrame.col("age");
@@ -89,9 +111,33 @@ var dataframeColTest = function(file) {
 	
 }
 
+var dataframeCollectTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	// SQL can be run over RDDs that have been registered as tables.
+	var result = peopleDataFrame.filter("age > 20");
+    return JSON.stringify(result.collect());
+	
+}
+
 var dataframeColumnsTest = function(file) {
 	var peopleDataFrame = buildPeopleTable(file);
 	return peopleDataFrame.columns().toString();
+}
+
+var dataframeCubeTest = function(file) {
+	var peopleDataFrame = buildPeopleTable(file);
+	var cube = peopleDataFrame.cube("name", "expense");
+	var dfCube = cube.avg("age");
+	
+	return dfCube.toString();
+}
+
+var dataframeDescribeTest = function(file) {
+	var peopleDataFrame = buildPeopleTable(file);
+	var df = peopleDataFrame.describe("age", "expense");
+	
+	return df.toJSON().toArray().toString();
 }
 
 var dataframeFilterTest = function(file) {

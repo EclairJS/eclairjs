@@ -62,11 +62,31 @@ DataFrame.prototype.as = function(alias) {
     return new DataFrame(this.getJavaObject().as(alias));
 };
 /**
+ * Selects column based on the column name and return it as a Column. 
+ * Note that the column name can also reference to a nested column like a.b.
+ * @param {string} colName
+ * @returns {Column}
+ */
+DataFrame.prototype.apply = function(colName) {
+    return new Column(this.getJavaObject().apply(colName));
+};
+/**
  * Persist this DataFrame with the default storage level (`MEMORY_ONLY`).
  * @returns {DataFrame}
  */
 DataFrame.prototype.cache = function() {
     return new DataFrame(this.getJavaObject().cache());
+};
+/**
+ * Returns a new DataFrame that has exactly numPartitions partitions. 
+ * Similar to coalesce defined on an RDD, this operation results in a narrow dependency, 
+ * e.g. if you go from 1000 partitions to 100 partitions, there will not be a shuffle, 
+ * instead each of the 100 new partitions will claim 10 of the current partitions.
+ * @param {integer} numPartitions
+ * @returns {DataFrame}
+ */
+DataFrame.prototype.coalesce = function(numPartitions) {
+    return new DataFrame(this.getJavaObject().coalesce());
 };
 /**
  * Selects column based on the column name and return it as a Column.
@@ -75,6 +95,18 @@ DataFrame.prototype.cache = function() {
  */
 DataFrame.prototype.col = function(name) {
     return new Column(this.getJavaObject().col(name));
+};
+/**
+ * Returns an array that contains all of Rows in this DataFrame.
+ * @returns {Row[]}
+ */
+DataFrame.prototype.collect = function() {
+    var jRows = this.getJavaObject().collect();
+    var rows = [];
+    for (var i = 0; i < jRows.length; i++) {
+    	rows.push(new Row(jRows[i]));
+    }
+    return rows;
 };
 /**
  * Returns all column names as an array.
@@ -94,6 +126,42 @@ DataFrame.prototype.columns = function() {
  */
 DataFrame.prototype.count = function() {
     return this.getJavaObject().count();
+};
+/**
+ * Create a multi-dimensional cube for the current DataFrame using the specified columns, so we can run aggregation on them.
+ * @param {string| Column} cols...
+ * @example 
+ * var df = peopleDataFrame.cube("age", "expense");
+ * @returns {GroupedData}
+ */
+DataFrame.prototype.cube = function() {
+
+	var args = Array.prototype.slice.call(arguments);
+    if(typeof args[0] !== 'object') 
+    	args = args.map(function(v) {
+    		return this.col(v);
+        }.bind(this));
+    
+    var jCols = args.map(function(v) {
+        return Utils.unwrapObject(v);
+    });
+    
+    return new GroupedData(this.getJavaObject().cube(jCols));
+};
+/**
+ * Computes statistics for numeric columns, including count, mean, stddev, min, and max. 
+ * If no columns are given, this function computes statistics for all numerical columns.
+ * This function is meant for exploratory data analysis, as we make no guarantee about the backward 
+ * compatibility of the schema of the resulting DataFrame. If you want to programmatically compute 
+ * summary statistics, use the agg function instead.
+ * @param {string} cols.... 
+ * @example
+ * var df = peopleDataFrame.describe("age", "expense");
+ * @returns {DataFrame}
+ */
+DataFrame.prototype.describe = function() {
+	var args = Array.prototype.slice.call(arguments);
+    return new DataFrame(this.getJavaObject().describe(args));
 };
 /**
  * Filters rows using the given SQL expression string or Filters rows using the given Column..
@@ -200,10 +268,6 @@ DataFrame.prototype.registerTempTable = function(tableName) {
  */
 DataFrame.prototype.select = function() {
     var args = Array.prototype.slice.call(arguments);
-    var len = args.length;
-
-    if(args.length == 0)
-        return self;
 
     if(typeof args[0] === 'object') 
         return this.selectWithColumns(args);
