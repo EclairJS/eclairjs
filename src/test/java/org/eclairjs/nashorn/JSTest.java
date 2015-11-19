@@ -324,6 +324,24 @@ public class JSTest {
     }
     
     @Test
+    public void dataFrameForeachTest() throws Exception {
+    	/*
+    	 * tests
+    	 * DataFrame.foreach()
+    	 * DataFrame.toRDD()
+    	 * RDD.foreach()
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/people.txt");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeForeachTest", file);
+
+        String expected = "all good";
+        assertEquals("should be same", expected, ret);
+    }
+    
+    @Test
     public void dataFrameGroupBy() throws Exception {
     	/*
     	 * tests 

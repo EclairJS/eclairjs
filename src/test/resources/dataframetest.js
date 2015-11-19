@@ -213,6 +213,23 @@ var dataframeFlatMapTest = function(file) {
     return result.take(10).toString();
 }
 
+var dataframeForeachTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	globalForeachResult = {}; // not the right way to do this but works for UT, we are running workers in the same JVM.
+	var result = peopleDataFrame.foreach(function(row) {
+		globalForeachResult[row.getString(0)] = row.getInt(1);
+	});
+	/*
+	 * the names can be in any order so we will check them here instead of on the Java side
+	 */
+	if (globalForeachResult["Justin"] && globalForeachResult["Michael"] && globalForeachResult["Andy"])
+		return "all good";
+	else 
+		return "bummer dude, the test failed";
+
+}
+
 var dataframeGroupByTest = function(file) {
     var dataFrame = sqlContext.read().json(file);
     var gd = dataFrame.groupBy(dataFrame.col("first"));
