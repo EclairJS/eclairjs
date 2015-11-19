@@ -140,6 +140,31 @@ var dataframeDescribeTest = function(file) {
 	return df.toJSON().toArray().toString();
 }
 
+var dataframeDistinctTest = function(file) {
+	var peopleDataFrame = buildPeopleTable(file);
+	var df = peopleDataFrame.distinct();
+	return df.count().toString();
+}
+
+var dataframeDropDuplicatesTest = function(file) {
+	var peopleDataFrame = buildPeopleTable(file);
+	var df = peopleDataFrame.dropDuplicates(["expense"]);
+	return df.count().toString();
+}
+
+var dataframeDtypesTest = function(file) {
+	var peopleDataFrame = buildPeopleTable(file);
+	var dt = peopleDataFrame.dtypes();
+	return JSON.stringify(dt);
+}
+
+var dataframeExceptTest = function(file) {
+	var peopleDataFrame = buildPeopleTable(file);
+	var df2 = peopleDataFrame.filter("age > 20");
+	var resultDf = peopleDataFrame.except(df2);
+	resultDf.explain(true);
+	return resultDf.toJSON().toArray().toString();
+}
 var dataframeFilterTest = function(file) {
 
 	var peopleDataFrame = buildPeopleTable(file);
@@ -168,6 +193,12 @@ var dataframeFilterWithColumnTest = function(file) {
 		return "Name: " + row.getString(0);
 	});
     return names.take(10).toString();
+}
+
+var dataframeFirstTest = function(file) {
+    var dataFrame = sqlContext.read().json(file);
+    var row = dataFrame.first();
+    return row.mkString();
 }
 
 var dataframeFlatMapTest = function(file) {
