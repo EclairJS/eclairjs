@@ -164,6 +164,64 @@ DataFrame.prototype.describe = function() {
     return new DataFrame(this.getJavaObject().describe(args));
 };
 /**
+ * Returns a new DataFrame that contains only the unique rows from this DataFrame. This is an alias for dropDuplicates.
+ */
+DataFrame.prototype.distinct = function() {
+    return this.dropDuplicates();
+};
+/**
+ * Returns a new DataFrame with a column dropped.
+ * @param {string | Column} col 
+ * @returns {DataFrame}
+ */
+DataFrame.prototype.drop = function(col) {
+    return new DataFrame(this.getJavaObject().drop(Utils.unwrapObject(col)));
+};
+/**
+ * Returns a new DataFrame that contains only the unique rows from this DataFrame, if colNames then considering only the subset of columns.
+ * @param {string[]} colNames
+ * @returns {DataFrame}
+ */
+DataFrame.prototype.dropDuplicates = function(colNames) {
+	if (!colNames) {
+		return new DataFrame(this.getJavaObject().dropDuplicates());
+	} else {
+		return new DataFrame(this.getJavaObject().dropDuplicates(colNames));
+	}
+    
+};
+/**
+ * Returns all column names and their data types as an array of arrays. ex. [["name","StringType"],["age","IntegerType"],["expense","IntegerType"]]
+ * @returns {Array} Array of Array[2] 
+ */
+DataFrame.prototype.dtypes = function() {
+	var d = this.getJavaObject().dtypes();
+	var arrayOfTuple2 = [];
+	for (var i = 0; i < d.length; i++) {
+		var tuple2 = Utils.javaToJs(d[i]); // convert Tuple2 to array[o1, o2]
+		arrayOfTuple2.push(tuple2);
+	}
+	
+	return arrayOfTuple2;
+    
+};
+/**
+ * Returns a new DataFrame containing rows in this frame but not in another frame. This is equivalent to EXCEPT in SQL.
+ * @param {DataFrame} otherDataFrame to compare to this DataFrame
+ * @returns {DataFrame}
+ */
+DataFrame.prototype.except = function(otherDataFrame) {
+	return new DataFrame(this.getJavaObject().except(Utils.unwrapObject(otherDataFrame)));
+};
+/**
+ * Prints the plans (logical and physical) to the console for debugging purposes.
+ * @parma {boolean} if false prints the physical plans only.
+ */
+DataFrame.prototype.explain = function(extended) {
+	var b = (extended) ? true : false;
+	this.getJavaObject().explain(b);
+};
+/**
  * Filters rows using the given SQL expression string or Filters rows using the given Column..
  * @param {string | Column} 
  * @returns {DataFrame}
@@ -189,6 +247,13 @@ DataFrame.prototype.filterWithColumn = function(col) {
  */
 DataFrame.prototype.filterWithString = function(columnExpr) {
     return new DataFrame(this.getJavaObject().filter(columnExpr));
+};
+/**
+ * Returns the first row. Alias for head().
+ * returns {Row}
+ */
+DataFrame.prototype.first = function() {
+    return this.head();
 };
 /**
  * Returns a new RDD by first applying a function to all rows of this DataFrame, and then flattening the results.
