@@ -264,6 +264,16 @@ DataFrame.prototype.flatMap = function(func) {
  	return this.toRDD().flatMap(func);
 };
 /**
+ * Applies a function func to all rows.
+ * @param {function} func
+ * @returns {void}
+ */
+DataFrame.prototype.foreach = function(func) {
+	
+	return this.toRDD().foreach(func);
+};
+
+/**
  * Groups the DataFrame using the specified columns, so we can run aggregation on them
  * @param {string[] | Column[]} - Array of Column objects of column name strings
  * @returns {GroupedData}

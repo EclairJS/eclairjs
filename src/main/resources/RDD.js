@@ -93,6 +93,18 @@ RDD.prototype.flatMap = function(func) {
 /**
  * Return a new RDD by applying a function to all elements of this RDD.
  * @param func
+ * @returns {void}
+ */
+RDD.prototype.foreach = function(func) {
+	var sv = Utils.createJavaParams(func);
+	var fn = new org.eclairjs.nashorn.JSVoidFunction(sv.funcStr, sv.scopeVars);
+	this.getJavaObject().foreach(fn);
+
+
+};
+/**
+ * Return a new RDD by applying a function to all elements of this RDD.
+ * @param func
  * @returns {RDD}
  */
 RDD.prototype.map = function(func) {
