@@ -162,3 +162,20 @@ RDD.prototype.take = function(num) {
 	this.logger.debug("results " + results);
 	return results;
 };
+
+/**
+ * Return an array that contains all of the elements in this RDD.
+ * @returns {Array}
+ */
+RDD.prototype.toArray = function() {
+	var res = this.getJavaObject().toArray();
+	var results = [];
+	for (var i = 0; i < res.length; i++) {
+		var value = res[i];
+		var o = Utils.javaToJs(value);
+		results.push(o);
+	}
+	return results;
+	
+};
+
