@@ -25,7 +25,8 @@ var buildPeopleTable = function(file) {
 		var parts = line.split(",");
 		return person = {
 	    				name: parts[0], 
-	    				age: parseInt(parts[1].trim())
+	    				age: parseInt(parts[1].trim()),
+	    				expense: parseInt(parts[2].trim())
 	    		};
 	});
 
@@ -33,11 +34,12 @@ var buildPeopleTable = function(file) {
 	var fields = [];
 	fields.push(DataTypes.createStructField("name", DataTypes.StringType, true));
 	fields.push(DataTypes.createStructField("age", DataTypes.IntegerType, true));
+	fields.push(DataTypes.createStructField("expense", DataTypes.IntegerType, true));
 	var schema = DataTypes.createStructType(fields);
 
 	// Convert records of the RDD (people) to Rows.
 	var rowRDD = people.map(function(person){
-		return RowFactory.create([person.name, person.age]);
+		return RowFactory.create([person.name, person.age, person.expense]);
 	});
 
 
@@ -64,10 +66,57 @@ var programmaticallySpecifyingSchema = function(file) {
     return names.take(10).toString();
 }
 
+var dataframeAggTest = function(file) {
+	var peopleDataFrame = buildPeopleTable(file);
+	// SQL can be run over RDDs that have been registered as tables.
+	var results = sqlContext.sql("SELECT name, age, expense FROM people");
+
+	var m = {};
+	m["age"] = "max";
+	m["expense"] =  "sum";
+	var x = results.agg(m);
+	var rows = x.take(10);
+	var s = JSON.stringify(rows[0]);
+
+	return s;
+	
+}
+
+var dataframeApplyTest = function(file) {
+	var peopleDataFrame = buildPeopleTable(file);
+	// SQL can be run over RDDs that have been registered as tables.
+	//var results = sqlContext.sql("SELECT name, age, expense FROM people");
+	var col = peopleDataFrame.apply("name");
+	
+	var s = col.toString();
+	return s;
+	
+}
+
+var dataframeAsTest = function(file) {
+	var peopleDataFrame = buildPeopleTable(file);
+	// SQL can be run over RDDs that have been registered as tables.
+	//var results = sqlContext.sql("SELECT name, age, expense FROM people");
+	var df = peopleDataFrame.as("aliasname");
+	
+	var s = df.toString();
+	return s;
+	
+}
+
 var dataframeColTest = function(file) {
 	var peopleDataFrame = buildPeopleTable(file);
 	var result = peopleDataFrame.col("age");
 	return result.toString();
+	
+}
+
+var dataframeCollectTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	// SQL can be run over RDDs that have been registered as tables.
+	var result = peopleDataFrame.filter("age > 20");
+    return JSON.stringify(result.collect());
 	
 }
 
@@ -76,6 +125,46 @@ var dataframeColumnsTest = function(file) {
 	return peopleDataFrame.columns().toString();
 }
 
+var dataframeCubeTest = function(file) {
+	var peopleDataFrame = buildPeopleTable(file);
+	var cube = peopleDataFrame.cube("name", "expense");
+	var dfCube = cube.avg("age");
+	
+	return dfCube.toString();
+}
+
+var dataframeDescribeTest = function(file) {
+	var peopleDataFrame = buildPeopleTable(file);
+	var df = peopleDataFrame.describe("age", "expense");
+	
+	return df.toJSON().toArray().toString();
+}
+
+var dataframeDistinctTest = function(file) {
+	var peopleDataFrame = buildPeopleTable(file);
+	var df = peopleDataFrame.distinct();
+	return df.count().toString();
+}
+
+var dataframeDropDuplicatesTest = function(file) {
+	var peopleDataFrame = buildPeopleTable(file);
+	var df = peopleDataFrame.dropDuplicates(["expense"]);
+	return df.count().toString();
+}
+
+var dataframeDtypesTest = function(file) {
+	var peopleDataFrame = buildPeopleTable(file);
+	var dt = peopleDataFrame.dtypes();
+	return JSON.stringify(dt);
+}
+
+var dataframeExceptTest = function(file) {
+	var peopleDataFrame = buildPeopleTable(file);
+	var df2 = peopleDataFrame.filter("age > 20");
+	var resultDf = peopleDataFrame.except(df2);
+	resultDf.explain(true);
+	return resultDf.toJSON().toArray().toString();
+}
 var dataframeFilterTest = function(file) {
 
 	var peopleDataFrame = buildPeopleTable(file);
@@ -106,6 +195,12 @@ var dataframeFilterWithColumnTest = function(file) {
     return names.take(10).toString();
 }
 
+var dataframeFirstTest = function(file) {
+    var dataFrame = sqlContext.read().json(file);
+    var row = dataFrame.first();
+    return row.mkString();
+}
+
 var dataframeFlatMapTest = function(file) {
 
 	var peopleDataFrame = buildPeopleTable(file);
@@ -116,6 +211,23 @@ var dataframeFlatMapTest = function(file) {
 	});
 	print(result.take(10));
     return result.take(10).toString();
+}
+
+var dataframeForeachTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	globalForeachResult = {}; // not the right way to do this but works for UT, we are running workers in the same JVM.
+	var result = peopleDataFrame.foreach(function(row) {
+		globalForeachResult[row.getString(0)] = row.getInt(1);
+	});
+	/*
+	 * the names can be in any order so we will check them here instead of on the Java side
+	 */
+	if (globalForeachResult["Justin"] && globalForeachResult["Michael"] && globalForeachResult["Andy"])
+		return "all good";
+	else 
+		return "bummer dude, the test failed";
+
 }
 
 var dataframeGroupByTest = function(file) {

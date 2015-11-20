@@ -69,6 +69,52 @@ public class JSTest {
     }
     
     @Test
+    public void dataFrameAggTest() throws Exception {
+    	/*
+    	 * test
+    	 * DataFrame.col("name")
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/people.txt");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeAggTest", file);
+
+        String json = "{\"values\":[30,6],\"schema\":{\"fields\":[{\"name\":\"max(age)\",\"dataType\":\"IntegerType\",\"nullable\":true},{\"name\":\"sum(expense)\",\"dataType\":\"LongType\",\"nullable\":true}]}}";
+        assertEquals("should be same", json.toLowerCase(), ret.toString().toLowerCase()); // case is sometimes different when run from maven
+    }
+    
+    @Test
+    public void dataFrameApplyTest() throws Exception {
+    	/*
+    	 * test
+    	 * DataFrame.col("name")
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/people.txt");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeApplyTest", file);
+
+         assertEquals("should be same", "name", ret.toString()); 
+    }
+    
+    @Test
+    public void dataFrameAsTest() throws Exception {
+    	/*
+    	 * test
+    	 * DataFrame.col("name")
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/people.txt");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeAsTest", file);
+
+         assertEquals("should be same", "[name: string, age: int, expense: int]", ret.toString()); 
+    }
+    
+    @Test
     public void dataFrameColTest() throws Exception {
     	/*
     	 * test
@@ -85,6 +131,21 @@ public class JSTest {
     }
     
     @Test
+    public void dataFrameCollectTest() throws Exception {
+    	/*
+    	 * tests
+    	 * DataFrame.columns()
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/people.txt");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeCollectTest", file);
+        String json = "[{\"values\":[\"Michael\",29,1],\"schema\":{\"fields\":[{\"name\":\"name\",\"dataType\":\"StringType\",\"nullable\":true},{\"name\":\"age\",\"dataType\":\"IntegerType\",\"nullable\":true},{\"name\":\"expense\",\"dataType\":\"IntegerType\",\"nullable\":true}]}},{\"values\":[\"Andy\",30,2],\"schema\":{\"fields\":[{\"name\":\"name\",\"dataType\":\"StringType\",\"nullable\":true},{\"name\":\"age\",\"dataType\":\"IntegerType\",\"nullable\":true},{\"name\":\"expense\",\"dataType\":\"IntegerType\",\"nullable\":true}]}}]";
+        assertEquals("should be same", json, ret);
+    }
+    
+    @Test
     public void dataFrameColumnsTest() throws Exception {
     	/*
     	 * tests
@@ -96,7 +157,104 @@ public class JSTest {
         TestUtils.evalJSResource(engine, "/dataframetest.js");
         Object ret = ((Invocable)engine).invokeFunction("dataframeColumnsTest", file);
 
-        assertEquals("should be same", "name,age", ret.toString());
+        assertEquals("should be same", "name,age,expense", ret.toString());
+    }
+    
+    @Test
+    public void dataFrameCubeTest() throws Exception {
+    	/*
+    	 * tests
+    	 * DataFrame.cube()
+    	 * GroupedData.avg()
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/people.txt");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeCubeTest", file);
+
+        assertEquals("should be same", "[name: string, expense: int, AVG(age): double]".toLowerCase(), ret.toString().toLowerCase());
+    }
+    
+    @Test
+    public void dataFrameDescribeTest() throws Exception {
+    	/*
+    	 * tests
+    	 * DataFrame.describe()
+    	 * DataFrame.toJSON()
+    	 * RDD.toArray()
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/people.txt");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeDescribeTest", file);
+        String expected = "{\"summary\":\"count\",\"age\":\"3\",\"expense\":\"3\"},{\"summary\":\"mean\",\"age\":\"26.0\",\"expense\":\"2.0\"},{\"summary\":\"stddev\",\"age\":\"4.966554808583776\",\"expense\":\"0.8164965809277263\"},{\"summary\":\"min\",\"age\":\"19\",\"expense\":\"1\"},{\"summary\":\"max\",\"age\":\"30\",\"expense\":\"3\"}";
+        assertEquals("should be same", expected, ret);
+    }
+    
+    @Test
+    public void dataFrameDistinctTest() throws Exception {
+    	/*
+    	 * tests
+    	 * DataFrame.distinct()
+    	 * DataFrame.dropDuplicates()
+    	 * DataFrame.count()
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/peopleDuplicates.txt");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeDistinctTest", file);
+        assertEquals("should be same", "3", ret);
+    }
+    
+    @Test
+    public void dataFrameDropDuplicatesTest() throws Exception {
+    	/*
+    	 * tests
+    	 * DataFrame.distinct()
+    	 * DataFrame.dropDuplicates(string[])
+    	 * DataFrame.count()
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/peopleDuplicates.txt");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeDropDuplicatesTest", file);
+        assertEquals("should be same", "2", ret);
+    }
+    
+    @Test
+    public void dataFrameDtypesTest() throws Exception {
+    	/*
+    	 * tests
+    	 * DataFrame.dTypes()
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/people.txt");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeDtypesTest", file);
+        String json = "[[\"name\",\"StringType\"],[\"age\",\"IntegerType\"],[\"expense\",\"IntegerType\"]]";
+        assertEquals("should be same", json, ret);
+    }
+    
+    
+    @Test
+    public void dataFrameExceptTest() throws Exception {
+    	/*
+    	 * tests
+    	 * DataFrame.except()
+    	 * DataFrame.explain()
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/people.txt");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeExceptTest", file);
+        String expect = "{\"name\":\"Justin\",\"age\":19,\"expense\":3}";
+        assertEquals("should be same", expect, ret);
     }
     
     @Test
@@ -134,6 +292,22 @@ public class JSTest {
     }
     
     @Test
+    public void dataFrameFirst() throws Exception {
+    	/*
+    	 * tests 
+     	 * DataFrame.first()
+     	 * * DataFrame.head()
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/test.json");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeFirstTest", file);
+
+        assertEquals("should be same", "LukeSkywalker", ret);
+    }
+    
+    @Test
     public void dataFrameFlatMapTest() throws Exception {
     	/*
     	 * tests
@@ -147,6 +321,24 @@ public class JSTest {
 
         String expected = "Michael,Andy,Justin";
         assertEquals("should be same", expected, ret.toString());
+    }
+    
+    @Test
+    public void dataFrameForeachTest() throws Exception {
+    	/*
+    	 * tests
+    	 * DataFrame.foreach()
+    	 * DataFrame.toRDD()
+    	 * RDD.foreach()
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/people.txt");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeForeachTest", file);
+
+        String expected = "all good";
+        assertEquals("should be same", expected, ret);
     }
     
     @Test

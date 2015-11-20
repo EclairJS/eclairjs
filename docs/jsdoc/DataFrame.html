@@ -78,7 +78,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line20">line 20</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line27">line 27</a>
     </li></ul></dd>
     
     
@@ -101,6 +101,17 @@
     
     
     
+        <h5>Examples</h5>
+        
+    <pre class="prettyprint"><code>var people = sqlContext.read.parquet("...") </code></pre>
+
+    <pre class="prettyprint"><code>  
+// Once created, it can be manipulated using the various domain-specific-language (DSL) functions defined in: 
+// DataFrame (this class), Column, and functions.
+// To select a column from the data frame:
+var ageCol = people("age") </code></pre>
+
+    
 </dd>
 
     
@@ -122,6 +133,287 @@
         <h3 class="subsection-title">Methods</h3>
         
         <dl>
+            
+<dt>
+    <h4 class="name" id="agg"><span class="type-signature"></span>agg<span class="signature">(hashMap)</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        aggregates on the entire DataFrame without groups.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>hashMap</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">hashMap</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">hashMap<String,String> exprs</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line51">line 51</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="DataFrame.html">DataFrame</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>// df.agg(...) is a shorthand for df.groupBy().agg(...)
+var map = {};
+map["age"] = "max";
+map["salary"] = "avg";
+df.agg(map)
+df.groupBy().agg(map)</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="apply"><span class="type-signature"></span>apply<span class="signature">(colName)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Selects column based on the column name and return it as a Column. 
+Note that the column name can also reference to a nested column like a.b.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>colName</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line70">line 70</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
             
 <dt>
     <h4 class="name" id="as"><span class="type-signature"></span>as<span class="signature">(alias)</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
@@ -213,7 +505,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line37">line 37</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line61">line 61</a>
     </li></ul></dd>
     
     
@@ -300,7 +592,145 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line44">line 44</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line77">line 77</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="DataFrame.html">DataFrame</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="coalesce"><span class="type-signature"></span>coalesce<span class="signature">(numPartitions)</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Returns a new DataFrame that has exactly numPartitions partitions. 
+Similar to coalesce defined on an RDD, this operation results in a narrow dependency, 
+e.g. if you go from 1000 partitions to 100 partitions, there will not be a shuffle, 
+instead each of the 100 new partitions will claim 10 of the current partitions.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>numPartitions</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line88">line 88</a>
     </li></ul></dd>
     
     
@@ -435,7 +865,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line52">line 52</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line96">line 96</a>
     </li></ul></dd>
     
     
@@ -468,6 +898,93 @@
 	<dd>
 		
 <span class="param-type"><a href="Column.html">Column</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="collect"><span class="type-signature"></span>collect<span class="signature">()</span><span class="type-signature"> &rarr; {Row[]}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Returns an array that contains all of Rows in this DataFrame.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line103">line 103</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">Row[]</span>
 
 
 	</dd>
@@ -522,7 +1039,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line59">line 59</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line115">line 115</a>
     </li></ul></dd>
     
     
@@ -609,7 +1126,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line71">line 71</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line127">line 127</a>
     </li></ul></dd>
     
     
@@ -648,6 +1165,931 @@
 </dl>
 
         
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="cube"><span class="type-signature"></span>cube<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="GroupedData.html">GroupedData</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Create a multi-dimensional cube for the current DataFrame using the specified columns, so we can run aggregation on them.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>cols...</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line137">line 137</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="GroupedData.html">GroupedData</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code> 
+var df = peopleDataFrame.cube("age", "expense");</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="describe"><span class="type-signature"></span>describe<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Computes statistics for numeric columns, including count, mean, stddev, min, and max. 
+If no columns are given, this function computes statistics for all numerical columns.
+This function is meant for exploratory data analysis, as we make no guarantee about the backward 
+compatibility of the schema of the resulting DataFrame. If you want to programmatically compute 
+summary statistics, use the agg function instead.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>cols....</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line162">line 162</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="DataFrame.html">DataFrame</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>var df = peopleDataFrame.describe("age", "expense");</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="distinct"><span class="type-signature"></span>distinct<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Returns a new DataFrame that contains only the unique rows from this DataFrame. This is an alias for dropDuplicates.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line169">line 169</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="drop"><span class="type-signature"></span>drop<span class="signature">(col)</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Returns a new DataFrame with a column dropped.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>col</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line177">line 177</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="DataFrame.html">DataFrame</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="dropDuplicates"><span class="type-signature"></span>dropDuplicates<span class="signature">(colNames)</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Returns a new DataFrame that contains only the unique rows from this DataFrame, if colNames then considering only the subset of columns.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>colNames</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line185">line 185</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="DataFrame.html">DataFrame</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="dtypes"><span class="type-signature"></span>dtypes<span class="signature">()</span><span class="type-signature"> &rarr; {Array}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Returns all column names and their data types as an array of arrays. ex. [["name","StringType"],["age","IntegerType"],["expense","IntegerType"]]
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line197">line 197</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    Array of Array[2]
+</div>
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">Array</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="except"><span class="type-signature"></span>except<span class="signature">(otherDataFrame)</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Returns a new DataFrame containing rows in this frame but not in another frame. This is equivalent to EXCEPT in SQL.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>otherDataFrame</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="DataFrame.html">DataFrame</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">to compare to this DataFrame</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line213">line 213</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="DataFrame.html">DataFrame</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="explain"><span class="type-signature"></span>explain<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Prints the plans (logical and physical) to the console for debugging purposes.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line220">line 220</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
     
     
 </dd>
@@ -747,7 +2189,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line79">line 79</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line229">line 229</a>
     </li></ul></dd>
     
     
@@ -882,7 +2324,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line90">line 90</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line240">line 240</a>
     </li></ul></dd>
     
     
@@ -1017,7 +2459,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line98">line 98</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line248">line 248</a>
     </li></ul></dd>
     
     
@@ -1056,6 +2498,76 @@
 </dl>
 
         
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="first"><span class="type-signature"></span>first<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Returns the first row. Alias for head().
+returns {Row}
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line255">line 255</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
     
     
 </dd>
@@ -1152,7 +2664,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line106">line 106</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line263">line 263</a>
     </li></ul></dd>
     
     
@@ -1286,7 +2798,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line114">line 114</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line271">line 271</a>
     </li></ul></dd>
     
     
@@ -1421,7 +2933,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line131">line 131</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line284">line 284</a>
     </li></ul></dd>
     
     
@@ -1556,7 +3068,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line146">line 146</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line299">line 299</a>
     </li></ul></dd>
     
     
@@ -1643,7 +3155,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line158">line 158</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line311">line 311</a>
     </li></ul></dd>
     
     
@@ -1778,7 +3290,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line166">line 166</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line319">line 319</a>
     </li></ul></dd>
     
     
@@ -1913,7 +3425,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line173">line 173</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line326">line 326</a>
     </li></ul></dd>
     
     
@@ -2029,7 +3541,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line181">line 181</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line334">line 334</a>
     </li></ul></dd>
     
     
@@ -2164,7 +3676,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line198">line 198</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line347">line 347</a>
     </li></ul></dd>
     
     
@@ -2299,7 +3811,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line211">line 211</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line360">line 360</a>
     </li></ul></dd>
     
     
@@ -2386,7 +3898,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line222">line 222</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line371">line 371</a>
     </li></ul></dd>
     
     
@@ -2503,7 +4015,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line230">line 230</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line379">line 379</a>
     </li></ul></dd>
     
     
@@ -2590,7 +4102,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line240">line 240</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line391">line 391</a>
     </li></ul></dd>
     
     
@@ -2677,7 +4189,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line247">line 247</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line398">line 398</a>
     </li></ul></dd>
     
     
@@ -2815,7 +4327,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line255">line 255</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line406">line 406</a>
     </li></ul></dd>
     
     
@@ -2973,7 +4485,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line264">line 264</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line415">line 415</a>
     </li></ul></dd>
     
     
@@ -3060,7 +4572,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line271">line 271</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line422">line 422</a>
     </li></ul></dd>
     
     
@@ -3119,13 +4631,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulator.html">Accumulator</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulator.html">Accumulator</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Fri Nov 13 2015 16:42:52 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Thu Nov 19 2015 14:13:35 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>

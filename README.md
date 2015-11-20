@@ -62,9 +62,10 @@ list.count();
 - [Jupyter](http://jupyter.org/)
 
 1. ```mvn package -Pnotebook```
-2. edit kernel.json ```<absolute path to sparkkernel executable>``` to be ```/Users/<yourName>/local/bin/sparkkernel```
-3. copy ```target/eclairjs-nashorn-0.1.jar``` to  ```~/local/kernel/kernel-0.1.5-SNAPSHOT/lib/```
-4. copy kernel.json to ```~/.ipython/kernels/eclair/kernel.json```
+2. Edit kernel.json ```<absolute path to sparkkernel executable>``` to be ```/Users/<yourName>/local/bin/sparkkernel```
+3. Copy ```target/eclairjs-nashorn-0.1.jar``` to  ```~/local/kernel/kernel-0.1.5-SNAPSHOT/lib/```
+4. Copy kernel.json to ```~/.ipython/kernels/eclair/kernel.json```
+ * Gateway 4.0.0 and higher uses ```~/Library/Jupyter/kernels/eclair```
 5. Create a directory for your notebook ```mkdir ~/jsNotebook```
 6. Change to that directory ```cd ~/jsNotebook```
 7. Start jupyter ```ipython notebook```

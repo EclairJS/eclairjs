@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Row</title>
+    <title>JSDoc: Class: Metadata</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Class: Row</h1>
+    <h1 class="page-title">Class: Metadata</h1>
     
     
 
@@ -27,12 +27,13 @@
     
 <header>
     <h2>
-    Row
+    Metadata
     </h2>
     
-        <div class="class-description">Represents one row of output from a relational operator. Allows both generic access by ordinal, which will incur boxing overhead for primitives, as well as native primitive access.
-It is invalid to use the native primitive interface to retrieve a value that is null, instead a user must check isNullAt before attempting to retrieve a value that might be null.
-To create a new Row, use RowFactory.create()</div>
+        <div class="class-description">Metadata is a wrapper over Map[String, Any] that limits the value type to simple ones: 
+Boolean, Long, Double, String, Metadata, Array[Boolean], Array[Long], Array[Double], Array[String], and Array[Metadata]. 
+JSON is used for serialization.
+The default constructor is private. User should use either MetadataBuilder or Metadata.fromJson() to create Metadata instances.</div>
     
 </header>  
 
@@ -43,7 +44,7 @@ To create a new Row, use RowFactory.create()</div>
     
         
 <dt>
-    <h4 class="name" id="Row"><span class="type-signature"></span>new Row<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Metadata"><span class="type-signature">&lt;protected> </span>new Metadata<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -80,7 +81,7 @@ To create a new Row, use RowFactory.create()</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Row.js.html">sql/Row.js</a>, <a href="Row.js.html#line41">line 41</a>
+        <a href="Metadata.js.html">sql/types/Metadata.js</a>, <a href="Metadata.js.html#line25">line 25</a>
     </li></ul></dd>
     
     
@@ -126,7 +127,7 @@ To create a new Row, use RowFactory.create()</div>
         <dl>
             
 <dt>
-    <h4 class="name" id="anyNull"><span class="type-signature"></span>anyNull<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    <h4 class="name" id="contains"><span class="type-signature"></span>contains<span class="signature">(key)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
     
     
 </dt>
@@ -134,94 +135,7 @@ To create a new Row, use RowFactory.create()</div>
     
     
     <div class="description">
-        Returns true if there are any NULL values in this row.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Row.js.html">sql/Row.js</a>, <a href="Row.js.html#line61">line 61</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">boolean</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="apply"><span class="type-signature"></span>apply<span class="signature">(index)</span><span class="type-signature"> &rarr; {object}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Returns the value at position index.
+        Tests whether this Metadata contains a binding for a key.
     </div>
     
 
@@ -255,359 +169,7 @@ To create a new Row, use RowFactory.create()</div>
 	
         <tr>
             
-                <td class="name"><code>index</code></td>
-            
-            
-            <td class="type">
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Row.js.html">sql/Row.js</a>, <a href="Row.js.html#line73">line 73</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">object</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="copy"><span class="type-signature"></span>copy<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Row.html">Row</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Make a copy of the current Row object
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Row.js.html">sql/Row.js</a>, <a href="Row.js.html#line84">line 84</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="Row.html">Row</a></span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="equals"><span class="type-signature"></span>equals<span class="signature">(o)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        compares object o to this Row object
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>o</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Row.js.html">sql/Row.js</a>, <a href="Row.js.html#line96">line 96</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">boolean</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="fieldIndex"><span class="type-signature"></span>fieldIndex<span class="signature">(name)</span><span class="type-signature"> &rarr; {integer}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Returns the index of a given field name.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>key</code></td>
             
             
             <td class="type">
@@ -654,277 +216,7 @@ To create a new Row, use RowFactory.create()</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Row.js.html">sql/Row.js</a>, <a href="Row.js.html#line107">line 107</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">integer</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="get"><span class="type-signature"></span>get<span class="signature">(index)</span><span class="type-signature"> &rarr; {object}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Returns the value at position index.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>index</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">integer</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Row.js.html">sql/Row.js</a>, <a href="Row.js.html#line119">line 119</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">object</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="getBoolean"><span class="type-signature"></span>getBoolean<span class="signature">(index)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Returns the value at position index as a primitive boolean.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>index</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">integer</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Row.js.html">sql/Row.js</a>, <a href="Row.js.html#line131">line 131</a>
+        <a href="Metadata.js.html">sql/types/Metadata.js</a>, <a href="Metadata.js.html#line40">line 40</a>
     </li></ul></dd>
     
     
@@ -970,7 +262,7 @@ To create a new Row, use RowFactory.create()</div>
         
             
 <dt>
-    <h4 class="name" id="getByte"><span class="type-signature"></span>getByte<span class="signature">(index)</span><span class="type-signature"> &rarr; {byte}</span></h4>
+    <h4 class="name" id="empty"><span class="type-signature"></span>empty<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Metadata.html">Metadata</a>}</span></h4>
     
     
 </dt>
@@ -978,7 +270,7 @@ To create a new Row, use RowFactory.create()</div>
     
     
     <div class="description">
-        Returns the value at position idex as a primitive byte.
+        Returns an empty Metadata.
     </div>
     
 
@@ -986,54 +278,6 @@ To create a new Row, use RowFactory.create()</div>
     
     
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>index</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">integer</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
     
     
     
@@ -1059,7 +303,7 @@ To create a new Row, use RowFactory.create()</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Row.js.html">sql/Row.js</a>, <a href="Row.js.html#line143">line 143</a>
+        <a href="Metadata.js.html">sql/types/Metadata.js</a>, <a href="Metadata.js.html#line48">line 48</a>
     </li></ul></dd>
     
     
@@ -1091,7 +335,7 @@ To create a new Row, use RowFactory.create()</div>
 	</dt>
 	<dd>
 		
-<span class="param-type">byte</span>
+<span class="param-type"><a href="Metadata.html">Metadata</a></span>
 
 
 	</dd>
@@ -1105,16 +349,12 @@ To create a new Row, use RowFactory.create()</div>
         
             
 <dt>
-    <h4 class="name" id="getDate"><span class="type-signature"></span>getDate<span class="signature">(index)</span><span class="type-signature"> &rarr; {Date}</span></h4>
+    <h4 class="name" id="equals"><span class="type-signature"></span>equals<span class="signature">(obj)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
     
     
 </dt>
 <dd>
     
-    
-    <div class="description">
-        Returns the value at position index of type as Date.
-    </div>
     
 
     
@@ -1147,13 +387,13 @@ To create a new Row, use RowFactory.create()</div>
 	
         <tr>
             
-                <td class="name"><code>index</code></td>
+                <td class="name"><code>obj</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">integer</span>
+<span class="param-type">object</span>
 
 
             
@@ -1194,7 +434,7 @@ To create a new Row, use RowFactory.create()</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Row.js.html">sql/Row.js</a>, <a href="Row.js.html#line155">line 155</a>
+        <a href="Metadata.js.html">sql/types/Metadata.js</a>, <a href="Metadata.js.html#line56">line 56</a>
     </li></ul></dd>
     
     
@@ -1226,7 +466,7 @@ To create a new Row, use RowFactory.create()</div>
 	</dt>
 	<dd>
 		
-<span class="param-type">Date</span>
+<span class="param-type">boolean</span>
 
 
 	</dd>
@@ -1240,7 +480,7 @@ To create a new Row, use RowFactory.create()</div>
         
             
 <dt>
-    <h4 class="name" id="getDecimal"><span class="type-signature"></span>getDecimal<span class="signature">(index)</span><span class="type-signature"> &rarr; {decimal}</span></h4>
+    <h4 class="name" id="fromJson"><span class="type-signature"></span>fromJson<span class="signature">(json)</span><span class="type-signature"> &rarr; {<a href="Metadata.html">Metadata</a>}</span></h4>
     
     
 </dt>
@@ -1248,7 +488,7 @@ To create a new Row, use RowFactory.create()</div>
     
     
     <div class="description">
-        Returns the value at position index of type as decimal.
+        Creates a Metadata instance from JSON
     </div>
     
 
@@ -1282,13 +522,13 @@ To create a new Row, use RowFactory.create()</div>
 	
         <tr>
             
-                <td class="name"><code>index</code></td>
+                <td class="name"><code>json</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">integer</span>
+<span class="param-type">string</span>
 
 
             
@@ -1329,7 +569,7 @@ To create a new Row, use RowFactory.create()</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Row.js.html">sql/Row.js</a>, <a href="Row.js.html#line169">line 169</a>
+        <a href="Metadata.js.html">sql/types/Metadata.js</a>, <a href="Metadata.js.html#line65">line 65</a>
     </li></ul></dd>
     
     
@@ -1361,7 +601,7 @@ To create a new Row, use RowFactory.create()</div>
 	</dt>
 	<dd>
 		
-<span class="param-type">decimal</span>
+<span class="param-type"><a href="Metadata.html">Metadata</a></span>
 
 
 	</dd>
@@ -1375,7 +615,7 @@ To create a new Row, use RowFactory.create()</div>
         
             
 <dt>
-    <h4 class="name" id="getDouble"><span class="type-signature"></span>getDouble<span class="signature">(index)</span><span class="type-signature"> &rarr; {double}</span></h4>
+    <h4 class="name" id="getBoolean"><span class="type-signature"></span>getBoolean<span class="signature">(key)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
     
     
 </dt>
@@ -1383,7 +623,7 @@ To create a new Row, use RowFactory.create()</div>
     
     
     <div class="description">
-        Returns the value at position index of type as double.
+        Gets a Boolean.
     </div>
     
 
@@ -1417,13 +657,13 @@ To create a new Row, use RowFactory.create()</div>
 	
         <tr>
             
-                <td class="name"><code>index</code></td>
+                <td class="name"><code>key</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">integer</span>
+<span class="param-type">string</span>
 
 
             
@@ -1464,7 +704,277 @@ To create a new Row, use RowFactory.create()</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Row.js.html">sql/Row.js</a>, <a href="Row.js.html#line181">line 181</a>
+        <a href="Metadata.js.html">sql/types/Metadata.js</a>, <a href="Metadata.js.html#line73">line 73</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">boolean</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getBooleanArray"><span class="type-signature"></span>getBooleanArray<span class="signature">(key)</span><span class="type-signature"> &rarr; {boolean[]}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Gets a Boolean array.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Metadata.js.html">sql/types/Metadata.js</a>, <a href="Metadata.js.html#line81">line 81</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">boolean[]</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getDouble"><span class="type-signature"></span>getDouble<span class="signature">(key)</span><span class="type-signature"> &rarr; {double}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Gets a Double.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Metadata.js.html">sql/types/Metadata.js</a>, <a href="Metadata.js.html#line89">line 89</a>
     </li></ul></dd>
     
     
@@ -1510,7 +1020,7 @@ To create a new Row, use RowFactory.create()</div>
         
             
 <dt>
-    <h4 class="name" id="getFloat"><span class="type-signature"></span>getFloat<span class="signature">(index)</span><span class="type-signature"> &rarr; {float}</span></h4>
+    <h4 class="name" id="getDoubleArray"><span class="type-signature"></span>getDoubleArray<span class="signature">(key)</span><span class="type-signature"> &rarr; {double[]}</span></h4>
     
     
 </dt>
@@ -1518,7 +1028,7 @@ To create a new Row, use RowFactory.create()</div>
     
     
     <div class="description">
-        Returns the value at position index of type as float.
+        Gets a Double array.
     </div>
     
 
@@ -1552,13 +1062,13 @@ To create a new Row, use RowFactory.create()</div>
 	
         <tr>
             
-                <td class="name"><code>index</code></td>
+                <td class="name"><code>key</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">integer</span>
+<span class="param-type">string</span>
 
 
             
@@ -1599,7 +1109,7 @@ To create a new Row, use RowFactory.create()</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Row.js.html">sql/Row.js</a>, <a href="Row.js.html#line193">line 193</a>
+        <a href="Metadata.js.html">sql/types/Metadata.js</a>, <a href="Metadata.js.html#line97">line 97</a>
     </li></ul></dd>
     
     
@@ -1631,7 +1141,7 @@ To create a new Row, use RowFactory.create()</div>
 	</dt>
 	<dd>
 		
-<span class="param-type">float</span>
+<span class="param-type">double[]</span>
 
 
 	</dd>
@@ -1645,7 +1155,7 @@ To create a new Row, use RowFactory.create()</div>
         
             
 <dt>
-    <h4 class="name" id="getInt"><span class="type-signature"></span>getInt<span class="signature">(index)</span><span class="type-signature"> &rarr; {integer}</span></h4>
+    <h4 class="name" id="getLong"><span class="type-signature"></span>getLong<span class="signature">(key)</span><span class="type-signature"> &rarr; {long}</span></h4>
     
     
 </dt>
@@ -1653,7 +1163,7 @@ To create a new Row, use RowFactory.create()</div>
     
     
     <div class="description">
-        Returns the value at position index of type as integer.
+        Gets a Long.
     </div>
     
 
@@ -1687,13 +1197,13 @@ To create a new Row, use RowFactory.create()</div>
 	
         <tr>
             
-                <td class="name"><code>index</code></td>
+                <td class="name"><code>key</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">integer</span>
+<span class="param-type">string</span>
 
 
             
@@ -1734,142 +1244,7 @@ To create a new Row, use RowFactory.create()</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Row.js.html">sql/Row.js</a>, <a href="Row.js.html#line205">line 205</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">integer</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="getLong"><span class="type-signature"></span>getLong<span class="signature">(index)</span><span class="type-signature"> &rarr; {long}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Returns the value at position index of type as long.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>index</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">integer</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Row.js.html">sql/Row.js</a>, <a href="Row.js.html#line217">line 217</a>
+        <a href="Metadata.js.html">sql/types/Metadata.js</a>, <a href="Metadata.js.html#line105">line 105</a>
     </li></ul></dd>
     
     
@@ -1915,7 +1290,7 @@ To create a new Row, use RowFactory.create()</div>
         
             
 <dt>
-    <h4 class="name" id="getShort"><span class="type-signature"></span>getShort<span class="signature">(index)</span><span class="type-signature"> &rarr; {short}</span></h4>
+    <h4 class="name" id="getLongArray"><span class="type-signature"></span>getLongArray<span class="signature">(key)</span><span class="type-signature"> &rarr; {long[]}</span></h4>
     
     
 </dt>
@@ -1923,7 +1298,7 @@ To create a new Row, use RowFactory.create()</div>
     
     
     <div class="description">
-        Returns the value at position index of type as short.
+        Gets a Long array.
     </div>
     
 
@@ -1957,856 +1332,7 @@ To create a new Row, use RowFactory.create()</div>
 	
         <tr>
             
-                <td class="name"><code>index</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">integer</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Row.js.html">sql/Row.js</a>, <a href="Row.js.html#line229">line 229</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">short</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="getString"><span class="type-signature"></span>getString<span class="signature">(index)</span><span class="type-signature"> &rarr; {String}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Returns the value at position index of type as String.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>index</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">integer</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Row.js.html">sql/Row.js</a>, <a href="Row.js.html#line241">line 241</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">String</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="getStruct"><span class="type-signature"></span>getStruct<span class="signature">(index)</span><span class="type-signature"> &rarr; {String}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Returns the value at position index of  struct type as an Row object.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>index</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">integer</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Row.js.html">sql/Row.js</a>, <a href="Row.js.html#line253">line 253</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">String</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="getTimestamp"><span class="type-signature"></span>getTimestamp<span class="signature">(index)</span><span class="type-signature"> &rarr; {Date}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Returns the value at position index of date type as Date.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>index</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">integer</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Row.js.html">sql/Row.js</a>, <a href="Row.js.html#line265">line 265</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">Date</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="hashCode"><span class="type-signature"></span>hashCode<span class="signature">()</span><span class="type-signature"> &rarr; {int}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Returns hash code
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Row.js.html">sql/Row.js</a>, <a href="Row.js.html#line276">line 276</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">int</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="isNullAt"><span class="type-signature"></span>isNullAt<span class="signature">(index)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Checks whether the value at position index is null.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>index</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">integer</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Row.js.html">sql/Row.js</a>, <a href="Row.js.html#line287">line 287</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">boolean</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="length"><span class="type-signature"></span>length<span class="signature">()</span><span class="type-signature"> &rarr; {integer}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Number of elements in the Row.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Row.js.html">sql/Row.js</a>, <a href="Row.js.html#line298">line 298</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">integer</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="mkString"><span class="type-signature"></span>mkString<span class="signature">(Optional, Optional, Required)</span><span class="type-signature"> &rarr; {string}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Displays all elements of this traversable or iterator in a string using start, end, and separator strings.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>Optional</code></td>
+                <td class="name"><code>key</code></td>
             
             
             <td class="type">
@@ -2822,53 +1348,7 @@ To create a new Row, use RowFactory.create()</div>
             
             
             
-            <td class="description last">separator</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>Optional</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">start</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>Required</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">end, if start specified</td>
+            <td class="description last"></td>
         </tr>
 	
 	
@@ -2899,7 +1379,412 @@ To create a new Row, use RowFactory.create()</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Row.js.html">sql/Row.js</a>, <a href="Row.js.html#line312">line 312</a>
+        <a href="Metadata.js.html">sql/types/Metadata.js</a>, <a href="Metadata.js.html#line113">line 113</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">long[]</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getMetadata"><span class="type-signature"></span>getMetadata<span class="signature">(key)</span><span class="type-signature"> &rarr; {<a href="Metadata.html">Metadata</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Gets a Metadata.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Metadata.js.html">sql/types/Metadata.js</a>, <a href="Metadata.js.html#line121">line 121</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="Metadata.html">Metadata</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getMetadataArray"><span class="type-signature"></span>getMetadataArray<span class="signature">(key)</span><span class="type-signature"> &rarr; {Metadata[]}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Gets a Metadata array.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Metadata.js.html">sql/types/Metadata.js</a>, <a href="Metadata.js.html#line129">line 129</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">Metadata[]</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getString"><span class="type-signature"></span>getString<span class="signature">(key)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Gets a String..
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Metadata.js.html">sql/types/Metadata.js</a>, <a href="Metadata.js.html#line137">line 137</a>
     </li></ul></dd>
     
     
@@ -2945,7 +1830,7 @@ To create a new Row, use RowFactory.create()</div>
         
             
 <dt>
-    <h4 class="name" id="schema"><span class="type-signature"></span>schema<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="StructType.html">StructType</a>}</span></h4>
+    <h4 class="name" id="getStringArray"><span class="type-signature"></span>getStringArray<span class="signature">(key)</span><span class="type-signature"> &rarr; {string[]}</span></h4>
     
     
 </dt>
@@ -2953,7 +1838,7 @@ To create a new Row, use RowFactory.create()</div>
     
     
     <div class="description">
-        Schema for the row.
+        Gets a String array..
     </div>
     
 
@@ -2961,6 +1846,54 @@ To create a new Row, use RowFactory.create()</div>
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -2986,7 +1919,7 @@ To create a new Row, use RowFactory.create()</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Row.js.html">sql/Row.js</a>, <a href="Row.js.html#line337">line 337</a>
+        <a href="Metadata.js.html">sql/types/Metadata.js</a>, <a href="Metadata.js.html#line145">line 145</a>
     </li></ul></dd>
     
     
@@ -3018,7 +1951,7 @@ To create a new Row, use RowFactory.create()</div>
 	</dt>
 	<dd>
 		
-<span class="param-type"><a href="StructType.html">StructType</a></span>
+<span class="param-type">string[]</span>
 
 
 	</dd>
@@ -3032,16 +1965,12 @@ To create a new Row, use RowFactory.create()</div>
         
             
 <dt>
-    <h4 class="name" id="size"><span class="type-signature"></span>size<span class="signature">()</span><span class="type-signature"> &rarr; {integer}</span></h4>
+    <h4 class="name" id="hashCode"><span class="type-signature"></span>hashCode<span class="signature">()</span><span class="type-signature"> &rarr; {integer}</span></h4>
     
     
 </dt>
 <dd>
     
-    
-    <div class="description">
-        Number of elements in the Row.
-    </div>
     
 
     
@@ -3073,7 +2002,7 @@ To create a new Row, use RowFactory.create()</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Row.js.html">sql/Row.js</a>, <a href="Row.js.html#line350">line 350</a>
+        <a href="Metadata.js.html">sql/types/Metadata.js</a>, <a href="Metadata.js.html#line151">line 151</a>
     </li></ul></dd>
     
     
@@ -3106,6 +2035,176 @@ To create a new Row, use RowFactory.create()</div>
 	<dd>
 		
 <span class="param-type">integer</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="json"><span class="type-signature"></span>json<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Converts to its JSON representation.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Metadata.js.html">sql/types/Metadata.js</a>, <a href="Metadata.js.html#line158">line 158</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">string</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="map"><span class="type-signature"></span>map<span class="signature">()</span><span class="type-signature"> &rarr; {map}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Metadata.js.html">sql/types/Metadata.js</a>, <a href="Metadata.js.html#line165">line 165</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">map</span>
 
 
 	</dd>

@@ -93,6 +93,18 @@ RDD.prototype.flatMap = function(func) {
 /**
  * Return a new RDD by applying a function to all elements of this RDD.
  * @param func
+ * @returns {void}
+ */
+RDD.prototype.foreach = function(func) {
+	var sv = Utils.createJavaParams(func);
+	var fn = new org.eclairjs.nashorn.JSVoidFunction(sv.funcStr, sv.scopeVars);
+	this.getJavaObject().foreach(fn);
+
+
+};
+/**
+ * Return a new RDD by applying a function to all elements of this RDD.
+ * @param func
  * @returns {RDD}
  */
 RDD.prototype.map = function(func) {
@@ -162,3 +174,20 @@ RDD.prototype.take = function(num) {
 	this.logger.debug("results " + results);
 	return results;
 };
+
+/**
+ * Return an array that contains all of the elements in this RDD.
+ * @returns {Array}
+ */
+RDD.prototype.toArray = function() {
+	var res = this.getJavaObject().toArray();
+	var results = [];
+	for (var i = 0; i < res.length; i++) {
+		var value = res[i];
+		var o = Utils.javaToJs(value);
+		results.push(o);
+	}
+	return results;
+	
+};
+
