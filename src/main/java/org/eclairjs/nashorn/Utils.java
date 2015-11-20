@@ -54,7 +54,8 @@ public class Utils {
     */
     public static Object javaToJs(Object o, ScriptEngine engine) {
     	Logger logger = Logger.getLogger(Utils.class);
-    	logger.debug(o.getClass().getName());
+		if(o != null)
+			logger.debug(o.getClass().getName());
     	if (o instanceof LabeledPoint) {
     		try {
  	  			Invocable invocable = (Invocable) engine;
@@ -83,7 +84,7 @@ public class Utils {
 
     	} else if(o instanceof Tuple2) {
             Tuple2 t = (Tuple2)o;
-            logger.debug("Tupple2 " + t.toString());
+            logger.info("Tupple2 " + t.toString());
             Object er = null;
             Object o1 = javaToJs(t._1(),engine);
             Object o2 = javaToJs(t._2(), engine);
@@ -117,7 +118,8 @@ public class Utils {
 
     public static Object jsToJava(Object o) {
     	Logger logger = Logger.getLogger(Utils.class);
-    	logger.debug("jsToJava" + o.getClass().getName());
+		if(o != null)
+			logger.debug("jsToJava" + o.getClass().getName());
     	if ( (o instanceof ScriptObjectMirror) && ((ScriptObjectMirror) o).hasMember("getJavaObject") ) {
     		Object r = ((ScriptObjectMirror) o).callMember("getJavaObject");
     		logger.debug("getJavaObject" + r.getClass().getName());
