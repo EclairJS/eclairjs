@@ -75,7 +75,7 @@ Row.prototype.apply = function(index) {
 	java.lang.Object	apply(int i)
 	Returns the value at position i.
 	*/
-	return this.getJavaObject().apply();
+	return this.getJavaObject().apply(index);
 };
 /**
  * Make a copy of the current Row object
