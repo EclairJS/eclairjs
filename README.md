@@ -13,7 +13,7 @@ The **EclairJS Nashorn** API exposes the [Spark](http://spark.apache.org/) progr
 ```bash
 git clone git@github.rtp.raleigh.ibm.com:cfa/eclair-nashorn.git
 mvn package
-export SPARK_JAR=<location of Spark assembly jar>
+export SPARK_HOME=<location of Spark binary distribution>
 ```
 
 ## Usage
