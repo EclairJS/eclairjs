@@ -29,8 +29,8 @@ usage() {
 #
 # Check for spark jar
 #
-if [ -z "$SPARK_JAR" ]; then
-    echo "Need to set SPARK_JAR to the location of the Spark assembly jar"
+if [ -z "$SPARK_HOME" ]; then
+    echo "Need to set SPARK_HOME to the location of the Spark distribution"
     exit 1
 fi
 
@@ -104,7 +104,7 @@ fi
 # start the REPL
 #
 if [ -z "$ECLAIRJS_DEBUG" ]; then
-	$_java -cp $ECLAIRJS_JAR:$SPARK_JAR org.eclairjs.nashorn.SparkJS $SCRIPT_FILE
+	$_java -cp $ECLAIRJS_JAR:"$SPARK_HOME/lib/*" org.eclairjs.nashorn.SparkJS $SCRIPT_FILE
 else 
-	$_java -Dlog4j.configuration=file:"./src/main/resources/conf/log4j.prop" -cp $ECLAIRJS_JAR:$SPARK_JAR org.eclairjs.nashorn.SparkJS $SCRIPT_FILE
+	$_java -Dlog4j.configuration=file:"./src/main/resources/conf/log4j.prop" -cp $ECLAIRJS_JAR:"$SPARK_HOME/lib/*" org.eclairjs.nashorn.SparkJS $SCRIPT_FILE
 fi

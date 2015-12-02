@@ -41,7 +41,7 @@ Column.prototype.constructor = Column;
  * @returns {Column}
  */
 Column.prototype.gt = function(obj) {
-    return new Column(this.getJavaObject().gt(obj));
+	return new Column(this.getJavaObject().gt(Utils.unwrapObject(obj)));
 };
 /**
  * Equality test

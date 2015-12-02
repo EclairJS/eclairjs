@@ -27,10 +27,13 @@ var RowFactory =  {
  * @returns {Row}
  */
 RowFactory.create = function(values) {
+	var javaValues = [];
+	values.forEach(function(o){
+		javaValues.push(Utils.unwrapObject(o));
+	});
 	//public static Row create(java.lang.Object... values)
-	Logger.getLogger("sql.RowFactory_js").debug("RowFactory.create= " + values);
-	var row = org.apache.spark.sql.RowFactory.create(values);
+	Logger.getLogger("sql.RowFactory_js").debug("RowFactory.create= " + javaValues);
+	var row = org.apache.spark.sql.RowFactory.create(javaValues);
 	var r = new Row(row);
-	//print("RowFactory.create row = " + r);
 	return r;
 };

@@ -646,7 +646,7 @@ partitioned collection of elements that can be operated on in parallel.</div>
         
             
 <dt>
-    <h4 class="name" id="map"><span class="type-signature"></span>map<span class="signature">(func)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    <h4 class="name" id="foreach"><span class="type-signature"></span>foreach<span class="signature">(func)</span><span class="type-signature"> &rarr; {void}</span></h4>
     
     
 </dt>
@@ -731,6 +731,136 @@ partitioned collection of elements that can be operated on in parallel.</div>
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line98">line 98</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">void</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="map"><span class="type-signature"></span>map<span class="signature">(func)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Return a new RDD by applying a function to all elements of this RDD.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>func</code></td>
+            
+            
+            <td class="type">
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line110">line 110</a>
     </li></ul></dd>
     
     
@@ -860,7 +990,7 @@ partitioned collection of elements that can be operated on in parallel.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line111">line 111</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line123">line 123</a>
     </li></ul></dd>
     
     
@@ -990,7 +1120,7 @@ partitioned collection of elements that can be operated on in parallel.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line127">line 127</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line139">line 139</a>
     </li></ul></dd>
     
     
@@ -1125,7 +1255,7 @@ partitioned collection of elements that can be operated on in parallel.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line140">line 140</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line152">line 152</a>
     </li></ul></dd>
     
     
@@ -1255,7 +1385,7 @@ partitioned collection of elements that can be operated on in parallel.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line151">line 151</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line163">line 163</a>
     </li></ul></dd>
     
     
@@ -1342,7 +1472,7 @@ partitioned collection of elements that can be operated on in parallel.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line170">line 170</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line186">line 186</a>
     </li></ul></dd>
     
     
@@ -1401,13 +1531,13 @@ partitioned collection of elements that can be operated on in parallel.</div>
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulator.html">Accumulator</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulator.html">Accumulator</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Thu Nov 19 2015 14:13:36 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Wed Dec 02 2015 13:56:02 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>

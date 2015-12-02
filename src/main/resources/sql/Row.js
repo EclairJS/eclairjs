@@ -75,7 +75,7 @@ Row.prototype.apply = function(index) {
 	java.lang.Object	apply(int i)
 	Returns the value at position i.
 	*/
-	return this.getJavaObject().apply();
+	return this.getJavaObject().apply(index);
 };
 /**
  * Make a copy of the current Row object
@@ -121,7 +121,13 @@ Row.prototype.get = function(index) {
 	java.lang.Object	get(int i)
 	Returns the value at position i.
 	*/
-	return this.getJavaObject().get(index);
+	var v = this.getJavaObject().get(index);
+	if (v.getClass().getName() === 'java.sql.Timestamp') {
+		v = this.getTimestamp(index); 
+	} else if (v.getClass().getName() === 'java.sql.Timestamp') {
+		v = this.getDate(index);
+	} 
+	return v;
 };
 /**
  * Returns the value at position index as a primitive boolean.
@@ -150,7 +156,7 @@ Row.prototype.getByte = function(index) {
 /**
  * Returns the value at position index of type as Date.
  * @param {integer} index
- * @returns {Date}
+ * @returns {SqlDate}
  */
 Row.prototype.getDate = function(index) {
 	/*
@@ -158,7 +164,7 @@ Row.prototype.getDate = function(index) {
 	Returns the value at position i of date type as java.sql.Date.
 	*/
 	var javaSqlDate = this.getJavaObject().getDate(index);
-	var date = new Date(javaSqlDate.getTime());
+	var date = new SqlDate(javaSqlDate);
 	return date;
 };
 /**
@@ -267,7 +273,7 @@ Row.prototype.getTimestamp = function(index) {
 	java.sql.Timestamp	getTimestamp(int i)
 	Returns the value at position i of date type as java.sql.Timestamp.
 	*/
-	return this.getDate(index); 
+	return new SqlTimestamp(this.getJavaObject().getTimestamp(index));
 };
 /**
  * Returns hash code
@@ -372,7 +378,8 @@ Row.prototype.toJSON = function() {
 	var jsonObj = {};
 	jsonObj.values = [];
 	for (var i = 0; i < this.length(); i++) {
-		jsonObj.values.push(this.get(i)); 
+		var v = this.get(i).toJSON ? this.get(i).toJSON() : this.get(i);
+		jsonObj.values.push(v); 
 	}
 	jsonObj.schema = this.schema().toJSON();
 	return jsonObj;

@@ -175,6 +175,10 @@ RDD.prototype.take = function(num) {
 	return results;
 };
 
+RDD.prototype.isEmpty = function() {
+	return this.getJavaObject().isEmpty();
+}
+
 /**
  * Return an array that contains all of the elements in this RDD.
  * @returns {Array}

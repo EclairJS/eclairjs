@@ -22,8 +22,10 @@ var DataTypes = function() {
 };
 
 DataTypes.StringType = org.apache.spark.sql.types.DataTypes.StringType;
-
 DataTypes.IntegerType = org.apache.spark.sql.types.DataTypes.IntegerType;
+DataTypes.DateType = org.apache.spark.sql.types.DataTypes.DateType;
+DataTypes.TimestampType = org.apache.spark.sql.types.DataTypes.TimestampType;
+
 /**
  * Creates a StructField with empty metadata.
  * @param {String} fieldName

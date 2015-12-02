@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-var KafkaUtils = function() {}
+//var KafkaUtils = function() {}
+var JavaKakfaUtils = Java.type("org.apache.spark.streaming.kafka.KafkaUtils")
+var KafkaUtils = {}
 
-KafkaUtils.prototype.createStream = function(ssc, zkQuorum, group, topic) {
+KafkaUtils.createStream = function(ssc, zkQuorum, group, topic) {
     var integer = new java.lang.Integer(1);
     var m = new java.util.HashMap();
     m.put(topic, integer);
-    return new DStream(
-        org.apache.spark.streaming.kafka.KafkaUtils.createStream(ssc.getJavaObject(),
+    return new DStream(JavaKakfaUtils.createStream(ssc.getJavaObject(),
                                                    zkQuorum,
                                                    group,
                                                    m));
