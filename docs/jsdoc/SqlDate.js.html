@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: sql/types/StructField.js</title>
+    <title>JSDoc: Source: sql/SqlDate.js</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: sql/types/StructField.js</h1>
+    <h1 class="page-title">Source: sql/SqlDate.js</h1>
     
     
 
@@ -42,81 +42,100 @@
  */
 /**
  * @constructor
- * @classdesc A field inside a StructType. 
- * @param {string} name - The name of this field. 
- * @param {DataType} dataType - The data type of this field. 
- * @param {boolean}  nullable -  Indicates if values of this field can be null values. 
- * @param {Metadata} metadata - The metadata of this field. The metadata should be preserved during transformation if the content of the column is not modified, e.g, in selection.
-*/
-function StructField(name, dataType, nullable, metadata) {
-	// StructField(java.lang.String name, DataType dataType, boolean nullable, Metadata metadata) 
-	var jvmObj = null;
-	this.logger = Logger.getLogger("sql.StructField_js");
-	if ( dataType == null) {
-  	 	this.logger.debug("Java object ");
-  	 	jvmObj = name; // the name is really a jvmObject created by one of our wrappers.
+ * @classdesc A thin wrapper around a millisecond value that allows JDBC to identify this as an SQL DATE value. 
+ * A milliseconds value represents the number of milliseconds that have passed since January 1, 1970 00:00:00.000 GMT.
+ * To conform with the definition of SQL DATE, the millisecond values wrapped by a java.sql.Date instance must be 'normalized' 
+ * by setting the hours, minutes, seconds, and milliseconds to zero in the particular time zone with which the instance is associated.
+ * @param {number | string | Date} number of millisecond, string date representation, or Date object
+ */
+function SqlDate(o) {
+	var jvmObj;
+	if (!o) {
+		var d = new Date();
+		jvmObj = new java.sql.Date(d.getTime());
+	} else if (typeof o === 'number') {
+		// assume millisec
+		jvmObj = new java.sql.Date(o);
+	} else if (typeof o === 'string' || o instanceof String) {
+		var d = new Date(o);
+		jvmObj = new java.sql.Date(d.getTime());
+	} else if (o instanceof Date) {
+		jvmObj = new java.sql.Date(o.getTime());
 	} else {
-		var dt = Utils.unwrapObject(dataType); 
-		var md = Utils.unwrapObject(metadata); 
-		jvmObj = new org.apache.spark.sql.types.StructField(name, dt, nullable, md);
-
+		jvmObj = o;
 	}
-  // Call the parent constructor, making sure (using Function#call)
-  // that "this" is set correctly during the call
   JavaWrapper.call(this, jvmObj);
-  this.logger.debug("StructField constructor");
+
+  this.logger = Logger.getLogger("sql.SqlDate_js");
+  this.logger.debug("SqlDate constructor");
 };
 
-//Create a StructField.prototype object that inherits from JavaWrapper.prototype.
+SqlDate.prototype = Object.create(JavaWrapper.prototype); 
 
-StructField.prototype = Object.create(JavaWrapper.prototype); 
+SqlDate.prototype.constructor = SqlDate;
 
-//Set the "constructor" property to refer to StructField
-StructField.prototype.constructor = StructField;
 /**
- * @returns {DataType}
- */
-StructField.prototype.dataType = function() {
-	//DataType	dataType() 
-	return this.getJavaObject().dataType();
-};
-/**
- * @returns {Metadata}
- */
-StructField.prototype.metadata = function() {
-	//Metadata	metadata()  
-	return this.getJavaObject().metadata();
-};
-/**
- * @returns {string}
- */
-StructField.prototype.name = function() {
-	//java.lang.String	name()   
-	return this.getJavaObject().name();
-};
-/**
+ * Tests if this date is after the specified date.
+ * @param {SqlDate} when
  * @returns {boolean}
  */
-StructField.prototype.nullable = function() {
-	//boolean	nullable()  
-	return this.getJavaObject().nullable();
+SqlDate.prototype.after = function(when) {
+	return this.getJavaObject().after(Utils.unwrapObject(when));
 };
 /**
- * @returns {string}
+ * Tests if this date is before the specified date.
+ * @param {SqlDate} when
+ * @returns {boolean}
  */
-/*StructField.prototype.toString = function() {
-	return this.toString();
-};*/
-
-StructField.prototype.toJSON = function() {
-	var jsonObj = {};
-	jsonObj.name = this.name();
-	jsonObj.dataType = this.dataType().toString();
-	jsonObj.nullable = this.nullable();
-	jsonObj.metadata = this.metadata();
-	return jsonObj; 
+SqlDate.prototype.before = function(when) {
+	return this.getJavaObject().before(Utils.unwrapObject(when));
+};
+/**
+ * Return a copy of this object.
+ * @returns {SqlDate}
+ */
+SqlDate.prototype.clone = function() {
+	return new SqlDate(this.getJavaObject().clone());
+};
+/**
+ * Compares two Dates for ordering
+ * @param {SqlDate} anotherDate
+ * @returns {integer}
+ */
+SqlDate.prototype.compareTo = function(anotherDate) {
+	return this.getJavaObject().compareTo(Utils.unwrapObject(anotherDate));
+};
+/**
+ * Compares two dates for equality.
+ * @param {SqlDate} when
+ * @returns {boolean}
+ */
+SqlDate.prototype.equals = function(when) {
+	return this.getJavaObject().equals(Utils.unwrapObject(when));
 };
 
+/**
+ * Sets an existing Date object using the given milliseconds time value.
+ * @param milliseconds
+ */
+SqlDate.prototype.setTime = function(milliseconds) {
+	this.setJavaObject(new java.sql.Date(milliseconds));
+};
+/**
+ * Formats a date in the date escape format yyyy-mm-dd.
+ * @returns {string}
+ */
+SqlDate.prototype.toString = function() {
+	return this.getJavaObject().toString();
+};
+
+SqlDate.prototype.toJSON = function() {
+	return this.getJavaObject().toString();
+};
+
+/*SqlDate.prototype.valueOf = function(s) {
+	return new SqlDate(java.sql.Date.valueOf(s));
+};*/
 
 </code></pre>
         </article>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: SQLContext</title>
+    <title>JSDoc: Class: SqlDate</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Class: SQLContext</h1>
+    <h1 class="page-title">Class: SqlDate</h1>
     
     
 
@@ -27,11 +27,13 @@
     
 <header>
     <h2>
-    SQLContext
+    SqlDate
     </h2>
     
-        <div class="class-description">The entry point for working with structured data (rows and columns) in Spark. 
-Allows the creation of DataFrame objects as well as the execution of SQL queries.</div>
+        <div class="class-description">A thin wrapper around a millisecond value that allows JDBC to identify this as an SQL DATE value. 
+A milliseconds value represents the number of milliseconds that have passed since January 1, 1970 00:00:00.000 GMT.
+To conform with the definition of SQL DATE, the millisecond values wrapped by a java.sql.Date instance must be 'normalized' 
+by setting the hours, minutes, seconds, and milliseconds to zero in the particular time zone with which the instance is associated.</div>
     
 </header>  
 
@@ -42,7 +44,7 @@ Allows the creation of DataFrame objects as well as the execution of SQL queries
     
         
 <dt>
-    <h4 class="name" id="SQLContext"><span class="type-signature"></span>new SQLContext<span class="signature">(jsc)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="SqlDate"><span class="type-signature"></span>new SqlDate<span class="signature">(number)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -80,13 +82,19 @@ Allows the creation of DataFrame objects as well as the execution of SQL queries
 	
         <tr>
             
-                <td class="name"><code>jsc</code></td>
+                <td class="name"><code>number</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type"><a href="SparkContext.html">SparkContext</a></span>
+<span class="param-type">number</span>
+|
+
+<span class="param-type">string</span>
+|
+
+<span class="param-type">Date</span>
 
 
             
@@ -96,7 +104,7 @@ Allows the creation of DataFrame objects as well as the execution of SQL queries
             
             
             
-            <td class="description last"></td>
+            <td class="description last">of millisecond, string date representation, or Date object</td>
         </tr>
 	
 	
@@ -127,7 +135,7 @@ Allows the creation of DataFrame objects as well as the execution of SQL queries
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SQLContext.js.html">sql/SQLContext.js</a>, <a href="SQLContext.js.html#line23">line 23</a>
+        <a href="SqlDate.js.html">sql/SqlDate.js</a>, <a href="SqlDate.js.html#line24">line 24</a>
     </li></ul></dd>
     
     
@@ -173,7 +181,7 @@ Allows the creation of DataFrame objects as well as the execution of SQL queries
         <dl>
             
 <dt>
-    <h4 class="name" id="createDataFrame"><span class="type-signature"></span>createDataFrame<span class="signature">(rowRDD, schema)</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
+    <h4 class="name" id="after"><span class="type-signature"></span>after<span class="signature">(when)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
     
     
 </dt>
@@ -181,7 +189,7 @@ Allows the creation of DataFrame objects as well as the execution of SQL queries
     
     
     <div class="description">
-        Creates a DataFrame from RDD of Rows using the schema
+        Tests if this date is after the specified date.
     </div>
     
 
@@ -215,258 +223,13 @@ Allows the creation of DataFrame objects as well as the execution of SQL queries
 	
         <tr>
             
-                <td class="name"><code>rowRDD</code></td>
+                <td class="name"><code>when</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">RDD[]</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">-</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>schema</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="StructType.html">StructType</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">-</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SQLContext.js.html">sql/SQLContext.js</a>, <a href="SQLContext.js.html#line44">line 44</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="DataFrame.html">DataFrame</a></span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="read"><span class="type-signature"></span>read<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="DataFrameReader.html">DataFrameReader</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Returns DataFrameReader
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SQLContext.js.html">sql/SQLContext.js</a>, <a href="SQLContext.js.html#line51">line 51</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="DataFrameReader.html">DataFrameReader</a></span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="sql"><span class="type-signature"></span>sql<span class="signature">(sqlString)</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Returns DataFrame
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>sqlString</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
+<span class="param-type"><a href="SqlDate.html">SqlDate</a></span>
 
 
             
@@ -507,7 +270,7 @@ Allows the creation of DataFrame objects as well as the execution of SQL queries
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SQLContext.js.html">sql/SQLContext.js</a>, <a href="SQLContext.js.html#line59">line 59</a>
+        <a href="SqlDate.js.html">sql/SqlDate.js</a>, <a href="SqlDate.js.html#line55">line 55</a>
     </li></ul></dd>
     
     
@@ -539,7 +302,7 @@ Allows the creation of DataFrame objects as well as the execution of SQL queries
 	</dt>
 	<dd>
 		
-<span class="param-type"><a href="DataFrame.html">DataFrame</a></span>
+<span class="param-type">boolean</span>
 
 
 	</dd>
@@ -553,7 +316,7 @@ Allows the creation of DataFrame objects as well as the execution of SQL queries
         
             
 <dt>
-    <h4 class="name" id="table"><span class="type-signature"></span>table<span class="signature">(name)</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
+    <h4 class="name" id="before"><span class="type-signature"></span>before<span class="signature">(when)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
     
     
 </dt>
@@ -561,7 +324,7 @@ Allows the creation of DataFrame objects as well as the execution of SQL queries
     
     
     <div class="description">
-        Returns DataFrame for table
+        Tests if this date is before the specified date.
     </div>
     
 
@@ -595,13 +358,13 @@ Allows the creation of DataFrame objects as well as the execution of SQL queries
 	
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>when</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type"><a href="SqlDate.html">SqlDate</a></span>
 
 
             
@@ -642,7 +405,7 @@ Allows the creation of DataFrame objects as well as the execution of SQL queries
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SQLContext.js.html">sql/SQLContext.js</a>, <a href="SQLContext.js.html#line67">line 67</a>
+        <a href="SqlDate.js.html">sql/SqlDate.js</a>, <a href="SqlDate.js.html#line63">line 63</a>
     </li></ul></dd>
     
     
@@ -674,7 +437,563 @@ Allows the creation of DataFrame objects as well as the execution of SQL queries
 	</dt>
 	<dd>
 		
-<span class="param-type"><a href="DataFrame.html">DataFrame</a></span>
+<span class="param-type">boolean</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="clone"><span class="type-signature"></span>clone<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="SqlDate.html">SqlDate</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Return a copy of this object.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="SqlDate.js.html">sql/SqlDate.js</a>, <a href="SqlDate.js.html#line70">line 70</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="SqlDate.html">SqlDate</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="compareTo"><span class="type-signature"></span>compareTo<span class="signature">(anotherDate)</span><span class="type-signature"> &rarr; {integer}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Compares two Dates for ordering
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>anotherDate</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="SqlDate.html">SqlDate</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="SqlDate.js.html">sql/SqlDate.js</a>, <a href="SqlDate.js.html#line78">line 78</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">integer</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="equals"><span class="type-signature"></span>equals<span class="signature">(when)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Compares two dates for equality.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>when</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="SqlDate.html">SqlDate</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="SqlDate.js.html">sql/SqlDate.js</a>, <a href="SqlDate.js.html#line86">line 86</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">boolean</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setTime"><span class="type-signature"></span>setTime<span class="signature">(milliseconds)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Sets an existing Date object using the given milliseconds time value.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>milliseconds</code></td>
+            
+            
+            <td class="type">
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="SqlDate.js.html">sql/SqlDate.js</a>, <a href="SqlDate.js.html#line94">line 94</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="toString"><span class="type-signature"></span>toString<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Formats a date in the date escape format yyyy-mm-dd.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="SqlDate.js.html">sql/SqlDate.js</a>, <a href="SqlDate.js.html#line101">line 101</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">string</span>
 
 
 	</dd>

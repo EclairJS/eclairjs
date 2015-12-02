@@ -25,6 +25,11 @@ JavaWrapper.prototype.getJavaObject = function() {
 	return this._jvmObj;
 };
 
+JavaWrapper.prototype.setJavaObject = function(obj) {
+	this.javaWrapperLogger.debug("setJavaObject");
+	this._jvmObj = obj;
+};
+
 JavaWrapper.prototype.toString = function() {
 	return this._jvmObj.toString();
 }
