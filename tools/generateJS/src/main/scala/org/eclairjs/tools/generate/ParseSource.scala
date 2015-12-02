@@ -135,24 +135,39 @@ import Compiler.syntaxAnalyzer.global._
     new File(fileName,pid.toString(),"",classes.toList,imports.toList)
   }
 
+  def isIgnorable(mods:Modifiers, comment:String): Boolean =
+  {
+    if (!mods.isPublic)
+      return true;
+    val annotations=mods.annotations.toString();
+    if (annotations.contains("new DeveloperApi"))
+      return true;
+    if (comment.contains(":: DeveloperApi"))
+      return true;
+    if (comment.contains(" @deprecated"))
+      return true;
+    return false;
+  }
 
   def handleClass(name: TermName, mods:Modifiers, comment:String,impl:Template,isStatic:Boolean=false): Clazz = {
     val members= scala.collection.mutable.ListBuffer.empty[Member]
 
-    if (!mods.isPublic)
+      if (isIgnorable(mods,comment))
       return null;
 
     impl.body.foreach( member=>
     {
       member match {
         case DefDef(mods, name, tparams, vparamss, tpt, rhs) =>{
-            if (mods.isPublic)
+          if (!isIgnorable(mods,""))
+//          if (mods.isPublic)
               members += handleFunction(name,vparamss,tpt,"")
         }
         case DocDef(comment, definition) => {
           definition match {
             case DefDef(mods, name, tparams, vparamss, tpt, rhs) =>{
-              if (mods.isPublic)
+              if (!isIgnorable(mods,comment.toString))
+//              if (mods.isPublic)
                 members += handleFunction(name,vparamss,tpt,comment.raw)
             }
             case _ =>{}

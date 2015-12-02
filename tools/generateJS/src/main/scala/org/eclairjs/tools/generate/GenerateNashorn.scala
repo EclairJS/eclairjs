@@ -11,8 +11,23 @@ class GenerateNashorn  extends  GenerateJSBase {
 
   override def generateConstructor(cls:Clazz, sb:StringBuilder): Unit = {
     val clsName=cls.name
+    var parmlist=""
+    var constrBody=""
+    val constructor=mainConstructor(cls);
 
-    val constr = getTemplate("nashorn_constructorDefault",clsName,clsName,clsName,clsName)
+    if (constructor!=null)
+      {
+         parmlist=constructor.parmList();
+        if (parmlist.length>0)
+          parmlist=", "+parmlist
+
+
+         constrBody=constructor.parms.map(parm=> s"  this.${parm.name} = ${parm.name}").mkString("/n")
+
+
+      }
+
+    val constr = getTemplate("nashorn_constructorDefault",clsName,clsName,parmlist,clsName,constrBody)
 
     sb++=constr
 

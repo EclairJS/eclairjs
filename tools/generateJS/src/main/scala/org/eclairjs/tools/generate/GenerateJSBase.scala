@@ -82,8 +82,24 @@ abstract class GenerateJSBase {
     }
   }
 
+
+  def mainConstructor(cls:Clazz):Method = {
+    val constructors=cls.constructors()
+    if (constructors.length==0)
+      return null;
+    if (constructors.length==1)
+      return constructors(0)
+
+    constructors.sortWith(_.parms.length < _.parms.length).last
+  }
+
   def generateConstructorDoc(cls:Clazz, sb:StringBuilder): Unit =
   {
+      val constr = mainConstructor(cls)
+      if (constr!=null)
+        {
+          generateMethodDoc(constr,sb)
+        }
 
   }
 
@@ -100,18 +116,58 @@ abstract class GenerateJSBase {
     generateMethodDoc(method,sb)
     addNewlines(1,sb)
 
+    // if method has multiple parm lists, generate unique name
+    val methodName=getMethodName(method)
+
     sb.append(method.parent.name)
     if (method.parent.isStatic)
       sb.append(".")
     else
       sb.append(".prototype.")
-    sb.append(method.name).append(" = function(")
+    sb.append(methodName).append(" = function(")
       .append(method.parmList()).append(") {\n")
 
     sb ++= getTemplate("defaultBody")
 
     sb.append("\n}\n")
 
+  }
+
+  def getMethodName(method:Method):String ={
+    val name=method.name
+    val methods=method.parent.methods(name)
+
+    if (methods.length==1)
+      return name;
+    else
+    {
+      val others=methods.filter(_!=method)
+      if (others.length==1)
+      {
+        val otherList=others(0).parms;
+        val thisList=method.parms
+        if (otherList.length>thisList.length)
+          // shorter parmlist, don't rename
+           return name;
+        else if (otherList.length<thisList.length)
+          {
+            val lastParm=thisList(otherList.length)  // first additional parm
+            return name+"with"+lastParm.name.capitalize
+          }
+        else {   //same length, use typename
+            val lastParmType=method.getParmJSType(thisList.last.name)
+            return name+"with"+lastParmType
+        }
+
+      }
+      // for now just number, should get more intelligent
+      else
+      {
+          val index=methods.indexOf(method)
+          return name+index
+      }
+
+    }
   }
 
 def convertToJSDoc(comment:String, model:AnyRef):String = {
@@ -137,9 +193,11 @@ def convertToJSDoc(comment:String, model:AnyRef):String = {
       val returnType=method.getReturnJSType()
       if (returnType!="undefined")
         jsDoc.addReturn(returnType)
+      if (method.isConstructor())
+        jsDoc.endLines+=" *  @class"
     }
     case cls:Clazz => {
-
+        jsDoc.endLines+=" * @classdesc"
     }
     case _ =>{}
   }

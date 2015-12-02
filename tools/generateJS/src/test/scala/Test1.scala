@@ -1,7 +1,11 @@
 /**
  * Class Comment
  */
-  class Test1[T] {
+
+/**
+ * constructor doc.
+ */
+  class Test1[T](str:String) {
 
   def func1()={}
 
@@ -13,7 +17,7 @@
     List()
 
   /**
-   * Return a sampled subset of this RDD.
+   * Return a sampled subset of this RDD [[org.apache.spark.RDD]].
    *
    * @param withReplacement can elements be sampled multiple times (replaced when sampled out)
    * @param fraction expected size of the sample as a fraction of this RDD's size

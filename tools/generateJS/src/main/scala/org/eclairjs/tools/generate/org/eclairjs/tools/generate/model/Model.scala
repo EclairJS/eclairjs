@@ -60,6 +60,17 @@ case class Clazz(name:String, comment:String, members: List[Member],isStatic:Boo
     list.asInstanceOf[List[Method]]
   }
 
+  def methods (name:String): List[Method] =
+  {
+    val list=members.filter(member=>{
+      member match {
+        case method:Method => !method.isConstructor() && method.name==name
+        case _ => false
+      }
+    })
+    list.asInstanceOf[List[Method]]
+  }
+
 }
 
 abstract class Member
@@ -147,6 +158,11 @@ case class Method(name:String,comment:String,returnType:String,parms:List[Parm])
 }
 
 case class Parm(name:String,typ:String)
+{
+
+}
+
+case class DataType()
 {
 
 }

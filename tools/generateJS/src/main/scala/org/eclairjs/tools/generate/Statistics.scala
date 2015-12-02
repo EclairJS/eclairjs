@@ -11,15 +11,32 @@ object Statistics {
   var numOverloadedConstructors=0;
   var numOverloadedMethods=0;
 
+
+  case class MethodInfo(name:String,num:Int, hasDoc:Boolean)
+  {
+    override  def toString() ={
+      val numStr:String=if (num>1) num.toString else " "
+      val docStr:String=if (hasDoc) "DOC" else "   "
+      s"  $name  $numStr $docStr"
+    }
+  }
+  case class ClassInfo(name:String,numConstructors:Int, methods:List[MethodInfo])
+  {
+    override  def toString() ={
+      s"$name   $numConstructors constructor(s)\n ${methods.mkString("\n")}"
+    }
+  }
   val generatedFiles= scala.collection.mutable.ListBuffer.empty[String]
   val generatedClasses= scala.collection.mutable.ListBuffer.empty[String]
+  val generatedClassInfos= scala.collection.mutable.Map[String,ClassInfo]()
 
   def processFile(model: File, toFile: String) = {
 
     model.classes foreach(cls=>{
       if (!cls.isStatic)
       {
-        generatedClasses+=model.packageName+"."+cls.name
+        val fullName=model.packageName+"."+cls.name
+        generatedClasses+=fullName;
         numClasses+=1;
         val constructors=cls.constructors()
         if (constructors.length>1)
@@ -29,31 +46,52 @@ object Statistics {
 
         val methods=cls.methods();
         var s = Set("")
+
+        val generatedMethodInfos= scala.collection.mutable.ListBuffer.empty[MethodInfo]
+
         methods foreach(method=>{
           val name=method.name
-          if (s contains(name))
+          val seen=s contains(name)
+          if (seen)
             numOverloadedMethods+=1
           s += name
           numMethods+=1;
-          if (method.comment.trim.length>0)
+          val hasDoc=method.comment.trim.length>0
+          if (hasDoc)
             numDocMethods+=1
+          if (!seen)
+            {
+              val num=method.parent.methods(name).length
+              generatedMethodInfos+=MethodInfo(name,num,hasDoc)
+            }
+
         })
+
+        generatedClassInfos += (fullName -> ClassInfo(fullName,constructors.length,generatedMethodInfos.toList))
+
       }
     })
     generatedFiles+=toFile;
   }
 
   override  def toString () = {
-    s"""
+   var str= s"""
       Number of classes: $numClasses
       Number of methods: $numMethods
       Number of jsdoc methods: $numDocMethods
       Number of overloaded methods: $numOverloadedMethods
       Number of overloaded constructors: $numOverloadedConstructors
-
-      Generated files :
-       ${ generatedClasses.sorted.mkString("\n")}
       """
+
+    val sortedNames=generatedClasses.sorted
+//    str = str+ "Generated files :\n"+ sortedNames.mkString("\n")
+
+    if (true)
+      {
+        sortedNames foreach( name=> str = str+generatedClassInfos(name).toString+"\n")
+      }
+
+    str
   }
 
 }

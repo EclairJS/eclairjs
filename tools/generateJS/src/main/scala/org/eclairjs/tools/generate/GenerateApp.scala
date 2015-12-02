@@ -84,7 +84,7 @@ object Main extends App {
           else
           {
             if (!destDir.exists())
-              destDir.mkdir();
+              destDir.mkdirs();
             val toFile=destDir.getAbsolutePath+"/"+file.getName.replace(".scala",".js")
 //            System.out.println("WRITING: "+toFile)
                       scala.tools.nsc.io.File(toFile).writeAll(src)
