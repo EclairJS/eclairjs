@@ -112,31 +112,31 @@
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-core_2.10</artifactId>
-            <version>1.5.2</version>
+            <version>1.5.1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-hive_2.10</artifactId>
-            <version>1.5.2</version>
+            <version>1.5.1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-streaming_2.10</artifactId>
-            <version>1.5.2</version>
+            <version>1.5.1</version>
             <!--scope>provided</scope-->
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-mllib_2.10</artifactId>
-            <version>1.5.2</version>
+            <version>1.5.1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-streaming-kafka_2.10</artifactId>
-            <version>1.5.2</version>
+            <version>1.5.1</version>
             <!--scope>provided</scope-->
         </dependency>
         <dependency>
@@ -164,7 +164,7 @@
         <dependency>
             <groupId>com.ibm.spark</groupId>
             <artifactId>kernel-api_2.10</artifactId>
-            <version>0.1.5-SNAPSHOT</version>
+            <version>0.0.0-dev-SNAPSHOT</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
