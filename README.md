@@ -6,7 +6,7 @@ The **EclairJS Nashorn** API exposes the [Spark](http://spark.apache.org/) progr
 **Prerequisites**
 
  - [Java 8 SE](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
- - [Spark](http://spark.apache.org/downloads.html) (V1.4.1 built for Hadoop 2.6.0 and later)
+ - [Spark](http://spark.apache.org/downloads.html) (V1.5.1 built for Hadoop 2.6.0 and later)
  - [git](http://git-scm.com/)
  - [Maven](https://maven.apache.org/)
 
