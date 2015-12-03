@@ -124,7 +124,7 @@ Row.prototype.get = function(index) {
 	var v = this.getJavaObject().get(index);
 	if (v.getClass().getName() === 'java.sql.Timestamp') {
 		v = this.getTimestamp(index); 
-	} else if (v.getClass().getName() === 'java.sql.Timestamp') {
+	} else if (v.getClass().getName() === 'java.sql.Date') {
 		v = this.getDate(index);
 	} 
 	return v;
@@ -314,29 +314,28 @@ Row.prototype.length = function() {
 /**
  * Displays all elements of this traversable or iterator in a string using start, end, and separator strings.
  * @param {string} Optional separator
- * @param {string} Optional start
+ * @param {string} Optional start, start will be ignored if end parameter is not specified
  * @param {string} Required end, if start specified 
  * @returns {string}
  */
 Row.prototype.mkString = function(separator, start, end) {
-	
-	if (separator && start && end) {
-		/*
-		java.lang.String	mkString(java.lang.String start, java.lang.String sep, java.lang.String end)
-		Displays all elements of this traversable or iterator in a string using start, end, and separator strings.
-		*/
-		return this.getJavaObject().mkString(start, separator, end);
-	} if (separator) {
-		return this.getJavaObject().mkString(separator);
-	} else {
-		/*
-		java.lang.String	mkString()
-		Displays all elements of this sequence in a string (without a separator).
-		java.lang.String	mkString(java.lang.String sep)
-		Displays all elements of this sequence in a string using a separator string.
-		*/
-		return this.getJavaObject().mkString();
+	var str = ""; 
+
+	for (var i = 0; i < this.length(); i++) {
+		var v = this.get(i);
+		if (separator && start && end && i === 0) {
+			str = start;
+		}
+		str += v.toString();
+		if (separator && (i < this.length() -1)) {
+			str += separator
+		}
+		if (separator && start && end && (i === this.length() -1)) {
+			str += end;
+		}
 	}
+	
+	return str;
 	
 };
 /**

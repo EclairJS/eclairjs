@@ -6,7 +6,7 @@ The **EclairJS Nashorn** API exposes the [Spark](http://spark.apache.org/) progr
 **Prerequisites**
 
  - [Java 8 SE](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
- - [Spark](http://spark.apache.org/downloads.html) (V1.4.1 built for Hadoop 2.6.0 and later)
+ - [Spark](http://spark.apache.org/downloads.html) (V1.5.1 built for Hadoop 2.6.0 and later)
  - [git](http://git-scm.com/)
  - [Maven](https://maven.apache.org/)
 
@@ -59,26 +59,38 @@ list.count();
 
 ## Usage with Jupyter notebooks
 **Prerequisites**
+
 - [Jupyter](http://jupyter.org/)
+- [Spark Kernel](https://github.com/ibm-et/spark-kernel)
+
+Instructions:
 
 1. ```mvn package -Pnotebook```
-2. Edit kernel.json ```<absolute path to sparkkernel executable>``` to be ```/Users/<yourName>/local/bin/sparkkernel```
-3. Copy ```target/eclairjs-nashorn-0.1.jar``` to  ```~/local/kernel/kernel-0.1.5-SNAPSHOT/lib/```
-4. Copy kernel.json to ```~/.ipython/kernels/eclair/kernel.json```
+
+2. Edit kernel.json and update the following:
+ ```bash
+ <path to spark-kernel distribution>/bin/spark-kernel
+ "SPARK_OPTS": --jars file:<path to nashorn jar>
+ "SPARK_HOME": <path to spark 1.5.1 distribution>
+ ```
+
+3. Copy kernel.json to ```~/.ipython/kernels/eclair/kernel.json```
  * Gateway 4.0.0 and higher uses ```~/Library/Jupyter/kernels/eclair```
-5. Create a directory for your notebook ```mkdir ~/jsNotebook```
-6. Change to that directory ```cd ~/jsNotebook```
-7. Start jupyter ```ipython notebook```
-8. A browser will open ```http://localhost:8889/tree``` select the *new->Spark 1.4.1 (javascript)*
-9. Enter the following code in notebook cell and run
 
-```javascript
+4. Create a directory for your notebook ```mkdir ~/jsNotebook```
 
-    var jsc = new SparkContext("local[*]", "myapp");
-    var rdd = jsc.parallelize([10, 4, 2, 12, 3]);
-    eval("count = " + rdd.count());
+5. Change to that directory ```cd ~/jsNotebook```
 
-```
+6. Start jupyter ```ipython notebook```
+
+7. A browser will open ```http://localhost:8889/tree``` select the *new->Spark 1.5.1 (EclairJS)*
+
+8. Enter the following code in notebook cell and run
+ ```javascript
+ var jsc = new SparkContext("local[*]", "myapp");
+ var rdd = jsc.parallelize([10, 4, 2, 12, 3]);
+ eval("count = " + rdd.count());
+ ```
 
 ## Resources
 More detailed information is available in the Eclair Node [Wiki](https://github.com/EclairJS/eclairjs-node/wikis/home) and find out how to get involved under [Project and Community](https://github.com/EclairJS/eclairjs-node/wikis/Project-and-Community).

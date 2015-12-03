@@ -29,7 +29,8 @@ var buildPeopleTable = function(file, date) {
 	    				expense: parseInt(parts[2].trim()),
 	    				DOB: parts[3].trim(),
 	    				income: parts[4].trim(),
-	    				married: parts[5].trim()
+	    				married: parts[5].trim(),
+	    				networth: parts[6].trim()
 	    		};
 	});
 
@@ -47,6 +48,7 @@ var buildPeopleTable = function(file, date) {
 	}
 	fields.push(DataTypes.createStructField("income", DataTypes.FloatType, true));
 	fields.push(DataTypes.createStructField("married", DataTypes.BooleanType, true));
+	fields.push(DataTypes.createStructField("networth", DataTypes.DoubleType, true));
 	
 	var schema = DataTypes.createStructType(fields);
 
@@ -59,7 +61,7 @@ var buildPeopleTable = function(file, date) {
 			d = new SqlTimestamp(person.DOB);
 		}
 		var m =  person.married == "true" ? true : false
-		return RowFactory.create([person.name, person.age, person.expense, d, parseFloat(person.income), m]);
+		return RowFactory.create([person.name, person.age, person.expense, d, parseFloat(person.income), m, parseFloat(person.networth)]);
 	});
 
 
@@ -380,3 +382,22 @@ var booleanType = function(file) {
     return names.take(10).toString();
 }
 
+/*
+ * Row tests
+ */
+
+var rowMkStringType = function(file, sep, start, end) {
+
+	var peopleDataFrame = buildPeopleTable(file, true);
+	var col = new Column("networth");
+	var testCol = col.gt(100000.00);
+	// SQL can be run over RDDs that have been registered as tables.
+	var result = peopleDataFrame.filterWithColumn(testCol);
+
+	var rows = result.collect();
+	var s = "";
+	rows.forEach(function(row){
+		s += row.mkString(sep, start, end);
+	})
+    return s;
+}
