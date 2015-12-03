@@ -92,7 +92,13 @@ RDD.prototype.flatMap = function(func) {
 };
 /**
  * Return a new RDD by applying a function to all elements of this RDD.
- * @param func
+ * @example
+ * rdd3.foreach(function(record) {
+ *    var connection = createNewConnection()
+ *    connection.send(record);	
+ *    connection.close()
+ * });
+ * @param {function} Function with one parameter
  * @returns {void}
  */
 RDD.prototype.foreach = function(func) {
@@ -100,6 +106,24 @@ RDD.prototype.foreach = function(func) {
 	var fn = new org.eclairjs.nashorn.JSVoidFunction(sv.funcStr, sv.scopeVars);
 	this.getJavaObject().foreach(fn);
 
+};
+/**
+ * Applies a function to each partition of this RDD.
+ * @example
+ * rdd3.foreachPartition(function(partitionOfRecords) {
+ *    var connection = createNewConnection()
+ *    partitionOfRecords.forEach(function(record){
+ *       connection.send(record);	
+ *    });
+ *    connection.close()
+ * });
+ * @param {function} Function with one Array parameter
+ * @returns {void}
+ */
+RDD.prototype.foreachPartition = function(func) {
+	var sv = Utils.createJavaParams(func);
+	var fn = new org.eclairjs.nashorn.JSVoidFunction(sv.funcStr, sv.scopeVars);
+	this.getJavaObject().foreachPartition(fn);
 
 };
 /**

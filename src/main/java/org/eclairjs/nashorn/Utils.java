@@ -29,6 +29,7 @@ import org.apache.spark.sql.Row;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import scala.Tuple2;
+import scala.collection.convert.Wrappers.IteratorWrapper;
 
 import java.io.FileReader;
 import java.io.UnsupportedEncodingException;
@@ -99,7 +100,15 @@ public class Utils {
 				logger.error(" Tuple2 convertion " + e);
 			}
             return er;
-        }  else if (o instanceof JSONObject) {
+        } else if (o instanceof IteratorWrapper) {
+        	ArrayList alist = new ArrayList();
+        			
+        	while(((IteratorWrapper) o).hasMoreElements()) {
+        		//alist.add(((IteratorWrapper) o).nextElement());
+        		alist.add(javaToJs(((IteratorWrapper) o).nextElement(),engine));
+        	}
+        	return wrapObject(alist);
+        } else if (o instanceof JSONObject) {
         	Object er = null;
         	try {
         		logger.debug("JSONObject " + o.toString());
