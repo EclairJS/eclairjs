@@ -1,5 +1,5 @@
 {
-  "display_name": "Spark 1.5.1 (Eclair)",
+  "display_name": "Spark 1.5.1 (EclairJS)",
   "language": "javascript",
   "argv": [
     "<path to spark-kernel distribution>/bin/spark-kernel",

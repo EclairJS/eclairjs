@@ -83,7 +83,7 @@ Instructions:
 
 6. Start jupyter ```ipython notebook```
 
-7. A browser will open ```http://localhost:8889/tree``` select the *new->Spark 1.4.1 (javascript)*
+7. A browser will open ```http://localhost:8889/tree``` select the *new->Spark 1.5.1 (EclairJS)*
 
 8. Enter the following code in notebook cell and run
  ```javascript
