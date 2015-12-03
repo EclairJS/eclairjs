@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: Utils.js</title>
+    <title>JSDoc: Source: sql/SqlFloat.js</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: Utils.js</h1>
+    <h1 class="page-title">Source: sql/SqlFloat.js</h1>
     
     
 
@@ -40,72 +40,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/**
+ * @constructor
+ * @classdesc A thin wrapper around a millisecond value that allows JDBC to identify this as an SQL DATE value. 
+ * A milliseconds value represents the number of milliseconds that have passed since January 1, 1970 00:00:00.000 GMT.
+ * To conform with the definition of SQL DATE, the millisecond values wrapped by a java.sql.Date instance must be 'normalized' 
+ * by setting the hours, minutes, seconds, and milliseconds to zero in the particular time zone with which the instance is associated.
+ * @param {number | string | Date} number of millisecond, string date representation, or Date object
+ */
+function SqlFloat(o) {
+	var jvmObj;
+	print("o " + o)
+	if (typeof o === 'number') {
+		jvmObj = new java.lang.Float(o);
+	} else if (typeof o === 'string' || o instanceof String) {
+		print("valueOf " + java.lang.Float.parseFloat(o))
+		print("Double valueOf " + java.lang.Double.parseDouble(o))
+		jvmObj = new java.lang.Float(java.lang.Double.parseDouble(o));
+		print("jvmObj " + jvmObj.toString())
+	} else {
+		jvmObj = o;
+	}
+  JavaWrapper.call(this, jvmObj);
 
-var Utils = {};
+  this.logger = Logger.getLogger("sql.SqlFloat_js");
+  this.logger.debug("SqlFloat constructor");
+};
+
+SqlFloat.prototype = Object.create(JavaWrapper.prototype); 
+
+SqlFloat.prototype.constructor = SqlFloat;
 
 
-
-  /**
-   * This function needs to parse the arguments that are being passed to the LAMDA function 
-   * and get references to the arguments that will need to be added to the closer of the Nashorn 
-   * engine when the LAMDA function runs on the worker. A standard spark LAMDA would look like:
-   * function(sparkArg){...}, but we need any variables declared outside the closer of the LAMDA 
-   * to be passed into the LAMDA so we can add them to the args when we call the LAMDA function from
-   * a new Nashorn engine context. Are LAMDA function must include the out of closer variables ex.
-   * function(sparkArg, scopeArg1, scopeArg2, .....) 
-   * @param  {function} func LAMDA function that will be passed to spark. The functions 
-   *                      will have the format function(sparkArg, scopeArg1, scopeArg2, .....)
-   * @param  {sparkArgumentsPassed} the number of arguments passed to the LAMDA by spark defaults to 1
-   *                     
-   * @return {Object}   {
-   * 						funcStr:  stringified funciton that was passed in,
-   *                        scopeVars: Array of references to the out of closer args
-   *                      }
-   */
-  Utils.createJavaParams = function(func, sparkArgumentsPassed) {
-	  
-	  var scopeVarsStartingPosion = sparkArgumentsPassed ? sparkArgumentsPassed : 1;
-  	  var parmas = {};
-  	  parmas.scopeVars = null;
-  	  /*
-  	   * First we stringify the function
-  	   */
-  	  parmas.funcStr = func.toString();
-      /*
-       * Start parsing the arguments passed to the function
-       */
-      var start = parmas.funcStr.indexOf("(");
-      var stop = parmas.funcStr.indexOf(")");
-      var agrsStr = parmas.funcStr.substring(start +1, stop);
-      var args = agrsStr.split(","); // get all the arguments names
-      parmas.scopeVars = [];
-      for (var i = scopeVarsStartingPosion; i &lt; args.length; i++) { 
-		  parmas.scopeVars.push(eval(args[i])); // eval the argument name to get a reference to the variable
-	  }
-      return parmas;
-
-  };
-
-  Utils.javaToJs = function(javaObj) {
-	  return org.eclairjs.nashorn.Utils.javaToJs(javaObj,org.eclairjs.nashorn.NashornEngineSingleton.getEngine()); 
-  };
-  
-  Utils.unwrapObject = function(obj) {
-	  return (obj && obj.getJavaObject) ? obj.getJavaObject() : obj; 
-  };
-  
-  
-  function convertJavaTuple2(o1, o2) { 
-	  return [o1 ,o2 ]
-  };
-  
-  function convertJavaJSONObject(str) {
-	  return JSON.parse(str);
-  };
-  
-  function createJavaWrapperObject(className, obj) {
-	  return eval("new " + className + "(obj)");
-  };
 </code></pre>
         </article>
     </section>
