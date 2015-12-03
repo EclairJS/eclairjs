@@ -66,24 +66,31 @@ list.count();
 Instructions:
 
 1. ```mvn package -Pnotebook```
-2. Edit kernel.json and update: <br/>
-   ```<path to spark-kernel distribution>/bin/spark-kernel```<br/>
-   ```"SPARK_OPTS": --jars file:<path to nashorn jar>```<br/> 
-   ```"SPARK_HOME": <path to spark 1.5.1 distribution>```
+
+2. Edit kernel.json and update the following:
+ ```bash
+ <path to spark-kernel distribution>/bin/spark-kernel
+ "SPARK_OPTS": --jars file:<path to nashorn jar>
+ "SPARK_HOME": <path to spark 1.5.1 distribution>
+ ```
+
 3. Copy kernel.json to ```~/.ipython/kernels/eclair/kernel.json```
  * Gateway 4.0.0 and higher uses ```~/Library/Jupyter/kernels/eclair```
+
 4. Create a directory for your notebook ```mkdir ~/jsNotebook```
+
 5. Change to that directory ```cd ~/jsNotebook```
+
 6. Start jupyter ```ipython notebook```
+
 7. A browser will open ```http://localhost:8889/tree``` select the *new->Spark 1.4.1 (javascript)*
+
 8. Enter the following code in notebook cell and run
-
-```javascript
-
-    var jsc = new SparkContext("local[*]", "myapp");
-    var rdd = jsc.parallelize([10, 4, 2, 12, 3]);
-    eval("count = " + rdd.count());
-```
+ ```javascript
+ var jsc = new SparkContext("local[*]", "myapp");
+ var rdd = jsc.parallelize([10, 4, 2, 12, 3]);
+ eval("count = " + rdd.count());
+ ```
 
 ## Resources
 More detailed information is available in the Eclair Node [Wiki](https://github.com/EclairJS/eclairjs-node/wikis/home) and find out how to get involved under [Project and Community](https://github.com/EclairJS/eclairjs-node/wikis/Project-and-Community).
