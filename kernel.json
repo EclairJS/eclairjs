@@ -1,15 +1,19 @@
 {
-  "display_name": "Spark 1.4.1 (Javascript)",
+  "display_name": "Spark 1.5.1 (Eclair)",
   "language": "javascript",
   "argv": [
-    "<location of sparkkernel executable",
+    "<path to spark-kernel distribution>/bin/spark-kernel",
     "--interpreter-plugin",
-    "eclairjs:org.eclairjs.nashorn.JavascriptInterpreter",
+    "eclair:org.eclairjs.nashorn.JavascriptInterpreter",
     "--default-interpreter",
-    "eclairjs",
+    "eclair",
     "--nosparkcontext",
     "--profile",
     "{connection_file}"
   ],
+  "env": {
+    "SPARK_OPTS": "--jars file:<path to nashorn jar>",
+    "SPARK_HOME": "<path to spark 1.5.1 distribution>"
+  },
   "codemirror_mode": "scala"
 }
