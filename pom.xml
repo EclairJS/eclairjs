@@ -116,6 +116,17 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+		    <groupId>org.apache.spark</groupId>
+		    <artifactId>spark-sql_2.10</artifactId>
+		    <version>1.5.1</version>
+		    <scope>provided</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.spark</groupId>
+		    <artifactId>spark-catalyst_2.10</artifactId>
+		    <version>1.5.1</version>
+		</dependency>
+        <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-hive_2.10</artifactId>
             <version>1.5.1</version>

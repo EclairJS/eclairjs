@@ -111,7 +111,7 @@ public class JSTest {
         TestUtils.evalJSResource(engine, "/dataframetest.js");
         Object ret = ((Invocable)engine).invokeFunction("dataframeAsTest", file);
 
-         assertEquals("should be same", "[name: string, age: int, expense: int]", ret.toString()); 
+         assertEquals("should be same", "[name: string, age: int, expense: int, DOB: timestamp, income: double, married: boolean]", ret.toString()); 
     }
     
     @Test
@@ -141,8 +141,22 @@ public class JSTest {
 
         TestUtils.evalJSResource(engine, "/dataframetest.js");
         Object ret = ((Invocable)engine).invokeFunction("dataframeCollectTest", file);
-        String json = "[{\"values\":[\"Michael\",29,1],\"schema\":{\"fields\":[{\"name\":\"name\",\"dataType\":\"StringType\",\"nullable\":true},{\"name\":\"age\",\"dataType\":\"IntegerType\",\"nullable\":true},{\"name\":\"expense\",\"dataType\":\"IntegerType\",\"nullable\":true}]}},{\"values\":[\"Andy\",30,2],\"schema\":{\"fields\":[{\"name\":\"name\",\"dataType\":\"StringType\",\"nullable\":true},{\"name\":\"age\",\"dataType\":\"IntegerType\",\"nullable\":true},{\"name\":\"expense\",\"dataType\":\"IntegerType\",\"nullable\":true}]}}]";
-        assertEquals("should be same", json, ret);
+        String schemaJson = "\"schema\":{"
+						        		+ "\"fields\":["
+							        		+ "{\"name\":\"name\",\"dataType\":\"StringType\",\"nullable\":true},"
+							        		+ "{\"name\":\"age\",\"dataType\":\"IntegerType\",\"nullable\":true},"
+							        		+ "{\"name\":\"expense\",\"dataType\":\"IntegerType\",\"nullable\":true},"
+							        		+ "{\"name\":\"DOB\",\"dataType\":\"TimestampType\",\"nullable\":true},"
+							        		+ "{\"name\":\"income\",\"dataType\":\"DoubleType\",\"nullable\":true},"
+							        		+ "{\"name\":\"married\",\"dataType\":\"BooleanType\",\"nullable\":true}"
+						        		+ "]"
+						        		+ "}";
+
+        String json = "["
+		        		+ "{\"values\":[\"Michael\",29,1,\"1996-03-06 19:00:00.0\",1200.4,true],"+schemaJson+"},"
+		        		+ "{\"values\":[\"Andy\",30,2,\"1998-12-06 19:00:00.0\",1500.44,false],"+schemaJson+"}"
+	        		+ "]";
+         assertEquals("should be same", json, ret);
     }
     
     @Test
@@ -157,7 +171,7 @@ public class JSTest {
         TestUtils.evalJSResource(engine, "/dataframetest.js");
         Object ret = ((Invocable)engine).invokeFunction("dataframeColumnsTest", file);
 
-        assertEquals("should be same", "name,age,expense", ret.toString());
+        assertEquals("should be same", "name,age,expense,DOB,income,married", ret.toString());
     }
     
     @Test
@@ -236,7 +250,7 @@ public class JSTest {
 
         TestUtils.evalJSResource(engine, "/dataframetest.js");
         Object ret = ((Invocable)engine).invokeFunction("dataframeDtypesTest", file);
-        String json = "[[\"name\",\"StringType\"],[\"age\",\"IntegerType\"],[\"expense\",\"IntegerType\"]]";
+        String json = "[[\"name\",\"StringType\"],[\"age\",\"IntegerType\"],[\"expense\",\"IntegerType\"],[\"DOB\",\"TimestampType\"],[\"income\",\"DoubleType\"],[\"married\",\"BooleanType\"]]";
         assertEquals("should be same", json, ret);
     }
     
@@ -253,7 +267,7 @@ public class JSTest {
 
         TestUtils.evalJSResource(engine, "/dataframetest.js");
         Object ret = ((Invocable)engine).invokeFunction("dataframeExceptTest", file);
-        String expect = "{\"name\":\"Justin\",\"age\":19,\"expense\":3}";
+        String expect = "{\"name\":\"Justin\",\"age\":19,\"expense\":3,\"DOB\":\"1992-03-06 19:00:00.0\",\"income\":1600.0,\"married\":true}";
         assertEquals("should be same", expect, ret);
     }
     
@@ -447,5 +461,72 @@ public class JSTest {
         assertEquals("should be same", expected, ret.toString());
     }
     
+    /*
+     * Dataframe dataType tests
+     */
+    
+    @Test
+    public void dataFrameTimestampTypeTest() throws Exception {
+    	/*
+    	 * tests
+    	 * DataType.TimestampType
+    	 * DataType.StringType
+    	 * DataTypes.IntegerType
+    	 * SqlTimestamp
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/people.txt");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("timestampType", file);
+        assertEquals("should be same", "Name: Andy DOB: 1998-12-06 19:00:00.0", ret);
+    }
+    
+    @Test
+    public void dataFrameDateTypeTest() throws Exception {
+    	/*
+    	 * tests
+    	 * DataType.DateType
+    	 * SqlDate 
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/people.txt");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dateType", file);
+        assertEquals("should be same", "Name: Andy DOB: 1998-12-06", ret);
+    }
+    
+    @Test
+    public void dataFrameFloatTypeTest() throws Exception {
+    	/*
+    	 * tests
+    	 * DataType.DateType
+    	 * SqlDate 
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/people.txt");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("floatType", file);
+        assertEquals("should be same", "Name: Andy income: 1500.44,Name: Justin income: 1600", ret);
+    }
+    
+    @Test
+    public void dataFrameBooleanTypeTest() throws Exception {
+    	/*
+    	 * tests
+    	 * DataType.DateType
+    	 * SqlDate 
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/people.txt");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("booleanType", file);
+        assertEquals("should be same", "Name: Michael married: true,Name: Justin married: true", ret);
+    }
+    
+
     
 }

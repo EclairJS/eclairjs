@@ -75,7 +75,7 @@ Row.prototype.apply = function(index) {
 	java.lang.Object	apply(int i)
 	Returns the value at position i.
 	*/
-	return this.getJavaObject().apply();
+	return this.getJavaObject().apply(index);
 };
 /**
  * Make a copy of the current Row object
@@ -121,7 +121,13 @@ Row.prototype.get = function(index) {
 	java.lang.Object	get(int i)
 	Returns the value at position i.
 	*/
-	return this.getJavaObject().get(index);
+	var v = this.getJavaObject().get(index);
+	if (v.getClass().getName() === 'java.sql.Timestamp') {
+		v = this.getTimestamp(index); 
+	} else if (v.getClass().getName() === 'java.sql.Timestamp') {
+		v = this.getDate(index);
+	} 
+	return v;
 };
 /**
  * Returns the value at position index as a primitive boolean.
@@ -139,18 +145,17 @@ Row.prototype.getBoolean = function(index) {
  * Returns the value at position idex as a primitive byte.
  * @param {integer} index
  * @returns {byte}
+ * @ignore
  */
+/* Not applicable to JavaScript
 Row.prototype.getByte = function(index) {
-	/*
-	byte	getByte(int i)
-	Returns the value at position i as a primitive byte.
-	*/
 	return this.getJavaObject().getByte(index);
 };
+*/
 /**
  * Returns the value at position index of type as Date.
  * @param {integer} index
- * @returns {Date}
+ * @returns {SqlDate}
  */
 Row.prototype.getDate = function(index) {
 	/*
@@ -158,25 +163,24 @@ Row.prototype.getDate = function(index) {
 	Returns the value at position i of date type as java.sql.Date.
 	*/
 	var javaSqlDate = this.getJavaObject().getDate(index);
-	var date = new Date(javaSqlDate.getTime());
+	var date = new SqlDate(javaSqlDate);
 	return date;
 };
 /**
  * Returns the value at position index of type as decimal.
  * @param {integer} index
  * @returns {decimal}
+ * @ignore
  */
+/*
 Row.prototype.getDecimal = function(index) {
-	/*
-	java.math.BigDecimal	getDecimal(int i)
-	Returns the value at position i of decimal type as java.math.BigDecimal.
-	*/
 	return this.getJavaObject().getDecimal(index);
 };
+*/
 /**
- * Returns the value at position index of type as double.
+ * Returns the value at position index of type as javascript float.
  * @param {integer} index
- * @returns {double}
+ * @returns {float}
  */
 Row.prototype.getDouble = function(index) {
 	/*
@@ -195,7 +199,14 @@ Row.prototype.getFloat = function(index) {
 	float	getFloat(int i)
 	Returns the value at position i as a primitive float..
 	*/
-	return this.getJavaObject().getFloat(index);
+	/*
+	 * NOTE:
+	 * Nashorn interprets numbers as java.lang.Double, java.lang.Long, or java.lang.Integer objects, depending on the computation performed. 
+	 * You can use the Number() function to force a number to be a Double object
+	 * https://docs.oracle.com/javase/8/docs/technotes/guides/scripting/nashorn/api.html
+	 */
+	//return this.getJavaObject().getFloat(index);
+	return this.getDouble(index);
 };
 /**
  * Returns the value at position index of type as integer.
@@ -213,26 +224,24 @@ Row.prototype.getInt = function(index) {
  * Returns the value at position index of type as long.
  * @param {integer} index
  * @returns {long}
+ * @ignore
  */
+/* not applicable for JavaScript
 Row.prototype.getLong = function(index) {
-	/*
-	long	getLong(int i)
-	Returns the value at position i as a primitive long.
-	*/
 	return this.getJavaObject().getLong(index);
 };
+*/
 /**
  * Returns the value at position index of type as short.
  * @param {integer} index
  * @returns {short}
+ * @ignore
  */
+/* Not applicable to JavaScript
 Row.prototype.getShort = function(index) {
-	/*
-	short	getShort(int i)
-	Returns the value at position i as a primitive short.
-	*/
 	return this.getJavaObject().getShort(index);
 };
+*/
 /**
  * Returns the value at position index of type as String.
  * @param {integer} index
@@ -258,16 +267,16 @@ Row.prototype.getStruct = function(index) {
 	return new Row(this.getJavaObject().getStruct(index)); // wrapper the java row object
 };
 /**
- * Returns the value at position index of date type as Date.
+ * Returns the value at position index of Timestamp type as Date.
  * @param {integer} index
- * @returns {Date}
+ * @returns {SqlTimestamp}
  */
 Row.prototype.getTimestamp = function(index) {
 	/*
 	java.sql.Timestamp	getTimestamp(int i)
 	Returns the value at position i of date type as java.sql.Timestamp.
 	*/
-	return this.getDate(index); 
+	return new SqlTimestamp(this.getJavaObject().getTimestamp(index));
 };
 /**
  * Returns hash code
@@ -372,7 +381,8 @@ Row.prototype.toJSON = function() {
 	var jsonObj = {};
 	jsonObj.values = [];
 	for (var i = 0; i < this.length(); i++) {
-		jsonObj.values.push(this.get(i)); 
+		var v = this.get(i).toJSON ? this.get(i).toJSON() : this.get(i);
+		jsonObj.values.push(v); 
 	}
 	jsonObj.schema = this.schema().toJSON();
 	return jsonObj;
