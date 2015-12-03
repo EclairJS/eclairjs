@@ -111,7 +111,7 @@ public class JSTest {
         TestUtils.evalJSResource(engine, "/dataframetest.js");
         Object ret = ((Invocable)engine).invokeFunction("dataframeAsTest", file);
 
-         assertEquals("should be same", "[name: string, age: int, expense: int, DOB: timestamp, income: double, married: boolean]", ret.toString()); 
+         assertEquals("should be same", "[name: string, age: int, expense: int, DOB: timestamp, income: double, married: boolean, networth: double]", ret.toString()); 
     }
     
     @Test
@@ -148,13 +148,14 @@ public class JSTest {
 							        		+ "{\"name\":\"expense\",\"dataType\":\"IntegerType\",\"nullable\":true},"
 							        		+ "{\"name\":\"DOB\",\"dataType\":\"TimestampType\",\"nullable\":true},"
 							        		+ "{\"name\":\"income\",\"dataType\":\"DoubleType\",\"nullable\":true},"
-							        		+ "{\"name\":\"married\",\"dataType\":\"BooleanType\",\"nullable\":true}"
+							        		+ "{\"name\":\"married\",\"dataType\":\"BooleanType\",\"nullable\":true},"
+							        		+ "{\"name\":\"networth\",\"dataType\":\"DoubleType\",\"nullable\":true}"
 						        		+ "]"
 						        		+ "}";
 
         String json = "["
-		        		+ "{\"values\":[\"Michael\",29,1,\"1996-03-06 19:00:00.0\",1200.4,true],"+schemaJson+"},"
-		        		+ "{\"values\":[\"Andy\",30,2,\"1998-12-06 19:00:00.0\",1500.44,false],"+schemaJson+"}"
+		        		+ "{\"values\":[\"Michael\",29,1,\"1996-03-06 19:00:00.0\",1200.4,true,300000000.11],"+schemaJson+"},"
+		        		+ "{\"values\":[\"Andy\",30,2,\"1998-12-06 19:00:00.0\",1500.44,false,500000000.11],"+schemaJson+"}"
 	        		+ "]";
          assertEquals("should be same", json, ret);
     }
@@ -171,7 +172,7 @@ public class JSTest {
         TestUtils.evalJSResource(engine, "/dataframetest.js");
         Object ret = ((Invocable)engine).invokeFunction("dataframeColumnsTest", file);
 
-        assertEquals("should be same", "name,age,expense,DOB,income,married", ret.toString());
+        assertEquals("should be same", "name,age,expense,DOB,income,married,networth", ret.toString());
     }
     
     @Test
@@ -250,7 +251,15 @@ public class JSTest {
 
         TestUtils.evalJSResource(engine, "/dataframetest.js");
         Object ret = ((Invocable)engine).invokeFunction("dataframeDtypesTest", file);
-        String json = "[[\"name\",\"StringType\"],[\"age\",\"IntegerType\"],[\"expense\",\"IntegerType\"],[\"DOB\",\"TimestampType\"],[\"income\",\"DoubleType\"],[\"married\",\"BooleanType\"]]";
+        String json = "["
+		        		+ "[\"name\",\"StringType\"],"
+		        		+ "[\"age\",\"IntegerType\"],"
+		        		+ "[\"expense\",\"IntegerType\"],"
+		        		+ "[\"DOB\",\"TimestampType\"],"
+		        		+ "[\"income\",\"DoubleType\"],"
+		        		+ "[\"married\",\"BooleanType\"],"
+		        		+ "[\"networth\",\"DoubleType\"]"
+	        		+ "]";
         assertEquals("should be same", json, ret);
     }
     
@@ -267,7 +276,7 @@ public class JSTest {
 
         TestUtils.evalJSResource(engine, "/dataframetest.js");
         Object ret = ((Invocable)engine).invokeFunction("dataframeExceptTest", file);
-        String expect = "{\"name\":\"Justin\",\"age\":19,\"expense\":3,\"DOB\":\"1992-03-06 19:00:00.0\",\"income\":1600.0,\"married\":true}";
+        String expect = "{\"name\":\"Justin\",\"age\":19,\"expense\":3,\"DOB\":\"1992-03-06 19:00:00.0\",\"income\":1600.0,\"married\":true,\"networth\":100000.0}";
         assertEquals("should be same", expect, ret);
     }
     
@@ -501,8 +510,8 @@ public class JSTest {
     public void dataFrameFloatTypeTest() throws Exception {
     	/*
     	 * tests
-    	 * DataType.DateType
-    	 * SqlDate 
+    	 * DataType.FloatType
+    	 * DataType.DoubleType 
     	 */
         ScriptEngine engine = TestUtils.getEngine();
         String file = TestUtils.resourceToFile("/data/people.txt");
@@ -516,8 +525,8 @@ public class JSTest {
     public void dataFrameBooleanTypeTest() throws Exception {
     	/*
     	 * tests
-    	 * DataType.DateType
-    	 * SqlDate 
+    	 * DataType.BooleanType
+    	 *  
     	 */
         ScriptEngine engine = TestUtils.getEngine();
         String file = TestUtils.resourceToFile("/data/people.txt");
@@ -527,6 +536,69 @@ public class JSTest {
         assertEquals("should be same", "Name: Michael married: true,Name: Justin married: true", ret);
     }
     
+    /*
+     * Row tests
+     */
+    
+    @Test
+    public void rowMkStringTest() throws Exception {
+    	/*
+    	 * tests
+    	 * Row.mkString("")
+    	 * 
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/people.txt");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("rowMkStringType", file);
+        assertEquals("should be same", "Michael2911996-03-061200.4true300000000.11Andy3021998-12-061500.44false500000000.11", ret);
+    }
+    
+    @Test
+    public void rowMkStringSepTest() throws Exception {
+    	/*
+    	 * tests
+    	 * Row.mkString(",")
+    	 * 
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/people.txt");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("rowMkStringType", file, ", ");
+        assertEquals("should be same", "Michael, 29, 1, 1996-03-06, 1200.4, true, 300000000.11Andy, 30, 2, 1998-12-06, 1500.44, false, 500000000.11", ret);
+    }
+    
+    @Test
+    public void rowMkStringSepStartTest() throws Exception {
+    	/*
+    	 * tests
+    	 * Row.mkString(",", "[")
+    	 * 
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/people.txt");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("rowMkStringType", file, ", ", "[");
+        assertEquals("should be same", "Michael, 29, 1, 1996-03-06, 1200.4, true, 300000000.11Andy, 30, 2, 1998-12-06, 1500.44, false, 500000000.11", ret);
+    }
+    
+    @Test
+    public void rowMkStringSepStartEndTest() throws Exception {
+    	/*
+    	 * tests
+    	 * Row.mkString(",", "[")
+    	 * 
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/people.txt");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("rowMkStringType", file, ", ", "[", "]");
+        assertEquals("should be same", "[Michael, 29, 1, 1996-03-06, 1200.4, true, 300000000.11][Andy, 30, 2, 1998-12-06, 1500.44, false, 500000000.11]", ret);
+    }
 
     
 }
