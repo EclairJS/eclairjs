@@ -27,7 +27,10 @@ var buildPeopleTable = function(file, date) {
 	    				name: parts[0], 
 	    				age: parseInt(parts[1].trim()),
 	    				expense: parseInt(parts[2].trim()),
-	    				DOB: parts[3].trim()
+	    				DOB: parts[3].trim(),
+	    				income: parts[4].trim(),
+	    				married: parts[5].trim(),
+	    				networth: parts[6].trim()
 	    		};
 	});
 
@@ -43,6 +46,9 @@ var buildPeopleTable = function(file, date) {
 		useDateType = false;
 		fields.push(DataTypes.createStructField("DOB", DataTypes.TimestampType, true));
 	}
+	fields.push(DataTypes.createStructField("income", DataTypes.FloatType, true));
+	fields.push(DataTypes.createStructField("married", DataTypes.BooleanType, true));
+	fields.push(DataTypes.createStructField("networth", DataTypes.DoubleType, true));
 	
 	var schema = DataTypes.createStructType(fields);
 
@@ -54,8 +60,8 @@ var buildPeopleTable = function(file, date) {
 		} else {
 			d = new SqlTimestamp(person.DOB);
 		}
-		
-		return RowFactory.create([person.name, person.age, person.expense, d]);
+		var m =  person.married == "true" ? true : false
+		return RowFactory.create([person.name, person.age, person.expense, d, parseFloat(person.income), m, parseFloat(person.networth)]);
 	});
 
 
@@ -220,11 +226,14 @@ var dataframeFirstTest = function(file) {
 var dataframeFlatMapTest = function(file) {
 
 	var peopleDataFrame = buildPeopleTable(file);
+	print("here")
 	var result = peopleDataFrame.flatMap(function(row) {
+		print("row " + row)
 		var r = [];
 		r.push(row.getString(0));
 		return r
 	});
+	print("result")
 	print(result.take(10));
     return result.take(10).toString();
 }
@@ -339,4 +348,56 @@ var dateType = function(file) {
 		return "Name: " + row.getString(0) + " DOB: " + row.getDate(3);
 	});
     return names.take(10).toString();
+}
+
+var floatType = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file, true);
+	var col = new Column("income");
+	var testCol = col.gt(1300.00);
+	// SQL can be run over RDDs that have been registered as tables.
+	var result = peopleDataFrame.filterWithColumn(testCol);
+
+	//The results of SQL queries are DataFrames and support all the normal RDD operations.
+	//The columns of a row in the result can be accessed by ordinal.
+	var names = result.toRDD().map(function(row) {
+		return "Name: " + row.getString(0) + " income: " + row.getFloat(4);
+	});
+    return names.take(10).toString();
+}
+
+var booleanType = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file, true);
+	var col = new Column("married");
+	var testCol = col.equalTo(true);
+	// SQL can be run over RDDs that have been registered as tables.
+	var result = peopleDataFrame.filterWithColumn(testCol);
+
+	//The results of SQL queries are DataFrames and support all the normal RDD operations.
+	//The columns of a row in the result can be accessed by ordinal.
+	var names = result.toRDD().map(function(row) {
+		return "Name: " + row.getString(0) + " married: " + row.getBoolean(5);
+	});
+    return names.take(10).toString();
+}
+
+/*
+ * Row tests
+ */
+
+var rowMkStringType = function(file, sep, start, end) {
+
+	var peopleDataFrame = buildPeopleTable(file, true);
+	var col = new Column("networth");
+	var testCol = col.gt(100000.00);
+	// SQL can be run over RDDs that have been registered as tables.
+	var result = peopleDataFrame.filterWithColumn(testCol);
+
+	var rows = result.collect();
+	var s = "";
+	rows.forEach(function(row){
+		s += row.mkString(sep, start, end);
+	})
+    return s;
 }

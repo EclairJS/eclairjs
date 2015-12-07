@@ -175,7 +175,7 @@
         <dependency>
             <groupId>com.ibm.spark</groupId>
             <artifactId>kernel-api_2.10</artifactId>
-            <version>0.1.5-SNAPSHOT</version>
+            <version>0.0.0-dev-SNAPSHOT</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
