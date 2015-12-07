@@ -70,6 +70,12 @@ class Comment(comment:String) {
   def removeUnusedTags()={
     removeTag("since")
     removeTag("tparam")
+    removeTag("group")
+    removeTag("author")
+    removeTag("version")
+    removeTag("groupname")
+    removeTag("groupdesc")
+    removeTag("groupprio")
   }
 
   //  should we convert org.apache.spark.d1.cls to ./d1/cls ??

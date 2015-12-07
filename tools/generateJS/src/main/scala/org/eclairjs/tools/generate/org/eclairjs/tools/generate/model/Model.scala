@@ -77,40 +77,15 @@ abstract class Member
 {
   def name:String
   def comment:String
-  def returnType:String
+  def returnType:DataType
 
   var parent:Clazz = null
   def isConstructor() = false
 
 
-  def toJSType(scalaType:String): String =
-  {
-
-    val optionRX="""Option\[([,\w\[\]]+)\]""".r
-
-    val typeStr=scalaType match {
-      case optionRX(typeName) => typeName
-      case _ => scalaType
-    }
-
-    val typeParmRX="""([\w\d]+)\[[,\w\[\]]+\]""".r
-
-
-    typeStr match {
-      case "Boolean" => "boolean"
-      case "Long" | "Int"  | "Double"=> "Number"
-      case "String" => "String"
-      case "Unit" | "scala.Unit" => "undefined"
-      case typeParmRX(typ) => typ match {
-        case "List" | "Array" => "Array"
-        case _ => typ
-      }
-      case _ =>typeStr
-    }
-  }
 }
 
-case class Method(name:String,comment:String,returnType:String,parms:List[Parm]) extends Member
+case class Method(name:String,comment:String,returnType:DataType,parms:List[Parm]) extends Member
 {
   override def  toString() = {
     val sb=new StringBuilder
@@ -141,13 +116,13 @@ case class Method(name:String,comment:String,returnType:String,parms:List[Parm])
 
   def getParmJSType(name:String):String = {
     getParm(name) match {
-      case Some(parm) => toJSType(parm.typ)
+      case Some(parm) => parm.typ.getJSType(parm.typ.name)
       case None => "PARMNOTFOUND"
     }
   }
 
   def getReturnJSType():String = {
-     toJSType(returnType)
+     returnType.getJSType(returnType.name)
   }
 
 
@@ -157,12 +132,48 @@ case class Method(name:String,comment:String,returnType:String,parms:List[Parm])
   }
 }
 
-case class Parm(name:String,typ:String)
+case class Parm(name:String,typ:DataType)
 {
 
 }
 
-case class DataType()
+  trait DataType
 {
+  def name: String
 
+  def getJSType(scalaName:String=name):String =
+  {
+
+
+    val simpleName=scalaName.split("\\.").last
+
+
+    if (simpleName.length==1) // must be a type parm
+      return "object"
+
+    simpleName match {
+      case "Boolean" => "boolean"
+      case "Long" | "Int"  | "Double"| "Float" | "Byte"=> "number"
+      case "String" => "string"
+      case "List" => "[]"
+      case "Unit"   => "undefined"
+      case "Any" | "AnyRef"   => "object"
+
+      case _ =>simpleName
+    }
+
+  }
 }
+case class SimpleType(name:String) extends DataType
+case class ExtendedDataType(name:String,referenceType:String) extends DataType
+{
+  override def getJSType(scalaName:String=name):String =
+  {
+    scalaName match {
+      case "Option" =>  super.getJSType(referenceType)
+      case "List" | "Array" =>  super.getJSType(referenceType) + "[]"
+      case _ => super.getJSType(name)
+    }
+  }
+}
+case class FunctionDataType(name:String,parms:List[DataType],returnType:DataType) extends DataType
