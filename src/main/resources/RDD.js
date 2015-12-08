@@ -91,7 +91,7 @@ RDD.prototype.flatMap = function(func) {
 
 };
 /**
- * Return a new RDD by applying a function to all elements of this RDD.
+ * Applies a function to all elements of this RDD.
  * @example
  * rdd3.foreach(function(record) {
  *    var connection = createNewConnection()

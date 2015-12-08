@@ -29,6 +29,7 @@ object Statistics {
   val generatedFiles= scala.collection.mutable.ListBuffer.empty[String]
   val generatedClasses= scala.collection.mutable.ListBuffer.empty[String]
   val generatedClassInfos= scala.collection.mutable.Map[String,ClassInfo]()
+  var referencedTypes=Set("")
 
   def processFile(model: File, toFile: String) = {
 
@@ -65,6 +66,9 @@ object Statistics {
               generatedMethodInfos+=MethodInfo(name,num,hasDoc)
             }
 
+          method.parms foreach ( parm => referencedTypes += (parm.typ.name +" = "+ parm.typ.getJSType()))
+          referencedTypes += method.returnType.name +" = "+ method.returnType.getJSType()
+
         })
 
         generatedClassInfos += (fullName -> ClassInfo(fullName,constructors.length,generatedMethodInfos.toList))
@@ -84,12 +88,24 @@ object Statistics {
       """
 
     val sortedNames=generatedClasses.sorted
-//    str = str+ "Generated files :\n"+ sortedNames.mkString("\n")
 
-    if (true)
+    if (false)  // list of classes
+      str = str+ "Generated classes :\n"+ sortedNames.mkString("\n")
+
+    if (false)  // class info
       {
         sortedNames foreach( name=> str = str+generatedClassInfos(name).toString+"\n")
       }
+    if (false)  // sorted class name (ignoring package)
+    {
+      str=str+sortedNames.sortWith(_.split("\\.").last < _.split("\\.").last).mkString("\n")
+
+    }
+    if (true)  // referenced types
+    {
+      str=str+"referenced types :\n"+ referencedTypes.toList.sorted.mkString("\n")
+
+    }
 
     str
   }

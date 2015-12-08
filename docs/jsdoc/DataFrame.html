@@ -2710,7 +2710,7 @@ returns {Row}
         
             
 <dt>
-    <h4 class="name" id="foreach"><span class="type-signature"></span>foreach<span class="signature">(func)</span><span class="type-signature"> &rarr; {void}</span></h4>
+    <h4 class="name" id="foreach"><span class="type-signature"></span>foreach<span class="signature">(Function)</span><span class="type-signature"> &rarr; {void}</span></h4>
     
     
 </dt>
@@ -2718,7 +2718,7 @@ returns {Row}
     
     
     <div class="description">
-        Applies a function func to all rows.
+        Applies a function to all elements of this DataFrame.
     </div>
     
 
@@ -2752,7 +2752,7 @@ returns {Row}
 	
         <tr>
             
-                <td class="name"><code>func</code></td>
+                <td class="name"><code>Function</code></td>
             
             
             <td class="type">
@@ -2768,7 +2768,7 @@ returns {Row}
             
             
             
-            <td class="description last"></td>
+            <td class="description last">with one parameter</td>
         </tr>
 	
 	
@@ -2799,7 +2799,7 @@ returns {Row}
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line271">line 271</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line277">line 277</a>
     </li></ul></dd>
     
     
@@ -2839,6 +2839,161 @@ returns {Row}
 
         
     
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>rdd3.foreach(function(record) {
+   var connection = createNewConnection()
+   connection.send(record);	
+   connection.close()
+});</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="foreachPartition"><span class="type-signature"></span>foreachPartition<span class="signature">(Function)</span><span class="type-signature"> &rarr; {void}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Applies a function to each partition of this DataFrame.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>Function</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">with one Array parameter</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line294">line 294</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">void</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>df.foreachPartition(function(partitionOfRecords) {
+   var connection = createNewConnection()
+   partitionOfRecords.forEach(function(record){
+      connection.send(record);	
+   });
+   connection.close()
+});</code></pre>
+
     
 </dd>
 
@@ -2933,7 +3088,7 @@ returns {Row}
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line281">line 281</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line304">line 304</a>
     </li></ul></dd>
     
     
@@ -3068,7 +3223,7 @@ returns {Row}
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line294">line 294</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line317">line 317</a>
     </li></ul></dd>
     
     
@@ -3203,7 +3358,7 @@ returns {Row}
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line309">line 309</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line332">line 332</a>
     </li></ul></dd>
     
     
@@ -3290,7 +3445,7 @@ returns {Row}
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line321">line 321</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line344">line 344</a>
     </li></ul></dd>
     
     
@@ -3330,6 +3485,523 @@ returns {Row}
 
         
     
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="inputFiles"><span class="type-signature"></span>inputFiles<span class="signature">()</span><span class="type-signature"> &rarr; {string[]}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Returns a best-effort snapshot of the files that compose this DataFrame. This method simply asks each constituent 
+BaseRelation for its respective files and takes the union of all results. Depending on the source relations, 
+this may not find all input files. Duplicates are removed.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line353">line 353</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    files
+</div>
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">string[]</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="intersect"><span class="type-signature"></span>intersect<span class="signature">(other)</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Returns a new DataFrame containing rows only in both this frame and another frame. This is equivalent to INTERSECT in SQL
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>other</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="DataFrame.html">DataFrame</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line366">line 366</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="DataFrame.html">DataFrame</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="isLocal"><span class="type-signature"></span>isLocal<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Returns true if the collect and take methods can be run locally (without any Spark executors).
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line373">line 373</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">boolean</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="join"><span class="type-signature"></span>join<span class="signature">(Right, columnNamesOrJoinExpr, joinType)</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Cartesian join with another DataFrame. Note that cartesian joins are very expensive without an extra filter that can be pushed down.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>Right</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="DataFrame.html">DataFrame</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">side of the join operation.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>columnNamesOrJoinExpr</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">Array.&lt;string></span>
+|
+
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional: If string or array of strings column names, inner equi-join with another DataFrame using the given columns. 
+Different from other join functions, the join columns will only appear once in the output, i.e. similar to SQL's JOIN USING syntax.
+If Column object, joinExprs inner join with another DataFrame, using the given join expression.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>joinType</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional, only valid if using Column joinExprs.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line395">line 395</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="DataFrame.html">DataFrame</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>var joinedDf = df1.join(df2);
+// or
+var joinedDf = df1.join(df2,"age");
+// or
+var joinedDf = df1.join(df2, ["age", "DOB"]);
+// or Column joinExpr
+var joinedDf = df1.join(df2, df1.col("name").equalTo(df2.col("name")));
+// or Column joinExpr
+var joinedDf = df1.join(df2, df1.col("name").equalTo(df2.col("name")), "outer");</code></pre>
+
     
 </dd>
 
@@ -3425,7 +4097,7 @@ returns {Row}
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line329">line 329</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line419">line 419</a>
     </li></ul></dd>
     
     
@@ -3560,7 +4232,7 @@ returns {Row}
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line336">line 336</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line426">line 426</a>
     </li></ul></dd>
     
     
@@ -3676,7 +4348,7 @@ returns {Row}
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line344">line 344</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line434">line 434</a>
     </li></ul></dd>
     
     
@@ -3811,7 +4483,7 @@ returns {Row}
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line357">line 357</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line447">line 447</a>
     </li></ul></dd>
     
     
@@ -3946,7 +4618,7 @@ returns {Row}
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line370">line 370</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line460">line 460</a>
     </li></ul></dd>
     
     
@@ -4033,7 +4705,7 @@ returns {Row}
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line381">line 381</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line471">line 471</a>
     </li></ul></dd>
     
     
@@ -4150,7 +4822,7 @@ returns {Row}
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line389">line 389</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line479">line 479</a>
     </li></ul></dd>
     
     
@@ -4237,7 +4909,7 @@ returns {Row}
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line401">line 401</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line491">line 491</a>
     </li></ul></dd>
     
     
@@ -4324,7 +4996,7 @@ returns {Row}
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line408">line 408</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line498">line 498</a>
     </li></ul></dd>
     
     
@@ -4462,7 +5134,7 @@ returns {Row}
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line416">line 416</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line506">line 506</a>
     </li></ul></dd>
     
     
@@ -4620,7 +5292,7 @@ returns {Row}
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line425">line 425</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line515">line 515</a>
     </li></ul></dd>
     
     
@@ -4707,7 +5379,7 @@ returns {Row}
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line432">line 432</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line522">line 522</a>
     </li></ul></dd>
     
     
@@ -4772,7 +5444,7 @@ returns {Row}
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Thu Dec 03 2015 17:19:25 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Tue Dec 08 2015 14:55:47 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>

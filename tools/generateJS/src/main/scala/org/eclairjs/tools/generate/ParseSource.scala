@@ -190,13 +190,62 @@ import Compiler.syntaxAnalyzer.global._
       {
         val valdefs=vparamss(0)
         valdefs foreach( valdef=> {
-          parms +=  Parm(valdef.name.toString, valdef.tpt.toString )
+
+          parms +=  Parm(valdef.name.toString, getType(valdef.tpt) )
           })
 
       }
 
 
-    new Method(name.toString,comment,tpt.toString(),parms.toList);
+    new Method(name.toString,comment,getType(tpt),parms.toList);
+  }
+
+
+  def getType(tpt: Tree):DataType =
+  {
+
+    tpt match {
+      case AppliedTypeTree(tpt, args) => {
+        val fullName=tpt.toString()
+        val name=fullName.split("\\.").last
+        name match {
+          case "Function0" | "Function1" | "Function2" | "Function3" | "Function4" | "JFunction" |"JFunction0" |"JFunction1" | "JFunction2"| "VoidFunction" =>
+          {
+            val parms= args.dropRight(1).map( getType(_))
+            val returnType=getType(args.last)
+            FunctionDataType(name,parms,returnType)
+          }
+          case _ => ExtendedDataType(fullName,getTypeName(args(0)))
+        }
+
+      }
+      case  TypeTree() => SimpleType("??")
+      case  Ident(name) => SimpleType(name.toString)
+      case  Select(qualifier, name) => SimpleType(qualifier.toString()+"."+name)
+      case  ExistentialTypeTree(tpt , whereClauses ) => getType(tpt)
+      case  SingletonTypeTree(ref) => SimpleType("??Sing??")
+//      case  TypeTree() => SimpleType("","")
+//      case  TypeTree() => SimpleType("","")
+
+
+      case _ =>   throw new RuntimeException("type not handled: "+tpt.getClass)
+    }
+  }
+  def getTypeName(tpt: Tree):String =
+  {
+
+      tpt match {
+        case AppliedTypeTree(tpt, args) => getTypeName(tpt)
+        case  Ident(name) => name.toString
+        case  Select(qualifier, name) => qualifier.toString()+"."+name
+        case  ExistentialTypeTree(tpt , whereClauses ) => getTypeName(tpt)
+        //      case  TypeTree() => SimpleType("","")
+        //      case  TypeTree() => SimpleType("","")
+
+
+        case _ =>
+          throw new RuntimeException("get type name not handled: "+tpt.getClass)
+      }
   }
 
 
