@@ -46,4 +46,10 @@ class GenerateNode  extends  GenerateJSBase {
     sb++=constr
   }
 
+
+  def getMethodBody(method:Method): String =
+  {
+    ""
   }
+
+}
