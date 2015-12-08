@@ -1,6 +1,6 @@
 package org.eclairjs.tools.generate
 
-import org.eclairjs.tools.generate.model.Clazz
+import _root_.org.eclairjs.tools.generate.org.eclairjs.tools.generate.model.{FunctionDataType, Method, Clazz}
 
 /**
  * Created by berkland on 11/19/15.
@@ -9,27 +9,33 @@ class GenerateNashorn  extends  GenerateJSBase {
 
 
 
-  override def generateConstructor(cls:Clazz, sb:StringBuilder): Unit = {
+  override def generateConstructor(cls:Clazz, sbMain:StringBuilder): Unit = {
     val clsName=cls.name
     var parmlist=""
     var constrBody=""
     val constructor=mainConstructor(cls);
 
+
     if (constructor!=null)
       {
          parmlist=constructor.parmList();
-        if (parmlist.length>0)
-          parmlist=", "+parmlist
 
-
-         constrBody=constructor.parms.map(parm=> s"  this.${parm.name} = ${parm.name}").mkString("/n")
+        if (parmlist.length==0)
+        {
+          parmlist="jvmObject"
+        }
+        else
+        {
+          val fullName=constructor.parent.fullName()
+          constrBody= s"var jvmObject = new $fullName($parmlist);"
+        }
 
 
       }
 
-    val constr = getTemplate("nashorn_constructorDefault",clsName,clsName,parmlist,clsName,constrBody)
+    val constr = getTemplate("nashorn_constructorDefault",clsName,parmlist,constrBody,clsName)
 
-    sb++=constr
+    sbMain++=constr
 
   }
 
@@ -41,6 +47,44 @@ class GenerateNashorn  extends  GenerateJSBase {
     sb++=constr
 
   }
+
+  def getMethodBody(method:Method): String =
+  {
+    val sb=new StringBuilder
+
+
+    val parmNames= scala.collection.mutable.ListBuffer.empty[String]
+
+    method.parms  foreach( parm => parm.typ match {
+
+      case   FunctionDataType(name,parms ,returnType ) =>
+        {
+          val funcMac = Map("JFunction"->"JSFunction","VoidFunction"->"JSVoidFunction","JFunction2"->"JSFunction2","JFunction3"->"JSFunction3","PairFunction"->"JSPairFunction","PairFlatMapFunction"->"JSFlatMapFunction")
+          sb++=s"  var sv = Utils.createJavaParams(${parm.name});\n"
+
+          val functionClass=funcMac.getOrElse(name,"JSFunction")
+          sb++=s"  var fn = new org.eclairjs.nashorn.${functionClass}(sv.funcStr, sv.scopeVars);\n"
+          parmNames+="fn"
+        }
+      case _ => if (parm.typ.isSparkClass())
+      {
+        sb ++= s"  var ${parm.name}_uw = Utils.unwrapObject(${parm.name});\n"
+        parmNames+=parm.name+"_uw"
+      }
+        else
+          parmNames+=parm.name
+    })
+    // return this.getJavaObject().div(Utils.unwrapObject(that));
+    val returnsStr=if (method.returnType.isVoid())  "" else "return "
+
+
+
+    sb ++= s"  $returnsStr this.getJavaObject().${method.name}(${parmNames.mkString(",")});"
+    sb.toString()
+
+  }
+
+
 
   override def generatePostlude(cls:Clazz, sb:StringBuilder): Unit= {}
 
