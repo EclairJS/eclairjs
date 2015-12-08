@@ -255,6 +255,27 @@ var dataframeForeachTest = function(file) {
 
 }
 
+var dataframeForeachPartitionTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	globalForeachResult = {}; // not the right way to do this but works for UT, we are running workers in the same JVM.
+	peopleDataFrame.foreachPartition(function(rows) {
+		rows.forEach(function(row){
+			globalForeachResult[row.getString(0)] = row.getInt(1);
+		   });
+		
+	});
+
+	/*
+	 * the names can be in any order so we will check them here instead of on the Java side
+	 */
+	if (globalForeachResult["Justin"] && globalForeachResult["Michael"] && globalForeachResult["Andy"])
+		return "all good";
+	else 
+		return "bummer dude, the test failed";
+
+}
+
 var dataframeGroupByTest = function(file) {
     var dataFrame = sqlContext.read().json(file);
     var gd = dataFrame.groupBy(dataFrame.col("first"));
@@ -279,14 +300,72 @@ var dataframeHeadTest = function(file) {
     return row.mkString();
 }
 
+var dataframeInputFilesTest = function(file) {
+    var dataFrame = sqlContext.read().json(file);
+    var files = dataFrame.inputFiles();
+ 	/*
+	 * the files are in temp directories for the path can change on each run of the test, so just checking the file name
+	 */
+	if (files[0].indexOf("test.json") > -1)
+		return "all good";
+	else 
+		return "bummer dude, the test failed";
+
+}
+
+var dataframeIntersectTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var plus20s = peopleDataFrame.filter("age > 20");
+	var results = peopleDataFrame.intersect(plus20s);
+	
+    return results.take(10).toString();
+}
+
+var dataframeIsLocalTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	return peopleDataFrame.isLocal();
+	
+}
+
+var dataframeJoinTest = function(file, usingColumn) {
+	
+	var df1 = buildPeopleTable(file);
+	var df2 = buildPeopleTable(file);
+	var joinedDf = df1.join(df2, usingColumn);
+	return joinedDf.head().toString();
+	
+}
+
+var dataframeJoinUsingColumnsTest = function(file) {
+	
+	var df1 = buildPeopleTable(file);
+	var df2 = buildPeopleTable(file);
+	var joinedDf = df1.join(df2, ["age", "DOB"]);
+	return joinedDf.head().toString();
+	
+}
+
+var dataframeJoinColumnExprTest = function(file, joinType) {
+	
+	var people = buildPeopleTable(file);
+	var df1 = sqlContext.sql("SELECT name, age FROM people");
+	var df2 = sqlContext.sql("SELECT name, DOB FROM people");
+
+	var colExpr = df1.col("name").equalTo(df2.col("name"));
+	var joinedDf = df1.join(df2, colExpr, joinType);
+	
+	return joinedDf.head().toString();
+	
+}
+
 var dataframeMapTest = function(file) {
 
 	var peopleDataFrame = buildPeopleTable(file);
 	var names = peopleDataFrame.map(function(row) {
 		return "Name: " + row.getString(0);
 	});
-
-	print("names = " + names.take(10));
 
     return names.take(10).toString();
 }

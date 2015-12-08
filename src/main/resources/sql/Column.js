@@ -49,5 +49,5 @@ Column.prototype.gt = function(obj) {
  * @returns {Column}
  */
 Column.prototype.equalTo = function(obj) {
-    return new Column(this.getJavaObject().equalTo(obj));
+    return new Column(this.getJavaObject().equalTo(Utils.unwrapObject(obj)));
 };

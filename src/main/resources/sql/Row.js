@@ -365,6 +365,9 @@ Row.prototype.size = function() {
 	
 };
 
+Row.prototype.toString = function() {
+	return this.mkString(",", "[", "]");
+};
 /* 
  * java.lang.String	toString() implemented by parent class JavaWrapper
  */
