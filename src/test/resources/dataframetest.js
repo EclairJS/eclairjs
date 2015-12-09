@@ -226,15 +226,12 @@ var dataframeFirstTest = function(file) {
 var dataframeFlatMapTest = function(file) {
 
 	var peopleDataFrame = buildPeopleTable(file);
-	print("here")
 	var result = peopleDataFrame.flatMap(function(row) {
-		print("row " + row)
 		var r = [];
 		r.push(row.getString(0));
 		return r
 	});
-	print("result")
-	print(result.take(10));
+
     return result.take(10).toString();
 }
 
@@ -281,7 +278,6 @@ var dataframeGroupByTest = function(file) {
     var gd = dataFrame.groupBy(dataFrame.col("first"));
     var df2 = gd.count();
 
-    df2.show();
     return df2.count();
 }
 
@@ -290,7 +286,6 @@ var dataframeGroupByWithStringsTest = function(file) {
     var gd = dataFrame.groupBy("first");
     var df2 = gd.count();
 
-    df2.show();
     return df2.count();
 }
 
@@ -360,6 +355,15 @@ var dataframeJoinColumnExprTest = function(file, joinType) {
 	
 }
 
+var dataframeLimitTest = function(file) {
+	
+	var people = buildPeopleTable(file);
+	var result = people.limit(1);
+
+	return result.count();
+	
+}
+
 var dataframeMapTest = function(file) {
 
 	var peopleDataFrame = buildPeopleTable(file);
@@ -370,11 +374,64 @@ var dataframeMapTest = function(file) {
     return names.take(10).toString();
 }
 
+var dataframeMapPartitionsTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var names = peopleDataFrame.mapPartitions(function(rows) {
+		return [rows.length];
+	});
+
+    return names.take(10).toString();
+}
+
+var dataframeNaTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var naFunc = peopleDataFrame.na();
+	var result = naFunc.drop();
+
+    return result.take(10).toString();
+}
+
+var dataframeOrderByTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var result = peopleDataFrame.orderBy("age", "name");
+	
+    return result.take(10).toString();
+}
+
+var dataframePersistTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var result = peopleDataFrame.persist(StorageLevel.MEMORY_ONLY());
+	
+    return result.head().toString();
+}
+
 var dataframeSelectTest = function(file) {
 
 	var peopleDataFrame = buildPeopleTable(file);
 	var result = peopleDataFrame.select("name", "age");
     return result.toString();
+}
+
+var dataframeSortTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var result = peopleDataFrame.sort("age", "name");
+	
+    return result.take(10).toString();
+}
+
+var dataframeSortDescTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var col = peopleDataFrame.col("age");
+	var colExpr = col.desc();	
+	var result = peopleDataFrame.sort(colExpr);
+
+    return result.take(10).toString();
 }
 
 var dataframeWhereTest = function(file) {

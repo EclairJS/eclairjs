@@ -35,6 +35,25 @@ Column.prototype = Object.create(JavaWrapper.prototype);
 
 //Set the "constructor" property to refer to Column
 Column.prototype.constructor = Column;
+
+/**
+ * Returns an ordering used in sorting.
+ * @returns {Column}
+ * @example
+ * df.sort(df.col("age").asc());
+ */
+Column.prototype.asc = function() {
+	return new Column(this.getJavaObject().asc());
+};
+/**
+ * Returns an ordering used in sorting.
+ * @returns {Column}
+ * @example
+ * df.sort(df.col("age").desc());
+ */
+Column.prototype.desc = function() {
+	return new Column(this.getJavaObject().desc());
+};
 /**
  * Greater than.
  * @param {object}

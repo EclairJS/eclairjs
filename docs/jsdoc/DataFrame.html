@@ -4008,6 +4008,142 @@ var joinedDf = df1.join(df2, df1.col("name").equalTo(df2.col("name")), "outer");
         
             
 <dt>
+    <h4 class="name" id="limit"><span class="type-signature"></span>limit<span class="signature">(number)</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Returns a new DataFrame by taking the first n rows. The difference between this function and head is that head 
+returns an array while limit returns a new DataFrame.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>number</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line420">line 420</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="DataFrame.html">DataFrame</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
     <h4 class="name" id="map"><span class="type-signature"></span>map<span class="signature">(func)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
     
     
@@ -4097,7 +4233,7 @@ var joinedDf = df1.join(df2, df1.col("name").equalTo(df2.col("name")), "outer");
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line419">line 419</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line429">line 429</a>
     </li></ul></dd>
     
     
@@ -4130,6 +4266,500 @@ var joinedDf = df1.join(df2, df1.col("name").equalTo(df2.col("name")), "outer");
 	<dd>
 		
 <span class="param-type"><a href="RDD.html">RDD</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="mapPartitions"><span class="type-signature"></span>mapPartitions<span class="signature">(func)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Return a new RDD by applying a function to each partition of this DataFrame. 
+Similar to map, but runs separately on each partition (block) of the DataFrame, so func must accept an Array.  
+func should return a array rather than a single item.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>func</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line439">line 439</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="RDD.html">RDD</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="na"><span class="type-signature"></span>na<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="global.html#DataFrameNaFunctions">DataFrameNaFunctions</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Returns a DataFrameNaFunctions for working with missing data.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line447">line 447</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="global.html#DataFrameNaFunctions">DataFrameNaFunctions</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="orderBy"><span class="type-signature"></span>orderBy<span class="signature">(columnName,)</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Returns a new DataFrame sorted by the specified columns, if columnName is used sorted in ascending order.
+This is an alias of the sort function.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>columnName,</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">.....columnName or sortExprs,... sortExprs</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line456">line 456</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="DataFrame.html">DataFrame</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="persist"><span class="type-signature"></span>persist<span class="signature">(newLevel)</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>newLevel</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="StorageLevel.html">StorageLevel</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line463">line 463</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="DataFrame.html">DataFrame</a></span>
 
 
 	</dd>
@@ -4232,7 +4862,7 @@ var joinedDf = df1.join(df2, df1.col("name").equalTo(df2.col("name")), "outer");
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line426">line 426</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line472">line 472</a>
     </li></ul></dd>
     
     
@@ -4348,7 +4978,7 @@ var joinedDf = df1.join(df2, df1.col("name").equalTo(df2.col("name")), "outer");
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line434">line 434</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line481">line 481</a>
     </li></ul></dd>
     
     
@@ -4483,7 +5113,7 @@ var joinedDf = df1.join(df2, df1.col("name").equalTo(df2.col("name")), "outer");
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line447">line 447</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line494">line 494</a>
     </li></ul></dd>
     
     
@@ -4618,7 +5248,7 @@ var joinedDf = df1.join(df2, df1.col("name").equalTo(df2.col("name")), "outer");
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line460">line 460</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line507">line 507</a>
     </li></ul></dd>
     
     
@@ -4705,7 +5335,7 @@ var joinedDf = df1.join(df2, df1.col("name").equalTo(df2.col("name")), "outer");
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line471">line 471</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line518">line 518</a>
     </li></ul></dd>
     
     
@@ -4727,6 +5357,153 @@ var joinedDf = df1.join(df2, df1.col("name").equalTo(df2.col("name")), "outer");
     
     
     
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="sort"><span class="type-signature"></span>sort<span class="signature">(columnName,)</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Returns a new DataFrame sorted by the specified columns, if columnName is used sorted in ascending order.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>columnName,</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">.....columnName or sortExprs,... sortExprs</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line532">line 532</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="DataFrame.html">DataFrame</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code> var result = peopleDataFrame.sort("age", "name");
+ // or 
+ var col = peopleDataFrame.col("age");
+	var colExpr = col.desc();
+	var result = peopleDataFrame.sort(colExpr);</code></pre>
+
     
 </dd>
 
@@ -4822,7 +5599,7 @@ var joinedDf = df1.join(df2, df1.col("name").equalTo(df2.col("name")), "outer");
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line479">line 479</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line550">line 550</a>
     </li></ul></dd>
     
     
@@ -4909,7 +5686,7 @@ var joinedDf = df1.join(df2, df1.col("name").equalTo(df2.col("name")), "outer");
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line491">line 491</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line562">line 562</a>
     </li></ul></dd>
     
     
@@ -4996,7 +5773,7 @@ var joinedDf = df1.join(df2, df1.col("name").equalTo(df2.col("name")), "outer");
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line498">line 498</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line569">line 569</a>
     </li></ul></dd>
     
     
@@ -5134,7 +5911,7 @@ var joinedDf = df1.join(df2, df1.col("name").equalTo(df2.col("name")), "outer");
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line506">line 506</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line577">line 577</a>
     </li></ul></dd>
     
     
@@ -5292,7 +6069,7 @@ var joinedDf = df1.join(df2, df1.col("name").equalTo(df2.col("name")), "outer");
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line515">line 515</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line586">line 586</a>
     </li></ul></dd>
     
     
@@ -5379,7 +6156,7 @@ var joinedDf = df1.join(df2, df1.col("name").equalTo(df2.col("name")), "outer");
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line522">line 522</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line593">line 593</a>
     </li></ul></dd>
     
     
@@ -5438,13 +6215,13 @@ var joinedDf = df1.join(df2, df1.col("name").equalTo(df2.col("name")), "outer");
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulator.html">Accumulator</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulator.html">Accumulator</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li></ul><h3>Global</h3><ul><li><a href="global.html#DataFrameNaFunctions">DataFrameNaFunctions</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Tue Dec 08 2015 14:55:47 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Wed Dec 09 2015 14:53:44 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -439,6 +439,16 @@ DataFrame.prototype.join = function(right, usingColumns, joinType) {
 	
 };
 /**
+ * Returns a new DataFrame by taking the first n rows. The difference between this function and head is that head 
+ * returns an array while limit returns a new DataFrame.
+ * @param {integer} number
+ * @returns {DataFrame}
+ */
+DataFrame.prototype.limit = function(number) {
+
+	return new DataFrame(this.getJavaObject().limit(number));
+};
+/**
  * Returns a new RDD by applying a function to all rows of this DataFrame.
  * @param {function} func
  * @returns {RDD}
@@ -447,12 +457,49 @@ DataFrame.prototype.map = function(func) {
  	return this.toRDD().map(func);
 };
 /**
+ * Return a new RDD by applying a function to each partition of this DataFrame. 
+ * Similar to map, but runs separately on each partition (block) of the DataFrame, so func must accept an Array.  
+ * func should return a array rather than a single item.
+ * @param {function}  
+ * @returns {RDD}
+ */
+DataFrame.prototype.mapPartitions = function(func) {
+ 	return this.toRDD().mapPartitions(func);
+};
+/**
+ * Returns a DataFrameNaFunctions for working with missing data.
+ * @returns {DataFrameNaFunctions}
+ 
+ */
+DataFrame.prototype.na = function() {
+ 	return new DataFrameNaFunctions(this.getJavaObject().na());
+};
+/**
+ * Returns a new DataFrame sorted by the specified columns, if columnName is used sorted in ascending order.
+ * This is an alias of the sort function.
+ * @param {string | Column} columnName, .....columnName or sortExprs,... sortExprs
+ * @returns {DataFrame}
+ */
+DataFrame.prototype.orderBy = function() {
+ 	return this.sort.apply(this, arguments);
+};
+/**
+ * @param {StorageLevel} newLevel
+ * @returns {DataFrame}
+ */
+DataFrame.prototype.persist = function(newLevel) {
+	var arg = newLevel ? Utils.unwrapObject(newLevel) : null;
+ 	return new DataFrame(this.getJavaObject().persist(arg));
+};
+
+/**
  * Registers this DataFrame as a temporary table using the given name.
  * @param {string} tableName
  */
 DataFrame.prototype.registerTempTable = function(tableName) {
     this.getJavaObject().registerTempTable(tableName);
 };
+
 /**
  * Selects a set of column based expressions.
  * @param {Column[] | string[]}
@@ -497,6 +544,30 @@ DataFrame.prototype.selectWithStrings = function(args) {
  */
 DataFrame.prototype.show = function() {
     this.getJavaObject().show();
+};
+/**
+ * Returns a new DataFrame sorted by the specified columns, if columnName is used sorted in ascending order.
+ * @param {string | Column} columnName, .....columnName or sortExprs,... sortExprs
+ * @returns {DataFrame}
+ * @example
+ *  var result = peopleDataFrame.sort("age", "name");
+ *  // or 
+ *  var col = peopleDataFrame.col("age");
+ *	var colExpr = col.desc();
+ *	var result = peopleDataFrame.sort(colExpr);
+ */
+DataFrame.prototype.sort = function() {
+	
+	var sortExprs = [];
+	for (var i = 0; i &lt; arguments.length; i++) {
+		var o = arguments[i];
+		if (typeof o === 'string' || o instanceof String) {
+			o = this.col(o).asc();		
+		} 
+		sortExprs.push(Utils.unwrapObject(o));
+	}
+
+ 	return new DataFrame(this.getJavaObject().sort(Utils.unwrapObject(sortExprs)));
 };
 /**
  * Returns the first n rows in the DataFrame.
@@ -559,13 +630,13 @@ DataFrame.prototype.write = function() {
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulator.html">Accumulator</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulator.html">Accumulator</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li></ul><h3>Global</h3><ul><li><a href="global.html#DataFrameNaFunctions">DataFrameNaFunctions</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Tue Dec 08 2015 14:55:47 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Wed Dec 09 2015 14:53:44 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>

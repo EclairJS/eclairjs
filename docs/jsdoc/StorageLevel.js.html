@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: sql/GroupedData.js</title>
+    <title>JSDoc: Source: storage/StorageLevel.js</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: sql/GroupedData.js</h1>
+    <h1 class="page-title">Source: storage/StorageLevel.js</h1>
     
     
 
@@ -42,71 +42,34 @@
  */
 /**
  * @constructor
- * @classdec A set of methods for aggregations on a DataFrame, created by DataFrame.groupBy.
+ * @classdesc Flags for controlling the storage of an RDD. Each StorageLevel records whether to use memory, 
+ * or ExternalBlockStore, whether to drop the RDD to disk if it falls out of memory or ExternalBlockStore,
+ * whether to keep the data in memory in a serialized format, and whether to replicate the RDD partitions on multiple nodes.
  */
-var GroupedData = function(jvmGroupedData) {
-	
-    JavaWrapper.call(this, jvmGroupedData);
+var StorageLevel = function(jvmObj) {
+	JavaWrapper.call(this, jvmObj);
 
 	  // Initialize our Row-specific properties
-	this.logger = Logger.getLogger("sql.GroupData_js");
-}
-
-GroupedData.prototype = Object.create(JavaWrapper.prototype); 
-
-//Set the "constructor" property to refer to GroupedData
-GroupedData.prototype.constructor = GroupedData;
-/**
- * Compute the avg value for each numeric columns for each group.
- * @param {string[]} cols
- * @returns {DataFrame}
- */
-GroupedData.prototype.avg = function(cols) {
-    return new DataFrame(this.getJavaObject().avg(cols));
-};
-/**
- * Count the number of rows for each group.
- * @returns {DataFrame}
- */
-GroupedData.prototype.count = function() {
-    var jdf = this.getJavaObject().count();
-    var df = new DataFrame(jdf);
-
-    return df;
-};
-/**
- * Compute the max value for each numeric columns for each group.
- * @param {string[]} cols
- * @returns {DataFrame}
- */
-GroupedData.prototype.max = function(cols) {
-    return new DataFrame(this.getJavaObject().max(cols));
-};
-/**
- * Compute the mean value for each numeric columns for each group.
- * @param {string[]} cols
- * @returns {DataFrame}
- */
-GroupedData.prototype.mean = function(cols) {
-    return new DataFrame(this.getJavaObject().mean(cols));
-};
-/**
- * Compute the min value for each numeric columns for each group.
- * @param {string[]} cols
- * @returns {DataFrame}
- */
-GroupedData.prototype.min = function(cols) {
-    return new DataFrame(this.getJavaObject().min(cols));
-};
-/**
- * Compute the sum value for each numeric columns for each group.
- * @param {string[]} cols
- * @returns {DataFrame}
- */
-GroupedData.prototype.sum = function(cols) {
-    return new DataFrame(this.getJavaObject().sum(cols));
+	this.logger = Logger.getLogger("sql.DataFrame_js");
 };
 
+StorageLevel.prototype = Object.create(JavaWrapper.prototype); 
+StorageLevel.prototype.constructor = StorageLevel;
+
+/**
+ * @static
+ * @returns {StorageLevel}
+ */
+StorageLevel.NONE = function() {
+	return new StorageLevel(org.apache.spark.storage.StorageLevel.NONE());
+};
+/**
+ * @static
+ * @returns {StorageLevel}
+ */
+StorageLevel.MEMORY_ONLY = function() {
+	return new StorageLevel(org.apache.spark.storage.StorageLevel.MEMORY_ONLY());
+};
 </code></pre>
         </article>
     </section>
