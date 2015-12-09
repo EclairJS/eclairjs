@@ -185,6 +185,7 @@ var dataframeExceptTest = function(file) {
 	var df2 = peopleDataFrame.filter("age > 20");
 	var resultDf = peopleDataFrame.except(df2);
 	resultDf.explain(true);
+	resultDf.printSchema();
 	return resultDf.toJSON().toArray().toString();
 }
 var dataframeFilterTest = function(file) {
@@ -408,6 +409,30 @@ var dataframePersistTest = function(file) {
 	
     return result.head().toString();
 }
+
+var dataframeQueryExecutionTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var queryExecution = peopleDataFrame.queryExecution();
+	var result = queryExecution.simpleString();
+	/*
+	 * the result string will can change with each run so we just check for a key 
+	 */
+	if (result.indexOf("== Physical Plan ==") > -1) {
+		return "ok"
+	} else {
+		return "results not as expected";
+	}
+}
+
+var dataframeRandomSplitTest = function(file, seed) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var results = peopleDataFrame.randomSplit([0.5, 0.5], seed);
+	
+    return results.length;
+}
+
 
 var dataframeSelectTest = function(file) {
 

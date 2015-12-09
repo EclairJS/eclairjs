@@ -464,7 +464,39 @@ DataFrame.prototype.persist = function(newLevel) {
 	var arg = newLevel ? Utils.unwrapObject(newLevel) : null;
  	return new DataFrame(this.getJavaObject().persist(arg));
 };
-
+/**
+ * Prints the schema to the console in a nice tree format.
+ */
+DataFrame.prototype.printSchema = function() {
+ 	this.getJavaObject().printSchema();
+};
+/**
+ * @returns {SQLContextQueryExecution}
+ */
+DataFrame.prototype.queryExecution = function() {
+ 	return new SQLContextQueryExecution(this.getJavaObject().queryExecution());
+};
+/**
+ * Randomly splits this DataFrame with the provided weights.
+ * @param {float[]} weights - weights for splits, will be normalized if they don't sum to 1.
+ * @param {int} seed - Seed for sampling.
+ * @returns {DataFrame[]}
+ */
+DataFrame.prototype.randomSplit = function(weights, seed) {
+	var dfs = this.getJavaObject().randomSplit(weights, seed);
+	var retDfs = [];
+	for (var i = 0; i < dfs.length; i++) {
+		retDfs.push(new DataFrame(dfs[i]));
+	}
+ 	return retDfs;
+};
+/**
+ * Represents the content of the DataFrame as an RDD of Rows.
+ * @returns {RDD}
+ */
+DataFrame.prototype.rdd = function() {
+	return this.toRDD();
+};
 /**
  * Registers this DataFrame as a temporary table using the given name.
  * @param {string} tableName
@@ -563,7 +595,7 @@ DataFrame.prototype.toJSON = function() {
     return new RDD(this.getJavaObject().toJSON());
 };
 /**
- * Returns a RDD object.
+ * Represents the content of the DataFrame as an RDD of Rows.
  * @returns {RDD}
  */
 DataFrame.prototype.toRDD = function() {

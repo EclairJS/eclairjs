@@ -270,6 +270,7 @@ public class JSTest {
     	 * tests
     	 * DataFrame.except()
     	 * DataFrame.explain()
+    	 * DataFrame.printSchema()
     	 */
         ScriptEngine engine = TestUtils.getEngine();
         String file = TestUtils.resourceToFile("/data/people.txt");
@@ -624,7 +625,7 @@ public class JSTest {
     public void dataFrameOrderByTest() throws Exception {
     	/*
     	 * tests
-    	 * DataFrame.na()
+    	 * DataFrame.orderBy()
     	 */
         ScriptEngine engine = TestUtils.getEngine();
         String file = TestUtils.resourceToFile("/data/people.txt");
@@ -643,7 +644,7 @@ public class JSTest {
     public void dataFramePersistTest() throws Exception {
     	/*
     	 * tests
-    	 * DataFrame.na()
+    	 * DataFrame.persist()
     	 */
         ScriptEngine engine = TestUtils.getEngine();
         String file = TestUtils.resourceToFile("/data/people.txt");
@@ -652,6 +653,57 @@ public class JSTest {
         Object ret = ((Invocable)engine).invokeFunction("dataframePersistTest", file);
 
         String expected = "[Michael,29,1,1996-03-06 19:00:00.0,1200.4,true,300000000.11]";
+
+        assertEquals("should be same", expected, ret.toString());
+    }
+    
+    @Test
+    public void dataFrameQueryExecutionTest() throws Exception {
+    	/*
+    	 * tests
+    	 * DataFrame.persist()
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/people.txt");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeQueryExecutionTest", file);
+
+        String expected = "ok";
+
+        assertEquals("should be same", expected, ret.toString());
+    }
+    
+    @Test
+    public void dataFrameRandomSplitTest() throws Exception {
+    	/*
+    	 * tests
+    	 * DataFrame.persist()
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/people.txt");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeRandomSplitTest", file);
+
+        String expected = "2";
+
+        assertEquals("should be same", expected, ret.toString());
+    }
+    
+    @Test
+    public void dataFrameRandomSplitSeedTest() throws Exception {
+    	/*
+    	 * tests
+    	 * DataFrame.persist()
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/people.txt");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeRandomSplitTest", file, 1);
+
+        String expected = "2";
 
         assertEquals("should be same", expected, ret.toString());
     }
@@ -677,7 +729,8 @@ public class JSTest {
     public void dataFrameSortTest() throws Exception {
     	/*
     	 * tests
-    	 * DataFrame.na()
+    	 * DataFrame.sort()
+    	 * Column.asc()
     	 */
         ScriptEngine engine = TestUtils.getEngine();
         String file = TestUtils.resourceToFile("/data/people.txt");
@@ -696,7 +749,8 @@ public class JSTest {
     public void dataFrameSortDescTest() throws Exception {
     	/*
     	 * tests
-    	 * DataFrame.na()
+    	 * DataFrame.sort()
+    	 * Column.desc()
     	 */
         ScriptEngine engine = TestUtils.getEngine();
         String file = TestUtils.resourceToFile("/data/people.txt");

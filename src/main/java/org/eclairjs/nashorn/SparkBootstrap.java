@@ -69,6 +69,7 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/sql/DataFrameWriter.js") + "');");  
             engine.eval("load('" + getResourceAsURLStirng("/sql/GroupedData.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/SQLContext.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/sql/SQLContextQueryExecution.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/SqlDate.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/SqlTimestamp.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/Row.js") + "');");
