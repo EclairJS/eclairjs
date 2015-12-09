@@ -30,10 +30,12 @@ abstract class GenerateJSBase {
     file.classes.filter(!_.isStatic) foreach( cls => generateClass(cls,sb))
 
     val statics=file.classes.filter(_.isStatic)
-    if (!statics.isEmpty)
+    val non_emptyStatics=statics.filter(cls=> cls.members.filter(!_.isConstructor()).length>0)
+    if (!non_emptyStatics.isEmpty)
       {
+
         sb.append("//\n// static methods\n//\n")
-        statics foreach( cls => {
+        non_emptyStatics foreach( cls => {
           cls.members.filter(!_.isConstructor()) foreach( member =>
             member match {
               case method:Method => generateMethod(method,sb)
@@ -129,9 +131,18 @@ abstract class GenerateJSBase {
 
     sb ++= getTemplate("defaultBody")
 
+    val body =getMethodBody(method)
+    if (body.length>0)
+      sb ++= body.split("\n").map("// "+_).mkString("\n")  // body commented out
+
     sb.append("\n}\n")
 
   }
+
+  def getMethodBody(method:Method): String
+
+
+
 
   def getMethodName(method:Method):String ={
     val name=method.name

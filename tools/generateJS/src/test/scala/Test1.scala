@@ -45,7 +45,7 @@
    * @param other
    * @return
    */
-  def plusDot(plus: Int, other: String): Double = {
+  def plusDot(plus: Int, other: Test1[T]): Double = {
     1.0
   }
 

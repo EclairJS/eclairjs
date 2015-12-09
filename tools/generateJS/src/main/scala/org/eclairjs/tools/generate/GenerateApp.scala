@@ -105,7 +105,7 @@ object Main extends App {
           if (file.getName.endsWith(".scala"))
             processFile(file,destDir)
           else
-            if (file.isDirectory && !(file.getName.equals("internal") || file.getName.equals("python")|| file.getName.equals("r")))
+            if (file.isDirectory && !(file.getName.equals("internal") ||file.getName.equals("impl") || file.getName.equals("python")|| file.getName.equals("r")))
               processDirectory(file,new File(destDir,file.getName))
         })
   }

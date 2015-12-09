@@ -48,6 +48,9 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/SparkContext.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/RDD.js") + "');");
             
+            // storage
+            engine.eval("load('" + getResourceAsURLStirng("/storage/StorageLevel.js") + "');");
+            
             // streaming
             engine.eval("load('" + getResourceAsURLStirng("/streaming/Duration.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/streaming/StreamingContext.js") + "');");
@@ -61,6 +64,7 @@ public class SparkBootstrap implements Bootstrap {
             // sql
             engine.eval("load('" + getResourceAsURLStirng("/sql/Column.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/DataFrame.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/sql/DataFrameNaFunctions.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/DataFrameReader.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/DataFrameWriter.js") + "');");  
             engine.eval("load('" + getResourceAsURLStirng("/sql/GroupedData.js") + "');");

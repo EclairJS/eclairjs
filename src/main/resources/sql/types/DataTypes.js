@@ -70,6 +70,7 @@ DataTypes.TimestampType = org.apache.spark.sql.types.DataTypes.TimestampType;
 DataTypes.BinaryType = org.apache.spark.sql.types.DataTypes.BinaryType;
 DataTypes.ByteType = org.apache.spark.sql.types.DataTypes.ByteType;
 DataTypes.CalendarIntervalType = org.apache.spark.sql.types.DataTypes.CalendarIntervalType;
+DataTypes.DecimalType = org.apache.spark.sql.types.DataTypes.DecimalType;
 DataTypes.LongType = org.apache.spark.sql.types.DataTypes.LongType;
 DataTypes.NullType = org.apache.spark.sql.types.DataTypes.NullType;
 DataTypes.ShortType = org.apache.spark.sql.types.DataTypes.ShortType;
