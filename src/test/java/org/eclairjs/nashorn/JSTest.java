@@ -365,6 +365,24 @@ public class JSTest {
     }
     
     @Test
+    public void dataFrameForeachPartitionTest() throws Exception {
+    	/*
+    	 * tests
+    	 * DataFrame.foreach()
+    	 * DataFrame.toRDD()
+    	 * RDD.foreach()
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/people.txt");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeForeachPartitionTest", file);
+
+        String expected = "all good";
+        assertEquals("should be same", expected, ret);
+    }
+    
+    @Test
     public void dataFrameGroupBy() throws Exception {
     	/*
     	 * tests 
@@ -418,6 +436,126 @@ public class JSTest {
         Object ret = ((Invocable)engine).invokeFunction("dataframeHeadTest", file);
 
         assertEquals("should be same", "LukeSkywalker", ret);
+    }
+    
+    @Test
+    public void dataFrameInputFiles() throws Exception {
+    	/*
+    	 * tests 
+     	 * DataFrame.head()
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/test.json");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeInputFilesTest", file);
+
+        assertEquals("should be same", "all good", ret);
+    }
+    
+    @Test
+    public void dataFrameIntersect() throws Exception {
+    	/*
+    	 * tests 
+     	 * DataFrame.intersect()
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/people.txt");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeIntersectTest", file);
+
+        assertEquals("should be same", "[Michael,29,1,1996-03-06 19:00:00.0,1200.4,true,300000000.11],[Andy,30,2,1998-12-06 19:00:00.0,1500.44,false,500000000.11]", ret);
+    }
+    
+    @Test
+    public void dataFrameIsLocal() throws Exception {
+    	/*
+    	 * tests 
+     	 * DataFrame.isLocal()
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/people.txt");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeIsLocalTest", file);
+
+        assertEquals("should be same", false, ret);
+    }
+    
+    @Test
+    public void dataFrameJoin() throws Exception {
+    	/*
+    	 * tests 
+     	 * DataFrame.join()
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/people.txt");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeJoinTest", file);
+
+        assertEquals("should be same", "[Michael,29,1,1996-03-06 19:00:00.0,1200.4,true,300000000.11,Michael,29,1,1996-03-06 19:00:00.0,1200.4,true,300000000.11]", ret);
+    }
+    
+    @Test
+    public void dataFrameJoinUsingColumn() throws Exception {
+    	/*
+    	 * tests 
+     	 * DataFrame.join()
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/people.txt");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeJoinTest", file, "age");
+
+        assertEquals("should be same", "[Justin,19,3,1992-03-06 19:00:00.0,1600,true,100000,Justin,3,1992-03-06 19:00:00.0,1600,true,100000]", ret);
+    }
+    
+    @Test
+    public void dataFrameJoinUsingColumns() throws Exception {
+    	/*
+    	 * tests 
+     	 * DataFrame.join()
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/people.txt");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeJoinUsingColumnsTest", file);
+
+        assertEquals("should be same", "[Andy,30,2,1998-12-06 19:00:00.0,1500.44,false,500000000.11,Andy,2,1500.44,false,500000000.11]", ret);
+    }
+    
+    @Test
+    public void dataFrameJoinColumnExpr() throws Exception {
+    	/*
+    	 * tests 
+     	 * DataFrame.join()
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/people.txt");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeJoinColumnExprTest", file);
+
+        assertEquals("should be same", "[Andy,30,Andy,1998-12-06 19:00:00.0]", ret);
+    }
+    
+    @Test
+    public void dataFrameJoinColumnExprOuter() throws Exception {
+    	/*
+    	 * tests 
+     	 * DataFrame.join()
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/people.txt");
+
+        TestUtils.evalJSResource(engine, "/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeJoinColumnExprTest", file, "outer");
+
+        assertEquals("should be same", "[Andy,30,Andy,1998-12-06 19:00:00.0]", ret);
     }
     
     @Test

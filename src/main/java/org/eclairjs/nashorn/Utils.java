@@ -30,6 +30,7 @@ import org.apache.spark.sql.Row;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import scala.Tuple2;
+import scala.collection.Seq;
 import scala.collection.convert.Wrappers.IteratorWrapper;
 
 import java.io.FileReader;
@@ -202,4 +203,21 @@ public class Utils {
     	return jarPath;
     	
     }
+ 
+    /**
+     * Takes an array of objects and returns a scala Seq
+     * @param {Object[]} o 
+     * @return {scala.collection.Seq}
+     */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public static Seq toScalaSeq(Object[] o) {
+    	ArrayList list = new ArrayList();
+    	for (int i = 0; i < o.length; i++) {
+    		list.add(o[i]);
+    	}
+  		return scala.collection.JavaConversions.asScalaBuffer(list).toList();
+
+    }
+
+	
 }

@@ -2,6 +2,8 @@ package org.eclairjs.tools.generate.org.eclairjs.tools.generate.model
 
 case class File(fileName:String, packageName:String, comment:String, classes: List[Clazz], imports : List[String] ) {
 
+  classes foreach (cls => cls.parent = this)
+
   override def  toString() = {
       val sb=new StringBuilder
       sb ++= "file="+fileName +"\n"
@@ -22,6 +24,8 @@ case class File(fileName:String, packageName:String, comment:String, classes: Li
 case class Clazz(name:String, comment:String, members: List[Member],isStatic:Boolean = false) {
   members foreach (member => member.parent = this)
 
+  var parent:File = null
+
   override def toString() = {
     val sb = new StringBuilder
     if (comment.length > 0)
@@ -37,6 +41,8 @@ case class Clazz(name:String, comment:String, members: List[Member],isStatic:Boo
 
     sb.toString()
   }
+
+  def fullName()={ parent.packageName+"."+name}
 
   def constructors(): List[Method] =
   {
@@ -163,6 +169,19 @@ case class Parm(name:String,typ:DataType)
     }
 
   }
+
+  def isVoid(): Boolean =
+  {
+    val simpleName=name.split("\\.").last
+    return "Unit"==simpleName
+  }
+
+  def isSparkClass(scalaName:String=name): Boolean =
+  {
+    val simpleName=scalaName.split("\\.").last
+    var rx="Long|Int|Double|Float|Byte|List|Unit|Any|AnyRef|String|Boolean|Array".r
+    rx.findFirstMatchIn(simpleName).isEmpty
+  }
 }
 case class SimpleType(name:String) extends DataType
 case class ExtendedDataType(name:String,referenceType:String) extends DataType
@@ -175,5 +194,18 @@ case class ExtendedDataType(name:String,referenceType:String) extends DataType
       case _ => super.getJSType(name)
     }
   }
+  override def isSparkClass(scalaName:String=name): Boolean =
+  {
+    scalaName match {
+      case "Option" =>  super.isSparkClass(referenceType)
+      case _ =>  super.isSparkClass(scalaName)
+    }
+
+  }
+
 }
 case class FunctionDataType(name:String,parms:List[DataType],returnType:DataType) extends DataType
+{
+  override def getJSType(scalaName:String=name):String = "func"
+
+}
