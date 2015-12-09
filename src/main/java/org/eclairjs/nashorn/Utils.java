@@ -25,6 +25,7 @@ import javax.script.ScriptException;
 import org.apache.log4j.Logger;
 import org.apache.spark.SparkFiles;
 import org.apache.spark.mllib.regression.LabeledPoint;
+import org.apache.spark.rdd.RDD;
 import org.apache.spark.sql.Row;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
@@ -71,18 +72,29 @@ public class Utils {
     		}
 
     	}if (o instanceof Row) {
-    		try {
- 	  			Invocable invocable = (Invocable) engine;
-	  			logger.info("create Row");
-	  			Object params[] = {"Row", o};
-	  			Object parm = invocable.invokeFunction("createJavaWrapperObject", params);
-	  			logger.info(parm);
-	  			return parm;
-  			} catch (Exception e) {
-    			logger.error(" Row convertion " + e);
-    			return null;
-    		}
+			try {
+				Invocable invocable = (Invocable) engine;
+				logger.info("create Row");
+				Object params[] = {"Row", o};
+				Object parm = invocable.invokeFunction("createJavaWrapperObject", params);
+				logger.info(parm);
+				return parm;
+			} catch (Exception e) {
+				logger.error(" Row convertion " + e);
+				return null;
+			}
 
+		} else if(o instanceof RDD) {
+			Object er = null;
+			Object params[] = {o};
+			try {
+				Invocable invocable = (Invocable)engine;
+				er = invocable.invokeFunction("convertToRDD",params);
+			} catch (ScriptException | NoSuchMethodException e) {
+				logger.error("Error converting to RDD " + e);
+			}
+
+			return er;
     	} else if(o instanceof Tuple2) {
             Tuple2 t = (Tuple2)o;
             logger.info("Tupple2 " + t.toString());

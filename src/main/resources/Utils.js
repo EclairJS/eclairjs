@@ -67,7 +67,11 @@ var Utils = {};
 	  return (obj && obj.getJavaObject) ? obj.getJavaObject() : obj; 
   };
   
-  
+
+  function convertToRDD(rdd) {
+    return new RDD(rdd);
+  };
+
   function convertJavaTuple2(o1, o2) { 
 	  return [o1 ,o2 ]
   };
