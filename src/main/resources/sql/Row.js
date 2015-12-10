@@ -122,9 +122,9 @@ Row.prototype.get = function(index) {
 	Returns the value at position i.
 	*/
 	var v = this.getJavaObject().get(index);
-	if (v.getClass().getName() === 'java.sql.Timestamp') {
+	if (v !== null && v.getClass().getName() === 'java.sql.Timestamp') {
 		v = this.getTimestamp(index); 
-	} else if (v.getClass().getName() === 'java.sql.Date') {
+	} else if (v !== null && v.getClass().getName() === 'java.sql.Date') {
 		v = this.getDate(index);
 	} 
 	return v;
@@ -322,16 +322,18 @@ Row.prototype.mkString = function(separator, start, end) {
 	var str = ""; 
 
 	for (var i = 0; i < this.length(); i++) {
-		var v = this.get(i);
+        var v = this.get(i);
 		if (separator && start && end && i === 0) {
-			str = start;
+	        str = start;
 		}
-		str += v.toString();
+        if (v !== null) {
+		    str += v.toString();
+        }
 		if (separator && (i < this.length() -1)) {
-			str += separator
+	        str += separator
 		}
 		if (separator && start && end && (i === this.length() -1)) {
-			str += end;
+            str += end;
 		}
 	}
 	

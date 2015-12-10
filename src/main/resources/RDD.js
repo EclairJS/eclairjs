@@ -140,6 +140,21 @@ RDD.prototype.map = function(func) {
 
 };
 /**
+ * Return a new RDD by applying a function to each partition of this RDD. 
+ * Similar to map, but runs separately on each partition (block) of the RDD, so func must accept an Array.  
+ * func should return a array rather than a single item.
+ * @param {function}  
+ * @returns {RDD}
+ */
+RDD.prototype.mapPartitions = function(func) {
+	var sv = Utils.createJavaParams(func);
+	var fn = new org.eclairjs.nashorn.JSFlatMapFunction(sv.funcStr, sv.scopeVars);
+	var result = new RDD(this.getJavaObject().mapPartitions(fn));
+
+	return result;
+
+};
+/**
  * Return a new RDD by applying a function to all elements of this RDD.
  * @param func
  * @returns {RDD}

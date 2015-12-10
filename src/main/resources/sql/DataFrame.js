@@ -412,6 +412,16 @@ DataFrame.prototype.join = function(right, usingColumns, joinType) {
 	
 };
 /**
+ * Returns a new DataFrame by taking the first n rows. The difference between this function and head is that head 
+ * returns an array while limit returns a new DataFrame.
+ * @param {integer} number
+ * @returns {DataFrame}
+ */
+DataFrame.prototype.limit = function(number) {
+
+	return new DataFrame(this.getJavaObject().limit(number));
+};
+/**
  * Returns a new RDD by applying a function to all rows of this DataFrame.
  * @param {function} func
  * @returns {RDD}
@@ -420,12 +430,81 @@ DataFrame.prototype.map = function(func) {
  	return this.toRDD().map(func);
 };
 /**
+ * Return a new RDD by applying a function to each partition of this DataFrame. 
+ * Similar to map, but runs separately on each partition (block) of the DataFrame, so func must accept an Array.  
+ * func should return a array rather than a single item.
+ * @param {function}  
+ * @returns {RDD}
+ */
+DataFrame.prototype.mapPartitions = function(func) {
+ 	return this.toRDD().mapPartitions(func);
+};
+/**
+ * Returns a DataFrameNaFunctions for working with missing data.
+ * @returns {DataFrameNaFunctions}
+ 
+ */
+DataFrame.prototype.na = function() {
+ 	return new DataFrameNaFunctions(this.getJavaObject().na());
+};
+/**
+ * Returns a new DataFrame sorted by the specified columns, if columnName is used sorted in ascending order.
+ * This is an alias of the sort function.
+ * @param {string | Column} columnName, .....columnName or sortExprs,... sortExprs
+ * @returns {DataFrame}
+ */
+DataFrame.prototype.orderBy = function() {
+ 	return this.sort.apply(this, arguments);
+};
+/**
+ * @param {StorageLevel} newLevel
+ * @returns {DataFrame}
+ */
+DataFrame.prototype.persist = function(newLevel) {
+	var arg = newLevel ? Utils.unwrapObject(newLevel) : null;
+ 	return new DataFrame(this.getJavaObject().persist(arg));
+};
+/**
+ * Prints the schema to the console in a nice tree format.
+ */
+DataFrame.prototype.printSchema = function() {
+ 	this.getJavaObject().printSchema();
+};
+/**
+ * @returns {SQLContextQueryExecution}
+ */
+DataFrame.prototype.queryExecution = function() {
+ 	return new SQLContextQueryExecution(this.getJavaObject().queryExecution());
+};
+/**
+ * Randomly splits this DataFrame with the provided weights.
+ * @param {float[]} weights - weights for splits, will be normalized if they don't sum to 1.
+ * @param {int} seed - Seed for sampling.
+ * @returns {DataFrame[]}
+ */
+DataFrame.prototype.randomSplit = function(weights, seed) {
+	var dfs = this.getJavaObject().randomSplit(weights, seed);
+	var retDfs = [];
+	for (var i = 0; i < dfs.length; i++) {
+		retDfs.push(new DataFrame(dfs[i]));
+	}
+ 	return retDfs;
+};
+/**
+ * Represents the content of the DataFrame as an RDD of Rows.
+ * @returns {RDD}
+ */
+DataFrame.prototype.rdd = function() {
+	return this.toRDD();
+};
+/**
  * Registers this DataFrame as a temporary table using the given name.
  * @param {string} tableName
  */
 DataFrame.prototype.registerTempTable = function(tableName) {
     this.getJavaObject().registerTempTable(tableName);
 };
+
 /**
  * Selects a set of column based expressions.
  * @param {Column[] | string[]}
@@ -472,6 +551,30 @@ DataFrame.prototype.show = function() {
     this.getJavaObject().show();
 };
 /**
+ * Returns a new DataFrame sorted by the specified columns, if columnName is used sorted in ascending order.
+ * @param {string | Column} columnName, .....columnName or sortExprs,... sortExprs
+ * @returns {DataFrame}
+ * @example
+ *  var result = peopleDataFrame.sort("age", "name");
+ *  // or 
+ *  var col = peopleDataFrame.col("age");
+ *	var colExpr = col.desc();
+ *	var result = peopleDataFrame.sort(colExpr);
+ */
+DataFrame.prototype.sort = function() {
+	
+	var sortExprs = [];
+	for (var i = 0; i < arguments.length; i++) {
+		var o = arguments[i];
+		if (typeof o === 'string' || o instanceof String) {
+			o = this.col(o).asc();		
+		} 
+		sortExprs.push(Utils.unwrapObject(o));
+	}
+
+ 	return new DataFrame(this.getJavaObject().sort(Utils.unwrapObject(sortExprs)));
+};
+/**
  * Returns the first n rows in the DataFrame.
  * @param {integer} num
  * @returns {Row[]}
@@ -492,7 +595,7 @@ DataFrame.prototype.toJSON = function() {
     return new RDD(this.getJavaObject().toJSON());
 };
 /**
- * Returns a RDD object.
+ * Represents the content of the DataFrame as an RDD of Rows.
  * @returns {RDD}
  */
 DataFrame.prototype.toRDD = function() {

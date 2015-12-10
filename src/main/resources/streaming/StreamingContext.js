@@ -63,8 +63,17 @@ StreamingContext.prototype.start = function() {
  * Stops the execution of the streams.
  */
 StreamingContext.prototype.stop = function() {
-    this.getJavaObject().stop();
+    if(arguments.length == 1) {
+        this.getJavaObject().stop(arguments[0]);
+    } else {
+        this.getJavaObject().stop();
+    }
 };
+
+StreamingContext.prototype.close = function() {
+    this.getJavaObject().close();
+};
+
 /**
  * Create a input stream from TCP source hostname:port.
  * @param {string} host
@@ -74,7 +83,7 @@ StreamingContext.prototype.stop = function() {
 StreamingContext.prototype.socketTextStream = function(host, port) {
     var jDStream = this.getJavaObject().socketTextStream(host, port);
 
-    return new DStream(jDStream);
+    return new DStream(jDStream, this);
 };
 
 
