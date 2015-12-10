@@ -48,6 +48,11 @@ public class TestUtils {
         return engine;
     }
 
+    public static ScriptEngine getNewEngine() {
+        engine = null;
+        return getEngine();
+    }
+
     public static String resourceToFile(String resource) throws Exception {
         URI uri = TestUtils.class.getResource(resource).toURI();
         File src = new File(uri);
