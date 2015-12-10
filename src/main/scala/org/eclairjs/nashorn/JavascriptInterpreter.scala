@@ -8,6 +8,7 @@ import com.ibm.spark.interpreter.Interpreter
 import com.ibm.spark.interpreter.Results.Result
 import com.ibm.spark.kernel.api.KernelLike
 import org.apache.spark.SparkContext
+import org.apache.spark.sql.SQLContext
 
 import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
@@ -46,6 +47,10 @@ class JavascriptInterpreter() extends com.ibm.spark.interpreter.Interpreter {
     System.out.println("************HERE***************")
     System.out.println(sparkContext)
     engine.put("sc", sparkContext)
+  }
+
+  override def bindSqlContext(sqlContext: SQLContext) = {
+    engine.put("kernelSqlContext", sqlContext)
   }
 
   /**
