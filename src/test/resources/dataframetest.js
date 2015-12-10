@@ -185,6 +185,7 @@ var dataframeExceptTest = function(file) {
 	var df2 = peopleDataFrame.filter("age > 20");
 	var resultDf = peopleDataFrame.except(df2);
 	resultDf.explain(true);
+	resultDf.printSchema();
 	return resultDf.toJSON().toArray().toString();
 }
 var dataframeFilterTest = function(file) {
@@ -226,15 +227,12 @@ var dataframeFirstTest = function(file) {
 var dataframeFlatMapTest = function(file) {
 
 	var peopleDataFrame = buildPeopleTable(file);
-	print("here")
 	var result = peopleDataFrame.flatMap(function(row) {
-		print("row " + row)
 		var r = [];
 		r.push(row.getString(0));
 		return r
 	});
-	print("result")
-	print(result.take(10));
+
     return result.take(10).toString();
 }
 
@@ -281,7 +279,6 @@ var dataframeGroupByTest = function(file) {
     var gd = dataFrame.groupBy(dataFrame.col("first"));
     var df2 = gd.count();
 
-    df2.show();
     return df2.count();
 }
 
@@ -290,7 +287,6 @@ var dataframeGroupByWithStringsTest = function(file) {
     var gd = dataFrame.groupBy("first");
     var df2 = gd.count();
 
-    df2.show();
     return df2.count();
 }
 
@@ -360,6 +356,15 @@ var dataframeJoinColumnExprTest = function(file, joinType) {
 	
 }
 
+var dataframeLimitTest = function(file) {
+	
+	var people = buildPeopleTable(file);
+	var result = people.limit(1);
+
+	return result.count();
+	
+}
+
 var dataframeMapTest = function(file) {
 
 	var peopleDataFrame = buildPeopleTable(file);
@@ -370,11 +375,88 @@ var dataframeMapTest = function(file) {
     return names.take(10).toString();
 }
 
+var dataframeMapPartitionsTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var names = peopleDataFrame.mapPartitions(function(rows) {
+		return [rows.length];
+	});
+
+    return names.take(10).toString();
+}
+
+var dataframeNaTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var naFunc = peopleDataFrame.na();
+	var result = naFunc.drop();
+
+    return result.take(10).toString();
+}
+
+var dataframeOrderByTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var result = peopleDataFrame.orderBy("age", "name");
+	
+    return result.take(10).toString();
+}
+
+var dataframePersistTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var result = peopleDataFrame.persist(StorageLevel.MEMORY_ONLY());
+	
+    return result.head().toString();
+}
+
+var dataframeQueryExecutionTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var queryExecution = peopleDataFrame.queryExecution();
+	var result = queryExecution.simpleString();
+	/*
+	 * the result string will can change with each run so we just check for a key 
+	 */
+	if (result.indexOf("== Physical Plan ==") > -1) {
+		return "ok"
+	} else {
+		return "results not as expected";
+	}
+}
+
+var dataframeRandomSplitTest = function(file, seed) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var results = peopleDataFrame.randomSplit([0.5, 0.5], seed);
+	
+    return results.length;
+}
+
+
 var dataframeSelectTest = function(file) {
 
 	var peopleDataFrame = buildPeopleTable(file);
 	var result = peopleDataFrame.select("name", "age");
     return result.toString();
+}
+
+var dataframeSortTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var result = peopleDataFrame.sort("age", "name");
+	
+    return result.take(10).toString();
+}
+
+var dataframeSortDescTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var col = peopleDataFrame.col("age");
+	var colExpr = col.desc();	
+	var result = peopleDataFrame.sort(colExpr);
+
+    return result.take(10).toString();
 }
 
 var dataframeWhereTest = function(file) {
