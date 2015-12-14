@@ -213,6 +213,12 @@ def convertToJSDoc(comment:String, model:AnyRef):String = {
     case _ =>{}
   }
 
+  val version_str=getTemplate("eclair_version")
+  jsDoc.changeTagValue("since", currentSince=>
+
+     getTemplate("since_tag",version_str,currentSince)
+  )
+
     jsDoc.asJSDoc();
   }
 

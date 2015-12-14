@@ -433,12 +433,44 @@ var dataframeRandomSplitTest = function(file, seed) {
     return results.length;
 }
 
+var dataframeRollupTest = function(file, seed) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var df = peopleDataFrame.repartition(1);
+	var results = df.rollup("age", "networth").count();
+	
+    return results.take(10).toString();
+}
+
+var dataframeSchemaTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var results = peopleDataFrame.schema();
+	
+    return results.simpleString();
+}
+
+var dataframeSampleTest = function(file, seed) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	peopleDataFrame.show();
+	var results = peopleDataFrame.sample(true, 0.5);
+	
+    return results.take(10).toString();
+}
 
 var dataframeSelectTest = function(file) {
 
 	var peopleDataFrame = buildPeopleTable(file);
 	var result = peopleDataFrame.select("name", "age");
-    return result.toString();
+    return result.take(10).toString();
+}
+
+var dataframeSelectExprTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var result = peopleDataFrame.selectExpr("name", "age > 19");
+    return result.take(10).toString();
 }
 
 var dataframeSortTest = function(file) {
@@ -459,6 +491,23 @@ var dataframeSortDescTest = function(file) {
     return result.take(10).toString();
 }
 
+var dataframeToDFTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var nameAgeDF = peopleDataFrame.select("name", "age");
+	var result = nameAgeDF.toDF("newName", "newAge");
+    return result.toString();
+}
+
+var dataframeUnionAllTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var df1 = peopleDataFrame.selectExpr("name", "age < 30");
+	var df2 = peopleDataFrame.selectExpr("name", "age > 20");
+	var result = df1.unionAll(df2);
+    return result.take(10).toString();
+}
+
 var dataframeWhereTest = function(file) {
 
 	var peopleDataFrame = buildPeopleTable(file);
@@ -471,6 +520,23 @@ var dataframeWhereTest = function(file) {
 		return "Name: " + row.getString(0);
 	});
     return names.take(10).toString();
+}
+
+var dataframeWithColumnTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var col = peopleDataFrame.col("age");
+	var df1 = peopleDataFrame.withColumn("newCol", col);
+
+    return df1.take(10).toString();
+}
+
+var dataframeWithColumnRenamedTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var df1 = peopleDataFrame.withColumnRenamed("age", "renamedAge");
+
+    return df1.toString();
 }
 
 /*
