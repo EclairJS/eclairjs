@@ -25,5 +25,6 @@ KafkaUtils.createStream = function(ssc, zkQuorum, group, topic) {
     return new DStream(JavaKakfaUtils.createStream(ssc.getJavaObject(),
                                                    zkQuorum,
                                                    group,
-                                                   m));
+                                                   m),
+                       ssc);
 };

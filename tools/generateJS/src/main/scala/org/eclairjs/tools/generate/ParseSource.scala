@@ -151,9 +151,17 @@ import Compiler.syntaxAnalyzer.global._
 
   def handleClass(name: TermName, mods:Modifiers, comment:String,impl:Template,isStatic:Boolean=false): Clazz = {
     val members= scala.collection.mutable.ListBuffer.empty[Member]
+    val parents= scala.collection.mutable.ListBuffer.empty[String]
 
       if (isIgnorable(mods,comment))
       return null;
+
+    impl.parents.foreach( typ=>{
+      val dataType=getType(typ)
+      val name=dataType.simpleName()
+      if (name!="AnyRef")
+        parents += name
+    })
 
     impl.body.foreach( member=>
     {
@@ -177,7 +185,7 @@ import Compiler.syntaxAnalyzer.global._
       }
     })
 
-    val c = new Clazz(name.toString, comment, members.toList, isStatic)
+    val c = new Clazz(name.toString, comment, members.toList, parents.toList, isStatic)
 
     c
   }

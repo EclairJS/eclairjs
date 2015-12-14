@@ -236,6 +236,7 @@ DataFrame.prototype.filter = function(arg) {
  * Filters rows using the given Column
  * @param {Column} col
  * @returns {DataFrame}
+ * @private
  */
 DataFrame.prototype.filterWithColumn = function(col) {
     return new DataFrame(this.getJavaObject().filter(Utils.unwrapObject(col)));
@@ -244,6 +245,7 @@ DataFrame.prototype.filterWithColumn = function(col) {
  * Filters rows using the given SQL expression string
  * @param {string} columnExpr
  * @returns {DataFrame}
+ * @private
  */
 DataFrame.prototype.filterWithString = function(columnExpr) {
     return new DataFrame(this.getJavaObject().filter(columnExpr));
@@ -313,6 +315,7 @@ DataFrame.prototype.groupBy = function() {
  * Groups the DataFrame using the specified columns, so we can run aggregation on them
  * @param {Columns[]}
  * @returns {GroupedData}
+ * @private
  */
 DataFrame.prototype.groupByWithColumns = function(args) {
     var jCols = args.map(function(v) {
@@ -328,6 +331,7 @@ DataFrame.prototype.groupByWithColumns = function(args) {
  * Groups the DataFrame using the specified columns, so we can run aggregation on them
  * @param {string[]} columnNames
  * @returns {GroupedData}
+ * @private
  */
 DataFrame.prototype.groupByWithStrings = function(args) {
 	var jCols = args.map(function(v) {
@@ -450,7 +454,7 @@ DataFrame.prototype.na = function() {
 /**
  * Returns a new DataFrame sorted by the specified columns, if columnName is used sorted in ascending order.
  * This is an alias of the sort function.
- * @param {string | Column} columnName, .....columnName or sortExprs,... sortExprs
+ * @param {string | Column} columnName,...columnName or sortExprs,... sortExprs
  * @returns {DataFrame}
  */
 DataFrame.prototype.orderBy = function() {
@@ -504,7 +508,55 @@ DataFrame.prototype.rdd = function() {
 DataFrame.prototype.registerTempTable = function(tableName) {
     this.getJavaObject().registerTempTable(tableName);
 };
+/**
+ * Returns a new DataFrame that has exactly numPartitions partitions.
+ * @param {integer} numPartitions
+ * @returns {DataFrame} 
+ */
+DataFrame.prototype.repartition = function(numPartitions) {
+    return new DataFrame(this.getJavaObject().repartition(numPartitions));
+};
+/**
+ * Create a multi-dimensional rollup for the current DataFrame using the specified columns,
+ * so we can run aggregation on them. See GroupedData for all the available aggregate functions.
+ * @param {string | Column} columnName, .....columnName or sortExprs,... sortExprs
+ * @returns {GroupedData}
+ * @example
+ *  var result = peopleDataFrame.rollup("age", "networth").count();
+ *  // or 
+ *  var col = peopleDataFrame.col("age");
+ *	var result = peopleDataFrame.rollup(col).count();
+ */
+DataFrame.prototype.rollup = function() {
+	
+	var columns = [];
+	for (var i = 0; i < arguments.length; i++) {
+		var o = arguments[i];
+		if (typeof o === 'string' || o instanceof String) {
+			o = this.col(o);	
+		} 
+		columns.push(Utils.unwrapObject(o));
+	}
 
+ 	return new GroupedData(this.getJavaObject().rollup(columns));
+};
+/**
+ * Returns a new DataFrame by sampling a fraction of rows, using a random seed.
+ * @param {boolean} withReplacement
+ * @param {float} fraction
+ * @param {integer} seed Optional
+ * @returns {DataFrame}
+ */
+DataFrame.prototype.sample = function(withReplacement, fraction, seed) {
+	return new DataFrame(this.getJavaObject().sample(withReplacement, fraction, seed));
+};
+/**
+ * Returns the schema of this DataFrame.
+ * @returns {StructType}
+ */
+DataFrame.prototype.schema = function() {
+	return new StructType(this.getJavaObject().schema());
+};
 /**
  * Selects a set of column based expressions.
  * @param {Column[] | string[]}
@@ -519,9 +571,22 @@ DataFrame.prototype.select = function() {
         return this.selectWithStrings(args);
 };
 /**
+ * Selects a set of SQL expressions. This is a variant of select that accepts SQL expressions.
+ * @param {string} exprs,...exprs 
+ * @returns {DataFrame}
+ * @example
+ * var result = peopleDataFrame.selectExpr("name", "age > 19");
+ */
+DataFrame.prototype.selectExpr = function() {
+	var args = Array.prototype.slice.call(arguments);
+	return new DataFrame(this.getJavaObject().selectExpr(args));
+};
+
+/**
  * Selects a set of column based expressions.
  * @param {Column[]}
  * @returns {DataFrame}
+ * @private
  */
 DataFrame.prototype.selectWithColumns = function(args) {
 	var jCols = args.map(function(v) {
@@ -535,6 +600,7 @@ DataFrame.prototype.selectWithColumns = function(args) {
  * Selects a set of column based expressions.
  * @param {string[]}
  * @returns {DataFrame}
+ * @private
  */
 DataFrame.prototype.selectWithStrings = function(args) {
 	var jCols = args.map(function(v) {
@@ -545,14 +611,19 @@ DataFrame.prototype.selectWithStrings = function(args) {
 
 };
 /**
- * Displays the top 20 rows of DataFrame in a tabular form.
+ * Displays the DataFrame rows in a tabular form.
+ * @param {interger} numberOfRows Optional, defaults to 20.
+ * @param {boolean] truncate Optional defaults to false, Whether truncate long strings. If true, strings more than 20 characters will be 
+ * truncated and all cells will be aligned right
  */
-DataFrame.prototype.show = function() {
-    this.getJavaObject().show();
+DataFrame.prototype.show = function(numberOfRows, truncate) {
+	var numRow = numberOfRows ? numberOfRows : 20;
+	var trunk = truncate ? true : false;
+    this.getJavaObject().show(numRow, trunk);
 };
 /**
  * Returns a new DataFrame sorted by the specified columns, if columnName is used sorted in ascending order.
- * @param {string | Column} columnName, .....columnName or sortExprs,... sortExprs
+ * @param {string | Column} columnName,...columnName or sortExprs,... sortExprs
  * @returns {DataFrame}
  * @example
  *  var result = peopleDataFrame.sort("age", "name");
@@ -575,6 +646,13 @@ DataFrame.prototype.sort = function() {
  	return new DataFrame(this.getJavaObject().sort(Utils.unwrapObject(sortExprs)));
 };
 /**
+ * Returns SQLContext
+ * @returns {SQLContext}
+ */
+DataFrame.prototype.sqlContext = function() {
+	return new SQLContext(this.getJavaObject().sqlContext());
+};
+/**
  * Returns the first n rows in the DataFrame.
  * @param {integer} num
  * @returns {Row[]}
@@ -586,6 +664,18 @@ DataFrame.prototype.take = function(num) {
     	r.push(new Row(rows[i]));
     }
     return r;
+};
+/**
+ * Returns a new DataFrame with columns renamed. This can be quite convenient in conversion from a 
+ * RDD of tuples into a DataFrame with meaningful names. For example:
+ * @param {string} colNames,...colNames 
+ * @return {DataFrame}
+ * @example 
+ * var result = nameAgeDF.toDF("newName", "newAge");
+ */
+DataFrame.prototype.toDF = function() {
+	var args = Array.prototype.slice.call(arguments);
+	return new DataFrame(this.getJavaObject().toDF(args));
 };
 /**
  * Returns the content of the DataFrame as a RDD of JSON strings.
@@ -602,6 +692,20 @@ DataFrame.prototype.toRDD = function() {
     return new RDD(this.getJavaObject().javaRDD());
 };
 /**
+ * Returns a new DataFrame containing union of rows in this frame and another frame. This is equivalent to UNION ALL in SQL.
+ * @param {DataFrame} other
+ * @returns {DataFrame}
+ */
+DataFrame.prototype.unionAll = function(other) {
+    return new DataFrame(this.getJavaObject().unionAll(Utils.unwrapObject(other)));
+};
+/**
+ * @param {boolean} blocking
+ */
+DataFrame.prototype.unpersist = function(blocking) {
+    this.getJavaObject().unpersist(blocking);
+};
+/**
  * Filters rows using the given Column or SQL expression.
  * @param {Column | string} condition - .
  * @returns {DataFrame}
@@ -614,9 +718,21 @@ DataFrame.prototype.where = function(condition) {
  * @param {string} name
  * @param {Column} col
  * @returns {DataFrame}
+ * @example
+ *  var col = peopleDataFrame.col("age");
+ *  var df1 = peopleDataFrame.withColumn("newCol", col);
  */
 DataFrame.prototype.withColumn = function(name, col) {
-    return new DataFrame(this.getJavaObject().withColumn(name, col));
+    return new DataFrame(this.getJavaObject().withColumn(name, Utils.unwrapObject(col)));
+};
+/**
+ * Returns a new DataFrame with a column renamed. This is a no-op if schema doesn't contain existingName.
+ * @param {string} existingName
+ * @param {string} newName
+ * @returns {DataFrame} 
+ */
+DataFrame.prototype.withColumnRenamed = function(existingName, newName) {
+    return new DataFrame(this.getJavaObject().withColumnRenamed(existingName, newName));
 };
 /**
  * Interface for saving the content of the DataFrame out into external storage. 

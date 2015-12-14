@@ -49,6 +49,18 @@ class Comment(comment:String) {
 
   }
 
+  def changeTagValue(tag:String, callback: String => String)
+  {
+    val rx=tagRX(tag)
+    lines=lines.map(str=> {
+      str match {
+        case rx(rest) => s" * @$tag ${callback(rest)}"
+        case _ => str
+      }
+    })
+  }
+
+
   def tagRX(tag:String) =
   {
     val str="\\s\\*\\s+@"+tag+"(.*)"
@@ -68,7 +80,6 @@ class Comment(comment:String) {
   }
 
   def removeUnusedTags()={
-    removeTag("since")
     removeTag("tparam")
     removeTag("group")
     removeTag("author")

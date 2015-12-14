@@ -21,7 +21,7 @@ case class File(fileName:String, packageName:String, comment:String, classes: Li
   def hasClasses=classes.length>0
 }
 
-case class Clazz(name:String, comment:String, members: List[Member],isStatic:Boolean = false) {
+case class Clazz(name:String, comment:String, members: List[Member],parents:List[String],isStatic:Boolean = false) {
   members foreach (member => member.parent = this)
 
   var parent:File = null
@@ -143,9 +143,13 @@ case class Parm(name:String,typ:DataType)
 
 }
 
+
+
   trait DataType
 {
   def name: String
+
+  def simpleName():String =name.split("\\.").last
 
   def getJSType(scalaName:String=name):String =
   {

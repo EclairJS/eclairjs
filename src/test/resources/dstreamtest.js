@@ -1,26 +1,69 @@
 var sparkContext = new SparkContext("local[*]", "dstream");
-var streamingContext = new StreamingContext(sparkContext, new Duration(1000));
-
-var dstream = streamingContext.socketTextStream("localhost", 9999);
+var streamingContext = null;
+var duration = new Duration(500);
 var data = [];
 
-dstream.foreachRDD(function(rdd) {
-    var d = rdd.collect();
-    if(!d.isEmpty()) {
-        var letters = d.get(0).split(",");
-        letters.forEach(function(l) {
-            data.push(l);
-        });
-    }
-});
+var foreachRDDTest = function() {
+    streamingContext = new StreamingContext(sparkContext, duration);
+    var dstream = streamingContext.socketTextStream("localhost", 9999);
+    dstream.foreachRDD(function(rdd) {
+        var d = rdd.collect();
+        if(!d.isEmpty()) {
+            var letters = d.get(0).split(",");
+            letters.forEach(function(l) {
+                data.push(l);
+            });
+        }
+    })
 
-
-var start = function() {
     streamingContext.start();
-};
+}
+
+var flatMapTest = function() {
+    streamingContext = new StreamingContext(sparkContext, duration);
+    var dstream = streamingContext.socketTextStream("localhost", 9999);
+    var ds1 = dstream.flatMap(function(line) {
+        return line.split(",");
+    })
+
+    ds1.foreachRDD(function(rdd) {
+        var d = rdd.collect();
+        if(!d.isEmpty()) {
+            d.forEach(function(letter) {
+                data.push(letter)
+            })
+        }
+    })
+
+    streamingContext.start();
+}
+
+var mapTest = function() {
+    streamingContext = new StreamingContext(sparkContext, duration);
+    var dstream = streamingContext.socketTextStream("localhost", 9999);
+    var ds1 = dstream.flatMap(function(line) {
+        return line.split(",");
+    });
+
+    var ds2 = ds1.map(function(letter){
+        return letter.toUpperCase();
+    });
+
+    ds2.foreachRDD(function(rdd) {
+        var d = rdd.collect();
+        if(!d.isEmpty()) {
+            d.forEach(function(letter) {
+                data.push(letter)
+            })
+        }
+    })
+
+    streamingContext.start();
+}
 
 var stop = function() {
-    streamingContext.stop();
+    streamingContext.stop(false);
+    streamingContext.awaitTermination();
 };
 
 var getData = function() {

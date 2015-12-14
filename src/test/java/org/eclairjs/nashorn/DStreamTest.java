@@ -10,16 +10,34 @@ import java.net.Socket;
 
 import static org.junit.Assert.assertEquals;
 
-public class DStream {
+public class DStreamTest {
+
     @Test
     public void foreachRDD() throws Exception {
+        runTest("foreachRDDTest",
+                "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z");
+    }
+
+    @Test
+    public void flatMap() throws Exception {
+        runTest("flatMapTest",
+                "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z");
+    }
+
+    @Test
+    public void map() throws Exception {
+        runTest("mapTest",
+                "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z");
+    }
+
+    private void runTest(String name, String expected) throws Exception {
         StreamProducer sp = new StreamProducer();
         Thread producer = new Thread(sp);
-        ScriptEngine engine = TestUtils.getEngine();
+        ScriptEngine engine = TestUtils.getNewEngine();
 
         TestUtils.evalJSResource(engine, "/dstreamtest.js");
         producer.start();
-        ((Invocable)engine).invokeFunction("start", null);
+        ((Invocable)engine).invokeFunction(name, null);
 
         Object ret = null;
         while(true) {
@@ -30,10 +48,9 @@ public class DStream {
             } else
                 Thread.sleep(1000);
         }
-
         assertEquals(
                 "should be same",
-                "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z",
+                expected,
                 ret.toString()
         );
     }
@@ -44,14 +61,10 @@ public class DStream {
         boolean done = false;
 
         String[] data = {
-                "a,b,c",
-                "d,e,f",
-                "g,h,i",
-                "j,k,l",
-                "m,n,o",
-                "p,q,r",
-                "s,t,u",
-                "v,w,x",
+                "a,b,c,d,e,f",
+                "g,h,i,j,k,l",
+                "m,n,o,p,q,r",
+                "s,t,u,v,w,x",
                 "y,z"
         };
 
@@ -70,12 +83,12 @@ public class DStream {
             }
 
             int index = 0;
-            while(index <= 8) {
+            while(index <= 4) {
                 try {
                     //System.out.println(data[index]);
                     out.println(data[index]);
                     index++;
-                    Thread.sleep(1000);
+                    Thread.sleep(500);
                 } catch (Exception e) {
                     e.printStackTrace();
                     break;

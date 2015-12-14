@@ -29,7 +29,9 @@
   def sample(withReplacement: Boolean, fraction: Double, seed: Long): String = ""
 
 
-  /** Assign a name to this RDD */
+  /** Assign a name to this RDD
+    *  @since 1.0
+    * */
   def setName(name: String): List[T] = {
     List()
   }
