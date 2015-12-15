@@ -74,12 +74,27 @@ class GenerateNashorn  extends  GenerateJSBase {
         else
           parmNames+=parm.name
     })
+
+
     // return this.getJavaObject().div(Utils.unwrapObject(that));
-    val returnsStr=if (method.returnType.isVoid())  "" else "return "
+    val returnsStr=if (method.returnType.isVoid())  "" else
+      {
+        if (method.returnType.isSparkClass())
+          {
+            "var javaObject = "
+          }
+        else
+          "return "
+      }
 
 
 
     sb ++= s"  $returnsStr this.getJavaObject().${method.name}(${parmNames.mkString(",")});"
+    if (method.returnType.isSparkClass())
+    {
+      sb ++= s"\n  return new ${method.returnType.getJSType()}(javaObject);"
+    }
+
     sb.toString()
 
   }
