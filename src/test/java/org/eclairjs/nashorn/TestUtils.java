@@ -34,11 +34,8 @@ public class TestUtils {
 
     public static ScriptEngine getEngine() {
         if(engine == null) {
-            ScriptEngineManager engineManager = new ScriptEngineManager();
-            engine = engineManager.getEngineByName("nashorn");
-            //SparkContext sc = new SparkContext("local[*]", "testapp");
-            //engine.put("sc", sc);
-
+            engine =  NashornEngineSingleton.getEngine();
+ 
             engine.put("kernel", kernel);
 
             SparkBootstrap b = new SparkBootstrap();

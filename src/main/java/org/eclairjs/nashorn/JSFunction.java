@@ -16,6 +16,9 @@ s * Copyright 2015 IBM Corp.
 
 package org.eclairjs.nashorn;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import org.apache.commons.lang.ArrayUtils;
@@ -32,7 +35,7 @@ public class JSFunction implements Function {
         this.args = o;
     }
 
-    @SuppressWarnings("null")
+    @SuppressWarnings({ "null", "unchecked" })
     @Override
     public Object call(Object o) throws Exception {
 
@@ -43,8 +46,19 @@ public class JSFunction implements Function {
         Invocable invocable = (Invocable) e;
         Object arg0 = Utils.javaToJs(o, e);
         Object params[] = {arg0};
-
-        params = ArrayUtils.addAll(params, this.args);
+        
+        if (this.args.length > 0 ) {
+        	/*
+        	 * We need to wrap the Spark objects
+        	 */
+        	@SuppressWarnings("rawtypes")
+			List sv = new ArrayList();
+        	for (int i = 0; i < this.args.length; i++) {
+        		sv.add(Utils.javaToJs(this.args[i], e));
+        	}
+        	params = ArrayUtils.addAll(params, sv.toArray());
+        }
+      
         Object ret = invocable.invokeFunction(this.functionName, params);
 
         return Utils.jsToJava(ret);

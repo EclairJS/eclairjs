@@ -18,6 +18,9 @@ package org.eclairjs.nashorn;
 
 import org.apache.commons.lang.ArrayUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 
@@ -33,7 +36,7 @@ public class JSFunction2 implements org.apache.spark.api.java.function.Function2
         this.args = o;
     }
 
-    @SuppressWarnings("null")
+    @SuppressWarnings({ "null", "unchecked" })
     @Override
     public Object call(Object o, Object o2) throws Exception {
         ScriptEngine e =  NashornEngineSingleton.getEngine();
@@ -43,8 +46,19 @@ public class JSFunction2 implements org.apache.spark.api.java.function.Function2
         Object arg0 = Utils.javaToJs(o, e);
         Object arg1 = Utils.javaToJs(o2, e);
         Object params[] = {arg0, arg1};
-
-        params = ArrayUtils.addAll(params, this.args);
+        
+        if (this.args.length > 0 ) {
+        	/*
+        	 * We need to wrap the Spark objects
+        	 */
+        	@SuppressWarnings("rawtypes")
+			List sv = new ArrayList();
+        	for (int i = 0; i < this.args.length; i++) {
+        		sv.add(Utils.javaToJs(this.args[i], e));
+        	}
+        	params = ArrayUtils.addAll(params, sv.toArray());
+        }
+ 
         Object ret = invocable.invokeFunction(this.functionName, params);
 
         return Utils.jsToJava(ret);
