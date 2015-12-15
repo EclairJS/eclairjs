@@ -53,7 +53,8 @@ var Utils = {};
       var args = agrsStr.split(","); // get all the arguments names
       parmas.scopeVars = [];
       for (var i = scopeVarsStartingPosion; i < args.length; i++) { 
-		  parmas.scopeVars.push(eval(args[i])); // eval the argument name to get a reference to the variable
+    	  // unwrapObjects or we can have serialization problems
+		  parmas.scopeVars.push(Utils.unwrapObject(eval(args[i]))); // eval the argument name to get a reference to the variable
 	  }
       return parmas;
 
@@ -66,14 +67,9 @@ var Utils = {};
   Utils.unwrapObject = function(obj) {
 	  return (obj && obj.getJavaObject) ? obj.getJavaObject() : obj; 
   };
-  
-
-  function convertToRDD(rdd) {
-    return new RDD(rdd);
-  };
 
   function convertJavaTuple2(o1, o2) { 
-	  return [o1 ,o2 ]
+	  return [o1 ,o2];
   };
   
   function convertJavaJSONObject(str) {

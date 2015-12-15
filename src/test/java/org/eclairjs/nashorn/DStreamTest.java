@@ -12,14 +12,16 @@ import static org.junit.Assert.assertEquals;
 
 public class DStreamTest {
 
+    /*
     @Test
     public void foreachRDD() throws Exception {
         runTest("foreachRDDTest",
                 "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z");
     }
+    */
 
     @Test
-    public void flatMap() throws Exception {
+    public void flatMapForeachRDD() throws Exception {
         runTest("flatMapTest",
                 "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z");
     }

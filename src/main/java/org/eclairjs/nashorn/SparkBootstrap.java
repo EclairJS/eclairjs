@@ -53,11 +53,15 @@ public class SparkBootstrap implements Bootstrap {
             
             // streaming
             engine.eval("load('" + getResourceAsURLStirng("/streaming/Duration.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/streaming/Time.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/streaming/StreamingContext.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/streaming/KafkaUtils.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/streaming/dstream/DStream.js") + "');");
             
-            //mllib
+            //mllib 
+            engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/Vector.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/DenseVector.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/LinearRegressionModel.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/LinearRegressionWithSGD.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/LabeledPoint.js") + "');");
             

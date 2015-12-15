@@ -43,3 +43,24 @@ StorageLevel.NONE = function() {
 StorageLevel.MEMORY_ONLY = function() {
 	return new StorageLevel(org.apache.spark.storage.StorageLevel.MEMORY_ONLY());
 };
+/**
+ * @static
+ * @returns {StorageLevel}
+ */
+StorageLevel.DISK_ONLY = function() {
+	return new StorageLevel(org.apache.spark.storage.StorageLevel.DISK_ONLY());
+};
+/**
+ * @static
+ * @returns {StorageLevel}
+ */
+StorageLevel.DISK_ONLY_2 = function() {
+	return new StorageLevel(org.apache.spark.storage.StorageLevel.DISK_ONLY_2());
+};
+/**
+ * @static
+ * @returns {StorageLevel}
+ */
+StorageLevel.MEMORY_AND_DISK_2 = function() {
+	return new StorageLevel(org.apache.spark.storage.StorageLevel.MEMORY_AND_DISK_2());
+};

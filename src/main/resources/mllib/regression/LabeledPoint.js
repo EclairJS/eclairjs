@@ -18,7 +18,7 @@
  * @constructor
  * @classdesc Class that represents the features and labels of a data point.
  * @param {double} label
- * @param {double[]} features
+ * @param {Vector} features
  */
 
 var LabeledPoint = function(label, features) { 
@@ -28,8 +28,7 @@ var LabeledPoint = function(label, features) {
   	 	this.logger.debug("Java object ");
   	 	jvmObj = label;
 	} else {
-		var f = org.apache.spark.mllib.linalg.Vectors.dense(features)
-		jvmObj = new org.apache.spark.mllib.regression.LabeledPoint(label, f);
+		jvmObj = new org.apache.spark.mllib.regression.LabeledPoint(label, Utils.unwrapObject(features));
 
 	}
 	JavaWrapper.call(this, jvmObj);
@@ -40,10 +39,10 @@ LabeledPoint.prototype = Object.create(JavaWrapper.prototype);
 LabeledPoint.prototype.constructor = LabeledPoint;
 /**
  * Returns features
- * @returns {double[]} 
+ * @returns {Vector} 
  */
 LabeledPoint.prototype.getFeatures = function() {
-	return this.getJavaObject().features().toArray();
+	return this.getJavaObject().features();
 };
 /**
  * Returns label
@@ -75,17 +74,9 @@ LabeledPoint.prototype.toString = function() {
  */
 LabeledPoint.prototype.toJSON = function() {
 	return "{label: " + this.getLabel() + ", features: " + this.getFeatures() + " }";
-}
+};
 
 
-/*
- * FIXME should be using createJavaWrapperObject in Utils.java not this.
- */
-var labeledPointFromJavaObject = function(javaObject) {
-	var l = Logger.getLogger("LabeledPoint_js");
-	l.debug("labeledPointFromJavaObject");
-	return new LabeledPoint(javaObject);
-}
 
 
 

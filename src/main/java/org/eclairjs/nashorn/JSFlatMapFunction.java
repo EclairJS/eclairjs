@@ -23,7 +23,9 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.spark.api.java.function.FlatMapFunction;
 import jdk.nashorn.api.scripting.ScriptObjectMirror;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class JSFlatMapFunction implements FlatMapFunction {
@@ -37,7 +39,8 @@ public class JSFlatMapFunction implements FlatMapFunction {
         this.args = o;
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public Iterable call(Object o) throws Exception {
 
 
@@ -48,8 +51,19 @@ public class JSFlatMapFunction implements FlatMapFunction {
         Invocable invocable = (Invocable) e;
         Object arg0 = Utils.javaToJs(o, e);
         Object params[] = {arg0};
+        
+        if (this.args.length > 0 ) {
+        	/*
+        	 * We need to wrap the Spark objects
+        	 */
+        	@SuppressWarnings("rawtypes")
+			List sv = new ArrayList();
+        	for (int i = 0; i < this.args.length; i++) {
+        		sv.add(Utils.javaToJs(this.args[i], e));
+        	}
+        	params = ArrayUtils.addAll(params, sv.toArray());
+        }
 
-        params = ArrayUtils.addAll(params, this.args);
         ScriptObjectMirror ret = (ScriptObjectMirror)invocable.invokeFunction(this.functionName, params);
 
         return (Iterable)ret.values();

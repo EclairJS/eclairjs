@@ -26,6 +26,7 @@ import scala.Tuple2;
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by bburns on 9/13/15.
@@ -43,7 +44,8 @@ public class JSPairFunction implements PairFunction {
 	    this.scopeVar = o;
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public Tuple2 call(Object a) throws Exception {
 
         ScriptEngine e = NashornEngineSingleton.getEngine(); 
@@ -52,14 +54,26 @@ public class JSPairFunction implements PairFunction {
         Invocable invocable = (Invocable) e;
         Object o = Utils.javaToJs(a, e);
         Object params[] = {o};
-       
-        params = ArrayUtils.addAll(params, this.scopeVar);
+        if (this.scopeVar.length > 0 ) {
+        	/*
+        	 * We need to wrap the Spark objects
+        	 */
+        	@SuppressWarnings("rawtypes")
+			List sv = new ArrayList();
+        	for (int i = 0; i < this.scopeVar.length; i++) {
+        		sv.add(Utils.javaToJs(this.scopeVar[i], e));
+        	}
+        	params = ArrayUtils.addAll(params, sv.toArray());
+        }
+        
         ScriptObjectMirror ret = (ScriptObjectMirror) invocable.invokeFunction(this.functionName, params); // FIXME reusing the function name in same engine not a good idea
 
-        ArrayList l = new ArrayList(ret.values());
+        @SuppressWarnings("rawtypes")
+		ArrayList l = new ArrayList(ret.values());
         Object t1 = Utils.jsToJava(l.get(0));
         Object t2 = Utils.jsToJava(l.get(1));
-        Tuple2 t = new Tuple2(t1, t2);
+        @SuppressWarnings("rawtypes")
+		Tuple2 t = new Tuple2(t1, t2);
 
         return t;
     }

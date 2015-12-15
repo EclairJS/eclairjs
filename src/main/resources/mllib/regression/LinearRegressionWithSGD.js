@@ -13,12 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+/** 
+ * Construct a LinearRegression object with default parameters: {stepSize: 1.0, numIterations: 100, miniBatchFraction: 1.0}.
+ * @constructor
+ * @classdesc Train a linear regression model with no regularization using Stochastic Gradient Descent. 
+ * This solves the least squares regression formulation f(weights) = 1/n ||A weights-y||^2^ (which is the mean squared error). 
+ * Here the data matrix has n rows, and the input RDD holds the set of rows of A, each with its corresponding right hand side label y. 
+ * See also the documentation for the precise formulation.
+ */
 var LinearRegressionWithSGD = {}
 
 LinearRegressionWithSGD.DEFAULT_NUM_ITERATIONS = 100;
 
-
+/**
+ * Train a LinearRegression model given an RDD of (label, features) pairs.
+ * @param {RDD} rdd of LabeledPoints
+ * @param {integer} numIterations
+ * @returns {LinearRegressionModel}
+ */
 LinearRegressionWithSGD.train = function(rdd, numIterations) {
 	var logger = Logger.getLogger("LinearRegressionWithSGD_js");
 	logger.debug("JavaRDD " + rdd);
@@ -28,7 +40,7 @@ LinearRegressionWithSGD.train = function(rdd, numIterations) {
 	logger.debug("calling train");
 	var model = org.apache.spark.mllib.regression.LinearRegressionWithSGD.train(lrdd, numIterations);
 	logger.debug("return model");
-	return model;
+	return new LinearRegressionModel(model);
 
 };
 

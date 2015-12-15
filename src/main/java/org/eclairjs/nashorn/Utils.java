@@ -24,6 +24,7 @@ import javax.script.ScriptException;
 
 import org.apache.log4j.Logger;
 import org.apache.spark.SparkFiles;
+import org.apache.spark.mllib.regression.LinearRegressionModel;
 import org.apache.spark.mllib.regression.LabeledPoint;
 import org.apache.spark.rdd.RDD;
 import org.apache.spark.sql.Row;
@@ -55,48 +56,30 @@ public class Utils {
             return o;
     }
     */
-    public static Object javaToJs(Object o, ScriptEngine engine) {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public static Object javaToJs(Object o, ScriptEngine engine) {
     	Logger logger = Logger.getLogger(Utils.class);
 		if(o != null)
 			logger.debug(o.getClass().getName());
-    	if (o instanceof LabeledPoint) {
+		if (
+				(o instanceof LabeledPoint) || 
+				(o instanceof Row) || // GenericRowWithSchema will use the Row.js wrapper
+				(o instanceof LinearRegressionModel) || 
+				(o instanceof RDD)
+			) {
     		try {
  	  			Invocable invocable = (Invocable) engine;
-	  			logger.info("create LabledPoint");
-	  			// FIXME should be using createJavaWrapperObject
-	  			Object parm = invocable.invokeFunction("labeledPointFromJavaObject", o);
-	  			logger.info(parm);
+	  			logger.debug("create " + o.getClass().getSimpleName());
+	  			Object params[] = {o.getClass().getSimpleName(), o};
+	  			Object parm = invocable.invokeFunction("createJavaWrapperObject", params);
+	  			logger.debug(parm);
 	  			return parm;
   			} catch (Exception e) {
-    			logger.error(" LabeledPoint convertion " + e);
+    			logger.error(o.getClass().getSimpleName() + " convertion " + e);
     			return null;
     		}
 
-    	}if (o instanceof Row) {
-			try {
-				Invocable invocable = (Invocable) engine;
-				logger.info("create Row");
-				Object params[] = {"Row", o};
-				Object parm = invocable.invokeFunction("createJavaWrapperObject", params);
-				logger.info(parm);
-				return parm;
-			} catch (Exception e) {
-				logger.error(" Row convertion " + e);
-				return null;
-			}
-
-		} else if(o instanceof RDD) {
-			Object er = null;
-			Object params[] = {o};
-			try {
-				Invocable invocable = (Invocable)engine;
-				er = invocable.invokeFunction("convertToRDD",params);
-			} catch (ScriptException | NoSuchMethodException e) {
-				logger.error("Error converting to RDD " + e);
-			}
-
-			return er;
-    	} else if(o instanceof Tuple2) {
+    	} else if (o instanceof Tuple2) {
             Tuple2 t = (Tuple2)o;
             logger.info("Tupple2 " + t.toString());
             Object er = null;
@@ -104,20 +87,16 @@ public class Utils {
             Object o2 = javaToJs(t._2(), engine);
             logger.debug("o1 = " + o1);
              try {
-				//engine.eval("function convertTuple2(o1, o2) { return [o1 ,o2 ]}");
 				Invocable invocable = (Invocable) engine;
 				 Object params[] = {o1, o2};
-				// FIXME should be using createJavaWrapperObject
 				 er  = invocable.invokeFunction("convertJavaTuple2",params);
 			} catch (ScriptException | NoSuchMethodException e) {
 				logger.error(" Tuple2 convertion " + e);
 			}
             return er;
         } else if (o instanceof IteratorWrapper) {
-        	ArrayList alist = new ArrayList();
-        			
+        	ArrayList alist = new ArrayList();		
         	while(((IteratorWrapper) o).hasMoreElements()) {
-        		//alist.add(((IteratorWrapper) o).nextElement());
         		alist.add(javaToJs(((IteratorWrapper) o).nextElement(),engine));
         	}
         	return wrapObject(alist);
@@ -160,12 +139,14 @@ public class Utils {
     }
 
     public static ScriptEngine addScopeVarsToEngine(HashMap scopeVars, ScriptEngine engine) {
-    	//System.out.println("addScopeVarsToEngine");
+    	
+    	Logger logger = Logger.getLogger(Utils.class);
+    	logger.debug("addScopeVarsToEngine");
     	if (scopeVars != null) {
         	Iterator it = scopeVars.entrySet().iterator();
             while (it.hasNext()) {
                 Map.Entry pair = (Map.Entry)it.next();
-                System.out.println("adding " + pair.getKey() + " value " + pair.getValue());
+                logger.debug("adding " + pair.getKey() + " value " + pair.getValue());
                 engine.put((String)pair.getKey(), pair.getValue());
             }
     	}

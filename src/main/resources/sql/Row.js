@@ -38,7 +38,7 @@ Return a Scala Seq representing the row.
  * To create a new Row, use RowFactory.create()
  *  
  */
-function Row(jvmObj) {
+var Row = function (jvmObj) {
   // Call the parent constructor, making sure (using Function#call)
   // that "this" is set correctly during the call
   JavaWrapper.call(this, jvmObj);
@@ -54,6 +54,13 @@ Row.prototype = Object.create(JavaWrapper.prototype);
 
 //Set the "constructor" property to refer to Row
 Row.prototype.constructor = Row;
+/* 
+ * The java Class name seems to be GenericRowWithSchema, to to use the 
+ * java Utils.javaToJs method to wrap that class in a java object
+ * we will set the JavaScript prototype to the same name.
+ */
+var GenericRowWithSchema = Row;
+
 /**
  * Returns true if there are any NULL values in this row.
  * @returns {boolean}
@@ -391,3 +398,4 @@ Row.prototype.toJSON = function() {
 	jsonObj.schema = this.schema().toJSON();
 	return jsonObj;
 };
+
