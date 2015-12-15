@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: DataFrameWriter</title>
+    <title>JSDoc: Class: DataFrameNaFunctions</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Class: DataFrameWriter</h1>
+    <h1 class="page-title">Class: DataFrameNaFunctions</h1>
     
     
 
@@ -27,11 +27,10 @@
     
 <header>
     <h2>
-    DataFrameWriter
+    DataFrameNaFunctions
     </h2>
     
-        <div class="class-description">Interface used to write a DataFrame to external storage systems (e.g. file systems, key-value stores, etc). 
-Use DataFrame.write to access this.</div>
+        <div class="class-description">Functionality for working with missing data in <a href="DataFrame.html">DataFrame</a>.</div>
     
 </header>  
 
@@ -42,7 +41,7 @@ Use DataFrame.write to access this.</div>
     
         
 <dt>
-    <h4 class="name" id="DataFrameWriter"><span class="type-signature"></span>new DataFrameWriter<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="DataFrameNaFunctions"><span class="type-signature"></span>new DataFrameNaFunctions<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -79,7 +78,7 @@ Use DataFrame.write to access this.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrameWriter.js.html">sql/DataFrameWriter.js</a>, <a href="DataFrameWriter.js.html#line21">line 21</a>
+        <a href="DataFrameNaFunctions.js.html">sql/DataFrameNaFunctions.js</a>, <a href="DataFrameNaFunctions.js.html#line24">line 24</a>
     </li></ul></dd>
     
     
@@ -125,7 +124,7 @@ Use DataFrame.write to access this.</div>
         <dl>
             
 <dt>
-    <h4 class="name" id="mode"><span class="type-signature"></span>mode<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="DataFrameWriter.html">DataFrameWriter</a>}</span></h4>
+    <h4 class="name" id="drop"><span class="type-signature"></span>drop<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
     
     
 </dt>
@@ -133,7 +132,7 @@ Use DataFrame.write to access this.</div>
     
     
     <div class="description">
-        Specifies the behavior when data or table already exists.
+        Returns a new <a href="DataFrame.html">DataFrame</a> that drops rows containing any null or NaN values.
     </div>
     
 
@@ -166,7 +165,7 @@ Use DataFrame.write to access this.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrameWriter.js.html">sql/DataFrameWriter.js</a>, <a href="DataFrameWriter.js.html#line38">line 38</a>
+        <a href="DataFrameNaFunctions.js.html">sql/DataFrameNaFunctions.js</a>, <a href="DataFrameNaFunctions.js.html#line41">line 41</a>
     </li></ul></dd>
     
     
@@ -198,139 +197,13 @@ Use DataFrame.write to access this.</div>
 	</dt>
 	<dd>
 		
-<span class="param-type"><a href="DataFrameWriter.html">DataFrameWriter</a></span>
+<span class="param-type"><a href="DataFrame.html">DataFrame</a></span>
 
 
 	</dd>
 </dl>
 
         
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="saveAsTable"><span class="type-signature"></span>saveAsTable<span class="signature">(tableName)</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Saves the content of the DataFrame as the specified table. 
-In the case the table already exists, behavior of this function depends on the save mode, 
-specified by the mode function (default to throwing an exception). When mode is Overwrite, 
-the schema of the DataFrame does not need to be the same as that of the existing table. 
-When mode is Append, the schema of the DataFrame need to be the same as that of the existing table, 
-and format or options will be ignored.
-When the DataFrame is created from a non-partitioned HadoopFsRelation with a single input path, 
-and the data source provider can be mapped to an existing Hive builtin SerDe (i.e. ORC and Parquet), 
-the table is persisted in a Hive compatible format, which means other systems like Hive will be able to read this table. 
-Otherwise, the table is persisted in a Spark SQL specific format.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>tableName</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrameWriter.js.html">sql/DataFrameWriter.js</a>, <a href="DataFrameWriter.js.html#line54">line 54</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
     
     
 </dd>

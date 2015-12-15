@@ -16,15 +16,13 @@
 
 
 
-/**
- * :: Experimental ::
- * Functionality for working with missing data in {@link DataFrame}s.
- *
- * @classdesc
+/** 
+ * @constructor
+ * @classdesc Functionality for working with missing data in {@link DataFrame}.
  */
 
 var DataFrameNaFunctions = function(jvmDataFrameNaFunctions) {
-JavaWrapper.call(this, jvmDataFrameNaFunctions);
+	JavaWrapper.call(this, jvmDataFrameNaFunctions);
 
 
 };
