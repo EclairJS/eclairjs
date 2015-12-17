@@ -540,6 +540,69 @@ var dataframeWithColumnRenamedTest = function(file) {
 }
 
 /*
+ * DataFrame Column tests
+ */
+
+var asCloumn = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file, false);
+	var col = new Column("age");
+	var testCol = col.as(["newAge", "ventage"]);
+
+    return testCol.toString();
+}
+
+var betweenCloumn = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file, false);
+	var col = new Column("age");
+	var testCol = col.between(10, 29);
+	var results = peopleDataFrame.select(testCol);
+    return results.take(10).toString();
+}
+
+var castCloumn = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file, false);
+	var col = new Column("age");
+	var testCol = col.cast(DataTypes.StringType);
+    return testCol.toString();
+}
+
+var containsCloumn = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file, false);
+	var col = new Column("name");
+	var testCol = col.contains("dogs");
+    return testCol.toString();
+}
+
+var divideCloumn = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file, false);
+	var col = peopleDataFrame.col("networth");
+	var testCol = col.divide(peopleDataFrame.col("income"));
+	var results = peopleDataFrame.select(testCol);
+    return results.take(10).toString();
+}
+
+var inCloumn = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file, false);
+	var col = peopleDataFrame.col("age");
+	var testCol = col.in([20, 19]);
+	var results = peopleDataFrame.select(testCol);
+    return results.take(10).toString();
+}
+
+var otherwiseCloumn = function(file) {
+	var people = buildPeopleTable(file, false);
+	var results = people.select(functions.when(people.col("age").notEqual(19), true).otherwise(false));
+						
+    return results.take(10).toString();
+}
+
+/*
  * 
  * Dataframe DataType tests
  * 
