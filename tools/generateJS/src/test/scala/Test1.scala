@@ -30,6 +30,16 @@
 
 
   /** Assign a name to this RDD
+    *   Note that before Spark 1.4, the default behavior is to NOT retain grouping columns. To change
+    * to that behavior, set config variable `spark.sql.retainGroupColumns` to `false`.
+    * {{{
+    *   // Scala, 1.3.x:
+    *   df.groupBy("department").agg($"department", max("age"), sum("expense"))
+    *
+    *   // Java, 1.3.x:
+    *   df.groupBy("department").agg(col("department"), max("age"), sum("expense"));
+    * }}}
+    *
     *  @since 1.0
     * */
   def setName(name: String): List[T] = {

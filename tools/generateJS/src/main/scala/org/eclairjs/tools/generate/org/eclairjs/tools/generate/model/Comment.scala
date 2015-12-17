@@ -52,15 +52,26 @@ class Comment(comment:String) {
   def changeTagValue(tag:String, callback: String => String)
   {
     val rx=tagRX(tag)
+    changeLines(rx,rest=> s"@$tag ${callback(rest)}")
+  }
+
+  def changeLines(rx:Regex, callback: String => String)
+  {
     lines=lines.map(str=> {
       str match {
-        case rx(rest) => s" * @$tag ${callback(rest)}"
+        case rx(rest) => s" * ${callback(rest)}"
         case _ => str
       }
     })
   }
 
-
+  def fixExamples()
+  {
+    val rxStart="\\s+\\*\\s+\\{\\{\\{(.*)".r
+    val rxEnd="\\s+\\*(.*)\\}\\}\\}.*".r
+    changeLines(rxStart,rest=> s"@example $rest")
+    changeLines(rxEnd,rest=> rest)
+  }
   def tagRX(tag:String) =
   {
     val str="\\s\\*\\s+@"+tag+"(.*)"
@@ -113,6 +124,7 @@ class Comment(comment:String) {
   def asJSDoc():String = {
     removeUnusedTags()
     fixLinks();
+    fixExamples()
 
     newLines++=lines
 

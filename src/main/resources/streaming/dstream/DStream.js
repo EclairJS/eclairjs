@@ -214,7 +214,7 @@ DStream.prototype.flatMap = function(func) {
  */
 DStream.prototype.flatMapToPair = function(func) {
     var sv = Utils.createJavaParams(func);
-    var fn = new org.eclairjs.nashorn.JSPairFunction(sv.funcStr, sv.scopeVars);
+    var fn = new org.eclairjs.nashorn.JSPairFlatMapFunction(sv.funcStr, sv.scopeVars);
     return new DStream(this.getJavaObject().flatMapToPair(fn),
                        this.streamingContext);
 };

@@ -673,6 +673,118 @@ var booleanType = function(file) {
 }
 
 /*
+ * sql.functions
+ */
+
+var functionsLit = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file, true);
+	var col = new Column("age");
+	var result = functions.lit(col);
+    return result.toString();
+}
+
+var functionsApproxCountDistinct = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file, true);
+	var col = new Column("age");
+	var testCol = functions.approxCountDistinct(col);
+	var results = peopleDataFrame.select(testCol)
+    return results.take(10).toString();
+}
+
+var functionsCountDistinct = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file, true);
+	var col1 = new Column("age");
+	var col2 = new Column("name");
+	var testCol = functions.countDistinct(col1, col2);
+	var results = peopleDataFrame.select(testCol);
+    return results.take(10).toString();
+}
+
+var functionsArray = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file, true);
+	var col1 = new Column("age");
+	var col2 = new Column("expense");
+	//var testCol = functions.array("age", "expense");
+	var testCol = functions.array(col1, col2);
+    return testCol.toString();
+}
+
+var functionsCoalesce = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file, true);
+	var testCol = functions.coalesce(peopleDataFrame.col("name"), peopleDataFrame.col("age"));
+    return testCol.toString();
+}
+
+var functionsStruct = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file, true);
+	//var testCol = functions.struct(peopleDataFrame.col("name"), peopleDataFrame.col("age"));
+	var testCol = functions.struct("name", "age");
+    return testCol.toString();
+}
+
+var functionsExpr = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file, true);
+	var results = peopleDataFrame.groupBy(functions.expr("length(name)")).count();
+
+    return results.take(10).toString();
+}
+
+var functionsAtan2 = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file, true);
+	var col1 = new Column("age");
+	var col2 = new Column("expense");
+	var result = functions.atan2(col1, col2);
+	if (result.toString() != "ATAN2(age, expense)") {
+		return "error testing atan2(Column, Column)";
+	}
+	result = functions.atan2(col1, "name");
+	if (result.toString() != "ATAN2(age, name)") {
+		return "error testing atan2(Column, string)";
+	}
+	result = functions.atan2("age", col2);
+	if (result.toString() != "ATAN2(age, expense)") {
+		return "error testing atan2(string, Column)";
+	}
+	result = functions.atan2("age", "expense");
+	if (result.toString() != "ATAN2(age, expense)") {
+		return "error testing atan2(string, string)";
+	}
+	result = functions.atan2(col1, 2.0);
+	if (result.toString() != "ATAN2(age, 2.0)") {
+		return "error testing atan2(Column, double) ";
+	}
+	result = functions.atan2("age", 2.0);
+	if (result.toString() != "ATAN2(age, 2.0)") {
+		return "error testing atan2(string, double) ";
+	}
+	result = functions.atan2(2.0, col2);
+	if (result.toString() != "ATAN2(2.0, expense)") {
+		return "error testing atan2(double, Column) ";
+	}
+	result = functions.atan2(2.0, "expense");
+	if (result.toString() != "ATAN2(2.0, expense)") {
+		return "error testing atan2(double, string) ";
+	}
+
+    return "all good";
+}
+
+var functionsGreatest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file, true);
+	var testCol = functions.greatest(peopleDataFrame.col("name"), peopleDataFrame.col("age"));
+	//var testCol = functions.greatest("name", "age");
+    return testCol.toString();
+}
+/*
  * Row tests
  */
 
