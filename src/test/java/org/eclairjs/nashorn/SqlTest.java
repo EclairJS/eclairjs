@@ -931,6 +931,7 @@ public class SqlTest {
     public void columnBetweenTest() throws Exception {
     	/*
     	 * tests
+    	 * Column.between
     	 */
         ScriptEngine engine = TestUtils.getEngine();
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
@@ -944,6 +945,7 @@ public class SqlTest {
     public void columnCastTest() throws Exception {
     	/*
     	 * tests
+    	 * Column.cast
     	 */
         ScriptEngine engine = TestUtils.getEngine();
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
@@ -957,6 +959,7 @@ public class SqlTest {
     public void columnContansTest() throws Exception {
     	/*
     	 * tests
+    	 * Column.contains
     	 */
         ScriptEngine engine = TestUtils.getEngine();
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
@@ -970,6 +973,7 @@ public class SqlTest {
     public void columnDivideTest() throws Exception {
     	/*
     	 * tests
+    	 * Column.divide
     	 */
         ScriptEngine engine = TestUtils.getEngine();
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
@@ -982,7 +986,8 @@ public class SqlTest {
     @Test
     public void columnInTest() throws Exception {
     	/*
-    	 * tests
+    	 * test
+    	 * Column.in
     	 */
         ScriptEngine engine = TestUtils.getEngine();
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
@@ -996,6 +1001,9 @@ public class SqlTest {
     public void columnOtherwiseTest() throws Exception {
     	/*
     	 * tests
+    	 * Column.when
+    	 * Column.otherwise
+    	 * functions.when
     	 */
         ScriptEngine engine = TestUtils.getEngine();
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
@@ -1069,6 +1077,145 @@ public class SqlTest {
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable)engine).invokeFunction("booleanType", file);
         assertEquals("should be same", "Name: Michael married: true,Name: Justin married: true", ret);
+    }
+    
+    /*
+     * sql.functions tests
+     */
+    
+    @Test
+    public void functionsLitTest() throws Exception {
+    	/*
+    	 * tests
+    	 * functions.lit()
+    	 *  
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/people.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("functionsLit", file);
+        assertEquals("should be same", "age", ret);
+    }
+    
+    @Test
+    public void functionsApproxCountDistinctTest() throws Exception {
+    	/*
+    	 * tests
+    	 * functions.approxCountDistinct()
+    	 *  
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/people.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("functionsApproxCountDistinct", file);
+        assertEquals("should be same", "[3]", ret);
+    }
+    
+    @Test
+    public void functionsCountDistinctTest() throws Exception {
+    	/*
+    	 * tests
+    	 * functions.approxCountDistinct()
+    	 *  
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/people.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("functionsCountDistinct", file);
+        assertEquals("should be same", "[3]", ret);
+    }
+    
+    @Test
+    public void functionsArrayTest() throws Exception {
+    	/*
+    	 * tests
+    	 * functions.array()
+    	 *  
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/people.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("functionsArray", file);
+        assertEquals("should be same", "array(age,expense)", ret);
+    }
+    
+    @Test
+    public void functionsCoalesceTest() throws Exception {
+    	/*
+    	 * tests
+    	 * functions.coalesce()
+    	 *  
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/people.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("functionsCoalesce", file);
+        assertEquals("should be same", "coalesce(name,age)", ret);
+    }
+    
+    @Test
+    public void functionsStructTest() throws Exception {
+    	/*
+    	 * tests
+    	 * functions.struct()
+    	 *  
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/people.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("functionsStruct", file);
+        assertEquals("should be same", "struct(name,age)", ret);
+    }
+    
+    @Test
+    public void functionsGreatestTest() throws Exception {
+    	/*
+    	 * tests
+    	 * functions.struct()
+    	 *  
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/people.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("functionsGreatest", file);
+        assertEquals("should be same", "greatest(name,age)", ret);
+    }
+    
+    @Test
+    public void functionsExprTest() throws Exception {
+    	/*
+    	 * tests
+    	 * functions.expr()
+    	 *  
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/people.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("functionsExpr", file);
+        assertEquals("should be same", "[4,1],[6,1],[7,1]", ret);
+    }
+    
+    @Test
+    public void functionsAtan2Test() throws Exception {
+    	/*
+    	 * tests
+    	 * functions.atan2()
+    	 *  
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/people.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("functionsAtan2", file);
+        assertEquals("should be same", "all good", ret);
     }
     
     /*
