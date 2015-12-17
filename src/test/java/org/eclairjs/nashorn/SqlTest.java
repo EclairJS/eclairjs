@@ -910,6 +910,102 @@ public class SqlTest {
     }
     
     /*
+     * DataFrame Column tests
+     */
+    
+    @Test
+    public void columnAsTest() throws Exception {
+    	/*
+    	 * tests
+    	 * Column.as
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/people.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("asCloumn", file);
+        assertEquals("should be same", "age AS ArrayBuffer(newAge, ventage)", ret);
+    }
+    
+    @Test
+    public void columnBetweenTest() throws Exception {
+    	/*
+    	 * tests
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/people.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("betweenCloumn", file);
+        assertEquals("should be same", "[true],[false],[true]", ret);
+    }
+    
+    @Test
+    public void columnCastTest() throws Exception {
+    	/*
+    	 * tests
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/people.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("castCloumn", file);
+        assertEquals("should be same", "cast(age as string)", ret);
+    }
+    
+    @Test
+    public void columnContansTest() throws Exception {
+    	/*
+    	 * tests
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/people.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("containsCloumn", file);
+        assertEquals("should be same", "Contains(name, dogs)", ret);
+    }
+    
+    @Test
+    public void columnDivideTest() throws Exception {
+    	/*
+    	 * tests
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/people.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("divideCloumn", file);
+        assertEquals("should be same", "[249916.69452682437],[333235.58430193807],[62.5]", ret);
+    }
+    
+    @Test
+    public void columnInTest() throws Exception {
+    	/*
+    	 * tests
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/people.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("inCloumn", file);
+        assertEquals("should be same", "[false],[false],[true]", ret);
+    }
+    
+    @Test
+    public void columnOtherwiseTest() throws Exception {
+    	/*
+    	 * tests
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/people.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("otherwiseCloumn", file);
+        assertEquals("should be same", "[true],[true],[false]", ret);
+    }
+    
+    /*
      * Dataframe dataType tests
      */
     
