@@ -38,6 +38,31 @@ var flatMapTest = function() {
     streamingContext.start();
 }
 
+var flatMapToPairTest = function() {
+    streamingContext = new StreamingContext(sparkContext, duration);
+    var dstream = streamingContext.socketTextStream("localhost", 9999);
+    var ds1 = dstream.flatMapToPair(function(line) {
+        var ret = [];
+        var arr = line.split(",");
+        arr.forEach(function(letter) {
+            ret.push([letter,1]);
+        })
+
+        return ret;
+    })
+
+    ds1.foreachRDD(function(rdd) {
+        var d = rdd.collect();
+        if(!d.isEmpty()) {
+            d.forEach(function(letter) {
+                data.push(letter)
+            })
+        }
+    })
+
+    streamingContext.start();
+}
+
 var mapTest = function() {
     streamingContext = new StreamingContext(sparkContext, duration);
     var dstream = streamingContext.socketTextStream("localhost", 9999);
