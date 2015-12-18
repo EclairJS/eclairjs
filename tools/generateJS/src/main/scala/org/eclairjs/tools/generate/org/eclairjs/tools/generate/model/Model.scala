@@ -136,6 +136,42 @@ case class Method(name:String,comment:String,returnType:DataType,parms:List[Parm
     case "<init>" | "this" => true
     case _ => false
   }
+
+  def getDistinctName():String ={
+    val methods=parent.methods(name)
+
+    if (methods.length==1)
+      return name;
+    else
+    {
+      val others=methods.filter(_!=this)
+      if (others.length==1)
+      {
+        val otherList=others(0).parms;
+        val thisList=parms
+        if (otherList.length>thisList.length)
+        // shorter parmlist, don't rename
+          return name;
+        else if (otherList.length<thisList.length)
+        {
+          val lastParm=thisList(otherList.length)  // first additional parm
+          return name+"with"+lastParm.name.capitalize
+        }
+        else {   //same length, use typename
+        val lastParmType=getParmJSType(thisList.last.name)
+          return name+"with"+lastParmType
+        }
+
+      }
+      // for now just number, should get more intelligent
+      else
+      {
+        val index=methods.indexOf(this)
+        return name+index
+      }
+
+    }
+  }
 }
 
 case class Parm(name:String,typ:DataType)

@@ -119,7 +119,7 @@ abstract class GenerateJSBase {
     addNewlines(1,sb)
 
     // if method has multiple parm lists, generate unique name
-    val methodName=getMethodName(method)
+    val methodName=method.getDistinctName()
 
     sb.append(method.parent.name)
     if (method.parent.isStatic)
@@ -144,42 +144,7 @@ abstract class GenerateJSBase {
 
 
 
-  def getMethodName(method:Method):String ={
-    val name=method.name
-    val methods=method.parent.methods(name)
 
-    if (methods.length==1)
-      return name;
-    else
-    {
-      val others=methods.filter(_!=method)
-      if (others.length==1)
-      {
-        val otherList=others(0).parms;
-        val thisList=method.parms
-        if (otherList.length>thisList.length)
-          // shorter parmlist, don't rename
-           return name;
-        else if (otherList.length<thisList.length)
-          {
-            val lastParm=thisList(otherList.length)  // first additional parm
-            return name+"with"+lastParm.name.capitalize
-          }
-        else {   //same length, use typename
-            val lastParmType=method.getParmJSType(thisList.last.name)
-            return name+"with"+lastParmType
-        }
-
-      }
-      // for now just number, should get more intelligent
-      else
-      {
-          val index=methods.indexOf(method)
-          return name+index
-      }
-
-    }
-  }
 
 def convertToJSDoc(comment:String, model:AnyRef):String = {
 

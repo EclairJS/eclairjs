@@ -4,6 +4,16 @@ import _root_.org.eclairjs.tools.generate.org.eclairjs.tools.generate.model.{Cla
 
 object Statistics {
 
+  // options  (ideally it would be command line options)
+
+  val infoDistinctMethodNames = true
+  val showGeneratedClassList = false
+  val showClassInfo=false
+  val showSimpleClassNames=false  // class names without package
+  val showReferencedTypes=false
+  val showClosure=true
+  val showClosureClassInfo=true
+  val showClosureGenerateClasses=false
 
   var numClasses=0;
   var numMethods=0;
@@ -17,13 +27,16 @@ object Statistics {
     override  def toString() ={
       val numStr:String=if (num>1) num.toString else " "
       val docStr:String=if (hasDoc) "DOC" else "   "
-      s"  $name  $numStr $docStr"
+      if (infoDistinctMethodNames)
+        s"  * $name"
+      else
+        s"  * $name  $numStr $docStr"
     }
   }
   case class ClassInfo(name:String,numConstructors:Int, methods:List[MethodInfo])
   {
     override  def toString() ={
-      s"$name   $numConstructors constructor(s)\n ${methods.mkString("\n")}"
+      s"* $name   $numConstructors constructor(s)\n${methods.sortWith(_.name < _.name).mkString("\n")}"
     }
   }
   val generatedFiles= scala.collection.mutable.ListBuffer.empty[String]
@@ -76,7 +89,7 @@ object Statistics {
       val generatedMethodInfos= scala.collection.mutable.ListBuffer.empty[MethodInfo]
 
       methods foreach(method=>{
-        val name=method.name
+        val name=if (infoDistinctMethodNames) method.getDistinctName() else method.name
         val seen=s contains(name)
         if (seen)
           numOverloadedMethods+=1
@@ -140,7 +153,7 @@ object Statistics {
 
     reset()
     topLevels foreach(checkType(_))
-    if (true)
+    if (false)  // sublcasses of referenced classes
       {
 
         def isReferenced(name:String):Boolean =
@@ -170,10 +183,10 @@ object Statistics {
       """
     val sortedNames=generatedClasses.sorted
 
-    if (false)  // list of classes
+    if (showClosureGenerateClasses)  // list of classes
       str = str+ "Generated classes :\n"+ sortedNames.mkString("\n")
 
-    if (true)  // class info
+    if (showClosureClassInfo)  // class info
     {
       sortedNames foreach( name=> str = str+generatedClassInfos(name).toString+"\n")
     }
@@ -193,25 +206,25 @@ object Statistics {
 
     val sortedNames=generatedClasses.sorted
 
-    if (false)  // list of classes
+    if (showGeneratedClassList)  // list of classes
       str = str+ "Generated classes :\n"+ sortedNames.mkString("\n")
 
-    if (false)  // class info
+    if (showClassInfo)  // class info
       {
         sortedNames foreach( name=> str = str+generatedClassInfos(name).toString+"\n")
       }
-    if (false)  // sorted class name (ignoring package)
+    if (showSimpleClassNames)  // sorted class name (ignoring package)
     {
       str=str+sortedNames.sortWith(_.split("\\.").last < _.split("\\.").last).mkString("\n")
 
     }
-    if (false)  // referenced types
+    if (showReferencedTypes)  // referenced types
     {
       str=str+"referenced types :\n"+ referencedTypes.toList.sorted.mkString("\n")
 
     }
 
-    if (true) {
+    if (showClosure) {
       str = str + calculateClosure()
     }
     str
