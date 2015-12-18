@@ -17,18 +17,19 @@
 
 
 
-
+/**
+  * @constructor
+  * @classdesc PartialResult
+ */
 var PartialResult = function(initialVal,isFinal) {
-var jvmObject = new org.apache.spark.partial.PartialResult(initialVal,isFinal);
-this.logger = Logger.getLogger("PartialResult_js");
-JavaWrapper.call(this, jvmObject);
-
+    var jvmObject = new org.apache.spark.partial.PartialResult(initialVal,isFinal);
+    this.logger = Logger.getLogger("PartialResult_js");
+    JavaWrapper.call(this, jvmObject);
 };
 
 PartialResult.prototype = Object.create(JavaWrapper.prototype);
 
 PartialResult.prototype.constructor = PartialResult;
-
 
 
 

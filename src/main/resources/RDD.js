@@ -352,7 +352,7 @@ RDD.prototype.foreach = function(func) {
  *    });
  *    connection.close()
  * });
- * @param {function} Function with one Array parameter
+ * @param {function} func Function with one Array parameter
  * @returns {void}
  */
 RDD.prototype.foreachPartition = function(func) {
@@ -523,7 +523,7 @@ RDD.prototype.map = function(func) {
  * Similar to map, but runs separately on each partition (block) of the RDD, so func must accept an Array.  
  * func should return a array rather than a single item.
  * @param {function}
- * @param {boolean} optional
+ * @param {boolean} preservesPartitioning (optional)
  * @returns {RDD}
  */
 RDD.prototype.mapPartitions = function(func,preservesPartitioning) {
@@ -639,7 +639,7 @@ RDD.prototype.persist = function(newLevel) {
  * Return an RDD created by piping elements to a forked external process.
  * The print behavior can be customized by providing two functions.
  *
- * @param {Seq} or {string} command  command to run in forked process.
+ * @param {Seq|string} command  command to run in forked process.
  * @param {Map} env  environment variables to set.
  * @param {func} printPipeContext  Before piping elements, this function is called as an opportunity
  *                         to pipe context data. Print line function (like out.println) will be
@@ -1055,9 +1055,9 @@ RDD.prototype.zip = function(other) {
  * of elements in each partition.
  *
  * @param {RDD}
- * @param {RDD} optional
- * @param {RDD} optional
- * @param {boolean} optional
+ * @param {RDD} rdd2 (optional)
+ * @param {RDD} rdd3 (optional)
+ * @param {boolean} rdd4 (optional)
  * @returns {RDD}
  */
 RDD.prototype.zipPartitions = function(rdd2,rdd3,rdd4,preservesPartitioning) {

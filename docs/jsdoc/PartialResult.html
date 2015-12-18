@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: LinearRegressionWithSGD</title>
+    <title>JSDoc: Class: PartialResult</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Class: LinearRegressionWithSGD</h1>
+    <h1 class="page-title">Class: PartialResult</h1>
     
     
 
@@ -27,13 +27,10 @@
     
 <header>
     <h2>
-    LinearRegressionWithSGD
+    PartialResult
     </h2>
     
-        <div class="class-description">Train a linear regression model with no regularization using Stochastic Gradient Descent. 
-This solves the least squares regression formulation f(weights) = 1/n ||A weights-y||^2^ (which is the mean squared error). 
-Here the data matrix has n rows, and the input RDD holds the set of rows of A, each with its corresponding right hand side label y. 
-See also the documentation for the precise formulation.</div>
+        <div class="class-description">PartialResult</div>
     
 </header>  
 
@@ -44,16 +41,12 @@ See also the documentation for the precise formulation.</div>
     
         
 <dt>
-    <h4 class="name" id="LinearRegressionWithSGD"><span class="type-signature"></span>new LinearRegressionWithSGD<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="PartialResult"><span class="type-signature"></span>new PartialResult<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
 <dd>
     
-    
-    <div class="description">
-        Construct a LinearRegression object with default parameters: {stepSize: 1.0, numIterations: 100, miniBatchFraction: 1.0}.
-    </div>
     
 
     
@@ -85,7 +78,7 @@ See also the documentation for the precise formulation.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="LinearRegressionWithSGD.js.html">mllib/regression/LinearRegressionWithSGD.js</a>, <a href="LinearRegressionWithSGD.js.html#line24">line 24</a>
+        <a href="PartialResult.js.html">partial/PartialResult.js</a>, <a href="PartialResult.js.html#line24">line 24</a>
     </li></ul></dd>
     
     
@@ -131,7 +124,7 @@ See also the documentation for the precise formulation.</div>
         <dl>
             
 <dt>
-    <h4 class="name" id="train"><span class="type-signature">&lt;static> </span>train<span class="signature">(rdd, numIterations)</span><span class="type-signature"> &rarr; {<a href="LinearRegressionModel.html">LinearRegressionModel</a>}</span></h4>
+    <h4 class="name" id="getFinalValue"><span class="type-signature"></span>getFinalValue<span class="signature">()</span><span class="type-signature"> &rarr; {object}</span></h4>
     
     
 </dt>
@@ -139,7 +132,7 @@ See also the documentation for the precise formulation.</div>
     
     
     <div class="description">
-        Train a LinearRegression model given an RDD of (label, features) pairs.
+        Blocking method to wait for and return the final value.
     </div>
     
 
@@ -147,77 +140,6 @@ See also the documentation for the precise formulation.</div>
     
     
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>rdd</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="RDD.html">RDD</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">of LabeledPoints</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>numIterations</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">integer</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
     
     
     
@@ -243,7 +165,7 @@ See also the documentation for the precise formulation.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="LinearRegressionWithSGD.js.html">mllib/regression/LinearRegressionWithSGD.js</a>, <a href="LinearRegressionWithSGD.js.html#line34">line 34</a>
+        <a href="PartialResult.js.html">partial/PartialResult.js</a>, <a href="PartialResult.js.html#line54">line 54</a>
     </li></ul></dd>
     
     
@@ -275,13 +197,258 @@ See also the documentation for the precise formulation.</div>
 	</dt>
 	<dd>
 		
-<span class="param-type"><a href="LinearRegressionModel.html">LinearRegressionModel</a></span>
+<span class="param-type">object</span>
 
 
 	</dd>
 </dl>
 
         
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="map"><span class="type-signature"></span>map<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="PartialResult.html">PartialResult</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Transform this PartialResult into a PartialResult of type T.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="PartialResult.js.html">partial/PartialResult.js</a>, <a href="PartialResult.js.html#line91">line 91</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="PartialResult.html">PartialResult</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="onComplete"><span class="type-signature"></span>onComplete<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="PartialResult.html">PartialResult</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Set a handler to be called when this PartialResult completes. Only one completion handler
+is supported per PartialResult.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="PartialResult.js.html">partial/PartialResult.js</a>, <a href="PartialResult.js.html#line66">line 66</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="PartialResult.html">PartialResult</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="onFail"><span class="type-signature"></span>onFail<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Set a handler to be called if this PartialResult's job fails. Only one failure handler
+is supported per PartialResult.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="PartialResult.js.html">partial/PartialResult.js</a>, <a href="PartialResult.js.html#line79">line 79</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
     
     
 </dd>

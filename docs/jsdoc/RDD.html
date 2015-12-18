@@ -2679,7 +2679,7 @@ non-distributed collection.
         
             
 <dt>
-    <h4 class="name" id="foreachPartition"><span class="type-signature"></span>foreachPartition<span class="signature">(Function)</span><span class="type-signature"> &rarr; {void}</span></h4>
+    <h4 class="name" id="foreachPartition"><span class="type-signature"></span>foreachPartition<span class="signature">(func)</span><span class="type-signature"> &rarr; {void}</span></h4>
     
     
 </dt>
@@ -2721,7 +2721,7 @@ non-distributed collection.
 	
         <tr>
             
-                <td class="name"><code>Function</code></td>
+                <td class="name"><code>func</code></td>
             
             
             <td class="type">
@@ -2737,7 +2737,7 @@ non-distributed collection.
             
             
             
-            <td class="description last">with one Array parameter</td>
+            <td class="description last">Function with one Array parameter</td>
         </tr>
 	
 	
@@ -3315,7 +3315,7 @@ or {@link reduceByKey} will provide much better performance.
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#Partitioner">Partitioner</a></span>
+<span class="param-type"><a href="Partitioner.html">Partitioner</a></span>
 
 
             
@@ -3581,7 +3581,7 @@ Note that this method performs a shuffle internally.
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#Partitioner">Partitioner</a></span>
+<span class="param-type"><a href="Partitioner.html">Partitioner</a></span>
 
 
             
@@ -4204,7 +4204,7 @@ The checkpoint directory set through `SparkContext#setCheckpointDir` is not used
         
             
 <dt>
-    <h4 class="name" id="mapPartitions"><span class="type-signature"></span>mapPartitions<span class="signature">(func, optional)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    <h4 class="name" id="mapPartitions"><span class="type-signature"></span>mapPartitions<span class="signature">(func, preservesPartitioning)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
     
     
 </dt>
@@ -4271,7 +4271,7 @@ func should return a array rather than a single item.
 	
         <tr>
             
-                <td class="name"><code>optional</code></td>
+                <td class="name"><code>preservesPartitioning</code></td>
             
             
             <td class="type">
@@ -4287,7 +4287,7 @@ func should return a array rather than a single item.
             
             
             
-            <td class="description last"></td>
+            <td class="description last">(optional)</td>
         </tr>
 	
 	
@@ -5458,7 +5458,7 @@ partition with the index of that partition.
         
             
 <dt>
-    <h4 class="name" id="pipe"><span class="type-signature"></span>pipe<span class="signature">(or, env, printPipeContext, printRDDElement, separateWorkingDir)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    <h4 class="name" id="pipe"><span class="type-signature"></span>pipe<span class="signature">(command, env, printPipeContext, printRDDElement, separateWorkingDir)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
     
     
 </dt>
@@ -5501,13 +5501,16 @@ The print behavior can be customized by providing two functions.
 	
         <tr>
             
-                <td class="name"><code>or</code></td>
+                <td class="name"><code>command</code></td>
             
             
             <td class="type">
             
                 
 <span class="param-type">Seq</span>
+|
+
+<span class="param-type">string</span>
 
 
             
@@ -5517,7 +5520,7 @@ The print behavior can be customized by providing two functions.
             
             
             
-            <td class="description last">{string} command  command to run in forked process.</td>
+            <td class="description last">command to run in forked process.</td>
         </tr>
 	
 	
@@ -9032,7 +9035,7 @@ a map on the other).
         
             
 <dt>
-    <h4 class="name" id="zipPartitions"><span class="type-signature"></span>zipPartitions<span class="signature">(rdd2, optional, optional, optional)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    <h4 class="name" id="zipPartitions"><span class="type-signature"></span>zipPartitions<span class="signature">(rdd2, rdd2, rdd3, rdd4)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
     
     
 </dt>
@@ -9100,7 +9103,7 @@ of elements in each partition.
 	
         <tr>
             
-                <td class="name"><code>optional</code></td>
+                <td class="name"><code>rdd2</code></td>
             
             
             <td class="type">
@@ -9116,14 +9119,14 @@ of elements in each partition.
             
             
             
-            <td class="description last"></td>
+            <td class="description last">(optional)</td>
         </tr>
 	
 	
 	
         <tr>
             
-                <td class="name"><code>optional</code></td>
+                <td class="name"><code>rdd3</code></td>
             
             
             <td class="type">
@@ -9139,14 +9142,14 @@ of elements in each partition.
             
             
             
-            <td class="description last"></td>
+            <td class="description last">(optional)</td>
         </tr>
 	
 	
 	
         <tr>
             
-                <td class="name"><code>optional</code></td>
+                <td class="name"><code>rdd4</code></td>
             
             
             <td class="type">
@@ -9162,7 +9165,7 @@ of elements in each partition.
             
             
             
-            <td class="description last"></td>
+            <td class="description last">(optional)</td>
         </tr>
 	
 	
@@ -9443,13 +9446,13 @@ the same index assignments, you should sort the RDD with sortByKey() or save it 
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulator.html">Accumulator</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="functions.html">functions</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContextQueryExecution.html">SQLContextQueryExecution</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="Vector.html">Vector</a></li></ul><h3>Global</h3><ul><li><a href="global.html#HashPartitioner">HashPartitioner</a></li><li><a href="global.html#Partitioner">Partitioner</a></li><li><a href="global.html#RangePartitioner">RangePartitioner</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulator.html">Accumulator</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="functions.html">functions</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContextQueryExecution.html">SQLContextQueryExecution</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="Vector.html">Vector</a></li></ul><h3>Global</h3><ul><li><a href="global.html#HashPartitioner">HashPartitioner</a></li><li><a href="global.html#RangePartitioner">RangePartitioner</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Fri Dec 18 2015 15:38:30 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Fri Dec 18 2015 16:00:02 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>

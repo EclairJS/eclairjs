@@ -17,16 +17,13 @@
 
 
 /**
- * An object that defines how the elements in a key-value pair RDD are partitioned by key.
+ * @constructor
+ * @classdesc An object that defines how the elements in a key-value pair RDD are partitioned by key.
  * Maps each key to a partition ID, from 0 to `numPartitions - 1`.
- * @classdesc
  */
-
 var Partitioner = function(jvmObject) {
-
-this.logger = Logger.getLogger("Partitioner_js");
-JavaWrapper.call(this, jvmObject);
-
+    this.logger = Logger.getLogger("Partitioner_js");
+    JavaWrapper.call(this, jvmObject);
 };
 
 Partitioner.prototype = Object.create(JavaWrapper.prototype);
