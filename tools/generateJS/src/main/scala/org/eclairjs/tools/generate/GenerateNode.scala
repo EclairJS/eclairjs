@@ -41,7 +41,17 @@ class GenerateNode  extends  GenerateJSBase {
   }
 
   override def generateIncludes(file:File, sb:StringBuilder): Unit = {
-    val constr = getTemplate("node_defaultRequires")
+
+    // determine path to root directory
+    val rootDir="apache/spark/"
+    val inx=file.fileName.indexOf(rootDir)
+    val segments=file.fileName.substring(inx+rootDir.length).split("/").length-1
+    val prefix= if (segments==0) "."
+    else
+      {
+        List("..","..","..","..","..","..","..","..","..","..","..","..").take(segments).mkString("/")
+      }
+    val constr = getTemplate("node_defaultRequires",prefix,prefix)
 
     sb++=constr
   }
