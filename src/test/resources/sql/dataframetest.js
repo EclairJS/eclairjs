@@ -784,6 +784,40 @@ var functionsGreatest = function(file) {
 	//var testCol = functions.greatest("name", "age");
     return testCol.toString();
 }
+
+var functionsConcat = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file, true);
+	var testCol = functions.concat(peopleDataFrame.col("name"), peopleDataFrame.col("age"));
+    return testCol.toString();
+}
+
+var functionsFrom_unixtime = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file, true);
+	var testCol = functions.from_unixtime(peopleDataFrame.col("DOB"), "yyyy-MM-dd");
+	//var testCol = functions.from_unixtime(peopleDataFrame.col("DOB"));
+    return testCol.toString();
+}
+
+var functionsUnix_timestamp = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file, true);
+	//var testCol = functions.unix_timestamp(peopleDataFrame.col("DOB"), "yyyy-MM-dd");
+	//var testCol = functions.unix_timestamp(peopleDataFrame.col("DOB"));
+	var testCol = functions.unix_timestamp();
+    return testCol.toString();
+}
+
+var functionsSort_array = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file, true);
+	var testCol = functions.sort_array(peopleDataFrame.col("DOB"));
+	//var testCol = functions.sort_array(peopleDataFrame.col("DOB"), true);
+	//var testCol = functions.sort_array(peopleDataFrame.col("DOB"), false);
+    return testCol.toString();
+}
+
 /*
  * Row tests
  */

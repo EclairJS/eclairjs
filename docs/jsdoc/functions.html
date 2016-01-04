@@ -404,7 +404,7 @@
         
             
 <dt>
-    <h4 class="name" id="add_months"><span class="type-signature">&lt;static> </span>add_months<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="add_months"><span class="type-signature">&lt;static> </span>add_months<span class="signature">(startDate, numMonths)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -420,6 +420,77 @@
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>startDate</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>numMonths</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -448,7 +519,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1925">line 1925</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1986">line 1986</a>
     </li></ul></dd>
     
     
@@ -799,7 +870,7 @@
         
             
 <dt>
-    <h4 class="name" id="array_contains"><span class="type-signature">&lt;static> </span>array_contains<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="array_contains"><span class="type-signature">&lt;static> </span>array_contains<span class="signature">(column, value)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -815,6 +886,80 @@
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>column</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -843,7 +988,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2317">line 2317</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2369">line 2369</a>
     </li></ul></dd>
     
     
@@ -2359,108 +2504,6 @@ The following example marks the right DataFrame for broadcast hash join using `j
         
             
 <dt>
-    <h4 class="name" id="callUDF"><span class="type-signature">&lt;static> </span>callUDF<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Call an user-defined function.
-Example:
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-    <dt class="tag-since">Since:</dt>
-    <dd class="tag-since"><ul class="dummy"><li>EclairJS 0.1 Spark  1.5.0</dd>
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2568">line 2568</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="Column.html">Column</a></span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="prettyprint"><code> import org.apache.spark.sql._
-
- val df = Seq(("id1", 1), ("id2", 4), ("id3", 5)).toDF("id", "value")
- val sqlContext = df.sqlContext
- sqlContext.udf.register("simpleUDF", (v: Int) => v * v)
- df.select($"id", callUDF("simpleUDF", $"value"))
- </code></pre>
-
-    
-</dd>
-
-        
-            
-<dt>
     <h4 class="name" id="cbrt"><span class="type-signature">&lt;static> </span>cbrt<span class="signature">(col)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
@@ -3160,7 +3203,7 @@ or b if a is null and b is not null, or c if both a and b are null but c is not 
         
             
 <dt>
-    <h4 class="name" id="concat"><span class="type-signature">&lt;static> </span>concat<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="concat"><span class="type-signature">&lt;static> </span>concat<span class="signature">(columnExpr,)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -3176,6 +3219,57 @@ or b if a is null and b is not null, or c if both a and b are null but c is not 
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>columnExpr,</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+|
+
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">...columnExpr or columnName, ...columnName</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -3204,7 +3298,7 @@ or b if a is null and b is not null, or c if both a and b are null but c is not 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1489">line 1489</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1490">line 1490</a>
     </li></ul></dd>
     
     
@@ -3250,7 +3344,7 @@ or b if a is null and b is not null, or c if both a and b are null but c is not 
         
             
 <dt>
-    <h4 class="name" id="concat_ws"><span class="type-signature">&lt;static> </span>concat_ws<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="concat_ws"><span class="type-signature">&lt;static> </span>concat_ws<span class="signature">(sep, columnExpr,)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -3267,6 +3361,80 @@ using the given separator.
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>sep</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>columnExpr,</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+|
+
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">...columnExpr or columnName, ...columnName</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -3295,7 +3463,7 @@ using the given separator.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1504">line 1504</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1517">line 1517</a>
     </li></ul></dd>
     
     
@@ -4350,7 +4518,7 @@ This is equivalent to the CUME_DIST function in SQL.</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1939">line 1939</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1999">line 1999</a>
     </li></ul></dd>
     
     
@@ -4440,373 +4608,6 @@ This is equivalent to the CUME_DIST function in SQL.</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1952">line 1952</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="Column.html">Column</a></span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="date_add"><span class="type-signature">&lt;static> </span>date_add<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Returns the date that is `days` days after `start`
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-    <dt class="tag-since">Since:</dt>
-    <dd class="tag-since"><ul class="dummy"><li>EclairJS 0.1 Spark  1.5.0</dd>
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1985">line 1985</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="Column.html">Column</a></span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="date_format"><span class="type-signature">&lt;static> </span>date_format<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Converts a date/timestamp/string to a value of string in the format specified by the date
-format given by the second argument.
-
-A pattern could be for instance `dd.MM.yyyy` and could return a string like '18.03.1993'. All
-pattern letters of SimpleDateFormat can be used.
-
-NOTE: Use when ever possible specialized functions like year. These benefit from a
-specialized implementation.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-    <dt class="tag-since">Since:</dt>
-    <dd class="tag-since"><ul class="dummy"><li>EclairJS 0.1 Spark  1.5.0</dd>
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1972">line 1972</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="Column.html">Column</a></span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="date_sub"><span class="type-signature">&lt;static> </span>date_sub<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Returns the date that is `days` days before `start`
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-    <dt class="tag-since">Since:</dt>
-    <dd class="tag-since"><ul class="dummy"><li>EclairJS 0.1 Spark  1.5.0</dd>
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1998">line 1998</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="Column.html">Column</a></span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="datediff"><span class="type-signature">&lt;static> </span>datediff<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Returns the number of days from `start` to `end`.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-    <dt class="tag-since">Since:</dt>
-    <dd class="tag-since"><ul class="dummy"><li>EclairJS 0.1 Spark  1.5.0</dd>
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
         <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2011">line 2011</a>
     </li></ul></dd>
     
@@ -4853,7 +4654,658 @@ specialized implementation.
         
             
 <dt>
-    <h4 class="name" id="dayofmonth"><span class="type-signature">&lt;static> </span>dayofmonth<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="date_add"><span class="type-signature">&lt;static> </span>date_add<span class="signature">(start, days)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Returns the date that is `days` days after `start`
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>start</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>days</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>EclairJS 0.1 Spark  1.5.0</dd>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2046">line 2046</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="date_format"><span class="type-signature">&lt;static> </span>date_format<span class="signature">(dateExpr, format)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Converts a date/timestamp/string to a value of string in the format specified by the date
+format given by the second argument.
+
+A pattern could be for instance `dd.MM.yyyy` and could return a string like '18.03.1993'. All
+pattern letters of SimpleDateFormat can be used.
+
+NOTE: Use when ever possible specialized functions like year. These benefit from a
+specialized implementation.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>dateExpr</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>format</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>EclairJS 0.1 Spark  1.5.0</dd>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2032">line 2032</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="date_sub"><span class="type-signature">&lt;static> </span>date_sub<span class="signature">(start, days)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Returns the date that is `days` days before `start`
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>start</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>days</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>EclairJS 0.1 Spark  1.5.0</dd>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2060">line 2060</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="datediff"><span class="type-signature">&lt;static> </span>datediff<span class="signature">(end, start)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Returns the number of days from `start` to `end`.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>end</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>start</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>EclairJS 0.1 Spark  1.5.0</dd>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2074">line 2074</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="dayofmonth"><span class="type-signature">&lt;static> </span>dayofmonth<span class="signature">(e)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -4870,6 +5322,54 @@ specialized implementation.
     
     
     
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
     
     
 <dl class="details">
@@ -4897,7 +5397,7 @@ specialized implementation.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2064">line 2064</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2127">line 2127</a>
     </li></ul></dd>
     
     
@@ -4943,7 +5443,7 @@ specialized implementation.
         
             
 <dt>
-    <h4 class="name" id="dayofyear"><span class="type-signature">&lt;static> </span>dayofyear<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="dayofyear"><span class="type-signature">&lt;static> </span>dayofyear<span class="signature">(e)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -4960,6 +5460,54 @@ specialized implementation.
     
     
     
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
     
     
 <dl class="details">
@@ -4987,7 +5535,7 @@ specialized implementation.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2077">line 2077</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2140">line 2140</a>
     </li></ul></dd>
     
     
@@ -5033,7 +5581,7 @@ specialized implementation.
         
             
 <dt>
-    <h4 class="name" id="decode"><span class="type-signature">&lt;static> </span>decode<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="decode"><span class="type-signature">&lt;static> </span>decode<span class="signature">(value, charset)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -5052,6 +5600,77 @@ If either argument is null, the result will also be null.
     
     
     
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>charset</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">one of 'US-ASCII', 'ISO-8859-1', 'UTF-8', 'UTF-16BE', 'UTF-16LE', 'UTF-16'</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
     
     
 <dl class="details">
@@ -5079,7 +5698,7 @@ If either argument is null, the result will also be null.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1520">line 1520</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1545">line 1545</a>
     </li></ul></dd>
     
     
@@ -5367,7 +5986,7 @@ This is equivalent to the DENSE_RANK function in SQL.
         
             
 <dt>
-    <h4 class="name" id="encode"><span class="type-signature">&lt;static> </span>encode<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="encode"><span class="type-signature">&lt;static> </span>encode<span class="signature">(value, charset)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -5385,6 +6004,77 @@ If either argument is null, the result will also be null.
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>charset</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">one of 'US-ASCII', 'ISO-8859-1', 'UTF-8', 'UTF-16BE', 'UTF-16LE', 'UTF-16'</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -5413,7 +6103,7 @@ If either argument is null, the result will also be null.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1536">line 1536</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1562">line 1562</a>
     </li></ul></dd>
     
     
@@ -5600,7 +6290,7 @@ If either argument is null, the result will also be null.
         
             
 <dt>
-    <h4 class="name" id="explode"><span class="type-signature">&lt;static> </span>explode<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="explode"><span class="type-signature">&lt;static> </span>explode<span class="signature">(e)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -5616,6 +6306,54 @@ If either argument is null, the result will also be null.
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -5644,7 +6382,7 @@ If either argument is null, the result will also be null.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2331">line 2331</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2383">line 2383</a>
     </li></ul></dd>
     
     
@@ -6394,7 +7132,7 @@ DataFrame.selectExpr
         
             
 <dt>
-    <h4 class="name" id="format_number"><span class="type-signature">&lt;static> </span>format_number<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="format_number"><span class="type-signature">&lt;static> </span>format_number<span class="signature">(x, d)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -6415,6 +7153,77 @@ If d < 0, the result will be null.
     
     
     
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>x</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>d</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">rounded to d decimal places</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
     
     
 <dl class="details">
@@ -6442,7 +7251,7 @@ If d < 0, the result will be null.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1554">line 1554</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1581">line 1581</a>
     </li></ul></dd>
     
     
@@ -6488,7 +7297,7 @@ If d < 0, the result will be null.
         
             
 <dt>
-    <h4 class="name" id="format_string"><span class="type-signature">&lt;static> </span>format_string<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="format_string"><span class="type-signature">&lt;static> </span>format_string<span class="signature">(format,, columnExpr,)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -6505,6 +7314,80 @@ If d < 0, the result will be null.
     
     
     
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>format,</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">printf-style</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>columnExpr,</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+|
+
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">...columnExpr or columnName, ...columnName</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
     
     
 <dl class="details">
@@ -6532,7 +7415,7 @@ If d < 0, the result will be null.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1568">line 1568</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1596">line 1596</a>
     </li></ul></dd>
     
     
@@ -6578,7 +7461,7 @@ If d < 0, the result will be null.
         
             
 <dt>
-    <h4 class="name" id="from_unixtime"><span class="type-signature">&lt;static> </span>from_unixtime<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="from_unixtime"><span class="type-signature">&lt;static> </span>from_unixtime<span class="signature">(ut, f,)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -6597,6 +7480,77 @@ format.
     
     
     
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>ut</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>f,</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional data format example: "yyyy-MM-dd"</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
     
     
 <dl class="details">
@@ -6624,7 +7578,7 @@ format.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2191">line 2191</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2260">line 2260</a>
     </li></ul></dd>
     
     
@@ -6670,99 +7624,7 @@ format.
         
             
 <dt>
-    <h4 class="name" id="from_unixtimewithF"><span class="type-signature">&lt;static> </span>from_unixtimewithF<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Converts the number of seconds from unix epoch (1970-01-01 00:00:00 UTC) to a string
-representing the timestamp of that moment in the current system time zone in the given
-format.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-    <dt class="tag-since">Since:</dt>
-    <dd class="tag-since"><ul class="dummy"><li>EclairJS 0.1 Spark  1.5.0</dd>
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2206">line 2206</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="Column.html">Column</a></span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="from_utc_timestamp"><span class="type-signature">&lt;static> </span>from_utc_timestamp<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="from_utc_timestamp"><span class="type-signature">&lt;static> </span>from_utc_timestamp<span class="signature">(ts, tz)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -6779,6 +7641,77 @@ format.
     
     
     
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>ts</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>tz</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
     
     
 <dl class="details">
@@ -6806,7 +7739,7 @@ format.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2291">line 2291</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2339">line 2339</a>
     </li></ul></dd>
     
     
@@ -7132,7 +8065,7 @@ This function takes at least 2 parameters. It will return null if all parameters
         
             
 <dt>
-    <h4 class="name" id="hour"><span class="type-signature">&lt;static> </span>hour<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="hour"><span class="type-signature">&lt;static> </span>hour<span class="signature">(e)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -7148,6 +8081,54 @@ This function takes at least 2 parameters. It will return null if all parameters
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -7176,7 +8157,7 @@ This function takes at least 2 parameters. It will return null if all parameters
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2090">line 2090</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2153">line 2153</a>
     </li></ul></dd>
     
     
@@ -7417,7 +8398,7 @@ var result = functions.hypot(col1, col2);
         
             
 <dt>
-    <h4 class="name" id="initcap"><span class="type-signature">&lt;static> </span>initcap<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="initcap"><span class="type-signature">&lt;static> </span>initcap<span class="signature">(e)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -7436,6 +8417,54 @@ For example, "hello world" will become "Hello World".
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -7464,7 +8493,7 @@ For example, "hello world" will become "Hello World".
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1585">line 1585</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1624">line 1624</a>
     </li></ul></dd>
     
     
@@ -7597,7 +8626,7 @@ For example, "hello world" will become "Hello World".
         
             
 <dt>
-    <h4 class="name" id="instr"><span class="type-signature">&lt;static> </span>instr<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="instr"><span class="type-signature">&lt;static> </span>instr<span class="signature">(str, substring)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -7617,6 +8646,77 @@ could not be found in str.
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>str</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>substring</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -7645,7 +8745,7 @@ could not be found in str.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1603">line 1603</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1643">line 1643</a>
     </li></ul></dd>
     
     
@@ -8161,7 +9261,7 @@ This is equivalent to the LAG function in SQL.
         
             
 <dt>
-    <h4 class="name" id="last_day"><span class="type-signature">&lt;static> </span>last_day<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="last_day"><span class="type-signature">&lt;static> </span>last_day<span class="signature">(e)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -8179,6 +9279,54 @@ month in July 2015.
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -8207,7 +9355,7 @@ month in July 2015.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2106">line 2106</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2169">line 2169</a>
     </li></ul></dd>
     
     
@@ -8586,7 +9734,7 @@ This function takes at least 2 parameters. It will return null iff all parameter
         
             
 <dt>
-    <h4 class="name" id="length"><span class="type-signature">&lt;static> </span>length<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="length"><span class="type-signature">&lt;static> </span>length<span class="signature">(e)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -8602,6 +9750,54 @@ This function takes at least 2 parameters. It will return null iff all parameter
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -8630,7 +9826,7 @@ This function takes at least 2 parameters. It will return null iff all parameter
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1617">line 1617</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1657">line 1657</a>
     </li></ul></dd>
     
     
@@ -8676,7 +9872,7 @@ This function takes at least 2 parameters. It will return null iff all parameter
         
             
 <dt>
-    <h4 class="name" id="levenshtein"><span class="type-signature">&lt;static> </span>levenshtein<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="levenshtein"><span class="type-signature">&lt;static> </span>levenshtein<span class="signature">(l, r)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -8692,6 +9888,77 @@ This function takes at least 2 parameters. It will return null iff all parameter
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>l</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>r</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -8720,7 +9987,7 @@ This function takes at least 2 parameters. It will return null iff all parameter
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1644">line 1644</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1685">line 1685</a>
     </li></ul></dd>
     
     
@@ -8907,7 +10174,7 @@ Otherwise, a new <a href="Column.html">Column</a> is created to represent the li
         
             
 <dt>
-    <h4 class="name" id="locate"><span class="type-signature">&lt;static> </span>locate<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="locate"><span class="type-signature">&lt;static> </span>locate<span class="signature">(substr, str)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -8925,6 +10192,77 @@ could not be found in str.
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>substr</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>str</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -8953,7 +10291,7 @@ could not be found in str.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1661">line 1661</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1703">line 1703</a>
     </li></ul></dd>
     
     
@@ -8999,7 +10337,7 @@ could not be found in str.
         
             
 <dt>
-    <h4 class="name" id="locatewithPos"><span class="type-signature">&lt;static> </span>locatewithPos<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="locatewithPos"><span class="type-signature">&lt;static> </span>locatewithPos<span class="signature">(substr, str, pos)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -9018,6 +10356,100 @@ could not be found in str.
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>substr</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>str</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>pos</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -9046,7 +10478,7 @@ could not be found in str.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1678">line 1678</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1722">line 1722</a>
     </li></ul></dd>
     
     
@@ -9679,7 +11111,7 @@ could not be found in str.
         
             
 <dt>
-    <h4 class="name" id="lower"><span class="type-signature">&lt;static> </span>lower<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="lower"><span class="type-signature">&lt;static> </span>lower<span class="signature">(e)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -9695,6 +11127,54 @@ could not be found in str.
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -9723,7 +11203,7 @@ could not be found in str.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1631">line 1631</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1671">line 1671</a>
     </li></ul></dd>
     
     
@@ -9769,7 +11249,7 @@ could not be found in str.
         
             
 <dt>
-    <h4 class="name" id="lpad"><span class="type-signature">&lt;static> </span>lpad<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="lpad"><span class="type-signature">&lt;static> </span>lpad<span class="signature">(str, len, pad)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -9786,6 +11266,100 @@ could not be found in str.
     
     
     
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>str</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>len</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>pad</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
     
     
 <dl class="details">
@@ -9813,7 +11387,7 @@ could not be found in str.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1692">line 1692</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1738">line 1738</a>
     </li></ul></dd>
     
     
@@ -9859,7 +11433,7 @@ could not be found in str.
         
             
 <dt>
-    <h4 class="name" id="ltrim"><span class="type-signature">&lt;static> </span>ltrim<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="ltrim"><span class="type-signature">&lt;static> </span>ltrim<span class="signature">(e)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -9875,6 +11449,54 @@ could not be found in str.
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -9903,7 +11525,7 @@ could not be found in str.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1706">line 1706</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1752">line 1752</a>
     </li></ul></dd>
     
     
@@ -10512,7 +12134,7 @@ Alias for avg.
         
             
 <dt>
-    <h4 class="name" id="minute"><span class="type-signature">&lt;static> </span>minute<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="minute"><span class="type-signature">&lt;static> </span>minute<span class="signature">(e)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -10528,6 +12150,54 @@ Alias for avg.
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -10556,7 +12226,7 @@ Alias for avg.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2119">line 2119</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2182">line 2182</a>
     </li></ul></dd>
     
     
@@ -10701,7 +12371,7 @@ This expression would return the following IDs:
         
             
 <dt>
-    <h4 class="name" id="month"><span class="type-signature">&lt;static> </span>month<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="month"><span class="type-signature">&lt;static> </span>month<span class="signature">(e)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -10717,6 +12387,54 @@ This expression would return the following IDs:
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -10745,7 +12463,165 @@ This expression would return the following IDs:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2051">line 2051</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2114">line 2114</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="months_between"><span class="type-signature">&lt;static> </span>months_between<span class="signature">(date1, date2)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Extracts the months between date1 and date2
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>date1</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>date2</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2195">line 2195</a>
     </li></ul></dd>
     
     
@@ -11098,7 +12974,7 @@ Both inputs should be floating point columns (DoubleType or FloatType).
         
             
 <dt>
-    <h4 class="name" id="next_day"><span class="type-signature">&lt;static> </span>next_day<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="next_day"><span class="type-signature">&lt;static> </span>next_day<span class="signature">(date, dayOfWeek,)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -11121,6 +12997,77 @@ Day of the week parameter is case insensitive, and accepts:
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>date</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>dayOfWeek,</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Day of the week parameter is case insensitive, and accepts: "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun".</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -11149,7 +13096,7 @@ Day of the week parameter is case insensitive, and accepts:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2150">line 2150</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2218">line 2218</a>
     </li></ul></dd>
     
     
@@ -11937,7 +13884,7 @@ var result = functions.atan2(col1, col2);
         
             
 <dt>
-    <h4 class="name" id="quarter"><span class="type-signature">&lt;static> </span>quarter<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="quarter"><span class="type-signature">&lt;static> </span>quarter<span class="signature">(e)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -11953,6 +13900,54 @@ var result = functions.atan2(col1, col2);
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -11981,7 +13976,7 @@ var result = functions.atan2(col1, col2);
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2038">line 2038</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2101">line 2101</a>
     </li></ul></dd>
     
     
@@ -12400,7 +14395,7 @@ This is equivalent to the RANK function in SQL.
         
             
 <dt>
-    <h4 class="name" id="regexp_extract"><span class="type-signature">&lt;static> </span>regexp_extract<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="regexp_extract"><span class="type-signature">&lt;static> </span>regexp_extract<span class="signature">(e, regex, groupIdx)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -12408,7 +14403,7 @@ This is equivalent to the RANK function in SQL.
     
     
     <div class="description">
-        Extract a specific(idx) group identified by a java regex, from the specified string column.
+        Extract a specific(idx) group identified by a regex, from the specified string column.
     </div>
     
 
@@ -12416,6 +14411,100 @@ This is equivalent to the RANK function in SQL.
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>regex</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>groupIdx</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -12444,7 +14533,7 @@ This is equivalent to the RANK function in SQL.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1720">line 1720</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1768">line 1768</a>
     </li></ul></dd>
     
     
@@ -12490,7 +14579,7 @@ This is equivalent to the RANK function in SQL.
         
             
 <dt>
-    <h4 class="name" id="regexp_replace"><span class="type-signature">&lt;static> </span>regexp_replace<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="regexp_replace"><span class="type-signature">&lt;static> </span>regexp_replace<span class="signature">(e, pattern, replacement)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -12507,6 +14596,100 @@ This is equivalent to the RANK function in SQL.
     
     
     
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>pattern</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>replacement</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
     
     
 <dl class="details">
@@ -12534,7 +14717,7 @@ This is equivalent to the RANK function in SQL.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1734">line 1734</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1784">line 1784</a>
     </li></ul></dd>
     
     
@@ -12580,7 +14763,7 @@ This is equivalent to the RANK function in SQL.
         
             
 <dt>
-    <h4 class="name" id="repeat"><span class="type-signature">&lt;static> </span>repeat<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="repeat"><span class="type-signature">&lt;static> </span>repeat<span class="signature">(str, n)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -12597,6 +14780,77 @@ This is equivalent to the RANK function in SQL.
     
     
     
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>str</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>n</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
     
     
 <dl class="details">
@@ -12624,7 +14878,7 @@ This is equivalent to the RANK function in SQL.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1777">line 1777</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1830">line 1830</a>
     </li></ul></dd>
     
     
@@ -12670,7 +14924,7 @@ This is equivalent to the RANK function in SQL.
         
             
 <dt>
-    <h4 class="name" id="reverse"><span class="type-signature">&lt;static> </span>reverse<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="reverse"><span class="type-signature">&lt;static> </span>reverse<span class="signature">(str)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -12686,6 +14940,54 @@ This is equivalent to the RANK function in SQL.
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>str</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -12714,7 +15016,7 @@ This is equivalent to the RANK function in SQL.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1791">line 1791</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1844">line 1844</a>
     </li></ul></dd>
     
     
@@ -13132,7 +15434,7 @@ This is equivalent to the ROW_NUMBER function in SQL.
         
             
 <dt>
-    <h4 class="name" id="rpad"><span class="type-signature">&lt;static> </span>rpad<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="rpad"><span class="type-signature">&lt;static> </span>rpad<span class="signature">(e, len, pad)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -13149,6 +15451,100 @@ This is equivalent to the ROW_NUMBER function in SQL.
     
     
     
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>len</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>pad</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
     
     
 <dl class="details">
@@ -13176,7 +15572,7 @@ This is equivalent to the ROW_NUMBER function in SQL.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1763">line 1763</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1815">line 1815</a>
     </li></ul></dd>
     
     
@@ -13222,7 +15618,7 @@ This is equivalent to the ROW_NUMBER function in SQL.
         
             
 <dt>
-    <h4 class="name" id="rtrim"><span class="type-signature">&lt;static> </span>rtrim<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="rtrim"><span class="type-signature">&lt;static> </span>rtrim<span class="signature">(e)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -13239,6 +15635,54 @@ This is equivalent to the ROW_NUMBER function in SQL.
     
     
     
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
     
     
 <dl class="details">
@@ -13266,7 +15710,7 @@ This is equivalent to the ROW_NUMBER function in SQL.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1805">line 1805</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1858">line 1858</a>
     </li></ul></dd>
     
     
@@ -13312,7 +15756,7 @@ This is equivalent to the ROW_NUMBER function in SQL.
         
             
 <dt>
-    <h4 class="name" id="second"><span class="type-signature">&lt;static> </span>second<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="second"><span class="type-signature">&lt;static> </span>second<span class="signature">(e)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -13328,6 +15772,54 @@ This is equivalent to the ROW_NUMBER function in SQL.
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -13356,7 +15848,7 @@ This is equivalent to the ROW_NUMBER function in SQL.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2163">line 2163</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2231">line 2231</a>
     </li></ul></dd>
     
     
@@ -14612,7 +17104,7 @@ it will return a long value else it will return an integer value.
         
             
 <dt>
-    <h4 class="name" id="size"><span class="type-signature">&lt;static> </span>size<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="size"><span class="type-signature">&lt;static> </span>size<span class="signature">(e)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -14629,6 +17121,54 @@ it will return a long value else it will return an integer value.
     
     
     
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
     
     
 <dl class="details">
@@ -14656,7 +17196,7 @@ it will return a long value else it will return an integer value.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2345">line 2345</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2397">line 2397</a>
     </li></ul></dd>
     
     
@@ -14702,98 +17242,7 @@ it will return a long value else it will return an integer value.
         
             
 <dt>
-    <h4 class="name" id="sort_array"><span class="type-signature">&lt;static> </span>sort_array<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Sorts the input array for the given column in ascending order,
-according to the natural ordering of the array elements.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-    <dt class="tag-since">Since:</dt>
-    <dd class="tag-since"><ul class="dummy"><li>EclairJS 0.1 Spark  1.5.0</dd>
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2360">line 2360</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="Column.html">Column</a></span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="sort_arraywithAsc"><span class="type-signature">&lt;static> </span>sort_arraywithAsc<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="sort_array"><span class="type-signature">&lt;static> </span>sort_array<span class="signature">(e, asc)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -14811,6 +17260,77 @@ according to the natural ordering of the array elements.
     
     
     
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>asc</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional, defaults to true</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
     
     
 <dl class="details">
@@ -14838,7 +17358,7 @@ according to the natural ordering of the array elements.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2375">line 2375</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2413">line 2413</a>
     </li></ul></dd>
     
     
@@ -14884,7 +17404,7 @@ according to the natural ordering of the array elements.
         
             
 <dt>
-    <h4 class="name" id="soundex"><span class="type-signature">&lt;static> </span>soundex<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="soundex"><span class="type-signature">&lt;static> </span>soundex<span class="signature">(e)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -14900,6 +17420,54 @@ according to the natural ordering of the array elements.
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -14928,7 +17496,7 @@ according to the natural ordering of the array elements.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1819">line 1819</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1872">line 1872</a>
     </li></ul></dd>
     
     
@@ -15066,7 +17634,7 @@ Note that this is indeterministic because it depends on data partitioning and ta
         
             
 <dt>
-    <h4 class="name" id="split"><span class="type-signature">&lt;static> </span>split<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="split"><span class="type-signature">&lt;static> </span>split<span class="signature">(str, pattern)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -15083,6 +17651,77 @@ NOTE: pattern is a string represent the regular expression.
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>str</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>pattern</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -15111,7 +17750,7 @@ NOTE: pattern is a string represent the regular expression.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1834">line 1834</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1888">line 1888</a>
     </li></ul></dd>
     
     
@@ -15443,7 +18082,7 @@ i.e. col1, col2, col3, ...
         
             
 <dt>
-    <h4 class="name" id="substring"><span class="type-signature">&lt;static> </span>substring<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="substring"><span class="type-signature">&lt;static> </span>substring<span class="signature">(str, pos, len)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -15461,6 +18100,100 @@ when str is Binary type
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>str</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>pos</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>len</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -15489,7 +18222,7 @@ when str is Binary type
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1850">line 1850</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1906">line 1906</a>
     </li></ul></dd>
     
     
@@ -15535,7 +18268,7 @@ when str is Binary type
         
             
 <dt>
-    <h4 class="name" id="substring_index"><span class="type-signature">&lt;static> </span>substring_index<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="substring_index"><span class="type-signature">&lt;static> </span>substring_index<span class="signature">(str, delim, count)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -15554,6 +18287,100 @@ right) is returned. substring_index performs a case-sensitive match when searchi
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>str</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>delim</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>count</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -15579,7 +18406,7 @@ right) is returned. substring_index performs a case-sensitive match when searchi
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1866">line 1866</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1924">line 1924</a>
     </li></ul></dd>
     
     
@@ -16189,7 +19016,7 @@ right) is returned. substring_index performs a case-sensitive match when searchi
         
             
 <dt>
-    <h4 class="name" id="to_date"><span class="type-signature">&lt;static> </span>to_date<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="to_date"><span class="type-signature">&lt;static> </span>to_date<span class="signature">(e)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -16205,6 +19032,54 @@ right) is returned. substring_index performs a case-sensitive match when searchi
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -16233,7 +19108,7 @@ right) is returned. substring_index performs a case-sensitive match when searchi
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2261">line 2261</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2308">line 2308</a>
     </li></ul></dd>
     
     
@@ -16279,7 +19154,7 @@ right) is returned. substring_index performs a case-sensitive match when searchi
         
             
 <dt>
-    <h4 class="name" id="to_utc_timestamp"><span class="type-signature">&lt;static> </span>to_utc_timestamp<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="to_utc_timestamp"><span class="type-signature">&lt;static> </span>to_utc_timestamp<span class="signature">(ts, tz)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -16295,6 +19170,77 @@ right) is returned. substring_index performs a case-sensitive match when searchi
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>ts</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>tz</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -16323,7 +19269,7 @@ right) is returned. substring_index performs a case-sensitive match when searchi
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2304">line 2304</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2354">line 2354</a>
     </li></ul></dd>
     
     
@@ -16651,7 +19597,7 @@ right) is returned. substring_index performs a case-sensitive match when searchi
         
             
 <dt>
-    <h4 class="name" id="translate"><span class="type-signature">&lt;static> </span>translate<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="translate"><span class="type-signature">&lt;static> </span>translate<span class="signature">(src, matchingString, replaceString)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -16671,6 +19617,100 @@ in the matchingString.
     
     
     
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>src</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>matchingString</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>replaceString</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
     
     
 <dl class="details">
@@ -16698,7 +19738,7 @@ in the matchingString.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1883">line 1883</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1943">line 1943</a>
     </li></ul></dd>
     
     
@@ -16744,7 +19784,7 @@ in the matchingString.
         
             
 <dt>
-    <h4 class="name" id="trim"><span class="type-signature">&lt;static> </span>trim<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="trim"><span class="type-signature">&lt;static> </span>trim<span class="signature">(e)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -16761,6 +19801,54 @@ in the matchingString.
     
     
     
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
     
     
 <dl class="details">
@@ -16788,7 +19876,7 @@ in the matchingString.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1897">line 1897</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1957">line 1957</a>
     </li></ul></dd>
     
     
@@ -16834,7 +19922,7 @@ in the matchingString.
         
             
 <dt>
-    <h4 class="name" id="trunc"><span class="type-signature">&lt;static> </span>trunc<span class="signature">(format)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="trunc"><span class="type-signature">&lt;static> </span>trunc<span class="signature">(date, format)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -16872,6 +19960,29 @@ in the matchingString.
 	</thead>
 	
 	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>date</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
 	
 	
         <tr>
@@ -16927,7 +20038,7 @@ in the matchingString.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2278">line 2278</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2325">line 2325</a>
     </li></ul></dd>
     
     
@@ -16973,1008 +20084,7 @@ in the matchingString.
         
             
 <dt>
-    <h4 class="name" id="udf0"><span class="type-signature">&lt;static> </span>udf0<span class="signature">()</span><span class="type-signature"> &rarr; {UserDefinedFunction}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Defines a user-defined function of 0 arguments as user-defined function (UDF).
-The data types are automatically inferred based on the function's signature.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-    <dt class="tag-since">Since:</dt>
-    <dd class="tag-since"><ul class="dummy"><li>EclairJS 0.1 Spark  1.3.0</dd>
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2390">line 2390</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">UserDefinedFunction</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="udf1"><span class="type-signature">&lt;static> </span>udf1<span class="signature">()</span><span class="type-signature"> &rarr; {UserDefinedFunction}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Defines a user-defined function of 1 arguments as user-defined function (UDF).
-The data types are automatically inferred based on the function's signature.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-    <dt class="tag-since">Since:</dt>
-    <dd class="tag-since"><ul class="dummy"><li>EclairJS 0.1 Spark  1.3.0</dd>
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2406">line 2406</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">UserDefinedFunction</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="udf2"><span class="type-signature">&lt;static> </span>udf2<span class="signature">()</span><span class="type-signature"> &rarr; {UserDefinedFunction}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Defines a user-defined function of 2 arguments as user-defined function (UDF).
-The data types are automatically inferred based on the function's signature.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-    <dt class="tag-since">Since:</dt>
-    <dd class="tag-since"><ul class="dummy"><li>EclairJS 0.1 Spark  1.3.0</dd>
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2422">line 2422</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">UserDefinedFunction</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="udf3"><span class="type-signature">&lt;static> </span>udf3<span class="signature">()</span><span class="type-signature"> &rarr; {UserDefinedFunction}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Defines a user-defined function of 3 arguments as user-defined function (UDF).
-The data types are automatically inferred based on the function's signature.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-    <dt class="tag-since">Since:</dt>
-    <dd class="tag-since"><ul class="dummy"><li>EclairJS 0.1 Spark  1.3.0</dd>
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2438">line 2438</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">UserDefinedFunction</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="udf4"><span class="type-signature">&lt;static> </span>udf4<span class="signature">()</span><span class="type-signature"> &rarr; {UserDefinedFunction}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Defines a user-defined function of 4 arguments as user-defined function (UDF).
-The data types are automatically inferred based on the function's signature.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-    <dt class="tag-since">Since:</dt>
-    <dd class="tag-since"><ul class="dummy"><li>EclairJS 0.1 Spark  1.3.0</dd>
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2454">line 2454</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">UserDefinedFunction</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="udf5"><span class="type-signature">&lt;static> </span>udf5<span class="signature">()</span><span class="type-signature"> &rarr; {UserDefinedFunction}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Defines a user-defined function of 5 arguments as user-defined function (UDF).
-The data types are automatically inferred based on the function's signature.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-    <dt class="tag-since">Since:</dt>
-    <dd class="tag-since"><ul class="dummy"><li>EclairJS 0.1 Spark  1.3.0</dd>
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2470">line 2470</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">UserDefinedFunction</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="udf6"><span class="type-signature">&lt;static> </span>udf6<span class="signature">()</span><span class="type-signature"> &rarr; {UserDefinedFunction}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Defines a user-defined function of 6 arguments as user-defined function (UDF).
-The data types are automatically inferred based on the function's signature.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-    <dt class="tag-since">Since:</dt>
-    <dd class="tag-since"><ul class="dummy"><li>EclairJS 0.1 Spark  1.3.0</dd>
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2485">line 2485</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">UserDefinedFunction</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="udf7"><span class="type-signature">&lt;static> </span>udf7<span class="signature">()</span><span class="type-signature"> &rarr; {UserDefinedFunction}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Defines a user-defined function of 7 arguments as user-defined function (UDF).
-The data types are automatically inferred based on the function's signature.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-    <dt class="tag-since">Since:</dt>
-    <dd class="tag-since"><ul class="dummy"><li>EclairJS 0.1 Spark  1.3.0</dd>
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2500">line 2500</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">UserDefinedFunction</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="udf8"><span class="type-signature">&lt;static> </span>udf8<span class="signature">()</span><span class="type-signature"> &rarr; {UserDefinedFunction}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Defines a user-defined function of 8 arguments as user-defined function (UDF).
-The data types are automatically inferred based on the function's signature.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-    <dt class="tag-since">Since:</dt>
-    <dd class="tag-since"><ul class="dummy"><li>EclairJS 0.1 Spark  1.3.0</dd>
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2515">line 2515</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">UserDefinedFunction</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="udf9"><span class="type-signature">&lt;static> </span>udf9<span class="signature">()</span><span class="type-signature"> &rarr; {UserDefinedFunction}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Defines a user-defined function of 9 arguments as user-defined function (UDF).
-The data types are automatically inferred based on the function's signature.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-    <dt class="tag-since">Since:</dt>
-    <dd class="tag-since"><ul class="dummy"><li>EclairJS 0.1 Spark  1.3.0</dd>
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2530">line 2530</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">UserDefinedFunction</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="udf10"><span class="type-signature">&lt;static> </span>udf10<span class="signature">()</span><span class="type-signature"> &rarr; {UserDefinedFunction}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Defines a user-defined function of 10 arguments as user-defined function (UDF).
-The data types are automatically inferred based on the function's signature.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-    <dt class="tag-since">Since:</dt>
-    <dd class="tag-since"><ul class="dummy"><li>EclairJS 0.1 Spark  1.3.0</dd>
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2545">line 2545</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">UserDefinedFunction</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="unbase64"><span class="type-signature">&lt;static> </span>unbase64<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="unbase64"><span class="type-signature">&lt;static> </span>unbase64<span class="signature">(e)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -17991,6 +20101,54 @@ This is the reverse of base64.
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -18019,7 +20177,7 @@ This is the reverse of base64.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1749">line 1749</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1799">line 1799</a>
     </li></ul></dd>
     
     
@@ -18204,7 +20362,7 @@ and converts to the byte representation of number.
         
             
 <dt>
-    <h4 class="name" id="unix_timestamp0"><span class="type-signature">&lt;static> </span>unix_timestamp0<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="unix_timestamp"><span class="type-signature">&lt;static> </span>unix_timestamp<span class="signature">(s,, p,)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -18212,188 +20370,9 @@ and converts to the byte representation of number.
     
     
     <div class="description">
-        Gets current Unix timestamp in seconds.
-    </div>
-    
+        Gets current Unix timestamp in seconds. if not arguments are specified
 
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-    <dt class="tag-since">Since:</dt>
-    <dd class="tag-since"><ul class="dummy"><li>EclairJS 0.1 Spark  1.5.0</dd>
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2219">line 2219</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="Column.html">Column</a></span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="unix_timestamp1"><span class="type-signature">&lt;static> </span>unix_timestamp1<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Converts time string in format yyyy-MM-dd HH:mm:ss to Unix timestamp (in seconds),
-using the default timezone and the default locale, return null if fail.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-    <dt class="tag-since">Since:</dt>
-    <dd class="tag-since"><ul class="dummy"><li>EclairJS 0.1 Spark  1.5.0</dd>
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2232">line 2232</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="Column.html">Column</a></span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="unix_timestamp2"><span class="type-signature">&lt;static> </span>unix_timestamp2<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Convert time string with given pattern
+Convert time string with given pattern
 (see [http://docs.oracle.com/javase/tutorial/i18n/format/simpleDateFormat.html])
 to Unix time stamp (in seconds), return null if fail.
     </div>
@@ -18404,6 +20383,79 @@ to Unix time stamp (in seconds), return null if fail.
     
     
     
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>s,</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional converts time string in format yyyy-MM-dd HH:mm:ss to Unix timestamp (in seconds), 
+using the default timezone and the default locale, return null if fail.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>p,</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional convert time string with given pattern 
+(see [http://docs.oracle.com/javase/tutorial/i18n/format/simpleDateFormat.html]) to Unix time stamp (in seconds), return null if fail.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
     
     
 <dl class="details">
@@ -18431,7 +20483,7 @@ to Unix time stamp (in seconds), return null if fail.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2247">line 2247</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2285">line 2285</a>
     </li></ul></dd>
     
     
@@ -18477,7 +20529,7 @@ to Unix time stamp (in seconds), return null if fail.
         
             
 <dt>
-    <h4 class="name" id="upper"><span class="type-signature">&lt;static> </span>upper<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="upper"><span class="type-signature">&lt;static> </span>upper<span class="signature">(e)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -18493,6 +20545,54 @@ to Unix time stamp (in seconds), return null if fail.
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -18521,7 +20621,7 @@ to Unix time stamp (in seconds), return null if fail.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1911">line 1911</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line1971">line 1971</a>
     </li></ul></dd>
     
     
@@ -18567,7 +20667,7 @@ to Unix time stamp (in seconds), return null if fail.
         
             
 <dt>
-    <h4 class="name" id="weekofyear"><span class="type-signature">&lt;static> </span>weekofyear<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="weekofyear"><span class="type-signature">&lt;static> </span>weekofyear<span class="signature">(e)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -18583,6 +20683,54 @@ to Unix time stamp (in seconds), return null if fail.
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -18611,7 +20759,7 @@ to Unix time stamp (in seconds), return null if fail.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2176">line 2176</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2244">line 2244</a>
     </li></ul></dd>
     
     
@@ -18757,7 +20905,7 @@ If otherwise is not defined at the end, null is returned for unmatched condition
         
             
 <dt>
-    <h4 class="name" id="year"><span class="type-signature">&lt;static> </span>year<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
+    <h4 class="name" id="year"><span class="type-signature">&lt;static> </span>year<span class="signature">(e)</span><span class="type-signature"> &rarr; {<a href="Column.html">Column</a>}</span></h4>
     
     
 </dt>
@@ -18773,6 +20921,54 @@ If otherwise is not defined at the end, null is returned for unmatched condition
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Column.html">Column</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -18801,7 +20997,7 @@ If otherwise is not defined at the end, null is returned for unmatched condition
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2025">line 2025</a>
+        <a href="functions.js.html">sql/functions.js</a>, <a href="functions.js.html#line2088">line 2088</a>
     </li></ul></dd>
     
     
@@ -18866,7 +21062,7 @@ If otherwise is not defined at the end, null is returned for unmatched condition
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Fri Dec 18 2015 16:00:01 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Mon Jan 04 2016 16:02:26 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -1087,7 +1087,7 @@ functions.least = function(exprs) {
 	 * Create a argument list we can send to Java
 	 */
 	var args = Array.prototype.slice.call(arguments);
-	for (var i = 0; i < arguments.length; i++) {
+	for (var i = 0; i < args.length; i++) {
 		var o = args[i];
 		if (!(o instanceof Column)) {
 			// must name column name
@@ -1484,13 +1484,24 @@ functions.base64 = function(e) {
  * Concatenates multiple input string columns together into a single string column.
  *
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column | string} columnExpr, ...columnExpr or columnName, ...columnName
  * @returns {Column} 
  */
 functions.concat = function(exprs) {
-throw "not implemented by ElairJS";
-//   var exprs_uw = Utils.unwrapObject(exprs);
-//   var javaObject = org.apache.spark.sql.functions.concat(exprs_uw);
-//   return new Column(javaObject);
+   /*
+	 * Create a argument list we can send to Java
+	 */
+	var args = Array.prototype.slice.call(arguments);
+	for (var i = 0; i < args.length; i++) {
+		var o = args[i];
+		if (!(o instanceof Column)) {
+			// must name column name
+			o = new Column(o);
+		}
+		args[i] = Utils.unwrapObject(o);
+	}
+   var javaObject = org.apache.spark.sql.functions.concat(args);
+   return new Column(javaObject);
 }
 
 
@@ -1499,13 +1510,25 @@ throw "not implemented by ElairJS";
  * using the given separator.
  *
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {string} sep
+ * @param {Column | string} columnExpr, ...columnExpr or columnName, ...columnName
  * @returns {Column} 
  */
 functions.concat_ws = function(sep,exprs) {
-throw "not implemented by ElairJS";
-//   var exprs_uw = Utils.unwrapObject(exprs);
-//   var javaObject = org.apache.spark.sql.functions.concat_ws(sep,exprs_uw);
-//   return new Column(javaObject);
+	/*
+	 * Create a argument list we can send to Java
+	 */
+	var args = Array.prototype.slice.call(arguments);
+	for (var i = 0; i < args.length; i++) {
+		var o = args[i];
+		if (!(o instanceof Column)) {
+			// must name column name
+			o = new Column(o);
+		}
+		args[i] = Utils.unwrapObject(o);
+	}
+   var javaObject = org.apache.spark.sql.functions.concat_ws(sep,args);
+   return new Column(javaObject);
 }
 
 
@@ -1515,13 +1538,14 @@ throw "not implemented by ElairJS";
  * If either argument is null, the result will also be null.
  *
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} value
+ * @param {string} charset one of 'US-ASCII', 'ISO-8859-1', 'UTF-8', 'UTF-16BE', 'UTF-16LE', 'UTF-16'
  * @returns {Column} 
  */
 functions.decode = function(value,charset) {
-throw "not implemented by ElairJS";
-//   var value_uw = Utils.unwrapObject(value);
-//   var javaObject = org.apache.spark.sql.functions.decode(value_uw,charset);
-//   return new Column(javaObject);
+   var value_uw = Utils.unwrapObject(value);
+   var javaObject = org.apache.spark.sql.functions.decode(value_uw,charset);
+   return new Column(javaObject);
 }
 
 
@@ -1531,13 +1555,14 @@ throw "not implemented by ElairJS";
  * If either argument is null, the result will also be null.
  *
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} value
+ * @param {string} charset one of 'US-ASCII', 'ISO-8859-1', 'UTF-8', 'UTF-16BE', 'UTF-16LE', 'UTF-16'
  * @returns {Column} 
  */
 functions.encode = function(value,charset) {
-throw "not implemented by ElairJS";
-//   var value_uw = Utils.unwrapObject(value);
-//   var javaObject = org.apache.spark.sql.functions.encode(value_uw,charset);
-//   return new Column(javaObject);
+   var value_uw = Utils.unwrapObject(value);
+   var javaObject = org.apache.spark.sql.functions.encode(value_uw,charset);
+   return new Column(javaObject);
 }
 
 
@@ -1549,13 +1574,14 @@ throw "not implemented by ElairJS";
  * If d < 0, the result will be null.
  *
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} x
+ * @param {integer} d rounded to d decimal places
  * @returns {Column} 
  */
 functions.format_number = function(x,d) {
-throw "not implemented by ElairJS";
-//   var x_uw = Utils.unwrapObject(x);
-//   var javaObject = org.apache.spark.sql.functions.format_number(x_uw,d);
-//   return new Column(javaObject);
+   var x_uw = Utils.unwrapObject(x);
+   var javaObject = org.apache.spark.sql.functions.format_number(x_uw,d);
+   return new Column(javaObject);
 }
 
 
@@ -1563,13 +1589,25 @@ throw "not implemented by ElairJS";
  * Formats the arguments in printf-style and returns the result as a string column.
  *
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {string} format, printf-style
+ * @param {Column | string} columnExpr, ...columnExpr or columnName, ...columnName
  * @returns {Column} 
  */
-functions.format_string = function(format,arguments) {
-throw "not implemented by ElairJS";
-//   var arguments_uw = Utils.unwrapObject(arguments);
-//   var javaObject = org.apache.spark.sql.functions.format_string(format,arguments_uw);
-//   return new Column(javaObject);
+functions.format_string = function(format,columnExpr) {
+	/*
+	 * Create a argument list we can send to Java
+	 */
+	var args = Array.prototype.slice.call(columnExpr);
+	for (var i = 0; i < args.length; i++) {
+		var o = args[i];
+		if (!(o instanceof Column)) {
+			// must name column name
+			o = new Column(o);
+		}
+		args[i] = Utils.unwrapObject(o);
+	}
+	var javaObject = org.apache.spark.sql.functions.format_string(format,args);
+	return new Column(javaObject);
 }
 
 
@@ -1580,13 +1618,13 @@ throw "not implemented by ElairJS";
  * For example, "hello world" will become "Hello World".
  *
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} e
  * @returns {Column} 
  */
 functions.initcap = function(e) {
-throw "not implemented by ElairJS";
-//   var e_uw = Utils.unwrapObject(e);
-//   var javaObject = org.apache.spark.sql.functions.initcap(e_uw);
-//   return new Column(javaObject);
+   var e_uw = Utils.unwrapObject(e);
+   var javaObject = org.apache.spark.sql.functions.initcap(e_uw);
+   return new Column(javaObject);
 }
 
 
@@ -1598,13 +1636,14 @@ throw "not implemented by ElairJS";
  * could not be found in str.
  *
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} str
+ * @param {string} substring
  * @returns {Column} 
  */
 functions.instr = function(str,substring) {
-throw "not implemented by ElairJS";
-//   var str_uw = Utils.unwrapObject(str);
-//   var javaObject = org.apache.spark.sql.functions.instr(str_uw,substring);
-//   return new Column(javaObject);
+   var str_uw = Utils.unwrapObject(str);
+   var javaObject = org.apache.spark.sql.functions.instr(str_uw,substring);
+   return new Column(javaObject);
 }
 
 
@@ -1612,13 +1651,13 @@ throw "not implemented by ElairJS";
  * Computes the length of a given string or binary column.
  *
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} e
  * @returns {Column} 
  */
 functions.length = function(e) {
-throw "not implemented by ElairJS";
-//   var e_uw = Utils.unwrapObject(e);
-//   var javaObject = org.apache.spark.sql.functions.length(e_uw);
-//   return new Column(javaObject);
+   var e_uw = Utils.unwrapObject(e);
+   var javaObject = org.apache.spark.sql.functions.length(e_uw);
+   return new Column(javaObject);
 }
 
 
@@ -1626,27 +1665,28 @@ throw "not implemented by ElairJS";
  * Converts a string column to lower case.
  *
  * @since EclairJS 0.1 Spark  1.3.0
+ * @param {Column} e
  * @returns {Column} 
  */
 functions.lower = function(e) {
-throw "not implemented by ElairJS";
-//   var e_uw = Utils.unwrapObject(e);
-//   var javaObject = org.apache.spark.sql.functions.lower(e_uw);
-//   return new Column(javaObject);
+   var e_uw = Utils.unwrapObject(e);
+   var javaObject = org.apache.spark.sql.functions.lower(e_uw);
+   return new Column(javaObject);
 }
 
 
 /**
  * Computes the Levenshtein distance of the two given string columns.
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} l
+ * @param {Column} r
  * @returns {Column} 
  */
 functions.levenshtein = function(l,r) {
-throw "not implemented by ElairJS";
-//   var l_uw = Utils.unwrapObject(l);
-//   var r_uw = Utils.unwrapObject(r);
-//   var javaObject = org.apache.spark.sql.functions.levenshtein(l_uw,r_uw);
-//   return new Column(javaObject);
+   var l_uw = Utils.unwrapObject(l);
+   var r_uw = Utils.unwrapObject(r);
+   var javaObject = org.apache.spark.sql.functions.levenshtein(l_uw,r_uw);
+   return new Column(javaObject);
 }
 
 
@@ -1656,13 +1696,14 @@ throw "not implemented by ElairJS";
  * could not be found in str.
  *
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {string} substr
+ * @param {Column} str
  * @returns {Column} 
  */
 functions.locate = function(substr,str) {
-throw "not implemented by ElairJS";
-//   var str_uw = Utils.unwrapObject(str);
-//   var javaObject = org.apache.spark.sql.functions.locate(substr,str_uw);
-//   return new Column(javaObject);
+   var str_uw = Utils.unwrapObject(str);
+   var javaObject = org.apache.spark.sql.functions.locate(substr,str_uw);
+   return new Column(javaObject);
 }
 
 
@@ -1673,13 +1714,15 @@ throw "not implemented by ElairJS";
  * could not be found in str.
  *
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {string} substr
+ * @param {Column} str
+ * @param {integer} pos
  * @returns {Column} 
  */
 functions.locatewithPos = function(substr,str,pos) {
-throw "not implemented by ElairJS";
-//   var str_uw = Utils.unwrapObject(str);
-//   var javaObject = org.apache.spark.sql.functions.locate(substr,str_uw,pos);
-//   return new Column(javaObject);
+   var str_uw = Utils.unwrapObject(str);
+   var javaObject = org.apache.spark.sql.functions.locate(substr,str_uw,pos);
+   return new Column(javaObject);
 }
 
 
@@ -1687,13 +1730,15 @@ throw "not implemented by ElairJS";
  * Left-pad the string column with
  *
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} str
+ * @param {integer} len
+ * @param {string} pad
  * @returns {Column} 
  */
 functions.lpad = function(str,len,pad) {
-throw "not implemented by ElairJS";
-//   var str_uw = Utils.unwrapObject(str);
-//   var javaObject = org.apache.spark.sql.functions.lpad(str_uw,len,pad);
-//   return new Column(javaObject);
+   var str_uw = Utils.unwrapObject(str);
+   var javaObject = org.apache.spark.sql.functions.lpad(str_uw,len,pad);
+   return new Column(javaObject);
 }
 
 
@@ -1701,27 +1746,29 @@ throw "not implemented by ElairJS";
  * Trim the spaces from left end for the specified string value.
  *
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} e
  * @returns {Column} 
  */
 functions.ltrim = function(e) {
-throw "not implemented by ElairJS";
-//   var e_uw = Utils.unwrapObject(e);
-//   var javaObject = org.apache.spark.sql.functions.ltrim(e_uw);
-//   return new Column(javaObject);
+   var e_uw = Utils.unwrapObject(e);
+   var javaObject = org.apache.spark.sql.functions.ltrim(e_uw);
+   return new Column(javaObject);
 }
 
 
 /**
- * Extract a specific(idx) group identified by a java regex, from the specified string column.
+ * Extract a specific(idx) group identified by a regex, from the specified string column.
  *
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} e
+ * @param {string} regex
+ * @param {integer} groupIdx
  * @returns {Column} 
  */
-functions.regexp_extract = function(e,exp,groupIdx) {
-throw "not implemented by ElairJS";
-//   var e_uw = Utils.unwrapObject(e);
-//   var javaObject = org.apache.spark.sql.functions.regexp_extract(e_uw,exp,groupIdx);
-//   return new Column(javaObject);
+functions.regexp_extract = function(e,regex,groupIdx) {
+   var e_uw = Utils.unwrapObject(e);
+   var javaObject = org.apache.spark.sql.functions.regexp_extract(e_uw,regex,groupIdx);
+   return new Column(javaObject);
 }
 
 
@@ -1729,13 +1776,15 @@ throw "not implemented by ElairJS";
  * Replace all substrings of the specified string value that match regexp with rep.
  *
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} e
+ * @param {string} pattern
+ * @param {string} replacement
  * @returns {Column} 
  */
 functions.regexp_replace = function(e,pattern,replacement) {
-throw "not implemented by ElairJS";
-//   var e_uw = Utils.unwrapObject(e);
-//   var javaObject = org.apache.spark.sql.functions.regexp_replace(e_uw,pattern,replacement);
-//   return new Column(javaObject);
+   var e_uw = Utils.unwrapObject(e);
+   var javaObject = org.apache.spark.sql.functions.regexp_replace(e_uw,pattern,replacement);
+   return new Column(javaObject);
 }
 
 
@@ -1744,13 +1793,13 @@ throw "not implemented by ElairJS";
  * This is the reverse of base64.
  *
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} e
  * @returns {Column} 
  */
 functions.unbase64 = function(e) {
-throw "not implemented by ElairJS";
-//   var e_uw = Utils.unwrapObject(e);
-//   var javaObject = org.apache.spark.sql.functions.unbase64(e_uw);
-//   return new Column(javaObject);
+   var e_uw = Utils.unwrapObject(e);
+   var javaObject = org.apache.spark.sql.functions.unbase64(e_uw);
+   return new Column(javaObject);
 }
 
 
@@ -1758,13 +1807,15 @@ throw "not implemented by ElairJS";
  * Right-padded with pad to a length of len.
  *
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} e
+ * @param {integer} len
+ * @param {string} pad
  * @returns {Column} 
  */
 functions.rpad = function(str,len,pad) {
-throw "not implemented by ElairJS";
-//   var str_uw = Utils.unwrapObject(str);
-//   var javaObject = org.apache.spark.sql.functions.rpad(str_uw,len,pad);
-//   return new Column(javaObject);
+   var str_uw = Utils.unwrapObject(str);
+   var javaObject = org.apache.spark.sql.functions.rpad(str_uw,len,pad);
+   return new Column(javaObject);
 }
 
 
@@ -1772,13 +1823,14 @@ throw "not implemented by ElairJS";
  * Repeats a string column n times, and returns it as a new string column.
  *
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} str
+ * @param {integer} n
  * @returns {Column} 
  */
 functions.repeat = function(str,n) {
-throw "not implemented by ElairJS";
-//   var str_uw = Utils.unwrapObject(str);
-//   var javaObject = org.apache.spark.sql.functions.repeat(str_uw,n);
-//   return new Column(javaObject);
+   var str_uw = Utils.unwrapObject(str);
+   var javaObject = org.apache.spark.sql.functions.repeat(str_uw,n);
+   return new Column(javaObject);
 }
 
 
@@ -1786,13 +1838,13 @@ throw "not implemented by ElairJS";
  * Reverses the string column and returns it as a new string column.
  *
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} str
  * @returns {Column} 
  */
 functions.reverse = function(str) {
-throw "not implemented by ElairJS";
-//   var str_uw = Utils.unwrapObject(str);
-//   var javaObject = org.apache.spark.sql.functions.reverse(str_uw);
-//   return new Column(javaObject);
+   var str_uw = Utils.unwrapObject(str);
+   var javaObject = org.apache.spark.sql.functions.reverse(str_uw);
+   return new Column(javaObject);
 }
 
 
@@ -1800,13 +1852,13 @@ throw "not implemented by ElairJS";
  * Trim the spaces from right end for the specified string value.
  *
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} e
  * @returns {Column} 
  */
 functions.rtrim = function(e) {
-throw "not implemented by ElairJS";
-//   var e_uw = Utils.unwrapObject(e);
-//   var javaObject = org.apache.spark.sql.functions.rtrim(e_uw);
-//   return new Column(javaObject);
+   var e_uw = Utils.unwrapObject(e);
+   var javaObject = org.apache.spark.sql.functions.rtrim(e_uw);
+   return new Column(javaObject);
 }
 
 
@@ -1814,13 +1866,13 @@ throw "not implemented by ElairJS";
  * * Return the soundex code for the specified expression.
  *
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} e
  * @returns {Column} 
  */
 functions.soundex = function(e) {
-throw "not implemented by ElairJS";
-//   var e_uw = Utils.unwrapObject(e);
-//   var javaObject = org.apache.spark.sql.functions.soundex(e_uw);
-//   return new Column(javaObject);
+   var e_uw = Utils.unwrapObject(e);
+   var javaObject = org.apache.spark.sql.functions.soundex(e_uw);
+   return new Column(javaObject);
 }
 
 
@@ -1829,13 +1881,14 @@ throw "not implemented by ElairJS";
  * NOTE: pattern is a string represent the regular expression.
  *
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} str
+ * @param {string} pattern
  * @returns {Column} 
  */
 functions.split = function(str,pattern) {
-throw "not implemented by ElairJS";
-//   var str_uw = Utils.unwrapObject(str);
-//   var javaObject = org.apache.spark.sql.functions.split(str_uw,pattern);
-//   return new Column(javaObject);
+   var str_uw = Utils.unwrapObject(str);
+   var javaObject = org.apache.spark.sql.functions.split(str_uw,pattern);
+   return new Column(javaObject);
 }
 
 
@@ -1845,13 +1898,15 @@ throw "not implemented by ElairJS";
  * when str is Binary type
  *
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} str
+ * @param {integer} pos
+ * @param {integer} len
  * @returns {Column} 
  */
 functions.substring = function(str,pos,len) {
-throw "not implemented by ElairJS";
-//   var str_uw = Utils.unwrapObject(str);
-//   var javaObject = org.apache.spark.sql.functions.substring(str_uw,pos,len);
-//   return new Column(javaObject);
+   var str_uw = Utils.unwrapObject(str);
+   var javaObject = org.apache.spark.sql.functions.substring(str_uw,pos,len);
+   return new Column(javaObject);
 }
 
 
@@ -1861,13 +1916,15 @@ throw "not implemented by ElairJS";
  * returned. If count is negative, every to the right of the final delimiter (counting from the
  * right) is returned. substring_index performs a case-sensitive match when searching for delim.
  *
+ * @param {Column} str
+ * @param {string} delim
+ * @param {integer} count
  * @returns {Column} 
  */
 functions.substring_index = function(str,delim,count) {
-throw "not implemented by ElairJS";
-//   var str_uw = Utils.unwrapObject(str);
-//   var javaObject = org.apache.spark.sql.functions.substring_index(str_uw,delim,count);
-//   return new Column(javaObject);
+   var str_uw = Utils.unwrapObject(str);
+   var javaObject = org.apache.spark.sql.functions.substring_index(str_uw,delim,count);
+   return new Column(javaObject);
 }
 
 
@@ -1878,13 +1935,15 @@ throw "not implemented by ElairJS";
  * in the matchingString.
  *
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} src
+ * @param {string} matchingString
+ * @param {string} replaceString
  * @returns {Column} 
  */
 functions.translate = function(src,matchingString,replaceString) {
-throw "not implemented by ElairJS";
-//   var src_uw = Utils.unwrapObject(src);
-//   var javaObject = org.apache.spark.sql.functions.translate(src_uw,matchingString,replaceString);
-//   return new Column(javaObject);
+   var src_uw = Utils.unwrapObject(src);
+   var javaObject = org.apache.spark.sql.functions.translate(src_uw,matchingString,replaceString);
+   return new Column(javaObject);
 }
 
 
@@ -1892,13 +1951,13 @@ throw "not implemented by ElairJS";
  * Trim the spaces from both ends for the specified string column.
  *
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} e
  * @returns {Column} 
  */
 functions.trim = function(e) {
-throw "not implemented by ElairJS";
-//   var e_uw = Utils.unwrapObject(e);
-//   var javaObject = org.apache.spark.sql.functions.trim(e_uw);
-//   return new Column(javaObject);
+   var e_uw = Utils.unwrapObject(e);
+   var javaObject = org.apache.spark.sql.functions.trim(e_uw);
+   return new Column(javaObject);
 }
 
 
@@ -1906,13 +1965,13 @@ throw "not implemented by ElairJS";
  * Converts a string column to upper case.
  *
  * @since EclairJS 0.1 Spark  1.3.0
+ * @param {Column} e
  * @returns {Column} 
  */
 functions.upper = function(e) {
-throw "not implemented by ElairJS";
-//   var e_uw = Utils.unwrapObject(e);
-//   var javaObject = org.apache.spark.sql.functions.upper(e_uw);
-//   return new Column(javaObject);
+   var e_uw = Utils.unwrapObject(e);
+   var javaObject = org.apache.spark.sql.functions.upper(e_uw);
+   return new Column(javaObject);
 }
 
 
@@ -1920,13 +1979,14 @@ throw "not implemented by ElairJS";
  * Returns the date that is numMonths after startDate.
  *
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} startDate
+ * @param {integer} numMonths
  * @returns {Column} 
  */
 functions.add_months = function(startDate,numMonths) {
-throw "not implemented by ElairJS";
-//   var startDate_uw = Utils.unwrapObject(startDate);
-//   var javaObject = org.apache.spark.sql.functions.add_months(startDate_uw,numMonths);
-//   return new Column(javaObject);
+   var startDate_uw = Utils.unwrapObject(startDate);
+   var javaObject = org.apache.spark.sql.functions.add_months(startDate_uw,numMonths);
+   return new Column(javaObject);
 }
 
 
@@ -1937,9 +1997,8 @@ throw "not implemented by ElairJS";
  * @returns {Column} 
  */
 functions.current_date = function() {
-throw "not implemented by ElairJS";
-//   var javaObject = org.apache.spark.sql.functions.current_date();
-//   return new Column(javaObject);
+   var javaObject = org.apache.spark.sql.functions.current_date();
+   return new Column(javaObject);
 }
 
 
@@ -1950,9 +2009,8 @@ throw "not implemented by ElairJS";
  * @returns {Column} 
  */
 functions.current_timestamp = function() {
-throw "not implemented by ElairJS";
-//   var javaObject = org.apache.spark.sql.functions.current_timestamp();
-//   return new Column(javaObject);
+   var javaObject = org.apache.spark.sql.functions.current_timestamp();
+   return new Column(javaObject);
 }
 
 
@@ -1967,131 +2025,135 @@ throw "not implemented by ElairJS";
  * specialized implementation.
  *
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} dateExpr
+ * @param {string} format
  * @returns {Column} 
  */
 functions.date_format = function(dateExpr,format) {
-throw "not implemented by ElairJS";
-//   var dateExpr_uw = Utils.unwrapObject(dateExpr);
-//   var javaObject = org.apache.spark.sql.functions.date_format(dateExpr_uw,format);
-//   return new Column(javaObject);
+   var dateExpr_uw = Utils.unwrapObject(dateExpr);
+   var javaObject = org.apache.spark.sql.functions.date_format(dateExpr_uw,format);
+   return new Column(javaObject);
 }
 
 
 /**
  * Returns the date that is `days` days after `start`
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} start
+ * @param {integer} days
  * @returns {Column} 
  */
 functions.date_add = function(start,days) {
-throw "not implemented by ElairJS";
-//   var start_uw = Utils.unwrapObject(start);
-//   var javaObject = org.apache.spark.sql.functions.date_add(start_uw,days);
-//   return new Column(javaObject);
+   var start_uw = Utils.unwrapObject(start);
+   var javaObject = org.apache.spark.sql.functions.date_add(start_uw,days);
+   return new Column(javaObject);
 }
 
 
 /**
  * Returns the date that is `days` days before `start`
- * @since EclairJS 0.1 Spark  1.5.0
+ * @since EclairJS 0.1 Spark  1.5.0 
+ * @param {Column} start
+ * @param {integer} days
  * @returns {Column} 
  */
 functions.date_sub = function(start,days) {
-throw "not implemented by ElairJS";
-//   var start_uw = Utils.unwrapObject(start);
-//   var javaObject = org.apache.spark.sql.functions.date_sub(start_uw,days);
-//   return new Column(javaObject);
+   var start_uw = Utils.unwrapObject(start);
+   var javaObject = org.apache.spark.sql.functions.date_sub(start_uw,days);
+   return new Column(javaObject);
 }
 
 
 /**
  * Returns the number of days from `start` to `end`.
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} end
+ * @param {Column} start
  * @returns {Column} 
  */
 functions.datediff = function(end,start) {
-throw "not implemented by ElairJS";
-//   var end_uw = Utils.unwrapObject(end);
-//   var start_uw = Utils.unwrapObject(start);
-//   var javaObject = org.apache.spark.sql.functions.datediff(end_uw,start_uw);
-//   return new Column(javaObject);
+   var end_uw = Utils.unwrapObject(end);
+   var start_uw = Utils.unwrapObject(start);
+   var javaObject = org.apache.spark.sql.functions.datediff(end_uw,start_uw);
+   return new Column(javaObject);
 }
 
 
 /**
  * Extracts the year as an integer from a given date/timestamp/string.
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} e
  * @returns {Column} 
  */
 functions.year = function(e) {
-throw "not implemented by ElairJS";
-//   var e_uw = Utils.unwrapObject(e);
-//   var javaObject = org.apache.spark.sql.functions.year(e_uw);
-//   return new Column(javaObject);
+   var e_uw = Utils.unwrapObject(e);
+   var javaObject = org.apache.spark.sql.functions.year(e_uw);
+   return new Column(javaObject);
 }
 
 
 /**
  * Extracts the quarter as an integer from a given date/timestamp/string.
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} e
  * @returns {Column} 
  */
 functions.quarter = function(e) {
-throw "not implemented by ElairJS";
-//   var e_uw = Utils.unwrapObject(e);
-//   var javaObject = org.apache.spark.sql.functions.quarter(e_uw);
-//   return new Column(javaObject);
+   var e_uw = Utils.unwrapObject(e);
+   var javaObject = org.apache.spark.sql.functions.quarter(e_uw);
+   return new Column(javaObject);
 }
 
 
 /**
  * Extracts the month as an integer from a given date/timestamp/string.
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} e
  * @returns {Column} 
  */
 functions.month = function(e) {
-throw "not implemented by ElairJS";
-//   var e_uw = Utils.unwrapObject(e);
-//   var javaObject = org.apache.spark.sql.functions.month(e_uw);
-//   return new Column(javaObject);
+   var e_uw = Utils.unwrapObject(e);
+   var javaObject = org.apache.spark.sql.functions.month(e_uw);
+   return new Column(javaObject);
 }
 
 
 /**
  * Extracts the day of the month as an integer from a given date/timestamp/string.
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} e
  * @returns {Column} 
  */
 functions.dayofmonth = function(e) {
-throw "not implemented by ElairJS";
-//   var e_uw = Utils.unwrapObject(e);
-//   var javaObject = org.apache.spark.sql.functions.dayofmonth(e_uw);
-//   return new Column(javaObject);
+   var e_uw = Utils.unwrapObject(e);
+   var javaObject = org.apache.spark.sql.functions.dayofmonth(e_uw);
+   return new Column(javaObject);
 }
 
 
 /**
  * Extracts the day of the year as an integer from a given date/timestamp/string.
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} e
  * @returns {Column} 
  */
 functions.dayofyear = function(e) {
-throw "not implemented by ElairJS";
-//   var e_uw = Utils.unwrapObject(e);
-//   var javaObject = org.apache.spark.sql.functions.dayofyear(e_uw);
-//   return new Column(javaObject);
+   var e_uw = Utils.unwrapObject(e);
+   var javaObject = org.apache.spark.sql.functions.dayofyear(e_uw);
+   return new Column(javaObject);
 }
 
 
 /**
  * Extracts the hours as an integer from a given date/timestamp/string.
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} e
  * @returns {Column} 
  */
 functions.hour = function(e) {
-throw "not implemented by ElairJS";
-//   var e_uw = Utils.unwrapObject(e);
-//   var javaObject = org.apache.spark.sql.functions.hour(e_uw);
-//   return new Column(javaObject);
+   var e_uw = Utils.unwrapObject(e);
+   var javaObject = org.apache.spark.sql.functions.hour(e_uw);
+   return new Column(javaObject);
 }
 
 
@@ -2101,43 +2163,47 @@ throw "not implemented by ElairJS";
  * month in July 2015.
  *
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} e
  * @returns {Column} 
  */
 functions.last_day = function(e) {
-throw "not implemented by ElairJS";
-//   var e_uw = Utils.unwrapObject(e);
-//   var javaObject = org.apache.spark.sql.functions.last_day(e_uw);
-//   return new Column(javaObject);
+   var e_uw = Utils.unwrapObject(e);
+   var javaObject = org.apache.spark.sql.functions.last_day(e_uw);
+   return new Column(javaObject);
 }
 
 
 /**
  * Extracts the minutes as an integer from a given date/timestamp/string.
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} e
  * @returns {Column} 
  */
 functions.minute = function(e) {
-throw "not implemented by ElairJS";
-//   var e_uw = Utils.unwrapObject(e);
-//   var javaObject = org.apache.spark.sql.functions.minute(e_uw);
-//   return new Column(javaObject);
+   var e_uw = Utils.unwrapObject(e);
+   var javaObject = org.apache.spark.sql.functions.minute(e_uw);
+   return new Column(javaObject);
 }
 
 
-
+/**
+ * Extracts the months between date1 and date2
+ * @param {Column} date1
+ * @param {Column} date2
+ * @returns {Column} 
+ */
 functions.months_between = function(date1,date2) {
-throw "not implemented by ElairJS";
-//   var date1_uw = Utils.unwrapObject(date1);
-//   var date2_uw = Utils.unwrapObject(date2);
-//   var javaObject = org.apache.spark.sql.functions.months_between(date1_uw,date2_uw);
-//   return new Column(javaObject);
+   var date1_uw = Utils.unwrapObject(date1);
+   var date2_uw = Utils.unwrapObject(date2);
+   var javaObject = org.apache.spark.sql.functions.months_between(date1_uw,date2_uw);
+   return new Column(javaObject);
 }
 
 
 /**
  * Given a date column, returns the first date which is later than the value of the date column
  * that is on the specified day of the week.
- *
+ * 
  * For example, `next_day('2015-07-27', "Sunday")` returns 2015-08-02 because that is the first
  * Sunday after 2015-07-27.
  *
@@ -2145,39 +2211,40 @@ throw "not implemented by ElairJS";
  * "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun".
  *
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} date
+ * @param {string} dayOfWeek, Day of the week parameter is case insensitive, and accepts: "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun".
  * @returns {Column} 
  */
 functions.next_day = function(date,dayOfWeek) {
-throw "not implemented by ElairJS";
-//   var date_uw = Utils.unwrapObject(date);
-//   var javaObject = org.apache.spark.sql.functions.next_day(date_uw,dayOfWeek);
-//   return new Column(javaObject);
+   var date_uw = Utils.unwrapObject(date);
+   var javaObject = org.apache.spark.sql.functions.next_day(date_uw,dayOfWeek);
+   return new Column(javaObject);
 }
 
 
 /**
  * Extracts the seconds as an integer from a given date/timestamp/string.
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} e
  * @returns {Column} 
  */
 functions.second = function(e) {
-throw "not implemented by ElairJS";
-//   var e_uw = Utils.unwrapObject(e);
-//   var javaObject = org.apache.spark.sql.functions.second(e_uw);
-//   return new Column(javaObject);
+   var e_uw = Utils.unwrapObject(e);
+   var javaObject = org.apache.spark.sql.functions.second(e_uw);
+   return new Column(javaObject);
 }
 
 
 /**
  * Extracts the week number as an integer from a given date/timestamp/string.
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} e
  * @returns {Column} 
  */
 functions.weekofyear = function(e) {
-throw "not implemented by ElairJS";
-//   var e_uw = Utils.unwrapObject(e);
-//   var javaObject = org.apache.spark.sql.functions.weekofyear(e_uw);
-//   return new Column(javaObject);
+   var e_uw = Utils.unwrapObject(e);
+   var javaObject = org.apache.spark.sql.functions.weekofyear(e_uw);
+   return new Column(javaObject);
 }
 
 
@@ -2186,69 +2253,48 @@ throw "not implemented by ElairJS";
  * representing the timestamp of that moment in the current system time zone in the given
  * format.
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} ut
+ * @param {string} f, Optional data format example: "yyyy-MM-dd"
  * @returns {Column} 
  */
-functions.from_unixtime = function(ut) {
-throw "not implemented by ElairJS";
-//   var ut_uw = Utils.unwrapObject(ut);
-//   var javaObject = org.apache.spark.sql.functions.from_unixtime(ut_uw);
-//   return new Column(javaObject);
+functions.from_unixtime = function(ut,f) {
+   var ut_uw = Utils.unwrapObject(ut);
+   var javaObject;
+   if (f) {
+	   javaObject = org.apache.spark.sql.functions.from_unixtime(ut_uw, f);
+   } else {
+	   javaObject = org.apache.spark.sql.functions.from_unixtime(ut_uw); 
+   }
+   return new Column(javaObject);
 }
 
 
 /**
- * Converts the number of seconds from unix epoch (1970-01-01 00:00:00 UTC) to a string
- * representing the timestamp of that moment in the current system time zone in the given
- * format.
- * @since EclairJS 0.1 Spark  1.5.0
- * @returns {Column} 
- */
-functions.from_unixtimewithF = function(ut,f) {
-throw "not implemented by ElairJS";
-//   var ut_uw = Utils.unwrapObject(ut);
-//   var javaObject = org.apache.spark.sql.functions.from_unixtime(ut_uw,f);
-//   return new Column(javaObject);
-}
-
-
-/**
- * Gets current Unix timestamp in seconds.
- * @since EclairJS 0.1 Spark  1.5.0
- * @returns {Column} 
- */
-functions.unix_timestamp0 = function() {
-throw "not implemented by ElairJS";
-//   var javaObject = org.apache.spark.sql.functions.unix_timestamp();
-//   return new Column(javaObject);
-}
-
-
-/**
- * Converts time string in format yyyy-MM-dd HH:mm:ss to Unix timestamp (in seconds),
- * using the default timezone and the default locale, return null if fail.
- * @since EclairJS 0.1 Spark  1.5.0
- * @returns {Column} 
- */
-functions.unix_timestamp1 = function(s) {
-throw "not implemented by ElairJS";
-//   var s_uw = Utils.unwrapObject(s);
-//   var javaObject = org.apache.spark.sql.functions.unix_timestamp(s_uw);
-//   return new Column(javaObject);
-}
-
-
-/**
+ * Gets current Unix timestamp in seconds. if not arguments are specified
+ * 
  * Convert time string with given pattern
  * (see [http://docs.oracle.com/javase/tutorial/i18n/format/simpleDateFormat.html])
  * to Unix time stamp (in seconds), return null if fail.
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} s, Optional converts time string in format yyyy-MM-dd HH:mm:ss to Unix timestamp (in seconds), 
+ * using the default timezone and the default locale, return null if fail.
+ * @param {string} p, Optional convert time string with given pattern 
+ * (see [http://docs.oracle.com/javase/tutorial/i18n/format/simpleDateFormat.html]) to Unix time stamp (in seconds), return null if fail.
  * @returns {Column} 
  */
-functions.unix_timestamp2 = function(s,p) {
-throw "not implemented by ElairJS";
-//   var s_uw = Utils.unwrapObject(s);
-//   var javaObject = org.apache.spark.sql.functions.unix_timestamp(s_uw,p);
-//   return new Column(javaObject);
+functions.unix_timestamp = function(s,p) {
+	var javaObject;
+	if (s) {
+		var s_uw = Utils.unwrapObject(s);
+		if (p) {
+			javaObject = org.apache.spark.sql.functions.unix_timestamp(s_uw,p);
+		} else {
+			javaObject = org.apache.spark.sql.functions.unix_timestamp(s_uw);
+		}
+	} else {
+		javaObject = org.apache.spark.sql.functions.unix_timestamp();
+	}
+	return new Column(javaObject);
 }
 
 
@@ -2256,19 +2302,20 @@ throw "not implemented by ElairJS";
  * Converts the column into DateType.
  *
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} e
  * @returns {Column} 
  */
 functions.to_date = function(e) {
-throw "not implemented by ElairJS";
-//   var e_uw = Utils.unwrapObject(e);
-//   var javaObject = org.apache.spark.sql.functions.to_date(e_uw);
-//   return new Column(javaObject);
+   var e_uw = Utils.unwrapObject(e);
+   var javaObject = org.apache.spark.sql.functions.to_date(e_uw);
+   return new Column(javaObject);
 }
 
 
 /**
  * Returns date truncated to the unit specified by the format.
  *
+ * @param {Column} date
  * @param {string} format : 'year', 'yyyy', 'yy' for truncate by year,
  *               or 'month', 'mon', 'mm' for truncate by month
  *
@@ -2276,49 +2323,53 @@ throw "not implemented by ElairJS";
  * @returns {Column} 
  */
 functions.trunc = function(date,format) {
-throw "not implemented by ElairJS";
-//   var date_uw = Utils.unwrapObject(date);
-//   var javaObject = org.apache.spark.sql.functions.trunc(date_uw,format);
-//   return new Column(javaObject);
+   var date_uw = Utils.unwrapObject(date);
+   var javaObject = org.apache.spark.sql.functions.trunc(date_uw,format);
+   return new Column(javaObject);
 }
 
 
 /**
  * Assumes given timestamp is UTC and converts to given timezone.
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} ts
+ * @param {string} tz
  * @returns {Column} 
  */
 functions.from_utc_timestamp = function(ts,tz) {
-throw "not implemented by ElairJS";
-//   var ts_uw = Utils.unwrapObject(ts);
-//   var javaObject = org.apache.spark.sql.functions.from_utc_timestamp(ts_uw,tz);
-//   return new Column(javaObject);
+   var ts_uw = Utils.unwrapObject(ts);
+   var javaObject = org.apache.spark.sql.functions.from_utc_timestamp(ts_uw,tz);
+   return new Column(javaObject);
 }
 
 
 /**
  * Assumes given timestamp is in given timezone and converts to UTC.
+ * 
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} ts
+ * @param {string} tz
  * @returns {Column} 
  */
 functions.to_utc_timestamp = function(ts,tz) {
-throw "not implemented by ElairJS";
-//   var ts_uw = Utils.unwrapObject(ts);
-//   var javaObject = org.apache.spark.sql.functions.to_utc_timestamp(ts_uw,tz);
-//   return new Column(javaObject);
+   var ts_uw = Utils.unwrapObject(ts);
+   var javaObject = org.apache.spark.sql.functions.to_utc_timestamp(ts_uw,tz);
+   return new Column(javaObject);
 }
 
 
 /**
  * Returns true if the array contain the value
+ * 
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} column
+ * @param {string | number} value
  * @returns {Column} 
  */
 functions.array_contains = function(column,value) {
-throw "not implemented by ElairJS";
-//   var column_uw = Utils.unwrapObject(column);
-//   var javaObject = org.apache.spark.sql.functions.array_contains(column_uw,value);
-//   return new Column(javaObject);
+   var column_uw = Utils.unwrapObject(column);
+   var javaObject = org.apache.spark.sql.functions.array_contains(column_uw,value);
+   return new Column(javaObject);
 }
 
 
@@ -2326,13 +2377,13 @@ throw "not implemented by ElairJS";
  * Creates a new row for each element in the given array or map column.
  *
  * @since EclairJS 0.1 Spark  1.3.0
+ * @param {Column} e
  * @returns {Column} 
  */
 functions.explode = function(e) {
-throw "not implemented by ElairJS";
-//   var e_uw = Utils.unwrapObject(e);
-//   var javaObject = org.apache.spark.sql.functions.explode(e_uw);
-//   return new Column(javaObject);
+   var e_uw = Utils.unwrapObject(e);
+   var javaObject = org.apache.spark.sql.functions.explode(e_uw);
+   return new Column(javaObject);
 }
 
 
@@ -2340,28 +2391,13 @@ throw "not implemented by ElairJS";
  * Returns length of array or map.
  *
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} e
  * @returns {Column} 
  */
 functions.size = function(e) {
-throw "not implemented by ElairJS";
-//   var e_uw = Utils.unwrapObject(e);
-//   var javaObject = org.apache.spark.sql.functions.size(e_uw);
-//   return new Column(javaObject);
-}
-
-
-/**
- * Sorts the input array for the given column in ascending order,
- * according to the natural ordering of the array elements.
- *
- * @since EclairJS 0.1 Spark  1.5.0
- * @returns {Column} 
- */
-functions.sort_array = function(e) {
-throw "not implemented by ElairJS";
-//   var e_uw = Utils.unwrapObject(e);
-//   var javaObject = org.apache.spark.sql.functions.sort_array(e_uw);
-//   return new Column(javaObject);
+   var e_uw = Utils.unwrapObject(e);
+   var javaObject = org.apache.spark.sql.functions.size(e_uw);
+   return new Column(javaObject);
 }
 
 
@@ -2370,13 +2406,15 @@ throw "not implemented by ElairJS";
  * according to the natural ordering of the array elements.
  *
  * @since EclairJS 0.1 Spark  1.5.0
+ * @param {Column} e
+ * @param {boolean} asc Optional, defaults to true
  * @returns {Column} 
  */
-functions.sort_arraywithAsc = function(e,asc) {
-throw "not implemented by ElairJS";
-//   var e_uw = Utils.unwrapObject(e);
-//   var javaObject = org.apache.spark.sql.functions.sort_array(e_uw,asc);
-//   return new Column(javaObject);
+functions.sort_array = function(e, asc) {
+   var sort_asc = (asc === false) ? false : true;
+   var e_uw = Utils.unwrapObject(e);
+   var javaObject = org.apache.spark.sql.functions.sort_array(e_uw, sort_asc);
+   return new Column(javaObject);
 }
 
 
@@ -2384,10 +2422,12 @@ throw "not implemented by ElairJS";
  * Defines a user-defined function of 0 arguments as user-defined function (UDF).
  * The data types are automatically inferred based on the function's signature.
  *
+ * NOTE: this seems overly complex for JavaScrip environment so we are not implementing at this time
  * @since EclairJS 0.1 Spark  1.3.0
  * @returns {UserDefinedFunction} 
+ * @private
  */
-functions.udf0 = function(f) {
+functions.udf = function(f) {
 throw "not implemented by ElairJS";
 //   var sv = Utils.createJavaParams(f);
 //   var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
@@ -2396,162 +2436,11 @@ throw "not implemented by ElairJS";
 }
 
 
-/**
- * Defines a user-defined function of 1 arguments as user-defined function (UDF).
- * The data types are automatically inferred based on the function's signature.
- *
- * @since EclairJS 0.1 Spark  1.3.0
- * @returns {UserDefinedFunction} 
- */
-functions.udf1 = function(f) {
-throw "not implemented by ElairJS";
-//   var sv = Utils.createJavaParams(f);
-//   var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
-//   var javaObject = org.apache.spark.sql.functions.udf(fn);
-//   return new UserDefinedFunction(javaObject);
-}
-
-
-/**
- * Defines a user-defined function of 2 arguments as user-defined function (UDF).
- * The data types are automatically inferred based on the function's signature.
- *
- * @since EclairJS 0.1 Spark  1.3.0
- * @returns {UserDefinedFunction} 
- */
-functions.udf2 = function(f) {
-throw "not implemented by ElairJS";
-//   var sv = Utils.createJavaParams(f);
-//   var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
-//   var javaObject = org.apache.spark.sql.functions.udf(fn);
-//   return new UserDefinedFunction(javaObject);
-}
-
-
-/**
- * Defines a user-defined function of 3 arguments as user-defined function (UDF).
- * The data types are automatically inferred based on the function's signature.
- *
- * @since EclairJS 0.1 Spark  1.3.0
- * @returns {UserDefinedFunction} 
- */
-functions.udf3 = function(f) {
-throw "not implemented by ElairJS";
-//   var sv = Utils.createJavaParams(f);
-//   var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
-//   var javaObject = org.apache.spark.sql.functions.udf(fn);
-//   return new UserDefinedFunction(javaObject);
-}
-
-
-/**
- * Defines a user-defined function of 4 arguments as user-defined function (UDF).
- * The data types are automatically inferred based on the function's signature.
- *
- * @since EclairJS 0.1 Spark  1.3.0
- * @returns {UserDefinedFunction} 
- */
-functions.udf4 = function(f) {
-throw "not implemented by ElairJS";
-//   var sv = Utils.createJavaParams(f);
-//   var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
-//   var javaObject = org.apache.spark.sql.functions.udf(fn);
-//   return new UserDefinedFunction(javaObject);
-}
-
-
-/**
- * Defines a user-defined function of 5 arguments as user-defined function (UDF).
- * The data types are automatically inferred based on the function's signature.
- *
- * @since EclairJS 0.1 Spark  1.3.0
- * @returns {UserDefinedFunction} 
- */
-functions.udf5 = function(f) {
-throw "not implemented by ElairJS";
-//   var f_uw = Utils.unwrapObject(f);
-//   var javaObject = org.apache.spark.sql.functions.udf(f_uw);
-//   return new UserDefinedFunction(javaObject);
-}
-
-
-/**
- * Defines a user-defined function of 6 arguments as user-defined function (UDF).
- * The data types are automatically inferred based on the function's signature.
- *
- * @since EclairJS 0.1 Spark  1.3.0
- * @returns {UserDefinedFunction} 
- */
-functions.udf6 = function(f) {
-throw "not implemented by ElairJS";
-//   var f_uw = Utils.unwrapObject(f);
-//   var javaObject = org.apache.spark.sql.functions.udf(f_uw);
-//   return new UserDefinedFunction(javaObject);
-}
-
-
-/**
- * Defines a user-defined function of 7 arguments as user-defined function (UDF).
- * The data types are automatically inferred based on the function's signature.
- *
- * @since EclairJS 0.1 Spark  1.3.0
- * @returns {UserDefinedFunction} 
- */
-functions.udf7 = function(f) {
-throw "not implemented by ElairJS";
-//   var f_uw = Utils.unwrapObject(f);
-//   var javaObject = org.apache.spark.sql.functions.udf(f_uw);
-//   return new UserDefinedFunction(javaObject);
-}
-
-
-/**
- * Defines a user-defined function of 8 arguments as user-defined function (UDF).
- * The data types are automatically inferred based on the function's signature.
- *
- * @since EclairJS 0.1 Spark  1.3.0
- * @returns {UserDefinedFunction} 
- */
-functions.udf8 = function(f) {
-throw "not implemented by ElairJS";
-//   var f_uw = Utils.unwrapObject(f);
-//   var javaObject = org.apache.spark.sql.functions.udf(f_uw);
-//   return new UserDefinedFunction(javaObject);
-}
-
-
-/**
- * Defines a user-defined function of 9 arguments as user-defined function (UDF).
- * The data types are automatically inferred based on the function's signature.
- *
- * @since EclairJS 0.1 Spark  1.3.0
- * @returns {UserDefinedFunction} 
- */
-functions.udf9 = function(f) {
-throw "not implemented by ElairJS";
-//   var f_uw = Utils.unwrapObject(f);
-//   var javaObject = org.apache.spark.sql.functions.udf(f_uw);
-//   return new UserDefinedFunction(javaObject);
-}
-
-
-/**
- * Defines a user-defined function of 10 arguments as user-defined function (UDF).
- * The data types are automatically inferred based on the function's signature.
- *
- * @since EclairJS 0.1 Spark  1.3.0
- * @returns {UserDefinedFunction} 
- */
-functions.udf10 = function(f) {
-throw "not implemented by ElairJS";
-//   var f_uw = Utils.unwrapObject(f);
-//   var javaObject = org.apache.spark.sql.functions.udf(f_uw);
-//   return new UserDefinedFunction(javaObject);
-}
 
 
 /**
  * Call an user-defined function.
+ * NOTE: this seems overly complex for JavaScrip environment so we are not implementing at this time
  * Example:
  * @example
  *  import org.apache.spark.sql._
@@ -2563,6 +2452,7 @@ throw "not implemented by ElairJS";
  *  
  *
  * @since EclairJS 0.1 Spark  1.5.0
+ * @private
  * @returns {Column} 
  */
 functions.callUDF = function(udfName,cols) {
