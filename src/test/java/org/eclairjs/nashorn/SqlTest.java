@@ -1218,6 +1218,65 @@ public class SqlTest {
         assertEquals("should be same", "all good", ret);
     }
     
+    @Test
+    public void functionsConcatTest() throws Exception {
+    	/*
+    	 * tests
+    	 * functions.concat()
+    	 *  
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/people.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("functionsConcat", file);
+        assertEquals("should be same", "concat(name,age)", ret);
+    }
+    
+    @Test
+    public void functionsFrom_unixtime() throws Exception {
+    	/*
+    	 * tests
+    	 * functions.concat()
+    	 *  
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/people.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("functionsFrom_unixtime", file);
+        assertEquals("should be same", "fromunixtime(DOB,yyyy-MM-dd)", ret);
+    }
+    
+    @Test
+    public void functionsUnixtime() throws Exception {
+    	/*
+    	 * tests
+    	 * functions.concat()
+    	 *  
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/people.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("functionsUnix_timestamp", file);
+        assertEquals("should be same", "unixtimestamp(currenttimestamp(),yyyy-MM-dd HH:mm:ss)", ret);
+    }
+    
+    @Test
+    public void functionsSort_array() throws Exception {
+    	/*
+    	 * tests
+    	 * functions.concat()
+    	 *  
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/people.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("functionsSort_array", file);
+        assertEquals("should be same", "sort_array(DOB,true)", ret);
+    }
     /*
      * Row tests
      */
