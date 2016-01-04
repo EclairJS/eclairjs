@@ -92,7 +92,12 @@ class GenerateNashorn  extends  GenerateJSBase {
     sb ++= s"  $returnsStr this.getJavaObject().${method.name}(${parmNames.mkString(",")});"
     if (method.returnType.isSparkClass())
     {
-      sb ++= s"\n  return new ${method.returnType.getJSType()}(javaObject);"
+      var returnType=method.returnType.getJSType()
+      if (returnType!="object")
+        sb ++= s"\n  return new ${returnType}(javaObject);"
+      else
+        sb ++= s"\n  return Utils.javaToJs(javaObject);"
+
     }
 
     sb.toString()
