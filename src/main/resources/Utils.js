@@ -67,6 +67,33 @@ var Utils = {};
   Utils.unwrapObject = function(obj) {
 	  return (obj && obj.getJavaObject) ? obj.getJavaObject() : obj; 
   };
+  /**
+   * Creates a argument list of Spark Java objects that can be passed to a Spark Java method.
+   * If the objects passed in the argument list are an instanceof "type" then the object will be 
+   * unwrapped else will will create an instanceof "type" for that object.
+   * If the object
+   * for example:
+   * // Spark Java
+   * GoupedData.agg(Column expr, Column... exprs)
+   * @private
+   * @param {object | string} object,...object  
+   * @param {function} type this is the constructor of the desired object type for example Column
+   * @returns {object[]} array of Java spark objects
+   */
+  Utils.createJavaObjectArguments = function(args, type) {
+	  /*
+		 * First convert any strings to Objects of type
+		 */
+		var a = Array.prototype.slice.call(args);
+		for (var i = 0; i < a.length; i++) {
+			var o = a[i];
+			if (!(o instanceof type)) {
+				o = new type(o);
+			}
+			a[i] = Utils.unwrapObject(o);
+		}
+		return a;
+  };
 
   function convertJavaTuple2(o1, o2) { 
 	  return [o1 ,o2];
@@ -79,3 +106,5 @@ var Utils = {};
   function createJavaWrapperObject(className, obj) {
 	  return eval("new " + className + "(obj)");
   };
+  
+  

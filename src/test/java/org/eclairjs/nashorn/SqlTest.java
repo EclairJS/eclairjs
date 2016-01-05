@@ -1340,6 +1340,23 @@ public class SqlTest {
         Object ret = ((Invocable)engine).invokeFunction("rowMkStringType", file, ", ", "[", "]");
         assertEquals("should be same", "[Michael, 29, 1, 1996-03-06, 1200.4, true, 300000000.11][Andy, 30, 2, 1998-12-06, 1500.44, false, 500000000.11]", ret);
     }
-
     
+    /*
+     * GroupedData tests
+     */
+
+    @Test
+    public void groupdedDataAgg() throws Exception {
+    	/*
+    	 * tests
+    	 * Row.mkString(",", "[")
+    	 * 
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/people.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("groupdedDataAgg", file);
+        assertEquals("should be same", "[Andy,30,2],[Michael,29,1],[Justin,19,3]", ret);
+    }
 }

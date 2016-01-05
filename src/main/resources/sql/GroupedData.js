@@ -29,6 +29,37 @@ GroupedData.prototype = Object.create(JavaWrapper.prototype);
 
 //Set the "constructor" property to refer to GroupedData
 GroupedData.prototype.constructor = GroupedData;
+
+/**
+ * Compute aggregates by specifying a series of aggregate columns. Note that this function by default retains the grouping columns in its output. 
+ * To not retain grouping columns, set spark.sql.retainGroupColumns to false.
+ * The available aggregate methods are defined in {@link functions}.
+ * @example
+ * // Java:
+ * df.groupBy("department").agg(max("age"), sum("expense"));
+ * @since EclairJS 0.1 Spark  1.3.0
+ * @param {Column | string} columnExpr,...columnExpr or columnName, ...columnName
+ * @returns {DataFrame} 
+ */
+GroupedData.prototype.agg = function() {
+	/*
+	 * First convert any strings to Columns
+	 */
+
+	var args = Utils.createJavaObjectArguments(arguments, Column);
+	/*
+	 * Create a argument list we can send to Java
+	 */
+	var str = "this.getJavaObject().agg("
+	for (var i = 0; i < args.length; i++) {
+		var spacer = i < 1 ? "" : ",";
+		str += spacer + "args[" + i + "]";
+	}	
+	str += ");";
+
+	var javaObject = eval(str);
+    return new DataFrame(javaObject);
+};
 /**
  * Compute the avg value for each numeric columns for each group.
  * @param {string[]} cols
@@ -36,6 +67,10 @@ GroupedData.prototype.constructor = GroupedData;
  */
 GroupedData.prototype.avg = function(cols) {
     return new DataFrame(this.getJavaObject().avg(cols));
+};
+
+GroupedData.prototype.apply = function(cols) {
+	throw "not implemented by ElairJS";
 };
 /**
  * Count the number of rows for each group.
