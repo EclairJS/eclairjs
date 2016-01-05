@@ -68,9 +68,7 @@ GroupedData.prototype.agg = function() {
 GroupedData.prototype.avg = function(cols) {
     return new DataFrame(this.getJavaObject().avg(cols));
 };
-/**
- * 
- */
+
 GroupedData.prototype.apply = function(cols) {
 	throw "not implemented by ElairJS";
 };
