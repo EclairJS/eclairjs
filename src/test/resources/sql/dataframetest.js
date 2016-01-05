@@ -61,7 +61,8 @@ var buildPeopleTable = function(file, date) {
 			d = new SqlTimestamp(person.DOB);
 		}
 		var m =  person.married == "true" ? true : false
-		return RowFactory.create([person.name, person.age, person.expense, d, parseFloat(person.income), m, parseFloat(person.networth)]);
+		var n = person.name ? person.name : null;
+		return RowFactory.create([n, person.age, person.expense, d, parseFloat(person.income), m, parseFloat(person.networth)]);
 	});
 
 
@@ -853,4 +854,119 @@ var groupdedDataAgg = function(file) {
 	print("sum " + sumFunc)
 	var result = group.agg(functions.max("age"), functions.sum("expense"));
 	return result.take(10).toString();
+}
+
+/*
+ * DataFrameNaFunctions Tests
+ */
+
+var dataframeNaFunctionsDropTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var naFunc = peopleDataFrame.na();
+	var result = naFunc.drop('all');
+
+    return result.take(10).toString();
+}
+
+var dataframeNaFunctionsDropColsTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var naFunc = peopleDataFrame.na();
+	var result = naFunc.drop(["name" , "income"]);
+
+    return result.take(10).toString();
+}
+
+var dataframeNaFunctionsDropAllColsTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var naFunc = peopleDataFrame.na();
+	var result = naFunc.drop('all', ["name" , "income"]);
+
+    return result.take(10).toString();
+}
+
+var dataframeNaFunctionsDropIntTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var naFunc = peopleDataFrame.na();
+	var result = naFunc.drop(0);
+
+    return result.take(10).toString();
+}
+
+var dataframeNaFunctionsDropIntColsTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var naFunc = peopleDataFrame.na();
+	var result = naFunc.drop(1,  ["name" , "income"]);
+
+    return result.take(10).toString();
+}
+
+var dataframeNaFunctionsFillNumberTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var naFunc = peopleDataFrame.na();
+	var result = naFunc.fill(99.99);
+
+    return result.take(10).toString();
+}
+
+var dataframeNaFunctionsFillNumberColsTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var naFunc = peopleDataFrame.na();
+	var result = naFunc.fill(99.99, ["name", "age"]);
+
+    return result.take(10).toString();
+}
+
+var dataframeNaFunctionsFillStringTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var naFunc = peopleDataFrame.na();
+	var result = naFunc.fill("missing");
+
+    return result.take(10).toString();
+}
+
+var dataframeNaFunctionsFillStringColsTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var naFunc = peopleDataFrame.na();
+	var result = naFunc.fill("missing", ["name", "age"]);
+
+    return result.take(10).toString();
+}
+
+var dataframeNaFunctionsFillHashMapTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var naFunc = peopleDataFrame.na();
+	var hash = {"name": "missing", "age": "99"};
+	var result = naFunc.fill(hash);
+
+    return result.take(10).toString();
+}
+
+var dataframeNaFunctionsReplaceTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var naFunc = peopleDataFrame.na();
+	var hash = {"Michael": "MichaelReplace", "Andy": "AndyReplace"};
+	var result = naFunc.replace("name", hash);
+
+    return result.take(10).toString();
+}
+
+var dataframeNaFunctionsReplaceColsTest = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file);
+	var naFunc = peopleDataFrame.na();
+	var hash = {"1600.00": 99.99, "500000000.11": 11.11, "29": 0};
+	var result = naFunc.replace(["age", "income", "networth"], hash);
+
+    return result.take(10).toString();
 }
