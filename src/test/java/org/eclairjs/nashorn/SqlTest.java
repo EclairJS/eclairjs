@@ -594,6 +594,7 @@ public class SqlTest {
     	/*
     	 * tests
     	 * DataFrame.na()
+    	 * DataFrameNaFunctions.drop()
     	 */
         ScriptEngine engine = TestUtils.getEngine();
         String file = TestUtils.resourceToFile("/data/sql/peopleNullValues.txt");
@@ -1358,5 +1359,235 @@ public class SqlTest {
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable)engine).invokeFunction("groupdedDataAgg", file);
         assertEquals("should be same", "[Andy,30,2],[Michael,29,1],[Justin,19,3]", ret);
+    }
+    
+    /*
+     * DataFrameNaFunctions tests
+     */
+    
+    @Test
+    public void dataFrameNaFunctionsDropTest() throws Exception {
+    	/*
+    	 * tests
+    	 * DataFrame.na()
+    	 * DataFrameNaFunctions.drop('all')
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/peopleNullValues.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeNaFunctionsDropTest", file);
+
+        String expected = "[Michael,29,1,1996-03-06 19:00:00.0,NaN,true,300000000.11],"
+        		+ "[Andy,30,2,1998-12-06 19:00:00.0,1500.44,false,500000000.11],"
+        		+ "[Justin,19,3,1992-03-06 19:00:00.0,1600,true,100000]";
+        assertEquals("should be same", expected, ret.toString());
+    }
+    
+    @Test
+    public void dataFrameNaFunctionsDropColTest() throws Exception {
+    	/*
+    	 * tests
+    	 * DataFrame.na()
+    	 * DataFrameNaFunctions.drop(["colName", "colName"])
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/peopleNullValues.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeNaFunctionsDropColsTest", file);
+
+        String expected = "[Andy,30,2,1998-12-06 19:00:00.0,1500.44,false,500000000.11],"
+        		+ "[Justin,19,3,1992-03-06 19:00:00.0,1600,true,100000]";
+        assertEquals("should be same", expected, ret.toString());
+    }
+    
+    @Test
+    public void dataFrameNaFunctionsDropAllColTest() throws Exception {
+    	/*
+    	 * tests
+    	 * DataFrame.na()
+    	 * DataFrameNaFunctions.drop("all", ["colName", "colName"])
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/peopleNullValues.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeNaFunctionsDropAllColsTest", file);
+
+        String expected = "[Michael,29,1,1996-03-06 19:00:00.0,NaN,true,300000000.11],"
+        		+ "[Andy,30,2,1998-12-06 19:00:00.0,1500.44,false,500000000.11],"
+        		+ "[Justin,19,3,1992-03-06 19:00:00.0,1600,true,100000]";
+        assertEquals("should be same", expected, ret.toString());
+    }
+    
+    @Test
+    public void dataFrameNaFunctionsDropIntTest() throws Exception {
+    	/*
+    	 * tests
+    	 * DataFrame.na()
+    	 * DataFrameNaFunctions.drop(0)
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/peopleNullValues.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeNaFunctionsDropIntTest", file);
+
+        String expected = "[Andy,30,2,1998-12-06 19:00:00.0,1500.44,false,500000000.11],"
+        		+ "[Justin,19,3,1992-03-06 19:00:00.0,1600,true,100000]";
+        assertEquals("should be same", expected, ret.toString());
+    }
+    
+    @Test
+    public void dataFrameNaFunctionsDropIntColsTest() throws Exception {
+    	/*
+    	 * tests
+    	 * DataFrame.na()
+    	 * DataFrameNaFunctions.drop(0, ["colName"])
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/peopleNullValues.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeNaFunctionsDropIntColsTest", file);
+
+        String expected = "[Michael,29,1,1996-03-06 19:00:00.0,NaN,true,300000000.11],"
+        		+ "[Andy,30,2,1998-12-06 19:00:00.0,1500.44,false,500000000.11],"
+        		+ "[Justin,19,3,1992-03-06 19:00:00.0,1600,true,100000]";
+        assertEquals("should be same", expected, ret.toString());
+    }
+    
+    @Test
+    public void dataFrameNaFunctionsFillNumberTest() throws Exception {
+    	/*
+    	 * tests
+    	 * DataFrame.na()
+    	 * DataFrameNaFunctions.fill(99.99)
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/peopleNullValues2.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeNaFunctionsFillNumberTest", file);
+
+        String expected = "[Michael,29,1,1996-03-06 19:00:00.0,99.99,true,300000000.11],"
+        		+ "[Andy,99,2,1998-12-06 19:00:00.0,1500.44,false,500000000.11],"
+        		+ "[,19,3,1992-03-06 19:00:00.0,1600,true,100000]";
+        assertEquals("should be same", expected, ret.toString());
+    }
+    
+    @Test
+    public void dataFrameNaFunctionsFillNumberColsTest() throws Exception {
+    	/*
+    	 * tests
+    	 * DataFrame.na()
+    	 * DataFrameNaFunctions.fill(99.99)
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/peopleNullValues2.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeNaFunctionsFillNumberColsTest", file);
+
+        String expected = "[Michael,29,1,1996-03-06 19:00:00.0,NaN,true,300000000.11],"
+        		+ "[Andy,99,2,1998-12-06 19:00:00.0,1500.44,false,500000000.11],"
+        		+ "[,19,3,1992-03-06 19:00:00.0,1600,true,100000]";
+        assertEquals("should be same", expected, ret.toString());
+    }
+    
+    @Test
+    public void dataFrameNaFunctionsFillStringTest() throws Exception {
+    	/*
+    	 * tests
+    	 * DataFrame.na()
+    	 * DataFrameNaFunctions.fill(99.99)
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/peopleNullValues2.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeNaFunctionsFillStringTest", file);
+
+        String expected = "[Michael,29,1,1996-03-06 19:00:00.0,NaN,true,300000000.11],"
+        		+ "[Andy,,2,1998-12-06 19:00:00.0,1500.44,false,500000000.11],"
+        		+ "[missing,19,3,1992-03-06 19:00:00.0,1600,true,100000]";
+        assertEquals("should be same", expected, ret.toString());
+    }
+    
+    @Test
+    public void dataFrameNaFunctionsFillStringColsTest() throws Exception {
+    	/*
+    	 * tests
+    	 * DataFrame.na()
+    	 * DataFrameNaFunctions.fill(99.99)
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/peopleNullValues2.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeNaFunctionsFillStringColsTest", file);
+
+        String expected = "[Michael,29,1,1996-03-06 19:00:00.0,NaN,true,300000000.11],"
+        		+ "[Andy,,2,1998-12-06 19:00:00.0,1500.44,false,500000000.11],"
+        		+ "[missing,19,3,1992-03-06 19:00:00.0,1600,true,100000]";
+        assertEquals("should be same", expected, ret.toString());
+    }
+    
+    @Test
+    public void dataFrameNaFunctionsFillMapTest() throws Exception {
+    	/*
+    	 * tests
+    	 * DataFrame.na()
+    	 * DataFrameNaFunctions.fill(99.99)
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/peopleNullValues2.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeNaFunctionsFillHashMapTest", file);
+
+        String expected = "[Michael,29,1,1996-03-06 19:00:00.0,NaN,true,300000000.11],"
+        		+ "[Andy,99,2,1998-12-06 19:00:00.0,1500.44,false,500000000.11],"
+        		+ "[missing,19,3,1992-03-06 19:00:00.0,1600,true,100000]";
+        assertEquals("should be same", expected, ret.toString());
+    }
+    
+    @Test
+    public void dataFrameNaFunctionsReplaceTest() throws Exception {
+    	/*
+    	 * tests
+    	 * DataFrame.na()
+    	 * DataFrameNaFunctions.fill(99.99)
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/peopleNullValues2.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeNaFunctionsReplaceTest", file);
+
+        String expected = "[MichaelReplace,29,1,1996-03-06 19:00:00.0,NaN,true,300000000.11],"
+        		+ "[AndyReplace,,2,1998-12-06 19:00:00.0,1500.44,false,500000000.11],"
+        		+ "[,19,3,1992-03-06 19:00:00.0,1600,true,100000]";
+        assertEquals("should be same", expected, ret.toString());
+    }
+    
+    @Test
+    public void dataFrameNaFunctionsReplaceColsTest() throws Exception {
+    	/*
+    	 * tests
+    	 * DataFrame.na()
+    	 * DataFrameNaFunctions.fill(99.99)
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/peopleNullValues2.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataframeNaFunctionsReplaceColsTest", file);
+
+        String expected = "[Michael,0,1,1996-03-06 19:00:00.0,NaN,true,300000000.11],"
+        		+ "[Andy,,2,1998-12-06 19:00:00.0,1500.44,false,11.11],"
+        		+ "[,19,3,1992-03-06 19:00:00.0,99.99,true,100000]";
+        assertEquals("should be same", expected, ret.toString());
     }
 }

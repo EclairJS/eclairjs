@@ -94,6 +94,24 @@ var Utils = {};
 		}
 		return a;
   };
+  /**
+   * Creates a Java HashMap from a JavaScript object.
+   * @private
+   * @param {object} obj hashMap
+   * @returns {HashMap} java.util.HashMap
+   */
+  Utils.createJavaHashMap = function(obj) {
+	  map = new java.util.HashMap();
+	   for(var colName in obj){
+		   if (typeof obj[colName] === 'number') {
+			   map.put(new java.lang.Double(colName), new java.lang.Double(obj[colName]));
+		   } else {
+			   map.put(colName, obj[colName]); 
+		   }
+	      
+	   }
+	   return map;
+  };
 
   function convertJavaTuple2(o1, o2) { 
 	  return [o1 ,o2];
