@@ -38,7 +38,7 @@ GroupedData.prototype.constructor = GroupedData;
  * // Java:
  * df.groupBy("department").agg(max("age"), sum("expense"));
  * @since EclairJS 0.1 Spark  1.3.0
- * @param {Column | string} columnExpr, ...columnExpr or columnName, ...columnName
+ * @param {Column | string} columnExpr,...columnExpr or columnName, ...columnName
  * @returns {DataFrame} 
  */
 GroupedData.prototype.agg = function() {
