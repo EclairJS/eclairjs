@@ -459,15 +459,7 @@ functions.array = function() {
 	/*
 	 * Create a argument list we can send to Java
 	 */
-	var args = Array.prototype.slice.call(arguments);
-	for (var i = 0; i < arguments.length; i++) {
-		var o = args[i];
-		if (!(o instanceof Column)) {
-			// must name column name
-			o = new Column(o);
-		}
-		args[i] = Utils.unwrapObject(o);
-	}
+	var args = Utils.createJavaObjectArguments(arguments, Column);
 	var javaObject = org.apache.spark.sql.functions.array(args);
     return new Column(javaObject);
 
@@ -694,16 +686,7 @@ functions.struct = function() {
 	/*
 	 * Create a argument list we can send to Java
 	 */
-	var args = Array.prototype.slice.call(arguments);
-	for (var i = 0; i < arguments.length; i++) {
-		var o = args[i];
-		if (!(o instanceof Column)) {
-			// must name column name
-			o = new Column(o);
-		}
-		args[i] = Utils.unwrapObject(o);
-	}
-	
+	var args = Utils.createJavaObjectArguments(arguments, Column);	
 	var javaObject = org.apache.spark.sql.functions.struct(args);
 	return new Column(javaObject);
 }
@@ -995,16 +978,7 @@ functions.greatest = function() {
 	/*
 	 * Create a argument list we can send to Java
 	 */
-	var args = Array.prototype.slice.call(arguments);
-	for (var i = 0; i < arguments.length; i++) {
-		var o = args[i];
-		if (!(o instanceof Column)) {
-			// must name column name
-			o = new Column(o);
-		}
-		args[i] = Utils.unwrapObject(o);
-	}
-	
+	var args = Utils.createJavaObjectArguments(arguments, Column);
 	var javaObject = org.apache.spark.sql.functions.greatest(args);
 	return new Column(javaObject);
 
@@ -1082,19 +1056,11 @@ functions.hypot = function(left,right) {
  * @param {Column | string} columnExpr, ...columnExpr or columnName, ...columnName
  * @returns {Column} 
  */
-functions.least = function(exprs) {
+functions.least = function() {
 	/*
 	 * Create a argument list we can send to Java
 	 */
-	var args = Array.prototype.slice.call(arguments);
-	for (var i = 0; i < args.length; i++) {
-		var o = args[i];
-		if (!(o instanceof Column)) {
-			// must name column name
-			o = new Column(o);
-		}
-		args[i] = Utils.unwrapObject(o);
-	}
+    var args = Utils.createJavaObjectArguments(arguments, Column);
 	var javaObject = org.apache.spark.sql.functions.least(args);
 	return new Column(javaObject);
 }
@@ -1491,15 +1457,7 @@ functions.concat = function(exprs) {
    /*
 	 * Create a argument list we can send to Java
 	 */
-	var args = Array.prototype.slice.call(arguments);
-	for (var i = 0; i < args.length; i++) {
-		var o = args[i];
-		if (!(o instanceof Column)) {
-			// must name column name
-			o = new Column(o);
-		}
-		args[i] = Utils.unwrapObject(o);
-	}
+   var args = Utils.createJavaObjectArguments(arguments, Column);
    var javaObject = org.apache.spark.sql.functions.concat(args);
    return new Column(javaObject);
 }
@@ -1518,15 +1476,7 @@ functions.concat_ws = function(sep,exprs) {
 	/*
 	 * Create a argument list we can send to Java
 	 */
-	var args = Array.prototype.slice.call(arguments);
-	for (var i = 0; i < args.length; i++) {
-		var o = args[i];
-		if (!(o instanceof Column)) {
-			// must name column name
-			o = new Column(o);
-		}
-		args[i] = Utils.unwrapObject(o);
-	}
+   var args = Utils.createJavaObjectArguments(arguments, Column);
    var javaObject = org.apache.spark.sql.functions.concat_ws(sep,args);
    return new Column(javaObject);
 }
@@ -1597,15 +1547,7 @@ functions.format_string = function(format,columnExpr) {
 	/*
 	 * Create a argument list we can send to Java
 	 */
-	var args = Array.prototype.slice.call(columnExpr);
-	for (var i = 0; i < args.length; i++) {
-		var o = args[i];
-		if (!(o instanceof Column)) {
-			// must name column name
-			o = new Column(o);
-		}
-		args[i] = Utils.unwrapObject(o);
-	}
+	var args = Utils.createJavaObjectArguments(arguments, Column);
 	var javaObject = org.apache.spark.sql.functions.format_string(format,args);
 	return new Column(javaObject);
 }

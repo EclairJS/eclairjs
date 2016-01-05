@@ -837,3 +837,20 @@ var rowMkStringType = function(file, sep, start, end) {
 	})
     return s;
 }
+
+/*
+ * GroupedData tests
+ */
+
+var groupdedDataAgg = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file, true);
+	var group = peopleDataFrame.groupBy("name");
+	print("group " + group)
+	var maxFunc = functions.max("age");
+	print("max " + maxFunc)
+	var sumFunc = functions.sum("expense");
+	print("sum " + sumFunc)
+	var result = group.agg(functions.max("age"), functions.sum("expense"));
+	return result.take(10).toString();
+}
