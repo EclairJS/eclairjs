@@ -1,6 +1,8 @@
 package org.eclairjs.tools.generate
 
 import _root_.org.eclairjs.tools.generate.org.eclairjs.tools.generate.model.{Clazz, File, Method}
+import scala.sys.process._
+import scala.util.matching.Regex
 
 object Statistics {
 
@@ -14,6 +16,9 @@ object Statistics {
   val showClosure=true
   val showClosureClassInfo=true
   val showClosureGenerateClasses=false
+  val showImplementedClasses=true
+
+  val jsSourcePath = "./src/main/resources"
 
   var numClasses=0;
   var numMethods=0;
@@ -21,22 +26,42 @@ object Statistics {
   var numOverloadedConstructors=0;
   var numOverloadedMethods=0;
 
+  var numTotalImplemented = 0;
+  var numImplemented = 0;
+
+
 
   case class MethodInfo(name:String,num:Int, hasDoc:Boolean)
   {
+    var implemented=false
+
     override  def toString() ={
       val numStr:String=if (num>1) num.toString else " "
       val docStr:String=if (hasDoc) "DOC" else "   "
+      val implementedStr:String=if (implemented) "X" else " "
       if (infoDistinctMethodNames)
-        s"  * $name"
+        s"  * $name  $implementedStr"
       else
         s"  * $name  $numStr $docStr"
     }
+
   }
+
   case class ClassInfo(name:String,numConstructors:Int, methods:List[MethodInfo])
   {
     override  def toString() ={
       s"* $name   $numConstructors constructor(s)\n${methods.sortWith(_.name < _.name).mkString("\n")}"
+    }
+
+    def setImplemented(method:String): Boolean =
+    {
+      methods.find(_.name==method) match {
+        case Some(method)=> {
+          method.implemented=true
+          true
+        }
+        case None => false
+      }
     }
   }
   val generatedFiles= scala.collection.mutable.ListBuffer.empty[String]
@@ -46,6 +71,7 @@ object Statistics {
 
   val allClasses= scala.collection.mutable.Map[String,Clazz]()
 
+  val implementedClasses = scala.collection.mutable.Map[String,List[String]]()
 
 
   def reset() = {
@@ -114,7 +140,33 @@ object Statistics {
     }
   }
 
+  def loadImplmentedInfo(): Unit =
+  {
+    val functionRX="""[\/\w.]+:\s*(\w+).prototype.(\w+).+""".r
+
+    val grep="""grep -r function """+jsSourcePath
+//    val grep="""grep -r "= function" """+jsSourcePath
+    val grepLines = grep.!!
+    grepLines.split("\\n") foreach( line=>
+         line match {
+           case functionRX(cls,method) => {
+             numTotalImplemented +=1
+             implementedClasses.get(cls) match {
+               case Some(list) => implementedClasses.put(cls,list++List(method))
+               case None => implementedClasses.put(cls,List(method))
+             }
+
+           }
+           case _ =>
+
+         }
+      )
+  }
+
   def calculateClosure() = {
+
+    if (showImplementedClasses)
+      loadImplmentedInfo()
     var referencedClasses=Set[Clazz]()
 
     val topLevels = List("SparkConf","JavaSparkContext","SQLContext","JavaStreamingContext","CountVectorizerModel","CountVectorizer","HashingTF","Tokenizer","LogisticRegression","Pipeline",
@@ -176,11 +228,48 @@ object Statistics {
       Reduced Classes:
 
       Number of classes: $numClasses
-      Number of methods: $numMethods
-      Number of jsdoc methods: $numDocMethods
-      Number of overloaded methods: $numOverloadedMethods
-      Number of overloaded constructors: $numOverloadedConstructors
-      """
+      Number of functions: $numMethods
+      Number of jsdoc functions: $numDocMethods
+      Number of overloaded functions: $numOverloadedMethods
+      Number of overloaded constructors: $numOverloadedConstructors"""+"\n\n"
+
+    if (showImplementedClasses)
+    {
+      // first update implemented flag in class infos
+      var numberImplemented=0
+
+      def updateImplementedClass(name:String,methods:List[String]): Unit = {
+        val checkName="."+name
+        generatedClassInfos.find(_._1.endsWith(checkName)) match {
+
+          case Some(tuple) => {
+            methods foreach( name=>
+              if (tuple._2.setImplemented(name))
+                numberImplemented+=1
+              )
+          }
+          case None =>
+
+        }
+
+      }
+
+
+      for ((cls, methods) <- implementedClasses)
+        {
+          updateImplementedClass(cls,methods)
+          updateImplementedClass("Java"+cls,methods)
+        }
+
+      // results
+      str=str+
+          s"""
+       Number of implemented classes: ${implementedClasses.size}
+       Number of implemented functions (exact name match): $numberImplemented
+       Number of total implemented functions: $numTotalImplemented
+            """+"\n\n"
+
+    }
     val sortedNames=generatedClasses.sorted
 
     if (showClosureGenerateClasses)  // list of classes
@@ -198,9 +287,9 @@ object Statistics {
   override  def toString () = {
    var str= s"""
       Number of classes: $numClasses
-      Number of methods: $numMethods
-      Number of jsdoc methods: $numDocMethods
-      Number of overloaded methods: $numOverloadedMethods
+      Number of functions: $numMethods
+      Number of jsdoc functions: $numDocMethods
+      Number of overloaded functions: $numOverloadedMethods
       Number of overloaded constructors: $numOverloadedConstructors
       """
 
