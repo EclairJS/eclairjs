@@ -53,6 +53,8 @@ abstract class GenerateJSBase {
 
   }
 
+  def isForNode()=false
+
    def generateConstructor(cls:Clazz, sb:StringBuilder): Unit
   def generateObject(cls:Clazz, sb:StringBuilder): Unit
   def generatePostlude(cls:Clazz, sb:StringBuilder): Unit
@@ -166,9 +168,13 @@ def convertToJSDoc(comment:String, model:AnyRef):String = {
           case _ => str
         }
       })
-      val returnType=method.getReturnJSType()
+      val returnType=jsDocReturnType(method)
       if (returnType!="undefined")
         jsDoc.addReturn(returnType)
+      else if (isForNode())
+        {
+          jsDoc.endLines+=s""" * @returns {Promise.<Void>} A Promise that resolves to nothing."""
+        }
       if (method.isConstructor())
         jsDoc.endLines+=" *  @class"
     }
@@ -186,6 +192,8 @@ def convertToJSDoc(comment:String, model:AnyRef):String = {
 
     jsDoc.asJSDoc();
   }
+
+  def jsDocReturnType(method:Method):String = method.getReturnJSType()
 
   def addNewlines(count:Integer,sb:StringBuilder) : Unit = {
     val newLines="\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\n\n\n\n".toCharArray

@@ -7,7 +7,10 @@
  */
   class Test1[T](str:String) {
 
-  def func1()={}
+  /**
+   * simple function
+   */
+  def func1() : Unit={}
 
 
   /**
