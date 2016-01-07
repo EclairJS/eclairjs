@@ -478,7 +478,7 @@ DataFrame.prototype.printSchema = function() {
  * @returns {SQLContextQueryExecution}
  */
 DataFrame.prototype.queryExecution = function() {
- 	return new SQLContextQueryExecution(this.getJavaObject().queryExecution());
+ 	return new SQLContext.QueryExecution(this.getJavaObject().queryExecution());
 };
 /**
  * Randomly splits this DataFrame with the provided weights.
