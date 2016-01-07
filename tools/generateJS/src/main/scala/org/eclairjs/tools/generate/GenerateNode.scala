@@ -40,6 +40,9 @@ class GenerateNode  extends  GenerateJSBase {
 
   }
 
+  override def isForNode()=true
+
+
   override def generateIncludes(file:File, sb:StringBuilder): Unit = {
 
     // determine path to root directory
@@ -59,7 +62,51 @@ class GenerateNode  extends  GenerateJSBase {
 
   def getMethodBody(method:Method): String =
   {
-    ""
+    val sb=new StringBuilder
+
+    val returnType=method.returnType
+    if (isPromise(returnType))
+      {
+
+
+      }
+
+    if (returnType.isSparkClass())
+    {
+      val templateParms= method.parms.map("{{"+_.name+"}}").toArray.mkString(",")
+
+      sb ++= getTemplate("node_templateStrAssign",method.name,templateParms)
+
+
+      val assignParms= method.parms.map(parm=> parm.name+" : "+parm.name).toArray.mkString(",")
+      val parms = if (method.parms.isEmpty) "" else {
+        s", {$assignParms}"
+      }
+      sb ++= getTemplate("node_genAssign",returnType.getJSType(),parms)
+
+    }
+    else
+      {
+
+      }
+
+    sb.toString()
+
   }
+
+  def jsDocType(typ:DataType):String = {
+    val jsType=typ.getJSType(typ.name)
+    if (isPromise(typ))
+      s"Promise.<$jsType>"
+    else
+      jsType
+  }
+
+  def isPromise(typ:DataType):Boolean = {
+    !typ.isSparkClass()
+  }
+
+
+  override def jsDocReturnType(method:Method):String = jsDocType(method.returnType)
 
 }

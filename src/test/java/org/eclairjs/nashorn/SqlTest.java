@@ -1590,4 +1590,54 @@ public class SqlTest {
         		+ "[,19,3,1992-03-06 19:00:00.0,99.99,true,100000]";
         assertEquals("should be same", expected, ret.toString());
     }
+    
+    @Test
+    public void sqlContextSetConfTest() throws Exception {
+    	/*
+    	 * tests
+    	 * SQLContext.setConf(key, value)
+    	 * SQLContext.getConf(key)
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+ 
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("sqlContextSetConfTest");
+
+        String expected = "Golden Retriever";
+        assertEquals("should be same", expected, ret.toString());
+    }
+    
+    @Test
+    public void sqlContextgetAllConfTest() throws Exception {
+    	/*
+    	 * tests
+    	 * SQLContext.setConf(key, value)
+    	 * SQLContext.getAllConfs()
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+ 
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("sqlContextGetAllConfTest");
+
+        String expected = "{\"prop2\":\"value2\",\"prop1\":\"value1\"}";
+        assertEquals("should be same", expected, ret.toString());
+    }
+    
+    @Test
+    public void sqlContextRangeTest() throws Exception {
+    	/*
+    	 * tests
+    	 * DataFrame.na()
+    	 * DataFrameNaFunctions.fill(99.99)
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+       
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("sqlContextRangeTest");
+
+        String expected = "[1],[2],[3],[4]";
+        assertEquals("should be same", expected, ret.toString());
+    }
+    
+    
 }
