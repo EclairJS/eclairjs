@@ -187,6 +187,8 @@ case class Parm(name:String,typ:DataType)
 
   def simpleName():String =name.split("\\.").last
 
+  def isArray(scalaName:String=name):Boolean = false
+
   def getJSType(scalaName:String=name):String =
   {
 
@@ -242,6 +244,14 @@ case class ExtendedDataType(name:String,referenceType:String) extends DataType
     }
 
   }
+  override def isArray(scalaName:String=name):Boolean = {
+    scalaName match {
+      case "List" | "Array" =>  true
+      case _ => false
+    }
+
+  }
+
 
 }
 case class FunctionDataType(name:String,parms:List[DataType],returnType:DataType) extends DataType

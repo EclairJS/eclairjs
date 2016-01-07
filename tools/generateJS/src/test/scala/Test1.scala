@@ -10,7 +10,7 @@
   /**
    * simple function
    */
-  def func1() : Unit={}
+  def func1(a:Int) : Unit={}
 
 
   /**
