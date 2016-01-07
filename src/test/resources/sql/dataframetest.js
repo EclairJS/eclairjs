@@ -970,3 +970,28 @@ var dataframeNaFunctionsReplaceColsTest = function(file) {
 
     return result.take(10).toString();
 }
+
+/*
+ * SQLContext test
+ */
+
+var sqlContextSetConfTest = function() {
+	
+	sqlContext.setConf("dog", "Golden Retriever");
+	var result = sqlContext.getConf("dog");
+    return result;
+}
+
+var sqlContextGetAllConfTest = function() {
+	var map = {"prop1" : "value1", "prop2": "value2"};
+	sqlContext.setConf(map);
+	var result = sqlContext.getAllConfs();
+    return JSON.stringify(result);
+}
+
+var sqlContextRangeTest = function() {
+
+	var result = sqlContext.range(1,5);
+
+    return result.take(10).toString();
+}
