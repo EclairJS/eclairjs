@@ -56,7 +56,7 @@ Column.prototype.alias = function(a) {
  * people.select( people.col("inSchool").and(people.col("isEmployed")));
  */
 Column.prototype.and = function(other) {
-	return new Column(this.getJavaObject().and(other));
+	return new Column(this.getJavaObject().and(Utils.unwrapObject(other)));
 }
 /**
  * Extracts a value or values from a complex type.
