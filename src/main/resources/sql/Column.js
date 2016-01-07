@@ -427,7 +427,6 @@ Column.prototype.mod = function(other) {
  * @returns {Column} 
  */
 Column.prototype.multiply = function(other) {
-throw "not implemented by ElairJS";
 	var javaObject =  this.getJavaObject().multiply(Utils.unwrapObject(other));
 	return new Column(javaObject);
 };
