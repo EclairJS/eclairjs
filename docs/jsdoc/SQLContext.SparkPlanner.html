@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: LinearRegressionModel</title>
+    <title>JSDoc: Class: SparkPlanner</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Class: LinearRegressionModel</h1>
+    <h1 class="page-title">Class: SparkPlanner</h1>
     
     
 
@@ -27,10 +27,10 @@
     
 <header>
     <h2>
-    LinearRegressionModel
-    </h2>
+        <span class="ancestors"><a href="SQLContext.html">SQLContext</a>.</span>
     
-        <div class="class-description">Model produced by LinearRegression.</div>
+    SparkPlanner
+    </h2>
     
 </header>  
 
@@ -41,7 +41,7 @@
     
         
 <dt>
-    <h4 class="name" id="LinearRegressionModel"><span class="type-signature"></span>new LinearRegressionModel<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="SparkPlanner"><span class="type-signature"></span>new SparkPlanner<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -78,7 +78,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="LinearRegressionModel.js.html">mllib/regression/LinearRegressionModel.js</a>, <a href="LinearRegressionModel.js.html#line21">line 21</a>
+        <a href="SQLContext.js.html">sql/SQLContext.js</a>, <a href="SQLContext.js.html#line433">line 433</a>
     </li></ul></dd>
     
     
@@ -124,70 +124,18 @@
         <dl>
             
 <dt>
-    <h4 class="name" id="predict"><span class="type-signature"></span>predict<span class="signature">(features)</span><span class="type-signature"> &rarr; {float}</span></h4>
+    <h4 class="name" id="codegenEnabled"><span class="type-signature"></span>codegenEnabled<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
     
     
 </dt>
 <dd>
     
     
-    <div class="description">
-        Predict label for the given features.
-    </div>
-    
 
     
     
     
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>features</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Vector.html">Vector</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
     
     
     
@@ -213,7 +161,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="LinearRegressionModel.js.html">mllib/regression/LinearRegressionModel.js</a>, <a href="LinearRegressionModel.js.html#line35">line 35</a>
+        <a href="SQLContext.js.html">sql/SQLContext.js</a>, <a href="SQLContext.js.html#line459">line 459</a>
     </li></ul></dd>
     
     
@@ -245,7 +193,339 @@
 	</dt>
 	<dd>
 		
-<span class="param-type">float</span>
+<span class="param-type">boolean</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="numPartitions"><span class="type-signature"></span>numPartitions<span class="signature">()</span><span class="type-signature"> &rarr; {integer}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="SQLContext.js.html">sql/SQLContext.js</a>, <a href="SQLContext.js.html#line471">line 471</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">integer</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="sparkContext"><span class="type-signature"></span>sparkContext<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="SparkContext.html">SparkContext</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="SQLContext.js.html">sql/SQLContext.js</a>, <a href="SQLContext.js.html#line447">line 447</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="SparkContext.html">SparkContext</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="sqlContext"><span class="type-signature"></span>sqlContext<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="SQLContext.html">SQLContext</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="SQLContext.js.html">sql/SQLContext.js</a>, <a href="SQLContext.js.html#line453">line 453</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="SQLContext.html">SQLContext</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="unsafeEnabled"><span class="type-signature"></span>unsafeEnabled<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="SQLContext.js.html">sql/SQLContext.js</a>, <a href="SQLContext.js.html#line465">line 465</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">boolean</span>
 
 
 	</dd>
