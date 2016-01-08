@@ -100,8 +100,8 @@ var Utils = {};
    * @param {object} obj hashMap
    * @returns {HashMap} java.util.HashMap
    */
-  Utils.createJavaHashMap = function(obj) {
-	  map = new java.util.HashMap();
+  Utils.createJavaHashMap = function(obj, javaMapObj) {
+	  var map = javaMapObj ? javaMapObj : new java.util.HashMap();
 	   for(var colName in obj){
 		   if (typeof obj[colName] === 'number') {
 			   map.put(new java.lang.Double(colName), new java.lang.Double(obj[colName]));
