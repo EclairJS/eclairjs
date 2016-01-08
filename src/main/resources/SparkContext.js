@@ -150,6 +150,16 @@ with (imported) {
 		}
 		
 	};
+
+    /**
+     * Set the directory under which RDDs are going to be checkpointed. 
+     * The directory must be a HDFS path if running on a cluster.
+     * @param {string} dir
+     */
+    SparkContext.prototype.setCheckpointDir = function(dir) {
+          this.getJavaObject().setCheckpointDir(dir);
+    };
+
 	/**
 	 * Shut down the SparkContext.
 	 */

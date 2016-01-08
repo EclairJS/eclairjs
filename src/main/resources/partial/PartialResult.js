@@ -52,9 +52,9 @@ throw "not implemented by ElairJS";
  * @returns {object} 
  */
 PartialResult.prototype.getFinalValue = function() {
-throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().getFinalValue();
-//   return new object(javaObject);
+//throw "not implemented by ElairJS";
+   var javaObject =  this.getJavaObject().getFinalValue();
+   return new object(javaObject);
 }
 
 
@@ -64,11 +64,11 @@ throw "not implemented by ElairJS";
  * @returns {PartialResult} 
  */
 PartialResult.prototype.onComplete = function(handler) {
-throw "not implemented by ElairJS";
-//   var sv = Utils.createJavaParams(handler);
-//   var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
-//   var javaObject =  this.getJavaObject().onComplete(fn);
-//   return new PartialResult(javaObject);
+//throw "not implemented by ElairJS";
+   var sv = Utils.createJavaParams(handler);
+   var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
+   var javaObject =  this.getJavaObject().onComplete(fn);
+   return new PartialResult(javaObject);
 }
 
 
@@ -100,5 +100,5 @@ throw "not implemented by ElairJS";
 
 PartialResult.prototype.toString = function() {
 throw "not implemented by ElairJS";
-//   return  this.getJavaObject().toString();
+   return  this.getJavaObject().toString();
 }

@@ -37,12 +37,18 @@ RDD.prototype.constructor = RDD;
  * and one operation for merging two U's, as in scala.TraversableOnce. Both of these functions are
  * allowed to modify and return their first argument instead of creating a new U to avoid memory
  * allocation.
- * @param zeroValue - (undocumented)
+ * @param {RDD} zeroValue - (undocumented)
+ * @param (function} seqOp - (undocumented)
+ * @param (function} combOp - (undocumented)
  * @returns {object}
  */
-RDD.prototype.aggregate = function(zeroValue) {
+RDD.prototype.aggregate = function(zeroValue,func1,func2) {
    var zeroValue_uw = Utils.unwrapObject(zeroValue);
-   return Utils.javaToJs(this.getJavaObject().aggregate(zeroValue_uw));
+   var sv1 = Utils.createJavaParams(func1, 2);
+   var fn1 = new org.eclairjs.nashorn.JSFunction2(sv1.funcStr, sv1.scopeVars);
+   var sv2 = Utils.createJavaParams(func2, 2);
+   var fn2 = new org.eclairjs.nashorn.JSFunction2(sv2.funcStr, sv2.scopeVars);
+   return Utils.javaToJs(this.getJavaObject().aggregate(zeroValue_uw, fn1, fn2));
 };
 
 /**
@@ -56,6 +62,7 @@ RDD.prototype.cache = function() {
 /**
  * Return the Cartesian product of this RDD and another one, that is, the RDD of all pairs of
  * elements (a, b) where a is in `this` and b is in `other`.
+ * @param {RDD} other - (undocumented)
  * @returns {RDD}
  */
 RDD.prototype.cartesian = function(other) {
@@ -69,6 +76,7 @@ RDD.prototype.cartesian = function(other) {
  * RDDs will be removed. This function must be called before any job has been
  * executed on this RDD. It is strongly recommended that this RDD is persisted in
  * memory, otherwise saving it on a file will require recomputation.
+ * @returns void
  */
 RDD.prototype.checkpoint = function() {
    this.getJavaObject().checkpoint();
@@ -93,6 +101,8 @@ RDD.prototype.checkpoint = function() {
  * say 100, potentially with a few partitions being abnormally large. Calling
  * coalesce(1000, shuffle = true) will result in 1000 partitions with the
  * data distributed using a hash partitioner.
+ * @param {int} numPartitions
+ * @param {boolean} shuffle
  * @returns {RDD}
  */
 RDD.prototype.coalesce = function(numPartitions,shuffle) {
@@ -104,7 +114,10 @@ RDD.prototype.coalesce = function(numPartitions,shuffle) {
  * @returns {Array}
  */
 RDD.prototype.collect = function() {
-	var res = this.getJavaObject().collect();
+    var func = null; // See note below collectwithF - eventually want to pass func as param to this func
+    var sv = func ? Utils.createJavaParams(func) : null;
+    var fn = func ? new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars) : null;
+	var res = func ? this.getJavaObject().collect(fn, "") : this.getJavaObject().collect();
 	var results = [];
 	for (var i = 0; i < res.size(); i++) {
 		var value = res.get(i);
@@ -118,15 +131,17 @@ RDD.prototype.collect = function() {
 };
 
 /**
- * Return an RDD that contains all matching values by applying `func`.
- * @param {function}
+ * Return an RDD that contains all matching values by applying `f`.
+ * Note: f is scala.PartialFunction which is not implemented yet - see above
  * @returns {RDD}
+ * @private
  */
-RDD.prototype.collectwithF = function(func) {
-    var f_uw = Utils.unwrapObject(func);
-    var javaObject =  this.getJavaObject().collect(f_uw);
-    return new RDD(javaObject);
-};
+RDD.prototype.collectwithF = function(f) {
+throw "not implemented by ElairJS";
+//   var f_uw = Utils.unwrapObject(f);
+//   var javaObject =  this.getJavaObject().collect(f_uw);
+//   return new RDD(javaObject);
+}
 
 /**
  * Return the SparkContext that this RDD was created on.
@@ -204,6 +219,7 @@ RDD.prototype.countApproxDistinctwithSp = function(p,sp) {
  * To handle very large results, consider using rdd.map(x =&gt; (x, 1L)).reduceByKey(_ + _), which
  * returns an RDD[T, Long] instead of a map.
  * @returns {Map}
+ * @private
  */
 RDD.prototype.countByValue = function() {
 throw "not implemented by ElairJS";
@@ -225,6 +241,7 @@ RDD.prototype.countByValueApprox = function(timeout,confidence) {
  * Get the list of dependencies of this RDD, taking into account whether the
  * RDD is checkpointed or not.
  * @returns {Seq}
+ * @private
  */
 RDD.prototype.dependencies = function() {
 throw "not implemented by ElairJS";
@@ -259,14 +276,17 @@ RDD.prototype.filter = function(func) {
  * Filters this RDD with p, where p takes an additional parameter of type A.  This
  * additional parameter is produced by constructA, which is called in each
  * partition with the index of that partition.
+ * Note: Doesn't make sense for JavaScript.
  * @param constructA
  * @returns {RDD}
+ * @private
  */
 RDD.prototype.filterWith = function(constructA) {
-    var sv = Utils.createJavaParams(constructA);
-    var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
-    var javaObject =  this.getJavaObject().filterWith(fn);
-    return new RDD(javaObject);
+throw "not implemented by ElairJS";
+    //var sv = Utils.createJavaParams(constructA);
+    //var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
+    //var javaObject =  this.getJavaObject().filterWith(fn);
+    //return new RDD(javaObject);
 };
 
 /**
@@ -281,7 +301,7 @@ RDD.prototype.first = function() {
 
 /**
 * Return a new RDD by first applying a function to all elements of this RDD, and then flattening the results.
-* @param func
+* @param {function} func
 * @returns {RDD}
 */
 RDD.prototype.flatMap = function(func) {
@@ -295,13 +315,16 @@ RDD.prototype.flatMap = function(func) {
  * FlatMaps f over this RDD, where f takes an additional parameter of type A.  This
  * additional parameter is produced by constructA, which is called in each
  * partition with the index of that partition.
+ * Note: Doesn't make sense for JavaScript.
  * @returns {RDD}
+ * @private
  */
 RDD.prototype.flatMapWith = function(constructA,preservesPartitioning) {
-    var sv = Utils.createJavaParams(constructA);
-    var preserves = preservesPartitioning || false;
-    var javaObject =  this.getJavaObject().flatMapWith(fn,preservesPartitioning);
-    return new RDD(javaObject);
+throw "not implemented by ElairJS";
+    //var sv = Utils.createJavaParams(constructA);
+    //var preserves = preservesPartitioning || false;
+    //var javaObject =  this.getJavaObject().flatMapWith(fn,preservesPartitioning);
+    //return new RDD(javaObject);
 };
 
 /**
@@ -316,11 +339,15 @@ RDD.prototype.flatMapWith = function(constructA,preservesPartitioning) {
  * apply the fold to each element sequentially in some defined ordering. For functions
  * that are not commutative, the result may differ from that of a fold applied to a
  * non-distributed collection.
+ * @param {RDD} zeroValue - (undocumented)
+ * @param {function} func - (undocumented)
  * @returns {object}
  */
-RDD.prototype.fold = function(zeroValue) {
+RDD.prototype.fold = function(zeroValue, func) {
     var zeroValue_uw = Utils.unwrapObject(zeroValue);
-    var result = this.getJavaObject().fold(zeroValue_uw);
+    var sv = Utils.createJavaParams(func, 2);
+    var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
+    var result = this.getJavaObject().fold(zeroValue_uw, fn);
     var o = Utils.javaToJs(result);
     return (o); 
 };
@@ -359,20 +386,22 @@ RDD.prototype.foreachPartition = function(func) {
 	var sv = Utils.createJavaParams(func);
 	var fn = new org.eclairjs.nashorn.JSVoidFunction(sv.funcStr, sv.scopeVars);
 	this.getJavaObject().foreachPartition(fn);
-
 };
 
 /**
  * Applies f to each element of this RDD, where f takes an additional parameter of type A.
  * This additional parameter is produced by constructA, which is called in each
  * partition with the index of that partition.
+ * Note: Doesn't make sense for JavaScript.
  * @param {constructA} - undocumented
  * @returns {void}
+ * @private
  */
 RDD.prototype.foreachWith = function(constructA) {
-    var sv = Utils.createJavaParams(constructA);
-    var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
-    this.getJavaObject().foreachWith(fn);
+throw "not implemented by ElairJS";
+    //var sv = Utils.createJavaParams(constructA);
+    //var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
+    //this.getJavaObject().foreachWith(fn);
 };
 
 /**
@@ -410,8 +439,8 @@ RDD.prototype.glom = function() {
  * aggregation (such as a sum or average) over each key, using {@link aggregateByKey}
  * or {@link reduceByKey} will provide much better performance.
  * @param f undocumented
- * @param {number} numPartitions  How many partitions to use in the resulting RDD (if non-zero partitioner is ignored)
- * @param {Partitioner} partitioner  Partitioner to use for the resulting RDD
+ * @param {number} numPartitions - (optional) How many partitions to use in the resulting RDD (if non-zero partitioner is ignored)
+ * @param {Partitioner} partitioner - (optional) Partitioner to use for the resulting RDD
  * @returns {RDD}
  */
 RDD.prototype.groupBy = function(f,numPartitions,partitioner) {
@@ -568,15 +597,18 @@ RDD.prototype.mapPartitionsWithSplit = function(func,preservesPartitioning) {
  * Maps f over this RDD, where f takes an additional parameter of type A.  This
  * additional parameter is produced by constructA, which is called in each
  * partition with the index of that partition.
+ * Note: Doesn't make sense for JavaScript.
  * @param {function}
  * @param {boolean}
  * @returns {RDD}
+ * @private
  */
 RDD.prototype.mapWith = function(constructA,preservesPartitioning) {
-    var sv = Utils.createJavaParams(constructA);
-    var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
-    var javaObject =  this.getJavaObject().mapWith(fn,preservesPartitioning);
-    return new RDD(javaObject);
+throw "not implemented by ElairJS";
+    //var sv = Utils.createJavaParams(constructA);
+    //var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
+    //var javaObject =  this.getJavaObject().mapWith(fn,preservesPartitioning);
+    //return new RDD(javaObject);
 };
 
 /**
@@ -595,16 +627,20 @@ RDD.prototype.mapToPair = function(func) {
  * Returns the max of this RDD as defined by the implicit Ordering[T].
  * @returns {object}  the maximum element of the RDD
  */
-RDD.prototype.max = function() {
-    return  this.getJavaObject().max();
+RDD.prototype.max = function(comparator) {
+    var sv = Utils.createJavaParams(comparator, 2);
+    var fn = new org.eclairjs.nashorn.JSComparator(sv.funcStr, sv.scopeVars);
+    return  this.getJavaObject().max(fn);
 };
 
 /**
  * Returns the min of this RDD as defined by the implicit Ordering[T].
  * @returns {object}  the minimum element of the RDD
  */
-RDD.prototype.min = function() {
-    return  this.getJavaObject().min();
+RDD.prototype.min = function(comparator) {
+    var sv = Utils.createJavaParams(comparator, 2);
+    var fn = new org.eclairjs.nashorn.JSComparator(sv.funcStr, sv.scopeVars);
+    return  this.getJavaObject().min(fn);
 };
 
 /**
@@ -728,10 +764,10 @@ throw "not implemented by ElairJS";
  * @returns {RDD}
  */
 RDD.prototype.reduce = function(func) {
-    var sv = Utils.createJavaParams(func);
-    var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
+    var sv = Utils.createJavaParams(func, 2);
+    var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
     var javaObject =  this.getJavaObject().reduce(fn);
-    return new object(javaObject);
+    return Utils.javaToJs(javaObject);
 };
 
 /**
@@ -1063,7 +1099,7 @@ RDD.prototype.zip = function(other) {
 RDD.prototype.zipPartitions = function(rdd2,rdd3,rdd4,preservesPartitioning) {
     var rdd2_uw = rdd2 ? Utils.unwrapObject(rdd2) : null;
     var rdd3_uw = rdd3 ? Utils.unwrapObject(rdd3) : null;
-    var rdd4_uw = rdd1 ? Utils.unwrapObject(rdd4) : null;
+    var rdd4_uw = rdd4 ? Utils.unwrapObject(rdd4) : null;
     var preserve = preservesPartitioning || false;
     var result = rdd4_uw ? this.getJavaObject().zipPartitions(rdd2_uw,rdd3_uw,rdd4_uw,preservesPartitioning) :
         rdd3_uw ? this.getJavaObject().zipPartitions(rdd2_uw,rdd3_uw,preservesPartitioning) :
