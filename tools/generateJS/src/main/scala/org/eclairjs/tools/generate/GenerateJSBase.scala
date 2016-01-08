@@ -161,13 +161,25 @@ def convertToJSDoc(comment:String, model:AnyRef):String = {
 
   model match {
     case method:Method => {
-      // add parm types
-      jsDoc.lines=jsDoc.lines.map(str=> {
-        str match {
-          case parmRX(name,rest) => s""" * @param {${method.getParmJSType(name)}} $name $rest"""
-          case _ => str
+
+      if (!method.parms.isEmpty && jsDoc.getTagValue("param")=="")   // if no @param there, add them
+        {
+
+          method.parms.foreach( parm=>
+              jsDoc.addTag("param",s"{${method.getParmJSType(parm.name)}}")
+          )
         }
-      })
+      else
+      {
+        // add parm types to existing @param
+        jsDoc.lines=jsDoc.lines.map(str=> {
+          str match {
+            case parmRX(name,rest) => s""" * @param {${method.getParmJSType(name)}} $name $rest"""
+            case _ => str
+          }
+        })
+
+      }
       val returnType=jsDocReturnType(method)
       if (returnType!="undefined")
         jsDoc.addReturn(returnType)

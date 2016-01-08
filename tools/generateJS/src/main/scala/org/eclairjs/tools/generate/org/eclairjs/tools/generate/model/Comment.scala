@@ -28,6 +28,10 @@ class Comment(comment:String) {
     endLines+=s""" * @returns {$returnType} $returnsText"""
   }
 
+  def addTag(tag:String, tagValue:String) =
+  {
+    endLines+=s""" * @$tag $tagValue"""
+  }
 
   def getTagValue(tag:String): String =
   {
