@@ -65,30 +65,62 @@ class GenerateNode  extends  GenerateJSBase {
     val sb=new StringBuilder
 
     val returnType=method.returnType
-    if (isPromise(returnType))
-      {
 
+    val templateParms= method.parms.map("{{"+_.name+"}}").toArray.mkString(",")
+    val assignParms= method.parms.map(parm=> parm.name+" : "+parm.name).toArray.mkString(",")
+    val parms = if (method.parms.isEmpty) "" else {
+      s", {$assignParms}"
+    }
+
+    if (isPromise(returnType) )
+      {
+        var result="result"
+
+        if (returnType.isArray())
+          result="JSON.parse(result)"
+        else
+          result = returnType.getJSType() match {
+            case "boolean" => "result === 'true'"
+            case "number" => "parseInt(result)"
+            case _ =>"result"
+
+          }
+
+        sb ++= getTemplate("node_resolve",result)
 
       }
 
     if (returnType.isSparkClass())
     {
-      val templateParms= method.parms.map("{{"+_.name+"}}").toArray.mkString(",")
 
       sb ++= getTemplate("node_templateStrAssign",method.name,templateParms)
 
 
-      val assignParms= method.parms.map(parm=> parm.name+" : "+parm.name).toArray.mkString(",")
-      val parms = if (method.parms.isEmpty) "" else {
-        s", {$assignParms}"
-      }
       sb ++= getTemplate("node_genAssign",returnType.getJSType(),parms)
 
     }
-    else
+    else if (isVoidPromise(returnType))
       {
+        sb ++= getTemplate("node_templateVoidPromise",method.name,templateParms)
+
+
+        sb ++= getTemplate("node_genVoidPromise",parms)
 
       }
+    else if (isPromise(returnType))
+      {
+        if (returnType.isArray())
+          sb ++= getTemplate("node_templatePromiseArray",method.name,templateParms)
+        else
+          sb ++= getTemplate("node_templatePromise",method.name,templateParms)
+
+        val promiseParms= if (!method.parms.isEmpty) parms else ", null"
+
+        sb ++= getTemplate("node_genPromise",parms)
+
+      }
+    else
+      throw new RuntimeException("SHOULD NOT HAPPEN")
 
     sb.toString()
 
@@ -103,7 +135,11 @@ class GenerateNode  extends  GenerateJSBase {
   }
 
   def isPromise(typ:DataType):Boolean = {
-    !typ.isSparkClass()
+    val jsType=typ.getJSType()
+    !typ.isSparkClass() && jsType!="undefined"
+  }
+  def isVoidPromise(typ:DataType):Boolean = {
+    typ.getJSType()=="undefined"
   }
 
 

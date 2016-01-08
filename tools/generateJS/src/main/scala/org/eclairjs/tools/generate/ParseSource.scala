@@ -74,6 +74,7 @@ import Compiler.syntaxAnalyzer.global._
 
   def handlePackage(pid: RefTree, stats: List[Tree],fileName:String) :File= {
 
+//    System.out.println(fileName)
     val classes= scala.collection.mutable.ListBuffer.empty[Clazz]
     val imports= scala.collection.mutable.ListBuffer.empty[String]
 
@@ -196,11 +197,17 @@ import Compiler.syntaxAnalyzer.global._
 
     if (!vparamss.isEmpty)
       {
-        val valdefs=vparamss(0)
-        valdefs foreach( valdef=> {
-
-          parms +=  Parm(valdef.name.toString, getType(valdef.tpt) )
+//        if (vparamss.size>1)
+//          { System.out.println("   "+name)}
+        vparamss foreach(vparams=>
+          vparams foreach( valdef=> {
+            val name=valdef.name
+            if (!name.startsWith("evidence$"))
+              parms +=  Parm(valdef.name.toString, getType(valdef.tpt) )
           })
+
+          )
+
 
       }
 
@@ -232,7 +239,7 @@ import Compiler.syntaxAnalyzer.global._
       case  Select(qualifier, name) => SimpleType(qualifier.toString()+"."+name)
       case  ExistentialTypeTree(tpt , whereClauses ) => getType(tpt)
       case  SingletonTypeTree(ref) => SimpleType("??Sing??")
-//      case  TypeTree() => SimpleType("","")
+      case  CompoundTypeTree(templ)  => SimpleType("??")
 //      case  TypeTree() => SimpleType("","")
 
 
