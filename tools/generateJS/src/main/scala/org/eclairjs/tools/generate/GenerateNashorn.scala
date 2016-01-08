@@ -55,16 +55,24 @@ class GenerateNashorn  extends  GenerateJSBase {
 
     val parmNames= scala.collection.mutable.ListBuffer.empty[String]
 
+
+    var funcCounter=1;
     method.parms  foreach( parm => parm.typ match {
 
       case   FunctionDataType(name,parms ,returnType ) =>
         {
-          val funcMac = Map("JFunction"->"JSFunction","VoidFunction"->"JSVoidFunction","JFunction2"->"JSFunction2","JFunction3"->"JSFunction3","PairFunction"->"JSPairFunction","PairFlatMapFunction"->"JSFlatMapFunction")
-          sb++=s"  var sv = Utils.createJavaParams(${parm.name});\n"
+          val funcMac = Map("JFunction"->"JSFunction","VoidFunction"->"JSVoidFunction","JFunction2"->"JSFunction2",
+            "JFunction3"->"JSFunction3","PairFunction"->"JSPairFunction","PairFlatMapFunction"->"JSPairFlatMapFunction",
+            "Function"->"JSFunction","Function2"->"JSFunction2","Function3"->"JSFunction3",
+            "Function0"->"JSFunction"
+          )
+          val funcCounterStr= if (funcCounter==1) "" else ""+funcCounter
+          sb++=s"  var sv$funcCounterStr = Utils.createJavaParams(${parm.name});\n"
 
           val functionClass=funcMac.getOrElse(name,"JSFunction")
-          sb++=s"  var fn = new org.eclairjs.nashorn.${functionClass}(sv.funcStr, sv.scopeVars);\n"
-          parmNames+="fn"
+          sb++=s"  var fn$funcCounterStr = new org.eclairjs.nashorn.${functionClass}(sv$funcCounterStr.funcStr, sv$funcCounterStr.scopeVars);\n"
+          parmNames+="fn"+funcCounterStr
+          funcCounter+=1;
         }
       case _ => if (parm.typ.isSparkClass())
       {
