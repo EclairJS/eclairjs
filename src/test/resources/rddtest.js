@@ -223,9 +223,14 @@ var testUnion = function() {
     return JSON.stringify(rdd3.collect());
 }
 
+var testZip = function() {
+    var rdd2 = sparkContext.parallelize([4,5,6]);
+    var rdd3 = rdd.zip(rdd2);
+    return JSON.stringify(rdd3.collect());
+}
+
 var testZipPartitions = function() {
     var rdd2 = sparkContext.parallelize([4,5]);
-    var rdd3 = sparkContext.parallelize([6,7]);
-    var rdd4 = rdd.zipPartitions(rdd2,rdd3);
-    return JSON.stringify(rdd4.collect());
+    var rdd3 = rdd.zipPartitions(rdd2,function(a,b){return [a+b]});
+    return JSON.stringify(rdd3.collect());
 }

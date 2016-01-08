@@ -269,11 +269,17 @@ public class RDDTest {
         expected = "[1,2,3,2,3,4]";
         assertEquals("failure union - arrays are not equal", expected, ret.toString());
 
-        // Test zipPartitions(rdd2,rdd3) - Need to pass iterator functions
-        //ret = ((Invocable)engine).invokeFunction("testZipPartitions");
-        //System.out.println(ret);
-        //expected = "[1,2,3,4,5,6,7]";
-        //assertEquals("failure zipPartitions - arrays are not equal", expected, ret.toString());
+        // Test zip(other)
+        ret = ((Invocable)engine).invokeFunction("testZip");
+        System.out.println(ret);
+        expected = "[[1,4],[2,5],[3,6]]";
+        assertEquals("failure zip - arrays are not equal", expected, ret.toString());
+
+        // Test zipPartitions(rdd2)
+        ret = ((Invocable)engine).invokeFunction("testZipPartitions");
+        System.out.println(ret);
+        expected = "[\"[][]\",\"[][]\",\"[1][]\",\"[][4]\",\"[][]\",\"[2][]\",\"[][]\",\"[3][5]\"]";
+        assertEquals("failure zipPartitions - arrays are not equal", expected, ret.toString());
     }
     
 }
