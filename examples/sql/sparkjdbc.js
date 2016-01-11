@@ -29,5 +29,14 @@ var peopleDF = sqlContext.read().jdbc(url, "people", prop);
 peopleDF.show();
 var peopleDF = sqlContext.read().jdbc(url, "people", ["age > 20"], prop);
 peopleDF.show();
+var writer = peopleDF.write();
+try {
+	writer.jdbc(url, "peoplewritetest", prop);
+} catch (e) {
+	print(" exception " + e);
+	print("saving in overwrite mode");
+	writer.mode('overwrite').jdbc(url, "peoplewritetest", prop);
+}
+
 
 //scala> val males = sqlContext.read.jdbc(url,"person",Array("gender='M'"),prop)
