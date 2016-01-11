@@ -1596,7 +1596,7 @@ functions.instr = function(str,substring) {
  * @param {Column} e
  * @returns {Column} 
  */
-functions.length = function(e) {
+functions.getLength = function(e) {
    var e_uw = Utils.unwrapObject(e);
    var javaObject = org.apache.spark.sql.functions.length(e_uw);
    return new Column(javaObject);
