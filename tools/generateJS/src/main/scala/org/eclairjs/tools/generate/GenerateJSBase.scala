@@ -109,10 +109,9 @@ abstract class GenerateJSBase {
 
   def generateMethodDoc(method:Method, sb:StringBuilder): Unit =
   {
-    if (method.comment.length>0)
-    {
-      sb ++= convertToJSDoc(method.comment,method)
-    }
+    val comment = if (method.comment.length>0) method.comment
+          else """ /** \n */"""
+    sb ++= convertToJSDoc(comment,method)
   }
 
   def generateMethod(method:Method,sb:StringBuilder)  = {
