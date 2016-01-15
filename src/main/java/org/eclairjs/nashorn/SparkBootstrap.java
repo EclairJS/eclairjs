@@ -42,35 +42,36 @@ public class SparkBootstrap implements Bootstrap {
         	engine.eval("load('" + getResourceAsURLStirng("/JavaWrapper.js") + "');");
         	engine.eval("load('" + getResourceAsURLStirng("/Logger.js") + "');");
         	engine.eval("load('" + getResourceAsURLStirng("/Utils.js") + "');");
-        	
+
         	//spark
         	engine.eval("load('" + getResourceAsURLStirng("/SparkConf.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/SparkContext.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/RDD.js") + "');");
-            
+            engine.eval("load('" + getResourceAsURLStirng("/Partitioner.js") + "');");
+
             // storage
             engine.eval("load('" + getResourceAsURLStirng("/storage/StorageLevel.js") + "');");
-            
+
             // streaming
             engine.eval("load('" + getResourceAsURLStirng("/streaming/Duration.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/streaming/Time.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/streaming/StreamingContext.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/streaming/KafkaUtils.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/streaming/dstream/DStream.js") + "');");
-            
-            //mllib 
+
+            //mllib
             engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/Vector.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/DenseVector.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/LinearRegressionModel.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/LinearRegressionWithSGD.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/LabeledPoint.js") + "');");
-            
+
             // sql
             engine.eval("load('" + getResourceAsURLStirng("/sql/Column.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/DataFrame.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/DataFrameNaFunctions.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/DataFrameReader.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/sql/DataFrameWriter.js") + "');");  
+            engine.eval("load('" + getResourceAsURLStirng("/sql/DataFrameWriter.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/functions.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/GroupedData.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/SQLContext.js") + "');");
@@ -78,8 +79,8 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/sql/SqlTimestamp.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/Row.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/RowFactory.js") + "');");
-           
-            
+
+
             // sql.types
             engine.eval("load('" + getResourceAsURLStirng("/sql/types/DataTypes.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/types/Metadata.js") + "');");

@@ -34,7 +34,7 @@ public class RDDTest {
         ScriptEngine engine = TestUtils.getEngine();
         String file = TestUtils.resourceToFile("/dream.txt");
 
-        TestUtils.evalJSResource(engine, "/top10words.js"); 
+        TestUtils.evalJSResource(engine, "/top10words.js");
         Object ret = ((Invocable)engine).invokeFunction("wordCount", file);
 
         System.out.println(ret);
@@ -84,9 +84,9 @@ public class RDDTest {
         expected = "[1,2,3]";
         assertEquals("failure coalesce - arrays are not equal", expected, ret.toString());
 
-        // Test collect(func) - throws TypeError: Can not invoke method with the passed aeguments; 
-        // they do not match any of its method signatures - looks like we need to implement 
-        // a JS version of scala.PartialFunction if we want this to work. 
+        // Test collect(func) - throws TypeError: Can not invoke method with the passed aeguments;
+        // they do not match any of its method signatures - looks like we need to implement
+        // a JS version of scala.PartialFunction if we want this to work.
         //ret = ((Invocable)engine).invokeFunction("testCollectWithFunc");
         //System.out.println(ret);
         //expected = "[2]";
@@ -281,5 +281,14 @@ public class RDDTest {
         expected = "[\"[][]\",\"[][]\",\"[1][]\",\"[][4]\",\"[][]\",\"[2][]\",\"[][]\",\"[3][5]\"]";
         assertEquals("failure zipPartitions - arrays are not equal", expected, ret.toString());
     }
-    
+
+    @Test
+    public void partitionerTests() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/rddtest.js");
+
+        // Test collect() - make sure collect works 1st as it is used by almost all the test cases.
+        Object ret = ((Invocable)engine).invokeFunction("testHashPartitioner");
+     }
 }
