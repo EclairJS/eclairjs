@@ -971,6 +971,16 @@ var dataframeNaFunctionsReplaceColsTest = function(file) {
     return result.take(10).toString();
 }
 
+var dataFrameParquetTest = function(file) {
+	var peopleDataFrame = buildPeopleTable(file);
+	var parquetWriter = peopleDataFrame.write();
+	parquetWriter.mode('overwrite').parquet("/tmp/people.parquet");
+	var parquetFileDF = sqlContext.read().parquet("/tmp/people.parquet");
+	parquetFileDF.registerTempTable("parquetFile");
+	tweenties = sqlContext.sql("SELECT name FROM parquetFile WHERE age >= 20 AND age <= 29");
+	return JSON.stringify(tweenties.take(10));
+}
+
 /*
  * SQLContext test
  */
