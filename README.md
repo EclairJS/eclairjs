@@ -61,7 +61,7 @@ list.count();
 **Prerequisites**
 
 - [Jupyter](http://jupyter.org/)
-- [Spark Kernel](https://github.com/ibm-et/spark-kernel)
+- [Apache Toree](https://github.com/apache/incubator-toree)
 
 Instructions:
 
@@ -69,7 +69,7 @@ Instructions:
 
 2. Edit kernel.json and update the following:
  ```bash
- <path to spark-kernel distribution>/bin/spark-kernel
+ <path to incubator-toree distribution>/bin/spark-kernel
  "SPARK_OPTS": --jars file:<path to nashorn jar>
  "SPARK_HOME": <path to spark 1.5.1 distribution>
  ```
