@@ -74,7 +74,7 @@ class GenerateNashorn  extends  GenerateJSBase {
           parmNames+="fn"+funcCounterStr
           funcCounter+=1;
         }
-      case _ => if (parm.typ.isSparkClass())
+      case _ => if (parm.typ.isSparkClass() || parm.typ.getJSType()=="object")
       {
         sb ++= s"  var ${parm.name}_uw = Utils.unwrapObject(${parm.name});\n"
         parmNames+=parm.name+"_uw"
