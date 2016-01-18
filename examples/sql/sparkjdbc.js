@@ -15,8 +15,13 @@
  */
 
 /*
- * The example requires a mySQL database eclairjstesting with a people table
+ * The example requires a mySQL database "eclairjstesting" with a people table
  * the JDBC drivers must be added to the java class path
+ * 
+ * Note to run this example you must include the JDBC jar file in the SPARK_CLASSPATH 
+ * as described https://spark.apache.org/docs/latest/sql-programming-guide.html#jdbc-to-other-databases
+ * Another option is to include the --driver-class-path option on the command line for example:
+ * <path to EclairJS>/bin/eclairjs.sh  --jars <path to JDBC jar file> --driver-class-path <path to JDBC jar file> <path to EclairJS>/examples/sql/sparkjdbc.js
  */
 
 var sparkContext = new SparkContext("local[*]", "dataframe");
@@ -29,5 +34,14 @@ var peopleDF = sqlContext.read().jdbc(url, "people", prop);
 peopleDF.show();
 var peopleDF = sqlContext.read().jdbc(url, "people", ["age > 20"], prop);
 peopleDF.show();
+var writer = peopleDF.write();
+try {
+	writer.jdbc(url, "peoplewritetest", prop);
+} catch (e) {
+	print(" exception " + e);
+	print("saving in overwrite mode");
+	writer.mode('overwrite').jdbc(url, "peoplewritetest", prop);
+}
+
 
 //scala> val males = sqlContext.read.jdbc(url,"person",Array("gender='M'"),prop)

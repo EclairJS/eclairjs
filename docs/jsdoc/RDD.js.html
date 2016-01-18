@@ -65,8 +65,8 @@ RDD.prototype.constructor = RDD;
  * allowed to modify and return their first argument instead of creating a new U to avoid memory
  * allocation.
  * @param {RDD} zeroValue - (undocumented)
- * @param (function} seqOp - (undocumented)
- * @param (function} combOp - (undocumented)
+ * @param {function} func1 seqOp - (undocumented) Function with two parameters
+ * @param {function} func2 combOp - (undocumented) Function with two parameters
  * @returns {object}
  */
 RDD.prototype.aggregate = function(zeroValue,func1,func2) {
@@ -160,12 +160,13 @@ RDD.prototype.collect = function() {
 /**
  * Return an RDD that contains all matching values by applying `f`.
  * Note: f is scala.PartialFunction which is not implemented yet - see above
+ * @param {function} func - (undocumented) PartialFunction
  * @returns {RDD}
  * @private
  */
-RDD.prototype.collectwithF = function(f) {
+RDD.prototype.collectwithF = function(func) {
 throw "not implemented by ElairJS";
-//   var f_uw = Utils.unwrapObject(f);
+//   var f_uw = Utils.unwrapObject(func);
 //   var javaObject =  this.getJavaObject().collect(f_uw);
 //   return new RDD(javaObject);
 }
@@ -192,8 +193,8 @@ RDD.prototype.count = function() {
  * :: Experimental ::
  * Approximate version of count() that returns a potentially incomplete result
  * within a timeout, even if not all tasks have finished.
- * @param timeout - (undocumented)
- * @param confidence - (undocumented)
+ * @param timeout {number} - (undocumented)
+ * @param confidence {number} - (undocumented)
  * @returns {PartialResult}
  */
 RDD.prototype.countApprox = function(timeout,confidence) {
@@ -245,7 +246,7 @@ RDD.prototype.countApproxDistinctwithSp = function(p,sp) {
  * the whole thing is loaded into the driver's memory.
  * To handle very large results, consider using rdd.map(x =&gt; (x, 1L)).reduceByKey(_ + _), which
  * returns an RDD[T, Long] instead of a map.
- * @returns {Map}
+ * @returns {Map} - need to figureout return structure probably just JSON construct
  * @private
  */
 RDD.prototype.countByValue = function() {
@@ -257,6 +258,8 @@ throw "not implemented by ElairJS";
 /**
  * :: Experimental ::
  * Approximate version of countByValue().
+ * @param timeout {number} - (undocumented)
+ * @param confidence {number} - (undocumented)
  * @returns {PartialResult}
  */
 RDD.prototype.countByValueApprox = function(timeout,confidence) {
@@ -267,7 +270,7 @@ RDD.prototype.countByValueApprox = function(timeout,confidence) {
 /**
  * Get the list of dependencies of this RDD, taking into account whether the
  * RDD is checkpointed or not.
- * @returns {Seq}
+ * @returns {Seq} - need to figure out return structure probably just array
  * @private
  */
 RDD.prototype.dependencies = function() {
@@ -289,7 +292,7 @@ RDD.prototype.distinct = function(numPartitions) {
 
 /**
  * Return a new RDD containing only the elements that satisfy a predicate.
- * @param func
+ * @param {function} func - (undocumented) Function with one parameter
  * @returns {RDD}
  */
 RDD.prototype.filter = function(func) {
@@ -328,7 +331,7 @@ RDD.prototype.first = function() {
 
 /**
 * Return a new RDD by first applying a function to all elements of this RDD, and then flattening the results.
-* @param {function} func
+* @param {function} func - (undocumented) - Function with one parameter
 * @returns {RDD}
 */
 RDD.prototype.flatMap = function(func) {
@@ -367,7 +370,7 @@ throw "not implemented by ElairJS";
  * that are not commutative, the result may differ from that of a fold applied to a
  * non-distributed collection.
  * @param {RDD} zeroValue - (undocumented)
- * @param {function} func - (undocumented)
+ * @param {function} func - (undocumented) Function with two parameters
  * @returns {object}
  */
 RDD.prototype.fold = function(zeroValue, func) {
@@ -387,7 +390,7 @@ RDD.prototype.fold = function(zeroValue, func) {
  *    connection.send(record);	
  *    connection.close()
  * });
- * @param {function} Function with one parameter
+ * @param {function} func - Function with one parameter that returns void
  * @returns {void}
  */
 RDD.prototype.foreach = function(func) {
@@ -406,7 +409,7 @@ RDD.prototype.foreach = function(func) {
  *    });
  *    connection.close()
  * });
- * @param {function} func Function with one Array parameter
+ * @param {function} func - Function with one Array parameter that returns void
  * @returns {void}
  */
 RDD.prototype.foreachPartition = function(func) {
@@ -420,7 +423,7 @@ RDD.prototype.foreachPartition = function(func) {
  * This additional parameter is produced by constructA, which is called in each
  * partition with the index of that partition.
  * Note: Doesn't make sense for JavaScript.
- * @param {constructA} - undocumented
+ * @param {constructA} - (undocumented)
  * @returns {void}
  * @private
  */
@@ -465,13 +468,13 @@ RDD.prototype.glom = function() {
  * Note: This operation may be very expensive. If you are grouping in order to perform an
  * aggregation (such as a sum or average) over each key, using {@link aggregateByKey}
  * or {@link reduceByKey} will provide much better performance.
- * @param f undocumented
+ * @param {function} func - (undocumented) Function with one parameter
  * @param {number} numPartitions - (optional) How many partitions to use in the resulting RDD (if non-zero partitioner is ignored)
  * @param {Partitioner} partitioner - (optional) Partitioner to use for the resulting RDD
  * @returns {RDD}
  */
-RDD.prototype.groupBy = function(f,numPartitions,partitioner) {
-    var sv = Utils.createJavaParams(f);
+RDD.prototype.groupBy = function(func,numPartitions,partitioner) {
+    var sv = Utils.createJavaParams(func);
     var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
     var partitioner_uw = Utils.unwrapObject(partitioner);
     var result = numPartitions ? this.getJavaObject().groupBy(fn,numPartitions) : 
@@ -492,7 +495,7 @@ RDD.prototype.id = function() {
  * elements, even if the input RDDs did.
  *
  * Note that this method performs a shuffle internally.
- * @param other the other RDD
+ * @param {RDD} other - the other RDD
  * @param {number} numPartitions  How many partitions to use in the resulting RDD (if non-zero partitioner is ignored)
  * @param {Partitioner} partitioner  Partitioner to use for the resulting RDD
  * @returns {RDD}
@@ -528,7 +531,7 @@ RDD.prototype.isEmpty = function() {
 
 /**
  * Creates tuples of the elements in this RDD by applying `f`.
- * @param f function
+ * @param {function} func - (undocumented)
  * @returns {RDD}
  */
 RDD.prototype.keyBy = function(func) {
@@ -564,7 +567,7 @@ RDD.prototype.localCheckpoint = function() {
 
 /**
  * Return a new RDD by applying a function to all elements of this RDD.
- * @param func
+ * @param {function} func - (undocumented) Function with one parameter
  * @returns {RDD}
  */
 RDD.prototype.map = function(func) {
@@ -578,8 +581,8 @@ RDD.prototype.map = function(func) {
  * Return a new RDD by applying a function to each partition of this RDD. 
  * Similar to map, but runs separately on each partition (block) of the RDD, so func must accept an Array.  
  * func should return a array rather than a single item.
- * @param {function}
- * @param {boolean} preservesPartitioning (optional)
+ * @param {function} func - (undocumented) Function with one parameter
+ * @param {boolean} preservesPartitioning - (optional)
  * @returns {RDD}
  */
 RDD.prototype.mapPartitions = function(func,preservesPartitioning) {
@@ -595,8 +598,8 @@ RDD.prototype.mapPartitions = function(func,preservesPartitioning) {
  *
  * `preservesPartitioning` indicates whether the input function preserves the partitioner, which
  * should be `false` unless this is a pair RDD and the input function doesn't modify the keys.
- * @param {function}
- * @param {boolean}
+ * @param {function} func - (undocumented) Function with one parameter
+ * @param {boolean} preservesPartitioning - (optional)
  * @returns {RDD}
  */
 RDD.prototype.mapPartitionsWithIndex = function(func,preservesPartitioning) {
@@ -609,8 +612,8 @@ RDD.prototype.mapPartitionsWithIndex = function(func,preservesPartitioning) {
 /**
  * Return a new RDD by applying a function to each partition of this RDD, while tracking the index
  * of the original partition.
- * @param {function}
- * @param {boolean}
+ * @param {function} func - (undocumented) Function with one parameter
+ * @param {boolean} preservesPartitioning - (optional)
  * @returns {RDD}
  */
 RDD.prototype.mapPartitionsWithSplit = function(func,preservesPartitioning) {
@@ -640,7 +643,7 @@ throw "not implemented by ElairJS";
 
 /**
  * Return a new RDD by applying a function to all elements of this RDD.
- * @param func
+ * @param (function) func - (undocumented) Function with one parameter that returns tuple
  * @returns {RDD}
  */
 RDD.prototype.mapToPair = function(func) {
@@ -652,6 +655,7 @@ RDD.prototype.mapToPair = function(func) {
 
 /**
  * Returns the max of this RDD as defined by the implicit Ordering[T].
+ * @param (function) comparator - Compares its two arguments for order. Returns a negative integer, zero, or a positive integer as the first argument is less than, equal to, or greater than the second.
  * @returns {object}  the maximum element of the RDD
  */
 RDD.prototype.max = function(comparator) {
@@ -662,6 +666,7 @@ RDD.prototype.max = function(comparator) {
 
 /**
  * Returns the min of this RDD as defined by the implicit Ordering[T].
+ * @param (function) comparator - Compares its two arguments for order. Returns a negative integer, zero, or a positive integer as the second argument is less than, equal to, or greater than the first.
  * @returns {object}  the minimum element of the RDD
  */
 RDD.prototype.min = function(comparator) {
@@ -679,13 +684,15 @@ RDD.prototype.name = function() {
 };
 
 /**
- * 
+ * This does not make sense for JavaScript as everything in JS is handled as a double. 
  * @returns {RDD}
+ * @private
  */
 RDD.prototype.numericRDDToDoubleRDDFunctions = function(rdd) {
-    var rdd_uw = Utils.unwrapObject(rdd);
-    var javaObject = this.getJavaObject().numericRDDToDoubleRDDFunctions(rdd_uw);
-    return new RDD(javaObject);
+throw "not implemented by ElairJS";
+    //var rdd_uw = Utils.unwrapObject(rdd);
+    //var javaObject = this.getJavaObject().numericRDDToDoubleRDDFunctions(rdd_uw);
+    //return new RDD(javaObject);
 };
 
 /**
@@ -702,19 +709,19 @@ RDD.prototype.persist = function(newLevel) {
  * Return an RDD created by piping elements to a forked external process.
  * The print behavior can be customized by providing two functions.
  *
- * @param {Seq|string} command  command to run in forked process.
- * @param {Map} env  environment variables to set.
- * @param {func} printPipeContext  Before piping elements, this function is called as an opportunity
+ * @param {Seq|string} command - command to run in forked process.
+ * @param {Map} env -  environment variables to set.
+ * @param {func} printPipeContext - (optional) Before piping elements, this function is called as an opportunity
  *                         to pipe context data. Print line function (like out.println) will be
- *                         passed as printPipeContext's parameter. Optional.
- * @param {func} printRDDElement  Use this function to customize how to pipe elements. This function
- *                        will be called with each RDD element as the 1st parameter, and the
- *                        print line function (like out.println()) as the 2nd parameter. Optional.
+ *                         passed as printPipeContext's parameter.
+ * @param {func} printRDDElement - (optional) Use this function to customize how to pipe elements.
+ *                        This function will be called with each RDD element as the 1st parameter,
+ *                        and the print line function (like out.println()) as the 2nd parameter.
  *                        An example of pipe the RDD data of groupBy() in a streaming way,
  *                        instead of constructing a huge String to concat all the elements:
  *                        def printRDDElement(record:(String, Seq[String]), f:String=&gt;Unit) =
  *                          for (e &lt;- record._2){f(e)}
- * @param {boolean} separateWorkingDir  Use separate working directories for each task. Optional.
+ * @param {boolean} separateWorkingDir - (optional) Use separate working directories for each task.
  * @returns {RDD}  the result RDD
  */
 RDD.prototype.pipe = function(command,env,printPipeContext,printRDDElement,separateWorkingDir) {
@@ -734,6 +741,7 @@ RDD.prototype.pipe = function(command,env,printPipeContext,printRDDElement,separ
  * Get the preferred locations of a partition, taking into account whether the
  * RDD is checkpointed.
  * @returns {Seq}
+ * @private
  */
 RDD.prototype.preferredLocations = function(split) {
 throw "not implemented by ElairJS";
@@ -745,10 +753,10 @@ throw "not implemented by ElairJS";
 /**
  * Randomly splits this RDD with the provided weights.
  *
- * @param {number[]} weights  weights for splits, will be normalized if they don't sum to 1
- * @param {number} seed  random seed
- *
+ * @param {number[]} weights - weights for splits, will be normalized if they don't sum to 1
+ * @param {number} seed - random seed
  * @returns {RDD[]}  split RDDs in an array
+ * @private
  */
 RDD.prototype.randomSplit = function(weights,seed) {
     var res = this.getJavaObject().randomSplit(weights,seed);
@@ -760,24 +768,36 @@ RDD.prototype.randomSplit = function(weights,seed) {
     return results;
 };
 
+/**
+ * @private
+ */
 RDD.prototype.rddToAsyncRDDActions = function(rdd) {
 throw "not implemented by ElairJS";
 //   var rdd_uw = Utils.unwrapObject(rdd);
 //   return  this.getJavaObject().rddToAsyncRDDActions(rdd_uw);
 };
 
+/**
+ * @private
+ */
 RDD.prototype.rddToOrderedRDDFunctions = function(rdd) {
 throw "not implemented by ElairJS";
 //   var rdd_uw = Utils.unwrapObject(rdd);
 //   return  this.getJavaObject().rddToOrderedRDDFunctions(rdd_uw);
 };
 
+/**
+ * @private
+ */
 RDD.prototype.rddToPairRDDFunctions = function(rdd) {
 throw "not implemented by ElairJS";
 //   var rdd_uw = Utils.unwrapObject(rdd);
 //   return  this.getJavaObject().rddToPairRDDFunctions(rdd_uw);
 };
 
+/**
+ * @private
+ */
 RDD.prototype.rddToSequenceFileRDDFunctions = function(rdd) {
 throw "not implemented by ElairJS";
 //   var rdd_uw = Utils.unwrapObject(rdd);
@@ -787,7 +807,7 @@ throw "not implemented by ElairJS";
 /**
  * Reduces the elements of this RDD using the specified commutative and
  * associative binary operator.
- * {function}
+ * {function} func - (undocumented) Function with two parameters
  * @returns {RDD}
  */
 RDD.prototype.reduce = function(func) {
@@ -799,7 +819,7 @@ RDD.prototype.reduce = function(func) {
 
 /**
  * Reduces the elements of this RDD using the specified function.
- * @param func
+ * @param {function} func - Function with two parameters
  * @returns {RDD}
  * @deprecated Use reduce instead
  */
@@ -818,6 +838,7 @@ RDD.prototype.reduceByKey = function(func) {
  *
  * If you are decreasing the number of partitions in this RDD, consider using `coalesce`,
  * which can avoid performing a shuffle.
+ * @param {int} numPartitions - (undocumented)
  * @returns {RDD}
  */
 RDD.prototype.repartition = function(numPartitions) {
@@ -842,7 +863,7 @@ RDD.prototype.sample = function(withReplacement,fraction,seed) {
 
 /**
  * Save this RDD as a SequenceFile of serialized objects.
- * @param path {string}
+ * @param {string} path
  * @returns {void}
  */
 RDD.prototype.saveAsObjectFile = function(path) {
@@ -851,7 +872,7 @@ RDD.prototype.saveAsObjectFile = function(path) {
 
 /**
  * Save this RDD as a text file, using string representations of elements.
- * @param path {string}
+ * @param {string} path
  * @returns {void}
  */
 RDD.prototype.saveAsTextFile = function(path) {
@@ -863,6 +884,7 @@ RDD.prototype.saveAsTextFile = function(path) {
  * @param path {string}
  * @param codec {org.apache.hadoop.io.compress.CompressionCodec}
  * @returns {void} 
+ * @private
  */
 RDD.prototype.saveAsTextFilewithCodec = function(path,codec) {
 throw "not implemented by ElairJS";
@@ -881,9 +903,9 @@ RDD.prototype.setName = function(_name) {
 
 /**
  * Return this RDD sorted by the given key function.
- * @param {function}
- * @param {boolean}
- * @param {numPartitions}
+ * @param {function} func - (undocumented) Function with one parameter
+ * @param {boolean} ascending
+ * @param {int} numPartitions
  * @returns {RDD}
  */
 RDD.prototype.sortBy = function(func,ascending,numPartitions) {
@@ -930,7 +952,7 @@ RDD.prototype.subtract = function(other,numPartitions,p) {
 
 /**
  * Take the first num elements of the RDD.
- * @param num
+ * @param {int} num
  * @returns {Array}
  */
 RDD.prototype.take = function(num) {
@@ -960,8 +982,7 @@ RDD.prototype.take = function(num) {
  *   // returns Array(2, 3)
  * }}}
  *
- * @param {number} num  k, the number of elements to return
- * @param {PARMNOTFOUND} ord  the implicit ordering for T
+ * @param {number} num - the number of elements to return
  * @returns {Array}  an array of top elements
  */
 RDD.prototype.takeOrdered = function(num) {
@@ -1053,24 +1074,29 @@ RDD.prototype.toString = function() {
  * Aggregates the elements of this RDD in a multi-level tree pattern.
  *
  * @param zeroValue - (undocumented)
+ * @param {function} func1 - (undocumented) Function with two parameters
+ * @param {function} func2 combOp - (undocumented) Function with two parameters
  * @see [[org.apache.spark.rdd.RDD#aggregate]]
  * @returns {object}
  */
-RDD.prototype.treeAggregate = function(zeroValue) {
-    var zeroValue_uw = Utils.unwrapObject(zeroValue);
-    var javaObject = this.getJavaObject().treeAggregate(zeroValue_uw);
-    return Utils.javaToJs(javaObject);
+RDD.prototype.treeAggregate = function(zeroValue,func1,func2) {
+    var sv1 = Utils.createJavaParams(func1, 2);
+    var fn1 = new org.eclairjs.nashorn.JSFunction2(sv1.funcStr, sv1.scopeVars);
+    var sv2 = Utils.createJavaParams(func2, 2);
+    var fn2 = new org.eclairjs.nashorn.JSFunction2(sv2.funcStr, sv2.scopeVars);
+    return Utils.javaToJs(this.getJavaObject().treeAggregate(zeroValue_uw, fn1, fn2));
 };
 
 /**
  * Reduces the elements of this RDD in a multi-level tree pattern.
  *
+ * @param {function} func - (undocumented) Function with one parameter
  * @param {number} depth  suggested depth of the tree (default: 2)
  * @see [[org.apache.spark.rdd.RDD#reduce]]
  * @returns {object}
  */
-RDD.prototype.treeReduce = function(f,depth) {
-    var sv = Utils.createJavaParams(f);
+RDD.prototype.treeReduce = function(func,depth) {
+    var sv = Utils.createJavaParams(func);
     var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
     var javaObject = this.getJavaObject().treeReduce(fn,depth);
     return Utils.javaToJs(javaObject);
@@ -1079,6 +1105,7 @@ RDD.prototype.treeReduce = function(f,depth) {
 /**
  * Return the union of this RDD and another one. Any identical elements will appear multiple
  * times (use `.distinct()` to eliminate them).
+ * @param {RDD} other - (undocumented)
  * @returns {RDD}
  */
 RDD.prototype.union = function(other) {
@@ -1090,7 +1117,7 @@ RDD.prototype.union = function(other) {
 /**
  * Mark the RDD as non-persistent, and remove all blocks for it from memory and disk.
  *
- * @param {boolean} blocking  Whether to block until all blocks are deleted.
+ * @param {boolean} blocking -  Whether to block until all blocks are deleted.
  * @returns {RDD}  This RDD.
  */
 RDD.prototype.unpersist = function(blocking) {
@@ -1103,6 +1130,7 @@ RDD.prototype.unpersist = function(blocking) {
  * second element in each RDD, etc. Assumes that the two RDDs have the *same number of
  * partitions* and the *same number of elements in each partition* (e.g. one was made through
  * a map on the other).
+ * @param {RDD} other - (undocumented)
  * @returns {RDD}
  */
 RDD.prototype.zip = function(other) {
@@ -1112,18 +1140,41 @@ RDD.prototype.zip = function(other) {
 };
 
 /**
+ * Zip this RDD's partitions with another RDD and return a new RDD by
+ * applying a function to the zipped partitions. Assumes that both the RDDs have the
+ * same number of partitions, but does not require them to have the same number
+ * of elements in each partition.
+ *
+ * @param {RDD} rdd2
+ * @param {function} func - Function with two parameters
+ * @param {boolean} preservesPartitioning - (optional)
+ * @returns {RDD}
+ */
+RDD.prototype.zipPartitions = function(rdd2,func,preservesPartitioning) {
+    var rdd2_uw = Utils.unwrapObject(rdd2);
+    var sv = Utils.createJavaParams(func, 2);
+    var fn = new org.eclairjs.nashorn.JSFlatMapFunction2(sv.funcStr, sv.scopeVars);
+    var result = this.getJavaObject().zipPartitions(rdd2_uw,fn);
+    return new RDD(result);
+};
+
+/**
  * Zip this RDD's partitions with one (or more) RDD(s) and return a new RDD by
  * applying a function to the zipped partitions. Assumes that all the RDDs have the
  * same number of partitions, but does not require them to have the same number
  * of elements in each partition.
  *
- * @param {RDD}
- * @param {RDD} rdd2 (optional)
- * @param {RDD} rdd3 (optional)
- * @param {boolean} rdd4 (optional)
+ * Note: To support params rdd3, rdd4 we need to implement JSFunction3 and JSFunction4
+ * Renaming this version and making this private for now.
+ *
+ * @param {RDD} rdd2
+ * @param {RDD} rdd3 - (optional)
+ * @param {RDD} rdd4 - (optional)
+ * @param {boolean} preservesPartitioning - (optional)
  * @returns {RDD}
+ * @private
  */
-RDD.prototype.zipPartitions = function(rdd2,rdd3,rdd4,preservesPartitioning) {
+RDD.prototype.zipPartitionsMulti = function(rdd2,rdd3,rdd4,preservesPartitioning) {
     var rdd2_uw = rdd2 ? Utils.unwrapObject(rdd2) : null;
     var rdd3_uw = rdd3 ? Utils.unwrapObject(rdd3) : null;
     var rdd4_uw = rdd4 ? Utils.unwrapObject(rdd4) : null;
@@ -1183,7 +1234,7 @@ RDD.prototype.zipWithUniqueId = function() {
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Fri Jan 08 2016 16:12:28 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Mon Jan 11 2016 15:57:43 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>

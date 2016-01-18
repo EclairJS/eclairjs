@@ -1592,6 +1592,23 @@ public class SqlTest {
     }
     
     @Test
+    public void dataFrameParquetTest() throws Exception {
+    	/*
+    	 * tests
+    	 * DataFrame.na()
+    	 * DataFrameNaFunctions.fill(99.99)
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/peopleNullValues2.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("dataFrameParquetTest", file);
+
+        String expected = "[{\"values\":[\"Michael\"],\"schema\":{\"fields\":[{\"name\":\"name\",\"dataType\":\"StringType\",\"nullable\":true}]}}]";
+        assertEquals("should be same", expected, ret.toString());
+    }
+    
+    @Test
     public void sqlContextSetConfTest() throws Exception {
     	/*
     	 * tests

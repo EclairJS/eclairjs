@@ -125,6 +125,8 @@ object Main extends App {
 
     val genNodeOption = optionParser.accepts("generateNode", "generate code for node (default is nashorn)")
 
+    val console = optionParser.accepts("console", "write generated code to console")
+
     val _help =
       optionParser.acceptsAll(Seq("help", "h").asJava, "display help information").forHelp()
 
@@ -174,7 +176,8 @@ object Main extends App {
       generatedDir=new File(pathName)
       if (!generatedDir.exists())
         generatedDir.mkdirs();
-      isConsole=false;
+      if (!has(console))
+        isConsole=false;
 
     }
 

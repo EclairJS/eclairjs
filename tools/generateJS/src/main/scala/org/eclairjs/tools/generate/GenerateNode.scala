@@ -1,5 +1,6 @@
 package org.eclairjs.tools.generate
 
+
 import org.eclairjs.tools.generate.model._
 
 class GenerateNode  extends  GenerateJSBase {
@@ -55,8 +56,22 @@ class GenerateNode  extends  GenerateJSBase {
         List("..","..","..","..","..","..","..","..","..","..","..","..").take(segments).mkString("/")
       }
     val constr = getTemplate("node_defaultRequires",prefix,prefix)
-
     sb++=constr
+
+    val sparkPrefix="org.apache.spark."
+    file.imports.filter(_.startsWith(sparkPrefix)).foreach( fullName=>{
+        val name=fullName.substring(sparkPrefix.length).replace('.','/')+".js"
+        val file= new java.io.File(Main.generatedDir,name)
+        if  (file.exists())   // check if there is something there before includeing
+        {
+          val varname=fullName.split("\\.").last
+          val filename=prefix+"/"+name
+          sb++=s"""var $varname = require('$filename');\n"""
+        }
+
+
+    })
+
   }
 
 

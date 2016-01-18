@@ -392,7 +392,7 @@ Row.prototype.toJSON = function() {
 	var jsonObj = {};
 	jsonObj.values = [];
 	for (var i = 0; i < this.length(); i++) {
-		var v = this.get(i).toJSON ? this.get(i).toJSON() : this.get(i);
+		var v = (this.get(i) && this.get(i).toJSON) ? this.get(i).toJSON() : this.get(i);
 		jsonObj.values.push(v); 
 	}
 	jsonObj.schema = this.schema().toJSON();

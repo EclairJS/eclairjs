@@ -79,6 +79,18 @@ DataFrameReader.prototype.option = function(keyOrMap,value) {
 	return new DataFrameReader(javaObject);
 };
 
+/**
+ * Adds input options for the underlying data source.
+ *
+ * @since EclairJS 0.1 Spark  1.4.0
+ * @param {Map} map
+ * @returns {DataFrameReader}
+ */
+DataFrameReader.prototype.options = function(map) {
+	var jmap = Utils.createJavaHashMap(map);
+	var javaObject =  this.getJavaObject().options(jmap);
+	return new DataFrameReader(javaObject);
+};
 
 /**
  * Loads input in as a {@link DataFrame}
