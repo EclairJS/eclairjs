@@ -1,4 +1,5 @@
 package org.eclairjs.tools.generate.org.eclairjs.tools.generate.model
+import  org.eclairjs.tools.generate._
 
 case class File(fileName:String, packageName:String, comment:String, classes: List[Clazz], imports : List[String] ) {
 
@@ -21,7 +22,7 @@ case class File(fileName:String, packageName:String, comment:String, classes: Li
   def hasClasses=classes.length>0
 }
 
-case class Clazz(name:String, comment:String, members: List[Member],parents:List[String],isStatic:Boolean = false) {
+case class Clazz(name:String, comment:String, members: List[Member],parents:List[String],isStatic:Boolean = false, isAbstract:Boolean = false) {
   members foreach (member => member.parent = this)
 
   var parent:File = null
@@ -211,6 +212,24 @@ case class Parm(name:String,typ:DataType)
     }
 
   }
+
+  def isAbstract(scalaName:String=name):Boolean =
+  {
+    val jsType=getJSType(scalaName)
+    jsType match {
+          // special cases
+      case "RDD" | "JavaRDD" => false
+
+      case _ =>
+        val clsOpt=Main.allClasses.get(jsType)
+        clsOpt match {
+          case Some(cls) => cls.isAbstract
+          case _ => false
+        }
+    }
+  }
+
+
 
   def isVoid(): Boolean =
   {

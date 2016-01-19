@@ -1596,7 +1596,7 @@ functions.instr = function(str,substring) {
  * @param {Column} e
  * @returns {Column} 
  */
-functions.length = function(e) {
+functions.getLength = function(e) {
    var e_uw = Utils.unwrapObject(e);
    var javaObject = org.apache.spark.sql.functions.length(e_uw);
    return new Column(javaObject);
@@ -1640,33 +1640,19 @@ functions.levenshtein = function(l,r) {
  * @since EclairJS 0.1 Spark  1.5.0
  * @param {string} substr
  * @param {Column} str
+ * @param {integer} pos Optional
  * @returns {Column} 
  */
-functions.locate = function(substr,str) {
+functions.locate = function(substr,str,pos) {
    var str_uw = Utils.unwrapObject(str);
-   var javaObject = org.apache.spark.sql.functions.locate(substr,str_uw);
+   var javaObject;
+   if (pos) {
+     javaObject = org.apache.spark.sql.functions.locate(substr,str_uw,pos);
+   } else {
+     javaObject = org.apache.spark.sql.functions.locate(substr,str_uw);
+   }
    return new Column(javaObject);
 }
-
-
-/**
- * Locate the position of the first occurrence of substr in a string column, after position pos.
- *
- * NOTE: The position is not zero based, but 1 based index. returns 0 if substr
- * could not be found in str.
- *
- * @since EclairJS 0.1 Spark  1.5.0
- * @param {string} substr
- * @param {Column} str
- * @param {integer} pos
- * @returns {Column} 
- */
-functions.locatewithPos = function(substr,str,pos) {
-   var str_uw = Utils.unwrapObject(str);
-   var javaObject = org.apache.spark.sql.functions.locate(substr,str_uw,pos);
-   return new Column(javaObject);
-}
-
 
 /**
  * Left-pad the string column with

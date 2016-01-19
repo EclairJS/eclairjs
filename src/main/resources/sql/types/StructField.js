@@ -51,7 +51,7 @@ StructField.prototype.constructor = StructField;
  */
 StructField.prototype.dataType = function() {
 	//DataType	dataType() 
-	return this.getJavaObject().dataType();
+	return new DataType(this.getJavaObject().dataType());
 };
 /**
  * @returns {Metadata}
@@ -84,7 +84,7 @@ StructField.prototype.nullable = function() {
 StructField.prototype.toJSON = function() {
 	var jsonObj = {};
 	jsonObj.name = this.name();
-	jsonObj.dataType = this.dataType().toString();
+	jsonObj.dataType = this.dataType();
 	jsonObj.nullable = this.nullable();
 	jsonObj.metadata = this.metadata();
 	return jsonObj; 

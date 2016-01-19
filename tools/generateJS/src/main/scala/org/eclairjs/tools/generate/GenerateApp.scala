@@ -3,6 +3,7 @@ package org.eclairjs.tools.generate
 import java.io
 import java.io.File
 
+import _root_.org.eclairjs.tools.generate.org.eclairjs.tools.generate.model.Clazz
 import joptsimple.{OptionSpec, OptionParser}
 
 import scala.tools.nsc.doc.Settings
@@ -19,6 +20,12 @@ object Main extends App {
   var statistics=false
   var generateNode=false
 
+  var pass1=true;
+  val allClasses= scala.collection.mutable.Map[String,Clazz]()
+
+
+
+
   parseCommandLine()
 
     val settings=new Settings(str => Console.println("Error: " + str));
@@ -30,27 +37,27 @@ object Main extends App {
 //    val model=parser.compileFile("/Users/berkland/git/spark/core/src/main/scala/org/apache/spark/api/java/JavaSparkContext.scala");
 
 
-  if (repoDir!=null &&repoDir.exists())
+        // first pass to generate list of files/classes in repo
+  if (repoDir!=null && repoDir.exists())
     {
-      val srcDirs=List("core/src/main/scala/org/apache/spark",
-        "graphx/src/main/scala/org/apache/spark",
-        "mllib/src/main/scala/org/apache/spark",
-        "sql/core/src/main/scala/org/apache/spark",
-        "streaming/src/main/scala/org/apache/spark"
-      )
-      srcDirs foreach( dir=> {
-        val srcDir=new File(repoDir,dir)
-        processDirectory(srcDir,generatedDir)
+      processRepo()
+    }
+  pass1=false;
 
-      })
+  if (source!=null)
+    {
+      if (source.isDirectory)
+      {
+        processDirectory(source,generatedDir)
+      }
+      else
+        processFile(source,generatedDir)
 
     }
-  else if (source.isDirectory)
-    {
-      processDirectory(source,generatedDir)
-    }
-  else
-    processFile(source,generatedDir)
+  else if (repoDir!=null &&repoDir.exists())
+  {
+    processRepo()
+  }
 
   if (statistics)
     {
@@ -59,13 +66,35 @@ object Main extends App {
     }
 
 
+  def processRepo() = {
+    val srcDirs=List("core/src/main/scala/org/apache/spark",
+      "graphx/src/main/scala/org/apache/spark",
+      "mllib/src/main/scala/org/apache/spark",
+      "sql/core/src/main/scala/org/apache/spark",
+      "sql/catalyst/src/main/scala/org/apache/spark",
+      "streaming/src/main/scala/org/apache/spark"
+    )
+    srcDirs foreach( dir=> {
+      val srcDir=new File(repoDir,dir)
+      processDirectory(srcDir,generatedDir)
+
+    })
+  }
+
   def processFile(file:io.File,destDir:io.File): Unit =
   {
     val model=parser.compileFile(file.getAbsolutePath);
 
     if (model.hasClasses)
     {
-      if (statistics)
+      if (pass1)
+        {
+          model.classes foreach( cls=>{
+            val className= if (cls.isStatic) cls.name+"$" else cls.name
+            allClasses += (className -> cls)
+          })
+        }
+      else if (statistics)
         {
           val toFile=destDir.getAbsolutePath+"/"+file.getName.replace(".scala",".js")
           Statistics.processFile(model,toFile)
@@ -125,6 +154,8 @@ object Main extends App {
 
     val genNodeOption = optionParser.accepts("generateNode", "generate code for node (default is nashorn)")
 
+    val console = optionParser.accepts("console", "write generated code to console")
+
     val _help =
       optionParser.acceptsAll(Seq("help", "h").asJava, "display help information").forHelp()
 
@@ -145,14 +176,16 @@ object Main extends App {
 
       System.exit(0)
     }
-    if (has(sourcePath) && has(gitRepoPath)) {
-      showError(" --source and --gitrepo parameters are mutally exclusive")
-    }
+//    if (has(sourcePath) && has(gitRepoPath)) {
+//      showError(" --source and --gitrepo parameters are mutally exclusive")
+//    }
 
     if (!has(sourcePath) && !has(gitRepoPath)) {
       showError("missing either --source or --gitrepo parameter")
     }
-    else if (has(sourcePath))
+    else
+    {
+      if (has(sourcePath))
       {
         val fileName=options.valueOf(sourcePath)
         source=new File(fileName)
@@ -160,13 +193,14 @@ object Main extends App {
           showError("source not found - "+fileName)
 
       }
-    else if (has(gitRepoPath))
-    {
-      val fileName=options.valueOf(gitRepoPath)
-      repoDir=new File(fileName)
-      if (!repoDir.exists())
-        showError("gitrepo path not found - "+fileName)
+      if (has(gitRepoPath))
+      {
+        val fileName=options.valueOf(gitRepoPath)
+        repoDir=new File(fileName)
+        if (!repoDir.exists())
+          showError("gitrepo path not found - "+fileName)
 
+      }
     }
 
     if (has(generatedPath)) {
@@ -174,7 +208,8 @@ object Main extends App {
       generatedDir=new File(pathName)
       if (!generatedDir.exists())
         generatedDir.mkdirs();
-      isConsole=false;
+      if (!has(console))
+        isConsole=false;
 
     }
 

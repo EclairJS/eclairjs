@@ -39,9 +39,9 @@ var testCartesian = function() {
     return JSON.stringify(rdd3.collect());
 }
 
-// Looks like ParallelCollectionRDD (e.g. SparkContext.parrellize() has to be 
+// Looks like ParallelCollectionRDD (e.g. SparkContext.parrellize() has to be
 // implemented for localCheckpoint to work. Also use skip flag so that checkpoint
-// is not run everytime otherwise checkpointDir is written to everytime and will 
+// is not run everytime otherwise checkpointDir is written to everytime and will
 // grow very fast.
 var testCheckpoint = function(skipCheckpoint, local, checkpointDir) {
     if (!skipCheckpoint) {
@@ -119,7 +119,7 @@ var testForeach = function() {
 }
 
 var testForeachPartition = function() {
-    rdd.foreachPartition(function(partitionOfRecs) { 
+    rdd.foreachPartition(function(partitionOfRecs) {
         for (var i=0; i<partitionOfRecs.length; i++) {
             print('doing foreachPartition '+partitionOfRecs[i]);
         }
@@ -233,4 +233,23 @@ var testZipPartitions = function() {
     var rdd2 = sparkContext.parallelize([4,5]);
     var rdd3 = rdd.zipPartitions(rdd2,function(a,b){return [a+b]});
     return JSON.stringify(rdd3.collect());
+}
+
+function assertThat(condition,message)
+{
+    var msg=message || "assertion failed"
+    if (!condition)
+        throw msg
+        // throw new java.lang.AssertionError(msg)
+}
+var testHashPartitioner = function() {
+
+    var p2 = new HashPartitioner(2)
+    var p4 = new HashPartitioner(4)
+    var anotherP4 = new HashPartitioner(4)
+   assertThat(p2.equals(p2))
+    assertThat(p4.equals(p4))
+    assertThat(!p2.equals(p4))
+    assertThat(!p4.equals(p2))
+    assertThat(p4.equals(anotherP4))
 }

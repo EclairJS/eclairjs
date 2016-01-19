@@ -46,7 +46,8 @@ var buildPeopleTable = function(file, date) {
 		useDateType = false;
 		fields.push(DataTypes.createStructField("DOB", DataTypes.TimestampType, true));
 	}
-	fields.push(DataTypes.createStructField("income", DataTypes.FloatType, true));
+	//fields.push(DataTypes.createStructField("income", DataTypes.FloatType, true));
+	fields.push(DataTypes.createStructField("income", DataTypes.DoubleType, true));
 	fields.push(DataTypes.createStructField("married", DataTypes.BooleanType, true));
 	fields.push(DataTypes.createStructField("networth", DataTypes.DoubleType, true));
 	
@@ -673,6 +674,12 @@ var booleanType = function(file) {
     return names.take(10).toString();
 }
 
+var arrayTypeTest = function() {
+
+	var at = ArrayType.apply(DataTypes.IntegerType, true);
+	return at.elementType().defaultSize();
+}
+
 /*
  * sql.functions
  */
@@ -971,6 +978,16 @@ var dataframeNaFunctionsReplaceColsTest = function(file) {
     return result.take(10).toString();
 }
 
+var dataFrameParquetTest = function(file) {
+	var peopleDataFrame = buildPeopleTable(file);
+	var parquetWriter = peopleDataFrame.write();
+	parquetWriter.mode('overwrite').parquet("/tmp/people.parquet");
+	var parquetFileDF = sqlContext.read().parquet("/tmp/people.parquet");
+	parquetFileDF.registerTempTable("parquetFile");
+	tweenties = sqlContext.sql("SELECT name FROM parquetFile WHERE age >= 20 AND age <= 29");
+	return JSON.stringify(tweenties.take(10));
+}
+
 /*
  * SQLContext test
  */
@@ -994,4 +1011,30 @@ var sqlContextRangeTest = function() {
 	var result = sqlContext.range(1,5);
 
     return result.take(10).toString();
+}
+
+/*
+* DataFrameStatFunctions test
+*/
+
+var dataFrameStatCovTest = function(file) {
+	var peopleDataFrame = buildPeopleTable(file);
+	var stat = peopleDataFrame.stat().cov("income", "networth");
+	return stat.toString();
+}
+
+var dataFrameStatCrossTabTest = function(file) {
+	
+	//Generate the schema
+	var fields = [];
+	fields.push(DataTypes.createStructField("key", DataTypes.IntegerType, true));
+	fields.push(DataTypes.createStructField("value", DataTypes.IntegerType, true));
+	var schema = DataTypes.createStructType(fields);
+	var df = sqlContext.createDataFrame([[1,1], [1,2], [2,1], [2,1], [2,3], [3,2], [3,3]], schema);
+	
+	df.show();
+	
+	var ct = df.stat().crosstab("key", "value");
+	ct.show();
+	return JSON.stringify(ct.take(10));
 }

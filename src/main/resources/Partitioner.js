@@ -1,18 +1,18 @@
-/*                                                                         
-* Copyright 2015 IBM Corp.                                                 
-*                                                                          
-* Licensed under the Apache License, Version 2.0 (the "License");          
-* you may not use this file except in compliance with the License.         
-* You may obtain a copy of the License at                                  
-*                                                                          
-*      http://www.apache.org/licenses/LICENSE-2.0                          
-*                                                                          
-* Unless required by applicable law or agreed to in writing, software      
-* distributed under the License is distributed on an "AS IS" BASIS,        
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
-* See the License for the specific language governing permissions and      
-* limitations under the License.                                           
-*/ 
+/*
+* Copyright 2015 IBM Corp.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*      http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 
 
 
@@ -22,8 +22,9 @@
  * Maps each key to a partition ID, from 0 to `numPartitions - 1`.
  */
 var Partitioner = function(jvmObject) {
-    this.logger = Logger.getLogger("Partitioner_js");
-    JavaWrapper.call(this, jvmObject);
+  throw "con't do 'new' on abstract class 'Partitioner'"
+    // this.logger = Logger.getLogger("Partitioner_js");
+    // JavaWrapper.call(this, jvmObject);
 };
 
 Partitioner.prototype = Object.create(JavaWrapper.prototype);
@@ -47,19 +48,20 @@ throw "not implemented by ElairJS";
 
 
 /**
- * A {@link Partitioner} that implements hash-based partitioning using
+ * @constructor
+ * @classdesc A {@link Partitioner} that implements hash-based partitioning using
  * Java's `Object.hashCode`.
  *
  * Java arrays have hashCodes that are based on the arrays' identities rather than their contents,
  * so attempting to partition an RDD[Array[_]] or RDD[(Array[_], _)] using a HashPartitioner will
  * produce an unexpected or incorrect result.
- * @classdesc
+ * 
  */
 
 var HashPartitioner = function(partitions) {
-var jvmObject = new org.apache.spark.HashPartitioner(partitions);
-this.logger = Logger.getLogger("HashPartitioner_js");
-JavaWrapper.call(this, jvmObject);
+  var jvmObject = new org.apache.spark.HashPartitioner(partitions);
+  this.logger = Logger.getLogger("HashPartitioner_js");
+  JavaWrapper.call(this, jvmObject);
 
 };
 
@@ -71,46 +73,44 @@ HashPartitioner.prototype.constructor = HashPartitioner;
 
 
 HashPartitioner.prototype.numPartitions = function() {
-throw "not implemented by ElairJS";
-//   return  this.getJavaObject().numPartitions();
+  return  this.getJavaObject().numPartitions();
 }
 
 
 
 HashPartitioner.prototype.getPartition = function(key) {
-throw "not implemented by ElairJS";
-//   return  this.getJavaObject().getPartition(key);
+  return  this.getJavaObject().getPartition(key);
 }
 
 
 
 HashPartitioner.prototype.equals = function(other) {
-throw "not implemented by ElairJS";
-//   return  this.getJavaObject().equals(other);
+  var other_uw = Utils.unwrapObject(other);
+  return  this.getJavaObject().equals(other_uw);
 }
 
 
 
 HashPartitioner.prototype.hashCode = function() {
-throw "not implemented by ElairJS";
-//   return  this.getJavaObject().hashCode();
+  return  this.getJavaObject().hashCode();
 }
 
 
 /**
- * A {@link Partitioner} that partitions sortable records by range into roughly
+ * @constructor
+ * @classdesc A {@link Partitioner} that partitions sortable records by range into roughly
  * equal ranges. The ranges are determined by sampling the content of the RDD passed in.
  *
  * Note that the actual number of partitions created by the RangePartitioner might not be the same
  * as the `partitions` parameter, in the case where the number of sampled records is less than
  * the value of `partitions`.
- * @classdesc
+ * 
  */
 
 var RangePartitioner = function(partitions,rdd,ascending) {
-var jvmObject = new org.apache.spark.RangePartitioner(partitions,rdd,ascending);
-this.logger = Logger.getLogger("RangePartitioner_js");
-JavaWrapper.call(this, jvmObject);
+  var jvmObject = new org.apache.spark.RangePartitioner(partitions,rdd,ascending);
+  this.logger = Logger.getLogger("RangePartitioner_js");
+  JavaWrapper.call(this, jvmObject);
 
 };
 
@@ -122,29 +122,26 @@ RangePartitioner.prototype.constructor = RangePartitioner;
 
 
 RangePartitioner.prototype.numPartitions = function() {
-throw "not implemented by ElairJS";
-//   return  this.getJavaObject().numPartitions();
+  return  this.getJavaObject().numPartitions();
 }
 
 
 
 RangePartitioner.prototype.getPartition = function(key) {
-throw "not implemented by ElairJS";
-//   return  this.getJavaObject().getPartition(key);
+  return  this.getJavaObject().getPartition(key);
 }
 
 
 
 RangePartitioner.prototype.equals = function(other) {
-throw "not implemented by ElairJS";
-//   return  this.getJavaObject().equals(other);
+  var other_uw = Utils.unwrapObject(other);
+  return  this.getJavaObject().equals(other_uw);
 }
 
 
 
 RangePartitioner.prototype.hashCode = function() {
-throw "not implemented by ElairJS";
-//   return  this.getJavaObject().hashCode();
+  return  this.getJavaObject().hashCode();
 }
 //
 // static methods
@@ -165,12 +162,11 @@ throw "not implemented by ElairJS";
  * be least likely to cause out-of-memory errors.
  *
  * We use two method parameters (rdd, others) to enforce callers passing at least 1 RDD.
- * @returns {Partitioner} 
+ * @returns {Partitioner}
  */
 Partitioner.defaultPartitioner = function(rdd,others) {
-throw "not implemented by ElairJS";
-//   var rdd_uw = Utils.unwrapObject(rdd);
-//   var others_uw = Utils.unwrapObject(others);
-//   var javaObject =  this.getJavaObject().defaultPartitioner(rdd_uw,others_uw);
-//   return new Partitioner(javaObject);
+  var rdd_uw = Utils.unwrapObject(rdd);
+  var others_uw = Utils.unwrapObject(others);
+  var javaObject =  org.apache.spark.HashPartitioner.defaultPartitioner(rdd_uw,others_uw);
+  return Utils.javaToJs(javaObject);
 }

@@ -16,15 +16,7 @@
 # limitations under the License.
 #
 
-usage() {
-	echo Usage: $0 [options] [file]
-    echo
-	echo "options:"
-	echo "   --help                      usage message"
-	echo "   --master MASTER_URL         spark://host:port, mesos://host:port, yarn, or local."
-	echo "   --name NAME                 A name of your application."
-	
-}
+
 
 #
 # Check for spark jar
@@ -64,47 +56,33 @@ if [[ "$_java" ]]; then
 	fi
 fi
 
-
 # Use > 1 to consume two arguments per pass in the loop (e.g. each
 # argument has a corresponding value to go with it).
 # Use > 0 to consume one or more arguments per pass in the loop (e.g.
 # some arguments don't have a corresponding value to go with it such
 # as in the --default example).
 # note: if this is set to > 0 the /etc/hosts part is not recognized ( may be a bug )
+options=" ";
+proargs=" ";
 while [[ $# > 0 ]]
 do
 key="$1"
 
 case $key in
-	-h|--help)
-    DISPLAY_HELP="true"
-	shift # past argument
-	;;
-    -n|--name)
-    export APP_NAME="$2"
+	-*)
+    options="$options $1 $2";
     shift # past argument
     ;;
-    -m|--master)
-    export MASTER="$2"
-    shift #past argument
-    ;;
     *)
-    SCRIPT_FILE=$1
+    proargs=$1
     ;;
 esac
 shift # past argument or value
 done
 
-if [[ -n $DISPLAY_HELP ]]; then
-	usage
-	exit 1
-fi
-
 #
 # start the REPL
 #
-if [ -z "$ECLAIRJS_DEBUG" ]; then
-	$_java -cp $ECLAIRJS_JAR:"$SPARK_HOME/lib/*" org.eclairjs.nashorn.SparkJS $SCRIPT_FILE
-else 
-	$_java -Dlog4j.configuration=file:"./src/main/resources/conf/log4j.prop" -cp $ECLAIRJS_JAR:"$SPARK_HOME/lib/*" org.eclairjs.nashorn.SparkJS $SCRIPT_FILE
-fi
+
+exec "${SPARK_HOME}"/bin/spark-submit --class org.eclairjs.nashorn.SparkJS --name "EclairJSShell" $options $ECLAIRJS_JAR  $proargs
+

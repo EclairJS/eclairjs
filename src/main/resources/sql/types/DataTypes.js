@@ -24,17 +24,18 @@ var DataTypes = function() {
  * Gets the BooleanType object.
  * @static
  */
-DataTypes.BooleanType = org.apache.spark.sql.types.DataTypes.BooleanType;
+DataTypes.BooleanType = new BooleanType(org.apache.spark.sql.types.DataTypes.BooleanType);
 /**
  * Gets the DateType object.
  * @static
  */
-DataTypes.DateType = org.apache.spark.sql.types.DataTypes.DateType;
+DataTypes.DateType = new DateType(org.apache.spark.sql.types.DataTypes.DateType);
 /**
- * Gets the DoubleType object.
+ * Gets the DoubleType object. Note: JavaScript float types are mapped to DoubleTypes in Spark,
+ * The user should use the DoubleType for all float processing
  * @static
  */
-DataTypes.DoubleType = org.apache.spark.sql.types.DataTypes.DoubleType;
+DataTypes.DoubleType = new DoubleType(org.apache.spark.sql.types.DataTypes.DoubleType);
 /*
  * NOTE:
  * Nashorn interprets numbers as java.lang.Double, java.lang.Long, or java.lang.Integer objects, depending on the computation performed. 
@@ -42,39 +43,61 @@ DataTypes.DoubleType = org.apache.spark.sql.types.DataTypes.DoubleType;
  * https://docs.oracle.com/javase/8/docs/technotes/guides/scripting/nashorn/api.html
  */
 /**
- * Gets the DoubleType object. Note: JavaScript float types are mapped to DoubleTypes in Spark,
+ * Gets the FloatType object. Note: JavaScript float types are mapped to DoubleTypes in Spark,
  * The user should use the DoubleType for all float processing
  * @static
  */
-DataTypes.FloatType = org.apache.spark.sql.types.DataTypes.DoubleType;
+DataTypes.FloatType = new FloatType(org.apache.spark.sql.types.DataTypes.FloatType);
 /** Gets the IntegerType object.
  * @static
  */
-DataTypes.IntegerType = org.apache.spark.sql.types.DataTypes.IntegerType;
+DataTypes.IntegerType = new IntegerType(org.apache.spark.sql.types.DataTypes.IntegerType);
 /**
  * Gets the StringType object.
  * @static
  */
-DataTypes.StringType = org.apache.spark.sql.types.DataTypes.StringType;
+DataTypes.StringType = new StringType(org.apache.spark.sql.types.DataTypes.StringType);
 /**
  * Gets the TimestampType object.
  * @static
  */
-DataTypes.TimestampType = org.apache.spark.sql.types.DataTypes.TimestampType;
-
-/*
- * NOTE:
- * the following types are not applicable to JavaScript so we are not implement them
+DataTypes.TimestampType = new TimestampType(org.apache.spark.sql.types.DataTypes.TimestampType);
+/**
+ * Gets the NullType object.
+ * @static
  */
-/*
-DataTypes.BinaryType = org.apache.spark.sql.types.DataTypes.BinaryType;
-DataTypes.ByteType = org.apache.spark.sql.types.DataTypes.ByteType;
-DataTypes.CalendarIntervalType = org.apache.spark.sql.types.DataTypes.CalendarIntervalType;
-DataTypes.DecimalType = org.apache.spark.sql.types.DataTypes.DecimalType;
-DataTypes.LongType = org.apache.spark.sql.types.DataTypes.LongType;
-DataTypes.NullType = org.apache.spark.sql.types.DataTypes.NullType;
-DataTypes.ShortType = org.apache.spark.sql.types.DataTypes.ShortType;
-*/
+DataTypes.NullType = new NullType(org.apache.spark.sql.types.DataTypes.NullType);
+/**
+ * Gets the LongType object.
+ * @static
+ */
+DataTypes.LongType = new LongType(org.apache.spark.sql.types.DataTypes.LongType);
+/**
+ * Gets the BinaryType object.
+ * @static
+ */
+DataTypes.BinaryType = new BinaryType(org.apache.spark.sql.types.DataTypes.BinaryType);
+/**
+ * Gets the ByteType object.
+ * @static
+ */
+DataTypes.ByteType = new ByteType(org.apache.spark.sql.types.DataTypes.ByteType);
+/**
+ * Gets the CalendarIntervalType object.
+ * @static
+ */
+DataTypes.CalendarIntervalType = new CalendarIntervalType(org.apache.spark.sql.types.DataTypes.CalendarIntervalType);
+/**
+ * Gets the DecimalType object.
+ * @static
+ */
+DataTypes.DecimalType = new DecimalType(org.apache.spark.sql.types.DataTypes.DecimalType);
+/**
+ * Gets the ShortType object.
+ * @static
+ */
+DataTypes.ShortType = new ShortType(org.apache.spark.sql.types.DataTypes.ShortType);
+
 
 
 /**
@@ -92,7 +115,7 @@ Creates a StructField with empty metadata.
 */
 	Logger.getLogger("DataType_js").debug(dataType);
 
-	return new StructField(org.apache.spark.sql.types.DataTypes.createStructField(fieldName, dataType, nullable));
+	return new StructField(org.apache.spark.sql.types.DataTypes.createStructField(fieldName, Utils.unwrapObject(dataType), nullable));
 
 };
 /**

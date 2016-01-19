@@ -16,7 +16,8 @@ object Statistics {
   val showClosure=true
   val showClosureClassInfo=true
   val showClosureGenerateClasses=false
-  val showImplementedClasses=true
+  val showImplementedClasses=false   // the scorecard
+  val showClassHieracrchy=true
 
   val jsSourcePath = "./src/main/resources"
 
@@ -47,10 +48,16 @@ object Statistics {
 
   }
 
-  case class ClassInfo(name:String,numConstructors:Int, methods:List[MethodInfo])
+  case class ClassInfo(name:String,numConstructors:Int, methods:List[MethodInfo], parents:List[String])
   {
     override  def toString() ={
-      s"* $name   $numConstructors constructor(s)\n${methods.sortWith(_.name < _.name).mkString("\n")}"
+      val supers=if (showClassHieracrchy)
+        {
+          parents.mkString("->")
+        }
+      else
+      ""
+      s"* $name   $numConstructors constructor(s) $supers\n${methods.sortWith(_.name < _.name).mkString("\n")}"
     }
 
     def setImplemented(method:String): Boolean =
@@ -69,7 +76,6 @@ object Statistics {
   val generatedClassInfos= scala.collection.mutable.Map[String,ClassInfo]()
   var referencedTypes=Set("")
 
-  val allClasses= scala.collection.mutable.Map[String,Clazz]()
 
   val implementedClasses = scala.collection.mutable.Map[String,List[String]]()
 
@@ -88,9 +94,8 @@ object Statistics {
 
   def processFile(model: File, toFile: String) = {
 
+//    System.out.println("processFile="+model.fileName)
     model.classes foreach(cls=>{
-      val className= if (cls.isStatic) cls.name+"$" else cls.name
-        allClasses += (className -> cls)
       processClass(cls)
     })
     generatedFiles+=toFile;
@@ -135,7 +140,7 @@ object Statistics {
 
       })
 
-      generatedClassInfos += (fullName -> ClassInfo(fullName,constructors.length,generatedMethodInfos.toList))
+      generatedClassInfos += (fullName -> ClassInfo(fullName,constructors.length,generatedMethodInfos.toList,cls.parents))
 
     }
   }
@@ -174,12 +179,14 @@ object Statistics {
     )
 
     def checkType(name:String):Unit = {
-      val clsOpt=allClasses.get(name)
+//      System.out.println("checkTYpe="+name)
+      val clsOpt=Main.allClasses.get(name)
       if (clsOpt.isDefined)
         addReference(clsOpt.get)
     }
 
     def addReference(cls:Clazz) ={
+//      System.out.println("addReference="+cls.name)
       if (!referencedClasses.contains(cls))
         {
           referencedClasses += cls
@@ -213,7 +220,7 @@ object Statistics {
           referencedClasses.find(_.name==name).isDefined
         }
           // see if any unreferenced classes are subclasses of referenced classes, and if so add them
-        val unreferencedClasses= allClasses.filter(p=> !p._2.isStatic && !referencedClasses.contains(p._2)).map(_._2)
+        val unreferencedClasses= Main.allClasses.filter(p=> !p._2.isStatic && !referencedClasses.contains(p._2)).map(_._2)
         unreferencedClasses foreach( cls=>{
            if (cls.parents.find(isReferenced(_) ).isDefined)
              addReference(cls)
