@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: sql/types/MapType.js</title>
+    
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+    
+    <h1 class="page-title">Source: sql/types/MapType.js</h1>
+    
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>
+/*
+ * Copyright 2015 IBM Corp.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * @constructor
+ * @classdesc The data type for Maps. Keys in a map are not allowed to have null values.
+ * Please use DataTypes.createMapType() to create a specific instance.
+ * @param {DataType} keyType The data type of map keys. 
+ * @param {DataType} valueType The data type of map values. 
+ * @param {boolean} valueContainsNull Indicates if map values have null values.
+ */
+
+function MapType(jvmObj) {
+	var jvmObj;
+	if (arguments[0] && (arguments[0] instanceof Object)) {
+		jvmObj = arguments[0];
+	} else if (arguments.length == 3) {
+		jvmObj = new org.apache.spark.sql.types.MapType(arguments[0], arguments[1], arguments[1]);
+	} else {
+		jvmObj = new org.apache.spark.sql.types.MapType();
+	}
+	DataType.call(this, jvmObj);
+};
+
+
+MapType.prototype = Object.create(DataType.prototype); 
+
+
+MapType.prototype.constructor = MapType;
+/**
+ * Construct a MapType object with the given key type and value type.
+ * @static
+ * @param {DataType} keyType
+ * @param {DataType} valueType
+ * @returns {MapType}
+ */
+MapType.apply = function(keyType, valueType) {
+	return new MapType(org.apache.spark.sql.types.MapType.apply(keyType, valueType));
+};
+/**
+ * The default size of a value of the MapType is 100 * (the default size of the key type + the default size of the value type).
+ * @returns {integer}
+ */
+MapType.prototype.defaultSize = function() {
+	return this.getJavaObject().defaultSize();
+};
+/**
+ * @returns {DataType}
+ */
+MapType.prototype.keyType = function() {
+	return Utis.javaToJs(this.getJavaObject().keyType());
+};
+/**
+ * @returns {DataType}
+ */
+MapType.prototype.valueType = function() {
+	return Utis.javaToJs(this.getJavaObject().valueType());
+};
+/**
+ * Readable string representation for the type.
+ * @returns {string}
+ */
+MapType.prototype.simpleString = function() {
+	return this.getJavaObject().simpleString();
+};
+/**
+ * @returns {boolean}
+ */
+MapType.prototype.valueContainsNull = function() {
+	return this.getJavaObject().valueContainsNull();
+};
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="ByteType.html">ByteType</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DecimalType.html">DecimalType</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="functions.html">functions</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="LongType.html">LongType</a></li><li><a href="MapType.html">MapType</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="ShortType.html">ShortType</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li><li><a href="Vector.html">Vector</a></li></ul><h3>Global</h3><ul><li><a href="global.html#DataFrameStatFunctions">DataFrameStatFunctions</a></li><li><a href="global.html#HashPartitioner">HashPartitioner</a></li><li><a href="global.html#RangePartitioner">RangePartitioner</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Tue Jan 19 2016 17:42:34 GMT-0500 (EST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

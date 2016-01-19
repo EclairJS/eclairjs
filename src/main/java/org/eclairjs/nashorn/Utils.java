@@ -59,26 +59,46 @@ public class Utils {
     @SuppressWarnings({ "rawtypes", "unchecked" })
 	public static Object javaToJs(Object o, ScriptEngine engine) {
     	Logger logger = Logger.getLogger(Utils.class);
-		if(o != null)
-			logger.debug(o.getClass().getName());
-		if (
-				(o instanceof LabeledPoint) || 
-				(o instanceof Row) || // GenericRowWithSchema will use the Row.js wrapper
-				(o instanceof LinearRegressionModel) || 
-				(o instanceof RDD)
-			) {
+    	String packageName = null;
+ 		if(o != null) {
+			logger.debug("javaToJs className " + o.getClass().getName());
+			Package pack = o.getClass().getPackage();
+			if (pack != null) {
+	    		packageName = pack.getName();
+	    	}
+		}
+ 		/*
+ 		 * Any object that belongs to Spark we will wrapper it with a JavaScript object
+ 		 * If we don't have a JavaScript wrapper for it then we will catch the 
+ 		 * exception and just use the wrapObject method.
+ 		 */
+		if ((packageName != null) && (packageName.indexOf("org.apache.spark") > -1)) {
+			logger.debug("spark object");
+			String className = o.getClass().getSimpleName();
     		try {
  	  			Invocable invocable = (Invocable) engine;
-	  			logger.debug("create " + o.getClass().getSimpleName());
-	  			Object params[] = {o.getClass().getSimpleName(), o};
+ 	  			if (className.endsWith("$")) {
+ 	  				//anonymous class
+ 	  				logger.debug("getSuperClass for " + className);
+ 	  				className = o.getClass().getSuperclass().getSimpleName();
+ 	  			} 
+ 	  			if ( className.equals("JavaRDD")) {
+ 	  				/*
+ 	  				 * Map JavaRDD to RDD for JavaScript
+ 	  				 */
+ 	  				className = "RDD"; //o.getClass().getSimpleName();
+ 	  			}
+ 	  			logger.debug("create " + className);
+	  			Object params[] = {className, o};
 	  			Object parm = invocable.invokeFunction("createJavaWrapperObject", params);
 	  			logger.debug(parm);
 	  			return parm;
   			} catch (Exception e) {
-    			logger.error(o.getClass().getSimpleName() + " convertion " + e);
-    			return null;
+    			logger.warn(className + " convertion error, will just wrapObject " + e);
+    			logger.debug(className + " javaToJs instanceof  " + o.getClass());
+    			return wrapObject(o);
     		}
-
+  		
     	} else if (o instanceof Tuple2) {
             Tuple2 t = (Tuple2)o;
             logger.info("Tupple2 " + t.toString());
@@ -111,8 +131,10 @@ public class Utils {
 				logger.error(" JSONObject convertion " + e);
 			}
         	return er;
-        } else
+        } else {
+        	logger.error(" jsToJava wrapObject " + o);
             return wrapObject(o);
+        }
 
 
     }

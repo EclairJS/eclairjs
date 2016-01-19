@@ -653,6 +653,16 @@ DataFrame.prototype.sqlContext = function() {
 	return new SQLContext(this.getJavaObject().sqlContext());
 };
 /**
+ * Returns a DataFrameStatFunctions for working statistic functions support.
+ * @example
+ * var stat = peopleDataFrame.stat().cov("income", "networth");
+ * 
+ * @returns {DataFrameStatFunctions}
+ */
+DataFrame.prototype.stat = function() {
+	return new DataFrameStatFunctions(this.getJavaObject().stat());
+};
+/**
  * Returns the first n rows in the DataFrame.
  * @param {integer} num
  * @returns {Row[]}

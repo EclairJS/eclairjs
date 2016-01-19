@@ -28,7 +28,7 @@ var flatMapTest = function() {
 
     ds1.foreachRDD(function(rdd) {
         var d = rdd.collect();
-        if(!d.isEmpty()) {
+        if(d && d.length > 0) {
             d.forEach(function(letter) {
                 data.push(letter)
             })
@@ -53,7 +53,7 @@ var flatMapToPairTest = function() {
 
     ds1.foreachRDD(function(rdd) {
         var d = rdd.collect();
-        if(!d.isEmpty()) {
+        if(d && d.length > 0) {
             d.forEach(function(letter) {
                 data.push(letter)
             })
@@ -69,14 +69,12 @@ var mapTest = function() {
     var ds1 = dstream.flatMap(function(line) {
         return line.split(",");
     });
-
     var ds2 = ds1.map(function(letter){
         return letter.toUpperCase();
     });
-
     ds2.foreachRDD(function(rdd) {
         var d = rdd.collect();
-        if(!d.isEmpty()) {
+        if(d && d.length > 0) {
             d.forEach(function(letter) {
                 data.push(letter)
             })

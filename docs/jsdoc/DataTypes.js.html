@@ -51,17 +51,18 @@ var DataTypes = function() {
  * Gets the BooleanType object.
  * @static
  */
-DataTypes.BooleanType = org.apache.spark.sql.types.DataTypes.BooleanType;
+DataTypes.BooleanType = new BooleanType(org.apache.spark.sql.types.DataTypes.BooleanType);
 /**
  * Gets the DateType object.
  * @static
  */
-DataTypes.DateType = org.apache.spark.sql.types.DataTypes.DateType;
+DataTypes.DateType = new DateType(org.apache.spark.sql.types.DataTypes.DateType);
 /**
- * Gets the DoubleType object.
+ * Gets the DoubleType object. Note: JavaScript float types are mapped to DoubleTypes in Spark,
+ * The user should use the DoubleType for all float processing
  * @static
  */
-DataTypes.DoubleType = org.apache.spark.sql.types.DataTypes.DoubleType;
+DataTypes.DoubleType = new DoubleType(org.apache.spark.sql.types.DataTypes.DoubleType);
 /*
  * NOTE:
  * Nashorn interprets numbers as java.lang.Double, java.lang.Long, or java.lang.Integer objects, depending on the computation performed. 
@@ -69,39 +70,61 @@ DataTypes.DoubleType = org.apache.spark.sql.types.DataTypes.DoubleType;
  * https://docs.oracle.com/javase/8/docs/technotes/guides/scripting/nashorn/api.html
  */
 /**
- * Gets the DoubleType object. Note: JavaScript float types are mapped to DoubleTypes in Spark,
+ * Gets the FloatType object. Note: JavaScript float types are mapped to DoubleTypes in Spark,
  * The user should use the DoubleType for all float processing
  * @static
  */
-DataTypes.FloatType = org.apache.spark.sql.types.DataTypes.DoubleType;
+DataTypes.FloatType = new FloatType(org.apache.spark.sql.types.DataTypes.FloatType);
 /** Gets the IntegerType object.
  * @static
  */
-DataTypes.IntegerType = org.apache.spark.sql.types.DataTypes.IntegerType;
+DataTypes.IntegerType = new IntegerType(org.apache.spark.sql.types.DataTypes.IntegerType);
 /**
  * Gets the StringType object.
  * @static
  */
-DataTypes.StringType = org.apache.spark.sql.types.DataTypes.StringType;
+DataTypes.StringType = new StringType(org.apache.spark.sql.types.DataTypes.StringType);
 /**
  * Gets the TimestampType object.
  * @static
  */
-DataTypes.TimestampType = org.apache.spark.sql.types.DataTypes.TimestampType;
-
-/*
- * NOTE:
- * the following types are not applicable to JavaScript so we are not implement them
+DataTypes.TimestampType = new TimestampType(org.apache.spark.sql.types.DataTypes.TimestampType);
+/**
+ * Gets the NullType object.
+ * @static
  */
-/*
-DataTypes.BinaryType = org.apache.spark.sql.types.DataTypes.BinaryType;
-DataTypes.ByteType = org.apache.spark.sql.types.DataTypes.ByteType;
-DataTypes.CalendarIntervalType = org.apache.spark.sql.types.DataTypes.CalendarIntervalType;
-DataTypes.DecimalType = org.apache.spark.sql.types.DataTypes.DecimalType;
-DataTypes.LongType = org.apache.spark.sql.types.DataTypes.LongType;
-DataTypes.NullType = org.apache.spark.sql.types.DataTypes.NullType;
-DataTypes.ShortType = org.apache.spark.sql.types.DataTypes.ShortType;
-*/
+DataTypes.NullType = new NullType(org.apache.spark.sql.types.DataTypes.NullType);
+/**
+ * Gets the LongType object.
+ * @static
+ */
+DataTypes.LongType = new LongType(org.apache.spark.sql.types.DataTypes.LongType);
+/**
+ * Gets the BinaryType object.
+ * @static
+ */
+DataTypes.BinaryType = new BinaryType(org.apache.spark.sql.types.DataTypes.BinaryType);
+/**
+ * Gets the ByteType object.
+ * @static
+ */
+DataTypes.ByteType = new ByteType(org.apache.spark.sql.types.DataTypes.ByteType);
+/**
+ * Gets the CalendarIntervalType object.
+ * @static
+ */
+DataTypes.CalendarIntervalType = new CalendarIntervalType(org.apache.spark.sql.types.DataTypes.CalendarIntervalType);
+/**
+ * Gets the DecimalType object.
+ * @static
+ */
+DataTypes.DecimalType = new DecimalType(org.apache.spark.sql.types.DataTypes.DecimalType);
+/**
+ * Gets the ShortType object.
+ * @static
+ */
+DataTypes.ShortType = new ShortType(org.apache.spark.sql.types.DataTypes.ShortType);
+
 
 
 /**
@@ -119,7 +142,7 @@ Creates a StructField with empty metadata.
 */
 	Logger.getLogger("DataType_js").debug(dataType);
 
-	return new StructField(org.apache.spark.sql.types.DataTypes.createStructField(fieldName, dataType, nullable));
+	return new StructField(org.apache.spark.sql.types.DataTypes.createStructField(fieldName, Utils.unwrapObject(dataType), nullable));
 
 };
 /**
@@ -153,13 +176,13 @@ DataTypes.createStructType = function(fields) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulator.html">Accumulator</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="functions.html">functions</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="Vector.html">Vector</a></li></ul><h3>Global</h3><ul><li><a href="global.html#HashPartitioner">HashPartitioner</a></li><li><a href="global.html#RangePartitioner">RangePartitioner</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="ByteType.html">ByteType</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DecimalType.html">DecimalType</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="functions.html">functions</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="LongType.html">LongType</a></li><li><a href="MapType.html">MapType</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="ShortType.html">ShortType</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li><li><a href="Vector.html">Vector</a></li></ul><h3>Global</h3><ul><li><a href="global.html#DataFrameStatFunctions">DataFrameStatFunctions</a></li><li><a href="global.html#HashPartitioner">HashPartitioner</a></li><li><a href="global.html#RangePartitioner">RangePartitioner</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Mon Jan 11 2016 15:57:43 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Tue Jan 19 2016 17:42:34 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>
