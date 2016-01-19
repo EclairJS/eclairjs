@@ -148,12 +148,33 @@ SQLContext.prototype.clearCache = function() {
 
 /**
  * Creates a {@link DataFrame} from {@link RDD} of Rows using the schema
- * @param {RDD[]} rowRDD - 
+ * @param {RDD | object} rowRDD_or_values A RDD of [Rows]{@link Row} or array of arrays that contain values of valid {@link DataTypes}
  * @param {StructType} schema - 
  * @returns {DataFrame}
+ * @example
+ * var df = sqlContext.createDataFrame([[1,1], [1,2], [2,1], [2,1], [2,3], [3,2], [3,3]], schema);
+ * 
  */
-SQLContext.prototype.createDataFrame = function(rowRDD, schema) {
-    return new DataFrame(this.getJavaObject().createDataFrame(Utils.unwrapObject(rowRDD), Utils.unwrapObject(schema)));
+SQLContext.prototype.createDataFrame = function(rowRDD_or_values, schema) {
+	var rowRDD_uw;
+	if (Array.isArray(rowRDD_or_values)) {
+		var rows = [];
+		rowRDD_or_values.forEach(function(row){
+			var rowValues = [];
+			if(Array.isArray(row)) {
+				row.forEach(function(value) {
+					rowValues.push(Utils.unwrapObject(value));
+				})
+			} else {
+				rowValues.push(Utils.unwrapObject(row));
+			}
+			rows.push(RowFactory.create(rowValues));
+		});
+		rowRDD_uw = Utils.unwrapObject(sparkContext.parallelize(rows));
+	} else {
+		rowRDD_uw = Utils.unwrapObject(rowRDD_or_values)
+	}
+    return new DataFrame(this.getJavaObject().createDataFrame(Utils.unwrapObject(rowRDD_uw), Utils.unwrapObject(schema)));
 };
 
 

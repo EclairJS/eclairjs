@@ -61,20 +61,42 @@ DataTypes.StringType = org.apache.spark.sql.types.DataTypes.StringType;
  * @static
  */
 DataTypes.TimestampType = org.apache.spark.sql.types.DataTypes.TimestampType;
-
-/*
- * NOTE:
- * the following types are not applicable to JavaScript so we are not implement them
+/**
+ * Gets the NullType object.
+ * @static
  */
-/*
-DataTypes.BinaryType = org.apache.spark.sql.types.DataTypes.BinaryType;
-DataTypes.ByteType = org.apache.spark.sql.types.DataTypes.ByteType;
-DataTypes.CalendarIntervalType = org.apache.spark.sql.types.DataTypes.CalendarIntervalType;
-DataTypes.DecimalType = org.apache.spark.sql.types.DataTypes.DecimalType;
-DataTypes.LongType = org.apache.spark.sql.types.DataTypes.LongType;
 DataTypes.NullType = org.apache.spark.sql.types.DataTypes.NullType;
+/**
+ * Gets the LongType object.
+ * @static
+ */
+DataTypes.LongType = org.apache.spark.sql.types.DataTypes.LongType;
+/**
+ * Gets the BinaryType object.
+ * @static
+ */
+DataTypes.BinaryType = org.apache.spark.sql.types.DataTypes.BinaryType;
+/**
+ * Gets the ByteType object.
+ * @static
+ */
+DataTypes.ByteType = org.apache.spark.sql.types.DataTypes.ByteType;
+/**
+ * Gets the CalendarIntervalType object.
+ * @static
+ */
+DataTypes.CalendarIntervalType = org.apache.spark.sql.types.DataTypes.CalendarIntervalType;
+/**
+ * Gets the DecimalType object.
+ * @static
+ */
+DataTypes.DecimalType = org.apache.spark.sql.types.DataTypes.DecimalType;
+/**
+ * Gets the ShortType object.
+ * @static
+ */
 DataTypes.ShortType = org.apache.spark.sql.types.DataTypes.ShortType;
-*/
+
 
 
 /**

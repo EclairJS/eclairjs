@@ -128,10 +128,14 @@ with (imported) {
 	 */
 	SparkContext.prototype.parallelize = function(list, numSlices) {
 		//public <T> JavaRDD<T> parallelize(java.util.List<T> list, int numSlices)
+		var list_uw = [];
+		list.forEach(function(item){
+			list_uw.push(Utils.unwrapObject(item));
+		});
 		if (numSlices) {
-			return new RDD(this.getJavaObject().parallelize(list, numSlices));
+			return new RDD(this.getJavaObject().parallelize(list_uw, numSlices));
 		} else {
-			return new RDD(this.getJavaObject().parallelize(list));
+			return new RDD(this.getJavaObject().parallelize(list_uw));
 		}
 		
 	};
