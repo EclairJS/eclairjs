@@ -48,13 +48,14 @@ throw "not implemented by ElairJS";
 
 
 /**
- * A {@link Partitioner} that implements hash-based partitioning using
+ * @constructor
+ * @classdesc A {@link Partitioner} that implements hash-based partitioning using
  * Java's `Object.hashCode`.
  *
  * Java arrays have hashCodes that are based on the arrays' identities rather than their contents,
  * so attempting to partition an RDD[Array[_]] or RDD[(Array[_], _)] using a HashPartitioner will
  * produce an unexpected or incorrect result.
- * @classdesc
+ * 
  */
 
 var HashPartitioner = function(partitions) {
@@ -96,13 +97,14 @@ HashPartitioner.prototype.hashCode = function() {
 
 
 /**
- * A {@link Partitioner} that partitions sortable records by range into roughly
+ * @constructor
+ * @classdesc A {@link Partitioner} that partitions sortable records by range into roughly
  * equal ranges. The ranges are determined by sampling the content of the RDD passed in.
  *
  * Note that the actual number of partitions created by the RangePartitioner might not be the same
  * as the `partitions` parameter, in the case where the number of sampled records is less than
  * the value of `partitions`.
- * @classdesc
+ * 
  */
 
 var RangePartitioner = function(partitions,rdd,ascending) {

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: GroupedData</title>
+    <title>JSDoc: Class: DataFrameStatFunctions</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Class: GroupedData</h1>
+    <h1 class="page-title">Class: DataFrameStatFunctions</h1>
     
     
 
@@ -27,7 +27,7 @@
     
 <header>
     <h2>
-    GroupedData
+    DataFrameStatFunctions
     </h2>
     
 </header>  
@@ -39,12 +39,16 @@
     
         
 <dt>
-    <h4 class="name" id="GroupedData"><span class="type-signature"></span>new GroupedData<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="DataFrameStatFunctions"><span class="type-signature"></span>new DataFrameStatFunctions<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
 <dd>
     
+    
+    <div class="description">
+        Statistic functions for <a href="DataFrame.html">DataFrame</a>s.
+    </div>
     
 
     
@@ -59,6 +63,9 @@
         
     
     
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>EclairJS 0.1 Spark  1.4.0</dd>
     
 
     
@@ -76,7 +83,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="GroupedData.js.html">sql/GroupedData.js</a>, <a href="GroupedData.js.html#line20">line 20</a>
+        <a href="DataFrameStatFunctions.js.html">sql/DataFrameStatFunctions.js</a>, <a href="DataFrameStatFunctions.js.html#line26">line 26</a>
     </li></ul></dd>
     
     
@@ -122,7 +129,7 @@
         <dl>
             
 <dt>
-    <h4 class="name" id="agg"><span class="type-signature"></span>agg<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
+    <h4 class="name" id="corr"><span class="type-signature"></span>corr<span class="signature">(col1, col2, method)</span><span class="type-signature"> &rarr; {number}</span></h4>
     
     
 </dt>
@@ -130,9 +137,9 @@
     
     
     <div class="description">
-        Compute aggregates by specifying a series of aggregate columns. Note that this function by default retains the grouping columns in its output. 
-To not retain grouping columns, set spark.sql.retainGroupColumns to false.
-The available aggregate methods are defined in <a href="functions.html">functions</a>.
+        Calculates the correlation of two columns of a DataFrame. Currently only supports the Pearson
+Correlation Coefficient. For Spearman Correlation, consider using RDD methods found in
+MLlib's Statistics.
     </div>
     
 
@@ -166,15 +173,12 @@ The available aggregate methods are defined in <a href="functions.html">function
 	
         <tr>
             
-                <td class="name"><code>columnExpr,...columnExpr</code></td>
+                <td class="name"><code>col1</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type"><a href="Column.html">Column</a></span>
-|
-
 <span class="param-type">string</span>
 
 
@@ -185,7 +189,53 @@ The available aggregate methods are defined in <a href="functions.html">function
             
             
             
-            <td class="description last">or columnName, ...columnName</td>
+            <td class="description last">the name of the column</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>col2</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">the name of the column to calculate the correlation against</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>method</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional currently only supports the "pearson"</td>
         </tr>
 	
 	
@@ -201,7 +251,7 @@ The available aggregate methods are defined in <a href="functions.html">function
     
     
     <dt class="tag-since">Since:</dt>
-    <dd class="tag-since"><ul class="dummy"><li>EclairJS 0.1 Spark  1.3.0</dd>
+    <dd class="tag-since"><ul class="dummy"><li>EclairJS 0.1 Spark  1.4.0</dd>
     
 
     
@@ -219,7 +269,7 @@ The available aggregate methods are defined in <a href="functions.html">function
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="GroupedData.js.html">sql/GroupedData.js</a>, <a href="GroupedData.js.html#line44">line 44</a>
+        <a href="DataFrameStatFunctions.js.html">sql/DataFrameStatFunctions.js</a>, <a href="DataFrameStatFunctions.js.html#line71">line 71</a>
     </li></ul></dd>
     
     
@@ -243,6 +293,363 @@ The available aggregate methods are defined in <a href="functions.html">function
     <h5>Returns:</h5>
     
             
+<div class="param-desc">
+    The Pearson Correlation Coefficient.
+</div>
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">number</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code> 
+   var stat = peopleDataFrame.stat().cov("income", "networth", "pearson");
+ </code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="cov"><span class="type-signature"></span>cov<span class="signature">(col1, col2)</span><span class="type-signature"> &rarr; {number}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Calculate the sample covariance of two numerical columns of a DataFrame.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>col1</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">the name of the first column</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>col2</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">the name of the second column</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>EclairJS 0.1 Spark  1.4.0</dd>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="DataFrameStatFunctions.js.html">sql/DataFrameStatFunctions.js</a>, <a href="DataFrameStatFunctions.js.html#line51">line 51</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    the covariance of the two columns.
+</div>
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">number</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code> 
+   var stat = peopleDataFrame.stat().cov("income", "networth");
+ </code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="crosstab"><span class="type-signature"></span>crosstab<span class="signature">(col1, col2)</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Computes a pair-wise frequency table of the given columns. Also known as a contingency table.
+The number of distinct values for each column should be less than 1e4. At most 1e6 non-zero
+pair frequencies will be returned.
+The first column of each row will be the distinct values of `col1` and the column names will
+be the distinct values of `col2`. The name of the first column will be `$col1_$col2`. Counts
+will be returned as `Long`s. Pairs that have no occurrences will have zero as their counts.
+Null elements will be replaced by "null", and back ticks will be dropped from elements if they
+exist.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>col1</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The name of the first column. Distinct items will make the first item of
+            each row.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>col2</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The name of the second column. Distinct items will make the column names
+            of the DataFrame.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>EclairJS 0.1 Spark  1.4.0</dd>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="DataFrameStatFunctions.js.html">sql/DataFrameStatFunctions.js</a>, <a href="DataFrameStatFunctions.js.html#line113">line 113</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    A DataFrame containing for the contingency table.
+</div>
+
 
 
 <dl>
@@ -262,8 +669,18 @@ The available aggregate methods are defined in <a href="functions.html">function
     
         <h5>Example</h5>
         
-    <pre class="prettyprint"><code>// Java:
-df.groupBy("department").agg(max("age"), sum("expense"));</code></pre>
+    <pre class="prettyprint"><code> 
+  var df = sqlContext.createDataFrame([[1,1], [1,2], [2,1], [2,1], [2,3], [3,2], [3,3]], schema);
+  var ct = df.stat().crosstab("key", "value");
+  ct.show();
+   +---------+---+---+---+
+   |key_value|  1|  2|  3|
+   +---------+---+---+---+
+   |        2|  2|  0|  1|
+   |        1|  1|  1|  0|
+   |        3|  0|  1|  1|
+   +---------+---+---+---+
+ </code></pre>
 
     
 </dd>
@@ -271,7 +688,7 @@ df.groupBy("department").agg(max("age"), sum("expense"));</code></pre>
         
             
 <dt>
-    <h4 class="name" id="avg"><span class="type-signature"></span>avg<span class="signature">(cols)</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
+    <h4 class="name" id="freqItems"><span class="type-signature"></span>freqItems<span class="signature">(cols, support)</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
     
     
 </dt>
@@ -279,7 +696,13 @@ df.groupBy("department").agg(max("age"), sum("expense"));</code></pre>
     
     
     <div class="description">
-        Compute the avg value for each numeric columns for each group.
+        Finding frequent items for columns, possibly with false positives. Using the
+frequent element count algorithm described in
+[[http://dx.doi.org/10.1145/762471.762473, proposed by Karp, Schenker, and Papadimitriou]].
+The `support` should be greater than 1e-4.
+
+This function is meant for exploratory data analysis, as we make no guarantee about the
+backward compatibility of the schema of the resulting <a href="DataFrame.html">DataFrame</a>.
     </div>
     
 
@@ -329,7 +752,31 @@ df.groupBy("department").agg(max("age"), sum("expense"));</code></pre>
             
             
             
-            <td class="description last"></td>
+            <td class="description last">the names of the columns to search frequent items in.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>support</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The minimum frequency for an item to be considered `frequent`. Should be greater
+               than 1e-4. defaults to 1% (0.01)</td>
         </tr>
 	
 	
@@ -344,6 +791,9 @@ df.groupBy("department").agg(max("age"), sum("expense"));</code></pre>
     
     
     
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>EclairJS 0.1 Spark  1.4.0</dd>
+    
 
     
     
@@ -360,7 +810,7 @@ df.groupBy("department").agg(max("age"), sum("expense"));</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="GroupedData.js.html">sql/GroupedData.js</a>, <a href="GroupedData.js.html#line68">line 68</a>
+        <a href="DataFrameStatFunctions.js.html">sql/DataFrameStatFunctions.js</a>, <a href="DataFrameStatFunctions.js.html#line147">line 147</a>
     </li></ul></dd>
     
     
@@ -384,93 +834,10 @@ df.groupBy("department").agg(max("age"), sum("expense"));</code></pre>
     <h5>Returns:</h5>
     
             
+<div class="param-desc">
+    A Local DataFrame with the Array of frequent items for each column.
+</div>
 
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="DataFrame.html">DataFrame</a></span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="count"><span class="type-signature"></span>count<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Count the number of rows for each group.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="GroupedData.js.html">sql/GroupedData.js</a>, <a href="GroupedData.js.html#line79">line 79</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
 
 
 <dl>
@@ -488,12 +855,27 @@ df.groupBy("department").agg(max("age"), sum("expense"));</code></pre>
         
     
     
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code> 
+   // find the items with a frequency greater than 0.4 (observed 40% of the time) for columns
+   // "a" and "b"
+   var freqSingles = df.stat.freqItems(["a", "b"]), 0.4)
+   freqSingles.show()
+   +-----------+-------------+
+   |a_freqItems|  b_freqItems|
+   +-----------+-------------+
+   |    [1, 99]|[-1.0, -99.0]|
+   +-----------+-------------+
+ </code></pre>
+
+    
 </dd>
 
         
             
 <dt>
-    <h4 class="name" id="max"><span class="type-signature"></span>max<span class="signature">(cols)</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
+    <h4 class="name" id="sampleBywithnumber"><span class="type-signature"></span>sampleBywithnumber<span class="signature">(col, fractions, seed)</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
     
     
 </dt>
@@ -501,7 +883,7 @@ df.groupBy("department").agg(max("age"), sum("expense"));</code></pre>
     
     
     <div class="description">
-        Compute the max value for each numeric columns for each group.
+        Returns a stratified sample without replacement based on the fraction given on each stratum.
     </div>
     
 
@@ -535,13 +917,13 @@ df.groupBy("department").agg(max("age"), sum("expense"));</code></pre>
 	
         <tr>
             
-                <td class="name"><code>cols</code></td>
+                <td class="name"><code>col</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">string[]</span>
+<span class="param-type">string</span>
 
 
             
@@ -551,132 +933,20 @@ df.groupBy("department").agg(max("age"), sum("expense"));</code></pre>
             
             
             
-            <td class="description last"></td>
+            <td class="description last">column that defines strata</td>
         </tr>
 	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="GroupedData.js.html">sql/GroupedData.js</a>, <a href="GroupedData.js.html#line90">line 90</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="DataFrame.html">DataFrame</a></span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="mean"><span class="type-signature"></span>mean<span class="signature">(cols)</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Compute the mean value for each numeric columns for each group.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
 	
 	
         <tr>
             
-                <td class="name"><code>cols</code></td>
+                <td class="name"><code>fractions</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">string[]</span>
+<span class="param-type">object</span>
 
 
             
@@ -686,132 +956,21 @@ df.groupBy("department").agg(max("age"), sum("expense"));</code></pre>
             
             
             
-            <td class="description last"></td>
+            <td class="description last">is expected to be a HashMap, the key of the map is the column name, and the value of the map is the replacement value.
+The value must be of the following type: `number`or `String`.</td>
         </tr>
 	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="GroupedData.js.html">sql/GroupedData.js</a>, <a href="GroupedData.js.html#line98">line 98</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="DataFrame.html">DataFrame</a></span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="min"><span class="type-signature"></span>min<span class="signature">(cols)</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Compute the min value for each numeric columns for each group.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
 	
 	
         <tr>
             
-                <td class="name"><code>cols</code></td>
+                <td class="name"><code>seed</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">string[]</span>
+<span class="param-type">integer</span>
 
 
             
@@ -821,7 +980,7 @@ df.groupBy("department").agg(max("age"), sum("expense"));</code></pre>
             
             
             
-            <td class="description last"></td>
+            <td class="description last">random seed</td>
         </tr>
 	
 	
@@ -835,6 +994,9 @@ df.groupBy("department").agg(max("age"), sum("expense"));</code></pre>
         
     
     
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>EclairJS 0.1 Spark  1.5.0</dd>
     
 
     
@@ -852,7 +1014,7 @@ df.groupBy("department").agg(max("age"), sum("expense"));</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="GroupedData.js.html">sql/GroupedData.js</a>, <a href="GroupedData.js.html#line106">line 106</a>
+        <a href="DataFrameStatFunctions.js.html">sql/DataFrameStatFunctions.js</a>, <a href="DataFrameStatFunctions.js.html#line184">line 184</a>
     </li></ul></dd>
     
     
@@ -876,141 +1038,10 @@ df.groupBy("department").agg(max("age"), sum("expense"));</code></pre>
     <h5>Returns:</h5>
     
             
+<div class="param-desc">
+    a new [[DataFrame]] that represents the stratified sample
+</div>
 
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="DataFrame.html">DataFrame</a></span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="sum"><span class="type-signature"></span>sum<span class="signature">(cols)</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Compute the sum value for each numeric columns for each group.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>cols</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string[]</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="GroupedData.js.html">sql/GroupedData.js</a>, <a href="GroupedData.js.html#line114">line 114</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
 
 
 <dl>
@@ -1027,6 +1058,22 @@ df.groupBy("department").agg(max("age"), sum("expense"));</code></pre>
 
         
     
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code> 
+   var df = sqlContext.createDataFrame([[1,1], [1,2], [2,1], [2,1], [2,3], [3,2], [3,3]], schema).toDF("key", "value");
+   var fractions = {"1": 1.0, "3": 0.5);
+   df.stat.sampleBy("key", fractions, 36L).show()
+   +---+-----+
+   |key|value|
+   +---+-----+
+   |  1|    1|
+   |  1|    2|
+   |  3|    2|
+   +---+-----+
+ </code></pre>
+
     
 </dd>
 

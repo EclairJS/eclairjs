@@ -17,9 +17,8 @@
 
 
 /**
- * :: Experimental ::
  * Statistic functions for {@link DataFrame}s.
- *
+ * @constructor
  * @since EclairJS 0.1 Spark  1.4.0
  * @classdesc
  */
