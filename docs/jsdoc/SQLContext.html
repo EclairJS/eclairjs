@@ -280,7 +280,7 @@ the JVM.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SQLContext.js.html">sql/SQLContext.js</a>, <a href="SQLContext.js.html#line333">line 333</a>
+        <a href="SQLContext.js.html">sql/SQLContext.js</a>, <a href="SQLContext.js.html#line354">line 354</a>
     </li></ul></dd>
     
     
@@ -518,7 +518,7 @@ the JVM.
         
             
 <dt>
-    <h4 class="name" id="createDataFrame"><span class="type-signature"></span>createDataFrame<span class="signature">(rowRDD, schema)</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
+    <h4 class="name" id="createDataFrame"><span class="type-signature"></span>createDataFrame<span class="signature">(rowRDD_or_values, schema)</span><span class="type-signature"> &rarr; {<a href="DataFrame.html">DataFrame</a>}</span></h4>
     
     
 </dt>
@@ -560,13 +560,16 @@ the JVM.
 	
         <tr>
             
-                <td class="name"><code>rowRDD</code></td>
+                <td class="name"><code>rowRDD_or_values</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">RDD[]</span>
+<span class="param-type"><a href="RDD.html">RDD</a></span>
+|
+
+<span class="param-type">object</span>
 
 
             
@@ -576,7 +579,7 @@ the JVM.
             
             
             
-            <td class="description last">-</td>
+            <td class="description last">A RDD of <a href="Row.html">Rows</a> or array of arrays that contain values of valid <a href="DataTypes.html">DataTypes</a></td>
         </tr>
 	
 	
@@ -630,7 +633,7 @@ the JVM.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SQLContext.js.html">sql/SQLContext.js</a>, <a href="SQLContext.js.html#line155">line 155</a>
+        <a href="SQLContext.js.html">sql/SQLContext.js</a>, <a href="SQLContext.js.html#line158">line 158</a>
     </li></ul></dd>
     
     
@@ -670,6 +673,11 @@ the JVM.
 
         
     
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>var df = sqlContext.createDataFrame([[1,1], [1,2], [2,1], [2,1], [2,3], [3,2], [3,3]], schema);</code></pre>
+
     
 </dd>
 
@@ -839,7 +847,7 @@ It will use the default data source configured by spark.sql.sources.default.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SQLContext.js.html">sql/SQLContext.js</a>, <a href="SQLContext.js.html#line203">line 203</a>
+        <a href="SQLContext.js.html">sql/SQLContext.js</a>, <a href="SQLContext.js.html#line224">line 224</a>
     </li></ul></dd>
     
     
@@ -978,7 +986,7 @@ cached/persisted before, it's also unpersisted.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SQLContext.js.html">sql/SQLContext.js</a>, <a href="SQLContext.js.html#line231">line 231</a>
+        <a href="SQLContext.js.html">sql/SQLContext.js</a>, <a href="SQLContext.js.html#line252">line 252</a>
     </li></ul></dd>
     
     
@@ -1410,7 +1418,7 @@ yet, return `defaultValue`.
     
     <div class="description">
         :: Experimental ::
-Creates a [[DataFrame]] with a single LongType column named `id`, containing elements
+Creates a [[DataFrame]] with a single <a href="LongType.html">LongType</a> column named `id`, containing elements
 in an range from 0 to `end` (exclusive) with step value 1.
     </div>
     
@@ -1564,7 +1572,7 @@ in an range from 0 to `end` (exclusive) with step value 1.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SQLContext.js.html">sql/SQLContext.js</a>, <a href="SQLContext.js.html#line248">line 248</a>
+        <a href="SQLContext.js.html">sql/SQLContext.js</a>, <a href="SQLContext.js.html#line269">line 269</a>
     </li></ul></dd>
     
     
@@ -1655,7 +1663,7 @@ Returns a [[DataFrameReader]] that can be used to read data in as a <a href="Dat
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SQLContext.js.html">sql/SQLContext.js</a>, <a href="SQLContext.js.html#line186">line 186</a>
+        <a href="SQLContext.js.html">sql/SQLContext.js</a>, <a href="SQLContext.js.html#line207">line 207</a>
     </li></ul></dd>
     
     
@@ -1933,7 +1941,7 @@ used for SQL parsing can be configured with 'spark.sql.dialect'.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SQLContext.js.html">sql/SQLContext.js</a>, <a href="SQLContext.js.html#line267">line 267</a>
+        <a href="SQLContext.js.html">sql/SQLContext.js</a>, <a href="SQLContext.js.html#line288">line 288</a>
     </li></ul></dd>
     
     
@@ -2071,7 +2079,7 @@ used for SQL parsing can be configured with 'spark.sql.dialect'.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SQLContext.js.html">sql/SQLContext.js</a>, <a href="SQLContext.js.html#line278">line 278</a>
+        <a href="SQLContext.js.html">sql/SQLContext.js</a>, <a href="SQLContext.js.html#line299">line 299</a>
     </li></ul></dd>
     
     
@@ -2209,7 +2217,7 @@ used for SQL parsing can be configured with 'spark.sql.dialect'.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SQLContext.js.html">sql/SQLContext.js</a>, <a href="SQLContext.js.html#line310">line 310</a>
+        <a href="SQLContext.js.html">sql/SQLContext.js</a>, <a href="SQLContext.js.html#line331">line 331</a>
     </li></ul></dd>
     
     
@@ -2349,7 +2357,7 @@ indicating if a table is a temporary one or not).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SQLContext.js.html">sql/SQLContext.js</a>, <a href="SQLContext.js.html#line292">line 292</a>
+        <a href="SQLContext.js.html">sql/SQLContext.js</a>, <a href="SQLContext.js.html#line313">line 313</a>
     </li></ul></dd>
     
     
@@ -2528,13 +2536,13 @@ indicating if a table is a temporary one or not).
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulator.html">Accumulator</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="functions.html">functions</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="Vector.html">Vector</a></li></ul><h3>Global</h3><ul><li><a href="global.html#HashPartitioner">HashPartitioner</a></li><li><a href="global.html#RangePartitioner">RangePartitioner</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="ByteType.html">ByteType</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DecimalType.html">DecimalType</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="functions.html">functions</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="LongType.html">LongType</a></li><li><a href="MapType.html">MapType</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="ShortType.html">ShortType</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li><li><a href="Vector.html">Vector</a></li></ul><h3>Global</h3><ul><li><a href="global.html#DataFrameStatFunctions">DataFrameStatFunctions</a></li><li><a href="global.html#HashPartitioner">HashPartitioner</a></li><li><a href="global.html#RangePartitioner">RangePartitioner</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Mon Jan 11 2016 15:57:45 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Tue Jan 19 2016 17:42:36 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>
