@@ -2,6 +2,7 @@ package org.eclairjs.tools.generate
 
 import java.io.PrintWriter
 
+import scala.reflect.internal.Flags
 import scala.reflect.runtime.universe._
 import scala.reflect.internal.util.{BatchSourceFile, SourceFile}
 import scala.reflect.io.AbstractFile
@@ -13,6 +14,7 @@ import scala.tools.nsc.{interactive, Global}
 import scala.tools.nsc._
 import scala.reflect.api._
 import org.eclairjs.tools.generate.model._
+import Flags._
 
 class ParseSource(initialSettings: Settings) {
 
@@ -186,7 +188,7 @@ import Compiler.syntaxAnalyzer.global._
       }
     })
 
-    val c = new Clazz(name.toString, comment, members.toList, parents.toList, isStatic)
+    val c = new Clazz(name.toString, comment, members.toList, parents.toList, isStatic,mods.hasAbstractFlag)
 
     c
   }

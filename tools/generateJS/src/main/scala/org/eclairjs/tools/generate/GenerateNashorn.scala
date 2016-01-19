@@ -33,7 +33,10 @@ class GenerateNashorn  extends  GenerateJSBase {
 
       }
 
-    val constr = getTemplate("nashorn_constructorDefault",clsName,parmlist,constrBody,clsName)
+    val constr = if (!cls.isAbstract)
+      getTemplate("nashorn_constructorDefault",clsName,parmlist,constrBody,clsName)
+    else
+       getTemplate("abstractConstructor",clsName,parmlist,clsName)
 
     sbMain++=constr
 
@@ -101,7 +104,7 @@ class GenerateNashorn  extends  GenerateJSBase {
     if (method.returnType.isSparkClass())
     {
       var returnType=method.returnType.getJSType()
-      if (returnType!="object")
+      if (returnType!="object" && !method.returnType.isAbstract())
         sb ++= s"\n  return new ${returnType}(javaObject);"
       else
         sb ++= s"\n  return Utils.javaToJs(javaObject);"

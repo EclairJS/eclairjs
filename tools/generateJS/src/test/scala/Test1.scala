@@ -5,7 +5,7 @@
 /**
  * constructor doc.
  */
-  class Test1[T](str:String) {
+class Test1[T](str:String) {
 
 
 

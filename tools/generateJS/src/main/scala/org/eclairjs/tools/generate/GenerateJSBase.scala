@@ -64,6 +64,7 @@ abstract class GenerateJSBase {
      generateClassDoc(cls:Clazz,sb:StringBuilder)
      addNewlines(2,sb)
      generateConstructorDoc(cls:Clazz,sb:StringBuilder)
+     addNewlines(1,sb)
      generateConstructor(cls,sb)
      addNewlines(1,sb)
     generateObject(cls,sb)
