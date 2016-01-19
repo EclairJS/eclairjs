@@ -132,7 +132,7 @@ public class Utils {
 			}
         	return er;
         } else {
-        	logger.error(" jsToJava wrapObject " + o);
+        	logger.debug(" jsToJava wrapObject " + o);
             return wrapObject(o);
         }
 
