@@ -89,7 +89,6 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/sql/types/BooleanType.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/types/CalendarIntervalType.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/types/DateType.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/sql/types/DataTypes.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/types/NumericType.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/types/ByteType.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/types/DecimalType.js") + "');");
@@ -105,6 +104,7 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/sql/types/Metadata.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/types/StructField.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/types/StructType.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/sql/types/DataTypes.js") + "');");
             NashornEngineSingleton.setEngine(engine);
         } catch(Exception e) {
             e.printStackTrace();

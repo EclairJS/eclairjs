@@ -96,10 +96,9 @@ DataFrameStatFunctions.prototype.corr = function(col1,col2,method) {
  *             of the DataFrame.
  *
  * @example 
- *   val df = sqlContext.createDataFrame(Seq((1, 1), (1, 2), (2, 1), (2, 1), (2, 3), (3, 2),
- *         (3, 3))).toDF("key", "value")
- *    val ct = df.stat.crosstab("key", "value")
- *    ct.show()
+ *   var df = sqlContext.createDataFrame([[1,1], [1,2], [2,1], [2,1], [2,3], [3,2], [3,3]], schema);
+ *   var ct = df.stat().crosstab("key", "value");
+ *   ct.show();
  *    +---------+---+---+---+
  *    |key_value|  1|  2|  3|
  *    +---------+---+---+---+
@@ -129,12 +128,12 @@ DataFrameStatFunctions.prototype.crosstab = function(col1,col2) {
  *
  * @param {string[]} cols  the names of the columns to search frequent items in.
  * @param {number} support  The minimum frequency for an item to be considered `frequent`. Should be greater
- *                than 1e-4.
+ *                than 1e-4. defaults to 1% (0.01)
  *
  * @example 
  *    // find the items with a frequency greater than 0.4 (observed 40% of the time) for columns
  *    // "a" and "b"
- *    val freqSingles = df.stat.freqItems(["a", "b"]), 0.4)
+ *    var freqSingles = df.stat.freqItems(["a", "b"]), 0.4)
  *    freqSingles.show()
  *    +-----------+-------------+
  *    |a_freqItems|  b_freqItems|
@@ -146,113 +145,30 @@ DataFrameStatFunctions.prototype.crosstab = function(col1,col2) {
  * @since EclairJS 0.1 Spark  1.4.0
  * @returns {DataFrame}  A Local DataFrame with the Array of frequent items for each column.
  */
-DataFrameStatFunctions.prototype.freqItems0 = function(cols,support) {
-   var javaObject =  this.getJavaObject().freqItems(cols,support);
+DataFrameStatFunctions.prototype.freqItems = function(cols,support) {
+   var javaObject;
+   if (support) {
+	   javaObject =  this.getJavaObject().freqItems(cols,support);
+   } else {
+	   javaObject =  this.getJavaObject().freqItems(cols);
+   }
+ 
    return new DataFrame(javaObject);
 }
 
 
-/**
- * Finding frequent items for columns, possibly with false positives. Using the
- * frequent element count algorithm described in
- * [[http://dx.doi.org/10.1145/762471.762473, proposed by Karp, Schenker, and Papadimitriou]].
- * Uses a `default` support of 1%.
- *
- * This function is meant for exploratory data analysis, as we make no guarantee about the
- * backward compatibility of the schema of the resulting {@link DataFrame}.
- *
- * @param {string[]} cols  the names of the columns to search frequent items in.
- *
- * @since EclairJS 0.1 Spark  1.4.0
- * @returns {DataFrame}  A Local DataFrame with the Array of frequent items for each column.
- */
-DataFrameStatFunctions.prototype.freqItems1 = function(cols) {
-throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().freqItems(cols);
-//   return new DataFrame(javaObject);
-}
-
-
-/**
- * (Scala-specific) Finding frequent items for columns, possibly with false positives. Using the
- * frequent element count algorithm described in
- * [[http://dx.doi.org/10.1145/762471.762473, proposed by Karp, Schenker, and Papadimitriou]].
- *
- * This function is meant for exploratory data analysis, as we make no guarantee about the
- * backward compatibility of the schema of the resulting {@link DataFrame}.
- *
- * @param {Seq} cols  the names of the columns to search frequent items in.
- *
- * @example 
- *    val rows = Seq.tabulate(100) { i =>
- *      if (i % 2 == 0) (1, -1.0) else (i, i * -1.0)
- *    }
- *    val df = sqlContext.createDataFrame(rows).toDF("a", "b")
- *    // find the items with a frequency greater than 0.4 (observed 40% of the time) for columns
- *    // "a" and "b"
- *    val freqSingles = df.stat.freqItems(Seq("a", "b"), 0.4)
- *    freqSingles.show()
- *    +-----------+-------------+
- *    |a_freqItems|  b_freqItems|
- *    +-----------+-------------+
- *    |    [1, 99]|[-1.0, -99.0]|
- *    +-----------+-------------+
- *    // find the pair of items with a frequency greater than 0.1 in columns "a" and "b"
- *    val pairDf = df.select(struct("a", "b").as("a-b"))
- *    val freqPairs = pairDf.stat.freqItems(Seq("a-b"), 0.1)
- *    freqPairs.select(explode($"a-b_freqItems").as("freq_ab")).show()
- *    +----------+
- *    |   freq_ab|
- *    +----------+
- *    |  [1,-1.0]|
- *    |   ...    |
- *    +----------+
- *  
- *
- * @since EclairJS 0.1 Spark  1.4.0
- * @returns {DataFrame}  A Local DataFrame with the Array of frequent items for each column.
- */
-DataFrameStatFunctions.prototype.freqItems2 = function(cols,support) {
-throw "not implemented by ElairJS";
-//   var cols_uw = Utils.unwrapObject(cols);
-//   var javaObject =  this.getJavaObject().freqItems(cols_uw,support);
-//   return new DataFrame(javaObject);
-}
-
-
-/**
- * (Scala-specific) Finding frequent items for columns, possibly with false positives. Using the
- * frequent element count algorithm described in
- * [[http://dx.doi.org/10.1145/762471.762473, proposed by Karp, Schenker, and Papadimitriou]].
- * Uses a `default` support of 1%.
- *
- * This function is meant for exploratory data analysis, as we make no guarantee about the
- * backward compatibility of the schema of the resulting {@link DataFrame}.
- *
- * @param {Seq} cols  the names of the columns to search frequent items in.
- *
- * @since EclairJS 0.1 Spark  1.4.0
- * @returns {DataFrame}  A Local DataFrame with the Array of frequent items for each column.
- */
-DataFrameStatFunctions.prototype.freqItems3 = function(cols) {
-throw "not implemented by ElairJS";
-//   var cols_uw = Utils.unwrapObject(cols);
-//   var javaObject =  this.getJavaObject().freqItems(cols_uw);
-//   return new DataFrame(javaObject);
-}
 
 
 /**
  * Returns a stratified sample without replacement based on the fraction given on each stratum.
  * @param {string} col  column that defines strata
- * @param {Map} fractions  sampling fraction for each stratum. If a stratum is not specified, we treat
- *                  its fraction as zero.
- * @param {number} seed  random seed
+ * @param {object} fractions is expected to be a HashMap, the key of the map is the column name, and the value of the map is the replacement value.
+ * The value must be of the following type: `number`or `String`.
+ * @param {integer} seed  random seed
  *
  * @example 
- *    val df = sqlContext.createDataFrame(Seq((1, 1), (1, 2), (2, 1), (2, 1), (2, 3), (3, 2),
- *      (3, 3))).toDF("key", "value")
- *    val fractions = Map(1 -> 1.0, 3 -> 0.5)
+ *    var df = sqlContext.createDataFrame([[1,1], [1,2], [2,1], [2,1], [2,3], [3,2], [3,3]], schema).toDF("key", "value");
+ *    var fractions = {"1": 1.0, "3": 0.5);
  *    df.stat.sampleBy("key", fractions, 36L).show()
  *    +---+-----+
  *    |key|value|
@@ -267,26 +183,7 @@ throw "not implemented by ElairJS";
  * @returns {DataFrame}  a new [[DataFrame]] that represents the stratified sample
  */
 DataFrameStatFunctions.prototype.sampleBywithnumber = function(col,fractions,seed) {
-throw "not implemented by ElairJS";
-//   var fractions_uw = Utils.unwrapObject(fractions);
-//   var javaObject =  this.getJavaObject().sampleBy(col,fractions_uw,seed);
-//   return new DataFrame(javaObject);
-}
-
-
-/**
- * Returns a stratified sample without replacement based on the fraction given on each stratum.
- * @param {string} col  column that defines strata
- * @param {Map} fractions  sampling fraction for each stratum. If a stratum is not specified, we treat
- *                  its fraction as zero.
- * @param {number} seed  random seed
- *
- * @since EclairJS 0.1 Spark  1.5.0
- * @returns {DataFrame}  a new [[DataFrame]] that represents the stratified sample
- */
-DataFrameStatFunctions.prototype.sampleBywithnumber = function(col,fractions,seed) {
-throw "not implemented by ElairJS";
-//   var fractions_uw = Utils.unwrapObject(fractions);
-//   var javaObject =  this.getJavaObject().sampleBy(col,fractions_uw,seed);
-//   return new DataFrame(javaObject);
+	var fractions_uw = Utils.createJavaHashMap(fractions);
+	var javaObject =  this.getJavaObject().sampleBy(col,fractions_uw,seed);
+	return new DataFrame(javaObject);
 }

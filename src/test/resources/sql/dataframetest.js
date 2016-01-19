@@ -46,7 +46,8 @@ var buildPeopleTable = function(file, date) {
 		useDateType = false;
 		fields.push(DataTypes.createStructField("DOB", DataTypes.TimestampType, true));
 	}
-	fields.push(DataTypes.createStructField("income", DataTypes.FloatType, true));
+	//fields.push(DataTypes.createStructField("income", DataTypes.FloatType, true));
+	fields.push(DataTypes.createStructField("income", DataTypes.DoubleType, true));
 	fields.push(DataTypes.createStructField("married", DataTypes.BooleanType, true));
 	fields.push(DataTypes.createStructField("networth", DataTypes.DoubleType, true));
 	
