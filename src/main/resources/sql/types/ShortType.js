@@ -16,12 +16,13 @@
  */
 /**
  * @constructor
- * @classdesc The data type representing Short values. Please use the singleton DataTypes.ShortType.
+ * @classdesc The data type representing Short values. Please use the singleton DataTypes.ShortType. not a valid primitive type for JavaScript
+ * @ignore
  */
 
 function ShortType(jvmObj) {
-
-	NumericType.call(this, jvmObj);
+	throw "not implemented by ElairJS";
+	//NumericType.call(this, jvmObj);
 };
 
 
@@ -33,15 +34,19 @@ ShortType.prototype.constructor = ShortType;
 /**
  * The default size of a value of the ShortType is 2 bytes.
  * @returns {integer}
+ * @ignore
  */
 ShortType.prototype.defaultSize = function() {
-	return this.getJavaObject().defaultSize();
+	throw "not implemented by ElairJS";
+	//return this.getJavaObject().defaultSize();
 };
 /**
  * @returns {string}
+ * @ignore
  */
 ShortType.prototype.simpleString = function() {
-	return this.getJavaObject().simpleString();
+	throw "not implemented by ElairJS";
+	//return this.getJavaObject().simpleString();
 };
 ShortType.prototype.classTag = function() {
 	throw "not implemented by ElairJS";

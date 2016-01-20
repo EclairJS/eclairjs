@@ -90,16 +90,12 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/sql/types/CalendarIntervalType.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/types/DateType.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/types/NumericType.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/sql/types/ByteType.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/sql/types/DecimalType.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/types/DoubleType.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/types/FloatType.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/types/IntegerType.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/sql/types/LongType.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/types/MapType.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/types/NullType.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/types/StringType.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/sql/types/ShortType.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/types/TimestampType.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/types/Metadata.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/types/StructField.js") + "');");

@@ -68,35 +68,35 @@ DataTypes.TimestampType = new TimestampType(org.apache.spark.sql.types.DataTypes
  */
 DataTypes.NullType = new NullType(org.apache.spark.sql.types.DataTypes.NullType);
 /**
- * Gets the LongType object.
+ * Gets the LongType object. not a valid primitive type for JavaScript
  * @static
+ * @ignore 
  */
-DataTypes.LongType = new LongType(org.apache.spark.sql.types.DataTypes.LongType);
+//DataTypes.LongType = new LongType(org.apache.spark.sql.types.DataTypes.LongType);
 /**
  * Gets the BinaryType object.
  * @static
  */
 DataTypes.BinaryType = new BinaryType(org.apache.spark.sql.types.DataTypes.BinaryType);
-/**
- * Gets the ByteType object.
- * @static
+/*
+ * Gets the ByteType object. Not a valid primitive type for JavaScript
  */
-DataTypes.ByteType = new ByteType(org.apache.spark.sql.types.DataTypes.ByteType);
+//DataTypes.ByteType = new ByteType(org.apache.spark.sql.types.DataTypes.ByteType);
 /**
  * Gets the CalendarIntervalType object.
  * @static
  */
 DataTypes.CalendarIntervalType = new CalendarIntervalType(org.apache.spark.sql.types.DataTypes.CalendarIntervalType);
-/**
- * Gets the DecimalType object.
- * @static
+/*
+ * Gets the DecimalType object. not a valid primitive type for JavaScript
  */
-DataTypes.DecimalType = new DecimalType(org.apache.spark.sql.types.DataTypes.DecimalType);
+//DataTypes.DecimalType = new DecimalType(org.apache.spark.sql.types.DataTypes.DecimalType);
 /**
- * Gets the ShortType object.
+ * Gets the ShortType object. not a valid primitive type for JavaScript
  * @static
+ * @ignore
  */
-DataTypes.ShortType = new ShortType(org.apache.spark.sql.types.DataTypes.ShortType);
+//DataTypes.ShortType = new ShortType(org.apache.spark.sql.types.DataTypes.ShortType);
 
 
 

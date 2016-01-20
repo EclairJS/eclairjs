@@ -658,6 +658,22 @@ var floatType = function(file) {
     return names.take(10).toString();
 }
 
+var doubleType = function(file) {
+
+	var peopleDataFrame = buildPeopleTable(file, true);
+	var col = new Column("income");
+	var testCol = col.gt(1300.00);
+	// SQL can be run over RDDs that have been registered as tables.
+	var result = peopleDataFrame.filterWithColumn(testCol);
+
+	//The results of SQL queries are DataFrames and support all the normal RDD operations.
+	//The columns of a row in the result can be accessed by ordinal.
+	var names = result.toRDD().map(function(row) {
+		return "Name: " + row.getString(0) + " income: " + row.getDouble(4);
+	});
+    return names.take(10).toString();
+}
+
 var booleanType = function(file) {
 
 	var peopleDataFrame = buildPeopleTable(file, true);
@@ -679,6 +695,24 @@ var arrayTypeTest = function() {
 	var at = ArrayType.apply(DataTypes.IntegerType, true);
 	return at.elementType().defaultSize();
 }
+
+var binaryTypeTest = function() {
+
+	//Generate the schema
+	var fields = [];
+	fields.push(DataTypes.createStructField("key", DataTypes.IntegerType, true));
+	fields.push(DataTypes.createStructField("value", DataTypes.BinaryType, true));
+	var schema = DataTypes.createStructType(fields);
+	var df = sqlContext.createDataFrame([[1,"101010"], [2,"101010"], [3,"101010"]], schema);
+	
+	df.show();
+	var results = df.toRDD().map(function(row) {
+		return "key: " + row.getInt(0) + " value: " + row.getString(1);
+	});
+
+	return JSON.stringify(results.take(10));
+}
+
 
 /*
  * sql.functions
