@@ -84,6 +84,8 @@ class GenerateNode  extends  GenerateJSBase {
     val sb=new StringBuilder
 
     val returnType=method.returnType
+    val isStatic=method.parent.isStatic
+
 
     val templateParms= method.parms.map("{{"+_.name+"}}").toArray.mkString(",")
     val assignParms= method.parms.map(parm=> parm.name+" : "+parm.name).toArray.mkString(",")
@@ -109,10 +111,16 @@ class GenerateNode  extends  GenerateJSBase {
 
       }
 
+    val onObject =
+      if (isStatic)
+        method.parent.name
+      else
+        "{{inRefId}}"
+
     if (returnType.isSparkClass())
     {
 
-      sb ++= getTemplate("node_templateStrAssign",method.name,templateParms)
+      sb ++= getTemplate("node_templateStrAssign",onObject,method.name,templateParms)
 
 
       sb ++= getTemplate("node_genAssign",returnType.getJSType(),parms)
@@ -120,7 +128,7 @@ class GenerateNode  extends  GenerateJSBase {
     }
     else if (isVoidPromise(returnType))
       {
-        sb ++= getTemplate("node_templateVoidPromise",method.name,templateParms)
+        sb ++= getTemplate("node_templateVoidPromise",onObject,method.name,templateParms)
 
 
         sb ++= getTemplate("node_genVoidPromise",parms)
@@ -129,9 +137,9 @@ class GenerateNode  extends  GenerateJSBase {
     else if (isPromise(returnType))
       {
         if (returnType.isArray())
-          sb ++= getTemplate("node_templatePromiseArray",method.name,templateParms)
+          sb ++= getTemplate("node_templatePromiseArray",onObject,method.name,templateParms)
         else
-          sb ++= getTemplate("node_templatePromise",method.name,templateParms)
+          sb ++= getTemplate("node_templatePromise",onObject,method.name,templateParms)
 
         val promiseParms= if (!method.parms.isEmpty) parms else ", null"
 

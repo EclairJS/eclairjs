@@ -55,6 +55,7 @@ class GenerateNashorn  extends  GenerateJSBase {
   {
     val sb=new StringBuilder
 
+    val isStatic=method.parent.isStatic
 
     val parmNames= scala.collection.mutable.ListBuffer.empty[String]
 
@@ -99,8 +100,11 @@ class GenerateNashorn  extends  GenerateJSBase {
       }
 
 
+    val onObject = if (isStatic) method.parent.fullName()
+      else "this.getJavaObject()"
 
-    sb ++= s"  $returnsStr this.getJavaObject().${method.name}(${parmNames.mkString(",")});"
+
+    sb ++= s"  $returnsStr $onObject.${method.name}(${parmNames.mkString(",")});"
     if (method.returnType.isSparkClass())
     {
       var returnType=method.returnType.getJSType()
