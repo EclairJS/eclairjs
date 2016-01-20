@@ -568,7 +568,13 @@ var castCloumn = function(file) {
 	var peopleDataFrame = buildPeopleTable(file, false);
 	var col = new Column("age");
 	var testCol = col.cast(DataTypes.StringType);
-    return testCol.toString();
+	var df = peopleDataFrame.select(testCol);
+	var rows = df.take(10);
+	var results = [];
+	rows.forEach(function(r){
+		results.push(r.getString(0));
+	})
+    return JSON.stringify(results);
 }
 
 var containsCloumn = function(file) {

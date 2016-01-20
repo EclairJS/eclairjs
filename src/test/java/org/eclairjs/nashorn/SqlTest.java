@@ -188,7 +188,7 @@ public class SqlTest {
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable)engine).invokeFunction("dataframeDescribeTest", file);
-        String expected = "{\"summary\":\"count\",\"age\":\"3\",\"expense\":\"3\"},{\"summary\":\"mean\",\"age\":\"26.0\",\"expense\":\"2.0\"},{\"summary\":\"stddev\",\"age\":\"4.966554808583776\",\"expense\":\"0.8164965809277263\"},{\"summary\":\"min\",\"age\":\"19\",\"expense\":\"1\"},{\"summary\":\"max\",\"age\":\"30\",\"expense\":\"3\"}";
+        String expected = "{\"summary\":\"count\",\"age\":\"3\",\"expense\":\"3\"},{\"summary\":\"mean\",\"age\":\"26.0\",\"expense\":\"2.0\"},{\"summary\":\"stddev\",\"age\":\"6.082762530298219\",\"expense\":\"1.0\"},{\"summary\":\"min\",\"age\":\"19\",\"expense\":\"1\"},{\"summary\":\"max\",\"age\":\"30\",\"expense\":\"3\"}";
         assertEquals("should be same", expected, ret);
     }
     
@@ -495,7 +495,7 @@ public class SqlTest {
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable)engine).invokeFunction("dataframeJoinTest", file, "age");
 
-        assertEquals("should be same", "[Justin,19,3,1992-03-06 19:00:00.0,1600,true,100000,Justin,3,1992-03-06 19:00:00.0,1600,true,100000]", ret);
+        assertEquals("should be same", "[19,Justin,3,1992-03-06 19:00:00.0,1600,true,100000,Justin,3,1992-03-06 19:00:00.0,1600,true,100000]", ret);
     }
     
     @Test
@@ -510,7 +510,7 @@ public class SqlTest {
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable)engine).invokeFunction("dataframeJoinUsingColumnsTest", file);
 
-        assertEquals("should be same", "[Andy,30,2,1998-12-06 19:00:00.0,1500.44,false,500000000.11,Andy,2,1500.44,false,500000000.11]", ret);
+        assertEquals("should be same", "[30,1998-12-06 19:00:00.0,Andy,2,1500.44,false,500000000.11,Andy,2,1500.44,false,500000000.11]", ret);
     }
     
     @Test
@@ -953,7 +953,7 @@ public class SqlTest {
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable)engine).invokeFunction("castCloumn", file);
-        assertEquals("should be same", "cast(age as string)", ret);
+        assertEquals("should be same", "[\"29\",\"30\",\"19\"]", ret);
     }
     
     @Test
