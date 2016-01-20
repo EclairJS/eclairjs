@@ -14,13 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * @constructor
- * @classdesc The data type representing Byte values. Please use the singleton DataTypes.ByteType.
+
+/*
+ * Not a valid type for JavaScript
  */
-
 function ByteType(jvmObj) {
-
+	throw "not implemented by ElairJS";
 	NumericType.call(this, jvmObj);
 };
 
@@ -30,12 +29,9 @@ ByteType.prototype = Object.create(NumericType.prototype);
 
 ByteType.prototype.constructor = ByteType;
 
-/**
- * The default size of a value of the ByteType is 1 byte.
- * @returns {integer}
- */
 ByteType.prototype.defaultSize = function() {
-	return this.getJavaObject().defaultSize();
+	throw "not implemented by ElairJS";
+	//return this.getJavaObject().defaultSize();
 };
 ByteType.prototype.classTag = function() {
 	throw "not implemented by ElairJS";
@@ -61,10 +57,8 @@ ByteType.prototype.unapply = function() {
 	throw "not implemented by ElairJS";
 	//return this.getJavaObject().unapply();
 };
-/**
- * @returns {string}
- */
 ByteType.prototype.simpleString = function() {
-	return this.getJavaObject().simpleString();
+	throw "not implemented by ElairJS";
+	//return this.getJavaObject().simpleString();
 };
 

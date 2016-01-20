@@ -16,12 +16,13 @@
  */
 /**
  * @constructor
- * @classdesc The data type representing Long values. Please use the singleton DataTypes.LongType.
+ * @classdesc The data type representing Long values. Please use the singleton DataTypes.LongType. not a valid primitive type for JavaScript
+ * @ignore
  */
 
 function LongType(jvmObj) {
-
-	NumericType.call(this, jvmObj);
+	throw "not implemented by ElairJS";
+	//NumericType.call(this, jvmObj);
 };
 
 
@@ -33,9 +34,11 @@ LongType.prototype.constructor = LongType;
 /**
  * The default size of a value of the LongType is 8 bytes.
  * @returns {integer}
+ * @ignore
  */
 LongType.prototype.defaultSize = function() {
-	return this.getJavaObject().defaultSize();
+	throw "not implemented by ElairJS";
+	//return this.getJavaObject().defaultSize();
 };
 LongType.prototype.classTag = function() {
 	throw "not implemented by ElairJS";
@@ -63,8 +66,10 @@ LongType.prototype.unapply = function() {
 };
 /**
  * @returns {string}
+ * @ignore
  */
 LongType.prototype.simpleString = function() {
-	return this.getJavaObject().simpleString();
+	throw "not implemented by ElairJS";
+	//return this.getJavaObject().simpleString();
 };
 

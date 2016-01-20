@@ -1064,6 +1064,21 @@ public class SqlTest {
         Object ret = ((Invocable)engine).invokeFunction("floatType", file);
         assertEquals("should be same", "Name: Andy income: 1500.44,Name: Justin income: 1600", ret);
     }
+        
+    @Test
+    public void dataFrameDoubleTypeTest() throws Exception {
+    	/*
+    	 * tests
+    	 * DataType.FloatType
+    	 * DataType.DoubleType 
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/people.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("doubleType", file);
+        assertEquals("should be same", "Name: Andy income: 1500.44,Name: Justin income: 1600", ret);
+    }
     
     @Test
     public void dataFrameBooleanTypeTest() throws Exception {
@@ -1094,6 +1109,22 @@ public class SqlTest {
         assertEquals("should be same", 4, ret);
     }
     
+    @Test
+    public void binaryTypeTest() throws Exception {
+    	/*
+    	 * tests
+    	 * DataType.BooleanType
+    	 *  
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+       
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("binaryTypeTest");
+        String expected = "[\"key: 1 value: 101010\",\"key: 2 value: 101010\",\"key: 3 value: 101010\"]";
+        assertEquals("should be same", expected, ret); 
+    }
+    
+   
     /*
      * sql.functions tests
      */

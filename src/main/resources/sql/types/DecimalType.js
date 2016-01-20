@@ -14,15 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * @constructor
- * @classdesc The data type representing Decimal values. Please use the singleton DataTypes.DecimalType.
- * @param {integer} precision
- * @param {integer} scale
- */
 
+/*
+ * Not a valid primitive type for JavaScript
+ */
 var DecimalType = function() {
-	var jvmObj;
+	throw "not implemented by ElairJS";
+	/*var jvmObj;
 	if (arguments[0] && (arguments[0] instanceof Object)) {
 		jvmObj = arguments[0];
 	} else if (arguments.length == 2) {
@@ -34,6 +32,7 @@ var DecimalType = function() {
 	}
 	
 	NumericType.call(this, jvmObj);
+	*/
 };
 
 
@@ -42,96 +41,79 @@ DecimalType.prototype = Object.create(NumericType.prototype);
 
 DecimalType.prototype.constructor = DecimalType;
 
-/**
- * @returns {integer} 
- */
+
 DecimalType.MAX_PRECISION = function() {
-	return org.apache.spark.sql.types.DecimalType.MAX_PRECISION();
+	throw "not implemented by ElairJS";
+	//return org.apache.spark.sql.types.DecimalType.MAX_PRECISION();
 };
-/**
- * @returns {integer} 
- */
+
 DecimalType.MAX_SCALE = function() {
-	return org.apache.spark.sql.types.DecimalType.MAX_SCALE();
+	throw "not implemented by ElairJS";
+	//return org.apache.spark.sql.types.DecimalType.MAX_SCALE();
 };
-/**
- * @returns {DecimalType} 
- */
+
 DecimalType.SYSTEM_DEFAULT = function() {
-	return new DecimalType(org.apache.spark.sql.types.DecimalType.SYSTEM_DEFAULT());
+	throw "not implemented by ElairJS";
+	//return new DecimalType(org.apache.spark.sql.types.DecimalType.SYSTEM_DEFAULT());
 };
-/**
- * @returns {DecimalType} 
- */
+
 DecimalType.USER_DEFAULT = function() {
-	return new DecimalType(org.apache.spark.sql.types.DecimalType.USER_DEFAULT());
+	throw "not implemented by ElairJS";
+	//return new DecimalType(org.apache.spark.sql.types.DecimalType.USER_DEFAULT());
 };
-/**
- * @returns {DecimalType} 
- */
+
 DecimalType.Unlimited = function() {
-	return new DecimalType(org.apache.spark.sql.types.DecimalType.Unlimited());
+	throw "not implemented by ElairJS";
+	//return new DecimalType(org.apache.spark.sql.types.DecimalType.Unlimited());
 };
-/**
- * @returns {DecimalType} 
- */
+
 DecimalType.ByteDecimal = function() {
-	return new DecimalType(org.apache.spark.sql.types.DecimalType.ByteDecimal());
+	throw "not implemented by ElairJS";
+	//return new DecimalType(org.apache.spark.sql.types.DecimalType.ByteDecimal());
 };
-/**
- * @returns {DecimalType} 
- */
+
 DecimalType.ShortDecimal = function() {
-	return new DecimalType(org.apache.spark.sql.types.DecimalType.ShortDecimal());
+	throw "not implemented by ElairJS";
+	//return new DecimalType(org.apache.spark.sql.types.DecimalType.ShortDecimal());
 };
-/**
- * @returns {DecimalType} 
- */
+
 DecimalType.IntDecimal = function() {
-	return new DecimalType(org.apache.spark.sql.types.DecimalType.IntDecimal());
+	throw "not implemented by ElairJS";
+	//return new DecimalType(org.apache.spark.sql.types.DecimalType.IntDecimal());
 };
-/**
- * @returns {DecimalType} 
- */
+
 DecimalType.LongDecimal = function() {
-	return new DecimalType(org.apache.spark.sql.types.DecimalType.LongDecimal());
+	throw "not implemented by ElairJS";
+	//return new DecimalType(org.apache.spark.sql.types.DecimalType.LongDecimal());
 };
-/**
- * @returns {DecimalType} 
- */
+
 DecimalType.FloatDecimal = function() {
-	return new DecimalType(org.apache.spark.sql.types.DecimalType.FloatDecimal());
+	throw "not implemented by ElairJS";
+	//return new DecimalType(org.apache.spark.sql.types.DecimalType.FloatDecimal());
 };
-/**
- * @returns {DecimalType} 
- */
+
 DecimalType.DoubleDecimal = function() {
-	return new DecimalType(org.apache.spark.sql.types.DecimalType.DoubleDecimal());
+	throw "not implemented by ElairJS";
+	//return new DecimalType(org.apache.spark.sql.types.DecimalType.DoubleDecimal());
 };
-/**
- * @returns {DecimalType} 
- */
+
 DecimalType.apply = function() {
 	return new DecimalType(org.apache.spark.sql.types.DecimalType.apply());
 };
-/**
- * @param {DataType} t
- * @returns {boolean}
- */
+
 DecimalType.unapply = function(t) {
-	return org.apache.spark.sql.types.DecimalType.apply(Utils.unwrapObject(t));
+	throw "not implemented by ElairJS";
+	//return org.apache.spark.sql.types.DecimalType.apply(Utils.unwrapObject(t));
 };
-/**
- * @returns {integer}
- */
+
 DecimalType.prototype.precision = function() {
-	return this.getJavaObject().precision();
+	throw "not implemented by ElairJS";
+	//return this.getJavaObject().precision();
 };
-/**
- * @returns {integer}
- */
+
 DecimalType.prototype.scale = function() {
-	return this.getJavaObject().scale();
+	throw "not implemented by ElairJS";
+	//return this.getJavaObject().scale();
 };
 DecimalType.prototype.tag = function() {
 	throw "not implemented by ElairJS";
@@ -153,22 +135,19 @@ DecimalType.prototype.asIntegral = function() {
 	throw "not implemented by ElairJS";
 	//return this.getJavaObject().asIntegral();
 };
-/**
- * Description copied from class: {@link DataType} Name of the type used in JSON serialization.
- * @returns {string}
- */
+
 DecimalType.prototype.typeName = function() {
-	return this.getJavaObject().typeName();
+	throw "not implemented by ElairJS";
+	//return this.getJavaObject().typeName();
 };
 DecimalType.prototype.toString = function() {
+	throw "not implemented by ElairJS";
 	return this.getJavaObject().toString();
 };
-/**
- * The default size of a value of the DecimalType is 4096 bytes.
- * @returns {integer}
- */
+
 DecimalType.prototype.defaultSize = function() {
-	return this.getJavaObject().defaultSize();
+	throw "not implemented by ElairJS";
+	//return this.getJavaObject().defaultSize();
 };
 
 DecimalType.prototype.classTag = function() {
@@ -176,10 +155,9 @@ DecimalType.prototype.classTag = function() {
 	//return this.getJavaObject().classTag();
 };
 
-/**
- * @returns {string}
- */
+
 DecimalType.prototype.simpleString = function() {
-	return this.getJavaObject().simpleString();
+	throw "not implemented by ElairJS";
+	//return this.getJavaObject().simpleString();
 };
 

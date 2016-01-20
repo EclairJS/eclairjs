@@ -35,7 +35,6 @@ IntegerType.prototype.constructor = IntegerType;
  * @returns {integer}
  */
 IntegerType.prototype.defaultSize = function() {
-	print("it")
 	return this.getJavaObject().defaultSize();
 };
 /**
