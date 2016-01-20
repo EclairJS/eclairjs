@@ -25,7 +25,11 @@ class GenerateNode  extends  GenerateJSBase {
 
       }
 
-    val constr = getTemplate("node_constructorDefault",clsName,parmlist,constrBody)
+
+    val constr = if (!cls.isAbstract)
+      getTemplate("node_constructorDefault",clsName,parmlist,constrBody)
+    else
+      getTemplate("node_constructorAbstract",clsName,parmlist,clsName)
 
     sb++=constr
 
