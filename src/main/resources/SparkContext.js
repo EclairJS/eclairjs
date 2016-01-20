@@ -86,6 +86,7 @@ with (imported) {
         	jvmObj = initSparkContext(arguments[0])
         }
         JavaWrapper.call(this, jvmObj);
+        this.logger.debug(this.version());
     };
     
     SparkContext.prototype = Object.create(JavaWrapper.prototype);
@@ -169,5 +170,65 @@ with (imported) {
 	 */
 	SparkContext.prototype.stop = function() {
 		  this.getJavaObject().stop();
+    };
+    
+    /**
+     * The version of EclairJS and Spark on which this application is running.
+     * @returns {string}
+     */
+    SparkContext.prototype.version = function() {
+    	var javaVersion = java.lang.System.getProperty("java.version");
+    	var jv = javaVersion.split(".");
+    	var wrongJavaVersionString = "Java 1.8.0_60 or greater required for EclairJS";
+    	var wrongSparkVersionString = "Spark 1.5.1 or greater required for EclairJS";
+    	if (jv[0] < 2) {
+    		if (jv[0] == 1) {
+    			if (jv[1] < 8) {
+    				throw wrongJavaVersionString;
+    			} else {
+    				if(jv[1] == 8) {
+    					// we are at 1.8
+    					var f = jv[2]
+    					var fix = f.split("_");
+    					if ((fix[0] < 1) && (fix[1] < 60)) {
+    						// less than 1.8.0_60
+    						throw wrongJavaVersionString;
+    					}
+    				} else {
+    					// 1.9 or greater
+    				}
+    			}
+    		} else {
+    			throw wrongJavaVersionString;
+    		}
+    		
+    	} else {
+    		// versions is 2.0 or greater
+    	}
+    	var sparkVersion = this.getJavaObject().version();
+    	var sv = sparkVersion.split(".");
+    	if (sv[0] < 2) {
+    		if (sv[0] == 1) {
+    			if (sv[1] < 5) {
+    				throw wrongSparkVersionString;
+    			} else {
+    				if(sv[1] == 5) {
+    					// we are at 1.5
+    					if (sv[2] < 1) {
+    						// less than 1.5.1
+    						throw wrongSparkVersionString;
+    					}
+    				} else {
+    					// 1.5 or greater
+    				}
+    			}
+    		} else {
+    			throw wrongSparkVersionString;
+    		}
+    		
+    	} else {
+    		// versions is 2.0 or greater
+    	}
+       return "EclairJS-nashorn 0.1 Spark " +  sparkVersion;
     };
 }

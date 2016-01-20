@@ -42,6 +42,16 @@ public class RDDTest {
         assertEquals("failure - strings are not equal", expected, ret.toString());
 
     };
+    
+    @Test
+    public void version() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        TestUtils.evalJSResource(engine, "/rddtest.js");
+        Object ret = ((Invocable)engine).invokeFunction("version");
+
+        assertEquals("failure - strings are not equal", "EclairJS-nashorn 0.1 Spark 1.5.1", ret.toString());
+
+    };
 
     @Test
     public void generalTests() throws Exception {
