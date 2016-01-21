@@ -61,7 +61,7 @@ list.count();
 **Prerequisites**
 
 - [Jupyter](http://jupyter.org/)
-- [Apache Toree](https://github.com/apache/incubator-toree) Toree needs to be built for Apache Spark 1.6.0, set the environment variable ````EXPORT SPARK_VERSION=1.6.0```` before building Toree with ````make dist```` and then publish to local maven repository with ````sbt publishM2````
+- [Apache Toree](https://github.com/apache/incubator-toree) Toree needs to be built for Apache Spark 1.6.0, set the environment variable ````export APACHE_SPARK_VERSION=1.6.0```` before building Toree with ````make dist```` and then publish to local maven repository with ````sbt publishM2````
 
 Instructions:
 
