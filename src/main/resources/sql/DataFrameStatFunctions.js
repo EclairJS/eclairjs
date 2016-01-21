@@ -181,7 +181,7 @@ DataFrameStatFunctions.prototype.freqItems = function(cols,support) {
  * @since EclairJS 0.1 Spark  1.5.0
  * @returns {DataFrame}  a new [[DataFrame]] that represents the stratified sample
  */
-DataFrameStatFunctions.prototype.sampleBywithnumber = function(col,fractions,seed) {
+DataFrameStatFunctions.prototype.sampleBy = function(col,fractions,seed) {
 	var fractions_uw = Utils.createJavaHashMap(fractions);
 	var javaObject =  this.getJavaObject().sampleBy(col,fractions_uw,seed);
 	return new DataFrame(javaObject);
