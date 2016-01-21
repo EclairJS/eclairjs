@@ -33,8 +33,10 @@ class GenerateNashorn  extends  GenerateJSBase {
 
       }
 
+    val parentName = parentClass(cls)
+
     val constr = if (!cls.isAbstract)
-      getTemplate("nashorn_constructorDefault",clsName,parmlist,constrBody,clsName)
+      getTemplate("nashorn_constructorDefault",clsName,parmlist,constrBody,clsName,parentName)
     else
        getTemplate("abstractConstructor",clsName,parmlist,clsName)
 
@@ -42,10 +44,19 @@ class GenerateNashorn  extends  GenerateJSBase {
 
   }
 
+  def parentClass(cls:Clazz):String =
+  {
+   cls.parentClass() match {
+      case Some(cls) => cls.name
+      case None => "JavaWrapper"
+    }
+
+  }
+
   override def generateObject(cls:Clazz, sb:StringBuilder): Unit= {
     val clsName=cls.name
 
-    val constr = getTemplate("nashorn_objectDefault",clsName,clsName,clsName,clsName)
+    val constr = getTemplate("nashorn_objectDefault",clsName,parentClass(cls),clsName,clsName,clsName)
 
     sb++=constr
 

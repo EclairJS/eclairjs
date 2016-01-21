@@ -78,6 +78,31 @@ case class Clazz(name:String, comment:String, members: List[Member],parents:List
     list.asInstanceOf[List[Method]]
   }
 
+  def parentClass() : Option[Clazz] =
+  {
+      val optOpt=parents.map(Main.allClasses.get(_)).find(_.isDefined)
+      optOpt match {
+        case Some(found) => found
+        case None => None
+      }
+  }
+
+  def parentClasses() : List[Clazz] =
+  {
+    val parentList= scala.collection.mutable.ListBuffer.empty[Clazz]
+
+      var parent=parentClass()
+
+      while (parent.isDefined)
+        {
+          val p=parent.get
+          parentList += p
+          parent=p.parentClass()
+        }
+    parentList.toList
+
+  }
+
 }
 
 abstract class Member
