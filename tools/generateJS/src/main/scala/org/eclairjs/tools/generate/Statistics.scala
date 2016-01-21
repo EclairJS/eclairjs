@@ -17,7 +17,7 @@ object Statistics {
   val showClosureClassInfo=true
   val showClosureGenerateClasses=false
   val showImplementedClasses=false   // the scorecard
-  val showClassHieracrchy=true
+  val showClassHieracrchy=false
 
   val jsSourcePath = "./src/main/resources"
 
@@ -48,16 +48,20 @@ object Statistics {
 
   }
 
-  case class ClassInfo(name:String,numConstructors:Int, methods:List[MethodInfo], parents:List[String])
+  case class ClassInfo(cls: Clazz,numConstructors:Int, methods:List[MethodInfo])
   {
     override  def toString() ={
-      val supers=if (showClassHieracrchy)
+      val fullName=cls.parent.packageName+"."+cls.name +(if (cls.isStatic) "_static" else "")
+
+      var supers=
+        if (showClassHieracrchy)
         {
-          parents.mkString("->")
+          cls.parentClasses().map(_.name).mkString("->")
         }
       else
       ""
-      s"* $name   $numConstructors constructor(s) $supers\n${methods.sortWith(_.name < _.name).mkString("\n")}"
+
+      s"* $fullName   $numConstructors constructor(s) $supers\n${methods.sortWith(_.name < _.name).mkString("\n")}"
     }
 
     def setImplemented(method:String): Boolean =
@@ -70,6 +74,7 @@ object Statistics {
         case None => false
       }
     }
+
   }
   val generatedFiles= scala.collection.mutable.ListBuffer.empty[String]
   val generatedClasses= scala.collection.mutable.ListBuffer.empty[String]
@@ -140,7 +145,7 @@ object Statistics {
 
       })
 
-      generatedClassInfos += (fullName -> ClassInfo(fullName,constructors.length,generatedMethodInfos.toList,cls.parents))
+      generatedClassInfos += (fullName -> ClassInfo(cls,constructors.length,generatedMethodInfos.toList))
 
     }
   }
