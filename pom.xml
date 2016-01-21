@@ -102,6 +102,9 @@
         	</plugins>
         </pluginManagement>
     </build>
+     <properties>
+        <spark.version>1.6.0</spark.version>
+    </properties>
     <dependencies>
 
         <dependency>
@@ -112,42 +115,42 @@
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-core_2.10</artifactId>
-            <version>1.5.1</version>
+            <version>${spark.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
 		    <groupId>org.apache.spark</groupId>
 		    <artifactId>spark-sql_2.10</artifactId>
-		    <version>1.5.1</version>
+		    <version>${spark.version}</version>
 		    <scope>provided</scope>
 		</dependency>
 		<dependency>
 		    <groupId>org.apache.spark</groupId>
 		    <artifactId>spark-catalyst_2.10</artifactId>
-		    <version>1.5.1</version>
+		    <version>${spark.version}</version>
 		</dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-hive_2.10</artifactId>
-            <version>1.5.1</version>
+            <version>${spark.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-streaming_2.10</artifactId>
-            <version>1.5.1</version>
+            <version>${spark.version}</version>
             <!--scope>provided</scope-->
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-mllib_2.10</artifactId>
-            <version>1.5.1</version>
+            <version>${spark.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-streaming-kafka_2.10</artifactId>
-            <version>1.5.1</version>
+            <version>${spark.version}</version>
             <!--scope>provided</scope-->
         </dependency>
         <dependency>
