@@ -176,8 +176,8 @@
         <id>notebook</id>
         <dependencies>
         <dependency>
-            <groupId>com.ibm.spark</groupId>
-            <artifactId>kernel-api_2.10</artifactId>
+            <groupId>org.apache.toree</groupId>
+            <artifactId>toree-kernel-api_2.10</artifactId>
             <version>0.0.0-dev-SNAPSHOT</version>
             <scope>provided</scope>
             <exclusions>
@@ -229,16 +229,16 @@
                             <goal>jsdoc3</goal>
                         </goals>
                     </execution>
-                </executions>    
+                </executions>
                 <configuration>
                     <recursive>true</recursive>
                     <directoryRoots>
                         <directoryRoot>src/main/resources</directoryRoot>
                     </directoryRoots>
-                     <outputDirectory>docs/jsdoc</outputDirectory> 
+                     <outputDirectory>docs/jsdoc</outputDirectory>
                 </configuration>
             </plugin>
- 
+
         </plugins>
         </build>
     </profile>

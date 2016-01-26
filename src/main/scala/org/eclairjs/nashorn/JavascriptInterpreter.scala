@@ -3,10 +3,10 @@ package org.eclairjs.nashorn
 import java.net.URL
 import javax.script.ScriptEngineManager
 
-import com.ibm.spark.interpreter._
-import com.ibm.spark.interpreter.Interpreter
-import com.ibm.spark.interpreter.Results.Result
-import com.ibm.spark.kernel.api.KernelLike
+import org.apache.toree.interpreter._
+import org.apache.toree.interpreter.Interpreter
+import org.apache.toree.interpreter.Results.Result
+import org.apache.toree.kernel.api.KernelLike
 import org.apache.spark.SparkContext
 import org.apache.spark.sql.SQLContext
 
@@ -17,7 +17,7 @@ import scala.tools.nsc.interpreter.{InputStream, OutputStream}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
-class JavascriptInterpreter() extends com.ibm.spark.interpreter.Interpreter {
+class JavascriptInterpreter() extends org.apache.toree.interpreter.Interpreter {
 
   private val engine = {
     val manager = new ScriptEngineManager()
