@@ -200,8 +200,8 @@ object Statistics {
               cls.members foreach( member =>{
                 member match {
                   case method:Method => {
-                    method.parms foreach(parm=> if (parm.typ.isSparkClass()) checkType(parm.typ.simpleName))
-                    if (!method.isConstructor() && method.returnType.isSparkClass()) checkType(method.returnType.simpleName())
+                    method.parms foreach(parm=> if (parm.typ.isSparkClass()) checkType(parm.typ.refName()))
+                    if (!method.isConstructor() && method.returnType.isSparkClass()) checkType(method.returnType.refName())
                   }
                   case _ =>
 
