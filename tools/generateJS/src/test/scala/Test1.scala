@@ -69,4 +69,6 @@ class Test1[T](str:String) {
     1.0
   }
 
+  def jars: Seq[String] = Seq("")
+
   }

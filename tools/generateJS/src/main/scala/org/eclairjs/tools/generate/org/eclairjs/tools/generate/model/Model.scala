@@ -78,6 +78,42 @@ case class Clazz(name:String, comment:String, members: List[Member],parents:List
     list.asInstanceOf[List[Method]]
   }
 
+  def parentClass() : Option[Clazz] =
+  {
+      val optOpt=parents.map(Main.allClasses.get(_)).find(_.isDefined)
+      optOpt match {
+        case Some(found) => {
+          if (found.isDefined)
+            {
+              // Ignore some superclasses
+              found.get.name match {
+                case "Logging" => None
+                case _ => found
+              }
+            }
+          else
+            found
+        }
+        case None => None
+      }
+  }
+
+  def parentClasses() : List[Clazz] =
+  {
+    val parentList= scala.collection.mutable.ListBuffer.empty[Clazz]
+
+      var parent=parentClass()
+
+      while (parent.isDefined)
+        {
+          val p=parent.get
+          parentList += p
+          parent=p.parentClass()
+        }
+    parentList.toList
+
+  }
+
 }
 
 abstract class Member
@@ -188,6 +224,8 @@ case class Parm(name:String,typ:DataType)
 
   def simpleName():String =name.split("\\.").last
 
+  def refName():String =simpleName()
+
   def isArray(scalaName:String=name):Boolean = false
 
   def getJSType(scalaName:String=name):String =
@@ -240,7 +278,7 @@ case class Parm(name:String,typ:DataType)
   def isSparkClass(scalaName:String=name): Boolean =
   {
     val simpleName=scalaName.split("\\.").last
-    var rx="Long|Int|Double|Float|Byte|List|Unit|Any|AnyRef|String|Boolean|Array".r
+    var rx="Long|Int|Double|Float|Byte|List|Unit|Any|AnyRef|String|Boolean|Array|Seq".r
     rx.findFirstMatchIn(simpleName).isEmpty
   }
 }
@@ -251,22 +289,29 @@ case class ExtendedDataType(name:String,referenceType:String) extends DataType
   {
     scalaName match {
       case "Option" =>  super.getJSType(referenceType)
-      case "List" | "Array" =>  super.getJSType(referenceType) + "[]"
+      case "List" | "Array" | "Seq" =>  super.getJSType(referenceType) + "[]"
       case _ => super.getJSType(name)
     }
   }
   override def isSparkClass(scalaName:String=name): Boolean =
   {
     scalaName match {
-      case "Option" =>  super.isSparkClass(referenceType)
+      case "Option" | "List" | "Array"  | "Seq" =>  super.isSparkClass(referenceType)
       case _ =>  super.isSparkClass(scalaName)
     }
 
   }
   override def isArray(scalaName:String=name):Boolean = {
     scalaName match {
-      case "List" | "Array" =>  true
+      case "List" | "Array"  | "Seq" =>  true
       case _ => false
+    }
+
+  }
+  override def refName():String ={
+    name match {
+      case "Option" | "List" | "Array"  | "Seq" =>  referenceType.split("\\.").last
+      case _ =>  super.refName()
     }
 
   }

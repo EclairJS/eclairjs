@@ -6,7 +6,7 @@ The **EclairJS Nashorn** API exposes the [Spark](http://spark.apache.org/) progr
 **Prerequisites**
 
  - [Java 8 SE](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
- - [Spark](http://spark.apache.org/downloads.html) (V1.5.1 built for Hadoop 2.6.0 and later)
+ - [Spark](http://spark.apache.org/downloads.html) (V1.6.0 built for Hadoop 2.6.0 and later)
  - [git](http://git-scm.com/)
  - [Maven](https://maven.apache.org/)
 
@@ -61,7 +61,7 @@ list.count();
 **Prerequisites**
 
 - [Jupyter](http://jupyter.org/)
-- [Apache Toree](https://github.com/apache/incubator-toree)
+- [Apache Toree](https://github.com/apache/incubator-toree) Toree needs to be built for Apache Spark 1.6.0, set the environment variable ````export APACHE_SPARK_VERSION=1.6.0```` before building Toree with ````make dist```` and then publish to local maven repository with ````sbt publishM2````
 
 Instructions:
 
@@ -69,9 +69,9 @@ Instructions:
 
 2. Edit kernel.json and update the following:
  ```bash
- <path to incubator-toree distribution>/bin/spark-kernel
+ <path to incubator-toree distribution>/bin/toree-kernel
  "SPARK_OPTS": --jars file:<path to nashorn jar>
- "SPARK_HOME": <path to spark 1.5.1 distribution>
+ "SPARK_HOME": <path to spark 1.6.0 distribution>
  ```
 
 3. Copy kernel.json to ```~/.ipython/kernels/eclair/kernel.json```
@@ -83,7 +83,7 @@ Instructions:
 
 6. Start jupyter ```ipython notebook```
 
-7. A browser will open ```http://localhost:8889/tree``` select the *new->Spark 1.5.1 (EclairJS)*
+7. A browser will open ```http://localhost:8888/tree``` select the *new->Spark 1.6.0 (EclairJS)*
 
 8. Enter the following code in notebook cell and run
  ```javascript
@@ -93,5 +93,5 @@ Instructions:
  ```
 
 ## Resources
-More detailed information is available in the Eclair Node [Wiki](https://github.com/EclairJS/eclairjs-node/wikis/home) and find out how to get involved under [Project and Community](https://github.com/EclairJS/eclairjs-node/wikis/Project-and-Community).
+More detailed information is available in the Eclair Nashorn [Wiki](https://github.com/EclairJS/eclairjs-nashorn/wikis/home) and find out how to get involved under [Project and Community](https://github.com/EclairJS/eclairjs-node/wikis/Project-and-Community).
 

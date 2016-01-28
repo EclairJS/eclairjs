@@ -568,7 +568,13 @@ var castCloumn = function(file) {
 	var peopleDataFrame = buildPeopleTable(file, false);
 	var col = new Column("age");
 	var testCol = col.cast(DataTypes.StringType);
-    return testCol.toString();
+	var df = peopleDataFrame.select(testCol);
+	var rows = df.take(10);
+	var results = [];
+	rows.forEach(function(r){
+		results.push(r.getString(0));
+	})
+    return JSON.stringify(results);
 }
 
 var containsCloumn = function(file) {
@@ -1071,4 +1077,18 @@ var dataFrameStatCrossTabTest = function(file) {
 	var ct = df.stat().crosstab("key", "value");
 	ct.show();
 	return JSON.stringify(ct.take(10));
+}
+
+
+/*
+ * SQLContext tests
+ */
+
+var createDataFrameFromArray = function() {
+	
+	var structField4 = DataTypes.createStructField("key", DataTypes.IntegerType, true);
+	var structField5 = DataTypes.createStructField("value", DataTypes.IntegerType, true);
+	var structType2 = DataTypes.createStructType([structField4,structField5]);
+	var dataFrame2 = sqlContext.createDataFrame([[1,1],[1,2],[2,1],[2,1],[2,3],[3,2],[3,3]], structType2);
+	return JSON.stringify(dataFrame2.take(10));
 }

@@ -170,7 +170,7 @@ SQLContext.prototype.createDataFrame = function(rowRDD_or_values, schema) {
 			}
 			rows.push(RowFactory.create(rowValues));
 		});
-		rowRDD_uw = Utils.unwrapObject(sparkContext.parallelize(rows));
+		rowRDD_uw = Utils.unwrapObject(this.sparkContext().parallelize(rows));
 	} else {
 		rowRDD_uw = Utils.unwrapObject(rowRDD_or_values)
 	}
@@ -336,6 +336,18 @@ SQLContext.prototype.tableNames = function(databaseName) {
 		   javaObject =  this.getJavaObject().tableNames();
 	   }
 	   return new DataFrame(javaObject);
+};
+/**
+ * Returns the SparkContext
+ *
+ * @since EclairJS 0.1 
+ * @returns {SparkContext} 
+ */
+SQLContext.prototype.sparkContext = function() {
+	var javaObject;
+	javaObject =  this.getJavaObject().sparkContext();
+
+   return new SparkContext(javaObject);
 };
 
 

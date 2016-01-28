@@ -1,6 +1,6 @@
 package org.eclairjs.tools.generate
 
-import _root_.org.eclairjs.tools.generate.org.eclairjs.tools.generate.model.{FunctionDataType, Method, Clazz}
+import _root_.org.eclairjs.tools.generate.org.eclairjs.tools.generate.model.{FunctionDataType, Method, Clazz,DataType}
 
 /**
  * Created by berkland on 11/19/15.
@@ -33,8 +33,10 @@ class GenerateNashorn  extends  GenerateJSBase {
 
       }
 
+    val parentName = parentClass(cls)
+
     val constr = if (!cls.isAbstract)
-      getTemplate("nashorn_constructorDefault",clsName,parmlist,constrBody,clsName)
+      getTemplate("nashorn_constructorDefault",clsName,parmlist,constrBody,clsName,parentName)
     else
        getTemplate("abstractConstructor",clsName,parmlist,clsName)
 
@@ -42,10 +44,19 @@ class GenerateNashorn  extends  GenerateJSBase {
 
   }
 
+  def parentClass(cls:Clazz):String =
+  {
+   cls.parentClass() match {
+      case Some(cls) => cls.name
+      case None => "JavaWrapper"
+    }
+
+  }
+
   override def generateObject(cls:Clazz, sb:StringBuilder): Unit= {
     val clsName=cls.name
 
-    val constr = getTemplate("nashorn_objectDefault",clsName,clsName,clsName,clsName)
+    val constr = getTemplate("nashorn_objectDefault",clsName,parentClass(cls),clsName,clsName,clsName)
 
     sb++=constr
 
@@ -55,6 +66,7 @@ class GenerateNashorn  extends  GenerateJSBase {
   {
     val sb=new StringBuilder
 
+    val isStatic=method.parent.isStatic
 
     val parmNames= scala.collection.mutable.ListBuffer.empty[String]
 
@@ -90,7 +102,7 @@ class GenerateNashorn  extends  GenerateJSBase {
     // return this.getJavaObject().div(Utils.unwrapObject(that));
     val returnsStr=if (method.returnType.isVoid())  "" else
       {
-        if (method.returnType.isSparkClass())
+        if (needsWrapper(method.returnType))
           {
             "var javaObject = "
           }
@@ -99,12 +111,15 @@ class GenerateNashorn  extends  GenerateJSBase {
       }
 
 
+    val onObject = if (isStatic) method.parent.fullName()
+      else "this.getJavaObject()"
 
-    sb ++= s"  $returnsStr this.getJavaObject().${method.name}(${parmNames.mkString(",")});"
-    if (method.returnType.isSparkClass())
+
+    sb ++= s"  $returnsStr $onObject.${method.name}(${parmNames.mkString(",")});"
+    if (needsWrapper(method.returnType))
     {
       var returnType=method.returnType.getJSType()
-      if (returnType!="object" && !method.returnType.isAbstract())
+      if (returnType!="object" && !method.returnType.isAbstract() && !method.returnType.isArray())
         sb ++= s"\n  return new ${returnType}(javaObject);"
       else
         sb ++= s"\n  return Utils.javaToJs(javaObject);"
@@ -115,6 +130,14 @@ class GenerateNashorn  extends  GenerateJSBase {
 
   }
 
+  def needsWrapper(returnType:DataType): Boolean =
+  {
+    if (returnType.isSparkClass())
+      {
+        true
+      }
+    false
+  }
 
 
   override def generatePostlude(cls:Clazz, sb:StringBuilder): Unit= {}

@@ -86,6 +86,7 @@ with (imported) {
         	jvmObj = initSparkContext(arguments[0])
         }
         JavaWrapper.call(this, jvmObj);
+        this.logger.debug(this.version());
     };
     
     SparkContext.prototype = Object.create(JavaWrapper.prototype);
@@ -93,6 +94,38 @@ with (imported) {
 	//Set the "constructor" property to refer to SparkContext
 	SparkContext.prototype.constructor = SparkContext;
 
+	/**
+	 * Create an {@link Accumulable} shared variable of the given type, to which tasks can "add" values with add. 
+	 * Only the master can access the accumuable's value.
+	 * 
+	 * @param {object} initialValue
+	 * @param {AccumulableParam} param
+	 * @param {string} name of  the accumulator for display in Spark's web UI.
+	 */
+	SparkContext.prototype.accumulable = function(initialValue, param, name) {	
+		/*var parm_uw = Utils.unwrapObject(param);
+		if (name) {
+			this.getJavaObject().accumulable(initialValue, name, parm_uw);
+		} else {
+			this.getJavaObject().accumulable(initialValue, parm_uw);
+		}*/
+		return new Accumulable(initialValue, param, name);
+		
+	};
+	/**
+	 * Create an {@link Accumulator} double variable, which tasks can "add" values to using the add method. 
+	 * Only the master can access the accumulator's value.
+	 * 
+	 * @param {int | float} initialValue
+	 * @param {string} name of  the accumulator for display in Spark's web UI.
+	 */
+	SparkContext.prototype.accumulator = function(initialValue, name) {	
+		this.logger.debug("accumulator " + initialValue);
+		var n = name ? name : null;
+		var a = this.getJavaObject().accumulator(initialValue, n);
+		return new Accumulator(a);
+		
+	};
 	/**
 	 * Add a file to be downloaded with this Spark job on every node. The path passed can be either a local file, 
 	 * a file in HDFS (or other Hadoop-supported filesystems), or an HTTP, HTTPS or FTP URI. 
@@ -169,5 +202,65 @@ with (imported) {
 	 */
 	SparkContext.prototype.stop = function() {
 		  this.getJavaObject().stop();
+    };
+    
+    /**
+     * The version of EclairJS and Spark on which this application is running.
+     * @returns {string}
+     */
+    SparkContext.prototype.version = function() {
+    	var javaVersion = java.lang.System.getProperty("java.version");
+    	var jv = javaVersion.split(".");
+    	var wrongJavaVersionString = "Java 1.8.0_60 or greater required for EclairJS";
+    	var wrongSparkVersionString = "Spark 1.5.1 or greater required for EclairJS";
+    	if (jv[0] < 2) {
+    		if (jv[0] == 1) {
+    			if (jv[1] < 8) {
+    				throw wrongJavaVersionString;
+    			} else {
+    				if(jv[1] == 8) {
+    					// we are at 1.8
+    					var f = jv[2]
+    					var fix = f.split("_");
+    					if ((fix[0] < 1) && (fix[1] < 60)) {
+    						// less than 1.8.0_60
+    						throw wrongJavaVersionString;
+    					}
+    				} else {
+    					// 1.9 or greater
+    				}
+    			}
+    		} else {
+    			throw wrongJavaVersionString;
+    		}
+    		
+    	} else {
+    		// versions is 2.0 or greater
+    	}
+    	var sparkVersion = this.getJavaObject().version();
+    	var sv = sparkVersion.split(".");
+    	if (sv[0] < 2) {
+    		if (sv[0] == 1) {
+    			if (sv[1] < 5) {
+    				throw wrongSparkVersionString;
+    			} else {
+    				if(sv[1] == 5) {
+    					// we are at 1.5
+    					if (sv[2] < 1) {
+    						// less than 1.5.1
+    						throw wrongSparkVersionString;
+    					}
+    				} else {
+    					// 1.5 or greater
+    				}
+    			}
+    		} else {
+    			throw wrongSparkVersionString;
+    		}
+    		
+    	} else {
+    		// versions is 2.0 or greater
+    	}
+       return "EclairJS-nashorn 0.1 Spark " +  sparkVersion;
     };
 }
