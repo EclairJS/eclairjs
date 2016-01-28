@@ -174,6 +174,314 @@ This limitation may eventually be removed; see SPARK-2243 for more details.</div
         <dl>
             
 <dt>
+    <h4 class="name" id="accumulable"><span class="type-signature"></span>accumulable<span class="signature">(initialValue, param, name)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Create an <a href="Accumulable.html">Accumulable</a> shared variable of the given type, to which tasks can "add" values with add. 
+Only the master can access the accumuable's value.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>initialValue</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>param</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="AccumulableParam.html">AccumulableParam</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">of  the accumulator for display in Spark's web UI.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line105">line 105</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="accumulator"><span class="type-signature"></span>accumulator<span class="signature">(initialValue, name)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Create an <a href="Accumulator.html">Accumulator</a> double variable, which tasks can "add" values to using the add method. 
+Only the master can access the accumulator's value.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>initialValue</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+|
+
+<span class="param-type">float</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">of  the accumulator for display in Spark's web UI.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line122">line 122</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
     <h4 class="name" id="addFile"><span class="type-signature"></span>addFile<span class="signature">(path)</span><span class="type-signature"></span></h4>
     
     
@@ -265,7 +573,7 @@ To access the file in Spark jobs, use SparkFiles.get(fileName) to find its downl
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line103">line 103</a>
+        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line135">line 135</a>
     </li></ul></dd>
     
     
@@ -382,7 +690,7 @@ To access the file in Spark jobs, use SparkFiles.get(fileName) to find its downl
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line110">line 110</a>
+        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line142">line 142</a>
     </li></ul></dd>
     
     
@@ -500,7 +808,7 @@ The variable will be sent to each cluster only once.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line120">line 120</a>
+        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line152">line 152</a>
     </li></ul></dd>
     
     
@@ -658,7 +966,7 @@ The variable will be sent to each cluster only once.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line130">line 130</a>
+        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line162">line 162</a>
     </li></ul></dd>
     
     
@@ -794,7 +1102,7 @@ The directory must be a HDFS path if running on a cluster.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line164">line 164</a>
+        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line196">line 196</a>
     </li></ul></dd>
     
     
@@ -863,7 +1171,7 @@ The directory must be a HDFS path if running on a cluster.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line171">line 171</a>
+        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line203">line 203</a>
     </li></ul></dd>
     
     
@@ -1004,7 +1312,7 @@ and return it as an RDD of Strings.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line150">line 150</a>
+        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line182">line 182</a>
     </li></ul></dd>
     
     
@@ -1091,7 +1399,7 @@ and return it as an RDD of Strings.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line179">line 179</a>
+        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line211">line 211</a>
     </li></ul></dd>
     
     
@@ -1150,13 +1458,13 @@ and return it as an RDD of Strings.
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="functions.html">functions</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="MapType.html">MapType</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li><li><a href="Vector.html">Vector</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="functions.html">functions</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="MapType.html">MapType</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li><li><a href="Vector.html">Vector</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Wed Jan 20 2016 14:22:04 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Thu Jan 28 2016 15:41:51 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -13,5 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+var sparkContext = new SparkContext("local[*]", "accumulators test");
+var accum = sparkContext.accumulator([0]);
+var addInt = function(){
+	
+	print("accum " + accum);
+	sparkContext.parallelize([1, 2, 3, 4]).foreach(function(x, accum) {
+		accum.add(x);
+	});
+	print( accum.value());
+}
+	
 
-Accumulator
+addInt();
+

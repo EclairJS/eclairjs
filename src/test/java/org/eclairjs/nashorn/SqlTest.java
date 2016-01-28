@@ -1722,8 +1722,8 @@ public class SqlTest {
     public void dataFrameStatCrossTabTest() throws Exception {
     	/*
     	 * tests
-    	 * DataFrame.na()
-    	 * DataFrameNaFunctions.fill(99.99)
+    	 * SQLContext.createDataFrame([ ])
+    	 * DataFrameStatFunctions.crossTab()
     	 */
         ScriptEngine engine = TestUtils.getEngine();
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
@@ -1742,6 +1742,36 @@ public class SqlTest {
         		+ "{\"values\":[\"2\",2,0,1]," + schema + "},"
         		+ "{\"values\":[\"1\",1,1,0]," + schema + "},"
         		+ "{\"values\":[\"3\",0,1,1]," + schema + "}"
+        		+ "]";
+        assertEquals("should be same", expected, ret.toString());
+    }
+    
+    @Test
+    public void createDataFrameFromArray() throws Exception {
+    	/*
+    	 * tests
+    	 * SQLContext.createDataFrame([ ])
+    	 * DataFrame.take(10)
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+        String file = TestUtils.resourceToFile("/data/sql/people.txt");
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable)engine).invokeFunction("createDataFrameFromArray", file);
+               String schema = "\"schema\":{"
+        		+ "\"fields\":["
+        		+ 				"{\"name\":\"key\",\"dataType\":\"integer\",\"nullable\":true},"
+        		+ 				"{\"name\":\"value\",\"dataType\":\"integer\",\"nullable\":true}"
+        		+ 			"]"
+        		+ "}";
+        String expected = "["
+        		+ "{\"values\":[1,1]," + schema + "},"
+        		+ "{\"values\":[1,2]," + schema + "},"
+        		+ "{\"values\":[2,1]," + schema + "},"
+        		+ "{\"values\":[2,1]," + schema + "},"
+        		+ "{\"values\":[2,3]," + schema + "},"
+        		+ "{\"values\":[3,2]," + schema + "},"
+        		+ "{\"values\":[3,3]," + schema + "}"
         		+ "]";
         assertEquals("should be same", expected, ret.toString());
     }

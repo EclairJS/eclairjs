@@ -69,7 +69,7 @@ Instructions:
 
 2. Edit kernel.json and update the following:
  ```bash
- <path to incubator-toree distribution>/bin/spark-kernel
+ <path to incubator-toree distribution>/bin/toree-kernel
  "SPARK_OPTS": --jars file:<path to nashorn jar>
  "SPARK_HOME": <path to spark 1.6.0 distribution>
  ```
@@ -83,7 +83,7 @@ Instructions:
 
 6. Start jupyter ```ipython notebook```
 
-7. A browser will open ```http://localhost:8889/tree``` select the *new->Spark 1.6.0 (EclairJS)*
+7. A browser will open ```http://localhost:8888/tree``` select the *new->Spark 1.6.0 (EclairJS)*
 
 8. Enter the following code in notebook cell and run
  ```javascript
@@ -93,5 +93,5 @@ Instructions:
  ```
 
 ## Resources
-More detailed information is available in the Eclair Node [Wiki](https://github.com/EclairJS/eclairjs-node/wikis/home) and find out how to get involved under [Project and Community](https://github.com/EclairJS/eclairjs-node/wikis/Project-and-Community).
+More detailed information is available in the Eclair Nashorn [Wiki](https://github.com/EclairJS/eclairjs-nashorn/wikis/home) and find out how to get involved under [Project and Community](https://github.com/EclairJS/eclairjs-node/wikis/Project-and-Community).
 
