@@ -30,9 +30,6 @@
     Accumulator
     </h2>
     
-        <div class="class-description">Represents a datatype that can be accumulated, ie has an commutative and associative "add" operation, but where the result type, 
-R, may be different from the element type being added, T.</div>
-    
 </header>  
 
 <article>
@@ -42,12 +39,25 @@ R, may be different from the element type being added, T.</div>
     
         
 <dt>
-    <h4 class="name" id="Accumulator"><span class="type-signature"></span>new Accumulator<span class="signature">(initialValue, accumulatorParam, name)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Accumulator"><span class="type-signature"></span>new Accumulator<span class="signature">(initialValue, param)</span><span class="type-signature"></span></h4>
     
     
 </dt>
 <dd>
     
+    
+    <div class="description">
+        A simpler value of <a href="Accumulable.html">Accumulable</a> where the result type being accumulated is the same
+as the types of elements being merged, i.e. variables that are only "added" to through an
+associative operation and can therefore be efficiently supported in parallel. They can be used
+to implement counters (as in MapReduce) or sums. EclairJS supports accumulators of numeric
+value types.
+
+An accumulator is created from an initial value `v` by calling [[SparkContext#accumulator]].
+Tasks running on the cluster can then add to it using the [[Accumulable#add]].
+However, they cannot read its value. Only the driver program can read the accumulator's value,
+using its value method.
+    </div>
     
 
     
@@ -86,7 +96,7 @@ R, may be different from the element type being added, T.</div>
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">number</span>
 
 
             
@@ -96,20 +106,20 @@ R, may be different from the element type being added, T.</div>
             
             
             
-            <td class="description last">initial value of accumulator param</td>
+            <td class="description last"></td>
         </tr>
 	
 	
 	
         <tr>
             
-                <td class="name"><code>accumulatorParam</code></td>
+                <td class="name"><code>param</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type"><a href="AccumulableParam.html">AccumulableParam</a></span>
 
 
             
@@ -119,30 +129,7 @@ R, may be different from the element type being added, T.</div>
             
             
             
-            <td class="description last">helper object defining how to add elements of type R and T param</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">human-readable name for use in Spark's web UI param</td>
+            <td class="description last"></td>
         </tr>
 	
 	
@@ -173,7 +160,165 @@ R, may be different from the element type being added, T.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Accumulator.js.html">Accumulator.js</a>, <a href="Accumulator.js.html#line25">line 25</a>
+        <a href="Accumulators.js.html">Accumulators.js</a>, <a href="Accumulators.js.html#line216">line 216</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code> 
+	var accum = sparkContext.accumulator(0);
+	sparkContext.parallelize([1, 2, 3, 4])
+				.foreach(function(x, accum) { 
+					accum.add(x);
+				});
+	print(accum.value()); // displays 10
+ </code></pre>
+
+    
+</dd>
+
+    
+    </div>
+    
+    
+        <h3 class="subsection-title">Extends</h3>
+        
+        <ul>
+            <li><a href="Accumulable.html">Accumulable</a></li>
+        </ul>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        <h3 class="subsection-title">Methods</h3>
+        
+        <dl>
+            
+<dt>
+    <h4 class="name" id="add"><span class="type-signature"></span>add<span class="signature">(term)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Add more data to this accumulator / accumulable
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>term</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">the data to add</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Accumulable.html#add">Accumulable#add</a>
+    </li></dd>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Accumulators.js.html">Accumulators.js</a>, <a href="Accumulators.js.html#line63">line 63</a>
     </li></ul></dd>
     
     
@@ -198,9 +343,46 @@ R, may be different from the element type being added, T.</div>
     
 </dd>
 
+        
+            
+<dt>
+    <h4 class="name" id="localValue"><span class="type-signature"></span>localValue<span class="signature">()</span><span class="type-signature"> &rarr; {object}</span></h4>
     
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Get the current value of this accumulator from within a task.
+
+This is NOT the global value of the accumulator.  To get the global value after a
+completed operation on the dataset, call `value`.
+
+The typical use of this method is to directly mutate the local value, eg., to add
+an element to a Set.
     </div>
     
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Accumulable.html#localValue">Accumulable#localValue</a>
+    </li></dd>
     
     
     
@@ -213,6 +395,479 @@ R, may be different from the element type being added, T.</div>
     
     
     
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Accumulators.js.html">Accumulators.js</a>, <a href="Accumulators.js.html#line101">line 101</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">object</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="merge"><span class="type-signature"></span>merge<span class="signature">(term)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Merge two accumulable objects together
+
+Normally, a user will not want to use this version, but will instead call `add`.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>term</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">the other `R` that will get merged with this</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Accumulable.html#merge">Accumulable#merge</a>
+    </li></dd>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Accumulators.js.html">Accumulators.js</a>, <a href="Accumulators.js.html#line75">line 75</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setValue"><span class="type-signature"></span>setValue<span class="signature">(newValue)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Set the accumulator's value; only allowed on master
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>newValue</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Accumulable.html#setValue">Accumulable#setValue</a>
+    </li></dd>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Accumulators.js.html">Accumulators.js</a>, <a href="Accumulators.js.html#line110">line 110</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="toString"><span class="type-signature"></span>toString<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Accumulable.html#toString">Accumulable#toString</a>
+    </li></dd>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Accumulators.js.html">Accumulators.js</a>, <a href="Accumulators.js.html#line119">line 119</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">string</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="value"><span class="type-signature"></span>value<span class="signature">()</span><span class="type-signature"> &rarr; {object}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Access the accumulator's current value; only allowed on master.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Accumulable.html#value">Accumulable#value</a>
+    </li></dd>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Accumulators.js.html">Accumulators.js</a>, <a href="Accumulators.js.html#line85">line 85</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">object</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        </dl>
     
     
     
@@ -228,13 +883,13 @@ R, may be different from the element type being added, T.</div>
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="functions.html">functions</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="MapType.html">MapType</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li><li><a href="Vector.html">Vector</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="functions.html">functions</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="MapType.html">MapType</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li><li><a href="Vector.html">Vector</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Wed Jan 20 2016 14:22:02 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Thu Jan 28 2016 15:02:33 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>

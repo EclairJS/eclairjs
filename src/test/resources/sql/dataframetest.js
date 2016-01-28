@@ -1078,3 +1078,17 @@ var dataFrameStatCrossTabTest = function(file) {
 	ct.show();
 	return JSON.stringify(ct.take(10));
 }
+
+
+/*
+ * SQLContext tests
+ */
+
+var createDataFrameFromArray = function() {
+	
+	var structField4 = DataTypes.createStructField("key", DataTypes.IntegerType, true);
+	var structField5 = DataTypes.createStructField("value", DataTypes.IntegerType, true);
+	var structType2 = DataTypes.createStructType([structField4,structField5]);
+	var dataFrame2 = sqlContext.createDataFrame([[1,1],[1,2],[2,1],[2,1],[2,3],[3,2],[3,3]], structType2);
+	return JSON.stringify(dataFrame2.take(10));
+}

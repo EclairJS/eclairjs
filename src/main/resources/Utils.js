@@ -16,7 +16,7 @@
 
 var Utils = {};
 
-
+Utils.logger = Logger.getLogger("Utils_js");
 
   /**
    * This function needs to parse the arguments that are being passed to the LAMDA function 
@@ -36,7 +36,7 @@ var Utils = {};
    *                      }
    */
   Utils.createJavaParams = function(func, sparkArgumentsPassed) {
-	  
+	  Utils.logger.debug("createJavaParams func: " + func + " sparkArgumentsPassed: " + sparkArgumentsPassed);
 	  var scopeVarsStartingPosion = sparkArgumentsPassed ? sparkArgumentsPassed : 1;
   	  var parmas = {};
   	  parmas.scopeVars = null;
@@ -54,6 +54,9 @@ var Utils = {};
       parmas.scopeVars = [];
       for (var i = scopeVarsStartingPosion; i < args.length; i++) { 
     	  // unwrapObjects or we can have serialization problems
+    	  Utils.logger.debug("scopeVar = " + args[i]);
+    	  var a = eval(args[i]);
+    	  Utils.logger.debug("got a ref to  = " + a);
 		  parmas.scopeVars.push(Utils.unwrapObject(eval(args[i]))); // eval the argument name to get a reference to the variable
 	  }
       return parmas;

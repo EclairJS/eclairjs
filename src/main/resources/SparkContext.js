@@ -95,6 +95,31 @@ with (imported) {
 	SparkContext.prototype.constructor = SparkContext;
 
 	/**
+	 * Create an {@link Accumulable} shared variable of the given type, to which tasks can "add" values with add. 
+	 * Only the master can access the accumuable's value.
+	 * 
+	 * @param {object} initialValue
+	 * @param {} param
+	 */
+	SparkContext.prototype.accumulable = function(initialValue, param) {		
+		this.getJavaObject().accumulable(initialValue, param);
+	};
+	/**
+	 * Create an {@link Accumulator} double variable, which tasks can "add" values to using the add method. 
+	 * Only the master can access the accumulator's value.
+	 * 
+	 * @param {number} initialValue
+	 * @param {string} name of  the accumulator for display in Spark's web UI.
+	 */
+	SparkContext.prototype.accumulator = function(initialValue, name) {	
+		this.logger.debug("accumulator " + initialValue);
+		var n = name ? name : null;
+		var a = this.getJavaObject().accumulator(initialValue, n);
+		print("a " + a)
+		return new Accumulator(a);
+		
+	};
+	/**
 	 * Add a file to be downloaded with this Spark job on every node. The path passed can be either a local file, 
 	 * a file in HDFS (or other Hadoop-supported filesystems), or an HTTP, HTTPS or FTP URI. 
 	 * To access the file in Spark jobs, use SparkFiles.get(fileName) to find its download location.
