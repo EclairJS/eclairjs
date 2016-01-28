@@ -99,23 +99,30 @@ with (imported) {
 	 * Only the master can access the accumuable's value.
 	 * 
 	 * @param {object} initialValue
-	 * @param {} param
+	 * @param {AccumulableParam} param
+	 * @param {string} name of  the accumulator for display in Spark's web UI.
 	 */
-	SparkContext.prototype.accumulable = function(initialValue, param) {		
-		this.getJavaObject().accumulable(initialValue, param);
+	SparkContext.prototype.accumulable = function(initialValue, param, name) {	
+		/*var parm_uw = Utils.unwrapObject(param);
+		if (name) {
+			this.getJavaObject().accumulable(initialValue, name, parm_uw);
+		} else {
+			this.getJavaObject().accumulable(initialValue, parm_uw);
+		}*/
+		return new Accumulable(initialValue, param, name);
+		
 	};
 	/**
 	 * Create an {@link Accumulator} double variable, which tasks can "add" values to using the add method. 
 	 * Only the master can access the accumulator's value.
 	 * 
-	 * @param {number} initialValue
+	 * @param {int | float} initialValue
 	 * @param {string} name of  the accumulator for display in Spark's web UI.
 	 */
 	SparkContext.prototype.accumulator = function(initialValue, name) {	
 		this.logger.debug("accumulator " + initialValue);
 		var n = name ? name : null;
 		var a = this.getJavaObject().accumulator(initialValue, n);
-		print("a " + a)
 		return new Accumulator(a);
 		
 	};

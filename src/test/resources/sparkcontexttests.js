@@ -28,9 +28,18 @@ var addInt = function() {
 }
 
 var addFloat = function() {
-	accum = sparkContext.accumulator(1.33);
-	print("accum " + accum)
-	sparkContext.parallelize([1.55, 2.33, 3.66, 4.00]).foreach(function(x, accum) {
+	accum = sparkContext.accumulator(0.0);
+	sparkContext.parallelize([1.10, 2.2, 3.3, 4.4]).foreach(function(x, accum) {
+		accum.add(x);
+	});
+	return accum.value();
+
+}
+
+var addFloatAccumulable = function() {
+	var floatAccumParam = new FloatAccumulatorParam();
+	accum = sparkContext.accumulable(0.0, floatAccumParam);
+	sparkContext.parallelize([1.10, 2.2, 3.3, 4.4]).foreach(function(x, accum) {
 		accum.add(x);
 	});
 	return accum.value();
@@ -40,7 +49,6 @@ var addFloat = function() {
 var intAccumulatorParam = function() {
 	var intAccumParam = new IntAccumulatorParam();
 	accum = new Accumulable(0, intAccumParam);
-	print("accum " + accum)
 	sparkContext.parallelize([1, 2, 3, 4]).foreach(function(x, accum) {
 		accum.add(x);
 	});
@@ -51,7 +59,6 @@ var intAccumulatorParam = function() {
 var floatAccumulatorParam = function() {
 	var floatAccumParam = new FloatAccumulatorParam();
 	accum = new Accumulable(0.000, floatAccumParam);
-	print("accum " + accum)
 	sparkContext.parallelize([1.10, 2.20, 3.30, 4.40]).foreach(function(x, accum) {
 		accum.add(x);
 	});
@@ -62,7 +69,6 @@ var floatAccumulatorParam = function() {
 var floatAccumulator = function() {
 	var floatAccumParam = new FloatAccumulatorParam();
 	accum = new Accumulator(0.000, floatAccumParam);
-	print("accum " + accum)
 	sparkContext.parallelize([1.10, 2.20, 3.30, 4.40]).foreach(function(x, accum) {
 		accum.add(x);
 	});

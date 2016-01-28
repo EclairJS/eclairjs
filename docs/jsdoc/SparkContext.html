@@ -174,7 +174,7 @@ This limitation may eventually be removed; see SPARK-2243 for more details.</div
         <dl>
             
 <dt>
-    <h4 class="name" id="accumulable"><span class="type-signature"></span>accumulable<span class="signature">(initialValue, param)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="accumulable"><span class="type-signature"></span>accumulable<span class="signature">(initialValue, param, name)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -245,6 +245,11 @@ Only the master can access the accumuable's value.
             
             <td class="type">
             
+                
+<span class="param-type"><a href="AccumulableParam.html">AccumulableParam</a></span>
+
+
+            
             </td>
             
             
@@ -252,6 +257,29 @@ Only the master can access the accumuable's value.
             
             
             <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">of  the accumulator for display in Spark's web UI.</td>
         </tr>
 	
 	
@@ -282,7 +310,7 @@ Only the master can access the accumuable's value.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line104">line 104</a>
+        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line105">line 105</a>
     </li></ul></dd>
     
     
@@ -359,7 +387,10 @@ Only the master can access the accumulator's value.
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">int</span>
+|
+
+<span class="param-type">float</span>
 
 
             
@@ -423,7 +454,7 @@ Only the master can access the accumulator's value.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line114">line 114</a>
+        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line122">line 122</a>
     </li></ul></dd>
     
     
@@ -542,7 +573,7 @@ To access the file in Spark jobs, use SparkFiles.get(fileName) to find its downl
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line128">line 128</a>
+        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line135">line 135</a>
     </li></ul></dd>
     
     
@@ -659,7 +690,7 @@ To access the file in Spark jobs, use SparkFiles.get(fileName) to find its downl
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line135">line 135</a>
+        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line142">line 142</a>
     </li></ul></dd>
     
     
@@ -777,7 +808,7 @@ The variable will be sent to each cluster only once.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line145">line 145</a>
+        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line152">line 152</a>
     </li></ul></dd>
     
     
@@ -935,7 +966,7 @@ The variable will be sent to each cluster only once.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line155">line 155</a>
+        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line162">line 162</a>
     </li></ul></dd>
     
     
@@ -1071,7 +1102,7 @@ The directory must be a HDFS path if running on a cluster.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line189">line 189</a>
+        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line196">line 196</a>
     </li></ul></dd>
     
     
@@ -1140,7 +1171,7 @@ The directory must be a HDFS path if running on a cluster.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line196">line 196</a>
+        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line203">line 203</a>
     </li></ul></dd>
     
     
@@ -1281,7 +1312,7 @@ and return it as an RDD of Strings.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line175">line 175</a>
+        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line182">line 182</a>
     </li></ul></dd>
     
     
@@ -1368,7 +1399,7 @@ and return it as an RDD of Strings.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line204">line 204</a>
+        <a href="SparkContext.js.html">SparkContext.js</a>, <a href="SparkContext.js.html#line211">line 211</a>
     </li></ul></dd>
     
     
@@ -1433,7 +1464,7 @@ and return it as an RDD of Strings.
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Thu Jan 28 2016 15:02:35 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Thu Jan 28 2016 15:41:51 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>
