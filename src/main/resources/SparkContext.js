@@ -39,7 +39,7 @@ with (imported) {
 
         /*
          * Create a new JavaSparkContext from a conf
-         * 
+         *
          */
         var jvmSC = new JavaSparkContext( Utils.unwrapObject(conf));
         /*
@@ -49,14 +49,14 @@ with (imported) {
         var devEnvPath = "/target/classes/";
         var jarEnvPath = ".jar";
         logger.info("jar decodedPath = " + decodedPath);
-        if (decodedPath.indexOf(devEnvPath, 
-                                decodedPath.length - devEnvPath.length) !== -1) 
+        if (decodedPath.indexOf(devEnvPath,
+                                decodedPath.length - devEnvPath.length) !== -1)
         {
             /*
              * we are in the dev environment I hope...
              */
             jvmSC.addJar(decodedPath + "../eclairjs-nashorn-0.1.jar");
-        } else if (decodedPath.indexOf(jarEnvPath, 
+        } else if (decodedPath.indexOf(jarEnvPath,
                                        decodedPath.length - jarEnvPath.length) !== -1) {
             /*
              * We are running from a jar
@@ -67,10 +67,10 @@ with (imported) {
         return jvmSC
     };
 	/**
-	 * 
+	 *
 	 * @constructor
-	 * @classdesc A JavaScript-friendly version of SparkContext that returns RDDs 
-	 * Only one SparkContext may be active per JVM. You must stop() the active SparkContext before creating a new one. 
+	 * @classdesc A JavaScript-friendly version of SparkContext that returns RDDs
+	 * Only one SparkContext may be active per JVM. You must stop() the active SparkContext before creating a new one.
 	 * This limitation may eventually be removed; see SPARK-2243 for more details.
 	 * @param {SparkConf} conf - a object specifying Spark parameters
 	 */
@@ -88,19 +88,182 @@ with (imported) {
         JavaWrapper.call(this, jvmObj);
         this.logger.debug(this.version());
     };
-    
+
     SparkContext.prototype = Object.create(JavaWrapper.prototype);
 
 	//Set the "constructor" property to refer to SparkContext
 	SparkContext.prototype.constructor = SparkContext;
 
+    /**
+     * Return a copy of this SparkContext's configuration. The configuration ''cannot'' be
+     * changed at runtime.
+     * @returns {SparkConf}
+     */
+    SparkContext.prototype.getConf = function() {
+      var javaObject =  this.getJavaObject().getConf();
+      return new SparkConf(javaObject);
+    };
+
+
+    /**
+     * @returns {string[]}
+     */
+    SparkContext.prototype.jars = function() {
+      return  this.getJavaObject().jars();
+    };
+
+
+    /**
+     * @returns {string[]}
+     */
+    SparkContext.prototype.files = function() {
+      return  this.getJavaObject().files();
+    };
+
+
+    /**
+     * @returns {string}
+     */
+    SparkContext.prototype.master = function() {
+      return  this.getJavaObject().master();
+    };
+
+
+    /**
+     * @returns {string}
+     */
+    SparkContext.prototype.appName = function() {
+      return  this.getJavaObject().appName();
+    };
+
+
+    /**
+     * @returns {boolean}
+     */
+    SparkContext.prototype.isLocal = function() {
+      return  this.getJavaObject().isLocal();
+    };
+
+    /**
+     * @returns {boolean}  true if context is stopped or in the midst of stopping.
+     */
+    SparkContext.prototype.isStopped = function() {
+      return  this.getJavaObject().isStopped();
+    };
+
+
+
+    /**
+     * @returns {SparkStatusTracker}
+     */
+    SparkContext.prototype.statusTracker = function() {
+      var javaObject =  this.getJavaObject().statusTracker();
+      return new SparkStatusTracker(javaObject);
+    };
+
+    /**
+     * A unique identifier for the Spark application.
+     * Its format depends on the scheduler implementation.
+     * (i.e.
+     *  in case of local spark app something like 'local-1433865536131'
+     *  in case of YARN something like 'application_1433865536131_34483'
+     * )
+     * @returns {string}
+     */
+    SparkContext.prototype.applicationId = function() {
+      return  this.getJavaObject().applicationId();
+    };
+
+
+    /**
+     * @returns {string}
+     */
+    SparkContext.prototype.applicationAttemptId = function() {
+      return  this.getJavaObject().applicationAttemptId();
+    };
+
+
+    /**
+     * @param {string} logLevel  The desired log level as a string.
+     * Valid log levels include: ALL, DEBUG, ERROR, FATAL, INFO, OFF, TRACE, WARN
+     */
+    SparkContext.prototype.setLogLevel = function(logLevel) {
+       this.getJavaObject().setLogLevel(logLevel);
+    };
+
+
+    /**
+     */
+    SparkContext.prototype.initLocalProperties = function() {
+       this.getJavaObject().initLocalProperties();
+    };
+
+
+    /**
+     * Set a local property that affects jobs submitted from this thread, such as the
+     * Spark fair scheduler pool.
+     * @param {string}
+     * @param {string}
+     */
+    SparkContext.prototype.setLocalProperty = function(key,value) {
+       this.getJavaObject().setLocalProperty(key,value);
+    };
+
+
+    /**
+     * Get a local property set in this thread, or null if it is missing. See
+     * {@link setLocalProperty}.
+     * @param {string}
+     * @returns {string}
+     */
+    SparkContext.prototype.getLocalProperty = function(key) {
+      return  this.getJavaObject().getLocalProperty(key);
+    };
+
+
+    /**
+     * @param {string}
+     */
+    SparkContext.prototype.setJobDescription = function(value) {
+       this.getJavaObject().setJobDescription(value);
+    };
+
+
+    /**
+     * Assigns a group ID to all the jobs started by this thread until the group ID is set to a
+     * different value or cleared.
+     *
+     * Often, a unit of execution in an application consists of multiple Spark actions or jobs.
+     * Application programmers can use this method to group all those jobs together and give a
+     * group description. Once set, the Spark web UI will associate such jobs with this group.
+     *
+     * The application can also use {@link cancelJobGroup} to cancel all
+     * running jobs in this group. For example,
+\     * @param {string}
+     * @param {string}
+     * @param {boolean}
+     */
+    SparkContext.prototype.setJobGroup = function(groupId,description,interruptOnCancel) {
+       this.getJavaObject().setJobGroup(groupId,description,interruptOnCancel);
+    };
+
+
+    /**
+     */
+    SparkContext.prototype.clearJobGroup = function() {
+       this.getJavaObject().clearJobGroup();
+    };
+
+
+
+
 	/**
-	 * Add a file to be downloaded with this Spark job on every node. The path passed can be either a local file, 
-	 * a file in HDFS (or other Hadoop-supported filesystems), or an HTTP, HTTPS or FTP URI. 
+	 * Add a file to be downloaded with this Spark job on every node. The path passed can be either a local file,
+	 * a file in HDFS (or other Hadoop-supported filesystems), or an HTTP, HTTPS or FTP URI.
 	 * To access the file in Spark jobs, use SparkFiles.get(fileName) to find its download location.
 	 * @param {string} path - Path to the file
 	 */
-	SparkContext.prototype.addFile = function(path) {		
+	SparkContext.prototype.addFile = function(path) {
 		this.getJavaObject().addFile(path);
 	};
 	/**
@@ -112,10 +275,10 @@ with (imported) {
 		this.getJavaObject().addJar(path);
 	};
 	/**
-	 * Broadcast a read-only variable to the cluster, returning a Broadcast object for reading it in distributed functions. 
+	 * Broadcast a read-only variable to the cluster, returning a Broadcast object for reading it in distributed functions.
 	 * The variable will be sent to each cluster only once.
 	 * @param {object} value
-	 * @returns {Broadcast} 
+	 * @returns {Broadcast}
 	 */
 	SparkContext.prototype.broadcast = function(value) {
 		return this.getJavaObject().broadcast(value);
@@ -138,10 +301,30 @@ with (imported) {
 		} else {
 			return new RDD(this.getJavaObject().parallelize(list_uw));
 		}
-		
+
 	};
+
+    /**
+     * Creates a new RDD[Long] containing elements from `start` to `end`(exclusive), increased by
+     * `step` every element.
+     *
+     * @note if we need to cache this RDD, we should make sure each partition does not exceed limit.
+     *
+     * @param {number} start  the start value.
+     * @param {number} end  the end value.
+     * @param {number} step  the incremental step
+     * @param {number} numSlices  the partition number of the new RDD.
+     * @returns {RDD}
+     */
+    SparkContext.prototype.range = function(start,end,step,numSlices) {
+      var javaObject =  this.getJavaObject().range(start,end,step,numSlices);
+      return new RDD(javaObject);
+    };
+
+
+
 	/**
-	 * Read a text file from HDFS, a local file system (available on all nodes), or any Hadoop-supported file system URI, 
+	 * Read a text file from HDFS, a local file system (available on all nodes), or any Hadoop-supported file system URI,
 	 * and return it as an RDD of Strings.
 	 * @param {string} path - path to file
 	 * @param {int} minPartitions - Optional
@@ -153,11 +336,49 @@ with (imported) {
 		} else {
 			return new RDD(this.getJavaObject().textFile(path));
 		}
-		
+
 	};
 
+
     /**
-     * Set the directory under which RDDs are going to be checkpointed. 
+     * Read a directory of text files from HDFS, a local file system (available on all nodes), or any
+     * Hadoop-supported file system URI. Each file is read as a single record and returned in a
+     * key-value pair, where the key is the path of each file, the value is the content of each file.
+     *
+     * <p> For example, if you have the following files:
+     * @example
+     *   hdfs://a-hdfs-path/part-00000
+     *   hdfs://a-hdfs-path/part-00001
+     *   ...
+     *   hdfs://a-hdfs-path/part-nnnnn
+     *
+     *
+     * Do `var rdd = sparkContext.wholeTextFile("hdfs://a-hdfs-path")`,
+     *
+     * <p> then `rdd` contains
+     * @example
+     *   (a-hdfs-path/part-00000, its content)
+     *   (a-hdfs-path/part-00001, its content)
+     *   ...
+     *   (a-hdfs-path/part-nnnnn, its content)
+     *
+     *
+     * @note Small files are preferred, large file is also allowable, but may cause bad performance.
+     * @note On some filesystems, `.../path/&#42;` can be a more efficient way to read all files
+     *       in a directory rather than `.../path/` or `.../path`
+     *
+     * @param {string} path  Directory to the input data files, the path can be comma separated paths as the
+     *             list of inputs.
+     * @param {number} minPartitions  A suggestion value of the minimal splitting number for input data.
+     * @returns {RDD}
+     */
+    SparkContext.prototype.wholeTextFiles = function(path,minPartitions) {
+      var javaObject =  this.getJavaObject().wholeTextFiles(path,minPartitions);
+      return new RDD(javaObject);
+    };
+
+    /**
+     * Set the directory under which RDDs are going to be checkpointed.
      * The directory must be a HDFS path if running on a cluster.
      * @param {string} dir
      */
@@ -171,7 +392,7 @@ with (imported) {
 	SparkContext.prototype.stop = function() {
 		  this.getJavaObject().stop();
     };
-    
+
     /**
      * The version of EclairJS and Spark on which this application is running.
      * @returns {string}
@@ -201,7 +422,7 @@ with (imported) {
     		} else {
     			throw wrongJavaVersionString;
     		}
-    		
+
     	} else {
     		// versions is 2.0 or greater
     	}
@@ -225,7 +446,7 @@ with (imported) {
     		} else {
     			throw wrongSparkVersionString;
     		}
-    		
+
     	} else {
     		// versions is 2.0 or greater
     	}
