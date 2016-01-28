@@ -193,6 +193,7 @@ with (imported) {
 
 
     /**
+     * initLocalProperties
      */
     SparkContext.prototype.initLocalProperties = function() {
        this.getJavaObject().initLocalProperties();
@@ -239,7 +240,7 @@ with (imported) {
      *
      * The application can also use {@link cancelJobGroup} to cancel all
      * running jobs in this group. For example,
-\     * @param {string}
+     * @param {string}
      * @param {string}
      * @param {boolean}
      */
@@ -249,6 +250,7 @@ with (imported) {
 
 
     /**
+     * clearJobGroup
      */
     SparkContext.prototype.clearJobGroup = function() {
        this.getJavaObject().clearJobGroup();
@@ -290,8 +292,8 @@ with (imported) {
 
 	};
 	/**
-     * * * Add a file to be downloaded with this Spark job on every node. The path passed can be either a local file,
-     * * a file in HDFS (or other Hadoop-supported filesystems), or an HTTP, HTTPS or FTP URI.
+     *  Add a file to be downloaded with this Spark job on every node. The path passed can be either a local file,
+     * a file in HDFS (or other Hadoop-supported filesystems), or an HTTP, HTTPS or FTP URI.
 	 * To access the file in Spark jobs, use SparkFiles.get(fileName) to find its download location.
 	 * @param {string} path - Path to the file
 	 */
