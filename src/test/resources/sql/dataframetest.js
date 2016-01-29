@@ -620,7 +620,7 @@ var timestampType = function(file) {
 
 	var peopleDataFrame = buildPeopleTable(file, false);
 	var col = new Column("DOB");
-	var testCol = col.gt(new SqlTimestamp("1996-03-07"));
+	var testCol = col.gt(new SqlTimestamp("1996-03-07 00:00:00"));
 	// SQL can be run over RDDs that have been registered as tables.
 	var result = peopleDataFrame.filterWithColumn(testCol);
 
@@ -636,7 +636,7 @@ var dateType = function(file) {
 
 	var peopleDataFrame = buildPeopleTable(file, true);
 	var col = new Column("DOB");
-	var testCol = col.gt(new SqlDate("1996-03-07"));
+	var testCol = col.gt(new SqlDate("1996-03-07 00:00:00"));
 	// SQL can be run over RDDs that have been registered as tables.
 	var result = peopleDataFrame.filterWithColumn(testCol);
 
