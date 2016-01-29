@@ -71,4 +71,7 @@ class Test1[T](str:String) {
 
   def jars: Seq[String] = Seq("")
 
+  def nothing():Unit = {}
+
   }
+
