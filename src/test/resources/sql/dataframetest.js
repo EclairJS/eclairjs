@@ -314,8 +314,8 @@ var dataframeInputFilesTest = function(file) {
 var dataframeIntersectTest = function(file) {
 
 	var peopleDataFrame = buildPeopleTable(file);
-	var plus20s = peopleDataFrame.filter("age > 20");
-	var results = peopleDataFrame.intersect(plus20s);
+	var plus20s = peopleDataFrame.filter("age > 20")
+	var results = peopleDataFrame.intersect(plus20s).sort();
 	
     return results.take(10).toString();
 }
