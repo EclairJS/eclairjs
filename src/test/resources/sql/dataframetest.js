@@ -341,7 +341,8 @@ var dataframeJoinUsingColumnsTest = function(file) {
 	var df1 = buildPeopleTable(file);
 	var df2 = buildPeopleTable(file);
 	var joinedDf = df1.join(df2, ["age", "DOB"]);
-	return joinedDf.head().toString();
+	var result = joinedDf.sort("age");
+	return result.head().toString();
 	
 }
 

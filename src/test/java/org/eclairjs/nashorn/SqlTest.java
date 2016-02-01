@@ -510,7 +510,7 @@ public class SqlTest {
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable)engine).invokeFunction("dataframeJoinUsingColumnsTest", file);
 
-        assertEquals("should be same", "[29,1996-03-07 00:00:00.0,Michael,1,1200.4,true,300000000.11,Michael,1,1200.4,true,300000000.11]", ret);
+        assertEquals("should be same", "[19,1992-03-07 00:00:00.0,Justin,3,1600,true,100000,Justin,3,1600,true,100000]", ret);
     }
     
     @Test
