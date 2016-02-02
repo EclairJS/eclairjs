@@ -266,29 +266,48 @@ with (imported) {
 	 * @param {object} initialValue
 	 * @param {AccumulableParam} param
 	 * @param {string} name of  the accumulator for display in Spark's web UI.
+	 * @returns {Accumulable}
 	 */
 	SparkContext.prototype.accumulable = function(initialValue, param, name) {
-		/*var parm_uw = Utils.unwrapObject(param);
-		if (name) {
-			this.getJavaObject().accumulable(initialValue, name, parm_uw);
-		} else {
-			this.getJavaObject().accumulable(initialValue, parm_uw);
-		}*/
 		return new Accumulable(initialValue, param, name);
 
 	};
 	/**
-	 * Create an {@link Accumulator} double variable, which tasks can "add" values to using the add method.
+	 * Create an {@link Accumulator}  variable, which tasks can "add" values to using the add method.
 	 * Only the master can access the accumulator's value.
 	 *
 	 * @param {int | float} initialValue
-	 * @param {string} name of  the accumulator for display in Spark's web UI.
+	 * @param {string} name of  the accumulator for display in Spark's web UI. Optional
+	 * @param {AccumulableParam} param Optional defaults to FloatAccumulatorParam
+	 * @returns {Accumulator}
 	 */
-	SparkContext.prototype.accumulator = function(initialValue, name) {
+	SparkContext.prototype.accumulator = function(initialValue, name, param) {
 		this.logger.debug("accumulator " + initialValue);
 		var n = name ? name : null;
-		var a = this.getJavaObject().accumulator(initialValue, n);
-		return new Accumulator(a);
+		var p = param ? param : new FloatAccumulatorParam()
+		return new Accumulator(initialValue, p, n);
+
+	};
+	/**
+	 * Create an Accumulator integer variable, which tasks can "add" values to using the add method. 
+	 * Only the master can access the accumulator's value.
+	 * @param {int} initialValue
+	 * @param {string} name of  the accumulator for display in Spark's web UI.
+	 * @returns {Accumulator}
+	 */
+	SparkContext.prototype.intAccumulator = function(initialValue, name) {
+		return new Accumulator(initialValue, new IntAccumulatorParam(), name);
+
+	};
+	/**
+	 * Create an Accumulator float variable, which tasks can "add" values to using the add method. 
+	 * Only the master can access the accumulator's value.
+	 * @param {float} initialValue
+	 * @param {string} name of  the accumulator for display in Spark's web UI.
+	 * @returns {Accumulator}
+	 */
+	SparkContext.prototype.floatAccumulator = function(initialValue, name) {
+		return new Accumulator(initialValue, new FloatAccumulatorParam(), name);
 
 	};
 	/**
