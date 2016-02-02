@@ -277,15 +277,27 @@ with (imported) {
 	 * Only the master can access the accumulator's value.
 	 *
 	 * @param {int | float} initialValue
-	 * @param {string} name of  the accumulator for display in Spark's web UI. Optional
-	 * @param {AccumulableParam} param Optional defaults to FloatAccumulatorParam
+	 * @param {string | AccumulableParam} name of  the accumulator for display in Spark's web UI. or param. Optional, defaults to FloatAccumulatorParam
+	 * @param {AccumulableParam} param Optional defaults to FloatAccumulatorParam, use only if also specifying name
 	 * @returns {Accumulator}
 	 */
-	SparkContext.prototype.accumulator = function(initialValue, name, param) {
+	SparkContext.prototype.accumulator = function() {
+		var initialValue = arguments[0];
+		var name = null;
+		var param = new FloatAccumulatorParam();
 		this.logger.debug("accumulator " + initialValue);
-		var n = name ? name : null;
-		var p = param ? param : new FloatAccumulatorParam()
-		return new Accumulator(initialValue, p, n);
+		
+		if (typeof arguments[1] === "string" ) {
+			name = arguments[1];
+			if (arguments[2]) {
+				param = arguments[2];
+			}
+		} else {
+			if (arguments[1]) {
+				param = arguments[1];
+			}
+		}
+		return new Accumulator(initialValue, param, name);
 
 	};
 	/**

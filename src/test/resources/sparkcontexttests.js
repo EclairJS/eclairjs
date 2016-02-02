@@ -19,7 +19,7 @@ var sparkContext = new SparkContext("local[*]", "spark context tests");
 var accum;
 
 var addInt = function() {
-	accum = sparkContext.accumulator(0, "accum",  new IntAccumulatorParam());
+	accum = sparkContext.accumulator(0, new IntAccumulatorParam());
 	sparkContext.parallelize([1, 2, 3, 4]).foreach(function(x, accum) {
 		accum.add(x);
 	});
