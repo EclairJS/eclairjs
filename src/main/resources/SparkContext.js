@@ -283,20 +283,20 @@ with (imported) {
 	 */
 	SparkContext.prototype.accumulator = function() {
 		var initialValue = arguments[0];
-		var name = null;
+		var name;
 		var param = new FloatAccumulatorParam();
 		this.logger.debug("accumulator " + initialValue);
 		
-		if (typeof arguments[1] === "string" ) {
-			name = arguments[1];
-			if (arguments[2]) {
-				param = arguments[2];
-			}
-		} else {
-			if (arguments[1]) {
+		if (arguments[1]) {
+			if (typeof arguments[1] === "string") {
+				name = arguments[1];
+				if (arguments[2]) {
+					param = arguments[2];
+				}
+			} else {
 				param = arguments[1];
 			}
-		}
+		} 
 		return new Accumulator(initialValue, param, name);
 
 	};
