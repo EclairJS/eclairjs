@@ -16,8 +16,8 @@
 
 /**
   * @constructor
-  * @classdesc A Resilient Distributed Dataset (RDD), the basic abstraction in Spark. Represents an immutable, 
- * partitioned collection of elements that can be operated on in parallel. 
+  * @classdesc A Resilient Distributed Dataset (RDD), the basic abstraction in Spark. Represents an immutable,
+ * partitioned collection of elements that can be operated on in parallel.
 
  */
 var RDD = function(jrdd) { // jrdd - JavaRDD object. don't expose this in the JSDocs for the public API
@@ -26,7 +26,7 @@ var RDD = function(jrdd) { // jrdd - JavaRDD object. don't expose this in the JS
 	JavaWrapper.call(this, jvmObj);
 };
 
-RDD.prototype = Object.create(JavaWrapper.prototype); 
+RDD.prototype = Object.create(JavaWrapper.prototype);
 
 RDD.prototype.constructor = RDD;
 
@@ -299,7 +299,7 @@ throw "not implemented by ElairJS";
 RDD.prototype.first = function() {
     var result = this.getJavaObject().first();
     var o = Utils.javaToJs(result);
-    return (o);   
+    return (o);
 };
 
 /**
@@ -330,6 +330,21 @@ throw "not implemented by ElairJS";
     //return new RDD(javaObject);
 };
 
+
+
+/**
+ *  Return a new RDD by first applying a function to all elements of this
+ *  RDD, and then flattening the results.
+ * @param {PairFlatMapFunction}
+ * @returns {JavaPairRDD}
+ */
+RDD.prototype.flatMapToPair = function(func) {
+  var sv = Utils.createJavaParams(func);
+  var fn = new org.eclairjs.nashorn.JSPairFlatMapFunction(sv.funcStr, sv.scopeVars);
+  var javaObject =  this.getJavaObject().flatMapToPair(fn);
+  return new RDD(javaObject);
+};
+
 /**
  * Aggregate the elements of each partition, and then the results for all the partitions, using a
  * given associative and commutative function and a neutral "zero value". The function
@@ -352,7 +367,7 @@ RDD.prototype.fold = function(zeroValue, func) {
     var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
     var result = this.getJavaObject().fold(zeroValue_uw, fn);
     var o = Utils.javaToJs(result);
-    return (o); 
+    return (o);
 };
 
 /**
@@ -360,7 +375,7 @@ RDD.prototype.fold = function(zeroValue, func) {
  * @example
  * rdd3.foreach(function(record) {
  *    var connection = createNewConnection()
- *    connection.send(record);	
+ *    connection.send(record);
  *    connection.close()
  * });
  * @param {function} func - Function with one parameter that returns void
@@ -378,7 +393,7 @@ RDD.prototype.foreach = function(func) {
  * rdd3.foreachPartition(function(partitionOfRecords) {
  *    var connection = createNewConnection()
  *    partitionOfRecords.forEach(function(record){
- *       connection.send(record);	
+ *       connection.send(record);
  *    });
  *    connection.close()
  * });
@@ -450,10 +465,28 @@ RDD.prototype.groupBy = function(func,numPartitions,partitioner) {
     var sv = Utils.createJavaParams(func);
     var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
     var partitioner_uw = Utils.unwrapObject(partitioner);
-    var result = numPartitions ? this.getJavaObject().groupBy(fn,numPartitions) : 
+    var result = numPartitions ? this.getJavaObject().groupBy(fn,numPartitions) :
         partitioner_uw ? this.getJavaObject().groupBy(fn,partitioner_uw) : this.getJavaObject().groupBy(fn);
     return new RDD(result);
 };
+
+
+/**
+ * Group the values for each key in the RDD into a single sequence. Hash-partitions the
+ * resulting RDD with the existing partitioner/parallelism level. The ordering of elements
+ * within each group is not guaranteed, and may even differ each time the resulting RDD is
+ * evaluated.
+ *
+ * Note: This operation may be very expensive. If you are grouping in order to perform an
+ * aggregation (such as a sum or average) over each key, using {@link aggregateByKey}
+ * or {@link reduceByKey} will provide much better performance.
+ * @returns {RDD}
+ */
+RDD.prototype.groupByKey = function() {
+  var javaObject =  this.getJavaObject().groupByKey();
+  return new RDD(javaObject);
+};
+
 
 /**
  * A unique ID for this RDD (within its SparkContext).
@@ -477,7 +510,7 @@ RDD.prototype.intersection = function(other,numPartitions,partitioner) {
     var other_uw = Utils.unwrapObject(other);
     var partitioner_uw = Utils.unwrapObject(partitioner);
     var result = numPartitions ? this.getJavaObject().intersection(other_uw,numPartitions) :
-        partitioner_uw ? this.getJavaObject().intersection(other_uw,partitioner_uw) : 
+        partitioner_uw ? this.getJavaObject().intersection(other_uw,partitioner_uw) :
         this.getJavaObject().intersection(other_uw);
     return new RDD(result);
 };
@@ -551,8 +584,8 @@ RDD.prototype.map = function(func) {
 };
 
 /**
- * Return a new RDD by applying a function to each partition of this RDD. 
- * Similar to map, but runs separately on each partition (block) of the RDD, so func must accept an Array.  
+ * Return a new RDD by applying a function to each partition of this RDD.
+ * Similar to map, but runs separately on each partition (block) of the RDD, so func must accept an Array.
  * func should return a array rather than a single item.
  * @param {function} func - (undocumented) Function with one parameter
  * @param {boolean} preservesPartitioning - (optional)
@@ -657,7 +690,7 @@ RDD.prototype.name = function() {
 };
 
 /**
- * This does not make sense for JavaScript as everything in JS is handled as a double. 
+ * This does not make sense for JavaScript as everything in JS is handled as a double.
  * @returns {RDD}
  * @private
  */
@@ -856,7 +889,7 @@ RDD.prototype.saveAsTextFile = function(path) {
  * Save this RDD as a compressed text file, using string representations of elements.
  * @param path {string}
  * @param codec {org.apache.hadoop.io.compress.CompressionCodec}
- * @returns {void} 
+ * @returns {void}
  * @private
  */
 RDD.prototype.saveAsTextFilewithCodec = function(path,codec) {
@@ -1000,7 +1033,7 @@ RDD.prototype.toArray = function() {
 		var o = Utils.javaToJs(value);
 		results.push(o);
 	}
-	return results;	
+	return results;
 };
 
 /**
@@ -1191,3 +1224,48 @@ RDD.prototype.zipWithIndex = function() {
 RDD.prototype.zipWithUniqueId = function() {
    return new RDD(this.getJavaObject().zipWithUniqueId());
 };
+
+///
+///  from Pair functions
+///
+
+
+/**
+ * Pass each value in the key-value pair RDD through a map function without changing the keys;
+ * this also retains the original RDD's partitioning.
+ * @param {func}
+ * @returns {RDD}
+ */
+RDD.prototype.mapValues = function(f) {
+  var sv = Utils.createJavaParams(f);
+  var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
+  var javaObject =  this.getJavaObject().mapValues(fn);
+  return new RDD(javaObject);
+};
+
+
+/**
+ * Return an RDD containing all pairs of elements with matching keys in `this` and `other`. Each
+ * pair of elements will be returned as a (k, (v1, v2)) tuple, where (k, v1) is in `this` and
+ * (k, v2) is in `other`. Performs a hash join across the cluster.
+ * @param {RDD}
+ * @param {number} optionanl
+ * @returns {RDD}
+ */
+RDD.prototype.join = function(other,numPartitions) {
+  var other_uw = Utils.unwrapObject(other);
+  var javaObject =  numPartitions ? this.getJavaObject(other_uw,numPartitions).join() :
+        this.getJavaObject().join(other_uw);
+  return new RDD(javaObject);
+};
+
+
+
+/**
+ * Return an RDD with the values of each tuple.
+ * @returns {RDD}
+ */
+RDD.prototype.values = function() {
+  var javaObject =  this.getJavaObject().values();
+  return new RDD(javaObject);
+}

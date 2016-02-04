@@ -286,7 +286,7 @@ with (imported) {
 		var name;
 		var param = new FloatAccumulatorParam();
 		this.logger.debug("accumulator " + initialValue);
-		
+
 		if (arguments[1]) {
 			if (typeof arguments[1] === "string") {
 				name = arguments[1];
@@ -296,12 +296,12 @@ with (imported) {
 			} else {
 				param = arguments[1];
 			}
-		} 
+		}
 		return new Accumulator(initialValue, param, name);
 
 	};
 	/**
-	 * Create an Accumulator integer variable, which tasks can "add" values to using the add method. 
+	 * Create an Accumulator integer variable, which tasks can "add" values to using the add method.
 	 * Only the master can access the accumulator's value.
 	 * @param {int} initialValue
 	 * @param {string} name of  the accumulator for display in Spark's web UI.
@@ -312,7 +312,7 @@ with (imported) {
 
 	};
 	/**
-	 * Create an Accumulator float variable, which tasks can "add" values to using the add method. 
+	 * Create an Accumulator float variable, which tasks can "add" values to using the add method.
 	 * Only the master can access the accumulator's value.
 	 * @param {float} initialValue
 	 * @param {string} name of  the accumulator for display in Spark's web UI.
@@ -369,6 +369,26 @@ with (imported) {
 
 	};
 
+
+    /**
+     * Distribute a local Scala collection to form an RDD.
+     * @param {array} list
+     * @param {integer} numSlices - Optional
+     * @returns {RDD}
+     */
+    SparkContext.prototype.parallelizePairs = function(list, numSlices) {
+        //public <T> JavaRDD<T> parallelize(java.util.List<T> list, int numSlices)
+        var list_uw = [];
+        list.forEach(function(item){
+            list_uw.push(Utils.unwrapObject(item));
+        });
+        if (numSlices) {
+            return new RDD(this.getJavaObject().parallelizePairs(list_uw, numSlices));
+        } else {
+            return new RDD(this.getJavaObject().parallelizePairs(list_uw));
+        }
+
+    };
     /**
      * Creates a new RDD[Long] containing elements from `start` to `end`(exclusive), increased by
      * `step` every element.
