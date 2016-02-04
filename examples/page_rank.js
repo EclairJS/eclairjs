@@ -63,12 +63,6 @@ var iters =  (arguments.length > 1) ? 0+arguments[1] : 10;
         .flatMapToPair(function(tuple)  {
             var urlCount = tuple[0].length;
             var results = [];
-print(tuple)
-print(Array.isArray(tuple))
-print(Array.isArray(tuple[0]))
-print(tuple[0][0])
-print(tuple[0][1])
-print(Array.isArray(tuple[1]))
             for (var n=0;n<urlCount;n++) {
               results.push([tuple[0][n], tuple[1] / urlCount]);
             }

@@ -33,6 +33,7 @@ import org.json.simple.JSONValue;
 import scala.Tuple2;
 import scala.collection.Seq;
 import scala.collection.convert.Wrappers.IteratorWrapper;
+import scala.collection.convert.Wrappers.IterableWrapper;
 
 import java.io.FileReader;
 import java.io.UnsupportedEncodingException;
@@ -69,7 +70,7 @@ public class Utils {
 		}
  		/*
  		 * Any object that belongs to Spark we will wrapper it with a JavaScript object
- 		 * If we don't have a JavaScript wrapper for it then we will catch the 
+ 		 * If we don't have a JavaScript wrapper for it then we will catch the
  		 * exception and just use the wrapObject method.
  		 */
 		if ((packageName != null) && (packageName.indexOf("org.apache.spark") > -1)) {
@@ -81,7 +82,7 @@ public class Utils {
  	  				//anonymous class
  	  				logger.debug("getSuperClass for " + className);
  	  				className = o.getClass().getSuperclass().getSimpleName();
- 	  			} 
+ 	  			}
  	  			if ( className.equals("JavaRDD")) {
  	  				/*
  	  				 * Map JavaRDD to RDD for JavaScript
@@ -98,10 +99,10 @@ public class Utils {
     			logger.debug(className + " javaToJs instanceof  " + o.getClass());
     			return wrapObject(o);
     		}
-  		
+
     	} else if (o instanceof Tuple2) {
             Tuple2 t = (Tuple2)o;
-            logger.info("Tupple2 " + t.toString());
+            logger.info("Tupple2 - " + t.toString());
             Object er = null;
             Object o1 = javaToJs(t._1(),engine);
             Object o2 = javaToJs(t._2(), engine);
@@ -115,11 +116,20 @@ public class Utils {
 			}
             return er;
         } else if (o instanceof IteratorWrapper) {
-        	ArrayList alist = new ArrayList();		
+            logger.debug("Iterator " + o.toString());
+        	ArrayList alist = new ArrayList();
         	while(((IteratorWrapper) o).hasMoreElements()) {
         		alist.add(javaToJs(((IteratorWrapper) o).nextElement(),engine));
         	}
         	return wrapObject(alist);
+        } else if (o instanceof IterableWrapper) {
+            logger.debug("Iterable " + o.toString());
+            ArrayList alist = new ArrayList();
+            Iterator iter=((IterableWrapper) o).iterator();
+            while(iter.hasNext()) {
+                alist.add(javaToJs(iter.next(),engine));
+            }
+            return wrapObject(alist);
         } else if (o instanceof JSONObject) {
         	Object er = null;
         	try {
@@ -161,7 +171,7 @@ public class Utils {
     }
 
     public static ScriptEngine addScopeVarsToEngine(HashMap scopeVars, ScriptEngine engine) {
-    	
+
     	Logger logger = Logger.getLogger(Utils.class);
     	logger.debug("addScopeVarsToEngine");
     	if (scopeVars != null) {
@@ -184,7 +194,7 @@ public class Utils {
         logger.debug("wrapAsJSONCompatible " + o);
         return ScriptObjectMirror.wrapAsJSONCompatible(o,null);
     }
-    
+
     public static String jarLoc() {
     	Logger logger = Logger.getLogger(Utils.class);
     	String jarPath = null;
@@ -204,12 +214,12 @@ public class Utils {
     	}
     	logger.info("env = "+ jarPath);
     	return jarPath;
-    	
+
     }
- 
+
     /**
      * Takes an array of objects and returns a scala Seq
-     * @param {Object[]} o 
+     * @param {Object[]} o
      * @return {scala.collection.Seq}
      */
     @SuppressWarnings({ "rawtypes", "unchecked" })
@@ -222,5 +232,5 @@ public class Utils {
 
     }
 
-	
+
 }
