@@ -44,13 +44,11 @@ function generateGraph(){
     return  edges ;
 }
 
-var g=generateGraph()
-// print(g[0])
 var conf = new SparkConf().setAppName("JavaScript Transitive closure ").setMaster("local[*]");
 var sc = new SparkContext(conf);
 
     var slices = (arguments.length > 0) ? 0+arguments[0]: 2;
-    var tc = sc.parallelizePairs(g, slices).cache();
+    var tc = sc.parallelizePairs(generateGraph(), slices).cache();
 
 
     // Linear transitive closure: each round grows paths by one edge,
@@ -60,7 +58,6 @@ var sc = new SparkContext(conf);
 
     // Because join() joins on keys, the edges are stored in reversed order.
     var edges = tc.mapToPair(function(tuple) {
-print(tuple)
           return [tuple[1], tuple[0]];
     });
 
@@ -75,6 +72,7 @@ print(tuple)
         return [triple[1][1],triple[1][0]];
       })).distinct().cache();
       nextCount = tc.count();
+
     } while (nextCount != oldCount);
 
  print("TC has " + tc.count() + " edges.");

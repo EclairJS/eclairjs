@@ -86,6 +86,19 @@ Utils.logger = Logger.getLogger("Utils_js");
     else
 	    return (obj && obj.getJavaObject) ? obj.getJavaObject() : obj;
   };
+
+
+  Utils.unwrapTuple = function(obj) {
+        Utils.logger.debug("unwrapTuple = " + obj);
+    if (Array.isArray(obj) && obj.length>1)
+    {
+      var Tuple2 = Java.type('scala.Tuple2');
+       return new Tuple2(Utils.unwrapObject(obj[0]),Utils.unwrapObject(obj[1]));
+    }
+    else
+      throw "Expecting tuple, i.e. [1,2] ";
+  };
+
   /**
    * Creates a argument list of Spark Java objects that can be passed to a Spark Java method.
    * If the objects passed in the argument list are an instanceof "type" then the object will be

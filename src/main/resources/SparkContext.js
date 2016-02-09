@@ -380,7 +380,7 @@ with (imported) {
         //public <T> JavaRDD<T> parallelize(java.util.List<T> list, int numSlices)
         var list_uw = [];
         list.forEach(function(item){
-            list_uw.push(Utils.unwrapObject(item));
+            list_uw.push(Utils.unwrapTuple(item));
         });
         if (numSlices) {
             return new RDD(this.getJavaObject().parallelizePairs(list_uw, numSlices));
