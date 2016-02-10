@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 IBM Corp.
+ * Copyright 2016 IBM Corp.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,4 +41,11 @@ DenseVector.prototype.constructor = DenseVector;
  */
 DenseVector.prototype.toArray = function() {
 	this.getJavaObject().toArray()
+};
+
+
+var Vectors = {}
+
+Vectors.dense = function(vals) {
+    return new DenseVector(vals);
 };
