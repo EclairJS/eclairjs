@@ -1269,3 +1269,14 @@ RDD.prototype.values = function() {
   var javaObject =  this.getJavaObject().values();
   return new RDD(javaObject);
 }
+
+
+/**
+ * The asynchronous version of `collect`, which returns a future for
+ * retrieving an array containing all of the elements in this RDD.
+ * @returns {JavaFutureAction}
+ */
+RDD.prototype.collectAsync = function() {
+  var javaObject =  this.getJavaObject().collectAsync();
+  return new FutureAction(javaObject);
+}

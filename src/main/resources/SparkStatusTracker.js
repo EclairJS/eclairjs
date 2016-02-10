@@ -1,0 +1,212 @@
+/*
+* Copyright 2016 IBM Corp.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*      http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+
+
+
+/**
+ * Low-level status reporting APIs for monitoring job and stage progress.
+ *
+ * These APIs intentionally provide very weak consistency semantics; consumers of these APIs should
+ * be prepared to handle empty / missing information.  For example, a job's stage ids may be known
+ * but the status API may not have any information about the details of those stages, so
+ * `getStageInfo` could potentially return `None` for a valid stage id.
+ *
+ * To limit memory usage, these APIs only provide information on recent jobs / stages.  These APIs
+ * will provide information for the last `spark.ui.retainedStages` stages and
+ * `spark.ui.retainedJobs` jobs.
+ *
+ * NOTE: this class's constructor should be considered private and may be subject to change.
+ * @classdesc
+ */
+
+
+var SparkStatusTracker = function(jvmObject) {
+
+	 this.logger = Logger.getLogger("SparkStatusTracker_js");
+	 JavaWrapper.call(this, jvmObject);
+
+};
+
+SparkStatusTracker.prototype = Object.create(JavaWrapper.prototype);
+
+SparkStatusTracker.prototype.constructor = SparkStatusTracker;
+
+
+
+/**
+ * Return a list of all known jobs in a particular job group.  If `jobGroup` is `null`, then
+ * returns all known jobs that are not associated with a job group.
+ *
+ * The returned list may contain running, failed, and completed jobs, and may vary across
+ * invocations of this method.  This method does not guarantee the order of the elements in
+ * its result.
+ * @param {string}
+ * @returns {number[]}
+ */
+SparkStatusTracker.prototype.getJobIdsForGroup = function(jobGroup) {
+  return  this.getJavaObject().getJobIdsForGroup(jobGroup);
+};
+
+
+/**
+ * Returns an array containing the ids of all active stages.
+ *
+ * This method does not guarantee the order of the elements in its result.
+ * @returns {number[]}
+ */
+SparkStatusTracker.prototype.getActiveStageIds = function() {
+  return  this.getJavaObject().getActiveStageIds();
+};
+
+
+/**
+ * Returns an array containing the ids of all active jobs.
+ *
+ * This method does not guarantee the order of the elements in its result.
+ * @returns {number[]}
+ */
+SparkStatusTracker.prototype.getActiveJobIds = function() {
+  return  this.getJavaObject().getActiveJobIds();
+};
+
+
+/**
+ * Returns job information, or `None` if the job info could not be found or was garbage collected.
+ * @param {number}
+ * @returns {SparkJobInfo}
+ */
+SparkStatusTracker.prototype.getJobInfo = function(jobId) {
+  var javaObject =  this.getJavaObject().getJobInfo(jobId);
+  return new SparkJobInfo(javaObject);
+};
+
+
+/**
+ * Returns stage information, or `None` if the stage info could not be found or was
+ * garbage collected.
+ * @param {number}
+ * @returns {SparkStageInfo}
+ */
+SparkStatusTracker.prototype.getStageInfo = function(stageId) {
+  var javaObject =  this.getJavaObject().getStageInfo(stageId);
+  return new SparkStageInfo(javaObject);
+};
+
+
+var SparkJobInfo = function(jvmObject) {
+
+   this.logger = Logger.getLogger("SparkJobInfo_js");
+   JavaWrapper.call(this, jvmObject);
+
+};
+
+SparkJobInfo.prototype = Object.create(JavaWrapper.prototype);
+
+SparkJobInfo.prototype.constructor = SparkJobInfo;
+
+
+/**
+ * @returns {number}
+ */
+SparkJobInfo.prototype.jobId = function() {
+  return this.getJavaObject().jobId();
+};
+
+/**
+ * @returns {number[]}
+ */
+SparkJobInfo.prototype.stageIds = function() {
+  return this.getJavaObject().stageIds();
+};
+
+
+/**
+ * @returns {JobExecutionStatus}
+ */
+SparkJobInfo.prototype.status = function() {
+throw "not implemented by ElairJS";
+  // var javaObject =  this.getJavaObject().status();
+  // return new JobExecutionStatus(javaObject);
+};
+
+var SparkStageInfo = function(jvmObject) {
+
+   this.logger = Logger.getLogger("SparkStageInfo_js");
+   JavaWrapper.call(this, jvmObject);
+
+};
+
+SparkStageInfo.prototype = Object.create(JavaWrapper.prototype);
+
+SparkStageInfo.prototype.constructor = SparkStageInfo;
+
+/**
+ * @returns {number}
+ */
+SparkStageInfo.prototype.currentAttemptId = function() {
+  return this.getJavaObject().currentAttemptId();
+};
+
+/**
+ * @returns {String}
+ */
+SparkStageInfo.prototype.name = function() {
+  return this.getJavaObject().name();
+};
+
+/**
+ * @returns {number}
+ */
+SparkStageInfo.prototype.numActiveTasks = function() {
+  return this.getJavaObject().numActiveTasks();
+};
+
+/**
+ * @returns {number}
+ */
+SparkStageInfo.prototype.numCompletedTasks = function() {
+  return this.getJavaObject().numCompletedTasks();
+};
+
+/**
+ * @returns {number}
+ */
+SparkStageInfo.prototype.numFailedTasks = function() {
+  return this.getJavaObject().numFailedTasks();
+};
+
+/**
+ * @returns {number}
+ */
+SparkStageInfo.prototype.numTasks = function() {
+  return this.getJavaObject().numTasks();
+};
+
+/**
+ * @returns {number}
+ */
+SparkStageInfo.prototype.stageId = function() {
+  return this.getJavaObject().stageId();
+};
+
+/**
+ * @returns {number}
+ */
+SparkStageInfo.prototype.submissionTime = function() {
+  return this.getJavaObject().submissionTime();
+};
+
+
