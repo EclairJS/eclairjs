@@ -93,5 +93,5 @@ Instructions:
  ```
 
 ## Resources
-More detailed information is available in the Eclair Nashorn [Wiki](https://github.com/EclairJS/eclairjs-nashorn/wikis/home) and find out how to get involved under [Project and Community](https://github.com/EclairJS/eclairjs-node/wikis/Project-and-Community).
+More detailed information is available in the Eclair Nashorn [Wiki](https://github.com/EclairJS/eclairjs-nashorn/wikis/home). Presentations and information about how to get involved is in [Project and Community](https://github.com/EclairJS/eclairjs-node/wikis/Project-and-Community).
 
