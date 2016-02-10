@@ -18,6 +18,7 @@ package org.eclairjs.nashorn;
 
 import java.io.FileReader;
 import java.net.URL;
+import java.util.Properties;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -25,11 +26,22 @@ import javax.script.ScriptException;
 
 public class SparkBootstrap implements Bootstrap {
 
+    private String debugJSSourceLocation = null;
+
+    public  SparkBootstrap() {
+        Properties props = System.getProperties();
+        debugJSSourceLocation = (String) props.getProperty("eclairjs.jssource");
+    }
+
     private String getResourceAsURLStirng(String file) {
 
         String res = null;
         try {
-            res = getClass().getResource(file).toURI().toString();
+            if (debugJSSourceLocation != null) {
+                res = debugJSSourceLocation + file;
+            } else {
+                res = getClass().getResource(file).toURI().toString();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

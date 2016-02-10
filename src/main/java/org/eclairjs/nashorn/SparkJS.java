@@ -44,7 +44,7 @@ public class SparkJS{
 		// for debugging Logger.getLogger("com.ibm.spark.javascript").setLevel(Level.INFO);
 		SparkJS js = new SparkJS();
 		if (args.length > 0) {
-			js.eval(new FileReader(args[0]));
+			js.loadJS(args[0]);
 		} else {
 			js.repl();
 		}
@@ -69,13 +69,13 @@ public class SparkJS{
 	      throw new RuntimeException("Unable to load logging property " + LOG_PROPERTIES_FILE);
 	    }
 	  }
-	
-	private Object eval(FileReader fileReader) {
+
+	private Object loadJS(String jsFile) {
 		// TODO Auto-generated method stub
-		Object ret; 
+		Object ret;
 		try {
-		  	 ScriptEngine engine = NashornEngineSingleton.getEngine();
-	    	 ret = engine.eval(fileReader);
+			ScriptEngine engine = NashornEngineSingleton.getEngine();
+			ret = engine.eval("load('"+jsFile+"');" );
 		}  catch (ScriptException e) {
 			// TODO Auto-generated catch block
 			ret = e;
