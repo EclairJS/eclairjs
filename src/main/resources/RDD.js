@@ -323,7 +323,7 @@ RDD.prototype.flatMap = function(func, bindArgs) {
  */
 RDD.prototype.flatMapWith = function(constructA,preservesPartitioning) {
 throw "not implemented by ElairJS";
-    //var sv = Utils.createJavaParams(constructA);
+     //var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFlatMapFunction, bindArgs);
     //var preserves = preservesPartitioning || false;
     //var javaObject =  this.getJavaObject().flatMapWith(fn,preservesPartitioning);
     //return new RDD(javaObject);
