@@ -130,7 +130,16 @@ public class Utils {
                 alist.add(javaToJs(iter.next(),engine));
             }
             return wrapObject(alist);
-        } else if (o instanceof JSONObject) {
+        } else if (o.getClass().isArray()) {
+			Object[] arr = (Object[])o;
+			logger.debug("Array " + o.toString());
+			ArrayList alist = new ArrayList();
+			for(int i=0; i<arr.length; i++) {
+				alist.add(javaToJs(arr[i], engine));
+			}
+
+			return wrapObject(alist);
+		} else if (o instanceof JSONObject) {
         	Object er = null;
         	try {
         		logger.debug("JSONObject " + o.toString());
