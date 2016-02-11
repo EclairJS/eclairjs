@@ -51,12 +51,12 @@ DStream.prototype.compute = function(validTime) {
 };
 /**
  * Return a new DStream containing only the elements that satisfy a predicate.
- * @param {function}
+ * @param {function} func
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
  * @returns {DStream}
  */
-DStream.prototype.filter = function(func) {
-    var sv = Utils.createJavaParams(func);
-    var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
+DStream.prototype.filter = function(func, bindArgs) {
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
     return new DStream(this.getJavaObject().filter(fn), this.streamingContext);
 };
 /**
@@ -199,22 +199,22 @@ DStream.prototype.countByWindow = function(windowDuration, slideDuration) {
  * Return a new DStream by first applying a function to all elements of this 
  * DStream, and then flattening the results.
  * @param func
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
  * @returns {DStream}
  */
-DStream.prototype.flatMap = function(func) {
-    var sv = Utils.createJavaParams(func);
-    var fn = new org.eclairjs.nashorn.JSFlatMapFunction(sv.funcStr, sv.scopeVars);
+DStream.prototype.flatMap = function(func, bindArgs) {
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFlatMapFunction, bindArgs);
     return new DStream(this.getJavaObject().flatMap(fn), this.streamingContext);
 };
 /**
  * Return a new DStream by applying a function to all elements of this DStream,
  * and then flattening the results
  * @param func
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
  * @returns {DStream}
  */
-DStream.prototype.flatMapToPair = function(func) {
-    var sv = Utils.createJavaParams(func);
-    var fn = new org.eclairjs.nashorn.JSPairFlatMapFunction(sv.funcStr, sv.scopeVars);
+DStream.prototype.flatMapToPair = function(func, bindArgs) {
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSPairFlatMapFunction, bindArgs);
     return new DStream(this.getJavaObject().flatMapToPair(fn),
                        this.streamingContext);
 };
@@ -230,22 +230,22 @@ DStream.prototype.glom = function() {
 /**
  * Return a new DStream by applying a function to all elements of this DStream.
  * @param func
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
  * @returns {DStream}
  */
-DStream.prototype.map = function(func) {
-    var sv = Utils.createJavaParams(func);
-    var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
+DStream.prototype.map = function(func, bindArgs) {
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
     return new DStream(this.getJavaObject().map(fn), this.streamingContext);
 };
 
 /**
  * Return a new DStream by applying a function to all elements of this DStream.
  * @param func
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
  * @returns {DStream}
  */
-DStream.prototype.mapToPair = function(func) {
-    var sv = Utils.createJavaParams(func);
-    var fn = new org.eclairjs.nashorn.JSPairFunction(sv.funcStr, sv.scopeVars);
+DStream.prototype.mapToPair = function(func, bindArgs) {
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSPairFunction, bindArgs);
     return new DStream(this.getJavaObject().mapToPair(fn), this.streamingContext);
 };
 
@@ -254,28 +254,26 @@ DStream.prototype.mapToPair = function(func) {
  * mapPartitions() to each RDDs of this DStream. Applying mapPartitions() to an
  * RDD applies a function to each partition of the RDD.
  * @param func
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
  * @returns {DStream}
  */
-DStream.prototype.mapPartitions = function(func) {
-    var sv = Utils.createJavaParams(func);
-    var fn = new org.eclairjs.nashorn.JSFlatMapFunction(sv.funcStr, sv.scopeVars);
+DStream.prototype.mapPartitions = function(func, bindArgs) {
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFlatMapFunction, bindArgs);
     return new DStream(this.getJavaObject().mapPartitions(fn),
                        this.streamingContext);
 };
-
-
 
 /**
  * Apply a function to each RDD in this DStream. This is an output operator, so 'this' DStream will be registered as an output 
  * stream and therefore materialized.
  * @param func
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
  * @returns {void}
  */
-DStream.prototype.foreachRDD = function(func) {
-    var sv = Utils.createJavaParams(func);
-    var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
+DStream.prototype.foreachRDD = function(func, bindArgs) {
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
     this.getJavaObject().foreachRDD(fn);
-}
+};
 
 /**
  * Print the first ten elements of each RDD generated in this DStream. This is an output operator, so this DStream will be 
