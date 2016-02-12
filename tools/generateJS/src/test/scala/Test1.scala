@@ -17,6 +17,8 @@ class Test1[T](str:String) {
    */
   def func1(a:Int) : Unit={}
 
+  def
+  sort(sortExprs: String*): String =""
 
   /**
    * Return an RDD with the elements from `this` that are not in `other`.
@@ -57,6 +59,15 @@ class Test1[T](str:String) {
   def setName(name: Int): Option[String] = {
     Some("")
   }
+
+
+  def funcOverload(name: Int): Unit = {
+  }
+  def funcOverload(name: Int,b:Boolean): Unit = {
+  }
+  def funcParmRep(name: Int,s:String*): Unit = {
+  }
+
 
 
   /**

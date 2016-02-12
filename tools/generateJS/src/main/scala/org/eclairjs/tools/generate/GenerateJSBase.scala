@@ -116,6 +116,8 @@ abstract class GenerateJSBase {
   }
 
   def generateMethod(method:Method,sb:StringBuilder)  = {
+
+    method.getOverloaded()
     addNewlines(2,sb)
     generateMethodDoc(method,sb)
     addNewlines(1,sb)
@@ -137,7 +139,7 @@ abstract class GenerateJSBase {
     if (body.length>0)
       sb ++= body.split("\n").map("// "+_).mkString("\n")  // body commented out
 
-    sb.append("\n}\n")
+    sb.append("\n};\n")
 
   }
 
@@ -146,7 +148,29 @@ abstract class GenerateJSBase {
 
 
 
+def getJSDocType(method:Method, parmName:String) : String = {
+  method.getParm(parmName) match {
+    case Some(parm) =>{
+      var typeName=parm.typ.getJSType(parm.typ.name)
+      if (parm.isRepeated)
+        typeName="..."+typeName
+      typeName
+    }
+    case None => "PARMNOTFOUND"
+  }
+}
 
+  def getJSDocParmName(method:Method, parmName:String) : String = {
+    method.getParm(parmName) match {
+      case Some(parm) =>{
+        if (parm.isOptional)
+          s"""[$parmName]"""
+        else
+          parmName
+      }
+      case None => "PARMNOTFOUND"
+    }
+  }
 
 def convertToJSDoc(comment:String, model:AnyRef):String = {
 
@@ -166,7 +190,7 @@ def convertToJSDoc(comment:String, model:AnyRef):String = {
         {
 
           method.parms.foreach( parm=>
-              jsDoc.addTag("param",s"{${method.getParmJSType(parm.name)}}")
+              jsDoc.addTag("param",s"{${getJSDocType(method,parm.name)}} ${getJSDocParmName(method,parm.name)}")
           )
         }
       else
@@ -174,7 +198,9 @@ def convertToJSDoc(comment:String, model:AnyRef):String = {
         // add parm types to existing @param
         jsDoc.lines=jsDoc.lines.map(str=> {
           str match {
-            case parmRX(name,rest) => s""" * @param {${method.getParmJSType(name)}} $name $rest"""
+            case parmRX(name,rest) => {
+              s""" * @param {${getJSDocType(method,name)}} ${getJSDocParmName(method,name)} $rest"""
+            }
             case _ => str
           }
         })
