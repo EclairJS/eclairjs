@@ -56,5 +56,26 @@ DebugUtils.dumpObject = function (obj,showFunctions)
 
   }
 };
+/**
+ * Prints the time difference between date1 and date2
+ * @param {Date} date1
+ * @param {Date} date2
+ */
+DebugUtils.timeDifference = function(date1,date2) {
+    var difference = date1.getTime() - date2.getTime();
+
+    var daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
+    difference -= daysDifference * 1000 * 60 * 60 * 24
+
+    var hoursDifference = Math.floor(difference / 1000 / 60 / 60);
+    difference -= hoursDifference * 1000 * 60 * 60
+
+    var minutesDifference = Math.floor(difference / 1000 / 60);
+    difference -= minutesDifference * 1000 * 60
+
+    var secondsDifference = Math.floor(difference / 1000);
+
+    print('difference = ' + daysDifference + ' day/s ' + hoursDifference + ' hour/s ' + minutesDifference + ' minute/s ' + secondsDifference + ' second/s ');
+}
 
 

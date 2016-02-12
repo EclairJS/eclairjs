@@ -63,10 +63,9 @@ PartialResult.prototype.getFinalValue = function() {
  * is supported per PartialResult.
  * @returns {PartialResult} 
  */
-PartialResult.prototype.onComplete = function(handler) {
+PartialResult.prototype.onComplete = function(handler, bindArgs) {
 //throw "not implemented by ElairJS";
-   var sv = Utils.createJavaParams(handler);
-   var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
+   var fn = Utils.createLambdaFunction(handler, org.eclairjs.nashorn.JSFunction, bindArgs);
    var javaObject =  this.getJavaObject().onComplete(fn);
    return new PartialResult(javaObject);
 }
@@ -76,10 +75,9 @@ PartialResult.prototype.onComplete = function(handler) {
  * Set a handler to be called if this PartialResult's job fails. Only one failure handler
  * is supported per PartialResult.
  */
-PartialResult.prototype.onFail = function(handler) {
+PartialResult.prototype.onFail = function(handler, bindArgs) {
 throw "not implemented by ElairJS";
-//   var sv = Utils.createJavaParams(handler);
-//   var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
+//      var fn = Utils.createLambdaFunction(handler, org.eclairjs.nashorn.JSFunction, bindArgs);
 //    this.getJavaObject().onFail(fn);
 }
 
@@ -88,10 +86,9 @@ throw "not implemented by ElairJS";
  * Transform this PartialResult into a PartialResult of type T.
  * @returns {PartialResult} 
  */
-PartialResult.prototype.map = function(f) {
+PartialResult.prototype.map = function(func, bindArgs) {
 throw "not implemented by ElairJS";
-//   var sv = Utils.createJavaParams(f);
-//   var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
+//  var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
 //   var javaObject =  this.getJavaObject().map(fn);
 //   return new PartialResult(javaObject);
 }
