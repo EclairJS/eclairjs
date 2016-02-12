@@ -145,6 +145,15 @@ Utils.logger = Logger.getLogger("Utils_js");
 	   return map;
   };
 
+  function createJavaScriptArray(list) {
+      var l = [];
+      for(var i=0; i<list.size(); i++) {
+        l.push(list.get(i));
+      }
+
+      return l;
+  };
+
   function convertJavaTuple2(o1, o2) {
 	  return [o1 ,o2];
   };

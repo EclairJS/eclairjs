@@ -109,3 +109,26 @@ RegressionMetrics.prototype.explainedVariance = function() {
     return this.getJavaObject().explainedVariance();
 };
 
+/**
+ * Evaluator for ranking algorithms.
+ */
+var RankingMetrics = function(jvmObj) {
+    JavaWrapper.call(this, jvmObj);
+};
+
+RankingMetrics.prototype = Object.create(JavaWrapper.prototype); 
+
+RankingMetrics.prototype.constructor = RankingMetrics;
+
+RankingMetrics.prototype.precisionAt = function(k) {
+    return this.getJavaObject().precisionAt(k);
+};
+
+RankingMetrics.prototype.ndcgAt = function(k) {
+    return this.getJavaObject().ndcgAt(k);
+};
+
+RankingMetrics.of = function(predictionAndLabels) {
+    var rm = org.apache.spark.mllib.evaluation.RankingMetrics.of(predictionAndLabels.getJavaObject());
+    return new RankingMetrics(rm);
+};

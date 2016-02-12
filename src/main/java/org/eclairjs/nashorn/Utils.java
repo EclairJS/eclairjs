@@ -100,7 +100,9 @@ public class Utils {
     			return wrapObject(o);
     		}
 
-    	} else if (o instanceof Tuple2) {
+    	} else if(o == null) {
+			return o;
+		} else if (o instanceof Tuple2) {
             Tuple2 t = (Tuple2)o;
             logger.info("Tupple2 - " + t.toString());
             Object er = null;
@@ -137,8 +139,16 @@ public class Utils {
 			for(int i=0; i<arr.length; i++) {
 				alist.add(javaToJs(arr[i], engine));
 			}
+			Object er = null;
+			try {
+				Object params[] = {alist};
+				er = ((Invocable)engine).invokeFunction("createJavaScriptArray", params);
+			} catch (ScriptException | NoSuchMethodException e) {
+				logger.error(" ARray conversion " + e);
+			}
 
-			return wrapObject(alist);
+			return er;
+			//return wrapObject(alist);
 		} else if (o instanceof JSONObject) {
         	Object er = null;
         	try {
@@ -160,12 +170,44 @@ public class Utils {
 
     public static Object jsToJava(Object o) {
     	Logger logger = Logger.getLogger(Utils.class);
-		if(o != null)
+		if(o != null) {
 			logger.debug("jsToJava" + o.getClass().getName());
-    	if ( (o instanceof ScriptObjectMirror) && ((ScriptObjectMirror) o).hasMember("getJavaObject") ) {
-    		Object r = ((ScriptObjectMirror) o).callMember("getJavaObject");
-    		logger.debug("getJavaObject" + r.getClass().getName());
-    		return r;
+		}
+    	if (o instanceof ScriptObjectMirror) {
+			ScriptObjectMirror m = (ScriptObjectMirror)o;
+			if(m.hasMember("getJavaObject") ) {
+				Object r = m.callMember("getJavaObject");
+				logger.debug("getJavaObject" + r.getClass().getName());
+				return r;
+			} else if(m.isArray()) {
+				ArrayList list = new ArrayList();
+				for(Object item : m.values()) {
+					list.add(jsToJava(item));
+				}
+				return list;
+			}
+		} else if (o instanceof IteratorWrapper) {
+			ArrayList alist = new ArrayList();
+			while(((IteratorWrapper) o).hasMoreElements()) {
+				alist.add(jsToJava(((IteratorWrapper) o).nextElement()));
+			}
+			 return alist;
+		} else if (o instanceof IterableWrapper) {
+			ArrayList alist = new ArrayList();
+			Iterator iter=((IterableWrapper) o).iterator();
+			while(iter.hasNext()) {
+				alist.add(jsToJava(iter.next()));
+			}
+			return alist;
+		} else if(o.getClass().isArray()) {
+			Object[] arr = (Object[])o;
+
+			for(int i=0; i<arr.length; i++) {
+				Object item = arr[i];
+				arr[i] = jsToJava(item);
+			}
+
+			return arr;
     	} else if(o instanceof JSObject) {
             Object obj = ScriptObjectMirror.wrapAsJSONCompatible(o, null);
             String j = JSONValue.toJSONString(obj);

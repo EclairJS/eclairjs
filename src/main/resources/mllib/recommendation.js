@@ -15,11 +15,18 @@
  */
 
 var Rating = function(user, product, rating) {
-  var jvmObj = new org.apache.spark.mllib.recommendation.Rating(
-      user, 
-      product,
-      rating);
-
+    //print("user = " + user);
+    //print("product = " + product);
+    //print("rating = " + rating);
+	var jvmObj;
+	if( product == null && rating  == null) {
+  	 	jvmObj = user;
+	} else {
+        var jvmObj = new org.apache.spark.mllib.recommendation.Rating(
+            user, 
+            product,
+            rating);
+	}
 	JavaWrapper.call(this, jvmObj);
 };
 
@@ -39,7 +46,9 @@ Rating.prototype.rating = function() {
   return this.getJavaObject().rating();
 };
 
-Rating.prototype.toString = function() { return "shit"; };
+Rating.prototype.toString = function() { 
+    return "["+this.user()+","+this.product()+","+this.rating()+"]";
+};
 
 var MatrixFactorizationModel = function(jvmObj) {
 	JavaWrapper.call(this, jvmObj);

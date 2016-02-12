@@ -23,16 +23,16 @@ var data = data = sc.textFile("examples/data/mllib/sample_movielens_data.txt");
 
 var ratings = data.map(function(line) {
     var arr = line.split("::");
-    return new Rating(parseInt(arr[0]),
-                      parseInt(arr[1]),
-                      parseFloat(arr[2]) - 2.5);
+    var r = new Rating(parseInt(arr[0]),
+                       parseInt(arr[1]),
+                       parseFloat(arr[2]) - 2.5);
+    return r;
 }).cache();
 
 var model = ALS.train(ratings, 10, 10, 0.01);
 var userRecs = model.recommendProductsForUsers(10);
 
-var userRecsScaled = userRecs.mapToPair(function(val) {
-  print(val[1][0]);
+var userRecommended = userRecs.mapToPair(function(val) {
   var newRatings = val[1].map(function(r) {
     var newRating = Math.max(Math.min(r.rating(), 1.0), 0.0);
     return new Rating(r.user(), r.product(), newRating);
@@ -41,4 +41,43 @@ var userRecsScaled = userRecs.mapToPair(function(val) {
   return [val[0], newRatings];
 });
 
-print("userRecsScaled = " + userRecsScaled.take(10));
+var binarizedRatings = ratings.map(function(r) {
+    if (r.rating() > 0.0) {
+        binaryRating = 1.0;
+    } else {
+        binaryRating = 0.0;
+    }
+    
+    return new Rating(r.user(), r.product(), binaryRating);
+});
+
+var userMovies = binarizedRatings.groupBy(function(r) {
+    return r.user();
+});
+
+var userMoviesList = userMovies.mapValues(function(docs) {
+    return docs.reduce(function(prev, curr) {
+        if(curr.ratings() > 0.0) {
+            prev.push[curr];
+        }
+
+        return prev;
+    }, []);
+});
+
+var userRecommendedList = userRecommended.mapValues(function(docs) {
+    print(docs.getClass());
+    return docs.map(function(rating) {
+        return rating.product();
+    });
+});
+
+var relevantDocs = userMoviesList.join(userRecommendedList).values();
+
+var metrics = RankingMetrics.of(relevantDocs);
+
+// Precision and NDCG at k
+[1, 3, 5].forEach(function(k) {
+    print("Precision at " + k + " = " + metrics.precisionAt(k));
+    print("NDCG at " + k + " = " + metrics.ndcgAt(k));
+});
