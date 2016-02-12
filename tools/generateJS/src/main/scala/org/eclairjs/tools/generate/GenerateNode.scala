@@ -87,6 +87,28 @@ class GenerateNode  extends  GenerateJSBase {
     val isStatic=method.parent.isStatic
 
 
+    if (method.optionalParms().length>0)
+      sb++=s"// TODO: handle optional parms '${method.optionalParms().map(_.name).mkString(",")}'\n"
+
+    method.parms.foreach(parm =>{
+      if (parm.isRepeated)
+        sb++=s"// TODO: handle repeated parm '${parm.name}'\n"
+
+      parm.typ match {
+        case ExtendedDataType(name,referenceType)  =>
+        {
+          if (referenceType.contains("Tuple") || name.contains("Tuple"))
+            sb++=s"// TODO: handle Tuple conversion for '${parm.name}'\n"
+        }
+        case SimpleType(name)  =>
+        {
+          if ( name.contains("Tuple"))
+            sb++=s"// TODO: handle Tuple conversion for '${parm.name}'\n"
+        }
+        case _ =>
+      }
+    })
+
     val templateParms= method.parms.map("{{"+_.name+"}}").toArray.mkString(",")
     val assignParms= method.parms.map(parm=> parm.name+" : "+parm.name).toArray.mkString(",")
     val parms = if (method.parms.isEmpty) "" else {
