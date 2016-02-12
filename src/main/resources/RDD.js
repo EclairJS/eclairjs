@@ -40,14 +40,14 @@ RDD.prototype.constructor = RDD;
  * @param {RDD} zeroValue - (undocumented)
  * @param {function} func1 seqOp - (undocumented) Function with two parameters
  * @param {function} func2 combOp - (undocumented) Function with two parameters
+ * @param {Object[]} bindArgs1 - Optional array whose values will be added to func1's argument list.
+ * @param {Object[]} bindArgs2 - Optional array whose values will be added to func2's argument list.
  * @returns {object}
  */
-RDD.prototype.aggregate = function(zeroValue,func1,func2) {
+RDD.prototype.aggregate = function(zeroValue,func1,func2, bindArgs1, bindArgs2) {
    var zeroValue_uw = Utils.unwrapObject(zeroValue);
-   var sv1 = Utils.createJavaParams(func1, 2);
-   var fn1 = new org.eclairjs.nashorn.JSFunction2(sv1.funcStr, sv1.scopeVars);
-   var sv2 = Utils.createJavaParams(func2, 2);
-   var fn2 = new org.eclairjs.nashorn.JSFunction2(sv2.funcStr, sv2.scopeVars);
+   var fn1 = Utils.createLambdaFunction(func1, org.eclairjs.nashorn.JSFunction2, bindArgs1);
+   var fn2 = Utils.createLambdaFunction(func2, org.eclairjs.nashorn.JSFunction2, bindArgs2);
    return Utils.javaToJs(this.getJavaObject().aggregate(zeroValue_uw, fn1, fn2));
 };
 
@@ -115,8 +115,7 @@ RDD.prototype.coalesce = function(numPartitions,shuffle) {
  */
 RDD.prototype.collect = function() {
     var func = null; // See note below collectwithF - eventually want to pass func as param to this func
-    var sv = func ? Utils.createJavaParams(func) : null;
-    var fn = func ? new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars) : null;
+    var fn = func ? Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs) : null;
 	var res = func ? this.getJavaObject().collect(fn, "") : this.getJavaObject().collect();
 	var results = [];
 	for (var i = 0; i < res.size(); i++) {
@@ -266,11 +265,11 @@ RDD.prototype.distinct = function(numPartitions) {
 /**
  * Return a new RDD containing only the elements that satisfy a predicate.
  * @param {function} func - (undocumented) Function with one parameter
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
  * @returns {RDD}
  */
-RDD.prototype.filter = function(func) {
-	var sv = Utils.createJavaParams(func);
-	var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
+RDD.prototype.filter = function(func, bindArgs) {
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
     var javaObject =  this.getJavaObject().filter(fn);
     return new RDD(javaObject);
 };
@@ -281,13 +280,13 @@ RDD.prototype.filter = function(func) {
  * partition with the index of that partition.
  * Note: Doesn't make sense for JavaScript.
  * @param constructA
+ * @param {Object[]} bindArgs - Optional array whose values will be added to constructA's argument list.
  * @returns {RDD}
  * @private
  */
-RDD.prototype.filterWith = function(constructA) {
+RDD.prototype.filterWith = function(constructA, bindArgs) {
 throw "not implemented by ElairJS";
-    //var sv = Utils.createJavaParams(constructA);
-    //var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
+    //var fn = Utils.createLambdaFunction(constructA, org.eclairjs.nashorn.JSFunction, bindArgs);
     //var javaObject =  this.getJavaObject().filterWith(fn);
     //return new RDD(javaObject);
 };
@@ -303,13 +302,13 @@ RDD.prototype.first = function() {
 };
 
 /**
-* Return a new RDD by first applying a function to all elements of this RDD, and then flattening the results.
-* @param {function} func - (undocumented) - Function with one parameter
-* @returns {RDD}
+ * Return a new RDD by first applying a function to all elements of this RDD, and then flattening the results.
+ * @param {function} func - (undocumented) - Function with one parameter
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @returns {RDD}
 */
-RDD.prototype.flatMap = function(func) {
-	var sv = Utils.createJavaParams(func);
-	var fn = new org.eclairjs.nashorn.JSFlatMapFunction(sv.funcStr, sv.scopeVars);
+RDD.prototype.flatMap = function(func, bindArgs) {
+	  var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFlatMapFunction, bindArgs);
     var javaObject =  this.getJavaObject().flatMap(fn);
     return new RDD(javaObject);
 };
@@ -324,7 +323,7 @@ RDD.prototype.flatMap = function(func) {
  */
 RDD.prototype.flatMapWith = function(constructA,preservesPartitioning) {
 throw "not implemented by ElairJS";
-    //var sv = Utils.createJavaParams(constructA);
+     //var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFlatMapFunction, bindArgs);
     //var preserves = preservesPartitioning || false;
     //var javaObject =  this.getJavaObject().flatMapWith(fn,preservesPartitioning);
     //return new RDD(javaObject);
@@ -336,12 +335,12 @@ throw "not implemented by ElairJS";
  *  Return a new RDD by first applying a function to all elements of this
  *  RDD, and then flattening the results.
  * @param {PairFlatMapFunction}
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
  * @returns {JavaPairRDD}
  */
-RDD.prototype.flatMapToPair = function(func) {
-  var sv = Utils.createJavaParams(func);
-  var fn = new org.eclairjs.nashorn.JSPairFlatMapFunction(sv.funcStr, sv.scopeVars);
-  var javaObject =  this.getJavaObject().flatMapToPair(fn);
+RDD.prototype.flatMapToPair = function(func, bindArgs) {
+  var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSPairFlatMapFunction, bindArgs);
+  var javaObject = this.getJavaObject().flatMapToPair(fn);
   return new RDD(javaObject);
 };
 
@@ -359,12 +358,12 @@ RDD.prototype.flatMapToPair = function(func) {
  * non-distributed collection.
  * @param {RDD} zeroValue - (undocumented)
  * @param {function} func - (undocumented) Function with two parameters
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
  * @returns {object}
  */
-RDD.prototype.fold = function(zeroValue, func) {
+RDD.prototype.fold = function(zeroValue, func, bindArgs) {
     var zeroValue_uw = Utils.unwrapObject(zeroValue);
-    var sv = Utils.createJavaParams(func, 2);
-    var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, bindArgs);
     var result = this.getJavaObject().fold(zeroValue_uw, fn);
     var o = Utils.javaToJs(result);
     return (o);
@@ -379,11 +378,11 @@ RDD.prototype.fold = function(zeroValue, func) {
  *    connection.close()
  * });
  * @param {function} func - Function with one parameter that returns void
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
  * @returns {void}
  */
-RDD.prototype.foreach = function(func) {
-	var sv = Utils.createJavaParams(func);
-	var fn = new org.eclairjs.nashorn.JSVoidFunction(sv.funcStr, sv.scopeVars);
+RDD.prototype.foreach = function(func, bindArgs) {
+  var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSVoidFunction, bindArgs);
 	this.getJavaObject().foreach(fn);
 };
 
@@ -398,11 +397,11 @@ RDD.prototype.foreach = function(func) {
  *    connection.close()
  * });
  * @param {function} func - Function with one Array parameter that returns void
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
  * @returns {void}
  */
-RDD.prototype.foreachPartition = function(func) {
-	var sv = Utils.createJavaParams(func);
-	var fn = new org.eclairjs.nashorn.JSVoidFunction(sv.funcStr, sv.scopeVars);
+RDD.prototype.foreachPartition = function(func, bindArgs) {
+  var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSVoidFunction, bindArgs);
 	this.getJavaObject().foreachPartition(fn);
 };
 
@@ -412,13 +411,13 @@ RDD.prototype.foreachPartition = function(func) {
  * partition with the index of that partition.
  * Note: Doesn't make sense for JavaScript.
  * @param {constructA} - (undocumented)
+ * @param {Object[]} bindArgs - Optional array whose values will be added to constructA's argument list.
  * @returns {void}
  * @private
  */
-RDD.prototype.foreachWith = function(constructA) {
+RDD.prototype.foreachWith = function(constructA, bindArgs) {
 throw "not implemented by ElairJS";
-    //var sv = Utils.createJavaParams(constructA);
-    //var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
+    //var fn = Utils.createLambdaFunction(constructA, org.eclairjs.nashorn.JSFunction, bindArgs);
     //this.getJavaObject().foreachWith(fn);
 };
 
@@ -459,11 +458,11 @@ RDD.prototype.glom = function() {
  * @param {function} func - (undocumented) Function with one parameter
  * @param {number} numPartitions - (optional) How many partitions to use in the resulting RDD (if non-zero partitioner is ignored)
  * @param {Partitioner} partitioner - (optional) Partitioner to use for the resulting RDD
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
  * @returns {RDD}
  */
-RDD.prototype.groupBy = function(func,numPartitions,partitioner) {
-    var sv = Utils.createJavaParams(func);
-    var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
+RDD.prototype.groupBy = function(func,numPartitions,partitioner,bindArgs) {
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
     var partitioner_uw = Utils.unwrapObject(partitioner);
     var result = numPartitions ? this.getJavaObject().groupBy(fn,numPartitions) :
         partitioner_uw ? this.getJavaObject().groupBy(fn,partitioner_uw) : this.getJavaObject().groupBy(fn);
@@ -538,11 +537,11 @@ RDD.prototype.isEmpty = function() {
 /**
  * Creates tuples of the elements in this RDD by applying `f`.
  * @param {function} func - (undocumented)
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
  * @returns {RDD}
  */
-RDD.prototype.keyBy = function(func) {
-    var sv = Utils.createJavaParams(func);
-    var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
+RDD.prototype.keyBy = function(func, bindArgs) {
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
     var javaObject =  this.getJavaObject().keyBy(fn);
     return new RDD(javaObject);
 };
@@ -574,11 +573,11 @@ RDD.prototype.localCheckpoint = function() {
 /**
  * Return a new RDD by applying a function to all elements of this RDD.
  * @param {function} func - (undocumented) Function with one parameter
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
  * @returns {RDD}
  */
-RDD.prototype.map = function(func) {
-	var sv = Utils.createJavaParams(func);
-	var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
+RDD.prototype.map = function(func, bindArgs) {
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
     var javaObject =  this.getJavaObject().map(fn);
     return new RDD(javaObject);
 };
@@ -589,11 +588,11 @@ RDD.prototype.map = function(func) {
  * func should return a array rather than a single item.
  * @param {function} func - (undocumented) Function with one parameter
  * @param {boolean} preservesPartitioning - (optional)
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
  * @returns {RDD}
  */
-RDD.prototype.mapPartitions = function(func,preservesPartitioning) {
-	var sv = Utils.createJavaParams(func);
-	var fn = new org.eclairjs.nashorn.JSFlatMapFunction(sv.funcStr, sv.scopeVars);
+RDD.prototype.mapPartitions = function(func,preservesPartitioning, bindArgs) {
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFlatMapFunction, bindArgs);
     var javaObject =  this.getJavaObject().mapPartitions(fn,preservesPartitioning);
     return new RDD(javaObject);
 };
@@ -606,11 +605,11 @@ RDD.prototype.mapPartitions = function(func,preservesPartitioning) {
  * should be `false` unless this is a pair RDD and the input function doesn't modify the keys.
  * @param {function} func - (undocumented) Function with one parameter
  * @param {boolean} preservesPartitioning - (optional)
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
  * @returns {RDD}
  */
-RDD.prototype.mapPartitionsWithIndex = function(func,preservesPartitioning) {
-    var sv = Utils.createJavaParams(func);
-    var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
+RDD.prototype.mapPartitionsWithIndex = function(func,preservesPartitioning, bindArgs) {
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
     var javaObject =  this.getJavaObject().mapPartitionsWithIndex(fn,preservesPartitioning);
     return new RDD(javaObject);
 };
@@ -620,11 +619,11 @@ RDD.prototype.mapPartitionsWithIndex = function(func,preservesPartitioning) {
  * of the original partition.
  * @param {function} func - (undocumented) Function with one parameter
  * @param {boolean} preservesPartitioning - (optional)
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
  * @returns {RDD}
  */
-RDD.prototype.mapPartitionsWithSplit = function(func,preservesPartitioning) {
-    var sv = Utils.createJavaParams(func);
-    var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
+RDD.prototype.mapPartitionsWithSplit = function(func,preservesPartitioning, bindArgs) {
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
     var javaObject =  this.getJavaObject().mapPartitionsWithSplit(fn,preservesPartitioning);
     return new RDD(javaObject);
 };
@@ -636,13 +635,13 @@ RDD.prototype.mapPartitionsWithSplit = function(func,preservesPartitioning) {
  * Note: Doesn't make sense for JavaScript.
  * @param {function}
  * @param {boolean}
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
  * @returns {RDD}
  * @private
  */
-RDD.prototype.mapWith = function(constructA,preservesPartitioning) {
+RDD.prototype.mapWith = function(constructA,preservesPartitioning,bindArgs) {
 throw "not implemented by ElairJS";
-    //var sv = Utils.createJavaParams(constructA);
-    //var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
+    //var fn = Utils.createLambdaFunction(constructA, org.eclairjs.nashorn.JSFunction, bindArgs);
     //var javaObject =  this.getJavaObject().mapWith(fn,preservesPartitioning);
     //return new RDD(javaObject);
 };
@@ -650,11 +649,11 @@ throw "not implemented by ElairJS";
 /**
  * Return a new RDD by applying a function to all elements of this RDD.
  * @param (function) func - (undocumented) Function with one parameter that returns tuple
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
  * @returns {RDD}
  */
-RDD.prototype.mapToPair = function(func) {
-	var sv = Utils.createJavaParams(func);
-	var fn = new org.eclairjs.nashorn.JSPairFunction(sv.funcStr, sv.scopeVars);
+RDD.prototype.mapToPair = function(func, bindArgs) {
+  var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSPairFunction, bindArgs);
 	var result = new RDD(this.getJavaObject().mapToPair(fn));
 	return result;
 };
@@ -662,22 +661,22 @@ RDD.prototype.mapToPair = function(func) {
 /**
  * Returns the max of this RDD as defined by the implicit Ordering[T].
  * @param (function) comparator - Compares its two arguments for order. Returns a negative integer, zero, or a positive integer as the first argument is less than, equal to, or greater than the second.
+ * @param {Object[]} bindArgs - Optional array whose values will be added to comparator's argument list.
  * @returns {object}  the maximum element of the RDD
  */
-RDD.prototype.max = function(comparator) {
-    var sv = Utils.createJavaParams(comparator, 2);
-    var fn = new org.eclairjs.nashorn.JSComparator(sv.funcStr, sv.scopeVars);
+RDD.prototype.max = function(comparator, bindArgs) {
+    var fn = Utils.createLambdaFunction(comparator, org.eclairjs.nashorn.JSComparator, bindArgs);
     return  this.getJavaObject().max(fn);
 };
 
 /**
  * Returns the min of this RDD as defined by the implicit Ordering[T].
  * @param (function) comparator - Compares its two arguments for order. Returns a negative integer, zero, or a positive integer as the second argument is less than, equal to, or greater than the first.
+ * @param {Object[]} bindArgs - Optional array whose values will be added to compartor's argument list.
  * @returns {object}  the minimum element of the RDD
  */
-RDD.prototype.min = function(comparator) {
-    var sv = Utils.createJavaParams(comparator, 2);
-    var fn = new org.eclairjs.nashorn.JSComparator(sv.funcStr, sv.scopeVars);
+RDD.prototype.min = function(comparator, bindArgs) {
+    var fn = Utils.createLambdaFunction(comparator, org.eclairjs.nashorn.JSComparator, bindArgs);
     return  this.getJavaObject().min(fn);
 };
 
@@ -728,15 +727,15 @@ RDD.prototype.persist = function(newLevel) {
  *                        def printRDDElement(record:(String, Seq[String]), f:String=&gt;Unit) =
  *                          for (e &lt;- record._2){f(e)}
  * @param {boolean} separateWorkingDir - (optional) Use separate working directories for each task.
+ * @param {Object[]} bindArgs - Optional array whose values will be added to printPipeContext's argument list.
+ * @param {Object[]} bindArgs - Optional array whose values will be added to printRDDElement's argument list.
  * @returns {RDD}  the result RDD
  */
-RDD.prototype.pipe = function(command,env,printPipeContext,printRDDElement,separateWorkingDir) {
+RDD.prototype.pipe = function(command,env,printPipeContext,printRDDElement,separateWorkingDir,bindArgs1,bindArgs2) {
     var command_uw = typeof command === 'object' ? Utils.unwrapObject(command) : command;
     var env_uw = env ? Utils.unwrapObject(env) : null;
-    var sv = printPipeContext ? Utils.createJavaParams(printPipeContext) : null;
-    var fn = sv ? new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars) : null;
-    var sv2 = printRDDElement ? Utils.createJavaParams(printRDDElement) : null;
-    var fn2 = sv2 ? new org.eclairjs.nashorn.JSFunction(sv2.funcStr, sv2.scopeVars) : null;
+    var fn = printPipeContext ? Utils.createLambdaFunction(printPipeContext, org.eclairjs.nashorn.JSFunction, bindArgs1) : null;
+    var fn2 = printPipeContext ? Utils.createLambdaFunction(printRDDElement, org.eclairjs.nashorn.JSFunction, bindArgs2) : null;
     var result = fn && fn2 ? this.getJavaObject().pipe(command_uw,env_uw,fn,fn2,separateWorkingDir) :
         env_ua ? this.getJavaObject().pipe(command_uw,env_uw) : this.getJavaObject().pipe(command_uw);
 
@@ -814,11 +813,11 @@ throw "not implemented by ElairJS";
  * Reduces the elements of this RDD using the specified commutative and
  * associative binary operator.
  * {function} func - (undocumented) Function with two parameters
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
  * @returns {RDD}
  */
-RDD.prototype.reduce = function(func) {
-    var sv = Utils.createJavaParams(func, 2);
-    var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
+RDD.prototype.reduce = function(func, bindArgs) {
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, bindArgs);
     var javaObject =  this.getJavaObject().reduce(fn);
     return Utils.javaToJs(javaObject);
 };
@@ -826,13 +825,13 @@ RDD.prototype.reduce = function(func) {
 /**
  * Reduces the elements of this RDD using the specified function.
  * @param {function} func - Function with two parameters
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
  * @returns {RDD}
  * @deprecated Use reduce instead
  */
-RDD.prototype.reduceByKey = function(func) {
-	var sv = Utils.createJavaParams(func, 2);
-	var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
-	var result = this.getJavaObject().reduceByKey(fn);
+RDD.prototype.reduceByKey = function(func, bindArgs) {
+  var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, bindArgs);
+  var result = this.getJavaObject().reduceByKey(fn);
 	return new RDD(result);
 };
 
@@ -912,11 +911,11 @@ RDD.prototype.setName = function(_name) {
  * @param {function} func - (undocumented) Function with one parameter
  * @param {boolean} ascending
  * @param {int} numPartitions
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
  * @returns {RDD}
  */
-RDD.prototype.sortBy = function(func,ascending,numPartitions) {
-    var sv = Utils.createJavaParams(func);
-    var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
+RDD.prototype.sortBy = function(func,ascending,numPartitions,bindArgs) {
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
     var javaObject =  this.getJavaObject().sortBy(fn,ascending,numPartitions);
     return new RDD(javaObject);
 };
@@ -1082,14 +1081,14 @@ RDD.prototype.toString = function() {
  * @param zeroValue - (undocumented)
  * @param {function} func1 - (undocumented) Function with two parameters
  * @param {function} func2 combOp - (undocumented) Function with two parameters
+ * @param {Object[]} bindArgs1 - Optional array whose values will be added to func1's argument list.
+ * @param {Object[]} bindArgs2 - Optional array whose values will be added to func2's argument list.
  * @see [[org.apache.spark.rdd.RDD#aggregate]]
  * @returns {object}
  */
-RDD.prototype.treeAggregate = function(zeroValue,func1,func2) {
-    var sv1 = Utils.createJavaParams(func1, 2);
-    var fn1 = new org.eclairjs.nashorn.JSFunction2(sv1.funcStr, sv1.scopeVars);
-    var sv2 = Utils.createJavaParams(func2, 2);
-    var fn2 = new org.eclairjs.nashorn.JSFunction2(sv2.funcStr, sv2.scopeVars);
+RDD.prototype.treeAggregate = function(zeroValue,func1,func2,bindArgs1,bindArgs2) {
+    var fn1 = Utils.createLambdaFunction(func1, org.eclairjs.nashorn.JSFunction2, bindArgs1);
+    var fn2 = Utils.createLambdaFunction(func2, org.eclairjs.nashorn.JSFunction2, bindArgs2);
     return Utils.javaToJs(this.getJavaObject().treeAggregate(zeroValue_uw, fn1, fn2));
 };
 
@@ -1098,12 +1097,12 @@ RDD.prototype.treeAggregate = function(zeroValue,func1,func2) {
  *
  * @param {function} func - (undocumented) Function with one parameter
  * @param {number} depth  suggested depth of the tree (default: 2)
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
  * @see [[org.apache.spark.rdd.RDD#reduce]]
  * @returns {object}
  */
-RDD.prototype.treeReduce = function(func,depth) {
-    var sv = Utils.createJavaParams(func);
-    var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
+RDD.prototype.treeReduce = function(func,depth,bindArgs) {
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
     var javaObject = this.getJavaObject().treeReduce(fn,depth);
     return Utils.javaToJs(javaObject);
 };
@@ -1154,12 +1153,12 @@ RDD.prototype.zip = function(other) {
  * @param {RDD} rdd2
  * @param {function} func - Function with two parameters
  * @param {boolean} preservesPartitioning - (optional)
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
  * @returns {RDD}
  */
-RDD.prototype.zipPartitions = function(rdd2,func,preservesPartitioning) {
+RDD.prototype.zipPartitions = function(rdd2,func,preservesPartitioning, bindArgs) {
     var rdd2_uw = Utils.unwrapObject(rdd2);
-    var sv = Utils.createJavaParams(func, 2);
-    var fn = new org.eclairjs.nashorn.JSFlatMapFunction2(sv.funcStr, sv.scopeVars);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFlatMapFunction2, bindArgs);
     var result = this.getJavaObject().zipPartitions(rdd2_uw,fn);
     return new RDD(result);
 };
@@ -1234,11 +1233,11 @@ RDD.prototype.zipWithUniqueId = function() {
  * Pass each value in the key-value pair RDD through a map function without changing the keys;
  * this also retains the original RDD's partitioning.
  * @param {func}
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
  * @returns {RDD}
  */
-RDD.prototype.mapValues = function(f) {
-  var sv = Utils.createJavaParams(f);
-  var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
+RDD.prototype.mapValues = function(func, bindArgs) {
+  var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
   var javaObject =  this.getJavaObject().mapValues(fn);
   return new RDD(javaObject);
 };

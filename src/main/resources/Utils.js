@@ -167,3 +167,6 @@ Utils.logger = Logger.getLogger("Utils_js");
   };
 
 
+  Utils.createLambdaFunction = function(func, clazz, bindArgs) {
+    return new clazz(func.toString(), bindArgs ? Utils.unwrapObject(bindArgs) : [])
+  };

@@ -41,12 +41,11 @@ var linearRegressionModel = LinearRegressionWithSGD.train(parsedData, numIterati
 
 var delta = 17;
 var valuesAndPreds = parsedData.mapToPair(function(lp, linearRegressionModel, delta) { // FIXME
-					var label = lp.getLabel();
-					var f = lp.getFeatures();
-		    	    var prediction = linearRegressionModel.predict(f) + delta;
-		    	    return [prediction, label];
-
-		        }); // end MapToPair
+	var label = lp.getLabel();
+	var f = lp.getFeatures();
+	var prediction = linearRegressionModel.predict(f) + delta;
+	return [prediction, label];
+}, [linearRegressionModel, delta]); // end MapToPair
 
 print("valuesAndPreds: " + valuesAndPreds.take(10).toString());
 

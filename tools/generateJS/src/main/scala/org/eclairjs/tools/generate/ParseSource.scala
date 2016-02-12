@@ -153,7 +153,7 @@ import Compiler.syntaxAnalyzer.global._
   }
 
   def handleClass(name: TermName, mods:Modifiers, comment:String,impl:Template,isStatic:Boolean=false): Clazz = {
-    val members= scala.collection.mutable.ListBuffer.empty[Member]
+    var members= scala.collection.mutable.ListBuffer.empty[Member]
     val parents= scala.collection.mutable.ListBuffer.empty[String]
 
       if (isIgnorable(mods,comment))
@@ -204,8 +204,10 @@ import Compiler.syntaxAnalyzer.global._
         vparamss foreach(vparams=>
           vparams foreach( valdef=> {
             val name=valdef.name
+            val isOptional=false;
+            val isRepeated = isRepeatedParm(valdef.tpt);
             if (!name.startsWith("evidence$"))
-              parms +=  Parm(valdef.name.toString, getType(valdef.tpt) )
+              parms +=  Parm(valdef.name.toString, getType(valdef.tpt) , isOptional,isRepeated)
           })
 
           )
@@ -232,6 +234,7 @@ import Compiler.syntaxAnalyzer.global._
             val returnType=getType(args.last)
             FunctionDataType(name,parms,returnType)
           }
+          case "<repeated>" => SimpleType(getTypeName(args(0)))
           case _ => ExtendedDataType(fullName,getTypeName(args(0)))
         }
 
@@ -240,7 +243,11 @@ import Compiler.syntaxAnalyzer.global._
       case  Ident(name) => SimpleType(name.toString)
       case  Select(qualifier, name) => SimpleType(qualifier.toString()+"."+name)
       case  ExistentialTypeTree(tpt , whereClauses ) => getType(tpt)
-      case  SingletonTypeTree(ref) => SimpleType("??Sing??")
+      case  SingletonTypeTree(ref) => {
+        val fullName=tpt.toString()
+        val name=fullName.split("\\.").dropRight(2).mkString(".")
+        SimpleType(name)
+      }
       case  CompoundTypeTree(templ)  => SimpleType("??")
 //      case  TypeTree() => SimpleType("","")
 
@@ -263,6 +270,15 @@ import Compiler.syntaxAnalyzer.global._
         case _ =>
           throw new RuntimeException("get type name not handled: "+tpt.getClass)
       }
+  }
+  def isRepeatedParm(tpt: Tree):Boolean =
+  {
+
+    tpt match {
+      case AppliedTypeTree(tpt, args) =>  "_root_.scala.<repeated>"==tpt.toString()
+      case _ =>
+        false
+    }
   }
 
 

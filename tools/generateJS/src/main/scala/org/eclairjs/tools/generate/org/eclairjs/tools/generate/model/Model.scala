@@ -22,9 +22,12 @@ case class File(fileName:String, packageName:String, comment:String, classes: Li
   def hasClasses=classes.length>0
 }
 
-case class Clazz(name:String, comment:String, members: List[Member],parents:List[String],isStatic:Boolean = false, isAbstract:Boolean = false) {
+case class Clazz(name:String, comment:String, var members: List[Member],parents:List[String],isStatic:Boolean = false, isAbstract:Boolean = false) {
   members foreach (member => member.parent = this)
 
+  val list =removeOverloads(members)
+
+  members = list
   var parent:File = null
 
   override def toString() = {
@@ -78,6 +81,20 @@ case class Clazz(name:String, comment:String, members: List[Member],parents:List
     list.asInstanceOf[List[Method]]
   }
 
+
+  def removeOverloads(members: List[Member]) :  List[Member]=
+  {
+    members.filter(member=>
+      member match {
+        case method:Method => method.getOverloaded() match {
+          case Some(overloadedMethod) => false
+          case None => true
+        }
+        case _ => true
+      }
+    )
+  }
+
   def parentClass() : Option[Clazz] =
   {
       val optOpt=parents.map(Main.allClasses.get(_)).find(_.isDefined)
@@ -128,7 +145,7 @@ abstract class Member
 
 }
 
-case class Method(name:String,comment:String,returnType:DataType,parms:List[Parm]) extends Member
+case class Method(name:String,var comment:String,returnType:DataType,parms:List[Parm]) extends Member
 {
   override def  toString() = {
     val sb=new StringBuilder
@@ -209,9 +226,39 @@ case class Method(name:String,comment:String,returnType:DataType,parms:List[Parm
 
     }
   }
+
+
+
+  def getOverloaded():Option[Method] ={
+    val methods=parent.methods(name)
+
+    if (methods.length==1)
+      {
+        None
+      }
+    else
+    {
+      val others=methods.filter(_!=this)
+      if (others.length==1) {
+        val otherMethod=others(0)
+        val otherList = otherMethod.parms;
+        val thisList = parms
+        if (otherList.length > thisList.length &&
+          otherList.take(thisList.length) == thisList) {
+          var i=0
+          for ( i <- thisList.length to otherList.length-1)
+            otherMethod.parms(i).isOptional=true
+          return Some(otherMethod)
+        }
+      }
+
+    }
+    None
+  }
+
 }
 
-case class Parm(name:String,typ:DataType)
+case class Parm(name:String,typ:DataType, var isOptional:Boolean, isRepeated:Boolean)
 {
 
 }

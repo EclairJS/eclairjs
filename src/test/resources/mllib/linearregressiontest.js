@@ -39,12 +39,11 @@ var LinearRegressionWithSGDTest = function(file) {
 	/* var */ linearRegressionModel = LinearRegressionWithSGD.train(parsedData, numIterations); // Due to JUNIT scoping these need to be global
 	/* var */ delta = 17; // Due to JUNIT scoping these need to be global
 	var valuesAndPreds = parsedData.mapToPair(function(lp, linearRegressionModel, delta) {
-						var label = lp.getLabel();
-						var f = lp.getFeatures();
-			    	    var prediction = linearRegressionModel.predict(f) + delta;
-			    	    return [prediction, label];
-	
-			        }); // end MapToPair
+		var label = lp.getLabel();
+		var f = lp.getFeatures();
+		var prediction = linearRegressionModel.predict(f) + delta;
+		return [prediction, label];
+	}, [linearRegressionModel, delta]); // end MapToPair
 	
 	//print("valuesAndPreds: " + valuesAndPreds.take(10).toString());
 	return valuesAndPreds.take(10).toString();

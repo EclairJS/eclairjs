@@ -38,7 +38,7 @@ class GenerateNashorn  extends  GenerateJSBase {
     val constr = if (!cls.isAbstract)
       getTemplate("nashorn_constructorDefault",clsName,parmlist,constrBody,clsName,parentName)
     else
-       getTemplate("abstractConstructor",clsName,parmlist,clsName)
+       getTemplate("abstractConstructor",clsName,parmlist,clsName,clsName,parentName)
 
     sbMain++=constr
 
@@ -134,7 +134,7 @@ class GenerateNashorn  extends  GenerateJSBase {
   {
     if (returnType.isSparkClass())
       {
-        true
+        return true
       }
     false
   }
