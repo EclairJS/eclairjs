@@ -25,21 +25,21 @@
     
     <section>
         <article>
-            <pre class="prettyprint source"><code>/*                                                                         
-* Copyright 2015 IBM Corp.                                                 
-*                                                                          
-* Licensed under the Apache License, Version 2.0 (the "License");          
-* you may not use this file except in compliance with the License.         
-* You may obtain a copy of the License at                                  
-*                                                                          
-*      http://www.apache.org/licenses/LICENSE-2.0                          
-*                                                                          
-* Unless required by applicable law or agreed to in writing, software      
-* distributed under the License is distributed on an "AS IS" BASIS,        
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
-* See the License for the specific language governing permissions and      
-* limitations under the License.                                           
-*/ 
+            <pre class="prettyprint source"><code>/*
+* Copyright 2016 IBM Corp.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*      http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 
 
 
@@ -49,7 +49,7 @@
  * These APIs intentionally provide very weak consistency semantics; consumers of these APIs should
  * be prepared to handle empty / missing information.  For example, a job's stage ids may be known
  * but the status API may not have any information about the details of those stages, so
- * `getStageInfo` could potentially return `null` for a valid stage id.
+ * `getStageInfo` could potentially return `None` for a valid stage id.
  *
  * To limit memory usage, these APIs only provide information on recent jobs / stages.  These APIs
  * will provide information for the last `spark.ui.retainedStages` stages and
@@ -57,12 +57,11 @@
  *
  * NOTE: this class's constructor should be considered private and may be subject to change.
  * @classdesc
- * @constructor
  */
 
 
 var SparkStatusTracker = function(jvmObject) {
-	 
+
 	 this.logger = Logger.getLogger("SparkStatusTracker_js");
 	 JavaWrapper.call(this, jvmObject);
 
@@ -82,61 +81,162 @@ SparkStatusTracker.prototype.constructor = SparkStatusTracker;
  * invocations of this method.  This method does not guarantee the order of the elements in
  * its result.
  * @param {string}
- * @returns {number[]} 
+ * @returns {number[]}
  */
 SparkStatusTracker.prototype.getJobIdsForGroup = function(jobGroup) {
-throw "not implemented by ElairJS";
-//   return  this.getJavaObject().getJobIdsForGroup(jobGroup);
-}
+  return  this.getJavaObject().getJobIdsForGroup(jobGroup);
+};
 
 
 /**
  * Returns an array containing the ids of all active stages.
  *
  * This method does not guarantee the order of the elements in its result.
- * @returns {number[]} 
+ * @returns {number[]}
  */
 SparkStatusTracker.prototype.getActiveStageIds = function() {
-throw "not implemented by ElairJS";
-//   return  this.getJavaObject().getActiveStageIds();
-}
+  return  this.getJavaObject().getActiveStageIds();
+};
 
 
 /**
  * Returns an array containing the ids of all active jobs.
  *
  * This method does not guarantee the order of the elements in its result.
- * @returns {number[]} 
+ * @returns {number[]}
  */
 SparkStatusTracker.prototype.getActiveJobIds = function() {
-throw "not implemented by ElairJS";
-//   return  this.getJavaObject().getActiveJobIds();
-}
+  return  this.getJavaObject().getActiveJobIds();
+};
 
 
 /**
- * Returns job information, or `null` if the job info could not be found or was garbage collected.
+ * Returns job information, or `None` if the job info could not be found or was garbage collected.
  * @param {number}
- * @returns {SparkJobInfo} 
+ * @returns {SparkJobInfo}
  */
 SparkStatusTracker.prototype.getJobInfo = function(jobId) {
-throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().getJobInfo(jobId);
-//   return new SparkJobInfo(javaObject);
-}
+  var javaObject =  this.getJavaObject().getJobInfo(jobId);
+  return new SparkJobInfo(javaObject);
+};
 
 
 /**
- * Returns stage information, or `null` if the stage info could not be found or was
+ * Returns stage information, or `None` if the stage info could not be found or was
  * garbage collected.
  * @param {number}
- * @returns {SparkStageInfo} 
+ * @returns {SparkStageInfo}
  */
 SparkStatusTracker.prototype.getStageInfo = function(stageId) {
+  var javaObject =  this.getJavaObject().getStageInfo(stageId);
+  return new SparkStageInfo(javaObject);
+};
+
+
+var SparkJobInfo = function(jvmObject) {
+
+   this.logger = Logger.getLogger("SparkJobInfo_js");
+   JavaWrapper.call(this, jvmObject);
+
+};
+
+SparkJobInfo.prototype = Object.create(JavaWrapper.prototype);
+
+SparkJobInfo.prototype.constructor = SparkJobInfo;
+
+
+/**
+ * @returns {number}
+ */
+SparkJobInfo.prototype.jobId = function() {
+  return this.getJavaObject().jobId();
+};
+
+/**
+ * @returns {number[]}
+ */
+SparkJobInfo.prototype.stageIds = function() {
+  return this.getJavaObject().stageIds();
+};
+
+
+/**
+ * @returns {JobExecutionStatus}
+ */
+SparkJobInfo.prototype.status = function() {
 throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().getStageInfo(stageId);
-//   return new SparkStageInfo(javaObject);
-}
+  // var javaObject =  this.getJavaObject().status();
+  // return new JobExecutionStatus(javaObject);
+};
+
+var SparkStageInfo = function(jvmObject) {
+
+   this.logger = Logger.getLogger("SparkStageInfo_js");
+   JavaWrapper.call(this, jvmObject);
+
+};
+
+SparkStageInfo.prototype = Object.create(JavaWrapper.prototype);
+
+SparkStageInfo.prototype.constructor = SparkStageInfo;
+
+/**
+ * @returns {number}
+ */
+SparkStageInfo.prototype.currentAttemptId = function() {
+  return this.getJavaObject().currentAttemptId();
+};
+
+/**
+ * @returns {String}
+ */
+SparkStageInfo.prototype.name = function() {
+  return this.getJavaObject().name();
+};
+
+/**
+ * @returns {number}
+ */
+SparkStageInfo.prototype.numActiveTasks = function() {
+  return this.getJavaObject().numActiveTasks();
+};
+
+/**
+ * @returns {number}
+ */
+SparkStageInfo.prototype.numCompletedTasks = function() {
+  return this.getJavaObject().numCompletedTasks();
+};
+
+/**
+ * @returns {number}
+ */
+SparkStageInfo.prototype.numFailedTasks = function() {
+  return this.getJavaObject().numFailedTasks();
+};
+
+/**
+ * @returns {number}
+ */
+SparkStageInfo.prototype.numTasks = function() {
+  return this.getJavaObject().numTasks();
+};
+
+/**
+ * @returns {number}
+ */
+SparkStageInfo.prototype.stageId = function() {
+  return this.getJavaObject().stageId();
+};
+
+/**
+ * @returns {number}
+ */
+SparkStageInfo.prototype.submissionTime = function() {
+  return this.getJavaObject().submissionTime();
+};
+
+
 </code></pre>
         </article>
     </section>
@@ -147,13 +247,13 @@ throw "not implemented by ElairJS";
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="functions.html">functions</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="MapType.html">MapType</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li><li><a href="Vector.html">Vector</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="functions.html">functions</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="MapType.html">MapType</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="MLWord2Vec.html">MLWord2Vec</a></li><li><a href="MLWord2VecModel.html">MLWord2VecModel</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li></ul><h3>Global</h3><ul><li><a href="global.html#FutureAction">FutureAction</a></li><li><a href="global.html#SparkStatusTracker">SparkStatusTracker</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Thu Jan 28 2016 17:14:42 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Mon Feb 15 2016 11:31:43 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>

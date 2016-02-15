@@ -293,29 +293,60 @@ with (imported) {
 	 * @param {object} initialValue
 	 * @param {AccumulableParam} param
 	 * @param {string} name of  the accumulator for display in Spark's web UI.
+	 * @returns {Accumulable}
 	 */
 	SparkContext.prototype.accumulable = function(initialValue, param, name) {
-		/*var parm_uw = Utils.unwrapObject(param);
-		if (name) {
-			this.getJavaObject().accumulable(initialValue, name, parm_uw);
-		} else {
-			this.getJavaObject().accumulable(initialValue, parm_uw);
-		}*/
 		return new Accumulable(initialValue, param, name);
 
 	};
 	/**
-	 * Create an {@link Accumulator} double variable, which tasks can "add" values to using the add method.
+	 * Create an {@link Accumulator}  variable, which tasks can "add" values to using the add method.
 	 * Only the master can access the accumulator's value.
 	 *
 	 * @param {int | float} initialValue
-	 * @param {string} name of  the accumulator for display in Spark's web UI.
+	 * @param {string | AccumulableParam} name of  the accumulator for display in Spark's web UI. or param. Optional, defaults to FloatAccumulatorParam
+	 * @param {AccumulableParam} param Optional defaults to FloatAccumulatorParam, use only if also specifying name
+	 * @returns {Accumulator}
 	 */
-	SparkContext.prototype.accumulator = function(initialValue, name) {
+	SparkContext.prototype.accumulator = function() {
+		var initialValue = arguments[0];
+		var name;
+		var param = new FloatAccumulatorParam();
 		this.logger.debug("accumulator " + initialValue);
-		var n = name ? name : null;
-		var a = this.getJavaObject().accumulator(initialValue, n);
-		return new Accumulator(a);
+
+		if (arguments[1]) {
+			if (typeof arguments[1] === "string") {
+				name = arguments[1];
+				if (arguments[2]) {
+					param = arguments[2];
+				}
+			} else {
+				param = arguments[1];
+			}
+		}
+		return new Accumulator(initialValue, param, name);
+
+	};
+	/**
+	 * Create an Accumulator integer variable, which tasks can "add" values to using the add method.
+	 * Only the master can access the accumulator's value.
+	 * @param {int} initialValue
+	 * @param {string} name of  the accumulator for display in Spark's web UI.
+	 * @returns {Accumulator}
+	 */
+	SparkContext.prototype.intAccumulator = function(initialValue, name) {
+		return new Accumulator(initialValue, new IntAccumulatorParam(), name);
+
+	};
+	/**
+	 * Create an Accumulator float variable, which tasks can "add" values to using the add method.
+	 * Only the master can access the accumulator's value.
+	 * @param {float} initialValue
+	 * @param {string} name of  the accumulator for display in Spark's web UI.
+	 * @returns {Accumulator}
+	 */
+	SparkContext.prototype.floatAccumulator = function(initialValue, name) {
+		return new Accumulator(initialValue, new FloatAccumulatorParam(), name);
 
 	};
 	/**
@@ -365,6 +396,26 @@ with (imported) {
 
 	};
 
+
+    /**
+     * Distribute a local Scala collection to form an RDD.
+     * @param {array} list
+     * @param {integer} numSlices - Optional
+     * @returns {RDD}
+     */
+    SparkContext.prototype.parallelizePairs = function(list, numSlices) {
+        //public &lt;T> JavaRDD&lt;T> parallelize(java.util.List&lt;T> list, int numSlices)
+        var list_uw = [];
+        list.forEach(function(item){
+            list_uw.push(Utils.unwrapTuple(item));
+        });
+        if (numSlices) {
+            return new RDD(this.getJavaObject().parallelizePairs(list_uw, numSlices));
+        } else {
+            return new RDD(this.getJavaObject().parallelizePairs(list_uw));
+        }
+
+    };
     /**
      * Creates a new RDD[Long] containing elements from `start` to `end`(exclusive), increased by
      * `step` every element.
@@ -524,13 +575,13 @@ with (imported) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="functions.html">functions</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="MapType.html">MapType</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li><li><a href="Vector.html">Vector</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="functions.html">functions</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="MapType.html">MapType</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="MLWord2Vec.html">MLWord2Vec</a></li><li><a href="MLWord2VecModel.html">MLWord2VecModel</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li></ul><h3>Global</h3><ul><li><a href="global.html#FutureAction">FutureAction</a></li><li><a href="global.html#SparkStatusTracker">SparkStatusTracker</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Thu Jan 28 2016 17:14:42 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Mon Feb 15 2016 11:31:43 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>

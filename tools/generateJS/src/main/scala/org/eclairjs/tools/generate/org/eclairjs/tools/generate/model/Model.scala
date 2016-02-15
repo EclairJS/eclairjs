@@ -227,6 +227,9 @@ case class Method(name:String,var comment:String,returnType:DataType,parms:List[
     }
   }
 
+  def requiredParms()=parms.filter(!_.isOptional)
+  def optionalParms()=parms.filter(_.isOptional)
+  def repeatedParm()=parms.find(_.isRepeated)
 
 
   def getOverloaded():Option[Method] ={

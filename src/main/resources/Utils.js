@@ -76,15 +76,16 @@ Utils.logger = Logger.getLogger("Utils_js");
   };
 
   Utils.unwrapObject = function(obj) {
-    if (Array.isArray(obj))
-    {
-      for (var i=0;i<obj.length;i++)
-        obj[i]= (obj[i] && obj[i].getJavaObject) ? obj[i].getJavaObject() : obj[i];
-      return obj;
-
-    }
-    else
-	    return (obj && obj.getJavaObject) ? obj.getJavaObject() : obj;
+      if (Array.isArray(obj))
+      {
+          var unObj = [];
+          for (var i=0;i<obj.length;i++) {
+              unObj.push(Utils.unwrapObject(obj[i]));
+          }
+          return unObj;
+      }
+      else
+          return (obj && obj.getJavaObject) ? obj.getJavaObject() : obj;
   };
 
 
