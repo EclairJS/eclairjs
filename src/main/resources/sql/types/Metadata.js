@@ -45,7 +45,7 @@ Metadata.prototype.contains = function(key) {
  * @static
  * @returns {Metadata}
  */
-Metadata.prototype.empty = function() {
+Metadata.empty = function() {
 	return new Metadata(org.apache.spark.sql.types.Metadata.empty());
 };
 /**
@@ -62,7 +62,7 @@ Metadata.prototype.equals = function(obj) {
  * @param {string} json
  * @returns {Metadata}
  */
-Metadata.prototype.fromJson = function(json) {
+Metadata.fromJson = function(json) {
 	return new Metadata(org.apache.spark.sql.types.Metadata.fromJson(json));
 };
 /**

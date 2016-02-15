@@ -27,9 +27,9 @@ var ArrayType = function() {
 	if (arguments.length == 1) {
 		jvmObj = arguments[0];
 	} else if (arguments.length == 2) {
-		jvmObj = new ArrayType(new org.apache.spark.sql.types.ArrayType(Utils.unwrapObject(arguments[0]), arguments[1]));
+		jvmObj = new org.apache.spark.sql.types.ArrayType(Utils.unwrapObject(arguments[0]), arguments[1]);
 	} else {
-		jvmObj = new ArrayType(new org.apache.spark.sql.types.ArrayType());
+		jvmObj = new org.apache.spark.sql.types.ArrayType();
 	}
 	DataType.call(this, jvmObj);
 };

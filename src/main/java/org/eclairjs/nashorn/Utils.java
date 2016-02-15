@@ -88,7 +88,20 @@ public class Utils {
  	  				 * Map JavaRDD to RDD for JavaScript
  	  				 */
  	  				className = "RDD"; //o.getClass().getSimpleName();
- 	  			}
+ 	  			} else if (className.equals("Word2Vec") || className.equals("Word2VecModel")) {
+					if (packageName.indexOf("org.apache.spark.ml") > -1) {
+						/*
+							ML
+						 */
+						className = "ML" + o.getClass().getSimpleName();
+					} else {
+						/*
+							MLLIB
+						 */
+						//className = "MLLIB" + o.getClass().getSimpleName(); FIXME not implmented yet
+					}
+
+				}
  	  			logger.debug("create " + className);
 	  			Object params[] = {className, o};
 	  			Object parm = invocable.invokeFunction("createJavaWrapperObject", params);
