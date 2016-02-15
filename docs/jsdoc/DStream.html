@@ -1185,7 +1185,7 @@ equivalent to window(windowDuration, slideDuration).count()
         
             
 <dt>
-    <h4 class="name" id="filter"><span class="type-signature"></span>filter<span class="signature">(func)</span><span class="type-signature"> &rarr; {<a href="DStream.html">DStream</a>}</span></h4>
+    <h4 class="name" id="filter"><span class="type-signature"></span>filter<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {<a href="DStream.html">DStream</a>}</span></h4>
     
     
 </dt>
@@ -1247,6 +1247,29 @@ equivalent to window(windowDuration, slideDuration).count()
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
     
@@ -1274,7 +1297,7 @@ equivalent to window(windowDuration, slideDuration).count()
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DStream.js.html">streaming/dstream/DStream.js</a>, <a href="DStream.js.html#line57">line 57</a>
+        <a href="DStream.js.html">streaming/dstream/DStream.js</a>, <a href="DStream.js.html#line58">line 58</a>
     </li></ul></dd>
     
     
@@ -1320,7 +1343,7 @@ equivalent to window(windowDuration, slideDuration).count()
         
             
 <dt>
-    <h4 class="name" id="flatMap"><span class="type-signature"></span>flatMap<span class="signature">(func)</span><span class="type-signature"> &rarr; {<a href="DStream.html">DStream</a>}</span></h4>
+    <h4 class="name" id="flatMap"><span class="type-signature"></span>flatMap<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {<a href="DStream.html">DStream</a>}</span></h4>
     
     
 </dt>
@@ -1378,6 +1401,29 @@ DStream, and then flattening the results.
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
     
@@ -1405,7 +1451,7 @@ DStream, and then flattening the results.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DStream.js.html">streaming/dstream/DStream.js</a>, <a href="DStream.js.html#line204">line 204</a>
+        <a href="DStream.js.html">streaming/dstream/DStream.js</a>, <a href="DStream.js.html#line205">line 205</a>
     </li></ul></dd>
     
     
@@ -1451,7 +1497,7 @@ DStream, and then flattening the results.
         
             
 <dt>
-    <h4 class="name" id="flatMapToPair"><span class="type-signature"></span>flatMapToPair<span class="signature">(func)</span><span class="type-signature"> &rarr; {<a href="DStream.html">DStream</a>}</span></h4>
+    <h4 class="name" id="flatMapToPair"><span class="type-signature"></span>flatMapToPair<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {<a href="DStream.html">DStream</a>}</span></h4>
     
     
 </dt>
@@ -1509,6 +1555,29 @@ and then flattening the results
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
     
@@ -1536,7 +1605,7 @@ and then flattening the results
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DStream.js.html">streaming/dstream/DStream.js</a>, <a href="DStream.js.html#line215">line 215</a>
+        <a href="DStream.js.html">streaming/dstream/DStream.js</a>, <a href="DStream.js.html#line216">line 216</a>
     </li></ul></dd>
     
     
@@ -1582,7 +1651,7 @@ and then flattening the results
         
             
 <dt>
-    <h4 class="name" id="foreachRDD"><span class="type-signature"></span>foreachRDD<span class="signature">(func)</span><span class="type-signature"> &rarr; {void}</span></h4>
+    <h4 class="name" id="foreachRDD"><span class="type-signature"></span>foreachRDD<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {void}</span></h4>
     
     
 </dt>
@@ -1640,6 +1709,29 @@ stream and therefore materialized.
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
     
@@ -1667,7 +1759,7 @@ stream and therefore materialized.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DStream.js.html">streaming/dstream/DStream.js</a>, <a href="DStream.js.html#line274">line 274</a>
+        <a href="DStream.js.html">streaming/dstream/DStream.js</a>, <a href="DStream.js.html#line273">line 273</a>
     </li></ul></dd>
     
     
@@ -1784,7 +1876,7 @@ within each partition into an array.
         
             
 <dt>
-    <h4 class="name" id="map"><span class="type-signature"></span>map<span class="signature">(func)</span><span class="type-signature"> &rarr; {<a href="DStream.html">DStream</a>}</span></h4>
+    <h4 class="name" id="map"><span class="type-signature"></span>map<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {<a href="DStream.html">DStream</a>}</span></h4>
     
     
 </dt>
@@ -1841,6 +1933,29 @@ within each partition into an array.
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
     
@@ -1868,7 +1983,7 @@ within each partition into an array.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DStream.js.html">streaming/dstream/DStream.js</a>, <a href="DStream.js.html#line235">line 235</a>
+        <a href="DStream.js.html">streaming/dstream/DStream.js</a>, <a href="DStream.js.html#line236">line 236</a>
     </li></ul></dd>
     
     
@@ -1914,7 +2029,7 @@ within each partition into an array.
         
             
 <dt>
-    <h4 class="name" id="mapPartitions"><span class="type-signature"></span>mapPartitions<span class="signature">(func)</span><span class="type-signature"> &rarr; {<a href="DStream.html">DStream</a>}</span></h4>
+    <h4 class="name" id="mapPartitions"><span class="type-signature"></span>mapPartitions<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {<a href="DStream.html">DStream</a>}</span></h4>
     
     
 </dt>
@@ -1973,6 +2088,29 @@ RDD applies a function to each partition of the RDD.
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
     
@@ -2000,7 +2138,7 @@ RDD applies a function to each partition of the RDD.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DStream.js.html">streaming/dstream/DStream.js</a>, <a href="DStream.js.html#line259">line 259</a>
+        <a href="DStream.js.html">streaming/dstream/DStream.js</a>, <a href="DStream.js.html#line260">line 260</a>
     </li></ul></dd>
     
     
@@ -2046,7 +2184,7 @@ RDD applies a function to each partition of the RDD.
         
             
 <dt>
-    <h4 class="name" id="mapToPair"><span class="type-signature"></span>mapToPair<span class="signature">(func)</span><span class="type-signature"> &rarr; {<a href="DStream.html">DStream</a>}</span></h4>
+    <h4 class="name" id="mapToPair"><span class="type-signature"></span>mapToPair<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {<a href="DStream.html">DStream</a>}</span></h4>
     
     
 </dt>
@@ -2103,6 +2241,29 @@ RDD applies a function to each partition of the RDD.
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
     
@@ -2130,7 +2291,7 @@ RDD applies a function to each partition of the RDD.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DStream.js.html">streaming/dstream/DStream.js</a>, <a href="DStream.js.html#line246">line 246</a>
+        <a href="DStream.js.html">streaming/dstream/DStream.js</a>, <a href="DStream.js.html#line247">line 247</a>
     </li></ul></dd>
     
     
@@ -2353,7 +2514,7 @@ registered as an output stream and there materialized.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DStream.js.html">streaming/dstream/DStream.js</a>, <a href="DStream.js.html#line285">line 285</a>
+        <a href="DStream.js.html">streaming/dstream/DStream.js</a>, <a href="DStream.js.html#line283">line 283</a>
     </li></ul></dd>
     
     
@@ -2831,13 +2992,13 @@ The new DStream generates RDDs with the same interval as this DStream.
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="functions.html">functions</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="MapType.html">MapType</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li><li><a href="Vector.html">Vector</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="functions.html">functions</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="MapType.html">MapType</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="MLWord2Vec.html">MLWord2Vec</a></li><li><a href="MLWord2VecModel.html">MLWord2VecModel</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li></ul><h3>Global</h3><ul><li><a href="global.html#FutureAction">FutureAction</a></li><li><a href="global.html#SparkStatusTracker">SparkStatusTracker</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Thu Jan 28 2016 17:14:43 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Mon Feb 15 2016 11:31:43 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>

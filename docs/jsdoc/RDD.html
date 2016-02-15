@@ -30,7 +30,7 @@
     RDD
     </h2>
     
-        <div class="class-description">A Resilient Distributed Dataset (RDD), the basic abstraction in Spark. Represents an immutable, 
+        <div class="class-description">A Resilient Distributed Dataset (RDD), the basic abstraction in Spark. Represents an immutable,
 partitioned collection of elements that can be operated on in parallel.</div>
     
 </header>  
@@ -125,7 +125,7 @@ partitioned collection of elements that can be operated on in parallel.</div>
         <dl>
             
 <dt>
-    <h4 class="name" id="aggregate"><span class="type-signature"></span>aggregate<span class="signature">(zeroValue, func1, func2)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id="aggregate"><span class="type-signature"></span>aggregate<span class="signature">(zeroValue, func1, func2, bindArgs1, bindArgs2)</span><span class="type-signature"> &rarr; {object}</span></h4>
     
     
 </dt>
@@ -238,6 +238,52 @@ allocation.
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs1</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to func1's argument list.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs2</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to func2's argument list.</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
     
@@ -265,7 +311,7 @@ allocation.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line45">line 45</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line47">line 47</a>
     </li></ul></dd>
     
     
@@ -879,6 +925,94 @@ data distributed using a hash partitioner.
         
             
 <dt>
+    <h4 class="name" id="collectAsync"><span class="type-signature"></span>collectAsync<span class="signature">()</span><span class="type-signature"> &rarr; {JavaFutureAction}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        The asynchronous version of `collect`, which returns a future for
+retrieving an array containing all of the elements in this RDD.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1278">line 1278</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">JavaFutureAction</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
     <h4 class="name" id="context"><span class="type-signature"></span>context<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="SparkContext.html">SparkContext</a>}</span></h4>
     
     
@@ -920,7 +1054,7 @@ data distributed using a hash partitioner.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line151">line 151</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line150">line 150</a>
     </li></ul></dd>
     
     
@@ -1007,7 +1141,7 @@ data distributed using a hash partitioner.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line160">line 160</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line159">line 159</a>
     </li></ul></dd>
     
     
@@ -1167,7 +1301,7 @@ within a timeout, even if not all tasks have finished.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line173">line 173</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line172">line 172</a>
     </li></ul></dd>
     
     
@@ -1307,7 +1441,7 @@ Algorithmic Engineering of a State of The Art Cardinality Estimation Algorithm",
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line189">line 189</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line188">line 188</a>
     </li></ul></dd>
     
     
@@ -1476,7 +1610,7 @@ and increase accuracy when the cardinality is small.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line211">line 211</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line210">line 210</a>
     </li></ul></dd>
     
     
@@ -1635,7 +1769,7 @@ Approximate version of countByValue().
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line238">line 238</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line237">line 237</a>
     </li></ul></dd>
     
     
@@ -1770,7 +1904,7 @@ Approximate version of countByValue().
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line260">line 260</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line259">line 259</a>
     </li></ul></dd>
     
     
@@ -1816,7 +1950,7 @@ Approximate version of countByValue().
         
             
 <dt>
-    <h4 class="name" id="filter"><span class="type-signature"></span>filter<span class="signature">(func)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    <h4 class="name" id="filter"><span class="type-signature"></span>filter<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
     
     
 </dt>
@@ -1875,6 +2009,29 @@ Approximate version of countByValue().
             
             
             <td class="description last">(undocumented) Function with one parameter</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to func's argument list.</td>
         </tr>
 	
 	
@@ -1992,7 +2149,7 @@ Approximate version of countByValue().
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line299">line 299</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line298">line 298</a>
     </li></ul></dd>
     
     
@@ -2038,7 +2195,7 @@ Approximate version of countByValue().
         
             
 <dt>
-    <h4 class="name" id="flatMap"><span class="type-signature"></span>flatMap<span class="signature">(func)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    <h4 class="name" id="flatMap"><span class="type-signature"></span>flatMap<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
     
     
 </dt>
@@ -2097,6 +2254,29 @@ Approximate version of countByValue().
             
             
             <td class="description last">(undocumented) - Function with one parameter</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to func's argument list.</td>
         </tr>
 	
 	
@@ -2173,7 +2353,166 @@ Approximate version of countByValue().
         
             
 <dt>
-    <h4 class="name" id="fold"><span class="type-signature"></span>fold<span class="signature">(zeroValue, func)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id="flatMapToPair"><span class="type-signature"></span>flatMapToPair<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {JavaPairRDD}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Return a new RDD by first applying a function to all elements of this
+ RDD, and then flattening the results.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>func</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">PairFlatMapFunction</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line341">line 341</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">JavaPairRDD</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="fold"><span class="type-signature"></span>fold<span class="signature">(zeroValue, func, bindArgs)</span><span class="type-signature"> &rarr; {object}</span></h4>
     
     
 </dt>
@@ -2268,6 +2607,29 @@ non-distributed collection.
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
     
@@ -2295,7 +2657,7 @@ non-distributed collection.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line349">line 349</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line364">line 364</a>
     </li></ul></dd>
     
     
@@ -2341,7 +2703,7 @@ non-distributed collection.
         
             
 <dt>
-    <h4 class="name" id="foreach"><span class="type-signature"></span>foreach<span class="signature">(func)</span><span class="type-signature"> &rarr; {void}</span></h4>
+    <h4 class="name" id="foreach"><span class="type-signature"></span>foreach<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {void}</span></h4>
     
     
 </dt>
@@ -2403,6 +2765,29 @@ non-distributed collection.
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
     
@@ -2430,7 +2815,7 @@ non-distributed collection.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line369">line 369</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line384">line 384</a>
     </li></ul></dd>
     
     
@@ -2475,7 +2860,7 @@ non-distributed collection.
         
     <pre class="prettyprint"><code>rdd3.foreach(function(record) {
    var connection = createNewConnection()
-   connection.send(record);	
+   connection.send(record);
    connection.close()
 });</code></pre>
 
@@ -2485,7 +2870,7 @@ non-distributed collection.
         
             
 <dt>
-    <h4 class="name" id="foreachPartition"><span class="type-signature"></span>foreachPartition<span class="signature">(func)</span><span class="type-signature"> &rarr; {void}</span></h4>
+    <h4 class="name" id="foreachPartition"><span class="type-signature"></span>foreachPartition<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {void}</span></h4>
     
     
 </dt>
@@ -2547,6 +2932,29 @@ non-distributed collection.
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
     
@@ -2574,7 +2982,7 @@ non-distributed collection.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line388">line 388</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line403">line 403</a>
     </li></ul></dd>
     
     
@@ -2620,7 +3028,7 @@ non-distributed collection.
     <pre class="prettyprint"><code>rdd3.foreachPartition(function(partitionOfRecords) {
    var connection = createNewConnection()
    partitionOfRecords.forEach(function(record){
-      connection.send(record);	
+      connection.send(record);
    });
    connection.close()
 });</code></pre>
@@ -2673,7 +3081,7 @@ This is not defined if the RDD is checkpointed locally.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line415">line 415</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line429">line 429</a>
     </li></ul></dd>
     
     
@@ -2756,7 +3164,7 @@ This is not defined if the RDD is checkpointed locally.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line422">line 422</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line436">line 436</a>
     </li></ul></dd>
     
     
@@ -2843,7 +3251,7 @@ This is not defined if the RDD is checkpointed locally.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line431">line 431</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line445">line 445</a>
     </li></ul></dd>
     
     
@@ -2889,7 +3297,7 @@ This is not defined if the RDD is checkpointed locally.
         
             
 <dt>
-    <h4 class="name" id="groupBy"><span class="type-signature"></span>groupBy<span class="signature">(func, numPartitions, partitioner)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    <h4 class="name" id="groupBy"><span class="type-signature"></span>groupBy<span class="signature">(func, numPartitions, partitioner, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
     
     
 </dt>
@@ -3003,6 +3411,29 @@ or {@link reduceByKey} will provide much better performance.
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
     
@@ -3030,7 +3461,101 @@ or {@link reduceByKey} will provide much better performance.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line449">line 449</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line464">line 464</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="RDD.html">RDD</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="groupByKey"><span class="type-signature"></span>groupByKey<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Group the values for each key in the RDD into a single sequence. Hash-partitions the
+resulting RDD with the existing partitioner/parallelism level. The ordering of elements
+within each group is not guaranteed, and may even differ each time the resulting RDD is
+evaluated.
+
+Note: This operation may be very expensive. If you are grouping in order to perform an
+aggregation (such as a sum or average) over each key, using aggregateByKey
+or {@link reduceByKey} will provide much better performance.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line484">line 484</a>
     </li></ul></dd>
     
     
@@ -3117,7 +3642,7 @@ or {@link reduceByKey} will provide much better performance.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line462">line 462</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line494">line 494</a>
     </li></ul></dd>
     
     
@@ -3301,7 +3826,7 @@ Note that this method performs a shuffle internally.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line476">line 476</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line508">line 508</a>
     </li></ul></dd>
     
     
@@ -3388,7 +3913,7 @@ Note that this method performs a shuffle internally.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line489">line 489</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line521">line 521</a>
     </li></ul></dd>
     
     
@@ -3471,7 +3996,7 @@ Note that this method performs a shuffle internally.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line501">line 501</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line533">line 533</a>
     </li></ul></dd>
     
     
@@ -3521,7 +4046,167 @@ Note that this method performs a shuffle internally.
         
             
 <dt>
-    <h4 class="name" id="keyBy"><span class="type-signature"></span>keyBy<span class="signature">(func)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    <h4 class="name" id="join"><span class="type-signature"></span>join<span class="signature">(other, optionanl)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Return an RDD containing all pairs of elements with matching keys in `this` and `other`. Each
+pair of elements will be returned as a (k, (v1, v2)) tuple, where (k, v1) is in `this` and
+(k, v2) is in `other`. Performs a hash join across the cluster.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>other</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="RDD.html">RDD</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>optionanl</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1254">line 1254</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="RDD.html">RDD</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="keyBy"><span class="type-signature"></span>keyBy<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
     
     
 </dt>
@@ -3583,6 +4268,29 @@ Note that this method performs a shuffle internally.
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
     
@@ -3610,7 +4318,7 @@ Note that this method performs a shuffle internally.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line510">line 510</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line543">line 543</a>
     </li></ul></dd>
     
     
@@ -3712,7 +4420,7 @@ The checkpoint directory set through `SparkContext#setCheckpointDir` is not used
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line536">line 536</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line568">line 568</a>
     </li></ul></dd>
     
     
@@ -3758,7 +4466,7 @@ The checkpoint directory set through `SparkContext#setCheckpointDir` is not used
         
             
 <dt>
-    <h4 class="name" id="map"><span class="type-signature"></span>map<span class="signature">(func)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    <h4 class="name" id="map"><span class="type-signature"></span>map<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
     
     
 </dt>
@@ -3820,6 +4528,29 @@ The checkpoint directory set through `SparkContext#setCheckpointDir` is not used
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
     
@@ -3847,7 +4578,7 @@ The checkpoint directory set through `SparkContext#setCheckpointDir` is not used
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line546">line 546</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line579">line 579</a>
     </li></ul></dd>
     
     
@@ -3893,7 +4624,7 @@ The checkpoint directory set through `SparkContext#setCheckpointDir` is not used
         
             
 <dt>
-    <h4 class="name" id="mapPartitions"><span class="type-signature"></span>mapPartitions<span class="signature">(func, preservesPartitioning)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    <h4 class="name" id="mapPartitions"><span class="type-signature"></span>mapPartitions<span class="signature">(func, preservesPartitioning, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
     
     
 </dt>
@@ -3901,8 +4632,8 @@ The checkpoint directory set through `SparkContext#setCheckpointDir` is not used
     
     
     <div class="description">
-        Return a new RDD by applying a function to each partition of this RDD. 
-Similar to map, but runs separately on each partition (block) of the RDD, so func must accept an Array.  
+        Return a new RDD by applying a function to each partition of this RDD.
+Similar to map, but runs separately on each partition (block) of the RDD, so func must accept an Array.
 func should return a array rather than a single item.
     </div>
     
@@ -3980,6 +4711,29 @@ func should return a array rather than a single item.
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
     
@@ -4007,7 +4761,7 @@ func should return a array rather than a single item.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line561">line 561</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line594">line 594</a>
     </li></ul></dd>
     
     
@@ -4053,7 +4807,7 @@ func should return a array rather than a single item.
         
             
 <dt>
-    <h4 class="name" id="mapPartitionsWithIndex"><span class="type-signature"></span>mapPartitionsWithIndex<span class="signature">(func, preservesPartitioning)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    <h4 class="name" id="mapPartitionsWithIndex"><span class="type-signature"></span>mapPartitionsWithIndex<span class="signature">(func, preservesPartitioning, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
     
     
 </dt>
@@ -4142,6 +4896,29 @@ should be `false` unless this is a pair RDD and the input function doesn't modif
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
     
@@ -4169,7 +4946,7 @@ should be `false` unless this is a pair RDD and the input function doesn't modif
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line578">line 578</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line611">line 611</a>
     </li></ul></dd>
     
     
@@ -4215,7 +4992,7 @@ should be `false` unless this is a pair RDD and the input function doesn't modif
         
             
 <dt>
-    <h4 class="name" id="mapPartitionsWithSplit"><span class="type-signature"></span>mapPartitionsWithSplit<span class="signature">(func, preservesPartitioning)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    <h4 class="name" id="mapPartitionsWithSplit"><span class="type-signature"></span>mapPartitionsWithSplit<span class="signature">(func, preservesPartitioning, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
     
     
 </dt>
@@ -4301,6 +5078,29 @@ of the original partition.
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
     
@@ -4328,7 +5128,7 @@ of the original partition.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line592">line 592</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line625">line 625</a>
     </li></ul></dd>
     
     
@@ -4374,7 +5174,7 @@ of the original partition.
         
             
 <dt>
-    <h4 class="name" id="mapToPair"><span class="type-signature"></span>mapToPair<span class="signature">((function))</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    <h4 class="name" id="mapToPair"><span class="type-signature"></span>mapToPair<span class="signature">((function), bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
     
     
 </dt>
@@ -4431,6 +5231,29 @@ of the original partition.
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
     
@@ -4458,7 +5281,7 @@ of the original partition.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line622">line 622</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line655">line 655</a>
     </li></ul></dd>
     
     
@@ -4504,7 +5327,166 @@ of the original partition.
         
             
 <dt>
-    <h4 class="name" id="max"><span class="type-signature"></span>max<span class="signature">((function))</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id="mapValues"><span class="type-signature"></span>mapValues<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Pass each value in the key-value pair RDD through a map function without changing the keys;
+this also retains the original RDD's partitioning.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>func</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">func</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1239">line 1239</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="RDD.html">RDD</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="max"><span class="type-signature"></span>max<span class="signature">((function), bindArgs)</span><span class="type-signature"> &rarr; {object}</span></h4>
     
     
 </dt>
@@ -4561,6 +5543,29 @@ of the original partition.
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to comparator's argument list.</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
     
@@ -4588,7 +5593,7 @@ of the original partition.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line634">line 634</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line667">line 667</a>
     </li></ul></dd>
     
     
@@ -4638,7 +5643,7 @@ of the original partition.
         
             
 <dt>
-    <h4 class="name" id="min"><span class="type-signature"></span>min<span class="signature">((function))</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id="min"><span class="type-signature"></span>min<span class="signature">((function), bindArgs)</span><span class="type-signature"> &rarr; {object}</span></h4>
     
     
 </dt>
@@ -4695,6 +5700,29 @@ of the original partition.
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to compartor's argument list.</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
     
@@ -4722,7 +5750,7 @@ of the original partition.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line645">line 645</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line678">line 678</a>
     </li></ul></dd>
     
     
@@ -4813,7 +5841,7 @@ of the original partition.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line655">line 655</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line687">line 687</a>
     </li></ul></dd>
     
     
@@ -4944,7 +5972,7 @@ of the original partition.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line675">line 675</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line707">line 707</a>
     </li></ul></dd>
     
     
@@ -4990,7 +6018,7 @@ of the original partition.
         
             
 <dt>
-    <h4 class="name" id="pipe"><span class="type-signature"></span>pipe<span class="signature">(command, env, printPipeContext, printRDDElement, separateWorkingDir)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    <h4 class="name" id="pipe"><span class="type-signature"></span>pipe<span class="signature">(command, env, printPipeContext, printRDDElement, separateWorkingDir, bindArgs, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
     
     
 </dt>
@@ -5156,6 +6184,52 @@ The print behavior can be customized by providing two functions.
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to printPipeContext's argument list.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to printRDDElement's argument list.</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
     
@@ -5183,7 +6257,7 @@ The print behavior can be customized by providing two functions.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line700">line 700</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line734">line 734</a>
     </li></ul></dd>
     
     
@@ -5233,7 +6307,7 @@ The print behavior can be customized by providing two functions.
         
             
 <dt>
-    <h4 class="name" id="reduce"><span class="type-signature"></span>reduce<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    <h4 class="name" id="reduce"><span class="type-signature"></span>reduce<span class="signature">(bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
     
     
 </dt>
@@ -5251,6 +6325,54 @@ associative binary operator.
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -5276,7 +6398,7 @@ associative binary operator.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line786">line 786</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line819">line 819</a>
     </li></ul></dd>
     
     
@@ -5322,7 +6444,7 @@ associative binary operator.
         
             
 <dt>
-    <h4 class="name" id="reduceByKey"><span class="type-signature"></span>reduceByKey<span class="signature">(func)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    <h4 class="name" id="reduceByKey"><span class="type-signature"></span>reduceByKey<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
     
     
 </dt>
@@ -5384,6 +6506,29 @@ associative binary operator.
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
     
@@ -5413,7 +6558,7 @@ associative binary operator.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line799">line 799</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line832">line 832</a>
     </li></ul></dd>
     
     
@@ -5554,7 +6699,7 @@ which can avoid performing a shuffle.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line817">line 817</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line849">line 849</a>
     </li></ul></dd>
     
     
@@ -5737,7 +6882,7 @@ which can avoid performing a shuffle.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line832">line 832</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line864">line 864</a>
     </li></ul></dd>
     
     
@@ -5872,7 +7017,7 @@ which can avoid performing a shuffle.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line842">line 842</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line874">line 874</a>
     </li></ul></dd>
     
     
@@ -6007,7 +7152,7 @@ which can avoid performing a shuffle.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line851">line 851</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line883">line 883</a>
     </li></ul></dd>
     
     
@@ -6094,7 +7239,7 @@ which can avoid performing a shuffle.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line872">line 872</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line904">line 904</a>
     </li></ul></dd>
     
     
@@ -6140,7 +7285,7 @@ which can avoid performing a shuffle.
         
             
 <dt>
-    <h4 class="name" id="sortBy"><span class="type-signature"></span>sortBy<span class="signature">(func, ascending, numPartitions)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    <h4 class="name" id="sortBy"><span class="type-signature"></span>sortBy<span class="signature">(func, ascending, numPartitions, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
     
     
 </dt>
@@ -6248,6 +7393,29 @@ which can avoid performing a shuffle.
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
     
@@ -6275,7 +7443,7 @@ which can avoid performing a shuffle.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line884">line 884</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line917">line 917</a>
     </li></ul></dd>
     
     
@@ -6412,7 +7580,7 @@ which can avoid performing a shuffle.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line897">line 897</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line929">line 929</a>
     </li></ul></dd>
     
     
@@ -6499,7 +7667,7 @@ which can avoid performing a shuffle.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line906">line 906</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line938">line 938</a>
     </li></ul></dd>
     
     
@@ -6680,7 +7848,7 @@ which can avoid performing a shuffle.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line918">line 918</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line950">line 950</a>
     </li></ul></dd>
     
     
@@ -6815,7 +7983,7 @@ which can avoid performing a shuffle.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line931">line 931</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line963">line 963</a>
     </li></ul></dd>
     
     
@@ -6959,7 +8127,7 @@ For example:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line961">line 961</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line993">line 993</a>
     </li></ul></dd>
     
     
@@ -7144,7 +8312,7 @@ For example:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line980">line 980</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1012">line 1012</a>
     </li></ul></dd>
     
     
@@ -7235,7 +8403,7 @@ For example:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line995">line 995</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1027">line 1027</a>
     </li></ul></dd>
     
     
@@ -7322,7 +8490,7 @@ For example:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1010">line 1010</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1042">line 1042</a>
     </li></ul></dd>
     
     
@@ -7465,7 +8633,7 @@ implicit Ordering[T]. This does the opposite of takeOrdered. For example:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1028">line 1028</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1060">line 1060</a>
     </li></ul></dd>
     
     
@@ -7552,7 +8720,7 @@ implicit Ordering[T]. This does the opposite of takeOrdered. For example:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1042">line 1042</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1074">line 1074</a>
     </li></ul></dd>
     
     
@@ -7598,7 +8766,7 @@ implicit Ordering[T]. This does the opposite of takeOrdered. For example:
         
             
 <dt>
-    <h4 class="name" id="treeAggregate"><span class="type-signature"></span>treeAggregate<span class="signature">(zeroValue, func1, func2)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id="treeAggregate"><span class="type-signature"></span>treeAggregate<span class="signature">(zeroValue, func1, func2, bindArgs1, bindArgs2)</span><span class="type-signature"> &rarr; {object}</span></h4>
     
     
 </dt>
@@ -7701,6 +8869,52 @@ implicit Ordering[T]. This does the opposite of takeOrdered. For example:
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs1</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to func1's argument list.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs2</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to func2's argument list.</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
     
@@ -7728,7 +8942,7 @@ implicit Ordering[T]. This does the opposite of takeOrdered. For example:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1055">line 1055</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1089">line 1089</a>
     </li></ul></dd>
     
     
@@ -7781,7 +8995,7 @@ implicit Ordering[T]. This does the opposite of takeOrdered. For example:
         
             
 <dt>
-    <h4 class="name" id="treeReduce"><span class="type-signature"></span>treeReduce<span class="signature">(func, depth)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id="treeReduce"><span class="type-signature"></span>treeReduce<span class="signature">(func, depth, bindArgs)</span><span class="type-signature"> &rarr; {object}</span></h4>
     
     
 </dt>
@@ -7866,6 +9080,29 @@ implicit Ordering[T]. This does the opposite of takeOrdered. For example:
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
     
@@ -7893,7 +9130,7 @@ implicit Ordering[T]. This does the opposite of takeOrdered. For example:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1071">line 1071</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1104">line 1104</a>
     </li></ul></dd>
     
     
@@ -8036,7 +9273,7 @@ times (use `.distinct()` to eliminate them).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1084">line 1084</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1116">line 1116</a>
     </li></ul></dd>
     
     
@@ -8171,7 +9408,7 @@ times (use `.distinct()` to eliminate them).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1096">line 1096</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1128">line 1128</a>
     </li></ul></dd>
     
     
@@ -8199,6 +9436,93 @@ times (use `.distinct()` to eliminate them).
     This RDD.
 </div>
 
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="RDD.html">RDD</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="values"><span class="type-signature"></span>values<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Return an RDD with the values of each tuple.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1267">line 1267</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
 
 
 <dl>
@@ -8313,7 +9637,7 @@ a map on the other).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1109">line 1109</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1141">line 1141</a>
     </li></ul></dd>
     
     
@@ -8359,7 +9683,7 @@ a map on the other).
         
             
 <dt>
-    <h4 class="name" id="zipPartitions"><span class="type-signature"></span>zipPartitions<span class="signature">(rdd2, func, preservesPartitioning)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    <h4 class="name" id="zipPartitions"><span class="type-signature"></span>zipPartitions<span class="signature">(rdd2, func, preservesPartitioning, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
     
     
 </dt>
@@ -8470,6 +9794,29 @@ of elements in each partition.
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
     
@@ -8497,7 +9844,7 @@ of elements in each partition.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1126">line 1126</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1159">line 1159</a>
     </li></ul></dd>
     
     
@@ -8594,7 +9941,7 @@ the same index assignments, you should sort the RDD with sortByKey() or save it 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1175">line 1175</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1207">line 1207</a>
     </li></ul></dd>
     
     
@@ -8688,7 +10035,7 @@ the same index assignments, you should sort the RDD with sortByKey() or save it 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1191">line 1191</a>
+        <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1223">line 1223</a>
     </li></ul></dd>
     
     
@@ -8747,13 +10094,13 @@ the same index assignments, you should sort the RDD with sortByKey() or save it 
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="functions.html">functions</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="MapType.html">MapType</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li><li><a href="Vector.html">Vector</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="functions.html">functions</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="MapType.html">MapType</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="MLWord2Vec.html">MLWord2Vec</a></li><li><a href="MLWord2VecModel.html">MLWord2VecModel</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li></ul><h3>Global</h3><ul><li><a href="global.html#FutureAction">FutureAction</a></li><li><a href="global.html#SparkStatusTracker">SparkStatusTracker</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Thu Jan 28 2016 17:14:44 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Mon Feb 15 2016 11:31:44 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>

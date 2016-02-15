@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: mllib/regression/LinearRegressionModel.js</title>
+    <title>JSDoc: Source: mllib/linalg/Vectors.js</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: mllib/regression/LinearRegressionModel.js</h1>
+    <h1 class="page-title">Source: mllib/linalg/Vectors.js</h1>
     
     
 
@@ -25,9 +25,8 @@
     
     <section>
         <article>
-            <pre class="prettyprint source"><code>org.apache.spark.ml.regression.LinearRegressionModel
-/*
- * Copyright 2015 IBM Corp.
+            <pre class="prettyprint source"><code>/*
+ * Copyright 2016 IBM Corp.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,34 +40,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/** 
+/**
  * @constructor
- * @classdesc Model produced by LinearRegression.
+ * @classdesc A dense vector represented by a value array.
+ * @param {float[]} values
  */
-var LinearRegressionModel = function(jvmObj) { 
-	this.logger = Logger.getLogger("mllib.regression.LinearRegressionModel_js");
+
+var DenseVector = function(arg) { 
+	this.logger = Logger.getLogger("mllib.linalg.DenseVector_js");
+	var jvmObj;
+	if (Array.isArray(arg)) {
+		jvmObj = new org.apache.spark.mllib.linalg.DenseVector(arg);
+	} else {
+		jvmObj = arg;
+	}
+	
 
 	JavaWrapper.call(this, jvmObj);
 };
 
-LinearRegressionModel.prototype = Object.create(JavaWrapper.prototype); 
+DenseVector.prototype = Object.create(JavaWrapper.prototype); 
 
-LinearRegressionModel.prototype.constructor = LinearRegressionModel;
+DenseVector.prototype.constructor = DenseVector;
 /**
- * Predict label for the given features.
- * @param {Vector} features
- * @returns {float}
+ * Converts the instance to a float array.
+ * @returns {float[]}
  */
-LinearRegressionModel.prototype.predict = function(features) {
-
-	var p = this.getJavaObject().predict(Utils.unwrapObject(features));
-	this.logger.debug("p " + p);
-	return p;
+DenseVector.prototype.toArray = function() {
+	this.getJavaObject().toArray()
 };
 
 
+var Vectors = {}
 
-
+Vectors.dense = function(vals) {
+    return new DenseVector(vals);
+};
 </code></pre>
         </article>
     </section>
