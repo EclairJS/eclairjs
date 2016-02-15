@@ -1,6 +1,6 @@
 package org.eclairjs.tools.generate
 
-import _root_.org.eclairjs.tools.generate.org.eclairjs.tools.generate.model.{FunctionDataType, Method, Clazz,DataType}
+import _root_.org.eclairjs.tools.generate.org.eclairjs.tools.generate.model._
 
 /**
  * Created by berkland on 11/19/15.
@@ -38,7 +38,7 @@ class GenerateNashorn  extends  GenerateJSBase {
     val constr = if (!cls.isAbstract)
       getTemplate("nashorn_constructorDefault",clsName,parmlist,constrBody,clsName,parentName)
     else
-       getTemplate("abstractConstructor",clsName,parmlist,clsName)
+       getTemplate("abstractConstructor",clsName,parmlist,clsName,clsName,parentName)
 
     sbMain++=constr
 
@@ -72,9 +72,27 @@ class GenerateNashorn  extends  GenerateJSBase {
 
 
     var funcCounter=1;
-    method.parms  foreach( parm => parm.typ match {
 
-      case   FunctionDataType(name,parms ,returnType ) =>
+    def parmUnwrap(parm:Parm): Unit =
+    {
+      if (parm.isRepeated)
+        sb++=s"// TODO: handle repeated parm '${parm.name}'\n"
+
+      parm.typ match {
+        case ExtendedDataType(name,referenceType)  =>
+        {
+          if (referenceType.contains("Tuple") || name.contains("Tuple"))
+            sb++=s"// TODO: handle Tuple conversion for '${parm.name}'\n"
+        }
+        case SimpleType(name)  =>
+        {
+          if ( name.contains("Tuple"))
+            sb++=s"// TODO: handle Tuple conversion for '${parm.name}'\n"
+        }
+        case _ =>
+      }
+      parm.typ match {
+        case   FunctionDataType(name,parms ,returnType ) =>
         {
           val funcMac = Map("JFunction"->"JSFunction","VoidFunction"->"JSVoidFunction","JFunction2"->"JSFunction2",
             "JFunction3"->"JSFunction3","PairFunction"->"JSPairFunction","PairFlatMapFunction"->"JSPairFlatMapFunction",
@@ -89,14 +107,20 @@ class GenerateNashorn  extends  GenerateJSBase {
           parmNames+="fn"+funcCounterStr
           funcCounter+=1;
         }
-      case _ => if (parm.typ.isSparkClass() || parm.typ.getJSType()=="object")
-      {
-        sb ++= s"  var ${parm.name}_uw = Utils.unwrapObject(${parm.name});\n"
-        parmNames+=parm.name+"_uw"
-      }
+        case _ => if (parm.typ.isSparkClass() || parm.typ.getJSType()=="object")
+        {
+          sb ++= s"  var ${parm.name}_uw = Utils.unwrapObject(${parm.name});\n"
+          parmNames+=parm.name+"_uw"
+        }
         else
           parmNames+=parm.name
-    })
+      }
+    }
+
+    val nonOptionalParms=method.requiredParms()
+
+    nonOptionalParms   foreach( parmUnwrap(_) )
+
 
 
     // return this.getJavaObject().div(Utils.unwrapObject(that));
@@ -115,15 +139,33 @@ class GenerateNashorn  extends  GenerateJSBase {
       else "this.getJavaObject()"
 
 
-    sb ++= s"  $returnsStr $onObject.${method.name}(${parmNames.mkString(",")});"
-    if (needsWrapper(method.returnType))
-    {
-      var returnType=method.returnType.getJSType()
-      if (returnType!="object" && !method.returnType.isAbstract() && !method.returnType.isArray())
-        sb ++= s"\n  return new ${returnType}(javaObject);"
-      else
-        sb ++= s"\n  return Utils.javaToJs(javaObject);"
 
+   def genCall(parmNames:List[String]): Unit = {
+     sb ++= s"  $returnsStr $onObject.${method.name}(${parmNames.mkString(",")});"
+     if (needsWrapper(method.returnType))
+     {
+       var returnType=method.returnType.getJSType()
+       if (returnType!="object" && !method.returnType.isAbstract() && !method.returnType.isArray())
+         sb ++= s"\n  return new ${returnType}(javaObject);"
+       else
+         sb ++= s"\n  return Utils.javaToJs(javaObject);"
+
+     }
+
+   }
+
+    if (nonOptionalParms.length==method.parms.length)
+      genCall(parmNames.toList);
+    else {    // has optional parms
+      val nonOptionalNames=parmNames.toList
+      val optionalParms=method.optionalParms()
+      optionalParms foreach( parmUnwrap(_) )
+      sb ++= s"\n  if (arguments[${nonOptionalParms.length}]) {\n"
+      genCall(parmNames.toList)
+
+      sb ++= s"\n  } else {\n"
+      genCall(nonOptionalNames)
+      sb ++= s"\n  }"
     }
 
     sb.toString()
@@ -134,7 +176,7 @@ class GenerateNashorn  extends  GenerateJSBase {
   {
     if (returnType.isSparkClass())
       {
-        true
+        return true
       }
     false
   }

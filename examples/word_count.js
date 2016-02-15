@@ -15,7 +15,7 @@
  */
 
 var file = "src/test/resources/dream.txt"; // Should be some file on your system
-var conf = new SparkConf().setAppName("JavaScript word count").setMaster("local[*]"); 
+var conf = new SparkConf().setAppName("JavaScript word count").setMaster("local[*]");
 var sparkContext = new SparkContext(conf);
 var rdd = sparkContext.textFile(file).cache();
 

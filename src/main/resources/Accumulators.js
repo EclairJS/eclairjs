@@ -41,10 +41,17 @@ var Accumulable = function() {
 	this.logger.debug("constructor");
 	var jvmObject;
 	if (arguments.length == 1) {
-		jvmObject = arguments[0]
+		jvmObject = arguments[0];
 	} else {
+		var value = arguments[0];
+		this._accumulableParam = arguments[1];
+		if (arguments[1] instanceof  FloatAccumulatorParam) {
+			value = parseFloat(value);
+		} else if (arguments[1] instanceof IntAccumulatorParam) {
+			value = new java.lang.Integer(parseInt(value)); // we need to create a Integer or we will get a java.lang.Double 
+		}
 		var accumulableParam_uw = Utils.unwrapObject(arguments[1]);
-		jvmObject = new org.apache.spark.Accumulable(arguments[0],accumulableParam_uw,arguments[2]);
+		jvmObject = new org.apache.spark.Accumulable(value,accumulableParam_uw,arguments[2]);
 	}
 	 
 	 JavaWrapper.call(this, jvmObject);
@@ -61,11 +68,27 @@ Accumulable.prototype.constructor = Accumulable;
  * @param {object} term  the data to add
  */
 Accumulable.prototype.add = function(term) {
-	var term_uw = Utils.unwrapObject(term);
+	var term_uw = this.cast(Utils.unwrapObject(term));
 	this.getJavaObject().add(term_uw);
+
+	
 }
-
-
+/**
+ * casts the value to the correct type for the accumulable
+ * @param {number} value
+ * @returns {int | float}
+ * @private
+ */
+Accumulable.prototype.cast = function(value) {
+	var ret = value;
+	var x = this.getJavaObject().localValue(); // this will give us the correct type to cast to..
+	if (x instanceof java.lang.Double) {
+		ret = parseFloat(value);
+	} else if (x instanceof java.lang.Integer) {
+		ret = new java.lang.Integer(value);
+	}
+	return ret;
+}
 /**
  * Merge two accumulable objects together
  *
@@ -73,7 +96,7 @@ Accumulable.prototype.add = function(term) {
  * @param {object} term  the other `R` that will get merged with this
  */
 Accumulable.prototype.merge = function(term) {
-	var term_uw = Utils.unwrapObject(term);
+	var term_uw = this.cast(Utils.unwrapObject(term));	
     this.getJavaObject().merge(term_uw);
 }
 
@@ -210,21 +233,15 @@ AccumulableParam.prototype.zero = function(initialValue) {
  * @classdesc
  * @param {number} initialValue
  * @param {AccumulableParam} param
+ * @param {string} name human-readable name for use in Spark's web UI
  * @constructor 
  * @augments Accumulable
  */
 var Accumulator = function(initialValue,param,name) {
 	this.logger = Logger.getLogger("Accumulator_js");
 	this.logger.debug("constructor");
-	var jvmObject;
-	if (arguments.length == 1) {
-		jvmObject = arguments[0]
-	} else {
-		var accumulableParam_uw = Utils.unwrapObject(arguments[1]);
-		jvmObject = new org.apache.spark.Accumulator(arguments[0],accumulableParam_uw);
-	}
 	
-	 Accumulable.call(this, jvmObject);
+	 Accumulable.apply(this, arguments);
 
 };
 
@@ -322,3 +339,7 @@ FloatAccumulatorParam.prototype = Object.create(AccumulableParam.prototype);
 
 FloatAccumulatorParam.prototype.constructor = FloatAccumulatorParam;
 
+FloatAccumulatorParam.prototype.convert = function(t1) {
+	print("convert " + t1)
+   return parseFloat(t1);
+}

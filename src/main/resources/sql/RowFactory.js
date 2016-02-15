@@ -29,7 +29,19 @@ var RowFactory =  {
 RowFactory.create = function(values) {
 	var javaValues = [];
 	values.forEach(function(o){
-		javaValues.push(Utils.unwrapObject(o));
+        var uw_o = Utils.unwrapObject(o);
+        if (Array.isArray(uw_o)) {
+            /*
+                if we have a Row that has an ArrayType element need to convert to List
+                or we will get exceptions when we try to create a Dataframe with a JavaScript Array
+                Nashorn converts the top level JavaScript Array to a List for use but the JavaScript array
+                contained in the array is not converted. (Nashorn only seems to convert top level arrays for us)
+                Example:
+                StructField("text", new SqlArrayType(DataTypes.StringType, true), false, Metadata.empty());
+             */
+            uw_o = java.util.Arrays.asList(uw_o);
+        }
+        javaValues.push(Utils.unwrapObject(uw_o));
 	});
 	//public static Row create(java.lang.Object... values)
 	Logger.getLogger("sql.RowFactory_js").debug("RowFactory.create= " + javaValues);

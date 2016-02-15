@@ -314,8 +314,8 @@ var dataframeInputFilesTest = function(file) {
 var dataframeIntersectTest = function(file) {
 
 	var peopleDataFrame = buildPeopleTable(file);
-	var plus20s = peopleDataFrame.filter("age > 20");
-	var results = peopleDataFrame.intersect(plus20s);
+	var plus20s = peopleDataFrame.filter("age > 20")
+	var results = peopleDataFrame.intersect(plus20s).sort();
 	
     return results.take(10).toString();
 }
@@ -341,7 +341,8 @@ var dataframeJoinUsingColumnsTest = function(file) {
 	var df1 = buildPeopleTable(file);
 	var df2 = buildPeopleTable(file);
 	var joinedDf = df1.join(df2, ["age", "DOB"]);
-	return joinedDf.head().toString();
+	var result = joinedDf.sort("age");
+	return result.head().toString();
 	
 }
 
@@ -620,7 +621,7 @@ var timestampType = function(file) {
 
 	var peopleDataFrame = buildPeopleTable(file, false);
 	var col = new Column("DOB");
-	var testCol = col.gt(new SqlTimestamp("1996-03-07"));
+	var testCol = col.gt(new SqlTimestamp("1996-03-07 00:00:00"));
 	// SQL can be run over RDDs that have been registered as tables.
 	var result = peopleDataFrame.filterWithColumn(testCol);
 
@@ -636,7 +637,7 @@ var dateType = function(file) {
 
 	var peopleDataFrame = buildPeopleTable(file, true);
 	var col = new Column("DOB");
-	var testCol = col.gt(new SqlDate("1996-03-07"));
+	var testCol = col.gt(new SqlDate("1996-03-07 00:00:00"));
 	// SQL can be run over RDDs that have been registered as tables.
 	var result = peopleDataFrame.filterWithColumn(testCol);
 

@@ -18,6 +18,7 @@ package org.eclairjs.nashorn;
 
 import java.io.FileReader;
 import java.net.URL;
+import java.util.Properties;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -25,11 +26,22 @@ import javax.script.ScriptException;
 
 public class SparkBootstrap implements Bootstrap {
 
+    private String debugJSSourceLocation = null;
+
+    public  SparkBootstrap() {
+        Properties props = System.getProperties();
+        debugJSSourceLocation = (String) props.getProperty("eclairjs.jssource");
+    }
+
     private String getResourceAsURLStirng(String file) {
 
         String res = null;
         try {
-            res = getClass().getResource(file).toURI().toString();
+            if (debugJSSourceLocation != null) {
+                res = debugJSSourceLocation + file;
+            } else {
+                res = getClass().getResource(file).toURI().toString();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -41,15 +53,18 @@ public class SparkBootstrap implements Bootstrap {
         try {
         	engine.eval("load('" + getResourceAsURLStirng("/JavaWrapper.js") + "');");
         	engine.eval("load('" + getResourceAsURLStirng("/Logger.js") + "');");
-        	engine.eval("load('" + getResourceAsURLStirng("/Utils.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/Utils.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/DebugUtils.js") + "');");
 
         	//spark
-        	
+
         	engine.eval("load('" + getResourceAsURLStirng("/SparkConf.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/SparkContext.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/RDD.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/Partitioner.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/Accumulators.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/FutureAction.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/SparkStatusTracker.js") + "');");
 
             // storage
             engine.eval("load('" + getResourceAsURLStirng("/storage/StorageLevel.js") + "');");
@@ -62,11 +77,17 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/streaming/dstream/DStream.js") + "');");
 
             //mllib
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/Vector.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/DenseVector.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/Vector.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/Vectors.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/DenseVector.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/LinearRegressionModel.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/LinearRegressionWithSGD.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/LabeledPoint.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/mllib/util.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/mllib/evaluation.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/mllib/classification.js") + "');");
+            //ml
+            engine.eval("load('" + getResourceAsURLStirng("/ml/Word2Vec.js") + "');");
 
             // sql
             engine.eval("load('" + getResourceAsURLStirng("/sql/Column.js") + "');");
@@ -74,7 +95,7 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/sql/DataFrameNaFunctions.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/DataFrameReader.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/DataFrameStatFunctions.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/sql/DataFrameWriter.js") + "');");  
+            engine.eval("load('" + getResourceAsURLStirng("/sql/DataFrameWriter.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/functions.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/GroupedData.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/SQLContext.js") + "');");

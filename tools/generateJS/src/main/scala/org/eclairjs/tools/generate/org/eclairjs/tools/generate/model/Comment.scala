@@ -135,6 +135,9 @@ class Comment(comment:String) {
     newLines++=endLines
     newLines +=" */"
 
-    newLines.mkString("\n")
+    if (newLines.length>2)
+      newLines.mkString("\n")
+    else
+      ""  // dont' generate empty jsdoc
   }
 }

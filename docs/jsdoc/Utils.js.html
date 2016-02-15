@@ -46,17 +46,17 @@ var Utils = {};
 Utils.logger = Logger.getLogger("Utils_js");
 
   /**
-   * This function needs to parse the arguments that are being passed to the LAMDA function 
-   * and get references to the arguments that will need to be added to the closer of the Nashorn 
+   * This function needs to parse the arguments that are being passed to the LAMDA function
+   * and get references to the arguments that will need to be added to the closer of the Nashorn
    * engine when the LAMDA function runs on the worker. A standard spark LAMDA would look like:
-   * function(sparkArg){...}, but we need any variables declared outside the closer of the LAMDA 
+   * function(sparkArg){...}, but we need any variables declared outside the closer of the LAMDA
    * to be passed into the LAMDA so we can add them to the args when we call the LAMDA function from
    * a new Nashorn engine context. Are LAMDA function must include the out of closer variables ex.
-   * function(sparkArg, scopeArg1, scopeArg2, .....) 
-   * @param  {function} func LAMDA function that will be passed to spark. The functions 
+   * function(sparkArg, scopeArg1, scopeArg2, .....)
+   * @param  {function} func LAMDA function that will be passed to spark. The functions
    *                      will have the format function(sparkArg, scopeArg1, scopeArg2, .....)
    * @param  {sparkArgumentsPassed} the number of arguments passed to the LAMDA by spark defaults to 1
-   *                     
+   *
    * @return {Object}   {
    * 						funcStr:  stringified funciton that was passed in,
    *                        scopeVars: Array of references to the out of closer args
@@ -79,7 +79,7 @@ Utils.logger = Logger.getLogger("Utils_js");
       var agrsStr = parmas.funcStr.substring(start +1, stop);
       var args = agrsStr.split(","); // get all the arguments names
       parmas.scopeVars = [];
-      for (var i = scopeVarsStartingPosion; i &lt; args.length; i++) { 
+      for (var i = scopeVarsStartingPosion; i &lt; args.length; i++) {
     	  // unwrapObjects or we can have serialization problems
     	  Utils.logger.debug("scopeVar = " + args[i]);
     	  var a = eval(args[i]);
@@ -91,22 +91,52 @@ Utils.logger = Logger.getLogger("Utils_js");
   };
 
   Utils.javaToJs = function(javaObj) {
-	  return org.eclairjs.nashorn.Utils.javaToJs(javaObj,org.eclairjs.nashorn.NashornEngineSingleton.getEngine()); 
+    if (Array.isArray(javaObj))
+    {
+      for (var i=0;i&lt;javaObj.length;i++)
+        javaObj[i]=org.eclairjs.nashorn.Utils.javaToJs(javaObj,org.eclairjs.nashorn.NashornEngineSingleton.getEngine());
+      return javaObj;
+
+    }
+    else
+  	  return org.eclairjs.nashorn.Utils.javaToJs(javaObj,org.eclairjs.nashorn.NashornEngineSingleton.getEngine());
   };
-  
+
   Utils.unwrapObject = function(obj) {
-	  return (obj && obj.getJavaObject) ? obj.getJavaObject() : obj; 
+      if (Array.isArray(obj))
+      {
+          var unObj = [];
+          for (var i=0;i&lt;obj.length;i++) {
+              unObj.push(Utils.unwrapObject(obj[i]));
+          }
+          return unObj;
+      }
+      else
+          return (obj && obj.getJavaObject) ? obj.getJavaObject() : obj;
   };
+
+
+  Utils.unwrapTuple = function(obj) {
+        Utils.logger.debug("unwrapTuple = " + obj);
+    if (Array.isArray(obj) && obj.length>1)
+    {
+      var Tuple2 = Java.type('scala.Tuple2');
+       return new Tuple2(Utils.unwrapObject(obj[0]),Utils.unwrapObject(obj[1]));
+    }
+    else
+      throw "Expecting tuple, i.e. [1,2] ";
+  };
+
   /**
    * Creates a argument list of Spark Java objects that can be passed to a Spark Java method.
-   * If the objects passed in the argument list are an instanceof "type" then the object will be 
+   * If the objects passed in the argument list are an instanceof "type" then the object will be
    * unwrapped else will will create an instanceof "type" for that object.
    * If the object
    * for example:
    * // Spark Java
    * GoupedData.agg(Column expr, Column... exprs)
    * @private
-   * @param {object | string} object,...object  
+   * @param {object | string} object,...object
    * @param {function} type this is the constructor of the desired object type for example Column
    * @returns {object[]} array of Java spark objects
    */
@@ -136,27 +166,29 @@ Utils.logger = Logger.getLogger("Utils_js");
 		   if (typeof obj[colName] === 'number') {
 			   map.put(new java.lang.Double(colName), new java.lang.Double(obj[colName]));
 		   } else {
-			   map.put(colName, obj[colName]); 
+			   map.put(colName, obj[colName]);
 		   }
-	      
+
 	   }
 	   return map;
   };
 
-  function convertJavaTuple2(o1, o2) { 
+  function convertJavaTuple2(o1, o2) {
 	  return [o1 ,o2];
   };
-  
+
   function convertJavaJSONObject(str) {
 	  return JSON.parse(str);
   };
-  
+
   function createJavaWrapperObject(className, obj) {
 	  return eval("new " + className + "(obj)");
   };
-  
-  
-</code></pre>
+
+
+  Utils.createLambdaFunction = function(func, clazz, bindArgs) {
+    return new clazz(func.toString(), bindArgs ? Utils.unwrapObject(bindArgs) : [])
+  };</code></pre>
         </article>
     </section>
 
@@ -166,13 +198,13 @@ Utils.logger = Logger.getLogger("Utils_js");
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="functions.html">functions</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="MapType.html">MapType</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li><li><a href="Vector.html">Vector</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="functions.html">functions</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="MapType.html">MapType</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="MLWord2Vec.html">MLWord2Vec</a></li><li><a href="MLWord2VecModel.html">MLWord2VecModel</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li></ul><h3>Global</h3><ul><li><a href="global.html#FutureAction">FutureAction</a></li><li><a href="global.html#SparkStatusTracker">SparkStatusTracker</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Thu Jan 28 2016 15:41:50 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Mon Feb 15 2016 11:31:43 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -97,5 +97,29 @@ public class SparkContextTest {
          assertEquals("failure - values are not equal", 11.0, ret);
 
     };
+    
+    @Test
+    public void scFloatAccumulator() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+       // String file = TestUtils.resourceToFile("/dream.txt");
+
+        TestUtils.evalJSResource(engine, "/sparkcontexttests.js");
+        Object ret = ((Invocable)engine).invokeFunction("scFloatAccumulator");
+
+         assertEquals("failure - values are not equal", 11.0, ret);
+
+    };
+    
+    @Test
+    public void scIntAccumulator() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+       // String file = TestUtils.resourceToFile("/dream.txt");
+
+        TestUtils.evalJSResource(engine, "/sparkcontexttests.js");
+        Object ret = ((Invocable)engine).invokeFunction("scIntAccumulator");
+
+         assertEquals("failure - values are not equal", 10, ret);
+
+    };
 
 }

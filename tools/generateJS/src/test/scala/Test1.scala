@@ -17,6 +17,8 @@ class Test1[T](str:String) {
    */
   def func1(a:Int) : Unit={}
 
+  def
+  sort(sortExprs: String*): String =""
 
   /**
    * Return an RDD with the elements from `this` that are not in `other`.
@@ -59,6 +61,15 @@ class Test1[T](str:String) {
   }
 
 
+  def funcOverload(name: Int): Unit = {
+  }
+  def funcOverload(name: Int,b:Boolean): Unit = {
+  }
+  def funcParmRep(name: Int,s:String*): Unit = {
+  }
+
+
+
   /**
    * return (this + plus) dot other, but without creating any intermediate storage
    * @param plus
@@ -71,4 +82,7 @@ class Test1[T](str:String) {
 
   def jars: Seq[String] = Seq("")
 
+  def nothing():Unit = {}
+
   }
+

@@ -19,17 +19,17 @@ var Utils = {};
 Utils.logger = Logger.getLogger("Utils_js");
 
   /**
-   * This function needs to parse the arguments that are being passed to the LAMDA function 
-   * and get references to the arguments that will need to be added to the closer of the Nashorn 
+   * This function needs to parse the arguments that are being passed to the LAMDA function
+   * and get references to the arguments that will need to be added to the closer of the Nashorn
    * engine when the LAMDA function runs on the worker. A standard spark LAMDA would look like:
-   * function(sparkArg){...}, but we need any variables declared outside the closer of the LAMDA 
+   * function(sparkArg){...}, but we need any variables declared outside the closer of the LAMDA
    * to be passed into the LAMDA so we can add them to the args when we call the LAMDA function from
    * a new Nashorn engine context. Are LAMDA function must include the out of closer variables ex.
-   * function(sparkArg, scopeArg1, scopeArg2, .....) 
-   * @param  {function} func LAMDA function that will be passed to spark. The functions 
+   * function(sparkArg, scopeArg1, scopeArg2, .....)
+   * @param  {function} func LAMDA function that will be passed to spark. The functions
    *                      will have the format function(sparkArg, scopeArg1, scopeArg2, .....)
    * @param  {sparkArgumentsPassed} the number of arguments passed to the LAMDA by spark defaults to 1
-   *                     
+   *
    * @return {Object}   {
    * 						funcStr:  stringified funciton that was passed in,
    *                        scopeVars: Array of references to the out of closer args
@@ -52,7 +52,7 @@ Utils.logger = Logger.getLogger("Utils_js");
       var agrsStr = parmas.funcStr.substring(start +1, stop);
       var args = agrsStr.split(","); // get all the arguments names
       parmas.scopeVars = [];
-      for (var i = scopeVarsStartingPosion; i < args.length; i++) { 
+      for (var i = scopeVarsStartingPosion; i < args.length; i++) {
     	  // unwrapObjects or we can have serialization problems
     	  Utils.logger.debug("scopeVar = " + args[i]);
     	  var a = eval(args[i]);
@@ -64,22 +64,52 @@ Utils.logger = Logger.getLogger("Utils_js");
   };
 
   Utils.javaToJs = function(javaObj) {
-	  return org.eclairjs.nashorn.Utils.javaToJs(javaObj,org.eclairjs.nashorn.NashornEngineSingleton.getEngine()); 
+    if (Array.isArray(javaObj))
+    {
+      for (var i=0;i<javaObj.length;i++)
+        javaObj[i]=org.eclairjs.nashorn.Utils.javaToJs(javaObj,org.eclairjs.nashorn.NashornEngineSingleton.getEngine());
+      return javaObj;
+
+    }
+    else
+  	  return org.eclairjs.nashorn.Utils.javaToJs(javaObj,org.eclairjs.nashorn.NashornEngineSingleton.getEngine());
   };
-  
+
   Utils.unwrapObject = function(obj) {
-	  return (obj && obj.getJavaObject) ? obj.getJavaObject() : obj; 
+      if (Array.isArray(obj))
+      {
+          var unObj = [];
+          for (var i=0;i<obj.length;i++) {
+              unObj.push(Utils.unwrapObject(obj[i]));
+          }
+          return unObj;
+      }
+      else
+          return (obj && obj.getJavaObject) ? obj.getJavaObject() : obj;
   };
+
+
+  Utils.unwrapTuple = function(obj) {
+        Utils.logger.debug("unwrapTuple = " + obj);
+    if (Array.isArray(obj) && obj.length>1)
+    {
+      var Tuple2 = Java.type('scala.Tuple2');
+       return new Tuple2(Utils.unwrapObject(obj[0]),Utils.unwrapObject(obj[1]));
+    }
+    else
+      throw "Expecting tuple, i.e. [1,2] ";
+  };
+
   /**
    * Creates a argument list of Spark Java objects that can be passed to a Spark Java method.
-   * If the objects passed in the argument list are an instanceof "type" then the object will be 
+   * If the objects passed in the argument list are an instanceof "type" then the object will be
    * unwrapped else will will create an instanceof "type" for that object.
    * If the object
    * for example:
    * // Spark Java
    * GoupedData.agg(Column expr, Column... exprs)
    * @private
-   * @param {object | string} object,...object  
+   * @param {object | string} object,...object
    * @param {function} type this is the constructor of the desired object type for example Column
    * @returns {object[]} array of Java spark objects
    */
@@ -109,23 +139,26 @@ Utils.logger = Logger.getLogger("Utils_js");
 		   if (typeof obj[colName] === 'number') {
 			   map.put(new java.lang.Double(colName), new java.lang.Double(obj[colName]));
 		   } else {
-			   map.put(colName, obj[colName]); 
+			   map.put(colName, obj[colName]);
 		   }
-	      
+
 	   }
 	   return map;
   };
 
-  function convertJavaTuple2(o1, o2) { 
+  function convertJavaTuple2(o1, o2) {
 	  return [o1 ,o2];
   };
-  
+
   function convertJavaJSONObject(str) {
 	  return JSON.parse(str);
   };
-  
+
   function createJavaWrapperObject(className, obj) {
 	  return eval("new " + className + "(obj)");
   };
-  
-  
+
+
+  Utils.createLambdaFunction = function(func, clazz, bindArgs) {
+    return new clazz(func.toString(), bindArgs ? Utils.unwrapObject(bindArgs) : [])
+  };

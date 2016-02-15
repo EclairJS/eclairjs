@@ -13,25 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * @constructor
- * @classdesc Represents a numeric vector, whose index type is Int and value type is Double.
- */
+var MLUtils = {};
 
-var Vector = function() { 
-	this.logger = Logger.getLogger("mllib.linalg.Vector_js");
-	var jvmObj;
-
-	JavaWrapper.call(this, jvmObj);
-};
-
-Vector.prototype = Object.create(JavaWrapper.prototype); 
-
-Vector.prototype.constructor = Vector;
-/**
- * Converts the instance to a float array.
- * @returns {float[]}
- */
-Vector.prototype.toArray = function() {
-	this.getJavaObject().toArray()
-};
+MLUtils.loadLibSVMFile = function(
+    sc, 
+    path, 
+    numFeatures, 
+    minPartitions, 
+    multiclass
+) {
+    if(arguments.length == 2) {
+        return new RDD(org.apache.spark.mllib.util.MLUtils.loadLibSVMFile(
+            sc.getJavaObject().sc(),
+            path).toJavaRDD()
+        );
+    }
+}
