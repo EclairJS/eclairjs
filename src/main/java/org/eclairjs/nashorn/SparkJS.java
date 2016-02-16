@@ -23,10 +23,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import javax.script.Invocable;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
+import javax.script.*;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
@@ -44,7 +41,7 @@ public class SparkJS{
 		// for debugging Logger.getLogger("com.ibm.spark.javascript").setLevel(Level.INFO);
 		SparkJS js = new SparkJS();
 		if (args.length > 0) {
-			js.loadJS(args[0]);
+			js.loadJS(args[0], args);
 		} else {
 			js.repl();
 		}
@@ -70,11 +67,13 @@ public class SparkJS{
 	    }
 	  }
 
-	private Object loadJS(String jsFile) {
+	private Object loadJS(String jsFile, String args[]) {
 		// TODO Auto-generated method stub
 		Object ret;
 		try {
 			ScriptEngine engine = NashornEngineSingleton.getEngine();
+			ScriptContext defCtx = engine.getContext();
+			defCtx.getBindings(ScriptContext.GLOBAL_SCOPE).put("args", args);
 			ret = engine.eval("load('"+jsFile+"');" );
 		}  catch (ScriptException e) {
 			// TODO Auto-generated catch block

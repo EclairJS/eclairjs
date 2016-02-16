@@ -55,6 +55,7 @@ public class SparkBootstrap implements Bootstrap {
         	engine.eval("load('" + getResourceAsURLStirng("/Logger.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/Utils.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/DebugUtils.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/utils/List.js") + "');");
 
         	//spark
 
@@ -86,6 +87,7 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/mllib/util.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/evaluation.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/classification.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/mllib/feature/Word2Vec.js") + "');");
             //ml
             engine.eval("load('" + getResourceAsURLStirng("/ml/Word2Vec.js") + "');");
 
