@@ -20,6 +20,7 @@
  * A future for the result of an action to support cancellation. This is an extension of the
  * Scala Future interface to support cancellation.
  * @classdesc
+ * @constructor
  */
 
 
