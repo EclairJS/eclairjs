@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: MLWord2Vec</title>
+    <title>JSDoc: Class: Word2Vec</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Class: MLWord2Vec</h1>
+    <h1 class="page-title">Class: Word2Vec</h1>
     
     
 
@@ -27,7 +27,7 @@
     
 <header>
     <h2>
-    MLWord2Vec
+    Word2Vec
     </h2>
     
 </header>  
@@ -39,7 +39,7 @@
     
         
 <dt>
-    <h4 class="name" id="MLWord2Vec"><span class="type-signature"></span>new MLWord2Vec<span class="signature">(obj)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Word2Vec"><span class="type-signature"></span>new Word2Vec<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -47,9 +47,21 @@
     
     
     <div class="description">
-        :: Experimental ::
-Word2Vec trains a model of `Map(String, Vector)`, i.e. transforms a word into a code for further
-natural language processing or machine learning process.
+        Word2Vec creates vector representation of words in a text corpus.
+The algorithm first constructs a vocabulary from the corpus
+and then learns vector representation of words in the vocabulary.
+The vector representation can be used as features in
+natural language processing and machine learning algorithms.
+
+We used skip-gram model in our implementation and hierarchical softmax
+method to train the model. The variable names in the implementation
+matches the original C implementation.
+
+For original C implementation, see https://code.google.com/p/word2vec/
+For research papers, see
+Efficient Estimation of Word Representations in Vector Space
+and
+Distributed Representations of Words and Phrases and their Compositionality.
     </div>
     
 
@@ -57,54 +69,6 @@ natural language processing or machine learning process.
     
     
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>obj</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
     
     
     
@@ -130,7 +94,7 @@ natural language processing or machine learning process.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Word2Vec.js.html">ml/Word2Vec.js</a>, <a href="Word2Vec.js.html#line28">line 28</a>
+        <a href="Word2Vec.js_.html">mllib/feature/Word2Vec.js</a>, <a href="Word2Vec.js_.html#line38">line 38</a>
     </li></ul></dd>
     
     
@@ -176,12 +140,16 @@ natural language processing or machine learning process.
         <dl>
             
 <dt>
-    <h4 class="name" id="fit"><span class="type-signature"></span>fit<span class="signature">(dataset)</span><span class="type-signature"> &rarr; {<a href="MLWord2VecModel.html">MLWord2VecModel</a>}</span></h4>
+    <h4 class="name" id="fit"><span class="type-signature"></span>fit<span class="signature">(dataset)</span><span class="type-signature"> &rarr; {<a href="Word2VecModel.html">Word2VecModel</a>}</span></h4>
     
     
 </dt>
 <dd>
     
+    
+    <div class="description">
+        Computes the vector representation of each word in vocabulary.
+    </div>
     
 
     
@@ -220,7 +188,7 @@ natural language processing or machine learning process.
             <td class="type">
             
                 
-<span class="param-type"><a href="DataFrame.html">DataFrame</a></span>
+<span class="param-type"><a href="RDD.html">RDD</a></span>
 
 
             
@@ -230,7 +198,7 @@ natural language processing or machine learning process.
             
             
             
-            <td class="description last"></td>
+            <td class="description last">an RDD of words</td>
         </tr>
 	
 	
@@ -261,7 +229,7 @@ natural language processing or machine learning process.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Word2Vec.js.html">ml/Word2Vec.js</a>, <a href="Word2Vec.js.html#line133">line 133</a>
+        <a href="Word2Vec.js_.html">mllib/feature/Word2Vec.js</a>, <a href="Word2Vec.js_.html#line145">line 145</a>
     </li></ul></dd>
     
     
@@ -285,6 +253,10 @@ natural language processing or machine learning process.
     <h5>Returns:</h5>
     
             
+<div class="param-desc">
+    a Word2VecModel
+</div>
+
 
 
 <dl>
@@ -293,7 +265,7 @@ natural language processing or machine learning process.
 	</dt>
 	<dd>
 		
-<span class="param-type"><a href="MLWord2VecModel.html">MLWord2VecModel</a></span>
+<span class="param-type"><a href="Word2VecModel.html">Word2VecModel</a></span>
 
 
 	</dd>
@@ -307,12 +279,16 @@ natural language processing or machine learning process.
         
             
 <dt>
-    <h4 class="name" id="setInputCol"><span class="type-signature"></span>setInputCol<span class="signature">(value)</span><span class="type-signature"> &rarr; {<a href="MLWord2Vec.html">MLWord2Vec</a>}</span></h4>
+    <h4 class="name" id="setLearningRate"><span class="type-signature"></span>setLearningRate<span class="signature">(learningRate)</span><span class="type-signature"></span></h4>
     
     
 </dt>
 <dd>
     
+    
+    <div class="description">
+        Sets initial learning rate (default: 0.025).
+    </div>
     
 
     
@@ -345,13 +321,13 @@ natural language processing or machine learning process.
 	
         <tr>
             
-                <td class="name"><code>value</code></td>
+                <td class="name"><code>learningRate</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">number</span>
 
 
             
@@ -392,7 +368,7 @@ natural language processing or machine learning process.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Word2Vec.js.html">ml/Word2Vec.js</a>, <a href="Word2Vec.js.html#line52">line 52</a>
+        <a href="Word2Vec.js_.html">mllib/feature/Word2Vec.js</a>, <a href="Word2Vec.js_.html#line71">line 71</a>
     </li></ul></dd>
     
     
@@ -418,18 +394,6 @@ natural language processing or machine learning process.
             
 
 
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="MLWord2Vec.html">MLWord2Vec</a></span>
-
-
-	</dd>
-</dl>
-
         
     
     
@@ -438,12 +402,17 @@ natural language processing or machine learning process.
         
             
 <dt>
-    <h4 class="name" id="setMaxIter"><span class="type-signature"></span>setMaxIter<span class="signature">(value)</span><span class="type-signature"> &rarr; {<a href="MLWord2Vec.html">MLWord2Vec</a>}</span></h4>
+    <h4 class="name" id="setMinCount"><span class="type-signature"></span>setMinCount<span class="signature">(minCount)</span><span class="type-signature"></span></h4>
     
     
 </dt>
 <dd>
     
+    
+    <div class="description">
+        Sets minCount, the minimum number of times a token must appear to be included in the word2vec
+model's vocabulary (default: 5).
+    </div>
     
 
     
@@ -476,13 +445,13 @@ natural language processing or machine learning process.
 	
         <tr>
             
-                <td class="name"><code>value</code></td>
+                <td class="name"><code>minCount</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">integer</span>
+<span class="param-type">number</span>
 
 
             
@@ -523,7 +492,7 @@ natural language processing or machine learning process.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Word2Vec.js.html">ml/Word2Vec.js</a>, <a href="Word2Vec.js.html#line106">line 106</a>
+        <a href="Word2Vec.js_.html">mllib/feature/Word2Vec.js</a>, <a href="Word2Vec.js_.html#line133">line 133</a>
     </li></ul></dd>
     
     
@@ -549,18 +518,6 @@ natural language processing or machine learning process.
             
 
 
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="MLWord2Vec.html">MLWord2Vec</a></span>
-
-
-	</dd>
-</dl>
-
         
     
     
@@ -569,12 +526,17 @@ natural language processing or machine learning process.
         
             
 <dt>
-    <h4 class="name" id="setMinCount"><span class="type-signature"></span>setMinCount<span class="signature">(value)</span><span class="type-signature"> &rarr; {<a href="MLWord2Vec.html">MLWord2Vec</a>}</span></h4>
+    <h4 class="name" id="setNumIterations"><span class="type-signature"></span>setNumIterations<span class="signature">(numIterations)</span><span class="type-signature"></span></h4>
     
     
 </dt>
 <dd>
     
+    
+    <div class="description">
+        Sets number of iterations (default: 1), which should be smaller than or equal to number of
+partitions.
+    </div>
     
 
     
@@ -607,13 +569,13 @@ natural language processing or machine learning process.
 	
         <tr>
             
-                <td class="name"><code>value</code></td>
+                <td class="name"><code>numIterations</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">integer</span>
+<span class="param-type">number</span>
 
 
             
@@ -654,7 +616,7 @@ natural language processing or machine learning process.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Word2Vec.js.html">ml/Word2Vec.js</a>, <a href="Word2Vec.js.html#line124">line 124</a>
+        <a href="Word2Vec.js_.html">mllib/feature/Word2Vec.js</a>, <a href="Word2Vec.js_.html#line96">line 96</a>
     </li></ul></dd>
     
     
@@ -680,18 +642,6 @@ natural language processing or machine learning process.
             
 
 
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="MLWord2Vec.html">MLWord2Vec</a></span>
-
-
-	</dd>
-</dl>
-
         
     
     
@@ -700,12 +650,16 @@ natural language processing or machine learning process.
         
             
 <dt>
-    <h4 class="name" id="setNumPartitions"><span class="type-signature"></span>setNumPartitions<span class="signature">(value)</span><span class="type-signature"> &rarr; {<a href="MLWord2Vec.html">MLWord2Vec</a>}</span></h4>
+    <h4 class="name" id="setNumPartitions"><span class="type-signature"></span>setNumPartitions<span class="signature">(numPartitions)</span><span class="type-signature"></span></h4>
     
     
 </dt>
 <dd>
     
+    
+    <div class="description">
+        Sets number of partitions (default: 1). Use a small number for accuracy.
+    </div>
     
 
     
@@ -738,13 +692,13 @@ natural language processing or machine learning process.
 	
         <tr>
             
-                <td class="name"><code>value</code></td>
+                <td class="name"><code>numPartitions</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">integer</span>
+<span class="param-type">number</span>
 
 
             
@@ -785,7 +739,7 @@ natural language processing or machine learning process.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Word2Vec.js.html">ml/Word2Vec.js</a>, <a href="Word2Vec.js.html#line97">line 97</a>
+        <a href="Word2Vec.js_.html">mllib/feature/Word2Vec.js</a>, <a href="Word2Vec.js_.html#line83">line 83</a>
     </li></ul></dd>
     
     
@@ -811,18 +765,6 @@ natural language processing or machine learning process.
             
 
 
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="MLWord2Vec.html">MLWord2Vec</a></span>
-
-
-	</dd>
-</dl>
-
         
     
     
@@ -831,12 +773,16 @@ natural language processing or machine learning process.
         
             
 <dt>
-    <h4 class="name" id="setOutputCol"><span class="type-signature"></span>setOutputCol<span class="signature">(value)</span><span class="type-signature"> &rarr; {<a href="MLWord2Vec.html">MLWord2Vec</a>}</span></h4>
+    <h4 class="name" id="setSeed"><span class="type-signature"></span>setSeed<span class="signature">(seed)</span><span class="type-signature"></span></h4>
     
     
 </dt>
 <dd>
     
+    
+    <div class="description">
+        Sets random seed (default: a random long integer).
+    </div>
     
 
     
@@ -869,13 +815,13 @@ natural language processing or machine learning process.
 	
         <tr>
             
-                <td class="name"><code>value</code></td>
+                <td class="name"><code>seed</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">number</span>
 
 
             
@@ -916,7 +862,7 @@ natural language processing or machine learning process.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Word2Vec.js.html">ml/Word2Vec.js</a>, <a href="Word2Vec.js.html#line61">line 61</a>
+        <a href="Word2Vec.js_.html">mllib/feature/Word2Vec.js</a>, <a href="Word2Vec.js_.html#line108">line 108</a>
     </li></ul></dd>
     
     
@@ -942,18 +888,6 @@ natural language processing or machine learning process.
             
 
 
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="MLWord2Vec.html">MLWord2Vec</a></span>
-
-
-	</dd>
-</dl>
-
         
     
     
@@ -962,12 +896,16 @@ natural language processing or machine learning process.
         
             
 <dt>
-    <h4 class="name" id="setSeed"><span class="type-signature"></span>setSeed<span class="signature">(value)</span><span class="type-signature"> &rarr; {<a href="MLWord2Vec.html">MLWord2Vec</a>}</span></h4>
+    <h4 class="name" id="setVectorSize"><span class="type-signature"></span>setVectorSize<span class="signature">(vectorSize)</span><span class="type-signature"></span></h4>
     
     
 </dt>
 <dd>
     
+    
+    <div class="description">
+        Sets vector size (default: 100).
+    </div>
     
 
     
@@ -1000,13 +938,13 @@ natural language processing or machine learning process.
 	
         <tr>
             
-                <td class="name"><code>value</code></td>
+                <td class="name"><code>vectorSize</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">integer</span>
+<span class="param-type">number</span>
 
 
             
@@ -1047,7 +985,7 @@ natural language processing or machine learning process.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Word2Vec.js.html">ml/Word2Vec.js</a>, <a href="Word2Vec.js.html#line115">line 115</a>
+        <a href="Word2Vec.js_.html">mllib/feature/Word2Vec.js</a>, <a href="Word2Vec.js_.html#line59">line 59</a>
     </li></ul></dd>
     
     
@@ -1073,18 +1011,6 @@ natural language processing or machine learning process.
             
 
 
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="MLWord2Vec.html">MLWord2Vec</a></span>
-
-
-	</dd>
-</dl>
-
         
     
     
@@ -1093,12 +1019,16 @@ natural language processing or machine learning process.
         
             
 <dt>
-    <h4 class="name" id="setStepSize"><span class="type-signature"></span>setStepSize<span class="signature">(value)</span><span class="type-signature"> &rarr; {<a href="MLWord2Vec.html">MLWord2Vec</a>}</span></h4>
+    <h4 class="name" id="setWindowSize"><span class="type-signature"></span>setWindowSize<span class="signature">(window)</span><span class="type-signature"></span></h4>
     
     
 </dt>
 <dd>
     
+    
+    <div class="description">
+        Sets the window of words (default: 5)
+    </div>
     
 
     
@@ -1131,13 +1061,13 @@ natural language processing or machine learning process.
 	
         <tr>
             
-                <td class="name"><code>value</code></td>
+                <td class="name"><code>window</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">float</span>
+<span class="param-type">number</span>
 
 
             
@@ -1178,7 +1108,7 @@ natural language processing or machine learning process.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Word2Vec.js.html">ml/Word2Vec.js</a>, <a href="Word2Vec.js.html#line88">line 88</a>
+        <a href="Word2Vec.js_.html">mllib/feature/Word2Vec.js</a>, <a href="Word2Vec.js_.html#line120">line 120</a>
     </li></ul></dd>
     
     
@@ -1203,411 +1133,6 @@ natural language processing or machine learning process.
     
             
 
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="MLWord2Vec.html">MLWord2Vec</a></span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="setVectorSize"><span class="type-signature"></span>setVectorSize<span class="signature">(value)</span><span class="type-signature"> &rarr; {<a href="MLWord2Vec.html">MLWord2Vec</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">integer</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Word2Vec.js.html">ml/Word2Vec.js</a>, <a href="Word2Vec.js.html#line70">line 70</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="MLWord2Vec.html">MLWord2Vec</a></span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="setWindowSize"><span class="type-signature"></span>setWindowSize<span class="signature">(value)</span><span class="type-signature"> &rarr; {<a href="MLWord2Vec.html">MLWord2Vec</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">integer</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Word2Vec.js.html">ml/Word2Vec.js</a>, <a href="Word2Vec.js.html#line79">line 79</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="MLWord2Vec.html">MLWord2Vec</a></span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="transformSchema"><span class="type-signature"></span>transformSchema<span class="signature">(schema)</span><span class="type-signature"> &rarr; {<a href="StructType.html">StructType</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>schema</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="StructType.html">StructType</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Word2Vec.js.html">ml/Word2Vec.js</a>, <a href="Word2Vec.js.html#line143">line 143</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="StructType.html">StructType</a></span>
-
-
-	</dd>
-</dl>
 
         
     
@@ -1636,7 +1161,7 @@ natural language processing or machine learning process.
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Tue Feb 16 2016 17:05:51 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Tue Feb 16 2016 17:05:52 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>
