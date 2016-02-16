@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: AccumulableParam</title>
+    <title>JSDoc: Class: FutureAction</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Class: AccumulableParam</h1>
+    <h1 class="page-title">Class: FutureAction</h1>
     
     
 
@@ -27,7 +27,7 @@
     
 <header>
     <h2>
-    AccumulableParam
+    FutureAction
     </h2>
     
 </header>  
@@ -39,7 +39,7 @@
     
         
 <dt>
-    <h4 class="name" id="AccumulableParam"><span class="type-signature"></span>new AccumulableParam<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="FutureAction"><span class="type-signature"></span>new FutureAction<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -47,8 +47,8 @@
     
     
     <div class="description">
-        Helper object defining how to accumulate values of a particular type. An implicit
-AccumulableParam needs to be available when you create <a href="Accumulable.html">Accumulable</a>s of a specific type.
+        A future for the result of an action to support cancellation. This is an extension of the
+Scala Future interface to support cancellation.
     </div>
     
 
@@ -81,7 +81,7 @@ AccumulableParam needs to be available when you create <a href="Accumulable.html
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Accumulators.js.html">Accumulators.js</a>, <a href="Accumulators.js.html#line156">line 156</a>
+        <a href="FutureAction.js.html">FutureAction.js</a>, <a href="FutureAction.js.html#line27">line 27</a>
     </li></ul></dd>
     
     
@@ -127,7 +127,7 @@ AccumulableParam needs to be available when you create <a href="Accumulable.html
         <dl>
             
 <dt>
-    <h4 class="name" id="addAccumulator"><span class="type-signature"></span>addAccumulator<span class="signature">(r, t)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id="cancel"><span class="type-signature"></span>cancel<span class="signature">(mayInterruptIfRunning)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
     
     
 </dt>
@@ -135,8 +135,7 @@ AccumulableParam needs to be available when you create <a href="Accumulable.html
     
     
     <div class="description">
-        Add additional data to the accumulator value. Is allowed to modify and return `r`
-for efficiency (to avoid allocating objects).
+        Attempts to cancel execution of this task.
     </div>
     
 
@@ -170,339 +169,13 @@ for efficiency (to avoid allocating objects).
 	
         <tr>
             
-                <td class="name"><code>r</code></td>
+                <td class="name"><code>mayInterruptIfRunning</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">object</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">the current value of the accumulator</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>t</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">the data to be added to the accumulator</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Accumulators.js.html">Accumulators.js</a>, <a href="Accumulators.js.html#line174">line 174</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    the new value of the accumulator
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">object</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="addInPlace"><span class="type-signature"></span>addInPlace<span class="signature">(r1, r2)</span><span class="type-signature"> &rarr; {object}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Merge two accumulated values together. Is allowed to modify and return the first value
-for efficiency (to avoid allocating objects).
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>r1</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">one set of accumulated data</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>r2</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">another set of accumulated data</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Accumulators.js.html">Accumulators.js</a>, <a href="Accumulators.js.html#line190">line 190</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    both data sets merged together
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">object</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="zero"><span class="type-signature"></span>zero<span class="signature">(initialValue)</span><span class="type-signature"> &rarr; {object}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Return the "zero" (identity) value for an accumulator type, given its initial value. For
-example, if R was a vector of N dimensions, this would return a vector of N zeroes.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>initialValue</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
+<span class="param-type">boolean</span>
 
 
             
@@ -543,7 +216,94 @@ example, if R was a vector of N dimensions, this would return a vector of N zero
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Accumulators.js.html">Accumulators.js</a>, <a href="Accumulators.js.html#line204">line 204</a>
+        <a href="FutureAction.js.html">FutureAction.js</a>, <a href="FutureAction.js.html#line42">line 42</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">boolean</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="get"><span class="type-signature"></span>get<span class="signature">()</span><span class="type-signature"> &rarr; {object}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Waits if necessary for the computation to complete, and then retrieves its result.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="FutureAction.js.html">FutureAction.js</a>, <a href="FutureAction.js.html#line50">line 50</a>
     </li></ul></dd>
     
     
@@ -586,6 +346,398 @@ example, if R was a vector of N dimensions, this would return a vector of N zero
     
 </dd>
 
+        
+            
+<dt>
+    <h4 class="name" id="getWithTimeout"><span class="type-signature"></span>getWithTimeout<span class="signature">(timeout)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Waits if necessary for at most the given time for the computation to complete, and then retrieves its result, if available.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>timeout</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">in milliseconds</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="FutureAction.js.html">FutureAction.js</a>, <a href="FutureAction.js.html#line59">line 59</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">object</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="isCancelled"><span class="type-signature"></span>isCancelled<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Returns whether the action has been cancelled.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="FutureAction.js.html">FutureAction.js</a>, <a href="FutureAction.js.html#line76">line 76</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">boolean</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="isDone"><span class="type-signature"></span>isDone<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Returns whether the action has already been completed with a value or an exception.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="FutureAction.js.html">FutureAction.js</a>, <a href="FutureAction.js.html#line67">line 67</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">boolean</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="jobIds"><span class="type-signature"></span>jobIds<span class="signature">()</span><span class="type-signature"> &rarr; {number[]}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="FutureAction.js.html">FutureAction.js</a>, <a href="FutureAction.js.html#line84">line 84</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">number[]</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
         </dl>
     
     
@@ -608,7 +760,7 @@ example, if R was a vector of N dimensions, this would return a vector of N zero
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Tue Feb 16 2016 17:18:42 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Tue Feb 16 2016 17:18:43 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>
