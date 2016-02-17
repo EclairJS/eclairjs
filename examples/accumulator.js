@@ -20,7 +20,7 @@ var addInt = function(){
 	print("accum " + accum);
 	sparkContext.parallelize([1, 2, 3, 4]).foreach(function(x, accum) {
 		accum.add(x);
-	});
+	}, [accum]);
 	print( accum.value());
 }
 	
