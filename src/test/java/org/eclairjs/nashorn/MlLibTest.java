@@ -37,5 +37,19 @@ public class MlLibTest {
         assertEquals("failure - strings are not equal", expected, ret.toString());
 
     }
+
+    @Test
+    public void AssociationRulesTest() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
+
+        TestUtils.evalJSResource(engine, "/mllib/linearregressiontest.js");
+        Object ret = ((Invocable)engine).invokeFunction("AssociationRulesTest");
+
+        System.out.println(ret);
+        String expected = "[a] => [b], 0.8";
+        assertEquals("failure - strings are not equal", expected, ret.toString());
+
+    }
     
 }
