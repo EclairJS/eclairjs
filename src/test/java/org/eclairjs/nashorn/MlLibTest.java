@@ -29,11 +29,51 @@ public class MlLibTest {
         ScriptEngine engine = TestUtils.getEngine();
         String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
 
-        TestUtils.evalJSResource(engine, "/mllib/linearregressiontest.js"); 
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
         Object ret = ((Invocable)engine).invokeFunction("LinearRegressionWithSGDTest", file);
-
-        System.out.println(ret);
+        
         String expected = "34.802055592544406,-0.4307829,32.26369105545771,-0.1625189,27.073768640300933,-0.1625189,32.956369807610656,-0.1625189,26.589176152816094,0.3715636,34.161678328568854,0.7654678,24.3647041765334,0.8544153,26.661937949806784,1.2669476,28.790597957841044,1.2669476,20.51350661135643,1.2669476";
+        assertEquals("failure - strings are not equal", expected, ret.toString());
+
+    }
+
+    /*
+        tests
+        SparkContext.parallelize([FreqItemset])
+        FreqItemset()
+        AssociationRules()
+        AssociationRules.setMinConfidence()
+        AssociationRules.run()
+        Rule.antecedent()
+        Rule.consequent()
+        Rule.confidence()
+        RDD.collect()
+     */
+    @Test
+    public void AssociationRulesTest() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
+
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
+        Object ret = ((Invocable)engine).invokeFunction("AssociationRulesTest");
+
+        String expected = "[a] => [b], 0.8";
+        assertEquals("failure - strings are not equal", expected, ret.toString());
+
+    }
+
+    @Test
+    public void BisectingKMeansExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
+
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
+        Object ret = ((Invocable)engine).invokeFunction("BisectingKMeansExample");
+
+        String expected = "{\"Compute_Cost\":0.07999999999994545," +
+                "\"Cluster_Center_0\":\"[0.2]\",\"Cluster_Center_1\":\"[10.2]\"," +
+                "\"Cluster_Center_2\":\"[20.200000000000003]\",\"Cluster_Center_3\":\"[30.200000000000003]\"}";
+
         assertEquals("failure - strings are not equal", expected, ret.toString());
 
     }

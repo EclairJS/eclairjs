@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: mllib/clustering/BisectingKMeans.js</title>
+    
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+    
+    <h1 class="page-title">Source: mllib/clustering/BisectingKMeans.js</h1>
+    
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>/*                                                                         
+* Copyright 2016 IBM Corp.                                                 
+*                                                                          
+* Licensed under the Apache License, Version 2.0 (the "License");          
+* you may not use this file except in compliance with the License.         
+* You may obtain a copy of the License at                                  
+*                                                                          
+*      http://www.apache.org/licenses/LICENSE-2.0                          
+*                                                                          
+* Unless required by applicable law or agreed to in writing, software      
+* distributed under the License is distributed on an "AS IS" BASIS,        
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+* See the License for the specific language governing permissions and      
+* limitations under the License.                                           
+*/ 
+
+
+
+/**
+ * A bisecting k-means algorithm based on the paper "A comparison of document clustering techniques"
+ * by Steinbach, Karypis, and Kumar, with modification to fit Spark.
+ * The algorithm starts from a single cluster that contains all points.
+ * Iteratively it finds divisible clusters on the bottom level and bisects each of them using
+ * k-means, until there are `k` leaf clusters in total or no leaf clusters are divisible.
+ * The bisecting steps of clusters on the same level are grouped together to increase parallelism.
+ * If bisecting all divisible clusters on the bottom level would result more than `k` leaf clusters,
+ * larger clusters get higher priority.
+ *
+ * @param k the desired number of leaf clusters (default: 4). The actual number could be smaller if
+ *          there are no divisible leaf clusters.
+ * @param maxIterations the max number of k-means iterations to split clusters (default: 20)
+ * @param minDivisibleClusterSize the minimum number of points (if >= 1.0) or the minimum proportion
+ *                                of points (if &lt; 1.0) of a divisible cluster (default: 1)
+ * @param seed a random seed (default: hash value of the class name)
+ *
+ * @see [[http://glaros.dtc.umn.edu/gkhome/fetch/papers/docclusterKDDTMW00.pdf
+ *     Steinbach, Karypis, and Kumar, A comparison of document clustering techniques,
+ *     KDD Workshop on Text Mining, 2000.]]
+ * @classdesc
+ */
+
+/**
+ * Constructs with the default configuration
+ *  @class
+ */
+var BisectingKMeans = function(jvmObject) {
+	 
+	 this.logger = Logger.getLogger("BisectingKMeans_js");
+	if (!jvmObject) {
+        jvmObject = new org.apache.spark.mllib.clustering.BisectingKMeans();
+    }
+	 JavaWrapper.call(this, jvmObject);
+
+};
+
+BisectingKMeans.prototype = Object.create(JavaWrapper.prototype);
+
+BisectingKMeans.prototype.constructor = BisectingKMeans;
+
+
+
+/**
+ * Sets the desired number of leaf clusters (default: 4).
+ * The actual number could be smaller if there are no divisible leaf clusters.
+ * @param {integer} k
+ * @returns {BisectingKMeans}
+ */
+BisectingKMeans.prototype.setK = function(k) {
+   var javaObject =  this.getJavaObject().setK(k);
+   return new BisectingKMeans(javaObject);
+};
+
+
+/**
+ * Gets the desired number of leaf clusters.
+ * @returns {integer}
+ */
+BisectingKMeans.prototype.getK = function() {
+   return  this.getJavaObject().getK();
+};
+
+
+/**
+ * Sets the max number of k-means iterations to split clusters (default: 20).
+ * @param {number} maxIterations
+ * @returns {BisectingKMeans}
+ */
+BisectingKMeans.prototype.setMaxIterations = function(maxIterations) {
+    var inter = maxIterations ? maxIterations : null;
+   var javaObject =  this.getJavaObject().setMaxIterations(inter);
+   return new BisectingKMeans(javaObject);
+};
+
+
+/**
+ * Gets the max number of k-means iterations to split clusters.
+ * @returns {int}
+ */
+BisectingKMeans.prototype.getMaxIterations = function() {
+    return  this.getJavaObject().getMaxIterations();
+};
+
+
+/**
+ * Sets the minimum number of points (if >= `1.0`) or the minimum proportion of points
+ * (if &lt; `1.0`) of a divisible cluster (default: 1).
+ * @param {float} minDivisibleClusterSize
+ * @returns {BisectingKMeans}
+ */
+BisectingKMeans.prototype.setMinDivisibleClusterSize = function(minDivisibleClusterSize) {
+   var javaObject =  this.getJavaObject().setMinDivisibleClusterSize(minDivisibleClusterSize);
+   return new BisectingKMeans(javaObject);
+};
+
+
+/**
+ * Gets the minimum number of points (if >= `1.0`) or the minimum proportion of points
+ * (if &lt; `1.0`) of a divisible cluster.
+ * @returns {float}
+ */
+BisectingKMeans.prototype.getMinDivisibleClusterSize = function() {
+    return  this.getJavaObject().getMinDivisibleClusterSize();
+};
+
+
+/**
+ * Sets the random seed (default: hash value of the class name).
+ * @param {integer} seed
+ * @returns {BisectingKMeans}
+ */
+BisectingKMeans.prototype.setSeed = function(seed) {
+   var javaObject =  this.getJavaObject().setSeed(seed);
+   return new BisectingKMeans(javaObject);
+};
+
+
+/**
+ * Gets the random seed.
+ * @returns {integer}
+ */
+BisectingKMeans.prototype.getSeed = function() {
+    return  this.getJavaObject().getSeed();
+};
+
+
+/**
+ * Runs the bisecting k-means algorithm.
+ * @param {RDD} input  RDD of vectors
+ * @returns {BisectingKMeansModel}  model for the bisecting kmeans
+ */
+BisectingKMeans.prototype.run = function(input) {
+   var input_uw = Utils.unwrapObject(input);
+   var javaObject =  this.getJavaObject().run(input_uw);
+   return new BisectingKMeansModel(javaObject);
+};
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ALS.html">ALS</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="AssociationRules.html">AssociationRules</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BisectingKMeans.html">BisectingKMeans</a></li><li><a href="BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="FPGrowth.html">FPGrowth</a></li><li><a href="FPGrowthModel.html">FPGrowthModel</a></li><li><a href="FreqItemset.html">FreqItemset</a></li><li><a href="functions.html">functions</a></li><li><a href="FutureAction.html">FutureAction</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="List.html">List</a></li><li><a href="MapType.html">MapType</a></li><li><a href="MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="MLWord2Vec.html">MLWord2Vec</a></li><li><a href="MLWord2VecModel.html">MLWord2VecModel</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="Rating.html">Rating</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="Rule.html">Rule</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SparseVector.html">SparseVector</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li><li><a href="Vectors.html">Vectors</a></li><li><a href="VectorUDT.html">VectorUDT</a></li><li><a href="Word2Vec.html">Word2Vec</a></li><li><a href="Word2VecModel.html">Word2VecModel</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Vector">Vector</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Thu Feb 18 2016 17:00:52 GMT-0500 (EST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

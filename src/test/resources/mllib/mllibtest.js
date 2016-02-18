@@ -49,5 +49,14 @@ var LinearRegressionWithSGDTest = function(file) {
 	return valuesAndPreds.take(10).toString();
 }
 
+var AssociationRulesTest = function() {
+    load("examples/mllib/association_rules_example.js");
+    return run(sparkContext);
+}
+
+var BisectingKMeansExample = function() {
+    load("examples/mllib/bisecting_k_means_example.js");
+    return JSON.stringify(run(sparkContext));
+}
 
 
