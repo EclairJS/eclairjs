@@ -29,7 +29,7 @@ public class MlLibTest {
         ScriptEngine engine = TestUtils.getEngine();
         String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
 
-        TestUtils.evalJSResource(engine, "/mllib/linearregressiontest.js"); 
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
         Object ret = ((Invocable)engine).invokeFunction("LinearRegressionWithSGDTest", file);
 
         System.out.println(ret);
@@ -43,7 +43,7 @@ public class MlLibTest {
         ScriptEngine engine = TestUtils.getEngine();
         //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
 
-        TestUtils.evalJSResource(engine, "/mllib/linearregressiontest.js");
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
         Object ret = ((Invocable)engine).invokeFunction("AssociationRulesTest");
 
         System.out.println(ret);
