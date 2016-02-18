@@ -50,7 +50,7 @@ var LinearRegressionWithSGDTest = function(file) {
 }
 
 var AssociationRulesTest = function() {
-    load("examples/mllib/JavaScriptAssociationRulesExample.js");
+    load("examples/mllib/association_rules_example.js");
     return run(sparkContext);
 }
 

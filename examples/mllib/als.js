@@ -16,7 +16,7 @@
 
 /*
  * to run this example:
- * bin/eclairjs.sh examples/mllib/JavaScriptALS.js  examples/data/mllib/als/test.data  12 4 /tmp
+ * bin/eclairjs.sh examples/mllib/ALS.js  examples/data/mllib/als/test.data  12 4 /tmp
  */
 
 function featuresToString(tuple) {
@@ -25,7 +25,7 @@ function featuresToString(tuple) {
 
 if (args.length < 5) {
     print(
-        "Usage: bin/eclairjs.sh examples/mllib/JavaScriptALS.js <ratings_file> <rank> <iterations> <output_dir> [<blocks>]");
+        "Usage: bin/eclairjs.sh examples/mllib/als.js <ratings_file> <rank> <iterations> <output_dir> [<blocks>]");
     exit(1);
 }
 var sparkConf = new SparkConf().setAppName("JavaALS").setMaster("local[*]");
