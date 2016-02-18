@@ -54,5 +54,9 @@ var AssociationRulesTest = function() {
     return run(sparkContext);
 }
 
+var BisectingKMeansExample = function() {
+    load("examples/mllib/bisecting_k_means_example.js");
+    return JSON.stringify(run(sparkContext));
+}
 
 
