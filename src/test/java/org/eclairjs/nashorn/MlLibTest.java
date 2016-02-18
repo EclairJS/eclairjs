@@ -38,6 +38,18 @@ public class MlLibTest {
 
     }
 
+    /*
+        tests
+        SparkContext.parallelize([FreqItemset])
+        FreqItemset()
+        AssociationRules()
+        AssociationRules.setMinConfidence()
+        AssociationRules.run()
+        Rule.antecedent()
+        Rule.consequent()
+        Rule.confidence()
+        RDD.collect()
+     */
     @Test
     public void AssociationRulesTest() throws Exception {
         ScriptEngine engine = TestUtils.getEngine();
