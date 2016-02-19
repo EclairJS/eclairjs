@@ -24,12 +24,17 @@
 
 /**
  * @param {RDD} freqItemsets
- * @returns {??} 
  *  @class
  */
 var FPGrowthModel = function(freqItemsets) {
-	 var jvmObject = new org.apache.spark.mllib.fpm.FPGrowthModel(freqItemsets);
-	 this.logger = Logger.getLogger("FPGrowthModel_js");
+    this.logger = Logger.getLogger("FPGrowthModel_js");
+    var jvmObject;
+    if (freqItemsets instanceof org.apache.spark.mllib.fpm.FPGrowthModel) {
+        jvmObject = freqItemsets
+    } else {
+        jvmObject = new org.apache.spark.mllib.fpm.FPGrowthModel(freqItemsets);
+    }
+
 	 JavaWrapper.call(this, jvmObject);
 
 };
@@ -42,13 +47,21 @@ FPGrowthModel.prototype.constructor = FPGrowthModel;
 
 /**
  * Generates association rules for the [[Item]]s in {@link freqItemsets}.
- * @param {number} confidence  minimal confidence of the rules produced
+ * @param {float} confidence  minimal confidence of the rules produced
  * @returns {RDD} 
  */
 FPGrowthModel.prototype.generateAssociationRules = function(confidence) {
-throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().generateAssociationRules(confidence);
-//   return new RDD(javaObject);
+   var javaObject =  this.getJavaObject().generateAssociationRules(confidence);
+   return new RDD(javaObject);
+};
+
+/**
+ * Returns RDD of RDD FreqItemset
+ * @returns {RDD}
+ */
+FPGrowthModel.prototype.freqItemsets = function() {
+    var javaObject =  this.getJavaObject().freqItemsets();
+    return new RDD(javaObject.toJavaRDD());
 };
 
 
@@ -74,12 +87,17 @@ throw "not implemented by ElairJS";
  * Constructs a default instance with default parameters {minSupport: `0.3`, numPartitions: same
  * as the input data}.
  *
- * @returns {??} 
  *  @class
  */
-var FPGrowth = function(jvmObject) {
+var FPGrowth = function(obj) {
 	 
 	 this.logger = Logger.getLogger("FPGrowth_js");
+    var jvmObject;
+    if (obj instanceof org.apache.spark.mllib.fpm.FPGrowth) {
+        jvmObject = obj;
+    } else {
+        jvmObject = new org.apache.spark.mllib.fpm.FPGrowth();
+    }
 	 JavaWrapper.call(this, jvmObject);
 
 };
@@ -93,26 +111,24 @@ FPGrowth.prototype.constructor = FPGrowth;
 /**
  * Sets the minimal support level (default: `0.3`).
  *
- * @param {number} minSupport
- * @returns {} 
+ * @param {float} minSupport
+ * @returns {FPGrowth}
  */
 FPGrowth.prototype.setMinSupport = function(minSupport) {
-throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().setMinSupport(minSupport);
-//   return new (javaObject);
+   var javaObject =  this.getJavaObject().setMinSupport(minSupport);
+   return new FPGrowth(javaObject);
 };
 
 
 /**
  * Sets the number of partitions used by parallel FP-growth (default: same as input data).
  *
- * @param {number} numPartitions
- * @returns {} 
+ * @param {integer} numPartitions
+ * @returns {FPGrowth}
  */
 FPGrowth.prototype.setNumPartitions = function(numPartitions) {
-throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().setNumPartitions(numPartitions);
-//   return new (javaObject);
+   var javaObject =  this.getJavaObject().setNumPartitions(numPartitions);
+   return new FPGrowth(javaObject);
 };
 
 
@@ -122,23 +138,10 @@ throw "not implemented by ElairJS";
  *
  * @returns {FPGrowthModel}  an [[FPGrowthModel]]
  */
-FPGrowth.prototype.runwithRDD = function(data) {
-throw "not implemented by ElairJS";
-//   var data_uw = Utils.unwrapObject(data);
-//   var javaObject =  this.getJavaObject().run(data_uw);
-//   return new FPGrowthModel(javaObject);
-};
-
-
-/**
- * @param {JavaRDD} data
- * @returns {FPGrowthModel} 
- */
-FPGrowth.prototype.runwithJavaRDD = function(data) {
-throw "not implemented by ElairJS";
-//   var data_uw = Utils.unwrapObject(data);
-//   var javaObject =  this.getJavaObject().run(data_uw);
-//   return new FPGrowthModel(javaObject);
+FPGrowth.prototype.run = function(data) {
+   var data_uw = Utils.unwrapObject(data);
+   var javaObject =  this.getJavaObject().run(data_uw);
+   return new FPGrowthModel(javaObject);
 };
 
 /**
@@ -171,8 +174,21 @@ FreqItemset.prototype = Object.create(JavaWrapper.prototype);
 
 FreqItemset.prototype.constructor = FreqItemset;
 
+/**
+ * Returns items in a List.
+ * @returns {List}
+ */
 FreqItemset.prototype.items = function() {
 
    var javaObject =  this.getJavaObject().javaItems();
-   return javaObject;
+   return new List(javaObject);
+};
+
+/**
+ *
+ * @returns {integer}
+ */
+FreqItemset.prototype.freq = function() {
+
+    return this.getJavaObject().freq();
 };

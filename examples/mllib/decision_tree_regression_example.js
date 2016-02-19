@@ -68,7 +68,7 @@ function run(sc) {
  */
 
 if (typeof sparkContext === 'undefined') {
-    var sparkConf = new SparkConf().setAppName("DecisionTreeClassificationExample").setMaster("local[*]");
+    var sparkConf = new SparkConf().setAppName("DecisionTreeRegressionnExample").setMaster("local[*]");
     var sc = new SparkContext(sparkConf);
     var result = run(sc);
     print("Test Mean Squared Error: " + result.testMSE);

@@ -134,5 +134,33 @@ public class MlLibTest {
         assertEquals("failure - strings are not equal", expected, ret.toString());
 
     }
+
+    /*
+           tests
+           FPGrowth()
+           FPGrowth.setMinSupport()
+           FPGrowth.setNumPartitions()
+           FPGrowth.run()
+           FPGrowthModel()
+           FPGrowthModel.freqItemsets()
+           FreqItemset()
+           FreqItemset.items()
+           FreqItemset.freq()
+           List()
+
+    */
+    @Test
+    public void fpGrowthExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
+
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
+        Object ret = ((Invocable)engine).invokeFunction("fpGrowthExample");
+
+        String expected = "[\"[t] 3\",\"[t, x] 3\",\"[t, x, z] 3\"]";
+
+        assertEquals("failure - strings are not equal", expected, ret.toString());
+
+    }
     
 }
