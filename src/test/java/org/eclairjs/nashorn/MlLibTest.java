@@ -110,5 +110,29 @@ public class MlLibTest {
         assertEquals("failure - strings are not equal", expected, ret.toString());
 
     }
+
+    /*
+           tests
+           MLUtils.loadLibSVMFile()
+           RDD.randomSplit()
+           DecisionTree.trainRegressor()
+           DecisionTreeModel()
+           LabeledPoint.getLabel()
+           LabeledPoint.getFeatures()
+
+    */
+    @Test
+    public void DecisionTreeRegressionExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
+
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
+        Object ret = ((Invocable)engine).invokeFunction("DecisionTreeRegressionExample");
+
+        String expected = "{\"testMSE\":0.01,\"depth\":1,\"nodes\":3}";
+
+        assertEquals("failure - strings are not equal", expected, ret.toString());
+
+    }
     
 }

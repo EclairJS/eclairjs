@@ -187,7 +187,7 @@ throw "not implemented by ElairJS";
  * @param {RDD} input  Training dataset: RDD of {@link LabeledPoint}.
  *              Labels should take values {0, 1, ..., numClasses-1}.
  * @param {number} numClasses  number of classes for classification.
- * @param {Map} categoricalFeaturesInfo  Map storing arity of categorical features.
+ * @param {object} categoricalFeaturesInfo  object name key pair map storing arity of categorical features.
  *                                E.g., an entry (n -> k) indicates that feature n is categorical
  *                                with k categories indexed from 0: {0, 1, ..., k-1}.
  * @param {string} impurity  Criterion used for information gain calculation.
@@ -213,7 +213,7 @@ DecisionTree.trainClassifier = function(input,numClasses,categoricalFeaturesInfo
  *
  * @param {RDD} input  Training dataset: RDD of {@link LabeledPoint}.
  *              Labels are real numbers.
- * @param {Map} categoricalFeaturesInfo  Map storing arity of categorical features.
+ * @param {object} categoricalFeaturesInfo  key value  storing arity of categorical features.
  *                                E.g., an entry (n -> k) indicates that feature n is categorical
  *                                with k categories indexed from 0: {0, 1, ..., k-1}.
  * @param {string} impurity  Criterion used for information gain calculation.
@@ -225,28 +225,10 @@ DecisionTree.trainClassifier = function(input,numClasses,categoricalFeaturesInfo
  *                 (suggested value: 32)
  * @returns {DecisionTreeModel}  DecisionTreeModel that can be used for prediction
  */
-DecisionTree.trainRegressorwithnumber = function(input,categoricalFeaturesInfo,impurity,maxDepth,maxBins) {
-throw "not implemented by ElairJS";
-//   var input_uw = Utils.unwrapObject(input);
-//   var categoricalFeaturesInfo_uw = Utils.unwrapObject(categoricalFeaturesInfo);
-//   var javaObject =  org.apache.spark.mllib.tree.DecisionTree.trainRegressor(input_uw,categoricalFeaturesInfo_uw,impurity,maxDepth,maxBins);
-//   return new DecisionTreeModel(javaObject);
+DecisionTree.trainRegressor = function(input,categoricalFeaturesInfo,impurity,maxDepth,maxBins) {
+   var input_uw = Utils.unwrapObject(input);
+   var categoricalFeaturesInfo_uw = Utils.createJavaHashMap(categoricalFeaturesInfo);
+   var javaObject =  org.apache.spark.mllib.tree.DecisionTree.trainRegressor(input_uw,categoricalFeaturesInfo_uw,impurity,maxDepth,maxBins);
+   return new DecisionTreeModel(javaObject);
 };
 
-
-/**
- * Java-friendly API for [[org.apache.spark.mllib.tree.DecisionTree$#trainRegressor]]
- * @param {JavaRDD} input
- * @param {Map} categoricalFeaturesInfo
- * @param {string} impurity
- * @param {number} maxDepth
- * @param {number} maxBins
- * @returns {DecisionTreeModel} 
- */
-DecisionTree.trainRegressorwithnumber = function(input,categoricalFeaturesInfo,impurity,maxDepth,maxBins) {
-throw "not implemented by ElairJS";
-//   var input_uw = Utils.unwrapObject(input);
-//   var categoricalFeaturesInfo_uw = Utils.unwrapObject(categoricalFeaturesInfo);
-//   var javaObject =  org.apache.spark.mllib.tree.DecisionTree.trainRegressor(input_uw,categoricalFeaturesInfo_uw,impurity,maxDepth,maxBins);
-//   return new DecisionTreeModel(javaObject);
-};
