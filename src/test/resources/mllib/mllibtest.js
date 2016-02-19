@@ -59,4 +59,14 @@ var BisectingKMeansExample = function() {
     return JSON.stringify(run(sparkContext));
 }
 
+var DecisionTreeClassificationExample = function() {
+    load("examples/mllib/decision_tree_classification_example.js");
+    var result = run(sparkContext);
+    var json = {};
+    json.testErr = result.testErr;
+    json.depth = result.model.depth();
+    json.nodes = result.model.numNodes();
+    return JSON.stringify(json);
+}
+
 
