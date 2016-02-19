@@ -62,6 +62,16 @@ public class MlLibTest {
 
     }
 
+    /*
+            tests
+            Vectors.dense
+            BisectingKMeans()
+            BisectingKMeans.setK()
+            BisectingKMeans.run()
+            BisectingKMeansModel()
+            BisectingKMeansModel.computeCost()
+            BisectingKMeansModel.clusterCenters()
+     */
     @Test
     public void BisectingKMeansExample() throws Exception {
         ScriptEngine engine = TestUtils.getEngine();
@@ -73,6 +83,53 @@ public class MlLibTest {
         String expected = "{\"Compute_Cost\":0.07999999999994545," +
                 "\"Cluster_Center_0\":\"[0.2]\",\"Cluster_Center_1\":\"[10.2]\"," +
                 "\"Cluster_Center_2\":\"[20.200000000000003]\",\"Cluster_Center_3\":\"[30.200000000000003]\"}";
+
+        assertEquals("failure - strings are not equal", expected, ret.toString());
+
+    }
+    /*
+            tests
+            MLUtils.loadLibSVMFile()
+            RDD.randomSplit()
+            DecisionTree.trainClassifier()
+            DecisionTreeModel()
+            LabeledPoint.getLabel()
+            LabeledPoint.getFeatures()
+
+     */
+    @Test
+    public void DecisionTreeClassificationExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
+
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
+        Object ret = ((Invocable)engine).invokeFunction("DecisionTreeClassificationExample");
+
+        String expected = "{\"testErr\":0.03225806451612903,\"depth\":1,\"nodes\":3}";
+
+        assertEquals("failure - strings are not equal", expected, ret.toString());
+
+    }
+
+    /*
+           tests
+           MLUtils.loadLibSVMFile()
+           RDD.randomSplit()
+           DecisionTree.trainRegressor()
+           DecisionTreeModel()
+           LabeledPoint.getLabel()
+           LabeledPoint.getFeatures()
+
+    */
+    @Test
+    public void DecisionTreeRegressionExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
+
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
+        Object ret = ((Invocable)engine).invokeFunction("DecisionTreeRegressionExample");
+
+        String expected = "{\"testMSE\":0.01,\"depth\":1,\"nodes\":3}";
 
         assertEquals("failure - strings are not equal", expected, ret.toString());
 
