@@ -91,3 +91,11 @@ var fpGrowthExample = function() {
     return JSON.stringify(json);
 }
 
+var GradientBoostingClassificationExample = function() {
+    load("examples/mllib/gradient_boosting_classification_example.js");
+    var result = run(sparkContext);
+    var json = {};
+    json.testErr = result.testErr;
+    json.summary = result.model.toString();
+    return JSON.stringify(json);
+}

@@ -162,5 +162,19 @@ public class MlLibTest {
         assertEquals("failure - strings are not equal", expected, ret.toString());
 
     }
+
+    @Test
+    public void GradientBoostingClassificationExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
+
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
+        Object ret = ((Invocable)engine).invokeFunction("GradientBoostingClassificationExample");
+
+        String expected = "{\"testErr\":0.03225806451612903,\"summary\":\"TreeEnsembleModel classifier with 3 trees\\n\"}";
+
+        assertEquals("failure - strings are not equal", expected, ret.toString());
+
+    }
     
 }
