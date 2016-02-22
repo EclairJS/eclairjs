@@ -49,5 +49,45 @@ var LinearRegressionWithSGDTest = function(file) {
 	return valuesAndPreds.take(10).toString();
 }
 
+var AssociationRulesTest = function() {
+    load("examples/mllib/association_rules_example.js");
+    return run(sparkContext);
+}
 
+var BisectingKMeansExample = function() {
+    load("examples/mllib/bisecting_k_means_example.js");
+    return JSON.stringify(run(sparkContext));
+}
+
+var DecisionTreeClassificationExample = function() {
+    load("examples/mllib/decision_tree_classification_example.js");
+    var result = run(sparkContext);
+    var json = {};
+    json.testErr = result.testErr;
+    json.depth = result.model.depth();
+    json.nodes = result.model.numNodes();
+    return JSON.stringify(json);
+}
+
+var DecisionTreeRegressionExample = function() {
+    load("examples/mllib/decision_tree_regression_example.js");
+    var result = run(sparkContext);
+    var json = {};
+    json.testMSE = result.testMSE;
+    json.depth = result.model.depth();
+    json.nodes = result.model.numNodes();
+    return JSON.stringify(json);
+}
+
+var fpGrowthExample = function() {
+    load("examples/mllib/fp_growth_example.js");
+    var result = run(sparkContext);
+
+    // only going to take the first 3, hopefully they will always be the same 3
+    var json = [];
+    for (var i = 0; i < 3; i++) {
+        json.push(result[i].items() + " " + result[i].freq());
+    }
+    return JSON.stringify(json);
+}
 

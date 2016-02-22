@@ -64,15 +64,17 @@ Utils.logger = Logger.getLogger("Utils_js");
   };
 
   Utils.javaToJs = function(javaObj) {
-    if (Array.isArray(javaObj))
-    {
-      for (var i=0;i<javaObj.length;i++)
-        javaObj[i]=org.eclairjs.nashorn.Utils.javaToJs(javaObj,org.eclairjs.nashorn.NashornEngineSingleton.getEngine());
-      return javaObj;
+      if (Array.isArray(javaObj) || javaObj.getClass().isArray() )
+      {
+          var ret = [];
+          for (var i=0;i<javaObj.length;i++) {
+              ret.push(org.eclairjs.nashorn.Utils.javaToJs(javaObj[i], org.eclairjs.nashorn.NashornEngineSingleton.getEngine()));
+          }
+          return ret;
 
-    }
-    else
-  	  return org.eclairjs.nashorn.Utils.javaToJs(javaObj,org.eclairjs.nashorn.NashornEngineSingleton.getEngine());
+      }
+      else
+          return org.eclairjs.nashorn.Utils.javaToJs(javaObj,org.eclairjs.nashorn.NashornEngineSingleton.getEngine());
   };
 
   Utils.unwrapObject = function(obj) {
