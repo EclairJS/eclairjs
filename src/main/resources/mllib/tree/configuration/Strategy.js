@@ -1,18 +1,18 @@
 /*                                                                         
-* Copyright 2016 IBM Corp.                                                 
-*                                                                          
-* Licensed under the Apache License, Version 2.0 (the "License");          
-* you may not use this file except in compliance with the License.         
-* You may obtain a copy of the License at                                  
-*                                                                          
-*      http://www.apache.org/licenses/LICENSE-2.0                          
-*                                                                          
-* Unless required by applicable law or agreed to in writing, software      
-* distributed under the License is distributed on an "AS IS" BASIS,        
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
-* See the License for the specific language governing permissions and      
-* limitations under the License.                                           
-*/ 
+ * Copyright 2016 IBM Corp.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 
 
@@ -73,15 +73,15 @@
  * @param {number} subsamplingRate
  * @param {boolean} useNodeIdCache
  * @param {number} checkpointInterval
- * @returns {??} 
+ * @returns {??}
  *  @class
  */
-var Strategy = function(jvmObject) {
+var Strategy = function (jvmObject) {
 
-	//var Strategy = function(algo,impurity,maxDepth,numClasses,maxBins,quantileCalculationStrategy,categoricalFeaturesInfo,minInstancesPerNode,minInfoGain,maxMemoryInMB,subsamplingRate,useNodeIdCache,checkpointInterval) {
-	// var jvmObject = new org.apache.spark.mllib.tree.configuration.Strategy(algo,impurity,maxDepth,numClasses,maxBins,quantileCalculationStrategy,categoricalFeaturesInfo,minInstancesPerNode,minInfoGain,maxMemoryInMB,subsamplingRate,useNodeIdCache,checkpointInterval);
-	 this.logger = Logger.getLogger("Strategy_js");
-	 JavaWrapper.call(this, jvmObject);
+    //var Strategy = function(algo,impurity,maxDepth,numClasses,maxBins,quantileCalculationStrategy,categoricalFeaturesInfo,minInstancesPerNode,minInfoGain,maxMemoryInMB,subsamplingRate,useNodeIdCache,checkpointInterval) {
+    // var jvmObject = new org.apache.spark.mllib.tree.configuration.Strategy(algo,impurity,maxDepth,numClasses,maxBins,quantileCalculationStrategy,categoricalFeaturesInfo,minInstancesPerNode,minInfoGain,maxMemoryInMB,subsamplingRate,useNodeIdCache,checkpointInterval);
+    this.logger = Logger.getLogger("Strategy_js");
+    JavaWrapper.call(this, jvmObject);
 
 };
 
@@ -89,22 +89,35 @@ Strategy.prototype = Object.create(JavaWrapper.prototype);
 
 Strategy.prototype.constructor = Strategy;
 
-
+/**
+ *
+ * @param {integer} num
+ */
+Strategy.prototype.setNumClasses = function (num) {
+    this.getJavaObject().setNumClasses(num);
+};
 
 /**
- * @returns {boolean} 
+ *
+ * @param {integer} num
  */
-Strategy.prototype.isMulticlassClassification = function() {
-throw "not implemented by ElairJS";
+Strategy.prototype.setMaxDepth = function (num) {
+    this.getJavaObject().setMaxDepth(num);
+};
+/**
+ * @returns {boolean}
+ */
+Strategy.prototype.isMulticlassClassification = function () {
+    throw "not implemented by ElairJS";
 //   return  this.getJavaObject().isMulticlassClassification();
 };
 
 
 /**
- * @returns {boolean} 
+ * @returns {boolean}
  */
-Strategy.prototype.isMulticlassWithCategoricalFeatures = function() {
-throw "not implemented by ElairJS";
+Strategy.prototype.isMulticlassWithCategoricalFeatures = function () {
+    throw "not implemented by ElairJS";
 //   return  this.getJavaObject().isMulticlassWithCategoricalFeatures();
 };
 
@@ -113,29 +126,28 @@ throw "not implemented by ElairJS";
  * Sets Algorithm using a String.
  * @param {string} algo
  */
-Strategy.prototype.setAlgo = function(algo) {
-throw "not implemented by ElairJS";
+Strategy.prototype.setAlgo = function (algo) {
+    throw "not implemented by ElairJS";
 //    this.getJavaObject().setAlgo(algo);
 };
 
 
 /**
- * Sets categoricalFeaturesInfo using a Java Map.
- * @param {Map} categoricalFeaturesInfo
+ * Sets categoricalFeaturesInfo using a JavaScript object with simple key/value map.
+ * @param {object} categoricalFeaturesInfo simple key/value map
  */
-Strategy.prototype.setCategoricalFeaturesInfo = function(categoricalFeaturesInfo) {
-throw "not implemented by ElairJS";
-//   var categoricalFeaturesInfo_uw = Utils.unwrapObject(categoricalFeaturesInfo);
-//    this.getJavaObject().setCategoricalFeaturesInfo(categoricalFeaturesInfo_uw);
+Strategy.prototype.setCategoricalFeaturesInfo = function (categoricalFeaturesInfo) {
+    var categoricalFeaturesInfo_uw = Utils.createJavaHashMap(categoricalFeaturesInfo);
+    this.getJavaObject().setCategoricalFeaturesInfo(categoricalFeaturesInfo_uw);
 };
 
 
 /**
  * Returns a shallow copy of this instance.
- * @returns {Strategy} 
+ * @returns {Strategy}
  */
-Strategy.prototype.copy = function() {
-throw "not implemented by ElairJS";
+Strategy.prototype.copy = function () {
+    throw "not implemented by ElairJS";
 //   var javaObject =  this.getJavaObject().copy();
 //   return new Strategy(javaObject);
 };
@@ -147,10 +159,10 @@ throw "not implemented by ElairJS";
 /**
  * Construct a default set of parameters for {@link DecisionTree}
  * @param {string} algo   "Classification" or "Regression"
- * @returns {Strategy} 
+ * @returns {Strategy}
  */
-Strategy.defaultStrategywithstring = function(algo) {
-throw "not implemented by ElairJS";
+Strategy.defaultStrategywithstring = function (algo) {
+    throw "not implemented by ElairJS";
 //   var javaObject =  org.apache.spark.mllib.tree.configuration.Strategy.defaultStrategy(algo);
 //   return new Strategy(javaObject);
 };
@@ -159,10 +171,10 @@ throw "not implemented by ElairJS";
 /**
  * Construct a default set of parameters for {@link DecisionTree}
  * @param {Algo} algo  Algo.Classification or Algo.Regression
- * @returns {Strategy} 
+ * @returns {Strategy}
  */
-Strategy.defaultStrategywithAlgo = function(algo) {
-throw "not implemented by ElairJS";
+Strategy.defaultStrategywithAlgo = function (algo) {
+    throw "not implemented by ElairJS";
 //   var algo_uw = Utils.unwrapObject(algo);
 //   var javaObject =  org.apache.spark.mllib.tree.configuration.Strategy.defaultStrategy(algo_uw);
 //   return new Strategy(javaObject);
@@ -171,10 +183,10 @@ throw "not implemented by ElairJS";
 
 /**
  * @param {Algo} algo
- * @returns {Strategy} 
+ * @returns {Strategy}
  */
-Strategy.defaultStategy = function(algo) {
-throw "not implemented by ElairJS";
+Strategy.defaultStategy = function (algo) {
+    throw "not implemented by ElairJS";
 //   var algo_uw = Utils.unwrapObject(algo);
 //   var javaObject =  org.apache.spark.mllib.tree.configuration.Strategy.defaultStategy(algo_uw);
 //   return new Strategy(javaObject);
