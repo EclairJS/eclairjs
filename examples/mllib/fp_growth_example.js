@@ -56,7 +56,7 @@ if (typeof sparkContext === 'undefined') {
         numPartition = parseInt(args[3]);
     }
 
-    var sparkConf = new SparkConf().setAppName("JavaFPGrowthExample").setMaster("local[*]");
+    var sparkConf = new SparkConf().setAppName("FPGrowthExample").setMaster("local[*]");
     var sc = new SparkContext(sparkConf);
     var result = run(sc);
     result.forEach(function(item){
