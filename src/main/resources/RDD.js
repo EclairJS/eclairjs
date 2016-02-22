@@ -129,19 +129,6 @@ RDD.prototype.collect = function() {
 	return results;
 };
 
-/**
- * Return an RDD that contains all matching values by applying `f`.
- * Note: f is scala.PartialFunction which is not implemented yet - see above
- * @param {function} func - (undocumented) PartialFunction
- * @returns {RDD}
- * @private
- */
-RDD.prototype.collectwithF = function(func) {
-throw "not implemented by ElairJS";
-//   var f_uw = Utils.unwrapObject(func);
-//   var javaObject =  this.getJavaObject().collect(f_uw);
-//   return new RDD(javaObject);
-}
 
 /**
  * Return the SparkContext that this RDD was created on.

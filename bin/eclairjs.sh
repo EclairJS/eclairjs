@@ -74,7 +74,7 @@ case $key in
     shift # past argument
     ;;
     *)
-    proargs=$1
+    proargs+=" $1"
     ;;
 esac
 shift # past argument or value

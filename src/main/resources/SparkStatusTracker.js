@@ -30,6 +30,7 @@
  *
  * NOTE: this class's constructor should be considered private and may be subject to change.
  * @classdesc
+ * @constructor
  */
 
 

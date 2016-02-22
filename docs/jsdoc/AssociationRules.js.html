@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: mllib/fpm/AssociationRules.js</title>
+    
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+    
+    <h1 class="page-title">Source: mllib/fpm/AssociationRules.js</h1>
+    
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>/*                                                                         
+* Copyright 2016 IBM Corp.                                                 
+*                                                                          
+* Licensed under the Apache License, Version 2.0 (the "License");          
+* you may not use this file except in compliance with the License.         
+* You may obtain a copy of the License at                                  
+*                                                                          
+*      http://www.apache.org/licenses/LICENSE-2.0                          
+*                                                                          
+* Unless required by applicable law or agreed to in writing, software      
+* distributed under the License is distributed on an "AS IS" BASIS,        
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+* See the License for the specific language governing permissions and      
+* limitations under the License.                                           
+*/ 
+
+
+
+/**
+ * :: Experimental ::
+ *
+ * Generates association rules from a [[RDD[FreqItemset[Item]]]. This method only generates
+ * association rules which have a single item as the consequent.
+ *
+ * @classdesc
+ */
+
+/**
+ * Constructs a default instance with default parameters {minConfidence = 0.8}.
+ *  @class
+ */
+var AssociationRules = function() {
+	 
+    this.logger = Logger.getLogger("AssociationRules_js");
+    var jvmObject;
+	if (arguments.length &lt; 1) {
+        jvmObject = new org.apache.spark.mllib.fpm.AssociationRules();
+    } else {
+        jvmObject = arguments[0];
+    }
+	 JavaWrapper.call(this, jvmObject);
+
+};
+
+AssociationRules.prototype = Object.create(JavaWrapper.prototype);
+
+AssociationRules.prototype.constructor = AssociationRules;
+
+
+
+/**
+ * Sets the minimal confidence (default: `0.8`).
+ * @param {float} minConfidence
+ * @returns {AssociationRules}
+ */
+AssociationRules.prototype.setMinConfidence = function(minConfidence) {
+   var javaObject =  this.getJavaObject().setMinConfidence(minConfidence);
+   return new AssociationRules(javaObject);
+};
+
+
+/**
+ * Computes the association rules with confidence above {@link minConfidence}.
+ * @param {RDD} freqItemsets  frequent itemset model obtained from {@link FPGrowth}
+ *
+ * @returns {RDD}  a [[Set[Rule[Item]]] containing the assocation rules.
+ */
+AssociationRules.prototype.run = function(freqItemsets) {
+   var freqItemsets_uw = Utils.unwrapObject(freqItemsets);
+   var javaObject =  this.getJavaObject().run(freqItemsets_uw);
+   return new RDD(javaObject);
+};
+
+
+/**
+ * An association rule between sets of items.
+ *
+ * @classdesc
+ * @class
+ */
+var Rule = function(jvmObject) {
+
+    this.logger = Logger.getLogger("Rule_js");
+    this.logger.debug("constructor");
+    JavaWrapper.call(this, jvmObject);
+
+};
+
+Rule.prototype = Object.create(JavaWrapper.prototype);
+
+Rule.prototype.constructor = Rule;
+
+/**
+ * Returns antecedent
+ * @returns {object}
+ */
+Rule.prototype.antecedent = function() {
+    /*
+    public java.util.List&lt;Item> javaAntecedent()
+    Returns antecedent in a Java List.
+    */
+   return this.getJavaObject().javaAntecedent();
+};
+
+/**
+ * Returns consequent
+ * @returns {object}
+ */
+Rule.prototype.consequent = function() {
+    /*
+     public java.util.List&lt;Item> javaConsequent()
+     Returns consequent in a Java List.
+     */
+    return this.getJavaObject().javaConsequent();
+};
+
+/**
+ * Returns the confidence of the rule.
+ * @returns {float}
+ */
+Rule.prototype.confidence = function() {
+    /*
+     public double confidence()
+     Returns the confidence of the rule.
+     */
+    return this.getJavaObject().confidence();
+};
+
+/**
+ *
+ * @returns {string}
+ */
+Rule.prototype.toString = function() {
+
+   return this.getJavaObject().toString();
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ALS.html">ALS</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="AssociationRules.html">AssociationRules</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BisectingKMeans.html">BisectingKMeans</a></li><li><a href="BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DecisionTree.html">DecisionTree</a></li><li><a href="DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="FPGrowth.html">FPGrowth</a></li><li><a href="FPGrowthModel.html">FPGrowthModel</a></li><li><a href="FreqItemset.html">FreqItemset</a></li><li><a href="functions.html">functions</a></li><li><a href="FutureAction.html">FutureAction</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="List.html">List</a></li><li><a href="MapType.html">MapType</a></li><li><a href="MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="MLWord2Vec.html">MLWord2Vec</a></li><li><a href="MLWord2VecModel.html">MLWord2VecModel</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="Rating.html">Rating</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="Rule.html">Rule</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SparseVector.html">SparseVector</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="Strategy.html">Strategy</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li><li><a href="Vector.html">Vector</a></li><li><a href="Vectors.html">Vectors</a></li><li><a href="VectorUDT.html">VectorUDT</a></li><li><a href="Word2Vec.html">Word2Vec</a></li><li><a href="Word2VecModel.html">Word2VecModel</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Fri Feb 19 2016 17:32:41 GMT-0500 (EST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

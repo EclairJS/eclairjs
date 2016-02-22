@@ -94,11 +94,6 @@ public class Utils {
 							ML
 						 */
 						className = "ML" + o.getClass().getSimpleName();
-					} else {
-						/*
-							MLLIB
-						 */
-						//className = "MLLIB" + o.getClass().getSimpleName(); FIXME not implmented yet
 					}
 
 				}
