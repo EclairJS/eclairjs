@@ -99,3 +99,12 @@ var GradientBoostingClassificationExample = function() {
     json.summary = result.model.toString();
     return JSON.stringify(json);
 }
+
+var GradientBoostingRegressionExample = function() {
+    load("examples/mllib/gradient_boosting_regression_example.js");
+    var result = run(sparkContext);
+    var json = {};
+    json.testMSE = result.testMSE;
+    json.summary = result.model.toString();
+    return JSON.stringify(json);
+}
