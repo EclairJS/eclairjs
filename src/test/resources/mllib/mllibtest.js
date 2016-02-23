@@ -81,14 +81,8 @@ var DecisionTreeRegressionExample = function() {
 
 var fpGrowthExample = function() {
     load("examples/mllib/fp_growth_example.js");
-    var result = run(sparkContext);
-
-    // only going to take the first 3, hopefully they will always be the same 3
-    var json = [];
-    for (var i = 0; i < 3; i++) {
-        json.push(result[i].items() + " " + result[i].freq());
-    }
-    return JSON.stringify(json);
+    var result = run(sparkContext, true);
+    return JSON.stringify(result);
 }
 
 var GradientBoostingClassificationExample = function() {

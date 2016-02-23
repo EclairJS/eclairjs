@@ -157,9 +157,9 @@ public class MlLibTest {
         TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
         Object ret = ((Invocable)engine).invokeFunction("fpGrowthExample");
 
-        String expected = "[\"[t] 3\",\"[t, x] 3\",\"[t, x, z] 3\"]";
+        String expected = "[{\"freq\":3,\"items\":\"[t]\"},{\"freq\":3,\"items\":\"[t, x]\"},{\"freq\":3,\"items\":\"[t, x, z]\"}]";
 
-        assertEquals("failure - strings are not equal", expected, ret.toString());
+        assertEquals("failure - strings are not equal", expected, ret);
 
     }
     /*
