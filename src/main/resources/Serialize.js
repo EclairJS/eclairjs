@@ -27,23 +27,34 @@ Serialize.javaArray = function(javaObj) {
 };
 
 Serialize.javaList = function(javaObj) {
-  if (!Array.isArray(javaObj)) {
-    return false;
+  if(javaObj instanceof java.util.List) {
+    var res = [];
+    for(var i=0; i<javaObj.size(); i++) {
+      res.push(javaObj.get(i));
+    }
+
+    return res;
   }
 
-  return javaObj.map(Serialize.javaToJs);
+  return false;
 };
 
 Serialize.javaTuple2 = function(javaObj) {
-  if(javaObj instanceof scala.Tuple2) {
-    return [javaObj._1(), javaObj._2()];
+  var Tuple2 = Java.type("scala.Tuple2");
+  if(javaObj instanceof Tuple2) {
+      return [
+          Serialize.javaToJs(javaObj._1()), 
+          Serialize.javaToJs(javaObj._2())
+      ];
   }
 
   return false;
 };
 
 Serialize.javaIteratorWrapper = function(javaObj) {
-  if(javaObj instanceof scala.collection.convert.Wrappers.IteratorWrapper) {
+  var IteratorWrapper = 
+      Java.type("scala.collection.convert.Wrappers.IteratorWrapper");
+  if(javaObj instanceof IteratorWrapper) {
     var res = [];
     while(javaObj.hasMoreElements()) {
       res.push(Serialize.javaToJs(javaObj.nextElement()));
@@ -56,10 +67,13 @@ Serialize.javaIteratorWrapper = function(javaObj) {
 };
 
 Serialize.javaIterableWrapper = function(javaObj) {
-  if(javaObj instanceof scala.collection.convert.Wrappers.IteratableWrapper) {
+  var IterableWrapper = 
+      Java.type("scala.collection.convert.Wrappers.IterableWrapper");
+  if(javaObj instanceof IterableWrapper) {
     var res = [];
-    while(javaObj.hasNext()) {
-      res.push(Serialize.javaToJs(javaObj.next()));
+    var iterator = javaObj.iterator();
+    while(iterator.hasNext()) {
+      res.push(Serialize.javaToJs(iterator.next()));
     }
 
     return res;
@@ -111,9 +125,15 @@ Serialize.handlers = [
 ];
 
 Serialize.javaToJs = function(javaObj) {
-  var res = Serialize.handlers.find(function(h) {
-    return h(javaObj);
-  });
+  var res = null;
+  for(var i=0; i<Serialize.handlers.length; i++) {
+    var fn = Serialize.handlers[i];
+    var ret = fn(javaObj);
+    if(ret) {
+        res = ret;
+        break;
+    }
+  }
 
   return res ? res : javaObj;
 };
