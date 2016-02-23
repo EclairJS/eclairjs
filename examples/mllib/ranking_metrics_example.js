@@ -57,8 +57,8 @@ var userMovies = binarizedRatings.groupBy(function(r) {
 
 var userMoviesList = userMovies.mapValues(function(docs) {
     return docs.reduce(function(prev, curr) {
-        if(curr.ratings() > 0.0) {
-            prev.push[curr];
+        if(curr.rating() > 0.0) {
+            prev.concat(curr);
         }
 
         return prev;
@@ -66,7 +66,6 @@ var userMoviesList = userMovies.mapValues(function(docs) {
 });
 
 var userRecommendedList = userRecommended.mapValues(function(docs) {
-    print(docs.getClass());
     return docs.map(function(rating) {
         return rating.product();
     });

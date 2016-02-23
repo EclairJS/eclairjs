@@ -47,7 +47,7 @@ Rating.prototype.rating = function() {
 };
 
 Rating.prototype.toString = function() { 
-    return "["+this.user()+","+this.product()+","+this.rating()+"]";
+    return "{product: ["+this.user()+","+this.product()+","+this.rating()+"]}";
 };
 
 var MatrixFactorizationModel = function(jvmObj) {

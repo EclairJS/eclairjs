@@ -19,11 +19,15 @@ var Serialize = {};
 Serialize.logger = Logger.getLogger("Serialize_js");
 
 Serialize.javaArray = function(javaObj) {
-  if (!Array.isArray(javaObj)) {
-    return false;
+  if(javaObj && javaObj.getClass().isArray()) {
+    var res = [];
+    for(var i=0; i<javaObj.length; i++) {
+      res.push(Serialize.javaToJs(javaObj[i]));
+    }
+    return res;
   }
 
-  return javaObj.map(Serialize.javaToJs);
+  return false;
 };
 
 Serialize.javaList = function(javaObj) {
@@ -112,7 +116,8 @@ Serialize.javaSparkObject = function(javaObj) {
     }
   }
 
-  return new className(javaObj);
+  //print("we have a className = " + className);
+  return eval("new " + className + "(javaObj)");
 };
 
 Serialize.handlers = [
