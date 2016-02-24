@@ -49,7 +49,10 @@ public class JSFlatMapFunction implements FlatMapFunction {
             params = ArrayUtils.addAll(params, this.args);
         }
 
-        ScriptObjectMirror ret = (ScriptObjectMirror)invocable.invokeFunction("Utils_invoke", params);
-        return (Iterable)ret.values();
+        //ScriptObjectMirror ret = (ScriptObjectMirror)invocable.invokeFunction("Utils_invoke", params);
+        List ret = (List)invocable.invokeFunction("Utils_invoke", params);
+
+        //return (Iterable)Utils.jsToJava(ret.values());
+        return (Iterable)ret;
     }
 }

@@ -48,6 +48,7 @@ public class JSFunction2 implements org.apache.spark.api.java.function.Function2
 
         Object ret = invocable.invokeFunction("Utils_invoke", params);
 
-        return Utils.jsToJava(ret);
+        //return Utils.jsToJava(ret);
+        return ret;
     }
 }

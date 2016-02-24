@@ -42,6 +42,10 @@ Rating.prototype = Object.create(JavaWrapper.prototype);
 
 Rating.prototype.constructor = Rating;
 
+Rating.prototype.toString = function() {
+    return "shit";
+};
+
 
 
 /**

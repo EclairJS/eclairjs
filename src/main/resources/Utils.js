@@ -185,7 +185,7 @@ Utils.logger = Logger.getLogger("Utils_js");
 
       var ret = null;
       try {
-        ret = fn.apply(this, args);
+        ret = Serialize.jsToJava(fn.apply(this, args));
       } catch(err) {
         print("error invoking function");
         print(func);

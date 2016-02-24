@@ -949,6 +949,8 @@ RDD.prototype.subtract = function(other,numPartitions,p) {
  */
 RDD.prototype.take = function(num) {
 	var res = this.getJavaObject().take(num);
+	print("take " + res.getClass().getName());
+    /*
 	this.logger.debug("take " + res.getClass().getName());
 	var results = [];
 	for (var i = 0; i < res.size(); i++) {
@@ -960,6 +962,15 @@ RDD.prototype.take = function(num) {
 	}
 	this.logger.debug("results " + results);
 	return results;
+    */
+	var results = [];
+	for (var i = 0; i < res.size(); i++) {
+		var value = res.get(i);
+		var o = Serialize.javaToJs(value);
+		results.push(o);
+    }
+
+   return results;
 };
 
 /**

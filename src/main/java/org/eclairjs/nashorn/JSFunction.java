@@ -36,7 +36,6 @@ public class JSFunction implements Function {
     @SuppressWarnings({ "null", "unchecked" })
     @Override
     public Object call(Object o) throws Exception {
-
         ScriptEngine e =  NashornEngineSingleton.getEngine();
         Invocable invocable = (Invocable) e;
 
@@ -47,8 +46,8 @@ public class JSFunction implements Function {
         }
       
         Object ret = invocable.invokeFunction("Utils_invoke", params);
-
-        return Utils.jsToJava(ret);
+        //return Utils.jsToJava(ret);
+        return ret;
     }
 }
 

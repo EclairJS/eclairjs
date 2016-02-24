@@ -23,6 +23,8 @@ var buildPeopleTable = function(file, date) {
 	// Load a text file and convert each line to a JavaScript Object.
 	var people = sparkContext.textFile(file).map(function(line) {
 		var parts = line.split(",");
+		var age = parseInt(parts[1].trim());
+		print("age type = " + age.getClass());
 		return person = {
 	    				name: parts[0], 
 	    				age: parseInt(parts[1].trim()),
@@ -54,7 +56,14 @@ var buildPeopleTable = function(file, date) {
 	var schema = DataTypes.createStructType(fields);
 
 	// Convert records of the RDD (people) to Rows.
-	var rowRDD = people.map(function(person){
+	var rowRDD = people.map(function(person, useDateType){
+		print(person.age.getClass());
+		if(person.getClass) {
+			print("class = " + person.getClass());
+		} else {
+			print("is Array = " + Array.isArray(person));
+			print("ScriptObjectMirror = " + (typeof person));
+		}
 		var d = person.DOB;
 		if (useDateType) {
 			d = new SqlDate(person.DOB);
@@ -63,8 +72,10 @@ var buildPeopleTable = function(file, date) {
 		}
 		var m =  person.married == "true" ? true : false
 		var n = person.name ? person.name : null;
-		return RowFactory.create([n, person.age, person.expense, d, parseFloat(person.income), m, parseFloat(person.networth)]);
-	});
+		//var ret = RowFactory.create([n, java.lang.Integer.parseInt(person.age), java.lang.Integer.parseInt(person.expense), d, parseFloat(person.income), m, parseFloat(person.networth)]);
+		var ret = RowFactory.create([n, person.age, person.expense, d, parseFloat(person.income), m, parseFloat(person.networth)]);
+		return ret;
+	}, [useDateType]);
 
 
 	//Apply the schema to the RDD.
@@ -243,7 +254,7 @@ var dataframeForeachTest = function(file) {
 	var peopleDataFrame = buildPeopleTable(file);
 	globalForeachResult = {}; // not the right way to do this but works for UT, we are running workers in the same JVM.
 	var result = peopleDataFrame.foreach(function(row) {
-		globalForeachResult[row.getString(0)] = row.getInt(1);
+		globalForeachResult[row.getString(0)] = 1;//row.getInt(1);
 	});
 	/*
 	 * the names can be in any order so we will check them here instead of on the Java side

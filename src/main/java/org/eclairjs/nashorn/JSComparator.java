@@ -39,10 +39,10 @@ public class JSComparator implements java.util.Comparator, java.io.Serializable 
     @SuppressWarnings({ "null", "unchecked" })
     @Override
     public int compare(Object o, Object o2) {
-        ScriptEngine e =  NashornEngineSingleton.getEngine();
         int ret = -1;
 
         try {
+            /*
             e.eval(this.func);
             Invocable invocable = (Invocable) e;
             Object arg0 = Utils.javaToJs(o, e);
@@ -50,9 +50,6 @@ public class JSComparator implements java.util.Comparator, java.io.Serializable 
             Object params[] = {arg0, arg1};
         
             if (this.args.length > 0 ) {
-        	    /*
-        	    * We need to wrap the Spark objects
-        	    */
         	    @SuppressWarnings("rawtypes")
 			    List sv = new ArrayList();
         	    for (int i = 0; i < this.args.length; i++) {
@@ -62,6 +59,19 @@ public class JSComparator implements java.util.Comparator, java.io.Serializable 
             }
  
             ret = Integer.valueOf(invocable.invokeFunction(this.functionName, params).toString());
+            */
+            ScriptEngine e =  NashornEngineSingleton.getEngine();
+            Invocable invocable = (Invocable) e;
+
+            Object params[] = {this.func, o, o2};
+
+            if (this.args != null && this.args.length > 0 ) {
+                params = ArrayUtils.addAll(params, this.args);
+            }
+
+            ret = Integer.valueOf(invocable.invokeFunction(this.functionName, params).toString());
+            //return Utils.jsToJava(ret);
+            return ret;
         } catch(Exception exc) {
             // do nothing for now
         }
@@ -73,25 +83,34 @@ public class JSComparator implements java.util.Comparator, java.io.Serializable 
     @SuppressWarnings({ "null", "unchecked" })
     @Override
     public boolean equals(Object o) {
-        ScriptEngine e =  NashornEngineSingleton.getEngine();
         boolean ret = false;
 
         try {
+            /*
             e.eval(this.func);
             Invocable invocable = (Invocable) e;
             Object arg0 = Utils.javaToJs(o, e);
             Object params[] = {arg0};
 
             if (this.args.length > 0 ) {
-                /*
-                * We need to wrap the Spark objects
-                */
                 @SuppressWarnings("rawtypes")
                 List sv = new ArrayList();
                 for (int i = 0; i < this.args.length; i++) {
                     sv.add(Utils.javaToJs(this.args[i], e));
                  }
                 params = ArrayUtils.addAll(params, sv.toArray());
+            }
+
+            ret = Boolean.valueOf(invocable.invokeFunction(this.functionName, params).toString());
+            */
+
+            ScriptEngine e =  NashornEngineSingleton.getEngine();
+            Invocable invocable = (Invocable) e;
+
+            Object params[] = {this.func, o};
+
+            if (this.args != null && this.args.length > 0 ) {
+                params = ArrayUtils.addAll(params, this.args);
             }
 
             ret = Boolean.valueOf(invocable.invokeFunction(this.functionName, params).toString());

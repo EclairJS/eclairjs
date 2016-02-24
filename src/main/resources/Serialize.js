@@ -18,8 +18,17 @@ var Serialize = {};
 
 Serialize.logger = Logger.getLogger("Serialize_js");
 
+Serialize.getJavaClass = function(javaObj) {
+    try {
+        return javaObj.getClass();
+    } catch(err) { ; }
+
+    return null;
+};
+
 Serialize.javaArray = function(javaObj) {
-  if(javaObj && javaObj.getClass().isArray()) {
+  var clz = Serialize.getJavaClass(javaObj);
+  if(clz  && clz.isArray()) {
     var res = [];
     for(var i=0; i<javaObj.length; i++) {
       res.push(Serialize.javaToJs(javaObj[i]));
@@ -61,7 +70,7 @@ Serialize.javaIteratorWrapper = function(javaObj) {
   if(javaObj instanceof IteratorWrapper) {
     var res = [];
     while(javaObj.hasMoreElements()) {
-      res.push(Serialize.javaToJs(javaObj.nextElement()));
+      res.push(Serialize.javaToJs(javaObj.next()));
     }
 
     return res;
@@ -86,8 +95,29 @@ Serialize.javaIterableWrapper = function(javaObj) {
   return false;
 };
 
+Serialize.javaSeqWrapper = function(javaObj) {
+  var SeqWrapper = 
+      Java.type("scala.collection.convert.Wrappers.SeqWrapper");
+  if(javaObj instanceof SeqWrapper) {
+    var res = [];
+    var iterator = javaObj.iterator();
+    while(iterator.hasNext()) {
+      res.push(Serialize.javaToJs(iterator.next()));
+    }
+
+    return res;
+  }
+
+  return false;
+};
+
 Serialize.javaSparkObject = function(javaObj) {
   if(javaObj == null) {
+    return false;
+  }
+
+  var clz = Serialize.getJavaClass(javaObj);
+  if(!clz) {
     return false;
   }
 
@@ -99,11 +129,12 @@ Serialize.javaSparkObject = function(javaObj) {
   }
 
   var className = javaObj.getClass().getSimpleName();
+
   if (className.endsWith("$")) {
     className = javaObj.getClass().getSuperclass().getSimpleName();
   }
 
-  if (className === "JavaRDD") {
+  if (className === "JavaRDD" || className === "JavaPairRDD") {
     //Map JavaRDD to RDD for JavaScript
     className = "RDD"; //o.getClass().getSimpleName();
   } else if (className === "Word2Vec" || className === "Word2VecModel") {
@@ -121,12 +152,13 @@ Serialize.javaSparkObject = function(javaObj) {
 };
 
 Serialize.handlers = [
+  Serialize.javaSparkObject,
   Serialize.javaArray,
   Serialize.javaList,
   Serialize.javaTuple2,
   Serialize.javaIteratorWrapper,
   Serialize.javaIterableWrapper,
-  Serialize.javaSparkObject
+  Serialize.javaSeqWrapper
 ];
 
 Serialize.javaToJs = function(javaObj) {
@@ -141,4 +173,26 @@ Serialize.javaToJs = function(javaObj) {
   }
 
   return res ? res : javaObj;
+};
+
+
+Serialize.jsToJava = function(obj) {
+    if(!obj) {
+        return obj;
+    }
+
+    if(obj.getJavaObject) {
+        return obj.getJavaObject();
+    }
+
+    if(Array.isArray(obj)) {
+        var l = new java.util.ArrayList();
+        obj.forEach(function(item) {
+            l.add(Serialize.jsToJava(item));
+        });
+
+        return l;
+    }
+
+    return obj;
 };

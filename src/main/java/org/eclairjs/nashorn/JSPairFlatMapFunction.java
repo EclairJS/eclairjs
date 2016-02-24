@@ -8,6 +8,7 @@ import scala.Tuple2;
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import java.util.ArrayList;
+import java.util.List;
 
 public class JSPairFlatMapFunction implements PairFlatMapFunction {
 
@@ -30,6 +31,7 @@ public class JSPairFlatMapFunction implements PairFlatMapFunction {
             params = ArrayUtils.addAll(params, this.args);
         }
 
+        /*
         ScriptObjectMirror ret = (ScriptObjectMirror)invocable.invokeFunction("Utils_invoke", params);
 
         ArrayList l = new ArrayList(ret.values());
@@ -41,6 +43,18 @@ public class JSPairFlatMapFunction implements PairFlatMapFunction {
             Object t2 = Utils.jsToJava(al.get(1));
             Tuple2 tuple = new Tuple2(t1, t2);
 
+            l2.add(tuple);
+        }
+
+        return l2;
+        */
+        //ScriptObjectMirror ret = (ScriptObjectMirror)invocable.invokeFunction("Utils_invoke", params);
+        List<List> l = (List<List>)invocable.invokeFunction("Utils_invoke", params);
+        //ArrayList<List> l = (ArrayList<List>)Utils.jsToJava(ret.values());
+        ArrayList<Tuple2> l2 = new ArrayList<Tuple2>(l.size());
+
+        for(List t : l) {
+            Tuple2 tuple = new Tuple2(t.get(0), t.get(1));
             l2.add(tuple);
         }
 
