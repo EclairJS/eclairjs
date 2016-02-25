@@ -71,8 +71,8 @@ if (typeof sparkContext === 'undefined') {
     print("Test Error: " + result.testErr);
     print("Learned classification GBT model:\n" + result.model.toDebugString());
     // Save and load model
-    result.model.save(sc, "/tmp/myGradientBoostingClassificationModel");
-    var sameModel = GradientBoostedTreesModel.load(sc, "/tmp/myGradientBoostingClassificationModel");
+    result.model.save(sc, "target/tmp/myGradientBoostingClassificationModel");
+    var sameModel = GradientBoostedTreesModel.load(sc, "target/tmp/myGradientBoostingClassificationModel");
 
     sc.stop();
 }

@@ -73,8 +73,8 @@ if (typeof sparkContext === 'undefined') {
     print("Test Mean Squared Error: " + result.testMSE);
     print("Learned regression GBT model:\n" + result.model.toDebugString());
     // Save and load model
-    result.model.save(sc, "/tmp/myGradientBoostingRegressionModel");
-    var sameModel = GradientBoostedTreesModel.load(sc, "/tmp/myGradientBoostingRegressionModel");
+    result.model.save(sc, "target/tmp/myGradientBoostingRegressionModel");
+    var sameModel = GradientBoostedTreesModel.load(sc, "target/tmp/myGradientBoostingRegressionModel");
 
     sc.stop();
 }
