@@ -228,5 +228,32 @@ public class MlLibTest {
         assertEquals("failure - strings are not equal", expected, ret.toString());
 
     }
+    /*
+           tests
+           RDD.randomSplit()
+           IsotonicRegression()
+           IsotonicRegression.setIsotonic()
+           IsotonicRegression.run()
+           IsotonicRegressionModel()
+           IsotonicRegressionModel.predict()
+           IsotonicRegressionModel.save()
+           IsotonicRegressionModel.load()
+           FloatRDD()
+           FloatRDD.mean()
+           Tuple()
+        */
+    @Test
+    public void IsotonicRegressionExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
+
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
+        Object ret = ((Invocable)engine).invokeFunction("IsotonicRegressionExample");
+
+        String expected = "{\"meanSquaredError\":0.008860256490591363}";
+
+        assertEquals("failure - strings are not equal", expected, ret.toString());
+
+    }
     
 }

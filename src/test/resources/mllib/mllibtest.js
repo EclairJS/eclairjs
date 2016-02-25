@@ -102,3 +102,11 @@ var GradientBoostingRegressionExample = function() {
     json.summary = result.model.toString();
     return JSON.stringify(json);
 }
+
+var IsotonicRegressionExample = function() {
+    load("examples/mllib/isotonic_regression_example.js");
+    var result = run(sparkContext);
+    var json = {};
+    json.meanSquaredError = result.meanSquaredError;
+    return JSON.stringify(json);
+}
