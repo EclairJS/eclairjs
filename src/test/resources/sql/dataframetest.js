@@ -23,8 +23,6 @@ var buildPeopleTable = function(file, date) {
 	// Load a text file and convert each line to a JavaScript Object.
 	var people = sparkContext.textFile(file).map(function(line) {
 		var parts = line.split(",");
-		var age = parseInt(parts[1].trim());
-		print("age type = " + age.getClass());
 		return person = {
 	    				name: parts[0], 
 	    				age: parseInt(parts[1].trim()),
@@ -39,8 +37,8 @@ var buildPeopleTable = function(file, date) {
 	//Generate the schema
 	var fields = [];
 	fields.push(DataTypes.createStructField("name", DataTypes.StringType, true));
-	fields.push(DataTypes.createStructField("age", DataTypes.IntegerType, true));
-	fields.push(DataTypes.createStructField("expense", DataTypes.IntegerType, true));
+	fields.push(DataTypes.createStructField("age", DataTypes.DoubleType, true));
+	fields.push(DataTypes.createStructField("expense", DataTypes.DoubleType, true));
 	if (date) {
 		useDateType = true;
 		fields.push(DataTypes.createStructField("DOB", DataTypes.DateType, true));
@@ -57,13 +55,6 @@ var buildPeopleTable = function(file, date) {
 
 	// Convert records of the RDD (people) to Rows.
 	var rowRDD = people.map(function(person, useDateType){
-		print(person.age.getClass());
-		if(person.getClass) {
-			print("class = " + person.getClass());
-		} else {
-			print("is Array = " + Array.isArray(person));
-			print("ScriptObjectMirror = " + (typeof person));
-		}
 		var d = person.DOB;
 		if (useDateType) {
 			d = new SqlDate(person.DOB);
@@ -272,7 +263,7 @@ var dataframeForeachPartitionTest = function(file) {
 	globalForeachResult = {}; // not the right way to do this but works for UT, we are running workers in the same JVM.
 	peopleDataFrame.foreachPartition(function(rows) {
 		rows.forEach(function(row){
-			globalForeachResult[row.getString(0)] = row.getInt(1);
+			globalForeachResult[row.getString(0)] = row.getDouble(1);
 		   });
 		
 	});
@@ -977,7 +968,7 @@ var dataframeNaFunctionsFillNumberColsTest = function(file) {
 
 	var peopleDataFrame = buildPeopleTable(file);
 	var naFunc = peopleDataFrame.na();
-	var result = naFunc.fill(99.99, ["name", "age"]);
+	var result = naFunc.fill(99, ["name", "age"]);
 
     return result.take(10).toString();
 }

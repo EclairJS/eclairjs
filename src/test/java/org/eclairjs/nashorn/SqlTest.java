@@ -64,7 +64,7 @@ public class SqlTest {
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable)engine).invokeFunction("dataframeAggTest", file);
 
-        String json = "{\"values\":[30,6],\"schema\":{\"fields\":[{\"name\":\"max(age)\",\"dataType\":\"integer\",\"nullable\":true},{\"name\":\"sum(expense)\",\"dataType\":\"long\",\"nullable\":true}]}}";
+        String json = "{\"values\":[30,6],\"schema\":{\"fields\":[{\"name\":\"max(age)\",\"dataType\":\"double\",\"nullable\":true},{\"name\":\"sum(expense)\",\"dataType\":\"double\",\"nullable\":true}]}}";
         assertEquals("should be same", json.toLowerCase(), ret.toString().toLowerCase()); // case is sometimes different when run from maven
     }
     
@@ -95,7 +95,7 @@ public class SqlTest {
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable)engine).invokeFunction("dataframeAsTest", file);
 
-         assertEquals("should be same", "[name: string, age: int, expense: int, DOB: timestamp, income: double, married: boolean, networth: double]", ret.toString()); 
+         assertEquals("should be same", "[name: string, age: double, expense: double, DOB: timestamp, income: double, married: boolean, networth: double]", ret.toString());
     }
     
     @Test
@@ -128,8 +128,8 @@ public class SqlTest {
         String schemaJson = "\"schema\":{"
 						        		+ "\"fields\":["
 							        		+ "{\"name\":\"name\",\"dataType\":\"string\",\"nullable\":true},"
-							        		+ "{\"name\":\"age\",\"dataType\":\"integer\",\"nullable\":true},"
-							        		+ "{\"name\":\"expense\",\"dataType\":\"integer\",\"nullable\":true},"
+							        		+ "{\"name\":\"age\",\"dataType\":\"double\",\"nullable\":true},"
+							        		+ "{\"name\":\"expense\",\"dataType\":\"double\",\"nullable\":true},"
 							        		+ "{\"name\":\"DOB\",\"dataType\":\"timestamp\",\"nullable\":true},"
 							        		+ "{\"name\":\"income\",\"dataType\":\"double\",\"nullable\":true},"
 							        		+ "{\"name\":\"married\",\"dataType\":\"boolean\",\"nullable\":true},"
@@ -172,7 +172,7 @@ public class SqlTest {
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable)engine).invokeFunction("dataframeCubeTest", file);
 
-        assertEquals("should be same", "[name: string, expense: int, AVG(age): double]".toLowerCase(), ret.toString().toLowerCase());
+        assertEquals("should be same", "[name: string, expense: double, AVG(age): double]".toLowerCase(), ret.toString().toLowerCase());
     }
     
     @Test
@@ -188,7 +188,7 @@ public class SqlTest {
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable)engine).invokeFunction("dataframeDescribeTest", file);
-        String expected = "{\"summary\":\"count\",\"age\":\"3\",\"expense\":\"3\"},{\"summary\":\"mean\",\"age\":\"26.0\",\"expense\":\"2.0\"},{\"summary\":\"stddev\",\"age\":\"6.082762530298219\",\"expense\":\"1.0\"},{\"summary\":\"min\",\"age\":\"19\",\"expense\":\"1\"},{\"summary\":\"max\",\"age\":\"30\",\"expense\":\"3\"}";
+        String expected = "{\"summary\":\"count\",\"age\":\"3\",\"expense\":\"3\"},{\"summary\":\"mean\",\"age\":\"26.0\",\"expense\":\"2.0\"},{\"summary\":\"stddev\",\"age\":\"6.082762530298219\",\"expense\":\"1.0\"},{\"summary\":\"min\",\"age\":\"19.0\",\"expense\":\"1.0\"},{\"summary\":\"max\",\"age\":\"30.0\",\"expense\":\"3.0\"}";
         assertEquals("should be same", expected, ret);
     }
     
@@ -237,8 +237,8 @@ public class SqlTest {
         Object ret = ((Invocable)engine).invokeFunction("dataframeDtypesTest", file);
         String json = "["
 		        		+ "[\"name\",\"StringType\"],"
-		        		+ "[\"age\",\"IntegerType\"],"
-		        		+ "[\"expense\",\"IntegerType\"],"
+		        		+ "[\"age\",\"DoubleType\"],"
+		        		+ "[\"expense\",\"DoubleType\"],"
 		        		+ "[\"DOB\",\"TimestampType\"],"
 		        		+ "[\"income\",\"DoubleType\"],"
 		        		+ "[\"married\",\"BooleanType\"],"
@@ -261,7 +261,7 @@ public class SqlTest {
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable)engine).invokeFunction("dataframeExceptTest", file);
-        String expect = "{\"name\":\"Justin\",\"age\":19,\"expense\":3,\"DOB\":\"1992-03-07 00:00:00.0\",\"income\":1600.0,\"married\":true,\"networth\":100000.0}";
+        String expect = "{\"name\":\"Justin\",\"age\":19.0,\"expense\":3.0,\"DOB\":\"1992-03-07 00:00:00.0\",\"income\":1600.0,\"married\":true,\"networth\":100000.0}";
         assertEquals("should be same", expect, ret);
     }
     
@@ -742,7 +742,7 @@ public class SqlTest {
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable)engine).invokeFunction("dataframeSchemaTest", file);
 
-        String expected = "struct<name:string,age:int,expense:int,DOB:timestamp,income:double,married:boolean,networth:double>";
+        String expected = "struct<name:string,age:double,expense:double,DOB:timestamp,income:double,married:boolean,networth:double>";
 
         assertEquals("should be same", expected, ret.toString());
     }
@@ -835,7 +835,7 @@ public class SqlTest {
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable)engine).invokeFunction("dataframeToDFTest", file);
 
-        String expected = "[newName: string, newAge: int]";
+        String expected = "[newName: string, newAge: double]";
 
         assertEquals("should be same", expected, ret.toString());
     }
@@ -905,7 +905,7 @@ public class SqlTest {
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable)engine).invokeFunction("dataframeWithColumnRenamedTest", file);
 
-        String expected = "[name: string, renamedAge: int, expense: int, DOB: timestamp, income: double, married: boolean, networth: double]";
+        String expected = "[name: string, renamedAge: double, expense: double, DOB: timestamp, income: double, married: boolean, networth: double]";
 
         assertEquals("should be same", expected, ret.toString());
     }
@@ -953,7 +953,7 @@ public class SqlTest {
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable)engine).invokeFunction("castCloumn", file);
-        assertEquals("should be same", "[\"29\",\"30\",\"19\"]", ret);
+        assertEquals("should be same", "[\"29.0\",\"30.0\",\"19.0\"]", ret);
     }
     
     @Test
@@ -1517,7 +1517,7 @@ public class SqlTest {
         Object ret = ((Invocable)engine).invokeFunction("dataframeNaFunctionsFillNumberTest", file);
 
         String expected = "[Michael,29,1,1996-03-07 00:00:00.0,99.99,true,300000000.11],"
-        		+ "[Andy,99,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11],"
+        		+ "[Andy,99.99,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11],"
         		+ "[,19,3,1992-03-07 00:00:00.0,1600,true,100000]";
         assertEquals("should be same", expected, ret.toString());
     }
@@ -1555,7 +1555,7 @@ public class SqlTest {
         Object ret = ((Invocable)engine).invokeFunction("dataframeNaFunctionsFillStringTest", file);
 
         String expected = "[Michael,29,1,1996-03-07 00:00:00.0,NaN,true,300000000.11],"
-        		+ "[Andy,,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11],"
+        		+ "[Andy,NaN,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11],"
         		+ "[missing,19,3,1992-03-07 00:00:00.0,1600,true,100000]";
         assertEquals("should be same", expected, ret.toString());
     }
@@ -1574,7 +1574,7 @@ public class SqlTest {
         Object ret = ((Invocable)engine).invokeFunction("dataframeNaFunctionsFillStringColsTest", file);
 
         String expected = "[Michael,29,1,1996-03-07 00:00:00.0,NaN,true,300000000.11],"
-        		+ "[Andy,,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11],"
+        		+ "[Andy,NaN,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11],"
         		+ "[missing,19,3,1992-03-07 00:00:00.0,1600,true,100000]";
         assertEquals("should be same", expected, ret.toString());
     }
@@ -1612,7 +1612,7 @@ public class SqlTest {
         Object ret = ((Invocable)engine).invokeFunction("dataframeNaFunctionsReplaceTest", file);
 
         String expected = "[MichaelReplace,29,1,1996-03-07 00:00:00.0,NaN,true,300000000.11],"
-        		+ "[AndyReplace,,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11],"
+        		+ "[AndyReplace,NaN,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11],"
         		+ "[,19,3,1992-03-07 00:00:00.0,1600,true,100000]";
         assertEquals("should be same", expected, ret.toString());
     }
@@ -1631,7 +1631,7 @@ public class SqlTest {
         Object ret = ((Invocable)engine).invokeFunction("dataframeNaFunctionsReplaceColsTest", file);
 
         String expected = "[Michael,0,1,1996-03-07 00:00:00.0,NaN,true,300000000.11],"
-        		+ "[Andy,,2,1998-12-07 00:00:00.0,1500.44,false,11.11],"
+        		+ "[Andy,NaN,2,1998-12-07 00:00:00.0,1500.44,false,11.11],"
         		+ "[,19,3,1992-03-07 00:00:00.0,99.99,true,100000]";
         assertEquals("should be same", expected, ret.toString());
     }
