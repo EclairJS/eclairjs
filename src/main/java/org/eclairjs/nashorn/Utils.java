@@ -89,11 +89,16 @@ public class Utils {
  	  				 * Map JavaRDD to RDD for JavaScript
  	  				 */
  	  				className = "RDD"; //o.getClass().getSimpleName();
- 	  			} if ( className.equals("JavaDoubleRDD")) {
+ 	  			} else if ( className.equals("JavaDoubleRDD")) {
  	  				/*
  	  				 * Map JavaDoubleRDD to FloatRDD for JavaScript
  	  				 */
                     className = "FloatRDD"; //o.getClass().getSimpleName();
+                } else if ( className.equals("JavaPairRDD")) {
+ 	  				/*
+ 	  				 * Map JavaPairRDD to PairRDD for JavaScript
+ 	  				 */
+                    className = "PairRDD"; //o.getClass().getSimpleName();
                 } else if (className.equals("Word2Vec") || className.equals("Word2VecModel")) {
 					if (packageName.indexOf("org.apache.spark.ml") > -1) {
 						/*
@@ -114,22 +119,7 @@ public class Utils {
     			return wrapObject(o);
     		}
 
-    	} else if (o instanceof Tuple2) {
-            Tuple2 t = (Tuple2)o;
-            logger.info("Tuple2 - " + t.toString());
-            Object er = null;
-            Object o1 = javaToJs(t._1(),engine);
-            Object o2 = javaToJs(t._2(), engine);
-            logger.debug("o1 = " + o1);
-             try {
-				Invocable invocable = (Invocable) engine;
-				 Object params[] = {o1, o2};
-				 er  = invocable.invokeFunction("convertJavaTuple2",params);
-			} catch (ScriptException | NoSuchMethodException e) {
-				logger.error(" Tuple2 conversion " + e);
-			}
-            return er;
-        }else if ((o instanceof Product) && (o.getClass().getName().indexOf("scala.Tuple") > -1))  {
+    	} else if ((o instanceof Product) && (o.getClass().getName().indexOf("scala.Tuple") > -1))  {
             Product t = (Product)o;
 			logger.info("Tuple3 - " + t.toString());
             Invocable invocable = (Invocable) engine;

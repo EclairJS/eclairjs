@@ -40,7 +40,7 @@ Tuple.prototype.unpack = function unpack(unpacker) {
  * @return {String} A textual representation of the tuples contents.
  */
 Tuple.prototype.toString = function toString() {
-    var values = this.toArray().join(', ');
+    var values = this.toArray().join(',');
     return ['(', values, ')'].join('');
 };
 
@@ -149,4 +149,8 @@ Tuple.prototype.setJavaObject = function (obj) {
     }
 
     this.length = x;
+};
+
+Tuple.prototype.toJSON = function () {
+   return this.toString();
 };

@@ -44,7 +44,7 @@ function run(sc) {
 
 
     var predictionAndLabel = testData.mapToPair(function (lp, model) {
-        return [model.predict(lp.getFeatures()), lp.getLabel()]
+        return new Tuple(model.predict(lp.getFeatures()), lp.getLabel());
     }, [model]);
 
 

@@ -42,11 +42,15 @@ var LinearRegressionWithSGDTest = function(file) {
 		var label = lp.getLabel();
 		var f = lp.getFeatures();
 		var prediction = linearRegressionModel.predict(f) + delta;
-		return [prediction, label];
+		return new Tuple(prediction, label);
 	}, [linearRegressionModel, delta]); // end MapToPair
 	
 	//print("valuesAndPreds: " + valuesAndPreds.take(10).toString());
-	return valuesAndPreds.take(10).toString();
+    /*valuesAndPreds.map(function(s){
+        print(s)
+        return s
+    }).collect()*/
+	return valuesAndPreds.rdd().take(10).toString();
 }
 
 var AssociationRulesTest = function() {

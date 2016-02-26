@@ -68,13 +68,6 @@ public class JSPairFunction implements PairFunction {
         
         ScriptObjectMirror ret = (ScriptObjectMirror) invocable.invokeFunction(this.functionName, params); // FIXME reusing the function name in same engine not a good idea
 
-        @SuppressWarnings("rawtypes")
-		ArrayList l = new ArrayList(ret.values());
-        Object t1 = Utils.jsToJava(l.get(0));
-        Object t2 = Utils.jsToJava(l.get(1));
-        @SuppressWarnings("rawtypes")
-		Tuple2 t = new Tuple2(t1, t2);
-
-        return t;
+        return (Tuple2) Utils.jsToJava(ret);
     }
 }
