@@ -18,7 +18,7 @@
  Usage:
  bin/eclairjs.sh examples/mllib/fp_growth_example.js [input_file] [minSupport] [numPartition]"
  */
-function run(sc) {
+function run(sc, useTake) {
 
 
     var transactions = sc.textFile(inputFile).map(function(s){
@@ -31,7 +31,12 @@ function run(sc) {
         .run(transactions);
 
     var freqItemsRDD = model.freqItemsets();
-    var items = freqItemsRDD.collect();
+    var items;
+    if (useTake) {
+        items = freqItemsRDD.take(3);
+    } else {
+        items = freqItemsRDD.collect();
+    }
     return items;
 
 

@@ -73,9 +73,9 @@ if (typeof sparkContext === 'undefined') {
     print("Learned classification tree model:\n" + result.model.toDebugString());
 
 // Save and load model
-    result.model.save(sc, "/tmp/myDecisionTreeClassificationModel");
+    result.model.save(sc, "target/tmp/myDecisionTreeClassificationModel");
     var sameModel = DecisionTreeModel
-        .load(sc, "/tmp/myDecisionTreeClassificationModel");
+        .load(sc, "target/tmp/myDecisionTreeClassificationModel");
 
     sc.stop();
 }

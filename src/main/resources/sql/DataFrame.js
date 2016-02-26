@@ -260,10 +260,11 @@ DataFrame.prototype.first = function() {
 /**
  * Returns a new RDD by first applying a function to all rows of this DataFrame, and then flattening the results.
  * @param {function} func
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
  * @returns {RDD}
  */
-DataFrame.prototype.flatMap = function(func) {
- 	return this.toRDD().flatMap(func);
+DataFrame.prototype.flatMap = function(func, bindArgs) {
+ 	return this.toRDD().flatMap(func, bindArgs);
 };
 /**
  * Applies a function to all elements of this DataFrame.
@@ -274,11 +275,12 @@ DataFrame.prototype.flatMap = function(func) {
  *    connection.close()
  * });
  * @param {function} Function with one parameter
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
  * @returns {void}
  */
-DataFrame.prototype.foreach = function(func) {
+DataFrame.prototype.foreach = function(func, bindArgs) {
 	
-	return this.toRDD().foreach(func);
+	return this.toRDD().foreach(func, bindArgs);
 };
 /**
  * Applies a function to each partition of this DataFrame.
@@ -291,11 +293,12 @@ DataFrame.prototype.foreach = function(func) {
  *    connection.close()
  * });
  * @param {function} Function with one Array parameter
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
  * @returns {void}
  */
-DataFrame.prototype.foreachPartition = function(func) {
+DataFrame.prototype.foreachPartition = function(func, bindArgs) {
 
-	return this.toRDD().foreachPartition(func);
+	return this.toRDD().foreachPartition(func, bindArgs);
 };
 
 /**
@@ -428,20 +431,22 @@ DataFrame.prototype.limit = function(number) {
 /**
  * Returns a new RDD by applying a function to all rows of this DataFrame.
  * @param {function} func
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
  * @returns {RDD}
  */
-DataFrame.prototype.map = function(func) {
- 	return this.toRDD().map(func);
+DataFrame.prototype.map = function(func, bindArgs) {
+ 	return this.toRDD().map(func, bindArgs);
 };
 /**
  * Return a new RDD by applying a function to each partition of this DataFrame. 
  * Similar to map, but runs separately on each partition (block) of the DataFrame, so func must accept an Array.  
  * func should return a array rather than a single item.
- * @param {function}  
+ * @param {function}
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
  * @returns {RDD}
  */
-DataFrame.prototype.mapPartitions = function(func) {
- 	return this.toRDD().mapPartitions(func);
+DataFrame.prototype.mapPartitions = function(func, bindArgs) {
+ 	return this.toRDD().mapPartitions(func, bindArgs);
 };
 /**
  * Returns a DataFrameNaFunctions for working with missing data.

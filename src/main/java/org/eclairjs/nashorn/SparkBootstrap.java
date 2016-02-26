@@ -56,12 +56,14 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/Utils.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/DebugUtils.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/utils/List.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/utils/Tuple.js") + "');");
 
         	//spark
 
         	engine.eval("load('" + getResourceAsURLStirng("/SparkConf.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/SparkContext.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/RDD.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/FloatRDD.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/Partitioner.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/Accumulators.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/FutureAction.js") + "');");
@@ -83,6 +85,7 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/mllib/clustering/BisectingKMeansModel.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/recommendation/ALS.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/recommendation/MatrixFactorizationModel.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/IsotonicRegression.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/LinearRegressionModel.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/LinearRegressionWithSGD.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/LabeledPoint.js") + "');");

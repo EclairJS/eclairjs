@@ -267,3 +267,8 @@ List.prototype.toArray = function() {
     return this.getJavaObject().toArray();
 
 };
+
+List.prototype.toJSON= function() {
+    return this.getJavaObject().toString();
+
+};

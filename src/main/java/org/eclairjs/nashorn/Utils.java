@@ -31,6 +31,7 @@ import org.apache.spark.sql.Row;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import scala.Tuple2;
+import scala.Product;
 import scala.collection.Seq;
 import scala.collection.convert.Wrappers.IteratorWrapper;
 import scala.collection.convert.Wrappers.IterableWrapper;
@@ -88,7 +89,12 @@ public class Utils {
  	  				 * Map JavaRDD to RDD for JavaScript
  	  				 */
  	  				className = "RDD"; //o.getClass().getSimpleName();
- 	  			} else if (className.equals("Word2Vec") || className.equals("Word2VecModel")) {
+ 	  			} if ( className.equals("JavaDoubleRDD")) {
+ 	  				/*
+ 	  				 * Map JavaDoubleRDD to FloatRDD for JavaScript
+ 	  				 */
+                    className = "FloatRDD"; //o.getClass().getSimpleName();
+                } else if (className.equals("Word2Vec") || className.equals("Word2VecModel")) {
 					if (packageName.indexOf("org.apache.spark.ml") > -1) {
 						/*
 							ML
@@ -110,7 +116,7 @@ public class Utils {
 
     	} else if (o instanceof Tuple2) {
             Tuple2 t = (Tuple2)o;
-            logger.info("Tupple2 - " + t.toString());
+            logger.info("Tuple2 - " + t.toString());
             Object er = null;
             Object o1 = javaToJs(t._1(),engine);
             Object o2 = javaToJs(t._2(), engine);
@@ -120,10 +126,25 @@ public class Utils {
 				 Object params[] = {o1, o2};
 				 er  = invocable.invokeFunction("convertJavaTuple2",params);
 			} catch (ScriptException | NoSuchMethodException e) {
-				logger.error(" Tuple2 convertion " + e);
+				logger.error(" Tuple2 conversion " + e);
 			}
             return er;
-        } else if (o instanceof IteratorWrapper) {
+        }else if ((o instanceof Product) && (o.getClass().getName().indexOf("scala.Tuple") > -1))  {
+            Product t = (Product)o;
+			logger.info("Tuple3 - " + t.toString());
+            Invocable invocable = (Invocable) engine;
+			Object params[] = {"Tuple", o};
+
+            try {
+                Object parm = invocable.invokeFunction("createJavaWrapperObject", params);
+                logger.debug("Tuple3= " + parm.toString());
+                return parm;
+            } catch  (ScriptException | NoSuchMethodException e) {
+                logger.error(" Tuple conversion " + e);
+            }
+            return null;
+
+		} else if (o instanceof IteratorWrapper) {
             logger.debug("Iterator " + o.toString());
         	ArrayList alist = new ArrayList();
         	while(((IteratorWrapper) o).hasMoreElements()) {

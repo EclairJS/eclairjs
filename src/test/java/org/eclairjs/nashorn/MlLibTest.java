@@ -157,9 +157,9 @@ public class MlLibTest {
         TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
         Object ret = ((Invocable)engine).invokeFunction("fpGrowthExample");
 
-        String expected = "[\"[t] 3\",\"[t, x] 3\",\"[t, x, z] 3\"]";
+        String expected = "[{\"freq\":3,\"items\":\"[t]\"},{\"freq\":3,\"items\":\"[t, x]\"},{\"freq\":3,\"items\":\"[t, x, z]\"}]";
 
-        assertEquals("failure - strings are not equal", expected, ret.toString());
+        assertEquals("failure - strings are not equal", expected, ret);
 
     }
     /*
@@ -224,6 +224,33 @@ public class MlLibTest {
         Object ret = ((Invocable)engine).invokeFunction("GradientBoostingRegressionExample");
 
         String expected = "{\"testMSE\":0.01,\"summary\":\"TreeEnsembleModel regressor with 3 trees\\n\"}";
+
+        assertEquals("failure - strings are not equal", expected, ret.toString());
+
+    }
+    /*
+           tests
+           RDD.randomSplit()
+           IsotonicRegression()
+           IsotonicRegression.setIsotonic()
+           IsotonicRegression.run()
+           IsotonicRegressionModel()
+           IsotonicRegressionModel.predict()
+           IsotonicRegressionModel.save()
+           IsotonicRegressionModel.load()
+           FloatRDD()
+           FloatRDD.mean()
+           Tuple()
+        */
+    @Test
+    public void IsotonicRegressionExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
+
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
+        Object ret = ((Invocable)engine).invokeFunction("IsotonicRegressionExample");
+
+        String expected = "{\"meanSquaredError\":0.008860256490591363}";
 
         assertEquals("failure - strings are not equal", expected, ret.toString());
 

@@ -801,7 +801,7 @@ throw "not implemented by ElairJS";
  * associative binary operator.
  * {function} func - (undocumented) Function with two parameters
  * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
- * @returns {RDD}
+ * @returns {object}
  */
 RDD.prototype.reduce = function(func, bindArgs) {
     var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, bindArgs);
