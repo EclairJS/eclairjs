@@ -31,8 +31,7 @@ public class JSComparator implements java.util.Comparator, java.io.Serializable 
     private String functionName = null;
 
     public JSComparator(String func, Object[] o) {
-        this.functionName = Utils.getUniqeFunctionName();
-        this.func = "var " + this.functionName +" = " + func;
+        this.func = func;
         this.args = o;
     }
 
@@ -69,11 +68,11 @@ public class JSComparator implements java.util.Comparator, java.io.Serializable 
                 params = ArrayUtils.addAll(params, this.args);
             }
 
-            ret = Integer.valueOf(invocable.invokeFunction(this.functionName, params).toString());
+            ret = Integer.valueOf(invocable.invokeFunction("Utils_invoke", params).toString());
             //return Utils.jsToJava(ret);
             return ret;
         } catch(Exception exc) {
-            // do nothing for now
+            exc.printStackTrace();
         }
 
         return ret;

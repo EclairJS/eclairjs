@@ -18,29 +18,15 @@ tests({
     },
 
     testAggregate : function() {
-        /*
-        var rdd2 = sparkContext.parallelize([1]);
-        var zeroRdd = sparkContext.parallelize([0]);
-        var ret= JSON.stringify(rdd2.aggregate(zeroRdd, function(t1,t2){return [t1,t2]}, function(t1,t2){return [t1,t2]}));
-        var expected = "{\"0\":null,\"1\":null}";
-        assertEquals("failure aggregate - objects are not equal", expected, ret);
-        */
-
         var rddString = sparkContext.parallelize(["1","2","3"]);
-        var zeroValue = 0;
-        var ret = rddString.aggregate(0, function(acc, current) {
-            print("acc = " + acc);
-            print("typeof acc = " + (typeof acc));
-            print("current = " + current);
-            return acc + parseDouble(current);
-        }, function (acc, current) {
-            print("acc = " + acc);
-            print("typeof acc = " + (typeof acc));
-            print("current = " + current);
-            return acc + current;
+        var zeroValue = 0.0;
+        var ret = rddString.aggregate(zeroValue, function(a, b) {
+            return parseInt(b);
+        }, function (x, y) {
+            return x + y;
         });
 
-        assertEquals("failure aggregate - objects are not equal", 1, ret);
+        assertEquals("failure aggregate - objects are not equal", "6", ret.toString());
     },
 
     testCache : function() {
@@ -166,10 +152,11 @@ tests({
     },
 
     testGlom : function() {
-        var rdd2 = rdd.glom();
-        var ret = JSON.stringify(rdd2.take(1));
-        var expected = "[null]";
-        assertEquals("failure glom - arrays are not equal", expected, ret);
+        var rdd1 = sparkContext.parallelize([1,2,3,4], 2);
+        var rdd2 = rdd1.glom();
+        var ret = rdd2.collect();
+        var expected = "[1, 2],[3, 4]";
+        assertEquals("failure glom - arrays are not equal", expected, ret.toString());
     },
 
     testGroupBy : function() {
@@ -239,8 +226,7 @@ tests({
 
     testMin : function() {
         var ret = rdd.min(function(a,b){
-            var res = (b < a ? 1 : (b > a ? -1 : 0));
-            print("res = " + res);
+            var res = (b < a) ? 1 : (b > a) ? -1 : 0;
             return (b < a ? 1 : (b > a ? -1 : 0))
         });
 
@@ -303,11 +289,19 @@ tests({
     },
 
     testZipPartitions : function() {
-        var rdd2 = sparkContext.parallelize([4,5]);
-        var rdd3 = rdd.zipPartitions(rdd2,function(a,b){return [a+b]});
-        var ret = JSON.stringify(rdd3.collect());
-        var expected = "[\"[][]\",\"[][]\",\"[1][]\",\"[][4]\",\"[][]\",\"[2][]\",\"[][]\",\"[3][5]\"]";
-        assertEquals("failure zipPartitions - arrays are not equal", expected, ret);
+        var rdd1 = sparkContext.parallelize([1,2,3,4], 2);
+        var rdd2 = sparkContext.parallelize([4,5,6,7], 2);
+        var rdd3 = rdd1.zipPartitions(rdd2,function(a,b) {
+            var ret = [];
+            for(var i = 0; i<a.length; i++) {
+                ret.push([a[i], b[i]])
+            }
+
+            return ret;
+        });
+        var ret = rdd3.collect();
+        var expected = "[1, 4],[2, 5],[3, 6],[4, 7]"
+        assertEquals("failure zipPartitions - arrays are not equal", expected, ret.toString());
 
     },
 
