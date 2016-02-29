@@ -67,16 +67,17 @@ public class JSPairFunction implements PairFunction {
         return t;
         */
         //ScriptObjectMirror ret = (ScriptObjectMirror)invocable.invokeFunction("Utils_invoke", params);
-        List ret = (List)invocable.invokeFunction("Utils_invoke", params);
+        //List ret = (List)invocable.invokeFunction("Utils_invoke", params);
+        Tuple2 ret = (Tuple2)invocable.invokeFunction("Utils_invoke", params);
 
         //@SuppressWarnings("rawtypes")
         //List l = (List)Utils.jsToJava(ret.values());
 
         //@SuppressWarnings("rawtypes")
         //Tuple2 t = new Tuple2(l.get(0), l.get(1));
-        Tuple2 t = new Tuple2(ret.get(0), ret.get(1));
+        //Tuple2 t = new Tuple2(ret.get(0), ret.get(1));
 
-        return t;
+        return ret;
         //return (Tuple2) Utils.jsToJava(ret);
     }
 }
