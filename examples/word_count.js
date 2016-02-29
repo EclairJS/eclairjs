@@ -57,7 +57,7 @@ function run(sparkContext) {
 
 if (typeof sparkContext === 'undefined') {
     var conf = new SparkConf().setAppName("JavaScript word count").setMaster("local[*]");
-    var sc = new SparkContext(sparkConf);
+    var sc = new SparkContext(conf);
     var result = run(sc);
     print("top 10 words = " + result);
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 IBM Corp.
+ * Copyright 2015 IBM Corp.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,10 @@
  * limitations under the License.
  */
 
-
+/*
+ Usage:
+ bin/eclairjs.sh examples/spark_tc.js"
+ */
 var numEdges = 200;
 var numVertices = 50;
 
@@ -43,10 +46,10 @@ function generateGraph(){
 	return  edges ;
 }
 
-var conf = new SparkConf().setAppName("JavaScript Transitive closure ").setMaster("local[*]");
-var sc = new SparkContext(conf);
 
-var slices = (arguments.length > 0) ? 0+arguments[0]: 2;
+function run(sc, slices) {
+
+var slices = slices ? 0+slices: 2;
 var tc = sc.parallelizePairs(generateGraph(), slices).cache();
 
 
@@ -57,7 +60,7 @@ var tc = sc.parallelizePairs(generateGraph(), slices).cache();
 
 // Because join() joins on keys, the edges are stored in reversed order.
 var edges = tc.mapToPair(function(tuple) {
-	return [tuple[1], tuple[0]];
+	return new Tuple(tuple[1], tuple[0]);
 });
 
 
@@ -74,8 +77,21 @@ do {
 
 } while (nextCount != oldCount);
 
-print("TC has " + tc.count() + " edges.");
+return tc.count();
 
-sc.stop();
+}
 
 
+/*
+ check if SparkContext is defined, if it is we are being run from Unit Test
+ */
+
+if (typeof sparkContext === 'undefined') {
+	var slices =  2;
+	var conf = new SparkConf().setAppName("JavaScript transitive closer").setMaster("local[*]");
+	var sc = new SparkContext(conf);
+	var result = run(sc, slices);
+	print("TC has " + result + " edges.");
+
+	sc.stop();
+}

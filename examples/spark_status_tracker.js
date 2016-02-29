@@ -13,36 +13,49 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/*
+ Usage:
+ bin/eclairjs.sh examples/spark_status_tracker.js"
+ */
 
-
-var conf = new SparkConf().setAppName("JavaScript Status Tracker").setMaster("local[*]");
-var sc = new SparkContext(conf);
-
+function run(sc) {
 
     // Example of implementing a progress reporter for a simple job.
     var rdd = sc.parallelize([1, 2, 3, 4, 5], 5).map(
-        function(x){
+        function (x) {
             java.lang.Thread.sleep(4000);
             return x;
         });
 
     var jobFuture = rdd.collectAsync();
     while (!jobFuture.isDone()) {
-      java.lang.Thread.sleep(1000);  // 1 second
-      var jobIds = jobFuture.jobIds();
-      if (jobIds.length==0) {
-        continue;
-      }
-      var currentJobId = jobIds.get(jobIds.length - 1);
-      var jobInfo = sc.statusTracker().getJobInfo(currentJobId);
-      var stageInfo = sc.statusTracker().getStageInfo(jobInfo.stageIds()[0]);
-      print(stageInfo.numTasks() + " tasks total: " + stageInfo.numActiveTasks() +
-          " active, " + stageInfo.numCompletedTasks() + " complete");
+        java.lang.Thread.sleep(1000);  // 1 second
+        var jobIds = jobFuture.jobIds();
+        if (jobIds.length == 0) {
+            continue;
+        }
+        var currentJobId = jobIds.get(jobIds.length - 1);
+        var jobInfo = sc.statusTracker().getJobInfo(currentJobId);
+        var stageInfo = sc.statusTracker().getStageInfo(jobInfo.stageIds()[0]);
+        print(stageInfo.numTasks() + " tasks total: " + stageInfo.numActiveTasks() +
+            " active, " + stageInfo.numCompletedTasks() + " complete");
     }
+    return  jobFuture.get();
+}
 
-    print("Job results are: " + jobFuture.get());
 
 
-sc.stop();
+/*
+ check if SparkContext is defined, if it is we are being run from Unit Test
+ */
+
+if (typeof sparkContext === 'undefined') {
+    var conf = new SparkConf().setAppName("JavaScript Status Tracker").setMaster("local[*]");
+    var sc = new SparkContext(conf);
+    var result = run(sc);
+    print("Job results are: " + result);
+
+    sc.stop();
+}
 
 

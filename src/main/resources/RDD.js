@@ -321,14 +321,14 @@ throw "not implemented by ElairJS";
 /**
  *  Return a new RDD by first applying a function to all elements of this
  *  RDD, and then flattening the results.
- * @param {PairFlatMapFunction}
+ * @param {function}
  * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
- * @returns {JavaPairRDD}
+ * @returns {PairRDD}
  */
 RDD.prototype.flatMapToPair = function(func, bindArgs) {
   var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSPairFlatMapFunction, bindArgs);
   var javaObject = this.getJavaObject().flatMapToPair(fn);
-  return new RDD(javaObject);
+  return new PairRDD(javaObject);
 };
 
 /**

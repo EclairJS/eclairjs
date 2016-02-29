@@ -162,5 +162,13 @@ Utils.logger = Logger.getLogger("Utils_js");
 
 
   Utils.createLambdaFunction = function(func, clazz, bindArgs) {
-    return new clazz(func.toString(), bindArgs ? Utils.unwrapObject(bindArgs) : [])
+      //var x = bindArgs ? org.eclairjs.nashorn.Utils.jsToJava(bindArgs) : []
+      var unObj = [];
+      if (bindArgs) {
+          for (var i = 0; i < bindArgs.length; i++) {
+              unObj.push(org.eclairjs.nashorn.Utils.jsToJava(bindArgs[i]));
+          }
+     }
+    //return new clazz(func.toString(), bindArgs ? Utils.unwrapObject(bindArgs) : [])
+      return new clazz(func.toString(), unObj /*x*/)
   };

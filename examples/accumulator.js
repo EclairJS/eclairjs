@@ -13,17 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-var sparkContext = new SparkContext("local[*]", "accumulators test");
-var accum = sparkContext.accumulator([0]);
-var addInt = function(){
-	
-	print("accum " + accum);
-	sparkContext.parallelize([1, 2, 3, 4]).foreach(function(x, accum) {
+
+/*
+ Usage:
+ bin/eclairjs.sh examples/accumulator.js"
+ */
+
+
+var run = function(sc){
+
+	sc.parallelize([1, 2, 3, 4]).foreach(function(x, accum) {
 		accum.add(x);
 	}, [accum]);
-	print( accum.value());
+	return accum.value();
 }
 	
 
-addInt();
+/*
+ check if SparkContext is defined, if it is we are being run from Unit Test
+ */
 
+if (typeof sparkContext === 'undefined') {
+	var conf = new SparkConf().setAppName("JavaScript accumulators test").setMaster("local[*]");
+	var sc = new SparkContext(conf);
+    var accum = sc.accumulator([0]);
+	print(run(sc));
+
+	sc.stop();
+}

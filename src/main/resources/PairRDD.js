@@ -1,33 +1,30 @@
 /*                                                                         
-* Copyright 2016 IBM Corp.                                                 
-*                                                                          
-* Licensed under the Apache License, Version 2.0 (the "License");          
-* you may not use this file except in compliance with the License.         
-* You may obtain a copy of the License at                                  
-*                                                                          
-*      http://www.apache.org/licenses/LICENSE-2.0                          
-*                                                                          
-* Unless required by applicable law or agreed to in writing, software      
-* distributed under the License is distributed on an "AS IS" BASIS,        
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
-* See the License for the specific language governing permissions and      
-* limitations under the License.                                           
-*/ 
-
-
-
+ * Copyright 2016 IBM Corp.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 
 /**
  * @param {RDD} rdd of [Tuple(value, value)]{@link Tuple}.
- * @returns {??} 
+ * @returns {??}
  *  @class
  */
-var PairRDD = function(rdd,kClassTag,vClassTag) {
-	 //var jvmObject = new org.apache.spark.api.java.JavaPairRDD(rdd,kClassTag,vClassTag);
-	 //this.logger = Logger.getLogger("PairRDD_js");
-	 //JavaWrapper.call(this, jvmObject);
-	RDD.call(this, Utils.unwrapObject(rdd));
+var PairRDD = function (rdd, kClassTag, vClassTag) {
+    //var jvmObject = new org.apache.spark.api.java.JavaPairRDD(rdd,kClassTag,vClassTag);
+    //this.logger = Logger.getLogger("PairRDD_js");
+    //JavaWrapper.call(this, jvmObject);
+    RDD.call(this, Utils.unwrapObject(rdd));
 
 };
 
@@ -36,13 +33,12 @@ PairRDD.prototype = Object.create(RDD.prototype);
 PairRDD.prototype.constructor = PairRDD;
 
 
-
 /**
  * @param {RDD} rdd
  * @returns {PairRDD}
  */
-PairRDD.prototype.wrapRDD = function(rdd) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.wrapRDD = function (rdd) {
+    throw "not implemented by ElairJS";
 // // TODO: handle Tuple conversion for 'rdd'
 //   var rdd_uw = Utils.unwrapObject(rdd);
 //   var javaObject =  this.getJavaObject().wrapRDD(rdd_uw);
@@ -53,8 +49,8 @@ throw "not implemented by ElairJS";
 /**
  * @returns {PairRDD}
  */
-PairRDD.prototype.cache = function() {
-throw "not implemented by ElairJS";
+PairRDD.prototype.cache = function () {
+    throw "not implemented by ElairJS";
 //   var javaObject =  this.getJavaObject().cache();
 //   return new PairRDD(javaObject);
 };
@@ -66,8 +62,8 @@ throw "not implemented by ElairJS";
  * @param {StorageLevel} newLevel
  * @returns {PairRDD}
  */
-PairRDD.prototype.persist = function(newLevel) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.persist = function (newLevel) {
+    throw "not implemented by ElairJS";
 //   var newLevel_uw = Utils.unwrapObject(newLevel);
 //   var javaObject =  this.getJavaObject().persist(newLevel_uw);
 //   return new PairRDD(javaObject);
@@ -80,8 +76,8 @@ throw "not implemented by ElairJS";
  * @param {boolean} [blocking]  Whether to block until all blocks are deleted.
  * @returns {PairRDD}
  */
-PairRDD.prototype.unpersist = function(blocking) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.unpersist = function (blocking) {
+    throw "not implemented by ElairJS";
 // 
 //   if (arguments[0]) {
 //   var javaObject =  this.getJavaObject().unpersist(blocking);
@@ -98,16 +94,16 @@ throw "not implemented by ElairJS";
  * @param {number} [numPartitions]
  * @returns {PairRDD}
  */
-PairRDD.prototype.distinct = function(numPartitions) {
-throw "not implemented by ElairJS";
-// 
-//   if (arguments[0]) {
-//   var javaObject =  this.getJavaObject().distinct(numPartitions);
-//   return new PairRDD(javaObject);
-//   } else {
-//   var javaObject =  this.getJavaObject().distinct();
-//   return new PairRDD(javaObject);
-//   }
+PairRDD.prototype.distinct = function (numPartitions) {
+    var javaObject
+    if (arguments[0]) {
+        javaObject = this.getJavaObject().distinct(numPartitions);
+
+    } else {
+        javaObject = this.getJavaObject().distinct();
+
+    }
+    return new PairRDD(javaObject);
 };
 
 
@@ -116,11 +112,11 @@ throw "not implemented by ElairJS";
  * @param {function} f
  * @returns {PairRDD}
  */
-PairRDD.prototype.filter = function(f) {
-   var sv = Utils.createJavaParams(f);
-   var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
-   var javaObject =  this.getJavaObject().filter(fn);
-   return new PairRDD(javaObject);
+PairRDD.prototype.filter = function (f) {
+    var sv = Utils.createJavaParams(f);
+    var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
+    var javaObject = this.getJavaObject().filter(fn);
+    return new PairRDD(javaObject);
 };
 
 
@@ -130,8 +126,8 @@ PairRDD.prototype.filter = function(f) {
  * @param {boolean} [shuffle]
  * @returns {PairRDD}
  */
-PairRDD.prototype.coalesce = function(numPartitions,shuffle) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.coalesce = function (numPartitions, shuffle) {
+    throw "not implemented by ElairJS";
 // 
 //   if (arguments[1]) {
 //   var javaObject =  this.getJavaObject().coalesce(numPartitions,shuffle);
@@ -154,8 +150,8 @@ throw "not implemented by ElairJS";
  * @param {number} numPartitions
  * @returns {PairRDD}
  */
-PairRDD.prototype.repartition = function(numPartitions) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.repartition = function (numPartitions) {
+    throw "not implemented by ElairJS";
 //   var javaObject =  this.getJavaObject().repartition(numPartitions);
 //   return new PairRDD(javaObject);
 };
@@ -168,8 +164,8 @@ throw "not implemented by ElairJS";
  * @param {number} [seed]
  * @returns {PairRDD}
  */
-PairRDD.prototype.sample = function(withReplacement,fraction,seed) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.sample = function (withReplacement, fraction, seed) {
+    throw "not implemented by ElairJS";
 // 
 //   if (arguments[2]) {
 //   var javaObject =  this.getJavaObject().sample(withReplacement,fraction,seed);
@@ -193,8 +189,8 @@ throw "not implemented by ElairJS";
  * @param {number} [seed]
  * @returns {PairRDD}
  */
-PairRDD.prototype.sampleByKey = function(withReplacement,fractions,seed) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.sampleByKey = function (withReplacement, fractions, seed) {
+    throw "not implemented by ElairJS";
 //   var fractions_uw = Utils.unwrapObject(fractions);
 // 
 //   if (arguments[2]) {
@@ -221,8 +217,8 @@ throw "not implemented by ElairJS";
  * @param {number} [seed]
  * @returns {PairRDD}
  */
-PairRDD.prototype.sampleByKeyExact = function(withReplacement,fractions,seed) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.sampleByKeyExact = function (withReplacement, fractions, seed) {
+    throw "not implemented by ElairJS";
 //   var fractions_uw = Utils.unwrapObject(fractions);
 // 
 //   if (arguments[2]) {
@@ -241,8 +237,8 @@ throw "not implemented by ElairJS";
  * @param {PairRDD} other
  * @returns {PairRDD}
  */
-PairRDD.prototype.union = function(other) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.union = function (other) {
+    throw "not implemented by ElairJS";
 //   var other_uw = Utils.unwrapObject(other);
 //   var javaObject =  this.getJavaObject().union(other_uw);
 //   return new PairRDD(javaObject);
@@ -257,8 +253,8 @@ throw "not implemented by ElairJS";
  * @param {PairRDD} other
  * @returns {PairRDD}
  */
-PairRDD.prototype.intersection = function(other) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.intersection = function (other) {
+    throw "not implemented by ElairJS";
 //   var other_uw = Utils.unwrapObject(other);
 //   var javaObject =  this.getJavaObject().intersection(other_uw);
 //   return new PairRDD(javaObject);
@@ -266,10 +262,10 @@ throw "not implemented by ElairJS";
 
 
 /**
- * @returns {Tuple2} 
+ * @returns {Tuple2}
  */
-PairRDD.prototype.first = function() {
-throw "not implemented by ElairJS";
+PairRDD.prototype.first = function () {
+    throw "not implemented by ElairJS";
 //   var javaObject =  this.getJavaObject().first();
 //   return new Tuple2(javaObject);
 };
@@ -297,8 +293,8 @@ throw "not implemented by ElairJS";
  * @param {Serializer} serializer
  * @returns {PairRDD}
  */
-PairRDD.prototype.combineByKey0 = function(createCombiner,mergeValue,mergeCombiners,partitioner,mapSideCombine,serializer) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.combineByKey0 = function (createCombiner, mergeValue, mergeCombiners, partitioner, mapSideCombine, serializer) {
+    throw "not implemented by ElairJS";
 //   var sv = Utils.createJavaParams(createCombiner);
 //   var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
 //   var sv2 = Utils.createJavaParams(mergeValue);
@@ -331,8 +327,8 @@ throw "not implemented by ElairJS";
  * @param {Partitioner} partitioner
  * @returns {PairRDD}
  */
-PairRDD.prototype.combineByKey1 = function(createCombiner,mergeValue,mergeCombiners,partitioner) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.combineByKey1 = function (createCombiner, mergeValue, mergeCombiners, partitioner) {
+    throw "not implemented by ElairJS";
 //   var sv = Utils.createJavaParams(createCombiner);
 //   var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
 //   var sv2 = Utils.createJavaParams(mergeValue);
@@ -354,8 +350,8 @@ throw "not implemented by ElairJS";
  * @param {number} numPartitions
  * @returns {PairRDD}
  */
-PairRDD.prototype.combineByKey2 = function(createCombiner,mergeValue,mergeCombiners,numPartitions) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.combineByKey2 = function (createCombiner, mergeValue, mergeCombiners, numPartitions) {
+    throw "not implemented by ElairJS";
 //   var sv = Utils.createJavaParams(createCombiner);
 //   var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
 //   var sv2 = Utils.createJavaParams(mergeValue);
@@ -375,8 +371,8 @@ throw "not implemented by ElairJS";
  * @param {func} func
  * @returns {PairRDD}
  */
-PairRDD.prototype.reduceByKey0 = function(partitioner,func) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.reduceByKey0 = function (partitioner, func) {
+    throw "not implemented by ElairJS";
 //   var partitioner_uw = Utils.unwrapObject(partitioner);
 //   var sv = Utils.createJavaParams(func);
 //   var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
@@ -390,10 +386,10 @@ throw "not implemented by ElairJS";
  * immediately to the master as a Map. This will also perform the merging locally on each mapper
  * before sending results to a reducer, similarly to a "combiner" in MapReduce.
  * @param {func} func
- * @returns {Map} 
+ * @returns {Map}
  */
-PairRDD.prototype.reduceByKeyLocally = function(func) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.reduceByKeyLocally = function (func) {
+    throw "not implemented by ElairJS";
 //   var sv = Utils.createJavaParams(func);
 //   var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
 //   var javaObject =  this.getJavaObject().reduceByKeyLocally(fn);
@@ -402,10 +398,10 @@ throw "not implemented by ElairJS";
 
 
 /**
- * @returns {Map} 
+ * @returns {Map}
  */
-PairRDD.prototype.countByKey = function() {
-throw "not implemented by ElairJS";
+PairRDD.prototype.countByKey = function () {
+    throw "not implemented by ElairJS";
 //   var javaObject =  this.getJavaObject().countByKey();
 //   return new Map(javaObject);
 };
@@ -416,10 +412,10 @@ throw "not implemented by ElairJS";
  * not finish within a timeout.
  * @param {number} timeout
  * @param {number} [confidence]
- * @returns {PartialResult} 
+ * @returns {PartialResult}
  */
-PairRDD.prototype.countByKeyApprox = function(timeout,confidence) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.countByKeyApprox = function (timeout, confidence) {
+    throw "not implemented by ElairJS";
 // 
 //   if (arguments[1]) {
 //   var javaObject =  this.getJavaObject().countByKeyApprox(timeout,confidence);
@@ -445,8 +441,8 @@ throw "not implemented by ElairJS";
  * @param {func} combFunc
  * @returns {PairRDD}
  */
-PairRDD.prototype.aggregateByKey0 = function(zeroValue,partitioner,seqFunc,combFunc) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.aggregateByKey0 = function (zeroValue, partitioner, seqFunc, combFunc) {
+    throw "not implemented by ElairJS";
 //   var zeroValue_uw = Utils.unwrapObject(zeroValue);
 //   var partitioner_uw = Utils.unwrapObject(partitioner);
 //   var sv = Utils.createJavaParams(seqFunc);
@@ -472,8 +468,8 @@ throw "not implemented by ElairJS";
  * @param {func} combFunc
  * @returns {PairRDD}
  */
-PairRDD.prototype.aggregateByKey1 = function(zeroValue,numPartitions,seqFunc,combFunc) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.aggregateByKey1 = function (zeroValue, numPartitions, seqFunc, combFunc) {
+    throw "not implemented by ElairJS";
 //   var zeroValue_uw = Utils.unwrapObject(zeroValue);
 //   var sv = Utils.createJavaParams(seqFunc);
 //   var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
@@ -496,8 +492,8 @@ throw "not implemented by ElairJS";
  * @param {func} combFunc
  * @returns {PairRDD}
  */
-PairRDD.prototype.aggregateByKey2 = function(zeroValue,seqFunc,combFunc) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.aggregateByKey2 = function (zeroValue, seqFunc, combFunc) {
+    throw "not implemented by ElairJS";
 //   var zeroValue_uw = Utils.unwrapObject(zeroValue);
 //   var sv = Utils.createJavaParams(seqFunc);
 //   var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
@@ -517,8 +513,8 @@ throw "not implemented by ElairJS";
  * @param {func} func
  * @returns {PairRDD}
  */
-PairRDD.prototype.foldByKey0 = function(zeroValue,partitioner,func) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.foldByKey0 = function (zeroValue, partitioner, func) {
+    throw "not implemented by ElairJS";
 //   var zeroValue_uw = Utils.unwrapObject(zeroValue);
 //   var partitioner_uw = Utils.unwrapObject(partitioner);
 //   var sv = Utils.createJavaParams(func);
@@ -537,8 +533,8 @@ throw "not implemented by ElairJS";
  * @param {func} func
  * @returns {PairRDD}
  */
-PairRDD.prototype.foldByKey1 = function(zeroValue,numPartitions,func) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.foldByKey1 = function (zeroValue, numPartitions, func) {
+    throw "not implemented by ElairJS";
 //   var zeroValue_uw = Utils.unwrapObject(zeroValue);
 //   var sv = Utils.createJavaParams(func);
 //   var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
@@ -555,8 +551,8 @@ throw "not implemented by ElairJS";
  * @param {func} func
  * @returns {PairRDD}
  */
-PairRDD.prototype.foldByKey2 = function(zeroValue,func) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.foldByKey2 = function (zeroValue, func) {
+    throw "not implemented by ElairJS";
 //   var zeroValue_uw = Utils.unwrapObject(zeroValue);
 //   var sv = Utils.createJavaParams(func);
 //   var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
@@ -573,8 +569,8 @@ throw "not implemented by ElairJS";
  * @param {number} numPartitions
  * @returns {PairRDD}
  */
-PairRDD.prototype.reduceByKey1 = function(func,numPartitions) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.reduceByKey1 = function (func, numPartitions) {
+    throw "not implemented by ElairJS";
 //   var sv = Utils.createJavaParams(func);
 //   var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
 //   var javaObject =  this.getJavaObject().reduceByKey(fn,numPartitions);
@@ -592,8 +588,8 @@ throw "not implemented by ElairJS";
  * @param {Partitioner} partitioner
  * @returns {PairRDD}
  */
-PairRDD.prototype.groupByKey0 = function(partitioner) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.groupByKey0 = function (partitioner) {
+    throw "not implemented by ElairJS";
 //   var partitioner_uw = Utils.unwrapObject(partitioner);
 //   var javaObject =  this.getJavaObject().groupByKey(partitioner_uw);
 //   return new PairRDD(javaObject);
@@ -610,8 +606,8 @@ throw "not implemented by ElairJS";
  * @param {number} numPartitions
  * @returns {PairRDD}
  */
-PairRDD.prototype.groupByKey1 = function(numPartitions) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.groupByKey1 = function (numPartitions) {
+    throw "not implemented by ElairJS";
 //   var javaObject =  this.getJavaObject().groupByKey(numPartitions);
 //   return new PairRDD(javaObject);
 };
@@ -625,8 +621,8 @@ throw "not implemented by ElairJS";
  * @param {PairRDD} other
  * @returns {PairRDD}
  */
-PairRDD.prototype.subtract0 = function(other) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.subtract0 = function (other) {
+    throw "not implemented by ElairJS";
 //   var other_uw = Utils.unwrapObject(other);
 //   var javaObject =  this.getJavaObject().subtract(other_uw);
 //   return new PairRDD(javaObject);
@@ -639,8 +635,8 @@ throw "not implemented by ElairJS";
  * @param {number} numPartitions
  * @returns {PairRDD}
  */
-PairRDD.prototype.subtract1 = function(other,numPartitions) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.subtract1 = function (other, numPartitions) {
+    throw "not implemented by ElairJS";
 //   var other_uw = Utils.unwrapObject(other);
 //   var javaObject =  this.getJavaObject().subtract(other_uw,numPartitions);
 //   return new PairRDD(javaObject);
@@ -653,8 +649,8 @@ throw "not implemented by ElairJS";
  * @param {Partitioner} p
  * @returns {PairRDD}
  */
-PairRDD.prototype.subtract2 = function(other,p) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.subtract2 = function (other, p) {
+    throw "not implemented by ElairJS";
 //   var other_uw = Utils.unwrapObject(other);
 //   var p_uw = Utils.unwrapObject(p);
 //   var javaObject =  this.getJavaObject().subtract(other_uw,p_uw);
@@ -670,8 +666,8 @@ throw "not implemented by ElairJS";
  * @param {PairRDD} other
  * @returns {PairRDD}
  */
-PairRDD.prototype.subtractByKey0 = function(other) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.subtractByKey0 = function (other) {
+    throw "not implemented by ElairJS";
 //   var other_uw = Utils.unwrapObject(other);
 //   var javaObject =  this.getJavaObject().subtractByKey(other_uw);
 //   return new PairRDD(javaObject);
@@ -683,8 +679,8 @@ throw "not implemented by ElairJS";
  * @param {number} numPartitions
  * @returns {PairRDD}
  */
-PairRDD.prototype.subtractByKey1 = function(other,numPartitions) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.subtractByKey1 = function (other, numPartitions) {
+    throw "not implemented by ElairJS";
 //   var other_uw = Utils.unwrapObject(other);
 //   var javaObject =  this.getJavaObject().subtractByKey(other_uw,numPartitions);
 //   return new PairRDD(javaObject);
@@ -696,8 +692,8 @@ throw "not implemented by ElairJS";
  * @param {Partitioner} p
  * @returns {PairRDD}
  */
-PairRDD.prototype.subtractByKey2 = function(other,p) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.subtractByKey2 = function (other, p) {
+    throw "not implemented by ElairJS";
 //   var other_uw = Utils.unwrapObject(other);
 //   var p_uw = Utils.unwrapObject(p);
 //   var javaObject =  this.getJavaObject().subtractByKey(other_uw,p_uw);
@@ -710,8 +706,8 @@ throw "not implemented by ElairJS";
  * @param {Partitioner} partitioner
  * @returns {PairRDD}
  */
-PairRDD.prototype.partitionBy = function(partitioner) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.partitionBy = function (partitioner) {
+    throw "not implemented by ElairJS";
 //   var partitioner_uw = Utils.unwrapObject(partitioner);
 //   var javaObject =  this.getJavaObject().partitionBy(partitioner_uw);
 //   return new PairRDD(javaObject);
@@ -726,8 +722,8 @@ throw "not implemented by ElairJS";
  * @param {Partitioner} partitioner
  * @returns {PairRDD}
  */
-PairRDD.prototype.join0 = function(other,partitioner) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.join0 = function (other, partitioner) {
+    throw "not implemented by ElairJS";
 //   var other_uw = Utils.unwrapObject(other);
 //   var partitioner_uw = Utils.unwrapObject(partitioner);
 //   var javaObject =  this.getJavaObject().join(other_uw,partitioner_uw);
@@ -744,8 +740,8 @@ throw "not implemented by ElairJS";
  * @param {Partitioner} partitioner
  * @returns {PairRDD}
  */
-PairRDD.prototype.leftOuterJoin0 = function(other,partitioner) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.leftOuterJoin0 = function (other, partitioner) {
+    throw "not implemented by ElairJS";
 //   var other_uw = Utils.unwrapObject(other);
 //   var partitioner_uw = Utils.unwrapObject(partitioner);
 //   var javaObject =  this.getJavaObject().leftOuterJoin(other_uw,partitioner_uw);
@@ -762,8 +758,8 @@ throw "not implemented by ElairJS";
  * @param {Partitioner} partitioner
  * @returns {PairRDD}
  */
-PairRDD.prototype.rightOuterJoin0 = function(other,partitioner) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.rightOuterJoin0 = function (other, partitioner) {
+    throw "not implemented by ElairJS";
 //   var other_uw = Utils.unwrapObject(other);
 //   var partitioner_uw = Utils.unwrapObject(partitioner);
 //   var javaObject =  this.getJavaObject().rightOuterJoin(other_uw,partitioner_uw);
@@ -782,8 +778,8 @@ throw "not implemented by ElairJS";
  * @param {Partitioner} partitioner
  * @returns {PairRDD}
  */
-PairRDD.prototype.fullOuterJoin0 = function(other,partitioner) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.fullOuterJoin0 = function (other, partitioner) {
+    throw "not implemented by ElairJS";
 //   var other_uw = Utils.unwrapObject(other);
 //   var partitioner_uw = Utils.unwrapObject(partitioner);
 //   var javaObject =  this.getJavaObject().fullOuterJoin(other_uw,partitioner_uw);
@@ -799,8 +795,8 @@ throw "not implemented by ElairJS";
  * @param {func} mergeCombiners
  * @returns {PairRDD}
  */
-PairRDD.prototype.combineByKey3 = function(createCombiner,mergeValue,mergeCombiners) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.combineByKey3 = function (createCombiner, mergeValue, mergeCombiners) {
+    throw "not implemented by ElairJS";
 //   var sv = Utils.createJavaParams(createCombiner);
 //   var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
 //   var sv2 = Utils.createJavaParams(mergeValue);
@@ -820,8 +816,8 @@ throw "not implemented by ElairJS";
  * @param {func} func
  * @returns {PairRDD}
  */
-PairRDD.prototype.reduceByKey2 = function(func) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.reduceByKey2 = function (func) {
+    throw "not implemented by ElairJS";
 //   var sv = Utils.createJavaParams(func);
 //   var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
 //   var javaObject =  this.getJavaObject().reduceByKey(fn);
@@ -838,8 +834,8 @@ throw "not implemented by ElairJS";
  * will provide much better performance.
  * @returns {PairRDD}
  */
-PairRDD.prototype.groupByKey2 = function() {
-throw "not implemented by ElairJS";
+PairRDD.prototype.groupByKey2 = function () {
+    throw "not implemented by ElairJS";
 //   var javaObject =  this.getJavaObject().groupByKey();
 //   return new PairRDD(javaObject);
 };
@@ -852,8 +848,8 @@ throw "not implemented by ElairJS";
  * @param {PairRDD} other
  * @returns {PairRDD}
  */
-PairRDD.prototype.join1 = function(other) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.join1 = function (other) {
+    throw "not implemented by ElairJS";
 //   var other_uw = Utils.unwrapObject(other);
 //   var javaObject =  this.getJavaObject().join(other_uw);
 //   return new PairRDD(javaObject);
@@ -868,8 +864,8 @@ throw "not implemented by ElairJS";
  * @param {number} numPartitions
  * @returns {PairRDD}
  */
-PairRDD.prototype.join2 = function(other,numPartitions) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.join2 = function (other, numPartitions) {
+    throw "not implemented by ElairJS";
 //   var other_uw = Utils.unwrapObject(other);
 //   var javaObject =  this.getJavaObject().join(other_uw,numPartitions);
 //   return new PairRDD(javaObject);
@@ -884,8 +880,8 @@ throw "not implemented by ElairJS";
  * @param {PairRDD} other
  * @returns {PairRDD}
  */
-PairRDD.prototype.leftOuterJoin1 = function(other) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.leftOuterJoin1 = function (other) {
+    throw "not implemented by ElairJS";
 //   var other_uw = Utils.unwrapObject(other);
 //   var javaObject =  this.getJavaObject().leftOuterJoin(other_uw);
 //   return new PairRDD(javaObject);
@@ -901,8 +897,8 @@ throw "not implemented by ElairJS";
  * @param {number} numPartitions
  * @returns {PairRDD}
  */
-PairRDD.prototype.leftOuterJoin2 = function(other,numPartitions) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.leftOuterJoin2 = function (other, numPartitions) {
+    throw "not implemented by ElairJS";
 //   var other_uw = Utils.unwrapObject(other);
 //   var javaObject =  this.getJavaObject().leftOuterJoin(other_uw,numPartitions);
 //   return new PairRDD(javaObject);
@@ -917,8 +913,8 @@ throw "not implemented by ElairJS";
  * @param {PairRDD} other
  * @returns {PairRDD}
  */
-PairRDD.prototype.rightOuterJoin1 = function(other) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.rightOuterJoin1 = function (other) {
+    throw "not implemented by ElairJS";
 //   var other_uw = Utils.unwrapObject(other);
 //   var javaObject =  this.getJavaObject().rightOuterJoin(other_uw);
 //   return new PairRDD(javaObject);
@@ -934,8 +930,8 @@ throw "not implemented by ElairJS";
  * @param {number} numPartitions
  * @returns {PairRDD}
  */
-PairRDD.prototype.rightOuterJoin2 = function(other,numPartitions) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.rightOuterJoin2 = function (other, numPartitions) {
+    throw "not implemented by ElairJS";
 //   var other_uw = Utils.unwrapObject(other);
 //   var javaObject =  this.getJavaObject().rightOuterJoin(other_uw,numPartitions);
 //   return new PairRDD(javaObject);
@@ -953,8 +949,8 @@ throw "not implemented by ElairJS";
  * @param {PairRDD} other
  * @returns {PairRDD}
  */
-PairRDD.prototype.fullOuterJoin1 = function(other) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.fullOuterJoin1 = function (other) {
+    throw "not implemented by ElairJS";
 //   var other_uw = Utils.unwrapObject(other);
 //   var javaObject =  this.getJavaObject().fullOuterJoin(other_uw);
 //   return new PairRDD(javaObject);
@@ -972,8 +968,8 @@ throw "not implemented by ElairJS";
  * @param {number} numPartitions
  * @returns {PairRDD}
  */
-PairRDD.prototype.fullOuterJoin2 = function(other,numPartitions) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.fullOuterJoin2 = function (other, numPartitions) {
+    throw "not implemented by ElairJS";
 //   var other_uw = Utils.unwrapObject(other);
 //   var javaObject =  this.getJavaObject().fullOuterJoin(other_uw,numPartitions);
 //   return new PairRDD(javaObject);
@@ -982,10 +978,10 @@ throw "not implemented by ElairJS";
 
 /**
  * Return the key-value pairs in this RDD to the master as a Map.
- * @returns {Map} 
+ * @returns {Map}
  */
-PairRDD.prototype.collectAsMap = function() {
-throw "not implemented by ElairJS";
+PairRDD.prototype.collectAsMap = function () {
+    throw "not implemented by ElairJS";
 //   var javaObject =  this.getJavaObject().collectAsMap();
 //   return new Map(javaObject);
 };
@@ -997,8 +993,8 @@ throw "not implemented by ElairJS";
  * @param {func} f
  * @returns {PairRDD}
  */
-PairRDD.prototype.mapValues = function(f) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.mapValues = function (f) {
+    throw "not implemented by ElairJS";
 //   var sv = Utils.createJavaParams(f);
 //   var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
 //   var javaObject =  this.getJavaObject().mapValues(fn);
@@ -1012,8 +1008,8 @@ throw "not implemented by ElairJS";
  * @param {func} f
  * @returns {PairRDD}
  */
-PairRDD.prototype.flatMapValues = function(f) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.flatMapValues = function (f) {
+    throw "not implemented by ElairJS";
 //   var sv = Utils.createJavaParams(f);
 //   var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
 //   var javaObject =  this.getJavaObject().flatMapValues(fn);
@@ -1028,8 +1024,8 @@ throw "not implemented by ElairJS";
  * @param {Partitioner} partitioner
  * @returns {PairRDD}
  */
-PairRDD.prototype.cogroup0 = function(other,partitioner) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.cogroup0 = function (other, partitioner) {
+    throw "not implemented by ElairJS";
 //   var other_uw = Utils.unwrapObject(other);
 //   var partitioner_uw = Utils.unwrapObject(partitioner);
 //   var javaObject =  this.getJavaObject().cogroup(other_uw,partitioner_uw);
@@ -1045,8 +1041,8 @@ throw "not implemented by ElairJS";
  * @param {Partitioner} partitioner
  * @returns {PairRDD}
  */
-PairRDD.prototype.cogroup1 = function(other1,other2,partitioner) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.cogroup1 = function (other1, other2, partitioner) {
+    throw "not implemented by ElairJS";
 //   var other1_uw = Utils.unwrapObject(other1);
 //   var other2_uw = Utils.unwrapObject(other2);
 //   var partitioner_uw = Utils.unwrapObject(partitioner);
@@ -1065,8 +1061,8 @@ throw "not implemented by ElairJS";
  * @param {Partitioner} partitioner
  * @returns {PairRDD}
  */
-PairRDD.prototype.cogroup2 = function(other1,other2,other3,partitioner) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.cogroup2 = function (other1, other2, other3, partitioner) {
+    throw "not implemented by ElairJS";
 //   var other1_uw = Utils.unwrapObject(other1);
 //   var other2_uw = Utils.unwrapObject(other2);
 //   var other3_uw = Utils.unwrapObject(other3);
@@ -1082,8 +1078,8 @@ throw "not implemented by ElairJS";
  * @param {PairRDD} other
  * @returns {PairRDD}
  */
-PairRDD.prototype.cogroup3 = function(other) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.cogroup3 = function (other) {
+    throw "not implemented by ElairJS";
 //   var other_uw = Utils.unwrapObject(other);
 //   var javaObject =  this.getJavaObject().cogroup(other_uw);
 //   return new PairRDD(javaObject);
@@ -1097,8 +1093,8 @@ throw "not implemented by ElairJS";
  * @param {PairRDD} other2
  * @returns {PairRDD}
  */
-PairRDD.prototype.cogroup4 = function(other1,other2) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.cogroup4 = function (other1, other2) {
+    throw "not implemented by ElairJS";
 //   var other1_uw = Utils.unwrapObject(other1);
 //   var other2_uw = Utils.unwrapObject(other2);
 //   var javaObject =  this.getJavaObject().cogroup(other1_uw,other2_uw);
@@ -1115,8 +1111,8 @@ throw "not implemented by ElairJS";
  * @param {PairRDD} other3
  * @returns {PairRDD}
  */
-PairRDD.prototype.cogroup5 = function(other1,other2,other3) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.cogroup5 = function (other1, other2, other3) {
+    throw "not implemented by ElairJS";
 //   var other1_uw = Utils.unwrapObject(other1);
 //   var other2_uw = Utils.unwrapObject(other2);
 //   var other3_uw = Utils.unwrapObject(other3);
@@ -1132,8 +1128,8 @@ throw "not implemented by ElairJS";
  * @param {number} numPartitions
  * @returns {PairRDD}
  */
-PairRDD.prototype.cogroup6 = function(other,numPartitions) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.cogroup6 = function (other, numPartitions) {
+    throw "not implemented by ElairJS";
 //   var other_uw = Utils.unwrapObject(other);
 //   var javaObject =  this.getJavaObject().cogroup(other_uw,numPartitions);
 //   return new PairRDD(javaObject);
@@ -1148,8 +1144,8 @@ throw "not implemented by ElairJS";
  * @param {number} numPartitions
  * @returns {PairRDD}
  */
-PairRDD.prototype.cogroup7 = function(other1,other2,numPartitions) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.cogroup7 = function (other1, other2, numPartitions) {
+    throw "not implemented by ElairJS";
 //   var other1_uw = Utils.unwrapObject(other1);
 //   var other2_uw = Utils.unwrapObject(other2);
 //   var javaObject =  this.getJavaObject().cogroup(other1_uw,other2_uw,numPartitions);
@@ -1167,8 +1163,8 @@ throw "not implemented by ElairJS";
  * @param {number} numPartitions
  * @returns {PairRDD}
  */
-PairRDD.prototype.cogroup8 = function(other1,other2,other3,numPartitions) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.cogroup8 = function (other1, other2, other3, numPartitions) {
+    throw "not implemented by ElairJS";
 //   var other1_uw = Utils.unwrapObject(other1);
 //   var other2_uw = Utils.unwrapObject(other2);
 //   var other3_uw = Utils.unwrapObject(other3);
@@ -1181,8 +1177,8 @@ throw "not implemented by ElairJS";
  * @param {PairRDD} other
  * @returns {PairRDD}
  */
-PairRDD.prototype.groupWith0 = function(other) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.groupWith0 = function (other) {
+    throw "not implemented by ElairJS";
 //   var other_uw = Utils.unwrapObject(other);
 //   var javaObject =  this.getJavaObject().groupWith(other_uw);
 //   return new PairRDD(javaObject);
@@ -1194,8 +1190,8 @@ throw "not implemented by ElairJS";
  * @param {PairRDD} other2
  * @returns {PairRDD}
  */
-PairRDD.prototype.groupWith1 = function(other1,other2) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.groupWith1 = function (other1, other2) {
+    throw "not implemented by ElairJS";
 //   var other1_uw = Utils.unwrapObject(other1);
 //   var other2_uw = Utils.unwrapObject(other2);
 //   var javaObject =  this.getJavaObject().groupWith(other1_uw,other2_uw);
@@ -1209,8 +1205,8 @@ throw "not implemented by ElairJS";
  * @param {PairRDD} other3
  * @returns {PairRDD}
  */
-PairRDD.prototype.groupWith2 = function(other1,other2,other3) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.groupWith2 = function (other1, other2, other3) {
+    throw "not implemented by ElairJS";
 //   var other1_uw = Utils.unwrapObject(other1);
 //   var other2_uw = Utils.unwrapObject(other2);
 //   var other3_uw = Utils.unwrapObject(other3);
@@ -1223,10 +1219,10 @@ throw "not implemented by ElairJS";
  * Return the list of values in the RDD for key `key`. This operation is done efficiently if the
  * RDD has a known partitioner by only searching the partition that the key maps to.
  * @param {object} key
- * @returns {JList} 
+ * @returns {JList}
  */
-PairRDD.prototype.lookup = function(key) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.lookup = function (key) {
+    throw "not implemented by ElairJS";
 //   var key_uw = Utils.unwrapObject(key);
 //   return  this.getJavaObject().lookup(key_uw);
 };
@@ -1239,8 +1235,8 @@ throw "not implemented by ElairJS";
  * @param {Class} outputFormatClass
  * @param {JobConf} conf
  */
-PairRDD.prototype.saveAsHadoopFile0 = function(path,keyClass,valueClass,outputFormatClass,conf) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.saveAsHadoopFile0 = function (path, keyClass, valueClass, outputFormatClass, conf) {
+    throw "not implemented by ElairJS";
 //   var keyClass_uw = Utils.unwrapObject(keyClass);
 //   var valueClass_uw = Utils.unwrapObject(valueClass);
 //   var outputFormatClass_uw = Utils.unwrapObject(outputFormatClass);
@@ -1255,8 +1251,8 @@ throw "not implemented by ElairJS";
  * @param {Class} valueClass
  * @param {Class} outputFormatClass
  */
-PairRDD.prototype.saveAsHadoopFile1 = function(path,keyClass,valueClass,outputFormatClass) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.saveAsHadoopFile1 = function (path, keyClass, valueClass, outputFormatClass) {
+    throw "not implemented by ElairJS";
 //   var keyClass_uw = Utils.unwrapObject(keyClass);
 //   var valueClass_uw = Utils.unwrapObject(valueClass);
 //   var outputFormatClass_uw = Utils.unwrapObject(outputFormatClass);
@@ -1271,8 +1267,8 @@ throw "not implemented by ElairJS";
  * @param {Class} outputFormatClass
  * @param {Class} codec
  */
-PairRDD.prototype.saveAsHadoopFile2 = function(path,keyClass,valueClass,outputFormatClass,codec) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.saveAsHadoopFile2 = function (path, keyClass, valueClass, outputFormatClass, codec) {
+    throw "not implemented by ElairJS";
 //   var keyClass_uw = Utils.unwrapObject(keyClass);
 //   var valueClass_uw = Utils.unwrapObject(valueClass);
 //   var outputFormatClass_uw = Utils.unwrapObject(outputFormatClass);
@@ -1288,8 +1284,8 @@ throw "not implemented by ElairJS";
  * @param {Class} outputFormatClass
  * @param {Configuration} conf
  */
-PairRDD.prototype.saveAsNewAPIHadoopFilewithConf = function(path,keyClass,valueClass,outputFormatClass,conf) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.saveAsNewAPIHadoopFilewithConf = function (path, keyClass, valueClass, outputFormatClass, conf) {
+    throw "not implemented by ElairJS";
 //   var keyClass_uw = Utils.unwrapObject(keyClass);
 //   var valueClass_uw = Utils.unwrapObject(valueClass);
 //   var outputFormatClass_uw = Utils.unwrapObject(outputFormatClass);
@@ -1303,8 +1299,8 @@ throw "not implemented by ElairJS";
  * a Configuration object for that storage system.
  * @param {Configuration} conf
  */
-PairRDD.prototype.saveAsNewAPIHadoopDataset = function(conf) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.saveAsNewAPIHadoopDataset = function (conf) {
+    throw "not implemented by ElairJS";
 //   var conf_uw = Utils.unwrapObject(conf);
 //    this.getJavaObject().saveAsNewAPIHadoopDataset(conf_uw);
 };
@@ -1316,8 +1312,8 @@ throw "not implemented by ElairJS";
  * @param {Class} valueClass
  * @param {Class} outputFormatClass
  */
-PairRDD.prototype.saveAsNewAPIHadoopFile = function(path,keyClass,valueClass,outputFormatClass) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.saveAsNewAPIHadoopFile = function (path, keyClass, valueClass, outputFormatClass) {
+    throw "not implemented by ElairJS";
 //   var keyClass_uw = Utils.unwrapObject(keyClass);
 //   var valueClass_uw = Utils.unwrapObject(valueClass);
 //   var outputFormatClass_uw = Utils.unwrapObject(outputFormatClass);
@@ -1332,8 +1328,8 @@ throw "not implemented by ElairJS";
  * MapReduce job.
  * @param {JobConf} conf
  */
-PairRDD.prototype.saveAsHadoopDataset = function(conf) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.saveAsHadoopDataset = function (conf) {
+    throw "not implemented by ElairJS";
 //   var conf_uw = Utils.unwrapObject(conf);
 //    this.getJavaObject().saveAsHadoopDataset(conf_uw);
 };
@@ -1349,8 +1345,8 @@ throw "not implemented by ElairJS";
  * @param {Comparator} [comp]
  * @returns {PairRDD}
  */
-PairRDD.prototype.repartitionAndSortWithinPartitions = function(partitioner,comp) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.repartitionAndSortWithinPartitions = function (partitioner, comp) {
+    throw "not implemented by ElairJS";
 //   var partitioner_uw = Utils.unwrapObject(partitioner);
 //   var comp_uw = Utils.unwrapObject(comp);
 // 
@@ -1371,8 +1367,8 @@ throw "not implemented by ElairJS";
  * in the filesystem, in order of the keys).
  * @returns {PairRDD}
  */
-PairRDD.prototype.sortByKey0 = function() {
-throw "not implemented by ElairJS";
+PairRDD.prototype.sortByKey0 = function () {
+    throw "not implemented by ElairJS";
 //   var javaObject =  this.getJavaObject().sortByKey();
 //   return new PairRDD(javaObject);
 };
@@ -1386,8 +1382,8 @@ throw "not implemented by ElairJS";
  * @param {boolean} ascending
  * @returns {PairRDD}
  */
-PairRDD.prototype.sortByKey1 = function(ascending) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.sortByKey1 = function (ascending) {
+    throw "not implemented by ElairJS";
 //   var javaObject =  this.getJavaObject().sortByKey(ascending);
 //   return new PairRDD(javaObject);
 };
@@ -1402,8 +1398,8 @@ throw "not implemented by ElairJS";
  * @param {number} numPartitions
  * @returns {PairRDD}
  */
-PairRDD.prototype.sortByKey2 = function(ascending,numPartitions) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.sortByKey2 = function (ascending, numPartitions) {
+    throw "not implemented by ElairJS";
 //   var javaObject =  this.getJavaObject().sortByKey(ascending,numPartitions);
 //   return new PairRDD(javaObject);
 };
@@ -1417,8 +1413,8 @@ throw "not implemented by ElairJS";
  * @param {Comparator} comp
  * @returns {PairRDD}
  */
-PairRDD.prototype.sortByKey3 = function(comp) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.sortByKey3 = function (comp) {
+    throw "not implemented by ElairJS";
 //   var comp_uw = Utils.unwrapObject(comp);
 //   var javaObject =  this.getJavaObject().sortByKey(comp_uw);
 //   return new PairRDD(javaObject);
@@ -1434,8 +1430,8 @@ throw "not implemented by ElairJS";
  * @param {boolean} ascending
  * @returns {PairRDD}
  */
-PairRDD.prototype.sortByKey4 = function(comp,ascending) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.sortByKey4 = function (comp, ascending) {
+    throw "not implemented by ElairJS";
 //   var comp_uw = Utils.unwrapObject(comp);
 //   var javaObject =  this.getJavaObject().sortByKey(comp_uw,ascending);
 //   return new PairRDD(javaObject);
@@ -1452,8 +1448,8 @@ throw "not implemented by ElairJS";
  * @param {number} numPartitions
  * @returns {PairRDD}
  */
-PairRDD.prototype.sortByKey5 = function(comp,ascending,numPartitions) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.sortByKey5 = function (comp, ascending, numPartitions) {
+    throw "not implemented by ElairJS";
 //   var comp_uw = Utils.unwrapObject(comp);
 //   var javaObject =  this.getJavaObject().sortByKey(comp_uw,ascending,numPartitions);
 //   return new PairRDD(javaObject);
@@ -1462,10 +1458,10 @@ throw "not implemented by ElairJS";
 
 /**
  * Return an RDD with the keys of each tuple.
- * @returns {JavaRDD} 
+ * @returns {JavaRDD}
  */
-PairRDD.prototype.keys = function() {
-throw "not implemented by ElairJS";
+PairRDD.prototype.keys = function () {
+    throw "not implemented by ElairJS";
 //   var javaObject =  this.getJavaObject().keys();
 //   return new JavaRDD(javaObject);
 };
@@ -1473,10 +1469,10 @@ throw "not implemented by ElairJS";
 
 /**
  * Return an RDD with the values of each tuple.
- * @returns {JavaRDD} 
+ * @returns {JavaRDD}
  */
-PairRDD.prototype.values = function() {
-throw "not implemented by ElairJS";
+PairRDD.prototype.values = function () {
+    throw "not implemented by ElairJS";
 //   var javaObject =  this.getJavaObject().values();
 //   return new JavaRDD(javaObject);
 };
@@ -1494,8 +1490,8 @@ throw "not implemented by ElairJS";
  * @param {Partitioner} partitioner  partitioner of the resulting RDD.
  * @returns {PairRDD}
  */
-PairRDD.prototype.countApproxDistinctByKey0 = function(relativeSD,partitioner) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.countApproxDistinctByKey0 = function (relativeSD, partitioner) {
+    throw "not implemented by ElairJS";
 //   var partitioner_uw = Utils.unwrapObject(partitioner);
 //   var javaObject =  this.getJavaObject().countApproxDistinctByKey(relativeSD,partitioner_uw);
 //   return new PairRDD(javaObject);
@@ -1514,8 +1510,8 @@ throw "not implemented by ElairJS";
  * @param {number} numPartitions  number of partitions of the resulting RDD.
  * @returns {PairRDD}
  */
-PairRDD.prototype.countApproxDistinctByKey1 = function(relativeSD,numPartitions) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.countApproxDistinctByKey1 = function (relativeSD, numPartitions) {
+    throw "not implemented by ElairJS";
 //   var javaObject =  this.getJavaObject().countApproxDistinctByKey(relativeSD,numPartitions);
 //   return new PairRDD(javaObject);
 };
@@ -1532,8 +1528,8 @@ throw "not implemented by ElairJS";
  *                   It must be greater than 0.000017.
  * @returns {PairRDD}
  */
-PairRDD.prototype.countApproxDistinctByKey2 = function(relativeSD) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.countApproxDistinctByKey2 = function (relativeSD) {
+    throw "not implemented by ElairJS";
 //   var javaObject =  this.getJavaObject().countApproxDistinctByKey(relativeSD);
 //   return new PairRDD(javaObject);
 };
@@ -1543,17 +1539,17 @@ throw "not implemented by ElairJS";
  * @param {string} name
  * @returns {PairRDD}
  */
-PairRDD.prototype.setName = function(name) {
-throw "not implemented by ElairJS";
+PairRDD.prototype.setName = function (name) {
+    throw "not implemented by ElairJS";
 //   var javaObject =  this.getJavaObject().setName(name);
 //   return new PairRDD(javaObject);
 };
 
 /**
-* @returns {RDD}
-*/
-PairRDD.prototype.rdd = function() {
-    var javaObject =  this.getJavaObject().rdd();
+ * @returns {RDD}
+ */
+PairRDD.prototype.rdd = function () {
+    var javaObject = this.getJavaObject().rdd();
     return new RDD(javaObject);
 };
 
@@ -1566,8 +1562,8 @@ PairRDD.prototype.rdd = function() {
  * @param {RDD} rdd
  * @returns {PairRDD}
  */
-PairRDD.fromRDD = function(rdd) {
-throw "not implemented by ElairJS";
+PairRDD.fromRDD = function (rdd) {
+    throw "not implemented by ElairJS";
 // // TODO: handle Tuple conversion for 'rdd'
 //   var rdd_uw = Utils.unwrapObject(rdd);
 //   var javaObject =  org.apache.spark.api.java.PairRDD.fromRDD(rdd_uw);
@@ -1577,12 +1573,12 @@ throw "not implemented by ElairJS";
 
 /**
  * @param {PairRDD} rdd
- * @returns {RDD} 
+ * @returns {RDD}
  */
-PairRDD.toRDD = function(rdd) {
-   var rdd_uw = Utils.unwrapObject(rdd);
-   var javaObject =  org.apache.spark.api.java.PairRDD.toRDD(rdd_uw);
-   return new RDD(javaObject);
+PairRDD.toRDD = function (rdd) {
+    var rdd_uw = Utils.unwrapObject(rdd);
+    var javaObject = org.apache.spark.api.java.PairRDD.toRDD(rdd_uw);
+    return new RDD(javaObject);
 };
 
 
@@ -1590,8 +1586,8 @@ PairRDD.toRDD = function(rdd) {
  * @param {JavaRDD} rdd
  * @returns {PairRDD}
  */
-PairRDD.fromJavaRDD = function(rdd) {
-throw "not implemented by ElairJS";
+PairRDD.fromJavaRDD = function (rdd) {
+    throw "not implemented by ElairJS";
 // // TODO: handle Tuple conversion for 'rdd'
 //   var rdd_uw = Utils.unwrapObject(rdd);
 //   var javaObject =  org.apache.spark.api.java.PairRDD.fromJavaRDD(rdd_uw);
