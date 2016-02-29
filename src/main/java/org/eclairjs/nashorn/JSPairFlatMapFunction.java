@@ -48,8 +48,8 @@ public class JSPairFlatMapFunction implements PairFlatMapFunction {
         return l2;
         */
         //ScriptObjectMirror ret = (ScriptObjectMirror)invocable.invokeFunction("Utils_invoke", params);
-        List<List> l = (List<List>)invocable.invokeFunction("Utils_invoke", params);
-        //ArrayList<List> l = (ArrayList<List>)Utils.jsToJava(ret.values());
+        List<Tuple2> l = (List<Tuple2>)invocable.invokeFunction("Utils_invoke", params);
+        /*
         ArrayList<Tuple2> l2 = new ArrayList<Tuple2>(l.size());
 
         for(List t : l) {
@@ -58,5 +58,8 @@ public class JSPairFlatMapFunction implements PairFlatMapFunction {
         }
 
         return l2;
+        */
+
+        return l;
     }
 }
