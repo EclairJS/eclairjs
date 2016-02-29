@@ -40,6 +40,17 @@ var SparkTC = function() {
 
 }
 
+var SparkPI = function() {
+    load("examples/spark_PI.js");
+    var result = run(sparkContext);
+    if (result > 3.14) {
+        return "all is good";
+    } else {
+        return "example failed";
+    }
+
+}
+
 var SparkLR = function() {
     load("examples/spark_lr.js");
     var result = run(sparkContext);

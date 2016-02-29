@@ -14,40 +14,52 @@
  * limitations under the License.
  */
 
-var conf = new SparkConf().setAppName("JavaScript Spark Pi").setMaster("local[*]");
-var sparkContext = new SparkContext(conf);
-
+/*
+ Usage:
+ bin/eclairjs.sh examples/spark_pi.js"
+ */
 
 /**
  * Computes an approximation to pi
  */
 
 
-var slices =  10;
+function run(sc) {
+    var slices = 10;
 
-var n = 100000 * slices;
-var l = [];
-for (var i = 0; i < n; i++) {
-  l.push(i);
-}
-
-
- var dataSet = sparkContext.parallelize(l, slices);
+    var n = 100000 * slices;
+    var l = [];
+    for (var i = 0; i < n; i++) {
+        l.push(i);
+    }
 
 
+    var dataSet = sc.parallelize(l, slices);
 
- var count = dataSet.map(function(i) {
+
+    var count = dataSet.map(function (i) {
         var x = Math.random() * 2 - 1;
         var y = Math.random() * 2 - 1;
-        return (x * x +   y * y < 1) ? 1 : 0;
-    }).reduce(function(int1,int2) {
+        return (x * x + y * y < 1) ? 1 : 0;
+    }).reduce(function (int1, int2) {
         return int1 + int2;
     });
 
+    return (4.0 * count / n)
 
-  print("Pi is roughly " + (4.0 * count / n));
+}
 
+/*
+ check if SparkContext is defined, if it is we are being run from Unit Test
+ */
 
-sparkContext.stop();
+if (typeof sparkContext === 'undefined') {
+
+    var conf = new SparkConf().setAppName("JavaScript Spark Pi").setMaster("local[*]");
+    var sc = new SparkContext(conf);
+    var result = run(sc);
+    print("Pi is roughly " + result);
+    sc.stop();
+}
 
 

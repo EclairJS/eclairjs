@@ -66,6 +66,18 @@ public class CoreExamplesTest {
     }
 
     @Test
+    public void SparkPI() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/core_examples_test.js");
+        Object ret = ((Invocable)engine).invokeFunction("SparkPI");
+
+        String expected = "all is good";
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
+
+    @Test
     public void SparkLR() throws Exception {
         ScriptEngine engine = TestUtils.getEngine();
 
