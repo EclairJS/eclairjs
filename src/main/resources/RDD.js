@@ -637,11 +637,11 @@ throw "not implemented by ElairJS";
  * Return a new RDD by applying a function to all elements of this RDD.
  * @param (function) func - (undocumented) Function with one parameter that returns tuple
  * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
- * @returns {RDD}
+ * @returns {PairRDD}
  */
 RDD.prototype.mapToPair = function(func, bindArgs) {
   var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSPairFunction, bindArgs);
-	var result = new RDD(this.getJavaObject().mapToPair(fn));
+	var result = new PairRDD(this.getJavaObject().mapToPair(fn));
 	return result;
 };
 
@@ -951,8 +951,8 @@ RDD.prototype.take = function(num) {
 	var res = this.getJavaObject().take(num);
 	this.logger.debug("take " + res.getClass().getName());
 	var results = [];
-	for (var i = 0; i < res.size(); i++) {
-		var value = res.get(i);
+	for (var i = 0; i < res.length; i++) {
+		var value = res[i];
 		this.logger.debug("take value: " + value.getClass().getName());
 		var o = Utils.javaToJs(value);
 		this.logger.debug("take o:" + o.toString());

@@ -41,7 +41,7 @@ function run(sc) {
     // Create tuples of predicted and real labels.
     var predictionAndLabel = test.mapToPair(function (point, model) {
         var predictedLabel = model.predict(point[1]);
-        return [predictedLabel, point[0]];
+        return new Tuple(predictedLabel, point[0]);
 
     }, [model]);
 

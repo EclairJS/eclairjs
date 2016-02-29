@@ -26,9 +26,13 @@ var List = function(obj) {
     this.logger = Logger.getLogger("List_js");
     var jvmObject = obj;
     if (!obj) {
-        jvmObject =java.util.Arrays.asList([]);
+        this.logger.debug("create empty list");
+        jvmObject = new java.util.ArrayList();
     } else if (Array.isArray(obj)) {
-        jvmObject =java.util.Arrays.asList(obj);
+        jvmObject = new java.util.ArrayList();
+        for ( var i = 0; i < obj.length; i++) {
+            jvmObject.add(Utils.unwrapObject(obj[i]));
+        }
     }
     JavaWrapper.call(this, jvmObject);
 
@@ -53,7 +57,7 @@ List.prototype.add = function(obj, position) {
         javaObject = this.getJavaObject().add(obj_uw);
     }
 
-    return new List(javaObject);
+   // return new List(javaObject);
 };
 
 /**

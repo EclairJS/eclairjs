@@ -235,15 +235,7 @@ public class SqlTest {
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable)engine).invokeFunction("dataframeDtypesTest", file);
-        String json = "["
-		        		+ "[\"name\",\"StringType\"],"
-		        		+ "[\"age\",\"IntegerType\"],"
-		        		+ "[\"expense\",\"IntegerType\"],"
-		        		+ "[\"DOB\",\"TimestampType\"],"
-		        		+ "[\"income\",\"DoubleType\"],"
-		        		+ "[\"married\",\"BooleanType\"],"
-		        		+ "[\"networth\",\"DoubleType\"]"
-	        		+ "]";
+        String json = "[\"(name,StringType)\",\"(age,IntegerType)\",\"(expense,IntegerType)\",\"(DOB,TimestampType)\",\"(income,DoubleType)\",\"(married,BooleanType)\",\"(networth,DoubleType)\"]";
         assertEquals("should be same", json, ret);
     }
     
