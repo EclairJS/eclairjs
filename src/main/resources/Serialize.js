@@ -130,10 +130,12 @@ Serialize.javaSparkObject = function(javaObj) {
 
   var className = javaObj.getClass().getSimpleName();
 
+  print("className = " + className);
   if (className.endsWith("$")) {
     className = javaObj.getClass().getSuperclass().getSimpleName();
   }
 
+  print("superClassName = " + className);
   if (className === "JavaRDD" || className === "JavaPairRDD") {
     //Map JavaRDD to RDD for JavaScript
     className = "RDD"; //o.getClass().getSimpleName();

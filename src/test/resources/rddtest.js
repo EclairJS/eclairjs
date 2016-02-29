@@ -18,12 +18,29 @@ tests({
     },
 
     testAggregate : function() {
+        /*
         var rdd2 = sparkContext.parallelize([1]);
         var zeroRdd = sparkContext.parallelize([0]);
         var ret= JSON.stringify(rdd2.aggregate(zeroRdd, function(t1,t2){return [t1,t2]}, function(t1,t2){return [t1,t2]}));
         var expected = "{\"0\":null,\"1\":null}";
         assertEquals("failure aggregate - objects are not equal", expected, ret);
+        */
 
+        var rddString = sparkContext.parallelize(["1","2","3"]);
+        var zeroValue = 0;
+        var ret = rddString.aggregate(0, function(acc, current) {
+            print("acc = " + acc);
+            print("typeof acc = " + (typeof acc));
+            print("current = " + current);
+            return acc + parseDouble(current);
+        }, function (acc, current) {
+            print("acc = " + acc);
+            print("typeof acc = " + (typeof acc));
+            print("current = " + current);
+            return acc + current;
+        });
+
+        assertEquals("failure aggregate - objects are not equal", 1, ret);
     },
 
     testCache : function() {
@@ -117,10 +134,10 @@ tests({
     },
 
     testFold : function() {
-        var rdd2 = sparkContext.parallelize([1]);
-        var zeroRdd = sparkContext.parallelize([0]);
-        var ret = JSON.stringify(rdd2.fold(zeroRdd, function(t1,t2){return [t1,t2]}));
-        var expected = "{\"0\":null,\"1\":null}";
+        var rdd2 = sparkContext.parallelize([1,2]);
+        var zeroRdd = 0;
+        var ret = JSON.stringify(rdd2.fold(zeroRdd, function(t1,t2){return t1 + t2}));
+        var expected = "3";
         assertEquals("failure fold - objects are not equal", expected, ret);
     },
 
@@ -221,7 +238,11 @@ tests({
     },
 
     testMin : function() {
-        var ret = rdd.min(function(a,b){return (b < a ? 1 : (b > a ? -1 : 0))});
+        var ret = rdd.min(function(a,b){
+            var res = (b < a ? 1 : (b > a ? -1 : 0));
+            print("res = " + res);
+            return (b < a ? 1 : (b > a ? -1 : 0))
+        });
 
         var expected = 1; // Should be "1" but pass it for now
         assertIntegerEquals("failure should be min value", expected, ret);
