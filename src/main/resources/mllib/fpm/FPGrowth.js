@@ -192,3 +192,11 @@ FreqItemset.prototype.freq = function() {
 
     return this.getJavaObject().freq();
 };
+
+FreqItemset.prototype.toJSON = function() {
+    var json = {};
+    json.freq = this.freq();
+    json.items = this.items();
+
+    return json;
+};

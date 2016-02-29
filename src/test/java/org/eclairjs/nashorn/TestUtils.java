@@ -18,10 +18,12 @@ package org.eclairjs.nashorn;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.spark.SparkContext;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import java.io.File;
 import java.io.InputStreamReader;
 import java.net.URI;
@@ -62,6 +64,9 @@ public class TestUtils {
     }
 
     public static void evalJSResource(ScriptEngine engine, String resource) throws Exception {
-        engine.eval(new InputStreamReader(TestUtils.class.getResourceAsStream(resource)));
+        String src= IOUtils.toString(new InputStreamReader(TestUtils.class.getResourceAsStream(resource)));
+        src+="\n//@ sourceURL="+resource;
+
+        engine.eval(src);
     }
 }

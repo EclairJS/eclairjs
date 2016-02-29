@@ -77,5 +77,6 @@ public class JSPairFunction implements PairFunction {
         Tuple2 t = new Tuple2(ret.get(0), ret.get(1));
 
         return t;
+        //return (Tuple2) Utils.jsToJava(ret);
     }
 }

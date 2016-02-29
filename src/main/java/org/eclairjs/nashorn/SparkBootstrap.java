@@ -57,12 +57,15 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/Serialize.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/DebugUtils.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/utils/List.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/utils/Tuple.js") + "');");
 
         	//spark
 
         	engine.eval("load('" + getResourceAsURLStirng("/SparkConf.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/SparkContext.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/RDD.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/FloatRDD.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/PairRDD.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/Partitioner.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/Accumulators.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/FutureAction.js") + "');");
@@ -84,6 +87,7 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/mllib/clustering/BisectingKMeansModel.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/recommendation/ALS.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/recommendation/MatrixFactorizationModel.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/IsotonicRegression.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/LinearRegressionModel.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/LinearRegressionWithSGD.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/LabeledPoint.js") + "');");
@@ -95,8 +99,12 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/mllib/fpm/FPGrowth.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/fpm/AssociationRules.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/tree/DecisionTree.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/mllib/tree/GradientBoostedTrees.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/tree/configuration/Strategy.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/mllib/tree/configuration/BoostingStrategy.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/tree/model/DecisionTreeModel.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/mllib/tree/model/treeEnsembleModels.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/mllib/tree/loss/Loss.js") + "');");
             //ml
             engine.eval("load('" + getResourceAsURLStirng("/ml/Word2Vec.js") + "');");
 

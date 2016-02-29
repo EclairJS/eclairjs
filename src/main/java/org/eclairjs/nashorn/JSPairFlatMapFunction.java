@@ -34,8 +34,7 @@ public class JSPairFlatMapFunction implements PairFlatMapFunction {
         /*
         ScriptObjectMirror ret = (ScriptObjectMirror)invocable.invokeFunction("Utils_invoke", params);
 
-        ArrayList l = new ArrayList(ret.values());
-        ArrayList<Tuple2> l2 = new ArrayList<Tuple2>(ret.size());
+        return (Iterable) Utils.jsToJava(ret);
 
         for(Object t : l) {
             ArrayList al = new ArrayList(((ScriptObjectMirror)t).values());
