@@ -317,7 +317,7 @@ var dataframeIntersectTest = function(file) {
 
 	var peopleDataFrame = buildPeopleTable(file);
 	var plus20s = peopleDataFrame.filter("age > 20")
-	var results = peopleDataFrame.intersect(plus20s).sort();
+	var results = peopleDataFrame.intersect(plus20s).sort("age");
 	
     return results.take(10).toString();
 }
@@ -331,10 +331,10 @@ var dataframeIsLocalTest = function(file) {
 
 var dataframeJoinTest = function(file, usingColumn) {
 	
-	var df1 = buildPeopleTable(file);
-	var df2 = buildPeopleTable(file);
+	var df1 = buildPeopleTable(file).as("df1");
+	var df2 = buildPeopleTable(file).as("df2");
 	var joinedDf = df1.join(df2, usingColumn);
-	return joinedDf.head().toString();
+	return joinedDf.sort("df1.age").head().toString();
 	
 }
 

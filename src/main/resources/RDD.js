@@ -45,10 +45,14 @@ RDD.prototype.constructor = RDD;
  * @returns {object}
  */
 RDD.prototype.aggregate = function(zeroValue,func1,func2, bindArgs1, bindArgs2) {
+   /*
    var zeroValue_uw = Utils.unwrapObject(zeroValue);
    var fn1 = Utils.createLambdaFunction(func1, org.eclairjs.nashorn.JSFunction2, bindArgs1);
    var fn2 = Utils.createLambdaFunction(func2, org.eclairjs.nashorn.JSFunction2, bindArgs2);
-   return Utils.javaToJs(this.getJavaObject().aggregate(zeroValue_uw, fn1, fn2));
+   var val = this.getJavaObject().aggregate(zeroValue_uw, fn1, fn2);
+   return Utils.javaToJs(val);
+   */
+  
 };
 
 /**
