@@ -52,13 +52,10 @@ Serialize.javaList = function(javaObj) {
   return false;
 };
 
-Serialize.javaTuple2 = function(javaObj) {
-  var Tuple2 = Java.type("scala.Tuple2");
-  if(javaObj instanceof Tuple2) {
-      return [
-          Serialize.javaToJs(javaObj._1()), 
-          Serialize.javaToJs(javaObj._2())
-      ];
+Serialize.javaTuple = function(javaObj) {
+  var Product = Java.type("scala.Product");
+  if(javaObj instanceof Product && javaObj.getClass().getName().indexOf("scala.Tuple") > -1) {
+      return new Tuple(javaObj);
   }
 
   return false;
@@ -155,7 +152,7 @@ Serialize.handlers = [
   Serialize.javaSparkObject,
   Serialize.javaArray,
   Serialize.javaList,
-  Serialize.javaTuple2,
+  Serialize.javaTuple,
   Serialize.javaIteratorWrapper,
   Serialize.javaIterableWrapper,
   Serialize.javaSeqWrapper

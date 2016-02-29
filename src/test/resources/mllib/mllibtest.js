@@ -50,7 +50,8 @@ var LinearRegressionWithSGDTest = function(file) {
         print(s)
         return s
     }).collect()*/
-	return valuesAndPreds.rdd().take(10).toString();
+	return valuesAndPreds.take(10).toString();
+	//return valuesAndPreds.take(10).toString();
 }
 
 var AssociationRulesTest = function() {
