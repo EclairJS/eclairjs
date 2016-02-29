@@ -1,5 +1,6 @@
 package org.eclairjs.nashorn;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 
 
@@ -9,4 +10,9 @@ import org.junit.runner.RunWith;
 @RunWith(JSRunner.class)
 public class CoreTest {
 
+        @Test
+        public void version() throws Exception {
+
+
+        }
 }
