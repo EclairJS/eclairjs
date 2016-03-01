@@ -123,20 +123,21 @@ Tuple.prototype.valueOf = function valueOf() {
 };
 
 Tuple.prototype.getJavaObject = function getJavaObject() {
-    var value = [];
     var length = this.length;
     var i;
+    var javaObj = [];
     var Tuple = Java.type('scala.Tuple' + length);
     var expression = "new Tuple(";
     for (i = 0; i < length; i += 1) {
-        expression += "this[" + i + "]";
+        javaObj.push(org.eclairjs.nashorn.Utils.jsToJava(this[i]));
+        //expression += "this[" + i + "]";
+        expression += "javaObj[" + i + "]";
         if (i < length - 1) {
             expression += ",";
         }
     }
     expression += ")";
-    var t = eval('(' + expression + ')')
-    return t;
+    return eval('(' + expression + ')')
 
 };
 
