@@ -29,21 +29,19 @@ var ratings = data.map(function(line) {
     return r;
 }).cache();
 
-var model = ALS.train(ratings, 10, 10, 0.01);
+var model = ALS.train2(ratings, 10, 10, 0.01);
 var userRecs = model.recommendProductsForUsers(10);
 
-
-var userRecommended = userRecs.mapToPair(function(val) {
+var userRecommended = userRecs.map(function(val) {
+  print("val = " + val[1]);
   var newRatings = val[1].map(function(r) {
     var newRating = Math.max(Math.min(r.rating(), 1.0), 0.0);
     return new Rating(r.user(), r.product(), newRating);
   });
 
-  return [val[0], newRatings];
+  return new Tuple(val[0], newRatings);
 });
 
-print("userRecommended:");
-print(userRecommended.take(10));
 
 var binarizedRatings = ratings.map(function(r) {
     if (r.rating() > 0.0) {
@@ -55,9 +53,15 @@ var binarizedRatings = ratings.map(function(r) {
     return new Rating(r.user(), r.product(), binaryRating);
 });
 
+print("binarizedRatings:");
+print(binarizedRatings.take(10));
+
 var userMovies = binarizedRatings.groupBy(function(r) {
     return r.user();
 });
+
+print("userMovies:");
+print(userMovies.take(10));
 
 var userMoviesList = userMovies.mapValues(function(docs) {
     return docs.reduce(function(prev, curr) {

@@ -38,13 +38,26 @@ var Rating = function() {
 
 };
 
-Rating.prototype = Object.create(JavaWrapper.prototype);
+Rating.prototype = Object.create(JavaWrapper.prototype); 
 
 Rating.prototype.constructor = Rating;
 
-Rating.prototype.toString = function() {
-    return "shit";
+Rating.prototype.user = function() {
+  return this.getJavaObject().user();
 };
+
+Rating.prototype.product = function() {
+  return this.getJavaObject().product();
+};
+
+Rating.prototype.rating = function() {
+  return this.getJavaObject().rating();
+};
+
+Rating.prototype.toString = function() { 
+    return "{product: ["+this.user()+","+this.product()+","+this.rating()+"]}";
+};
+
 
 
 
@@ -261,10 +274,13 @@ throw "not implemented by ElairJS";
  * @returns {MatrixFactorizationModel} 
  */
 ALS.train = function(ratings,rank,iterations,lambda,blocks,seed) {
+    /*
     var ratings_uw = Utils.unwrapObject(ratings);
     if (ratings_uw instanceof org.apache.spark.api.java.JavaRDD) {
         ratings_uw = ratings_uw.rdd();
     }
+    */
+    var ratings_uw = org.apache.spark.api.java.JavaRDD.toRDD(ratings.getJavaObject());
     var javaObject =  org.apache.spark.mllib.recommendation.ALS.train(ratings_uw,rank,iterations,lambda,blocks,seed);
     return new MatrixFactorizationModel(javaObject);
 };
@@ -285,12 +301,8 @@ ALS.train = function(ratings,rank,iterations,lambda,blocks,seed) {
  * @returns {MatrixFactorizationModel} 
  */
 ALS.train1 = function(ratings,rank,iterations,lambda,blocks) {
-throw "not implemented by ElairJS";
-//   var ratings_uw = Utils.unwrapObject(ratings);
-//   var javaObject =  org.apache.spark.mllib.recommendation.ALS.train(ratings_uw,rank,iterations,lambda,blocks);
-//   return new MatrixFactorizationModel(javaObject);
+    return ALS.train(ratings,rank,iterations,lambda,blocks,System.nanoTime());
 };
-
 
 /**
  * Train a matrix factorization model given an RDD of ratings given by users to some products,
@@ -306,10 +318,7 @@ throw "not implemented by ElairJS";
  * @returns {MatrixFactorizationModel} 
  */
 ALS.train2 = function(ratings,rank,iterations,lambda) {
-throw "not implemented by ElairJS";
-//   var ratings_uw = Utils.unwrapObject(ratings);
-//   var javaObject =  org.apache.spark.mllib.recommendation.ALS.train(ratings_uw,rank,iterations,lambda);
-//   return new MatrixFactorizationModel(javaObject);
+    return ALS.train(ratings,rank,iterations,lambda, -1);
 };
 
 

@@ -454,7 +454,7 @@ RDD.prototype.groupBy = function(func,numPartitions,partitioner,bindArgs) {
     var partitioner_uw = Utils.unwrapObject(partitioner);
     var result = numPartitions ? this.getJavaObject().groupBy(fn,numPartitions) :
         partitioner_uw ? this.getJavaObject().groupBy(fn,partitioner_uw) : this.getJavaObject().groupBy(fn);
-    return new RDD(result);
+    return new PairRDD(result);
 };
 
 

@@ -52,10 +52,24 @@ Serialize.javaList = function(javaObj) {
   return false;
 };
 
-Serialize.javaTuple = function(javaObj) {
-  var Product = Java.type("scala.Product");
-  if(javaObj instanceof Product && javaObj.getClass().getName().indexOf("scala.Tuple") > -1) {
-      return new Tuple(javaObj);
+Serialize.javaTuple2 = function(javaObj) {
+  var Tuple2 = Java.type("scala.Tuple2");
+  if(javaObj instanceof Tuple2) {
+      //print("found a Tuple2");
+      return new Tuple(Serialize.javaToJs(javaObj._1()), 
+                       Serialize.javaToJs(javaObj._2()));
+  }
+
+  return false;
+};
+
+Serialize.javaTuple3 = function(javaObj) {
+  var Tuple2 = Java.type("scala.Tuple3");
+  if(javaObj instanceof Tuple2) {
+      //print("found a Tuple3");
+      return new Tuple(Serialize.javaToJs(javaObj._1()), 
+                       Serialize.javaToJs(javaObj._2()),
+                       Serialize.javaToJs(javaObj._3()));
   }
 
   return false;
@@ -65,6 +79,7 @@ Serialize.javaIteratorWrapper = function(javaObj) {
   var IteratorWrapper = 
       Java.type("scala.collection.convert.Wrappers.IteratorWrapper");
   if(javaObj instanceof IteratorWrapper) {
+    //print("found an IteratorWrapper");
     var res = [];
     while(javaObj.hasMoreElements()) {
       res.push(Serialize.javaToJs(javaObj.next()));
@@ -80,6 +95,7 @@ Serialize.javaIterableWrapper = function(javaObj) {
   var IterableWrapper = 
       Java.type("scala.collection.convert.Wrappers.IterableWrapper");
   if(javaObj instanceof IterableWrapper) {
+    //print("found an IterableWrapper");
     var res = [];
     var iterator = javaObj.iterator();
     while(iterator.hasNext()) {
@@ -96,6 +112,7 @@ Serialize.javaSeqWrapper = function(javaObj) {
   var SeqWrapper = 
       Java.type("scala.collection.convert.Wrappers.SeqWrapper");
   if(javaObj instanceof SeqWrapper) {
+    //print("found a SeqWrapper");
     var res = [];
     var iterator = javaObj.iterator();
     while(iterator.hasNext()) {
@@ -131,10 +148,13 @@ Serialize.javaSparkObject = function(javaObj) {
     className = javaObj.getClass().getSuperclass().getSimpleName();
   }
 
-  if (className === "JavaRDD" || className === "JavaPairRDD") {
+  if (className === "JavaRDD") {
     //Map JavaRDD to RDD for JavaScript
     className = "RDD"; //o.getClass().getSimpleName();
-  } else if (className === "Word2Vec" || className === "Word2VecModel") {
+  } else if (className == "JavaPairRDD") {
+    className = "PairRDD";
+  }
+  else if (className === "Word2Vec" || className === "Word2VecModel") {
     if (packageName.indexOf("org.apache.spark.ml") > -1) {
       //ML
       className = "ML" + o.getClass().getSimpleName();
@@ -152,7 +172,8 @@ Serialize.handlers = [
   Serialize.javaSparkObject,
   Serialize.javaArray,
   Serialize.javaList,
-  Serialize.javaTuple,
+  Serialize.javaTuple2,
+  Serialize.javaTuple3,
   Serialize.javaIteratorWrapper,
   Serialize.javaIterableWrapper,
   Serialize.javaSeqWrapper
@@ -176,6 +197,15 @@ Serialize.javaToJs = function(javaObj) {
 Serialize.jsToJava = function(obj) {
     if(!obj) {
         return obj;
+    }
+
+    if(obj.constructor && obj.constructor.name == "Tuple") {
+        var javaArgs = obj.toArray().map(function(item) {
+            return Serialize.jsToJava(item);
+        });
+
+        var newTup = new (Function.prototype.bind.apply(Tuple, [null].concat(javaArgs)));
+        return newTup.getJavaObject();
     }
 
     if(obj.getJavaObject) {
