@@ -115,9 +115,7 @@ public class CoreExamplesTest {
         TestUtils.evalJSResource(engine, "/core_examples_test.js");
         Object ret = ((Invocable)engine).invokeFunction("LogQuery");
 
-        String expected = "[\"(" +
-                "{\\\"ip\\\":\\\"10.10.10.10\\\",\\\"query\\\":\\\"GET http:\\\\/\\\\/images.com\\\\/2013\\\\/Generic.jpg HTTP\\\\/1.1\\\",\\\"user\\\":\\\"\\\\\\\"FRED\\\\\\\"\\\"}," +
-                "{\\\"bytes\\\":621.0,\\\"count\\\":2.0})\"]";
+        String expected = "[{\"0\":{\"ip\":\"10.10.10.10\",\"query\":\"GET http://images.com/2013/Generic.jpg HTTP/1.1\",\"user\":\"\\\"FRED\\\"\"},\"1\":{\"bytes\":621,\"count\":2},\"length\":2}]";
         assertEquals("failure - strings are not equal", expected, ret);
 
     }

@@ -212,6 +212,14 @@ Serialize.javaSparkObject = function (javaObj) {
     //print("we have a className = " + className);
     return eval("new " + className + "(javaObj)");
 };
+Serialize.JSONObject = function(javaObj) {
+    if (javaObj instanceof org.json.simple.JSONObject) {
+        var jsonStr = javaObj.toJSONString();
+        Serialize.logger.debug("JSONObject " + jsonStr)
+        return JSON.parse(jsonStr);
+    }
+    return false;
+};
 
 Serialize.handlers = [
     Serialize.javaSparkObject,
@@ -220,7 +228,8 @@ Serialize.handlers = [
     Serialize.scalaTuple,
     Serialize.javaIteratorWrapper,
     Serialize.javaIterableWrapper,
-    Serialize.javaSeqWrapper
+    Serialize.javaSeqWrapper,
+    Serialize.JSONObject
 ];
 
 Serialize.javaToJs = function(javaObj) {
