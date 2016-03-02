@@ -212,7 +212,9 @@ Serialize.javaToJs = function(javaObj) {
 
 Serialize.JavaScriptObjectMirrorClass = Java.type('jdk.nashorn.api.scripting.ScriptObjectMirror');
 Serialize.jsToJava = function (obj) {
-
+    if (!obj) {
+        return;
+    }
     Serialize.logger.debug("jsToJava " + obj);
     //return org.eclairjs.nashorn.Utils.jsToJava(obj);
     if (obj.constructor && obj.constructor.name == "Tuple") {
