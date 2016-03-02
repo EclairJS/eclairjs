@@ -53,35 +53,21 @@ Serialize.javaList = function (javaObj) {
 
     return false;
 };
-Serialize.javaTuple2Class = Java.type("scala.Tuple2");
-Serialize.javaTuple2 = function (javaObj) {
-    //var Tuple2 = Java.type("scala.Tuple2");
-    /*
-     NOTE: If we do not use a static variable for the Java.type(...)
-     we will incur HUGE performance degradations by invoking
-     Java.type(...) every time we invoke the serializer to check the
-     instance of the object
-     */
-    if (javaObj instanceof Serialize.javaTuple2Class) {
-        print("found a Tuple2");
-        return new Tuple(Serialize.javaToJs(javaObj._1()),
-            Serialize.javaToJs(javaObj._2()));
-    }
 
-    return false;
-};
-Serialize.javaTuple3Class = Java.type("scala.Tuple3");
-Serialize.javaTuple3 = function (javaObj) {
-    //var Tuple3 = Java.type("scala.Tuple3");
-    if (javaObj instanceof Serialize.javaTuple3Class) {
-        print("found a Tuple3");
-        return new Tuple(Serialize.javaToJs(javaObj._1()),
-            Serialize.javaToJs(javaObj._2()),
-            Serialize.javaToJs(javaObj._3()));
-    }
+Serialize.scalaProductClass = Java.type("scala.Product");
+Serialize.scalaTuple = function (javaObj) {
+    if ((javaObj instanceof Serialize.scalaProductClass) && (javaObj.getClass().getName().indexOf("scala.Tuple") > -1))  {
+        Serialize.logger.debug("Tuple - " + javaObj.toString());
+        try {
+            return eval("new Tuple(javaObj)");
+        } catch  (e) {
+            Serialize.logger.error(" Tuple conversion " + e);
+        }
+        return false;
 
-    return false;
-};
+    }
+}
+
 Serialize.javaIteratorWrapperClass = Java.type("scala.collection.convert.Wrappers.IteratorWrapper");
 Serialize.javaIteratorWrapper = function (javaObj) {
     // var IteratorWrapper =
@@ -199,8 +185,7 @@ Serialize.handlers = [
     Serialize.javaSparkObject,
     Serialize.javaArray,
     Serialize.javaList,
-    Serialize.javaTuple2,
-    Serialize.javaTuple3,
+    Serialize.scalaTuple,
     Serialize.javaIteratorWrapper,
     Serialize.javaIterableWrapper,
     Serialize.javaSeqWrapper
@@ -225,11 +210,11 @@ Serialize.javaToJs = function(javaObj) {
   return res ? res : javaObj;
 };
 
-
+Serialize.JavaScriptObjectMirrorClass = Java.type('jdk.nashorn.api.scripting.ScriptObjectMirror');
 Serialize.jsToJava = function (obj) {
 
     Serialize.logger.debug("jsToJava " + obj);
-
+    //return org.eclairjs.nashorn.Utils.jsToJava(obj);
     if (obj.constructor && obj.constructor.name == "Tuple") {
         Serialize.logger.debug("jsToJava Tuple");
         var javaArgs = obj.toArray().map(function (item) {
@@ -254,6 +239,12 @@ Serialize.jsToJava = function (obj) {
         Serialize.logger.debug("Array " + l);
         return l;
     }
+    if (typeof obj === 'object') {
+        var o  = Serialize.JavaScriptObjectMirrorClass.wrapAsJSONCompatible(obj, null);
+        var j = org.json.simple.JSONValue.toJSONString(o);
+        return org.json.simple.JSONValue.parse(j);
+    }
+
 
     return obj;
 };
