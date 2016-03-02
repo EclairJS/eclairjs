@@ -37,8 +37,8 @@ var buildPeopleTable = function(file, date) {
 	//Generate the schema
 	var fields = [];
 	fields.push(DataTypes.createStructField("name", DataTypes.StringType, true));
-	fields.push(DataTypes.createStructField("age", DataTypes.DoubleType, true));
-	fields.push(DataTypes.createStructField("expense", DataTypes.DoubleType, true));
+	fields.push(DataTypes.createStructField("age", DataTypes.IntegerType, true));
+	fields.push(DataTypes.createStructField("expense", DataTypes.IntegerType, true));
 	if (date) {
 		useDateType = true;
 		fields.push(DataTypes.createStructField("DOB", DataTypes.DateType, true));
@@ -263,7 +263,7 @@ var dataframeForeachPartitionTest = function(file) {
 	globalForeachResult = {}; // not the right way to do this but works for UT, we are running workers in the same JVM.
 	peopleDataFrame.foreachPartition(function(rows) {
 		rows.forEach(function(row){
-			globalForeachResult[row.getString(0)] = row.getDouble(1);
+			globalForeachResult[row.getString(0)] = row.getInt(1);
 		   });
 		
 	});

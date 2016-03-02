@@ -212,6 +212,7 @@ Serialize.javaSparkObject = function (javaObj) {
     //print("we have a className = " + className);
     return eval("new " + className + "(javaObj)");
 };
+
 Serialize.JSONObject = function(javaObj) {
     if (javaObj instanceof org.json.simple.JSONObject) {
         var jsonStr = javaObj.toJSONString();
