@@ -268,9 +268,9 @@ throw "not implemented by ElairJS";
  * @param {RDD} ratings     RDD of (userID, productID, rating) pairs
  * @param {number} rank        number of features to use
  * @param {number} iterations  number of iterations of ALS (recommended: 10-20)
- * @param {number} lambda      regularization factor (recommended: 0.01)
- * @param {number} blocks      level of parallelism to split computation into
- * @param {number} seed        random seed
+ * @param {number} lambda      Optional, regularization factor (recommended: 0.01)
+ * @param {number} blocks      Optional, level of parallelism to split computation into
+ * @param {number} seed        Optional, random seed
  * @returns {MatrixFactorizationModel} 
  */
 ALS.train = function(ratings,rank,iterations,lambda,blocks,seed) {
@@ -281,66 +281,20 @@ ALS.train = function(ratings,rank,iterations,lambda,blocks,seed) {
     }
     */
     var ratings_uw = org.apache.spark.api.java.JavaRDD.toRDD(ratings.getJavaObject());
-    var javaObject =  org.apache.spark.mllib.recommendation.ALS.train(ratings_uw,rank,iterations,lambda,blocks,seed);
+    var javaObject;
+
+    if (seed) {
+      javaObject = org.apache.spark.mllib.recommendation.ALS.train(ratings_uw, rank, iterations, lambda, blocks, seed);
+    } else if (blocks) {
+      javaObject = org.apache.spark.mllib.recommendation.ALS.train(ratings_uw, rank, iterations, lambda, blocks);
+    } else if (lambda) {
+      javaObject = org.apache.spark.mllib.recommendation.ALS.train(ratings_uw, rank, iterations, lambda);
+    } else {
+      javaObject = org.apache.spark.mllib.recommendation.ALS.train(ratings_uw, rank, iterations);
+    }
+
     return new MatrixFactorizationModel(javaObject);
 };
-
-
-/**
- * Train a matrix factorization model given an RDD of ratings given by users to some products,
- * in the form of (userID, productID, rating) pairs. We approximate the ratings matrix as the
- * product of two lower-rank matrices of a given rank (number of features). To solve for these
- * features, we run a given number of iterations of ALS. This is done using a level of
- * parallelism given by `blocks`.
- *
- * @param {RDD} ratings     RDD of (userID, productID, rating) pairs
- * @param {number} rank        number of features to use
- * @param {number} iterations  number of iterations of ALS (recommended: 10-20)
- * @param {number} lambda      regularization factor (recommended: 0.01)
- * @param {number} blocks      level of parallelism to split computation into
- * @returns {MatrixFactorizationModel} 
- */
-ALS.train1 = function(ratings,rank,iterations,lambda,blocks) {
-    return ALS.train(ratings,rank,iterations,lambda,blocks,System.nanoTime());
-};
-
-/**
- * Train a matrix factorization model given an RDD of ratings given by users to some products,
- * in the form of (userID, productID, rating) pairs. We approximate the ratings matrix as the
- * product of two lower-rank matrices of a given rank (number of features). To solve for these
- * features, we run a given number of iterations of ALS. The level of parallelism is determined
- * automatically based on the number of partitions in `ratings`.
- *
- * @param {RDD} ratings     RDD of (userID, productID, rating) pairs
- * @param {number} rank        number of features to use
- * @param {number} iterations  number of iterations of ALS (recommended: 10-20)
- * @param {number} lambda      regularization factor (recommended: 0.01)
- * @returns {MatrixFactorizationModel} 
- */
-ALS.train2 = function(ratings,rank,iterations,lambda) {
-    return ALS.train(ratings,rank,iterations,lambda, -1);
-};
-
-
-/**
- * Train a matrix factorization model given an RDD of ratings given by users to some products,
- * in the form of (userID, productID, rating) pairs. We approximate the ratings matrix as the
- * product of two lower-rank matrices of a given rank (number of features). To solve for these
- * features, we run a given number of iterations of ALS. The level of parallelism is determined
- * automatically based on the number of partitions in `ratings`.
- *
- * @param {RDD} ratings     RDD of (userID, productID, rating) pairs
- * @param {number} rank        number of features to use
- * @param {number} iterations  number of iterations of ALS (recommended: 10-20)
- * @returns {MatrixFactorizationModel} 
- */
-ALS.train3 = function(ratings,rank,iterations) {
-throw "not implemented by ElairJS";
-//   var ratings_uw = Utils.unwrapObject(ratings);
-//   var javaObject =  org.apache.spark.mllib.recommendation.ALS.train(ratings_uw,rank,iterations);
-//   return new MatrixFactorizationModel(javaObject);
-};
-
 
 /**
  * Train a matrix factorization model given an RDD of 'implicit preferences' given by users
