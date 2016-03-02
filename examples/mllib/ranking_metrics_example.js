@@ -93,3 +93,35 @@ var metrics = RankingMetrics.of(relevantDocs);
     print("Precision at " + k + " = " + metrics.precisionAt(k));
     print("NDCG at " + k + " = " + metrics.ndcgAt(k));
 });
+
+print("Mean average precision = " + metrics.meanAveragePrecision());
+
+var userProducts = ratings.map(function(r) {
+    return new Tuple(r.user(), r.product());
+});
+
+print("userProducts:");
+print(userProducts.take(10));
+
+var predictions = PairRDD.fromRDD(model.predict1(userProducts).map(function(r) {
+    print("r = " + r);
+    return new Tuple(new Tuple(r.user(), r.product()), r.rating());
+}));
+
+print("predictions:");
+print(predictions.take(10));
+
+var ratesAndPreds = PairRDD.fromRDD(ratings.map(function(r) {
+    return new Tuple(new Tuple(r.user(), r.product()), r.rating());
+})).join(predictions).values();
+
+print("ratesAndPreds:");
+print(ratesAndPreds.take(10));
+// Create regression metrics object
+var regressionMetrics = new RegressionMetrics(ratesAndPreds);
+
+// Root mean squared error
+print("RMSE = " + regressionMetrics.rootMeanSquaredError());
+
+// R-squared
+print("R-squared = " + regressionMetrics.r2());

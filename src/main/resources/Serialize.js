@@ -63,7 +63,7 @@ Serialize.javaTuple2 = function (javaObj) {
      instance of the object
      */
     if (javaObj instanceof Serialize.javaTuple2Class) {
-        print("found a Tuple2");
+        //print("found a Tuple2");
         return new Tuple(Serialize.javaToJs(javaObj._1()),
             Serialize.javaToJs(javaObj._2()));
     }
@@ -74,7 +74,7 @@ Serialize.javaTuple3Class = Java.type("scala.Tuple3");
 Serialize.javaTuple3 = function (javaObj) {
     //var Tuple3 = Java.type("scala.Tuple3");
     if (javaObj instanceof Serialize.javaTuple3Class) {
-        print("found a Tuple3");
+        //print("found a Tuple3");
         return new Tuple(Serialize.javaToJs(javaObj._1()),
             Serialize.javaToJs(javaObj._2()),
             Serialize.javaToJs(javaObj._3()));

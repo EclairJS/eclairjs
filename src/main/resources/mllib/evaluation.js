@@ -128,6 +128,10 @@ RankingMetrics.prototype.ndcgAt = function(k) {
     return this.getJavaObject().ndcgAt(k);
 };
 
+RankingMetrics.prototype.meanAveragePrecision = function() {
+    return this.getJavaObject().meanAveragePrecision();
+};
+
 RankingMetrics.of = function(predictionAndLabels) {
     var rm = org.apache.spark.mllib.evaluation.RankingMetrics.of(predictionAndLabels.getJavaObject());
     return new RankingMetrics(rm);
