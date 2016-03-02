@@ -10,9 +10,7 @@ function Tuple() {
      * Contains the number of elements held within the tuple.
      */
     var i = this.length = arguments.length;
-    var Tuple3 = Java.type('scala.Tuple3');
-    var Product = Java.type('scala.Product');
-    if ((arguments[0] instanceof Product) && (arguments[0].getClass().getName().indexOf("scala.Tuple") > -1)) {
+    if ((arguments[0] instanceof Serialize.scalaProductClass) && (arguments[0].getClass().getName().indexOf("scala.Tuple") > -1)) {
         this.setJavaObject(arguments[0]);
     } else {
         while (i--) {
@@ -21,6 +19,7 @@ function Tuple() {
     }
 
 }
+
 
 /**
  * Passes the values as arguments, in the same order they were set, to the
@@ -145,7 +144,7 @@ Tuple.prototype.setJavaObject = function (obj) {
     var list = obj.productIterator();
     var x = 0;
     while (list.hasNext()) {
-        this[x] = list.next();
+        this[x] = Serialize.javaToJs(list.next());
         x++
     }
 

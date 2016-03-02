@@ -17,8 +17,10 @@
 package org.eclairjs.nashorn;
 
 import org.apache.commons.lang.ArrayUtils;
+import scala.Tuple2;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.script.Invocable;
@@ -67,6 +69,9 @@ public class JSComparator implements java.util.Comparator, java.io.Serializable 
             if (this.args != null && this.args.length > 0 ) {
                 params = ArrayUtils.addAll(params, this.args);
             }
+            Tuple2<String, String> s = new Tuple2("foo", "bar");
+            scala.collection.Iterator<Object> i = s.productIterator();
+
 
             ret = Integer.valueOf(invocable.invokeFunction("Utils_invoke", params).toString());
             //return Utils.jsToJava(ret);

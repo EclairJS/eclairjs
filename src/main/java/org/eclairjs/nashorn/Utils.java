@@ -204,7 +204,11 @@ public class Utils {
 					list.add(jsToJava(item));
 				}
 				return list;
-			}
+			} else {
+                Object obj = ScriptObjectMirror.wrapAsJSONCompatible(o, null);
+                String j = JSONValue.toJSONString(obj);
+                return JSONValue.parse(j);
+            }
 		} else if (o instanceof IteratorWrapper) {
 			ArrayList alist = new ArrayList();
 			while(((IteratorWrapper) o).hasMoreElements()) {
