@@ -55,7 +55,7 @@ Rating.prototype.rating = function() {
 };
 
 Rating.prototype.toString = function() { 
-    return "{product: ["+this.user()+","+this.product()+","+this.rating()+"]}";
+    return "{Rating: ["+this.user()+","+this.product()+","+this.rating()+"]}";
 };
 
 

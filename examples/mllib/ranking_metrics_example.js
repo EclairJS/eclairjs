@@ -32,8 +32,7 @@ var ratings = data.map(function(line) {
 var model = ALS.train2(ratings, 10, 10, 0.01);
 var userRecs = model.recommendProductsForUsers(10);
 
-var userRecommended = userRecs.map(function(val) {
-  print("val = " + val[1]);
+var userRecommendedScaled = userRecs.map(function(val) {
   var newRatings = val[1].map(function(r) {
     var newRating = Math.max(Math.min(r.rating(), 1.0), 0.0);
     return new Rating(r.user(), r.product(), newRating);
@@ -42,6 +41,7 @@ var userRecommended = userRecs.map(function(val) {
   return new Tuple(val[0], newRatings);
 });
 
+var userRecommended = PairRDD.fromRDD(userRecommendedScaled);
 
 var binarizedRatings = ratings.map(function(r) {
     if (r.rating() > 0.0) {
@@ -53,25 +53,25 @@ var binarizedRatings = ratings.map(function(r) {
     return new Rating(r.user(), r.product(), binaryRating);
 });
 
-print("binarizedRatings:");
-print(binarizedRatings.take(10));
-
 var userMovies = binarizedRatings.groupBy(function(r) {
     return r.user();
 });
 
-print("userMovies:");
-print(userMovies.take(10));
+//print("userMovies:");
+//print(userMovies.take(10));
 
 var userMoviesList = userMovies.mapValues(function(docs) {
     return docs.reduce(function(prev, curr) {
         if(curr.rating() > 0.0) {
-            prev.concat(curr);
+            return prev.concat(curr.product());
         }
 
         return prev;
     }, []);
 });
+
+//print("userMoviesList:");
+//print(userMoviesList.take(10));
 
 var userRecommendedList = userRecommended.mapValues(function(docs) {
     return docs.map(function(rating) {
@@ -79,9 +79,12 @@ var userRecommendedList = userRecommended.mapValues(function(docs) {
     });
 });
 
+//print("userRecommendedList:");
+//print(userRecommendedList.take(10));
+
 var relevantDocs = userMoviesList.join(userRecommendedList).values();
 
-print(relevantDocs.take(10));
+//print(relevantDocs.take(10));
 
 var metrics = RankingMetrics.of(relevantDocs);
 

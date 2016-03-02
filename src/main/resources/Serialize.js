@@ -179,7 +179,15 @@ Serialize.handlers = [
   Serialize.javaSeqWrapper
 ];
 
+Serialize.DEBUG = false;
+
 Serialize.javaToJs = function(javaObj) {
+  var t = (typeof javaObj);
+  if(t == 'number' || t == 'string') {
+      return javaObj;
+  }
+
+  //print("javaObj in = " + (javaObj.getClass) ? javaObj.getClass() : "not java object");
   var res = null;
   for(var i=0; i<Serialize.handlers.length; i++) {
     var fn = Serialize.handlers[i];

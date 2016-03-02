@@ -993,12 +993,14 @@ PairRDD.prototype.collectAsMap = function () {
  * @param {func} f
  * @returns {PairRDD}
  */
-PairRDD.prototype.mapValues = function (f) {
-    throw "not implemented by ElairJS";
+PairRDD.prototype.mapValues = function (f, bindArgs) {
 //   var sv = Utils.createJavaParams(f);
 //   var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
 //   var javaObject =  this.getJavaObject().mapValues(fn);
 //   return new PairRDD(javaObject);
+    var fn = Utils.createLambdaFunction(f, org.eclairjs.nashorn.JSFunction, bindArgs);
+    var javaObject =  this.getJavaObject().mapValues(fn);
+    return new RDD(javaObject);
 };
 
 
@@ -1586,10 +1588,9 @@ PairRDD.toRDD = function (rdd) {
  * @param {JavaRDD} rdd
  * @returns {PairRDD}
  */
-PairRDD.fromJavaRDD = function (rdd) {
-    throw "not implemented by ElairJS";
+PairRDD.fromRDD = function (rdd) {
 // // TODO: handle Tuple conversion for 'rdd'
-//   var rdd_uw = Utils.unwrapObject(rdd);
-//   var javaObject =  org.apache.spark.api.java.PairRDD.fromJavaRDD(rdd_uw);
-//   return new PairRDD(javaObject);
+   var rdd_uw = Utils.unwrapObject(rdd);
+   var javaObject =  org.apache.spark.api.java.JavaPairRDD.fromJavaRDD(rdd_uw);
+   return new PairRDD(javaObject);
 };
