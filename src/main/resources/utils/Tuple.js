@@ -9,6 +9,7 @@ function Tuple() {
     /**
      * Contains the number of elements held within the tuple.
      */
+    this.logger = Logger.getLogger("Tuple_js");
     var i = this.length = arguments.length;
     if ((arguments[0] instanceof Serialize.scalaProductClass) && (arguments[0].getClass().getName().indexOf("scala.Tuple") > -1)) {
         this.setJavaObject(arguments[0]);
@@ -128,7 +129,8 @@ Tuple.prototype.getJavaObject = function getJavaObject() {
     var Tuple = Java.type('scala.Tuple' + length);
     var expression = "new Tuple(";
     for (i = 0; i < length; i += 1) {
-        javaObj.push(org.eclairjs.nashorn.Utils.jsToJava(this[i]));
+        //javaObj.push(org.eclairjs.nashorn.Utils.jsToJava(this[i]));
+        javaObj.push(Serialize.jsToJava(this[i]));
         //expression += "this[" + i + "]";
         expression += "javaObj[" + i + "]";
         if (i < length - 1) {
@@ -149,6 +151,7 @@ Tuple.prototype.setJavaObject = function (obj) {
     }
 
     this.length = x;
+    this.logger.debug("setJavaObject " + JSON.stringify(this));
 };
 
 Tuple.prototype.toJSON = function () {

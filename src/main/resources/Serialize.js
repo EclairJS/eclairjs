@@ -244,41 +244,29 @@ Serialize.javaToJs = function(javaObj) {
 
 Serialize.JavaScriptObjectMirrorClass = Java.type('jdk.nashorn.api.scripting.ScriptObjectMirror');
 Serialize.jsToJava = function (obj) {
+    if (obj) {
+        Serialize.logger.debug("jsToJava " + obj);
+        //return org.eclairjs.nashorn.Utils.jsToJava(obj);
 
-    if(!obj) { return obj; }
+        if (obj.getJavaObject) {
+            Serialize.logger.debug("Wrapped " + obj);
+            return obj.getJavaObject();
+        }
 
-    Serialize.logger.debug("jsToJava " + obj);
-    //return org.eclairjs.nashorn.Utils.jsToJava(obj);
-    if (obj.constructor && obj.constructor.name == "Tuple") {
-        Serialize.logger.debug("jsToJava Tuple");
-        var javaArgs = obj.toArray().map(function (item) {
-            return Serialize.jsToJava(item);
-        });
-
-        var newTup = new (Function.prototype.bind.apply(Tuple, [null].concat(javaArgs)));
-        Serialize.logger.debug("jsToJava Tuple " + newTup);
-        return newTup.getJavaObject();
+        if (Array.isArray(obj)) {
+            var l = new java.util.ArrayList();
+            obj.forEach(function (item) {
+                l.add(Serialize.jsToJava(item));
+            });
+            Serialize.logger.debug("Array " + l);
+            return l;
+        }
+        if (typeof obj === 'object') {
+            var o = Serialize.JavaScriptObjectMirrorClass.wrapAsJSONCompatible(obj, null);
+            var j = org.json.simple.JSONValue.toJSONString(o);
+            return org.json.simple.JSONValue.parse(j);
+        }
     }
-
-    if (obj.getJavaObject) {
-        Serialize.logger.debug("Wrapped " + obj);
-        return obj.getJavaObject();
-    }
-
-    if (Array.isArray(obj)) {
-        var l = new java.util.ArrayList();
-        obj.forEach(function (item) {
-            l.add(Serialize.jsToJava(item));
-        });
-        Serialize.logger.debug("Array " + l);
-        return l;
-    }
-    if (typeof obj === 'object') {
-        var o  = Serialize.JavaScriptObjectMirrorClass.wrapAsJSONCompatible(obj, null);
-        var j = org.json.simple.JSONValue.toJSONString(o);
-        return org.json.simple.JSONValue.parse(j);
-    }
-
 
     return obj;
 };

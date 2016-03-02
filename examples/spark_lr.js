@@ -112,7 +112,7 @@ if (typeof sparkContext === 'undefined') {
 
     var conf = new SparkConf().setAppName("JavaScript Logistic Regression").setMaster("local[*]");
     var sc = new SparkContext(conf);
-    var result = run(sc, dataSet);
+    var result = run(sc, file);
     print("Final w: ");
     printWeights(result);
     sc.stop();
