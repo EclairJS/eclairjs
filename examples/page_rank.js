@@ -62,7 +62,7 @@ function run(sc) {
         // Calculates URL contributions to the rank of other URLs.
         var contribs = links.join(ranks).values()
             .flatMapToPair(function (tuple) {
-                var t = tuple[0].toArray();
+                var t = tuple[0];
                 var urlCount = t.length;
                 var results = new List();
                 for (var n = 0; n < urlCount; n++) {

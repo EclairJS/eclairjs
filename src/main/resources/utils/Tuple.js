@@ -9,6 +9,7 @@ function Tuple() {
     /**
      * Contains the number of elements held within the tuple.
      */
+    this.logger = Logger.getLogger("Tuple_js");
     var i = this.length = arguments.length;
     if ((arguments[0] instanceof Serialize.scalaProductClass) && (arguments[0].getClass().getName().indexOf("scala.Tuple") > -1)) {
         this.setJavaObject(arguments[0]);
@@ -144,11 +145,12 @@ Tuple.prototype.setJavaObject = function (obj) {
     var list = obj.productIterator();
     var x = 0;
     while (list.hasNext()) {
-        this[x] = list.next();
+        this[x] = Serialize.javaToJs(list.next())
         x++
     }
 
     this.length = x;
+    this.logger.debug("setJavaObject " + JSON.stringify(this));
 };
 
 Tuple.prototype.toJSON = function () {
