@@ -163,7 +163,7 @@ public class Utils {
 				Object params[] = {alist};
 				er = ((Invocable)engine).invokeFunction("createJavaScriptArray", params);
 			} catch (ScriptException | NoSuchMethodException e) {
-				logger.error(" ARray conversion " + e);
+				logger.error(" Array conversion " + e);
 			}
 
 			return er;

@@ -48,7 +48,11 @@ public class CoreExamplesTest {
         TestUtils.evalJSResource(engine, "/core_examples_test.js");
         Object ret = ((Invocable)engine).invokeFunction("WordCount");
 
-        String expected = "[\"(34,of)\",\"(30,the)\",\"(19,be)\",\"(19,to)\",\"(19,and)\",\"(15,will)\",\"(12,from)\",\"(12,I)\",\"(11,freedom)\",\"(10,that)\"]";
+        String expected = "[{\"0\":34,\"1\":\"of\",\"length\":2},{\"0\":30,\"1\":\"the\",\"length\":2}," +
+                "{\"0\":19,\"1\":\"be\",\"length\":2},{\"0\":19,\"1\":\"to\",\"length\":2}," +
+                "{\"0\":19,\"1\":\"and\",\"length\":2},{\"0\":15,\"1\":\"will\",\"length\":2}," +
+                "{\"0\":12,\"1\":\"from\",\"length\":2},{\"0\":12,\"1\":\"I\",\"length\":2}," +
+                "{\"0\":11,\"1\":\"freedom\",\"length\":2},{\"0\":10,\"1\":\"that\",\"length\":2}]";
         assertEquals("failure - strings are not equal", expected, ret);
 
     }

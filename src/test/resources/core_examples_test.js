@@ -70,6 +70,7 @@ var PageRank = function() {
 
 var LogQuery = function() {
     load("examples/logQuery.js");
-    return JSON.stringify(run(sparkContext));
+    var x = run(sparkContext)
+    return JSON.stringify(x);
 
 }

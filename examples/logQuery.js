@@ -97,6 +97,8 @@ if (typeof sparkContext === 'undefined') {
     var result = run(sc, dataSet);
     for (var i = 0; i < result.length; i++) {
         var key = result[i][0];
+        key = Serialize.JavaScriptObjectMirrorClass.wrapAsJSONCompatible(key, null);
+        print(JSON.stringify(key));
         var stats = result[i][1];
         print("user=" + key.user + "\tbytes=" + stats.bytes + "\tn=" + stats.count);
     }

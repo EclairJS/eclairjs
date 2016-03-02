@@ -42,7 +42,8 @@ tests({
         var rdd2 = sparkContext.parallelize([2, 4]);
         var rdd3 = rdd.cartesian(rdd2);
         var ret = JSON.stringify(rdd3.collect());
-        var expected = "[\"(1,2)\",\"(1,4)\",\"(2,2)\",\"(2,4)\",\"(3,2)\",\"(3,4)\"]";
+        var expected = "[{\"0\":1,\"1\":2,\"length\":2},{\"0\":1,\"1\":4,\"length\":2},{\"0\":2,\"1\":2,\"length\":2}," +
+            "{\"0\":2,\"1\":4,\"length\":2},{\"0\":3,\"1\":2,\"length\":2},{\"0\":3,\"1\":4,\"length\":2}]";
         assertEquals("failure cartesian - arrays are not equal", expected, ret);
     },
 
@@ -162,7 +163,7 @@ tests({
     testGroupBy : function() {
         var rdd2 = rdd.groupBy(function(num){return num});
         var ret = JSON.stringify(rdd2.collect());
-        var expected = "[\"(1,[1])\",\"(2,[2])\",\"(3,[3])\"]";
+        var expected = "[{\"0\":1,\"1\":[1],\"length\":2},{\"0\":2,\"1\":[2],\"length\":2},{\"0\":3,\"1\":[3],\"length\":2}]";
         assertEquals("failure groupBy - arrays are not equal", expected, ret);
     },
 
@@ -186,7 +187,7 @@ tests({
     testKeyBy : function() {
         var rdd2 = rdd.keyBy(function(num){return num});
         var ret = JSON.stringify(rdd2.collect());
-        var expected = "[\"(1,1)\",\"(2,2)\",\"(3,3)\"]";
+        var expected = "[{\"0\":1,\"1\":1,\"length\":2},{\"0\":2,\"1\":2,\"length\":2},{\"0\":3,\"1\":3,\"length\":2}]";
         assertEquals("failure keyBy - arrays are not equal", expected, ret);
     },
 
@@ -214,7 +215,7 @@ tests({
     testMapToPair : function() {
         var rdd2 = rdd.mapToPair(function(num) {return new Tuple(num,num+1)});
         var ret = JSON.stringify(rdd2.collect());
-        var expected = "[\"(1,2)\",\"(2,3)\",\"(3,4)\"]";
+        var expected = "[{\"0\":1,\"1\":2,\"length\":2},{\"0\":2,\"1\":3,\"length\":2},{\"0\":3,\"1\":4,\"length\":2}]";
         assertEquals("failure mapToPair - arrays are not equal", expected, ret);
     },
 

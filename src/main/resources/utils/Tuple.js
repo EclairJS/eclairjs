@@ -154,6 +154,4 @@ Tuple.prototype.setJavaObject = function (obj) {
     this.logger.debug("setJavaObject " + JSON.stringify(this));
 };
 
-Tuple.prototype.toJSON = function () {
-   return this.toString();
-};
+
