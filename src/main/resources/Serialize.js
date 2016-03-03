@@ -260,7 +260,8 @@ Serialize.javaToJs = function(javaObj) {
 Serialize.JavaScriptObjectMirrorClass = Java.type('jdk.nashorn.api.scripting.ScriptObjectMirror');
 Serialize.jsToJava = function (obj) {
     if (obj) {
-        Serialize.logger.debug("jsToJava " + obj);
+       // var className = obj.getClass ? obj.getClass().getSimpleName() : obj
+        Serialize.logger.debug("jsToJava " + obj.class);
         //return org.eclairjs.nashorn.Utils.jsToJava(obj);
 
         if (obj.getJavaObject) {

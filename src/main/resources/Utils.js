@@ -64,7 +64,8 @@ Utils.logger = Logger.getLogger("Utils_js");
   };
 
   Utils.javaToJs = function(javaObj) {
-      if (Array.isArray(javaObj) || javaObj.getClass().isArray() )
+      return Serialize.javaToJs(javaObj);
+     /* if (Array.isArray(javaObj) || javaObj.getClass().isArray() )
       {
           var ret = [];
           for (var i=0;i<javaObj.length;i++) {
@@ -74,10 +75,11 @@ Utils.logger = Logger.getLogger("Utils_js");
 
       }
       else
-          return org.eclairjs.nashorn.Utils.javaToJs(javaObj,org.eclairjs.nashorn.NashornEngineSingleton.getEngine());
+          return org.eclairjs.nashorn.Utils.javaToJs(javaObj,org.eclairjs.nashorn.NashornEngineSingleton.getEngine());*/
   };
 
   Utils.unwrapObject = function(obj) {
+
       if (Array.isArray(obj))
       {
           var unObj = [];
@@ -91,7 +93,7 @@ Utils.logger = Logger.getLogger("Utils_js");
   };
 
 
-  Utils.unwrapTuple = function(obj) {
+/*  Utils.unwrapTuple = function(obj) {
         Utils.logger.debug("unwrapTuple = " + obj);
     if (Array.isArray(obj) && obj.length>1)
     {
@@ -100,7 +102,7 @@ Utils.logger = Logger.getLogger("Utils_js");
     }
     else
       throw "Expecting tuple, i.e. [1,2] ";
-  };
+  };*/
 
   /**
    * Creates a argument list of Spark Java objects that can be passed to a Spark Java method.
@@ -148,18 +150,18 @@ Utils.logger = Logger.getLogger("Utils_js");
 	   return map;
   };
 
-  function createJavaScriptArray(list) {
+  /*function createJavaScriptArray(list) {
       var l = [];
       for(var i=0; i<list.size(); i++) {
         l.push(list.get(i));
       }
 
       return l;
-  };
+  };*/
 
-  function convertJavaJSONObject(str) {
+ /* function convertJavaJSONObject(str) {
 	  return JSON.parse(str);
-  };
+  };*/
 
   function createJavaWrapperObject(className, obj) {
 	  return eval("new " + className + "(obj)");

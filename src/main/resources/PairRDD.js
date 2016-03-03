@@ -369,17 +369,14 @@ PairRDD.prototype.combineByKey2 = function (createCombiner, mergeValue, mergeCom
  * Merge the values for each key using an associative reduce function. This will also perform
  * the merging locally on each mapper before sending results to a reducer, similarly to a
  * "combiner" in MapReduce.
- * @param {Partitioner} partitioner
  * @param {func} func
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
  * @returns {PairRDD}
  */
-PairRDD.prototype.reduceByKey0 = function (partitioner, func) {
-    throw "not implemented by ElairJS";
-//   var partitioner_uw = Utils.unwrapObject(partitioner);
-//   var sv = Utils.createJavaParams(func);
-//   var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
-//   var javaObject =  this.getJavaObject().reduceByKey(partitioner_uw,fn);
-//   return new PairRDD(javaObject);
+PairRDD.prototype.reduceByKey = function (func, bindArgs) {
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, bindArgs);
+    var result = this.getJavaObject().reduceByKey(fn);
+    return new PairRDD(result);
 };
 
 
@@ -397,7 +394,6 @@ PairRDD.prototype.reduceByKeyLocally = function (func) {
 //   var javaObject =  this.getJavaObject().reduceByKeyLocally(fn);
 //   return new Map(javaObject);
 };
-
 
 /**
  * @returns {Map}

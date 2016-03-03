@@ -793,19 +793,6 @@ RDD.prototype.reduce = function(func, bindArgs) {
 };
 
 /**
- * Reduces the elements of this RDD using the specified function.
- * @param {function} func - Function with two parameters
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
- * @returns {RDD}
- * @deprecated Use reduce instead
- */
-RDD.prototype.reduceByKey = function(func, bindArgs) {
-  var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, bindArgs);
-  var result = this.getJavaObject().reduceByKey(fn);
-	return new RDD(result);
-};
-
-/**
  * Return a new RDD that has exactly numPartitions partitions.
  *
  * Can increase or decrease the level of parallelism in this RDD. Internally, this uses

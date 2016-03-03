@@ -368,7 +368,6 @@ SparkContext.prototype.parallelizePairs = function (list, numSlices) {
     //public <T> JavaRDD<T> parallelize(java.util.List<T> list, int numSlices)
     var list_uw = [];
     list.forEach(function (item) {
-        //list_uw.push(Utils.unwrapTuple(item));
         list_uw.push(Utils.unwrapObject(item));
     });
     if (numSlices) {
