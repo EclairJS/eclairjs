@@ -28,11 +28,9 @@ public class JSFunction2 implements org.apache.spark.api.java.function.Function2
 
     private String func = null;
     private Object args[] = null;
-    private String functionName = null;
 
     public JSFunction2(String func, Object[] o) {
-        this.functionName = Utils.getUniqeFunctionName();
-        this.func = "var " + this.functionName +" = " + func;
+        this.func = func;
         this.args = o;
     }
 
@@ -40,27 +38,17 @@ public class JSFunction2 implements org.apache.spark.api.java.function.Function2
     @Override
     public Object call(Object o, Object o2) throws Exception {
         ScriptEngine e =  NashornEngineSingleton.getEngine();
-
-        e.eval(this.func);
         Invocable invocable = (Invocable) e;
-        Object arg0 = Utils.javaToJs(o, e);
-        Object arg1 = Utils.javaToJs(o2, e);
-        Object params[] = {arg0, arg1};
-        
-        if (this.args.length > 0 ) {
-        	/*
-        	 * We need to wrap the Spark objects
-        	 */
-        	@SuppressWarnings("rawtypes")
-			List sv = new ArrayList();
-        	for (int i = 0; i < this.args.length; i++) {
-        		sv.add(Utils.javaToJs(this.args[i], e));
-        	}
-        	params = ArrayUtils.addAll(params, sv.toArray());
-        }
- 
-        Object ret = invocable.invokeFunction(this.functionName, params);
 
-        return Utils.jsToJava(ret);
+        Object params[] = {this.func, o, o2};
+
+        if (this.args != null && this.args.length > 0 ) {
+            params = ArrayUtils.addAll(params, this.args);
+        }
+
+        Object ret = invocable.invokeFunction("Utils_invoke", params);
+
+        //return Utils.jsToJava(ret);
+        return ret;
     }
 }

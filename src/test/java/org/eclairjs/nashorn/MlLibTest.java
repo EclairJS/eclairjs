@@ -32,7 +32,11 @@ public class MlLibTest {
         TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
         Object ret = ((Invocable)engine).invokeFunction("LinearRegressionWithSGDTest", file);
         
-        String expected = "34.802055592544406,-0.4307829,32.26369105545771,-0.1625189,27.073768640300933,-0.1625189,32.956369807610656,-0.1625189,26.589176152816094,0.3715636,34.161678328568854,0.7654678,24.3647041765334,0.8544153,26.661937949806784,1.2669476,28.790597957841044,1.2669476,20.51350661135643,1.2669476";
+        String expected = "(34.802055592544406,-0.4307829),(32.26369105545771,-0.1625189)," +
+                "(27.073768640300933,-0.1625189),(32.956369807610656,-0.1625189)," +
+                "(26.589176152816094,0.3715636),(34.161678328568854,0.7654678)," +
+                "(24.3647041765334,0.8544153),(26.661937949806784,1.2669476)," +
+                "(28.790597957841044,1.2669476),(20.51350661135643,1.2669476)";
         assertEquals("failure - strings are not equal", expected, ret.toString());
 
     }
@@ -157,12 +161,31 @@ public class MlLibTest {
         TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
         Object ret = ((Invocable)engine).invokeFunction("fpGrowthExample");
 
-        String expected = "[\"[t] 3\",\"[t, x] 3\",\"[t, x, z] 3\"]";
+        String expected = "[{\"freq\":3,\"items\":\"[t]\"},{\"freq\":3,\"items\":\"[t, x]\"},{\"freq\":3,\"items\":\"[t, x, z]\"}]";
 
-        assertEquals("failure - strings are not equal", expected, ret.toString());
+        assertEquals("failure - strings are not equal", expected, ret);
 
     }
+    /*
+               tests
+               MLUtils.loadLibSVMFile()
+               RDD.randomSplit()
+               BoostingStrategy.defaultParams("Classification")
+               BoostingStrategy.setNumIterations()
+               BoostingStrategy.getTreeStrategy()
+               Strategy.setMaxDepth()
+               Strategy.setNumClasses()
+               Strategy.setCategoricalFeaturesInfo()
+               GradientBoostedTrees.train()
+               GradientBoostedTreesModel.predict(Vector)
+               GradientBoostedTreesModel.toString()
+               GradientBoostedTreesModel.toDebugString()
+               GradientBoostedTreesModel.load()
+               GradientBoostedTreesModel.save()
+               LabeledPoint.getLabel()
+               LabeledPoint.getFeatures()
 
+    */
     @Test
     public void GradientBoostingClassificationExample() throws Exception {
         ScriptEngine engine = TestUtils.getEngine();
@@ -172,6 +195,66 @@ public class MlLibTest {
         Object ret = ((Invocable)engine).invokeFunction("GradientBoostingClassificationExample");
 
         String expected = "{\"testErr\":0.03225806451612903,\"summary\":\"TreeEnsembleModel classifier with 3 trees\\n\"}";
+
+        assertEquals("failure - strings are not equal", expected, ret.toString());
+
+    }
+
+    /*
+               tests
+               MLUtils.loadLibSVMFile()
+               RDD.randomSplit()
+               BoostingStrategy.defaultParams("Regression")
+               BoostingStrategy.setNumIterations()
+               BoostingStrategy.getTreeStrategy()
+               Strategy.setMaxDepth()
+               Strategy.setCategoricalFeaturesInfo()
+               GradientBoostedTrees.train()
+               GradientBoostedTreesModel.predict(Vector)
+               GradientBoostedTreesModel.toString()
+               GradientBoostedTreesModel.toDebugString()
+               GradientBoostedTreesModel.load()
+               GradientBoostedTreesModel.save()
+               LabeledPoint.getLabel()
+               LabeledPoint.getFeatures()
+
+    */
+    @Test
+    public void GradientBoostingRegressionExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
+
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
+        Object ret = ((Invocable)engine).invokeFunction("GradientBoostingRegressionExample");
+
+        String expected = "{\"testMSE\":0.01,\"summary\":\"TreeEnsembleModel regressor with 3 trees\\n\"}";
+
+        assertEquals("failure - strings are not equal", expected, ret.toString());
+
+    }
+    /*
+           tests
+           RDD.randomSplit()
+           IsotonicRegression()
+           IsotonicRegression.setIsotonic()
+           IsotonicRegression.run()
+           IsotonicRegressionModel()
+           IsotonicRegressionModel.predict()
+           IsotonicRegressionModel.save()
+           IsotonicRegressionModel.load()
+           FloatRDD()
+           FloatRDD.mean()
+           Tuple()
+        */
+    @Test
+    public void IsotonicRegressionExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
+
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
+        Object ret = ((Invocable)engine).invokeFunction("IsotonicRegressionExample");
+
+        String expected = "{\"meanSquaredError\":0.008860256490591363}";
 
         assertEquals("failure - strings are not equal", expected, ret.toString());
 

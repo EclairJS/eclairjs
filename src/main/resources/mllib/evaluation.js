@@ -15,8 +15,6 @@
  */
 
 var BinaryClassificationMetrics = function(rdd) {
-    var javaRdd = rdd.getJavaObject();
-    this.classTag = javaRdd.classTag()
     var r = rdd.getJavaObject().rdd();
     JavaWrapper.call(this,
                      new org.apache.spark.mllib.evaluation.BinaryClassificationMetrics(r));
@@ -28,16 +26,14 @@ BinaryClassificationMetrics.prototype = Object.create(JavaWrapper.prototype);
  * Returns the (threshold, precision) curve.
  */
 BinaryClassificationMetrics.prototype.precisionByThreshold = function() {
-    var rdd = this.getJavaObject().precisionByThreshold();
-    return new RDD(org.apache.spark.api.java.JavaRDD.fromRDD(rdd, this.classTag));
+    return new RDD(this.getJavaObject().precisionByThreshold().toJavaRDD());
 };
 
 /**
  * Returns the (threshold, recall) curve.
  */
 BinaryClassificationMetrics.prototype.recallByThreshold = function() {
-    var rdd = this.getJavaObject().recallByThreshold();
-    return new RDD(org.apache.spark.api.java.JavaRDD.fromRDD(rdd, this.classTag));
+    return new RDD(this.getJavaObject().recallByThreshold().toJavaRDD());
 };
 
 /**
@@ -45,11 +41,9 @@ BinaryClassificationMetrics.prototype.recallByThreshold = function() {
  */
 BinaryClassificationMetrics.prototype.fMeasureByThreshold = function(t) {
     if(arguments.length == 0) {
-        var rdd = this.getJavaObject().fMeasureByThreshold();
-        return new RDD(org.apache.spark.api.java.JavaRDD.fromRDD(rdd, this.classTag));
+        return new RDD(this.getJavaObject().fMeasureByThreshold().toJavaRDD());
     } else {
-        var rdd = this.getJavaObject().fMeasureByThreshold(t);
-        return new RDD(org.apache.spark.api.java.JavaRDD.fromRDD(rdd, this.classTag));
+        return new RDD(this.getJavaObject().fMeasureByThreshold(t).toJavaRDD());
     }
 };
 
@@ -59,14 +53,12 @@ BinaryClassificationMetrics.prototype.fMeasureByThreshold = function(t) {
  * @see http://en.wikipedia.org/wiki/Precision_and_recall
  */
 BinaryClassificationMetrics.prototype.pr = function() {
-    var rdd = this.getJavaObject().pr();
-    return new RDD(org.apache.spark.api.java.JavaRDD.fromRDD(rdd, this.classTag));
+    return new RDD(this.getJavaObject().pr().toJavaRDD());
 };
 
 
 var RegressionMetrics = function(rdd) {
     var javaRdd = rdd.getJavaObject();
-    this.classTag = javaRdd.classTag()
     JavaWrapper.call(this,
                      new org.apache.spark.mllib.evaluation.RegressionMetrics(javaRdd.rdd()));
 };
@@ -117,3 +109,30 @@ RegressionMetrics.prototype.explainedVariance = function() {
     return this.getJavaObject().explainedVariance();
 };
 
+/**
+ * Evaluator for ranking algorithms.
+ */
+var RankingMetrics = function(jvmObj) {
+    JavaWrapper.call(this, jvmObj);
+};
+
+RankingMetrics.prototype = Object.create(JavaWrapper.prototype); 
+
+RankingMetrics.prototype.constructor = RankingMetrics;
+
+RankingMetrics.prototype.precisionAt = function(k) {
+    return this.getJavaObject().precisionAt(k);
+};
+
+RankingMetrics.prototype.ndcgAt = function(k) {
+    return this.getJavaObject().ndcgAt(k);
+};
+
+RankingMetrics.prototype.meanAveragePrecision = function() {
+    return this.getJavaObject().meanAveragePrecision();
+};
+
+RankingMetrics.of = function(predictionAndLabels) {
+    var rm = org.apache.spark.mllib.evaluation.RankingMetrics.of(predictionAndLabels.getJavaObject());
+    return new RankingMetrics(rm);
+};

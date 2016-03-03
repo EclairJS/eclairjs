@@ -75,11 +75,10 @@ throw "not implemented by ElairJS";
  * @returns {RDD}  RDD of Ratings.
  */
 MatrixFactorizationModel.prototype.predict1 = function(usersProducts) {
-throw "not implemented by ElairJS";
 // // TODO: handle Tuple conversion for 'usersProducts'
-//   var usersProducts_uw = Utils.unwrapObject(usersProducts);
-//   var javaObject =  this.getJavaObject().predict(usersProducts_uw);
-//   return new RDD(javaObject);
+   var usersProducts_uw = Utils.unwrapObject(usersProducts);
+   var javaObject =  this.getJavaObject().predict(usersProducts_uw.rdd());
+   return new RDD(javaObject.toJavaRDD());
 };
 
 
@@ -162,9 +161,8 @@ throw "not implemented by ElairJS";
  * @returns {RDD}  [(Int, Array[Rating])] objects, where every tuple contains a userID and an array of
  */
 MatrixFactorizationModel.prototype.recommendProductsForUsers = function(num) {
-throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().recommendProductsForUsers(num);
-//   return new RDD(javaObject);
+   var javaObject =  this.getJavaObject().recommendProductsForUsers(num);
+   return new RDD(javaObject.toJavaRDD());
 };
 
 

@@ -54,7 +54,7 @@ var buildPeopleTable = function(file, date) {
 	var schema = DataTypes.createStructType(fields);
 
 	// Convert records of the RDD (people) to Rows.
-	var rowRDD = people.map(function(person){
+	var rowRDD = people.map(function(person, useDateType){
 		var d = person.DOB;
 		if (useDateType) {
 			d = new SqlDate(person.DOB);
@@ -63,8 +63,10 @@ var buildPeopleTable = function(file, date) {
 		}
 		var m =  person.married == "true" ? true : false
 		var n = person.name ? person.name : null;
-		return RowFactory.create([n, person.age, person.expense, d, parseFloat(person.income), m, parseFloat(person.networth)]);
-	});
+		//var ret = RowFactory.create([n, java.lang.Integer.parseInt(person.age), java.lang.Integer.parseInt(person.expense), d, parseFloat(person.income), m, parseFloat(person.networth)]);
+		var ret = RowFactory.create([n, person.age, person.expense, d, parseFloat(person.income), m, parseFloat(person.networth)]);
+		return ret;
+	}, [useDateType]);
 
 
 	//Apply the schema to the RDD.
@@ -243,7 +245,7 @@ var dataframeForeachTest = function(file) {
 	var peopleDataFrame = buildPeopleTable(file);
 	globalForeachResult = {}; // not the right way to do this but works for UT, we are running workers in the same JVM.
 	var result = peopleDataFrame.foreach(function(row) {
-		globalForeachResult[row.getString(0)] = row.getInt(1);
+		globalForeachResult[row.getString(0)] = 1;//row.getInt(1);
 	});
 	/*
 	 * the names can be in any order so we will check them here instead of on the Java side
@@ -315,7 +317,7 @@ var dataframeIntersectTest = function(file) {
 
 	var peopleDataFrame = buildPeopleTable(file);
 	var plus20s = peopleDataFrame.filter("age > 20")
-	var results = peopleDataFrame.intersect(plus20s).sort();
+	var results = peopleDataFrame.intersect(plus20s).sort("age");
 	
     return results.take(10).toString();
 }
@@ -329,10 +331,10 @@ var dataframeIsLocalTest = function(file) {
 
 var dataframeJoinTest = function(file, usingColumn) {
 	
-	var df1 = buildPeopleTable(file);
-	var df2 = buildPeopleTable(file);
+	var df1 = buildPeopleTable(file).as("df1");
+	var df2 = buildPeopleTable(file).as("df2");
 	var joinedDf = df1.join(df2, usingColumn);
-	return joinedDf.head().toString();
+	return joinedDf.sort("df1.age").head().toString();
 	
 }
 
@@ -966,7 +968,7 @@ var dataframeNaFunctionsFillNumberColsTest = function(file) {
 
 	var peopleDataFrame = buildPeopleTable(file);
 	var naFunc = peopleDataFrame.na();
-	var result = naFunc.fill(99.99, ["name", "age"]);
+	var result = naFunc.fill(99, ["name", "age"]);
 
     return result.take(10).toString();
 }

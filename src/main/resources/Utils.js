@@ -148,8 +148,13 @@ Utils.logger = Logger.getLogger("Utils_js");
 	   return map;
   };
 
-  function convertJavaTuple2(o1, o2) {
-	  return [o1 ,o2];
+  function createJavaScriptArray(list) {
+      var l = [];
+      for(var i=0; i<list.size(); i++) {
+        l.push(list.get(i));
+      }
+
+      return l;
   };
 
   function convertJavaJSONObject(str) {
@@ -162,5 +167,35 @@ Utils.logger = Logger.getLogger("Utils_js");
 
 
   Utils.createLambdaFunction = function(func, clazz, bindArgs) {
-    return new clazz(func.toString(), bindArgs ? Utils.unwrapObject(bindArgs) : [])
+      //var x = bindArgs ? org.eclairjs.nashorn.Utils.jsToJava(bindArgs) : []
+      var unObj = [];
+      if (bindArgs) {
+          for (var i = 0; i < bindArgs.length; i++) {
+              unObj.push(org.eclairjs.nashorn.Utils.jsToJava(bindArgs[i]));
+          }
+     }
+    //return new clazz(func.toString(), bindArgs ? Utils.unwrapObject(bindArgs) : [])
+      return new clazz(func.toString(), unObj /*x*/)
+  };
+
+  function Utils_invoke(func) {
+      var fn = eval(func);
+      var a = Array.prototype.slice.call(arguments);
+      var args = (arguments.length > 1)
+          ? a.slice(1).map(function(arg) {
+              return Serialize.javaToJs(arg);
+          }) 
+          : [];
+
+      var ret = null;
+      try {
+        ret = Serialize.jsToJava(fn.apply(this, args));
+      } catch(err) {
+        print("error invoking function");
+        print(func);
+        print(err);
+        throw err;
+      }
+
+      return ret;
   };

@@ -42,12 +42,11 @@ var flatMapToPairTest = function() {
     streamingContext = new StreamingContext(sparkContext, duration);
     var dstream = streamingContext.socketTextStream("localhost", 9999);
     var ds1 = dstream.flatMapToPair(function(line) {
-        var ret = [];
+        var ret = new List();
         var arr = line.split(",");
         arr.forEach(function(letter) {
-            ret.push([letter,1]);
+            ret.add(new Tuple(letter,1));
         })
-
         return ret;
     })
 

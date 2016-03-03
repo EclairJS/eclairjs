@@ -46,7 +46,7 @@ function run(sc) {
 // Evaluate model on test instances and compute test error
 
     var predictionAndLabel = testData.mapToPair(function (labeledPoint, model) {
-        return [model.predict(labeledPoint.getFeatures()), labeledPoint.getLabel()];
+        return new Tuple(model.predict(labeledPoint.getFeatures()), labeledPoint.getLabel());
     }, [model]);
 
 
@@ -73,9 +73,9 @@ if (typeof sparkContext === 'undefined') {
     print("Learned classification tree model:\n" + result.model.toDebugString());
 
 // Save and load model
-    result.model.save(sc, "/tmp/myDecisionTreeClassificationModel");
+    result.model.save(sc, "target/tmp/myDecisionTreeClassificationModel");
     var sameModel = DecisionTreeModel
-        .load(sc, "/tmp/myDecisionTreeClassificationModel");
+        .load(sc, "target/tmp/myDecisionTreeClassificationModel");
 
     sc.stop();
 }

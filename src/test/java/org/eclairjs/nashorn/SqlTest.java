@@ -17,6 +17,7 @@
 package org.eclairjs.nashorn;
 
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 import javax.script.Invocable;
@@ -28,10 +29,10 @@ public class SqlTest {
     /*
      * DataFrame Unit Test Cases
      */
-	
+
     @Test
     public void dataFrameProgrammaticallySpecifyingSchema() throws Exception {
-    	/*
+        /*
     	 * tests
     	 * SparkContext.textFile(path)
     	 * RDD.map()
@@ -46,12 +47,12 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("programmaticallySpecifyingSchema", file);
+        Object ret = ((Invocable) engine).invokeFunction("programmaticallySpecifyingSchema", file);
 
         String expected = "Name: Michael,Name: Andy,Name: Justin";
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFrameAggTest() throws Exception {
     	/*
@@ -62,12 +63,12 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeAggTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeAggTest", file);
 
-        String json = "{\"values\":[30,6],\"schema\":{\"fields\":[{\"name\":\"max(age)\",\"dataType\":\"integer\",\"nullable\":true},{\"name\":\"sum(expense)\",\"dataType\":\"long\",\"nullable\":true}]}}";
+        String json = "{\"values\":[30,6],\"schema\":{\"fields\":[{\"name\":\"max(age)\",\"datatype\":\"integer\",\"nullable\":true},{\"name\":\"sum(expense)\",\"datatype\":\"long\",\"nullable\":true}]}}";
         assertEquals("should be same", json.toLowerCase(), ret.toString().toLowerCase()); // case is sometimes different when run from maven
     }
-    
+
     @Test
     public void dataFrameApplyTest() throws Exception {
     	/*
@@ -78,11 +79,11 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeApplyTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeApplyTest", file);
 
-         assertEquals("should be same", "name", ret.toString()); 
+        assertEquals("should be same", "name", ret.toString());
     }
-    
+
     @Test
     public void dataFrameAsTest() throws Exception {
     	/*
@@ -93,11 +94,11 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeAsTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeAsTest", file);
 
-         assertEquals("should be same", "[name: string, age: int, expense: int, DOB: timestamp, income: double, married: boolean, networth: double]", ret.toString()); 
+        assertEquals("should be same", "[name: string, age: int, expense: int, DOB: timestamp, income: double, married: boolean, networth: double]", ret.toString());
     }
-    
+
     @Test
     public void dataFrameColTest() throws Exception {
     	/*
@@ -108,12 +109,12 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeColTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeColTest", file);
 
         String expected = "age";
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFrameCollectTest() throws Exception {
     	/*
@@ -124,26 +125,26 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeCollectTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeCollectTest", file);
         String schemaJson = "\"schema\":{"
-						        		+ "\"fields\":["
-							        		+ "{\"name\":\"name\",\"dataType\":\"string\",\"nullable\":true},"
-							        		+ "{\"name\":\"age\",\"dataType\":\"integer\",\"nullable\":true},"
-							        		+ "{\"name\":\"expense\",\"dataType\":\"integer\",\"nullable\":true},"
-							        		+ "{\"name\":\"DOB\",\"dataType\":\"timestamp\",\"nullable\":true},"
-							        		+ "{\"name\":\"income\",\"dataType\":\"double\",\"nullable\":true},"
-							        		+ "{\"name\":\"married\",\"dataType\":\"boolean\",\"nullable\":true},"
-							        		+ "{\"name\":\"networth\",\"dataType\":\"double\",\"nullable\":true}"
-						        		+ "]"
-						        		+ "}";
+                + "\"fields\":["
+                + "{\"name\":\"name\",\"dataType\":\"string\",\"nullable\":true},"
+                + "{\"name\":\"age\",\"dataType\":\"integer\",\"nullable\":true},"
+                + "{\"name\":\"expense\",\"dataType\":\"integer\",\"nullable\":true},"
+                + "{\"name\":\"DOB\",\"dataType\":\"timestamp\",\"nullable\":true},"
+                + "{\"name\":\"income\",\"dataType\":\"double\",\"nullable\":true},"
+                + "{\"name\":\"married\",\"dataType\":\"boolean\",\"nullable\":true},"
+                + "{\"name\":\"networth\",\"dataType\":\"double\",\"nullable\":true}"
+                + "]"
+                + "}";
 
         String json = "["
-		        		+ "{\"values\":[\"Michael\",29,1,\"1996-03-07 00:00:00.0\",1200.4,true,300000000.11],"+schemaJson+"},"
-		        		+ "{\"values\":[\"Andy\",30,2,\"1998-12-07 00:00:00.0\",1500.44,false,500000000.11],"+schemaJson+"}"
-	        		+ "]";
-         assertEquals("should be same", json, ret);
+                + "{\"values\":[\"Michael\",29,1,\"1996-03-07 00:00:00.0\",1200.4,true,300000000.11]," + schemaJson + "},"
+                + "{\"values\":[\"Andy\",30,2,\"1998-12-07 00:00:00.0\",1500.44,false,500000000.11]," + schemaJson + "}"
+                + "]";
+        assertEquals("should be same", json, ret);
     }
-    
+
     @Test
     public void dataFrameColumnsTest() throws Exception {
     	/*
@@ -154,11 +155,11 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeColumnsTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeColumnsTest", file);
 
         assertEquals("should be same", "name,age,expense,DOB,income,married,networth", ret.toString());
     }
-    
+
     @Test
     public void dataFrameCubeTest() throws Exception {
     	/*
@@ -170,11 +171,11 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeCubeTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeCubeTest", file);
 
         assertEquals("should be same", "[name: string, expense: int, AVG(age): double]".toLowerCase(), ret.toString().toLowerCase());
     }
-    
+
     @Test
     public void dataFrameDescribeTest() throws Exception {
     	/*
@@ -187,11 +188,11 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeDescribeTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeDescribeTest", file);
         String expected = "{\"summary\":\"count\",\"age\":\"3\",\"expense\":\"3\"},{\"summary\":\"mean\",\"age\":\"26.0\",\"expense\":\"2.0\"},{\"summary\":\"stddev\",\"age\":\"6.082762530298219\",\"expense\":\"1.0\"},{\"summary\":\"min\",\"age\":\"19\",\"expense\":\"1\"},{\"summary\":\"max\",\"age\":\"30\",\"expense\":\"3\"}";
         assertEquals("should be same", expected, ret);
     }
-    
+
     @Test
     public void dataFrameDistinctTest() throws Exception {
     	/*
@@ -204,10 +205,10 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/peopleDuplicates.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeDistinctTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeDistinctTest", file);
         assertEquals("should be same", "3", ret);
     }
-    
+
     @Test
     public void dataFrameDropDuplicatesTest() throws Exception {
     	/*
@@ -220,10 +221,10 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/peopleDuplicates.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeDropDuplicatesTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeDropDuplicatesTest", file);
         assertEquals("should be same", "2", ret);
     }
-    
+
     @Test
     public void dataFrameDtypesTest() throws Exception {
     	/*
@@ -234,20 +235,12 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeDtypesTest", file);
-        String json = "["
-		        		+ "[\"name\",\"StringType\"],"
-		        		+ "[\"age\",\"IntegerType\"],"
-		        		+ "[\"expense\",\"IntegerType\"],"
-		        		+ "[\"DOB\",\"TimestampType\"],"
-		        		+ "[\"income\",\"DoubleType\"],"
-		        		+ "[\"married\",\"BooleanType\"],"
-		        		+ "[\"networth\",\"DoubleType\"]"
-	        		+ "]";
+        Object ret = ((Invocable) engine).invokeFunction("dataframeDtypesTest", file);
+        String json = "[{\"0\":\"name\",\"1\":\"StringType\",\"length\":2},{\"0\":\"age\",\"1\":\"IntegerType\",\"length\":2},{\"0\":\"expense\",\"1\":\"IntegerType\",\"length\":2},{\"0\":\"DOB\",\"1\":\"TimestampType\",\"length\":2},{\"0\":\"income\",\"1\":\"DoubleType\",\"length\":2},{\"0\":\"married\",\"1\":\"BooleanType\",\"length\":2},{\"0\":\"networth\",\"1\":\"DoubleType\",\"length\":2}]";
         assertEquals("should be same", json, ret);
     }
-    
-    
+
+
     @Test
     public void dataFrameExceptTest() throws Exception {
     	/*
@@ -260,11 +253,11 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeExceptTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeExceptTest", file);
         String expect = "{\"name\":\"Justin\",\"age\":19,\"expense\":3,\"DOB\":\"1992-03-07 00:00:00.0\",\"income\":1600.0,\"married\":true,\"networth\":100000.0}";
         assertEquals("should be same", expect, ret);
     }
-    
+
     @Test
     public void dataFrameFilterTest() throws Exception {
     	/*
@@ -276,12 +269,12 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeFilterTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeFilterTest", file);
 
         String expected = "Name: Michael,Name: Andy";
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFrameFilterWithColumnTest() throws Exception {
     	/*
@@ -293,12 +286,12 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeFilterWithColumnTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeFilterWithColumnTest", file);
 
         String expected = "Name: Michael,Name: Andy";
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFrameFirst() throws Exception {
     	/*
@@ -310,11 +303,11 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/test.json");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeFirstTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeFirstTest", file);
 
         assertEquals("should be same", "LukeSkywalker", ret);
     }
-    
+
     @Test
     public void dataFrameFlatMapTest() throws Exception {
     	/*
@@ -325,12 +318,12 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeFlatMapTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeFlatMapTest", file);
 
         String expected = "Michael,Andy,Justin";
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFrameForeachTest() throws Exception {
     	/*
@@ -343,12 +336,12 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeForeachTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeForeachTest", file);
 
         String expected = "all good";
         assertEquals("should be same", expected, ret);
     }
-    
+
     @Test
     public void dataFrameForeachPartitionTest() throws Exception {
     	/*
@@ -361,12 +354,12 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeForeachPartitionTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeForeachPartitionTest", file);
 
         String expected = "all good";
         assertEquals("should be same", expected, ret);
     }
-    
+
     @Test
     public void dataFrameGroupBy() throws Exception {
     	/*
@@ -382,12 +375,12 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/test.json");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeGroupByTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeGroupByTest", file);
 
         Long expected = (long) 2;
         assertSame("should be same", expected, ret);
     }
-    
+
     @Test
     public void dataFrameGroupByWithStrings() throws Exception {
     	/*
@@ -402,12 +395,12 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/test.json");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeGroupByWithStringsTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeGroupByWithStringsTest", file);
 
         Long expected = (long) 2;
         assertSame("should be same", expected, ret);
     }
-    
+
     @Test
     public void dataFrameHead() throws Exception {
     	/*
@@ -418,11 +411,11 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/test.json");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeHeadTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeHeadTest", file);
 
         assertEquals("should be same", "LukeSkywalker", ret);
     }
-    
+
     @Test
     public void dataFrameInputFiles() throws Exception {
     	/*
@@ -433,11 +426,11 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/test.json");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeInputFilesTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeInputFilesTest", file);
 
         assertEquals("should be same", "all good", ret);
     }
-    
+
     @Test
     public void dataFrameIntersect() throws Exception {
     	/*
@@ -448,11 +441,11 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeIntersectTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeIntersectTest", file);
 
         assertEquals("should be same", "[Michael,29,1,1996-03-07 00:00:00.0,1200.4,true,300000000.11],[Andy,30,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11]", ret);
     }
-    
+
     @Test
     public void dataFrameIsLocal() throws Exception {
     	/*
@@ -463,11 +456,11 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeIsLocalTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeIsLocalTest", file);
 
         assertEquals("should be same", false, ret);
     }
-    
+
     @Test
     public void dataFrameJoin() throws Exception {
     	/*
@@ -478,11 +471,11 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeJoinTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeJoinTest", file);
 
-        assertEquals("should be same", "[Michael,29,1,1996-03-07 00:00:00.0,1200.4,true,300000000.11,Michael,29,1,1996-03-07 00:00:00.0,1200.4,true,300000000.11]", ret);
+        assertEquals("should be same", "[Justin,19,3,1992-03-07 00:00:00.0,1600,true,100000,Justin,19,3,1992-03-07 00:00:00.0,1600,true,100000]", ret);
     }
-    
+
     @Test
     public void dataFrameJoinUsingColumn() throws Exception {
     	/*
@@ -493,11 +486,11 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeJoinTest", file, "age");
+        Object ret = ((Invocable) engine).invokeFunction("dataframeJoinTest", file, "age");
 
         assertEquals("should be same", "[19,Justin,3,1992-03-07 00:00:00.0,1600,true,100000,Justin,3,1992-03-07 00:00:00.0,1600,true,100000]", ret);
     }
-    
+
     @Test
     public void dataFrameJoinUsingColumns() throws Exception {
     	/*
@@ -508,11 +501,11 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeJoinUsingColumnsTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeJoinUsingColumnsTest", file);
 
         assertEquals("should be same", "[19,1992-03-07 00:00:00.0,Justin,3,1600,true,100000,Justin,3,1600,true,100000]", ret);
     }
-    
+
     @Test
     public void dataFrameJoinColumnExpr() throws Exception {
     	/*
@@ -523,11 +516,11 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeJoinColumnExprTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeJoinColumnExprTest", file);
 
         assertEquals("should be same", "[Andy,30,Andy,1998-12-07 00:00:00.0]", ret);
     }
-    
+
     @Test
     public void dataFrameJoinColumnExprOuter() throws Exception {
     	/*
@@ -538,11 +531,11 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeJoinColumnExprTest", file, "outer");
+        Object ret = ((Invocable) engine).invokeFunction("dataframeJoinColumnExprTest", file, "outer");
 
         assertEquals("should be same", "[Andy,30,Andy,1998-12-07 00:00:00.0]", ret);
     }
-    
+
     @Test
     public void dataFrameLimit() throws Exception {
     	/*
@@ -553,10 +546,10 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeLimitTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeLimitTest", file);
         assertEquals("should be same", "1", ret.toString());
     }
-    
+
     @Test
     public void dataFrameMapTest() throws Exception {
     	/*
@@ -567,12 +560,12 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeMapTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeMapTest", file);
 
         String expected = "Name: Michael,Name: Andy,Name: Justin";
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFrameMapPartitionsTest() throws Exception {
     	/*
@@ -583,12 +576,12 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeMapPartitionsTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeMapPartitionsTest", file);
 
         String expected = "2,1";
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFrameNaTest() throws Exception {
     	/*
@@ -600,12 +593,12 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/peopleNullValues.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeNaTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeNaTest", file);
 
         String expected = "[Andy,30,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11],[Justin,19,3,1992-03-07 00:00:00.0,1600,true,100000]";
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFrameOrderByTest() throws Exception {
     	/*
@@ -616,15 +609,15 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeOrderByTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeOrderByTest", file);
 
         String expected = ""
-        		+ "[Justin,19,3,1992-03-07 00:00:00.0,1600,true,100000],"
-        		+ "[Michael,29,1,1996-03-07 00:00:00.0,1200.4,true,300000000.11],"
-        		+ "[Andy,30,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11]";
+                + "[Justin,19,3,1992-03-07 00:00:00.0,1600,true,100000],"
+                + "[Michael,29,1,1996-03-07 00:00:00.0,1200.4,true,300000000.11],"
+                + "[Andy,30,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11]";
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFramePersistTest() throws Exception {
     	/*
@@ -635,13 +628,13 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframePersistTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframePersistTest", file);
 
         String expected = "[Michael,29,1,1996-03-07 00:00:00.0,1200.4,true,300000000.11]";
 
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFrameQueryExecutionTest() throws Exception {
     	/*
@@ -652,13 +645,13 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeQueryExecutionTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeQueryExecutionTest", file);
 
         String expected = "ok";
 
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFrameRandomSplitTest() throws Exception {
     	/*
@@ -669,13 +662,13 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeRandomSplitTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeRandomSplitTest", file);
 
         String expected = "2";
 
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFrameRandomSplitSeedTest() throws Exception {
     	/*
@@ -686,13 +679,13 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeRandomSplitTest", file, 1);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeRandomSplitTest", file, 1);
 
         String expected = "2";
 
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFrameRollupTest() throws Exception {
     	/*
@@ -705,13 +698,13 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeRollupTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeRollupTest", file);
 
         String expected = "[30,,1],[29,300000000.11,1],[29,,1],[30,500000000.11,1],[,,3],[19,100000,1],[19,,1]";
 
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFrameSampleTest() throws Exception {
     	/*
@@ -722,13 +715,13 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeSampleTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeSampleTest", file);
 
         String expected = "[Andy,30,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11]";
 
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFrameSchemaTest() throws Exception {
     	/*
@@ -740,13 +733,13 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeSchemaTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeSchemaTest", file);
 
         String expected = "struct<name:string,age:int,expense:int,DOB:timestamp,income:double,married:boolean,networth:double>";
 
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFrameSelect() throws Exception {
     	/*
@@ -755,34 +748,34 @@ public class SqlTest {
     	 * DataFrame.selectWithColumn()
     	 * DataFrame.selectWithString()
     	 */
-    	ScriptEngine engine = TestUtils.getEngine();
+        ScriptEngine engine = TestUtils.getEngine();
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeSelectTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeSelectTest", file);
 
         String expected = "[Michael,29],[Andy,30],[Justin,19]";
 
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFrameSelectExpr() throws Exception {
     	/*
     	 * tests 
     	 * DataFrame.selectExpr()
     	 */
-    	ScriptEngine engine = TestUtils.getEngine();
+        ScriptEngine engine = TestUtils.getEngine();
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeSelectExprTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeSelectExprTest", file);
 
         String expected = "[Michael,true],[Andy,true],[Justin,false]";
 
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFrameSortTest() throws Exception {
     	/*
@@ -794,15 +787,15 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeSortTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeSortTest", file);
 
         String expected = ""
-        		+ "[Justin,19,3,1992-03-07 00:00:00.0,1600,true,100000],"
-        		+ "[Michael,29,1,1996-03-07 00:00:00.0,1200.4,true,300000000.11],"
-        		+ "[Andy,30,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11]";
+                + "[Justin,19,3,1992-03-07 00:00:00.0,1600,true,100000],"
+                + "[Michael,29,1,1996-03-07 00:00:00.0,1200.4,true,300000000.11],"
+                + "[Andy,30,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11]";
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFrameSortDescTest() throws Exception {
     	/*
@@ -814,49 +807,49 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeSortDescTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeSortDescTest", file);
 
         String expected = ""
-        		+ "[Andy,30,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11],"
-        		+ "[Michael,29,1,1996-03-07 00:00:00.0,1200.4,true,300000000.11],"
-        		+ "[Justin,19,3,1992-03-07 00:00:00.0,1600,true,100000]";
+                + "[Andy,30,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11],"
+                + "[Michael,29,1,1996-03-07 00:00:00.0,1200.4,true,300000000.11],"
+                + "[Justin,19,3,1992-03-07 00:00:00.0,1600,true,100000]";
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFrameToDF() throws Exception {
     	/*
     	 * tests 
     	 * DataFrame.selectExpr()
     	 */
-    	ScriptEngine engine = TestUtils.getEngine();
+        ScriptEngine engine = TestUtils.getEngine();
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeToDFTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeToDFTest", file);
 
         String expected = "[newName: string, newAge: int]";
 
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFrameUnionAll() throws Exception {
     	/*
     	 * tests 
     	 * DataFrame.selectExpr()
     	 */
-    	ScriptEngine engine = TestUtils.getEngine();
+        ScriptEngine engine = TestUtils.getEngine();
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeUnionAllTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeUnionAllTest", file);
 
         String expected = "[Michael,true],[Andy,false],[Justin,true],[Michael,true],[Andy,true],[Justin,false]";
 
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFrameWhereTest() throws Exception {
     	/*
@@ -868,42 +861,42 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeWhereTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeWhereTest", file);
 
         String expected = "Name: Michael,Name: Andy";
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataframeWithColumnTest() throws Exception {
     	/*
     	 * tests 
     	 * DataFrame.selectExpr()
     	 */
-    	ScriptEngine engine = TestUtils.getEngine();
+        ScriptEngine engine = TestUtils.getEngine();
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeWithColumnTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeWithColumnTest", file);
 
         String expected = "[Michael,29,1,1996-03-07 00:00:00.0,1200.4,true,300000000.11,29],"
-        		+ "[Andy,30,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11,30],"
-        		+ "[Justin,19,3,1992-03-07 00:00:00.0,1600,true,100000,19]";
+                + "[Andy,30,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11,30],"
+                + "[Justin,19,3,1992-03-07 00:00:00.0,1600,true,100000,19]";
 
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataframeWithColumnRenameTest() throws Exception {
     	/*
     	 * tests 
     	 * DataFrame.selectExpr()
     	 */
-    	ScriptEngine engine = TestUtils.getEngine();
+        ScriptEngine engine = TestUtils.getEngine();
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeWithColumnRenamedTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeWithColumnRenamedTest", file);
 
         String expected = "[name: string, renamedAge: int, expense: int, DOB: timestamp, income: double, married: boolean, networth: double]";
 
@@ -913,7 +906,7 @@ public class SqlTest {
     /*
      * DataFrame Column tests
      */
-    
+
     @Test
     public void columnAsTest() throws Exception {
     	/*
@@ -924,10 +917,10 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("asCloumn", file);
+        Object ret = ((Invocable) engine).invokeFunction("asCloumn", file);
         assertEquals("should be same", "age AS ArrayBuffer(newAge, ventage)", ret);
     }
-    
+
     @Test
     public void columnBetweenTest() throws Exception {
     	/*
@@ -938,10 +931,10 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("betweenCloumn", file);
+        Object ret = ((Invocable) engine).invokeFunction("betweenCloumn", file);
         assertEquals("should be same", "[true],[false],[true]", ret);
     }
-    
+
     @Test
     public void columnCastTest() throws Exception {
     	/*
@@ -952,10 +945,10 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("castCloumn", file);
+        Object ret = ((Invocable) engine).invokeFunction("castCloumn", file);
         assertEquals("should be same", "[\"29\",\"30\",\"19\"]", ret);
     }
-    
+
     @Test
     public void columnContansTest() throws Exception {
     	/*
@@ -966,10 +959,10 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("containsCloumn", file);
+        Object ret = ((Invocable) engine).invokeFunction("containsCloumn", file);
         assertEquals("should be same", "Contains(name, dogs)", ret);
     }
-    
+
     @Test
     public void columnDivideTest() throws Exception {
     	/*
@@ -980,10 +973,10 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("divideCloumn", file);
+        Object ret = ((Invocable) engine).invokeFunction("divideCloumn", file);
         assertEquals("should be same", "[249916.69452682437],[333235.58430193807],[62.5]", ret);
     }
-    
+
     @Test
     public void columnInTest() throws Exception {
     	/*
@@ -994,10 +987,10 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("inCloumn", file);
+        Object ret = ((Invocable) engine).invokeFunction("inCloumn", file);
         assertEquals("should be same", "[false],[false],[true]", ret);
     }
-    
+
     @Test
     public void columnOtherwiseTest() throws Exception {
     	/*
@@ -1010,14 +1003,14 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("otherwiseCloumn", file);
+        Object ret = ((Invocable) engine).invokeFunction("otherwiseCloumn", file);
         assertEquals("should be same", "[true],[true],[false]", ret);
     }
     
     /*
      * Dataframe dataType tests
      */
-    
+
     @Test
     public void dataFrameTimestampTypeTest() throws Exception {
     	/*
@@ -1031,10 +1024,10 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("timestampType", file);
+        Object ret = ((Invocable) engine).invokeFunction("timestampType", file);
         assertEquals("should be same", "Name: Andy DOB: 1998-12-07 00:00:00.0", ret);
     }
-    
+
     @Test
     public void dataFrameDateTypeTest() throws Exception {
     	/*
@@ -1046,10 +1039,10 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dateType", file);
+        Object ret = ((Invocable) engine).invokeFunction("dateType", file);
         assertEquals("should be same", "Name: Andy DOB: 1998-12-07", ret);
     }
-    
+
     @Test
     public void dataFrameFloatTypeTest() throws Exception {
     	/*
@@ -1061,10 +1054,10 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("floatType", file);
+        Object ret = ((Invocable) engine).invokeFunction("floatType", file);
         assertEquals("should be same", "Name: Andy income: 1500.44,Name: Justin income: 1600", ret);
     }
-        
+
     @Test
     public void dataFrameDoubleTypeTest() throws Exception {
     	/*
@@ -1076,10 +1069,10 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("doubleType", file);
+        Object ret = ((Invocable) engine).invokeFunction("doubleType", file);
         assertEquals("should be same", "Name: Andy income: 1500.44,Name: Justin income: 1600", ret);
     }
-    
+
     @Test
     public void dataFrameBooleanTypeTest() throws Exception {
     	/*
@@ -1091,10 +1084,10 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("booleanType", file);
+        Object ret = ((Invocable) engine).invokeFunction("booleanType", file);
         assertEquals("should be same", "Name: Michael married: true,Name: Justin married: true", ret);
     }
-    
+
     @Test
     public void arrayTypeTest() throws Exception {
     	/*
@@ -1103,12 +1096,12 @@ public class SqlTest {
     	 *  
     	 */
         ScriptEngine engine = TestUtils.getEngine();
-       
+
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("arrayTypeTest");
+        Object ret = ((Invocable) engine).invokeFunction("arrayTypeTest");
         assertEquals("should be same", 4, ret);
     }
-    
+
     @Test
     public void binaryTypeTest() throws Exception {
     	/*
@@ -1117,18 +1110,18 @@ public class SqlTest {
     	 *  
     	 */
         ScriptEngine engine = TestUtils.getEngine();
-       
+
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("binaryTypeTest");
+        Object ret = ((Invocable) engine).invokeFunction("binaryTypeTest");
         String expected = "[\"key: 1 value: 101010\",\"key: 2 value: 101010\",\"key: 3 value: 101010\"]";
-        assertEquals("should be same", expected, ret); 
+        assertEquals("should be same", expected, ret);
     }
     
    
     /*
      * sql.functions tests
      */
-    
+
     @Test
     public void functionsLitTest() throws Exception {
     	/*
@@ -1140,10 +1133,10 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("functionsLit", file);
+        Object ret = ((Invocable) engine).invokeFunction("functionsLit", file);
         assertEquals("should be same", "age", ret);
     }
-    
+
     @Test
     public void functionsApproxCountDistinctTest() throws Exception {
     	/*
@@ -1155,10 +1148,10 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("functionsApproxCountDistinct", file);
+        Object ret = ((Invocable) engine).invokeFunction("functionsApproxCountDistinct", file);
         assertEquals("should be same", "[3]", ret);
     }
-    
+
     @Test
     public void functionsCountDistinctTest() throws Exception {
     	/*
@@ -1170,10 +1163,10 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("functionsCountDistinct", file);
+        Object ret = ((Invocable) engine).invokeFunction("functionsCountDistinct", file);
         assertEquals("should be same", "[3]", ret);
     }
-    
+
     @Test
     public void functionsArrayTest() throws Exception {
     	/*
@@ -1185,10 +1178,10 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("functionsArray", file);
+        Object ret = ((Invocable) engine).invokeFunction("functionsArray", file);
         assertEquals("should be same", "array(age,expense)", ret);
     }
-    
+
     @Test
     public void functionsCoalesceTest() throws Exception {
     	/*
@@ -1200,10 +1193,10 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("functionsCoalesce", file);
+        Object ret = ((Invocable) engine).invokeFunction("functionsCoalesce", file);
         assertEquals("should be same", "coalesce(name,age)", ret);
     }
-    
+
     @Test
     public void functionsStructTest() throws Exception {
     	/*
@@ -1215,10 +1208,10 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("functionsStruct", file);
+        Object ret = ((Invocable) engine).invokeFunction("functionsStruct", file);
         assertEquals("should be same", "struct(name,age)", ret);
     }
-    
+
     @Test
     public void functionsGreatestTest() throws Exception {
     	/*
@@ -1230,10 +1223,10 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("functionsGreatest", file);
+        Object ret = ((Invocable) engine).invokeFunction("functionsGreatest", file);
         assertEquals("should be same", "greatest(name,age)", ret);
     }
-    
+
     @Test
     public void functionsExprTest() throws Exception {
     	/*
@@ -1245,10 +1238,10 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("functionsExpr", file);
+        Object ret = ((Invocable) engine).invokeFunction("functionsExpr", file);
         assertEquals("should be same", "[4,1],[6,1],[7,1]", ret);
     }
-    
+
     @Test
     public void functionsAtan2Test() throws Exception {
     	/*
@@ -1260,10 +1253,10 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("functionsAtan2", file);
+        Object ret = ((Invocable) engine).invokeFunction("functionsAtan2", file);
         assertEquals("should be same", "all good", ret);
     }
-    
+
     @Test
     public void functionsConcatTest() throws Exception {
     	/*
@@ -1275,10 +1268,10 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("functionsConcat", file);
+        Object ret = ((Invocable) engine).invokeFunction("functionsConcat", file);
         assertEquals("should be same", "concat(name,age)", ret);
     }
-    
+
     @Test
     public void functionsFrom_unixtime() throws Exception {
     	/*
@@ -1290,10 +1283,10 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("functionsFrom_unixtime", file);
+        Object ret = ((Invocable) engine).invokeFunction("functionsFrom_unixtime", file);
         assertEquals("should be same", "fromunixtime(DOB,yyyy-MM-dd)", ret);
     }
-    
+
     @Test
     public void functionsUnixtime() throws Exception {
     	/*
@@ -1305,10 +1298,10 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("functionsUnix_timestamp", file);
+        Object ret = ((Invocable) engine).invokeFunction("functionsUnix_timestamp", file);
         assertEquals("should be same", "unixtimestamp(currenttimestamp(),yyyy-MM-dd HH:mm:ss)", ret);
     }
-    
+
     @Test
     public void functionsSort_array() throws Exception {
     	/*
@@ -1320,13 +1313,13 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("functionsSort_array", file);
+        Object ret = ((Invocable) engine).invokeFunction("functionsSort_array", file);
         assertEquals("should be same", "sort_array(DOB,true)", ret);
     }
     /*
      * Row tests
      */
-    
+
     @Test
     public void rowMkStringTest() throws Exception {
     	/*
@@ -1338,10 +1331,10 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("rowMkStringType", file);
+        Object ret = ((Invocable) engine).invokeFunction("rowMkStringType", file);
         assertEquals("should be same", "Michael2911996-03-071200.4true300000000.11Andy3021998-12-071500.44false500000000.11", ret);
     }
-    
+
     @Test
     public void rowMkStringSepTest() throws Exception {
     	/*
@@ -1353,10 +1346,10 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("rowMkStringType", file, ", ");
+        Object ret = ((Invocable) engine).invokeFunction("rowMkStringType", file, ", ");
         assertEquals("should be same", "Michael, 29, 1, 1996-03-07, 1200.4, true, 300000000.11Andy, 30, 2, 1998-12-07, 1500.44, false, 500000000.11", ret);
     }
-    
+
     @Test
     public void rowMkStringSepStartTest() throws Exception {
     	/*
@@ -1368,10 +1361,10 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("rowMkStringType", file, ", ", "[");
+        Object ret = ((Invocable) engine).invokeFunction("rowMkStringType", file, ", ", "[");
         assertEquals("should be same", "Michael, 29, 1, 1996-03-07, 1200.4, true, 300000000.11Andy, 30, 2, 1998-12-07, 1500.44, false, 500000000.11", ret);
     }
-    
+
     @Test
     public void rowMkStringSepStartEndTest() throws Exception {
     	/*
@@ -1383,7 +1376,7 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("rowMkStringType", file, ", ", "[", "]");
+        Object ret = ((Invocable) engine).invokeFunction("rowMkStringType", file, ", ", "[", "]");
         assertEquals("should be same", "[Michael, 29, 1, 1996-03-07, 1200.4, true, 300000000.11][Andy, 30, 2, 1998-12-07, 1500.44, false, 500000000.11]", ret);
     }
     
@@ -1402,14 +1395,14 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("groupdedDataAgg", file);
+        Object ret = ((Invocable) engine).invokeFunction("groupdedDataAgg", file);
         assertEquals("should be same", "[Andy,30,2],[Michael,29,1],[Justin,19,3]", ret);
     }
     
     /*
      * DataFrameNaFunctions tests
      */
-    
+
     @Test
     public void dataFrameNaFunctionsDropTest() throws Exception {
     	/*
@@ -1421,14 +1414,14 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/peopleNullValues.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeNaFunctionsDropTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeNaFunctionsDropTest", file);
 
         String expected = "[Michael,29,1,1996-03-07 00:00:00.0,NaN,true,300000000.11],"
-        		+ "[Andy,30,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11],"
-        		+ "[Justin,19,3,1992-03-07 00:00:00.0,1600,true,100000]";
+                + "[Andy,30,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11],"
+                + "[Justin,19,3,1992-03-07 00:00:00.0,1600,true,100000]";
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFrameNaFunctionsDropColTest() throws Exception {
     	/*
@@ -1440,13 +1433,13 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/peopleNullValues.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeNaFunctionsDropColsTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeNaFunctionsDropColsTest", file);
 
         String expected = "[Andy,30,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11],"
-        		+ "[Justin,19,3,1992-03-07 00:00:00.0,1600,true,100000]";
+                + "[Justin,19,3,1992-03-07 00:00:00.0,1600,true,100000]";
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFrameNaFunctionsDropAllColTest() throws Exception {
     	/*
@@ -1458,14 +1451,14 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/peopleNullValues.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeNaFunctionsDropAllColsTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeNaFunctionsDropAllColsTest", file);
 
         String expected = "[Michael,29,1,1996-03-07 00:00:00.0,NaN,true,300000000.11],"
-        		+ "[Andy,30,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11],"
-        		+ "[Justin,19,3,1992-03-07 00:00:00.0,1600,true,100000]";
+                + "[Andy,30,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11],"
+                + "[Justin,19,3,1992-03-07 00:00:00.0,1600,true,100000]";
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFrameNaFunctionsDropIntTest() throws Exception {
     	/*
@@ -1477,13 +1470,13 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/peopleNullValues.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeNaFunctionsDropIntTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeNaFunctionsDropIntTest", file);
 
         String expected = "[Andy,30,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11],"
-        		+ "[Justin,19,3,1992-03-07 00:00:00.0,1600,true,100000]";
+                + "[Justin,19,3,1992-03-07 00:00:00.0,1600,true,100000]";
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFrameNaFunctionsDropIntColsTest() throws Exception {
     	/*
@@ -1495,14 +1488,14 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/peopleNullValues.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeNaFunctionsDropIntColsTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeNaFunctionsDropIntColsTest", file);
 
         String expected = "[Michael,29,1,1996-03-07 00:00:00.0,NaN,true,300000000.11],"
-        		+ "[Andy,30,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11],"
-        		+ "[Justin,19,3,1992-03-07 00:00:00.0,1600,true,100000]";
+                + "[Andy,30,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11],"
+                + "[Justin,19,3,1992-03-07 00:00:00.0,1600,true,100000]";
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFrameNaFunctionsFillNumberTest() throws Exception {
     	/*
@@ -1514,14 +1507,14 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/peopleNullValues2.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeNaFunctionsFillNumberTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeNaFunctionsFillNumberTest", file);
 
         String expected = "[Michael,29,1,1996-03-07 00:00:00.0,99.99,true,300000000.11],"
-        		+ "[Andy,99,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11],"
-        		+ "[,19,3,1992-03-07 00:00:00.0,1600,true,100000]";
+                + "[Andy,99,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11],"
+                + "[,19,3,1992-03-07 00:00:00.0,1600,true,100000]";
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFrameNaFunctionsFillNumberColsTest() throws Exception {
     	/*
@@ -1533,14 +1526,14 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/peopleNullValues2.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeNaFunctionsFillNumberColsTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeNaFunctionsFillNumberColsTest", file);
 
         String expected = "[Michael,29,1,1996-03-07 00:00:00.0,NaN,true,300000000.11],"
-        		+ "[Andy,99,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11],"
-        		+ "[,19,3,1992-03-07 00:00:00.0,1600,true,100000]";
+                + "[Andy,99,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11],"
+                + "[,19,3,1992-03-07 00:00:00.0,1600,true,100000]";
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFrameNaFunctionsFillStringTest() throws Exception {
     	/*
@@ -1552,14 +1545,14 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/peopleNullValues2.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeNaFunctionsFillStringTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeNaFunctionsFillStringTest", file);
 
-        String expected = "[Michael,29,1,1996-03-07 00:00:00.0,NaN,true,300000000.11],"
-        		+ "[Andy,,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11],"
-        		+ "[missing,19,3,1992-03-07 00:00:00.0,1600,true,100000]";
+        String expected = "[Michael,29,1,1996-03-07 00:00:00.0,NaN,true,300000000.11]," +
+                "[Andy,,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11]," +
+                "[missing,19,3,1992-03-07 00:00:00.0,1600,true,100000]";
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFrameNaFunctionsFillStringColsTest() throws Exception {
     	/*
@@ -1571,14 +1564,12 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/peopleNullValues2.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeNaFunctionsFillStringColsTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeNaFunctionsFillStringColsTest", file);
 
-        String expected = "[Michael,29,1,1996-03-07 00:00:00.0,NaN,true,300000000.11],"
-        		+ "[Andy,,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11],"
-        		+ "[missing,19,3,1992-03-07 00:00:00.0,1600,true,100000]";
+        String expected = "[Michael,29,1,1996-03-07 00:00:00.0,NaN,true,300000000.11],[Andy,,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11],[missing,19,3,1992-03-07 00:00:00.0,1600,true,100000]";
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFrameNaFunctionsFillMapTest() throws Exception {
     	/*
@@ -1590,14 +1581,14 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/peopleNullValues2.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeNaFunctionsFillHashMapTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeNaFunctionsFillHashMapTest", file);
 
         String expected = "[Michael,29,1,1996-03-07 00:00:00.0,NaN,true,300000000.11],"
-        		+ "[Andy,99,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11],"
-        		+ "[missing,19,3,1992-03-07 00:00:00.0,1600,true,100000]";
+                + "[Andy,99,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11],"
+                + "[missing,19,3,1992-03-07 00:00:00.0,1600,true,100000]";
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFrameNaFunctionsReplaceTest() throws Exception {
     	/*
@@ -1609,14 +1600,13 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/peopleNullValues2.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeNaFunctionsReplaceTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeNaFunctionsReplaceTest", file);
 
-        String expected = "[MichaelReplace,29,1,1996-03-07 00:00:00.0,NaN,true,300000000.11],"
-        		+ "[AndyReplace,,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11],"
-        		+ "[,19,3,1992-03-07 00:00:00.0,1600,true,100000]";
+        String expected = "[MichaelReplace,29,1,1996-03-07 00:00:00.0,NaN,true,300000000.11]," +
+                "[AndyReplace,,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11],[,19,3,1992-03-07 00:00:00.0,1600,true,100000]";
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFrameNaFunctionsReplaceColsTest() throws Exception {
     	/*
@@ -1628,14 +1618,13 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/peopleNullValues2.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataframeNaFunctionsReplaceColsTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataframeNaFunctionsReplaceColsTest", file);
 
-        String expected = "[Michael,0,1,1996-03-07 00:00:00.0,NaN,true,300000000.11],"
-        		+ "[Andy,,2,1998-12-07 00:00:00.0,1500.44,false,11.11],"
-        		+ "[,19,3,1992-03-07 00:00:00.0,99.99,true,100000]";
+        String expected = "[Michael,0,1,1996-03-07 00:00:00.0,NaN,true,300000000.11]," +
+                "[Andy,,2,1998-12-07 00:00:00.0,1500.44,false,11.11],[,19,3,1992-03-07 00:00:00.0,99.99,true,100000]";
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFrameParquetTest() throws Exception {
     	/*
@@ -1647,12 +1636,12 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/peopleNullValues2.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataFrameParquetTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataFrameParquetTest", file);
 
         String expected = "[{\"values\":[\"Michael\"],\"schema\":{\"fields\":[{\"name\":\"name\",\"dataType\":\"string\",\"nullable\":true}]}}]";
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void sqlContextSetConfTest() throws Exception {
     	/*
@@ -1661,14 +1650,14 @@ public class SqlTest {
     	 * SQLContext.getConf(key)
     	 */
         ScriptEngine engine = TestUtils.getEngine();
- 
+
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("sqlContextSetConfTest");
+        Object ret = ((Invocable) engine).invokeFunction("sqlContextSetConfTest");
 
         String expected = "Golden Retriever";
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void sqlContextgetAllConfTest() throws Exception {
     	/*
@@ -1677,14 +1666,14 @@ public class SqlTest {
     	 * SQLContext.getAllConfs()
     	 */
         ScriptEngine engine = TestUtils.getEngine();
- 
+
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("sqlContextGetAllConfTest");
+        Object ret = ((Invocable) engine).invokeFunction("sqlContextGetAllConfTest");
 
         String expected = "{\"prop2\":\"value2\",\"prop1\":\"value1\"}";
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void sqlContextRangeTest() throws Exception {
     	/*
@@ -1693,14 +1682,14 @@ public class SqlTest {
     	 * DataFrameNaFunctions.fill(99.99)
     	 */
         ScriptEngine engine = TestUtils.getEngine();
-       
+
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("sqlContextRangeTest");
+        Object ret = ((Invocable) engine).invokeFunction("sqlContextRangeTest");
 
         String expected = "[1],[2],[3],[4]";
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFrameStatCovTest() throws Exception {
     	/*
@@ -1712,12 +1701,12 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataFrameStatCovTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataFrameStatCovTest", file);
 
         String expected = "-18267014009.15126";
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void dataFrameStatCrossTabTest() throws Exception {
     	/*
@@ -1729,23 +1718,23 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("dataFrameStatCrossTabTest", file);
+        Object ret = ((Invocable) engine).invokeFunction("dataFrameStatCrossTabTest", file);
         String schema = "\"schema\":{"
-        		+ "\"fields\":["
-        		+ 				"{\"name\":\"key_value\",\"dataType\":\"string\",\"nullable\":true},"
-        		+ 				"{\"name\":\"1\",\"dataType\":\"long\",\"nullable\":false},"
-        		+ 				"{\"name\":\"2\",\"dataType\":\"long\",\"nullable\":false},"
-        		+ 				"{\"name\":\"3\",\"dataType\":\"long\",\"nullable\":false}"
-        		+ 			"]"
-        		+ "}";
+                + "\"fields\":["
+                + "{\"name\":\"key_value\",\"dataType\":\"string\",\"nullable\":true},"
+                + "{\"name\":\"1\",\"dataType\":\"long\",\"nullable\":false},"
+                + "{\"name\":\"2\",\"dataType\":\"long\",\"nullable\":false},"
+                + "{\"name\":\"3\",\"dataType\":\"long\",\"nullable\":false}"
+                + "]"
+                + "}";
         String expected = "["
-        		+ "{\"values\":[\"2\",2,0,1]," + schema + "},"
-        		+ "{\"values\":[\"1\",1,1,0]," + schema + "},"
-        		+ "{\"values\":[\"3\",0,1,1]," + schema + "}"
-        		+ "]";
+                + "{\"values\":[\"2\",2,0,1]," + schema + "},"
+                + "{\"values\":[\"1\",1,1,0]," + schema + "},"
+                + "{\"values\":[\"3\",0,1,1]," + schema + "}"
+                + "]";
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
     @Test
     public void createDataFrameFromArray() throws Exception {
     	/*
@@ -1757,23 +1746,23 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
-        Object ret = ((Invocable)engine).invokeFunction("createDataFrameFromArray", file);
-               String schema = "\"schema\":{"
-        		+ "\"fields\":["
-        		+ 				"{\"name\":\"key\",\"dataType\":\"integer\",\"nullable\":true},"
-        		+ 				"{\"name\":\"value\",\"dataType\":\"integer\",\"nullable\":true}"
-        		+ 			"]"
-        		+ "}";
+        Object ret = ((Invocable) engine).invokeFunction("createDataFrameFromArray", file);
+        String schema = "\"schema\":{"
+                + "\"fields\":["
+                + "{\"name\":\"key\",\"dataType\":\"integer\",\"nullable\":true},"
+                + "{\"name\":\"value\",\"dataType\":\"integer\",\"nullable\":true}"
+                + "]"
+                + "}";
         String expected = "["
-        		+ "{\"values\":[1,1]," + schema + "},"
-        		+ "{\"values\":[1,2]," + schema + "},"
-        		+ "{\"values\":[2,1]," + schema + "},"
-        		+ "{\"values\":[2,1]," + schema + "},"
-        		+ "{\"values\":[2,3]," + schema + "},"
-        		+ "{\"values\":[3,2]," + schema + "},"
-        		+ "{\"values\":[3,3]," + schema + "}"
-        		+ "]";
+                + "{\"values\":[1,1]," + schema + "},"
+                + "{\"values\":[1,2]," + schema + "},"
+                + "{\"values\":[2,1]," + schema + "},"
+                + "{\"values\":[2,1]," + schema + "},"
+                + "{\"values\":[2,3]," + schema + "},"
+                + "{\"values\":[3,2]," + schema + "},"
+                + "{\"values\":[3,3]," + schema + "}"
+                + "]";
         assertEquals("should be same", expected, ret.toString());
     }
-    
+
 }

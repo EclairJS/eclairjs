@@ -81,7 +81,7 @@ lambda: 0.01, implicitPrefs: false, alpha: 1.0}.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line84">line 84</a>
+        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line101">line 101</a>
     </li></ul></dd>
     
     
@@ -276,7 +276,7 @@ parallelism given by `blocks`.
             
             
             
-            <td class="description last">regularization factor (recommended: 0.01)</td>
+            <td class="description last">Optional, regularization factor (recommended: 0.01)</td>
         </tr>
 	
 	
@@ -299,7 +299,7 @@ parallelism given by `blocks`.
             
             
             
-            <td class="description last">level of parallelism to split computation into</td>
+            <td class="description last">Optional, level of parallelism to split computation into</td>
         </tr>
 	
 	
@@ -322,7 +322,7 @@ parallelism given by `blocks`.
             
             
             
-            <td class="description last">random seed</td>
+            <td class="description last">Optional, random seed</td>
         </tr>
 	
 	
@@ -353,631 +353,7 @@ parallelism given by `blocks`.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line259">line 259</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="MatrixFactorizationModel.html">MatrixFactorizationModel</a></span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="train1"><span class="type-signature">&lt;static> </span>train1<span class="signature">(ratings, rank, iterations, lambda, blocks)</span><span class="type-signature"> &rarr; {<a href="MatrixFactorizationModel.html">MatrixFactorizationModel</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Train a matrix factorization model given an RDD of ratings given by users to some products,
-in the form of (userID, productID, rating) pairs. We approximate the ratings matrix as the
-product of two lower-rank matrices of a given rank (number of features). To solve for these
-features, we run a given number of iterations of ALS. This is done using a level of
-parallelism given by `blocks`.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>ratings</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="RDD.html">RDD</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">RDD of (userID, productID, rating) pairs</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>rank</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">number of features to use</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>iterations</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">number of iterations of ALS (recommended: 10-20)</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>lambda</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">regularization factor (recommended: 0.01)</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>blocks</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">level of parallelism to split computation into</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line283">line 283</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="MatrixFactorizationModel.html">MatrixFactorizationModel</a></span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="train2"><span class="type-signature">&lt;static> </span>train2<span class="signature">(ratings, rank, iterations, lambda)</span><span class="type-signature"> &rarr; {<a href="MatrixFactorizationModel.html">MatrixFactorizationModel</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Train a matrix factorization model given an RDD of ratings given by users to some products,
-in the form of (userID, productID, rating) pairs. We approximate the ratings matrix as the
-product of two lower-rank matrices of a given rank (number of features). To solve for these
-features, we run a given number of iterations of ALS. The level of parallelism is determined
-automatically based on the number of partitions in `ratings`.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>ratings</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="RDD.html">RDD</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">RDD of (userID, productID, rating) pairs</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>rank</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">number of features to use</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>iterations</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">number of iterations of ALS (recommended: 10-20)</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>lambda</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">regularization factor (recommended: 0.01)</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line304">line 304</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="MatrixFactorizationModel.html">MatrixFactorizationModel</a></span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="train3"><span class="type-signature">&lt;static> </span>train3<span class="signature">(ratings, rank, iterations)</span><span class="type-signature"> &rarr; {<a href="MatrixFactorizationModel.html">MatrixFactorizationModel</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Train a matrix factorization model given an RDD of ratings given by users to some products,
-in the form of (userID, productID, rating) pairs. We approximate the ratings matrix as the
-product of two lower-rank matrices of a given rank (number of features). To solve for these
-features, we run a given number of iterations of ALS. The level of parallelism is determined
-automatically based on the number of partitions in `ratings`.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>ratings</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="RDD.html">RDD</a></span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">RDD of (userID, productID, rating) pairs</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>rank</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">number of features to use</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>iterations</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">number of iterations of ALS (recommended: 10-20)</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line324">line 324</a>
+        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line276">line 276</a>
     </li></ul></dd>
     
     
@@ -1254,7 +630,7 @@ a level of parallelism given by `blocks`.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line348">line 348</a>
+        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line315">line 315</a>
     </li></ul></dd>
     
     
@@ -1508,7 +884,7 @@ a level of parallelism given by `blocks`.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line371">line 371</a>
+        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line338">line 338</a>
     </li></ul></dd>
     
     
@@ -1739,7 +1115,7 @@ parallelism is determined automatically based on the number of partitions in `ra
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line393">line 393</a>
+        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line360">line 360</a>
     </li></ul></dd>
     
     
@@ -1925,7 +1301,7 @@ Model parameters `alpha` and `lambda` are set to reasonable default values
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line414">line 414</a>
+        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line381">line 381</a>
     </li></ul></dd>
     
     
@@ -2060,7 +1436,7 @@ Model parameters `alpha` and `lambda` are set to reasonable default values
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line233">line 233</a>
+        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line250">line 250</a>
     </li></ul></dd>
     
     
@@ -2196,7 +1572,7 @@ Returns a MatrixFactorizationModel with feature vectors for each user and produc
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line220">line 220</a>
+        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line237">line 237</a>
     </li></ul></dd>
     
     
@@ -2331,7 +1707,7 @@ Returns a MatrixFactorizationModel with feature vectors for each user and produc
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line183">line 183</a>
+        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line200">line 200</a>
     </li></ul></dd>
     
     
@@ -2455,7 +1831,7 @@ into; pass -1 for an auto-configured number of blocks. Default: -1.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line103">line 103</a>
+        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line120">line 120</a>
     </li></ul></dd>
     
     
@@ -2574,7 +1950,7 @@ into; pass -1 for an auto-configured number of blocks. Default: -1.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line171">line 171</a>
+        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line188">line 188</a>
     </li></ul></dd>
     
     
@@ -2693,7 +2069,7 @@ into; pass -1 for an auto-configured number of blocks. Default: -1.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line149">line 149</a>
+        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line166">line 166</a>
     </li></ul></dd>
     
     
@@ -2812,7 +2188,7 @@ into; pass -1 for an auto-configured number of blocks. Default: -1.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line160">line 160</a>
+        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line177">line 177</a>
     </li></ul></dd>
     
     
@@ -2936,7 +2312,7 @@ nonnegativity constraints.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line207">line 207</a>
+        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line224">line 224</a>
     </li></ul></dd>
     
     
@@ -3059,7 +2435,7 @@ nonnegativity constraints.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line127">line 127</a>
+        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line144">line 144</a>
     </li></ul></dd>
     
     
@@ -3178,7 +2554,7 @@ nonnegativity constraints.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line138">line 138</a>
+        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line155">line 155</a>
     </li></ul></dd>
     
     
@@ -3297,7 +2673,7 @@ nonnegativity constraints.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line194">line 194</a>
+        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line211">line 211</a>
     </li></ul></dd>
     
     
@@ -3420,7 +2796,7 @@ nonnegativity constraints.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line115">line 115</a>
+        <a href="ALS.js.html">mllib/recommendation/ALS.js</a>, <a href="ALS.js.html#line132">line 132</a>
     </li></ul></dd>
     
     
@@ -3467,13 +2843,13 @@ nonnegativity constraints.
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ALS.html">ALS</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="AssociationRules.html">AssociationRules</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BisectingKMeans.html">BisectingKMeans</a></li><li><a href="BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="BoostingStrategy.html">BoostingStrategy</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DecisionTree.html">DecisionTree</a></li><li><a href="DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="FPGrowth.html">FPGrowth</a></li><li><a href="FPGrowthModel.html">FPGrowthModel</a></li><li><a href="FreqItemset.html">FreqItemset</a></li><li><a href="functions.html">functions</a></li><li><a href="FutureAction.html">FutureAction</a></li><li><a href="GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="List.html">List</a></li><li><a href="Loss.html">Loss</a></li><li><a href="MapType.html">MapType</a></li><li><a href="MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="MLWord2Vec.html">MLWord2Vec</a></li><li><a href="MLWord2VecModel.html">MLWord2VecModel</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RandomForestModel.html">RandomForestModel</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="Rating.html">Rating</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="Rule.html">Rule</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SparseVector.html">SparseVector</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="Strategy.html">Strategy</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li><li><a href="Vector.html">Vector</a></li><li><a href="Vectors.html">Vectors</a></li><li><a href="VectorUDT.html">VectorUDT</a></li><li><a href="Word2Vec.html">Word2Vec</a></li><li><a href="Word2VecModel.html">Word2VecModel</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ALS.html">ALS</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="AssociationRules.html">AssociationRules</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BisectingKMeans.html">BisectingKMeans</a></li><li><a href="BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="BoostingStrategy.html">BoostingStrategy</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DecisionTree.html">DecisionTree</a></li><li><a href="DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatRDD.html">FloatRDD</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="FPGrowth.html">FPGrowth</a></li><li><a href="FPGrowthModel.html">FPGrowthModel</a></li><li><a href="FreqItemset.html">FreqItemset</a></li><li><a href="functions.html">functions</a></li><li><a href="FutureAction.html">FutureAction</a></li><li><a href="GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="IsotonicRegression.html">IsotonicRegression</a></li><li><a href="IsotonicRegressionModel.html">IsotonicRegressionModel</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="List.html">List</a></li><li><a href="Loss.html">Loss</a></li><li><a href="MapType.html">MapType</a></li><li><a href="MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="MLWord2Vec.html">MLWord2Vec</a></li><li><a href="MLWord2VecModel.html">MLWord2VecModel</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PairRDD.html">PairRDD</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RandomForestModel.html">RandomForestModel</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="Rating.html">Rating</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="Rule.html">Rule</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SparseVector.html">SparseVector</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="Strategy.html">Strategy</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li><li><a href="Tuple.html">Tuple</a></li><li><a href="Vector.html">Vector</a></li><li><a href="Vectors.html">Vectors</a></li><li><a href="VectorUDT.html">VectorUDT</a></li><li><a href="Word2Vec.html">Word2Vec</a></li><li><a href="Word2VecModel.html">Word2VecModel</a></li></ul><h3>Global</h3><ul><li><a href="global.html#RankingMetrics">RankingMetrics</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Mon Feb 22 2016 15:50:35 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Thu Mar 03 2016 14:07:30 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>

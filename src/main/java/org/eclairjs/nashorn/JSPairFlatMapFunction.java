@@ -8,34 +8,33 @@ import scala.Tuple2;
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import java.util.ArrayList;
+import java.util.List;
 
 public class JSPairFlatMapFunction implements PairFlatMapFunction {
 
     private String func = null;
     private Object args[] = null;
-    private String functionName = null;
 
     public JSPairFlatMapFunction(String func,  Object[] o) {
-        this.functionName = Utils.getUniqeFunctionName();
-        this.func = "var " + this.functionName +" = " + func;
+        this.func = func;
         this.args = o;
     }
 
     @Override
     public Iterable<Tuple2> call(Object o) throws Exception {
-
         ScriptEngine e =  NashornEngineSingleton.getEngine();
-
-        e.eval(this.func);
         Invocable invocable = (Invocable) e;
-        Object arg0 = Utils.javaToJs(o, e);
-        Object params[] = {arg0};
 
-        params = ArrayUtils.addAll(params, this.args);
-        ScriptObjectMirror ret = (ScriptObjectMirror)invocable.invokeFunction(this.functionName, params);
+        Object params[] = {this.func, o};
 
-        ArrayList l = new ArrayList(ret.values());
-        ArrayList<Tuple2> l2 = new ArrayList<Tuple2>(ret.size());
+        if (this.args != null && this.args.length > 0 ) {
+            params = ArrayUtils.addAll(params, this.args);
+        }
+
+        /*
+        ScriptObjectMirror ret = (ScriptObjectMirror)invocable.invokeFunction("Utils_invoke", params);
+
+        return (Iterable) Utils.jsToJava(ret);
 
         for(Object t : l) {
             ArrayList al = new ArrayList(((ScriptObjectMirror)t).values());
@@ -47,5 +46,20 @@ public class JSPairFlatMapFunction implements PairFlatMapFunction {
         }
 
         return l2;
+        */
+        //ScriptObjectMirror ret = (ScriptObjectMirror)invocable.invokeFunction("Utils_invoke", params);
+        List<Tuple2> l = (List<Tuple2>)invocable.invokeFunction("Utils_invoke", params);
+        /*
+        ArrayList<Tuple2> l2 = new ArrayList<Tuple2>(l.size());
+
+        for(List t : l) {
+            Tuple2 tuple = new Tuple2(t.get(0), t.get(1));
+            l2.add(tuple);
+        }
+
+        return l2;
+        */
+
+        return l;
     }
 }

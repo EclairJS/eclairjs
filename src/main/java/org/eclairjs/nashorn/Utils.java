@@ -31,6 +31,7 @@ import org.apache.spark.sql.Row;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import scala.Tuple2;
+import scala.Product;
 import scala.collection.Seq;
 import scala.collection.convert.Wrappers.IteratorWrapper;
 import scala.collection.convert.Wrappers.IterableWrapper;
@@ -88,7 +89,17 @@ public class Utils {
  	  				 * Map JavaRDD to RDD for JavaScript
  	  				 */
  	  				className = "RDD"; //o.getClass().getSimpleName();
- 	  			} else if (className.equals("Word2Vec") || className.equals("Word2VecModel")) {
+ 	  			} else if ( className.equals("JavaDoubleRDD")) {
+ 	  				/*
+ 	  				 * Map JavaDoubleRDD to FloatRDD for JavaScript
+ 	  				 */
+                    className = "FloatRDD"; //o.getClass().getSimpleName();
+                } else if ( className.equals("JavaPairRDD")) {
+ 	  				/*
+ 	  				 * Map JavaPairRDD to PairRDD for JavaScript
+ 	  				 */
+                    className = "PairRDD"; //o.getClass().getSimpleName();
+                } else if (className.equals("Word2Vec") || className.equals("Word2VecModel")) {
 					if (packageName.indexOf("org.apache.spark.ml") > -1) {
 						/*
 							ML
@@ -108,22 +119,24 @@ public class Utils {
     			return wrapObject(o);
     		}
 
-    	} else if (o instanceof Tuple2) {
-            Tuple2 t = (Tuple2)o;
-            logger.info("Tupple2 - " + t.toString());
-            Object er = null;
-            Object o1 = javaToJs(t._1(),engine);
-            Object o2 = javaToJs(t._2(), engine);
-            logger.debug("o1 = " + o1);
-             try {
-				Invocable invocable = (Invocable) engine;
-				 Object params[] = {o1, o2};
-				 er  = invocable.invokeFunction("convertJavaTuple2",params);
-			} catch (ScriptException | NoSuchMethodException e) {
-				logger.error(" Tuple2 convertion " + e);
-			}
-            return er;
-        } else if (o instanceof IteratorWrapper) {
+    	} else if(o == null) {
+			return o;
+    	} else if ((o instanceof Product) && (o.getClass().getName().indexOf("scala.Tuple") > -1))  {
+            Product t = (Product)o;
+			logger.info("Tuple3 - " + t.toString());
+            Invocable invocable = (Invocable) engine;
+			Object params[] = {"Tuple", o};
+
+            try {
+                Object parm = invocable.invokeFunction("createJavaWrapperObject", params);
+                logger.debug("Tuple3= " + parm.toString());
+                return parm;
+            } catch  (ScriptException | NoSuchMethodException e) {
+                logger.error(" Tuple conversion " + e);
+            }
+            return null;
+
+		} else if (o instanceof IteratorWrapper) {
             logger.debug("Iterator " + o.toString());
         	ArrayList alist = new ArrayList();
         	while(((IteratorWrapper) o).hasMoreElements()) {
@@ -138,7 +151,24 @@ public class Utils {
                 alist.add(javaToJs(iter.next(),engine));
             }
             return wrapObject(alist);
-        } else if (o instanceof JSONObject) {
+        } else if (o.getClass().isArray()) {
+			Object[] arr = (Object[])o;
+			logger.debug("Array " + o.toString());
+			ArrayList alist = new ArrayList();
+			for(int i=0; i<arr.length; i++) {
+				alist.add(javaToJs(arr[i], engine));
+			}
+			Object er = null;
+			try {
+				Object params[] = {alist};
+				er = ((Invocable)engine).invokeFunction("createJavaScriptArray", params);
+			} catch (ScriptException | NoSuchMethodException e) {
+				logger.error(" Array conversion " + e);
+			}
+
+			return er;
+			//return wrapObject(alist);
+		} else if (o instanceof JSONObject) {
         	Object er = null;
         	try {
         		logger.debug("JSONObject " + o.toString());
@@ -159,12 +189,48 @@ public class Utils {
 
     public static Object jsToJava(Object o) {
     	Logger logger = Logger.getLogger(Utils.class);
-		if(o != null)
+		if(o != null) {
 			logger.debug("jsToJava" + o.getClass().getName());
-    	if ( (o instanceof ScriptObjectMirror) && ((ScriptObjectMirror) o).hasMember("getJavaObject") ) {
-    		Object r = ((ScriptObjectMirror) o).callMember("getJavaObject");
-    		logger.debug("getJavaObject" + r.getClass().getName());
-    		return r;
+		}
+    	if (o instanceof ScriptObjectMirror) {
+			ScriptObjectMirror m = (ScriptObjectMirror)o;
+			if(m.hasMember("getJavaObject") ) {
+				Object r = m.callMember("getJavaObject");
+				logger.debug("getJavaObject" + r.getClass().getName());
+				return r;
+			} else if(m.isArray()) {
+				ArrayList list = new ArrayList();
+				for(Object item : m.values()) {
+					list.add(jsToJava(item));
+				}
+				return list;
+			} else {
+                Object obj = ScriptObjectMirror.wrapAsJSONCompatible(o, null);
+                String j = JSONValue.toJSONString(obj);
+                return JSONValue.parse(j);
+            }
+		} else if (o instanceof IteratorWrapper) {
+			ArrayList alist = new ArrayList();
+			while(((IteratorWrapper) o).hasMoreElements()) {
+				alist.add(jsToJava(((IteratorWrapper) o).nextElement()));
+			}
+			 return alist;
+		} else if (o instanceof IterableWrapper) {
+			ArrayList alist = new ArrayList();
+			Iterator iter=((IterableWrapper) o).iterator();
+			while(iter.hasNext()) {
+				alist.add(jsToJava(iter.next()));
+			}
+			return alist;
+		} else if(o.getClass().isArray()) {
+			Object[] arr = (Object[])o;
+
+			for(int i=0; i<arr.length; i++) {
+				Object item = arr[i];
+				arr[i] = jsToJava(item);
+			}
+
+			return arr;
     	} else if(o instanceof JSObject) {
             Object obj = ScriptObjectMirror.wrapAsJSONCompatible(o, null);
             String j = JSONValue.toJSONString(obj);

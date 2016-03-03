@@ -31,41 +31,28 @@ import java.util.List;
 public class JSFlatMapFunction implements FlatMapFunction {
 	private String func = null;
 	private Object args[] = null;
-	private String functionName = null;
 
     public JSFlatMapFunction(String func,  Object[] o) {
-    	this.functionName = Utils.getUniqeFunctionName();
-        this.func = "var " + this.functionName +" = " + func;
+        this.func = func;
         this.args = o;
     }
 
     @SuppressWarnings("unchecked")
 	@Override
     public Iterable call(Object o) throws Exception {
-
-
-        ScriptEngine e =  NashornEngineSingleton.getEngine(); 
-      //  e = Utils.addScopeVarsToEngine(this.scopeVar, e);
-
-        e.eval(this.func);
+        ScriptEngine e =  NashornEngineSingleton.getEngine();
         Invocable invocable = (Invocable) e;
-        Object arg0 = Utils.javaToJs(o, e);
-        Object params[] = {arg0};
-        
-        if (this.args.length > 0 ) {
-        	/*
-        	 * We need to wrap the Spark objects
-        	 */
-        	@SuppressWarnings("rawtypes")
-			List sv = new ArrayList();
-        	for (int i = 0; i < this.args.length; i++) {
-        		sv.add(Utils.javaToJs(this.args[i], e));
-        	}
-        	params = ArrayUtils.addAll(params, sv.toArray());
+
+        Object params[] = {this.func, o};
+
+        if (this.args != null && this.args.length > 0 ) {
+            params = ArrayUtils.addAll(params, this.args);
         }
 
-        ScriptObjectMirror ret = (ScriptObjectMirror)invocable.invokeFunction(this.functionName, params);
+        //ScriptObjectMirror ret = (ScriptObjectMirror)invocable.invokeFunction("Utils_invoke", params);
+        List ret = (List)invocable.invokeFunction("Utils_invoke", params);
 
-        return (Iterable)ret.values();
+        //return (Iterable)Utils.jsToJava(ret.values());
+        return (Iterable)ret;
     }
 }

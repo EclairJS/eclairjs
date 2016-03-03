@@ -48,7 +48,8 @@ RDD.prototype.aggregate = function(zeroValue,func1,func2, bindArgs1, bindArgs2) 
    var zeroValue_uw = Utils.unwrapObject(zeroValue);
    var fn1 = Utils.createLambdaFunction(func1, org.eclairjs.nashorn.JSFunction2, bindArgs1);
    var fn2 = Utils.createLambdaFunction(func2, org.eclairjs.nashorn.JSFunction2, bindArgs2);
-   return Utils.javaToJs(this.getJavaObject().aggregate(zeroValue_uw, fn1, fn2));
+   var val = this.getJavaObject().aggregate(zeroValue_uw, fn1, fn2);
+   return Utils.javaToJs(val);
 };
 
 /**
@@ -321,14 +322,14 @@ throw "not implemented by ElairJS";
 /**
  *  Return a new RDD by first applying a function to all elements of this
  *  RDD, and then flattening the results.
- * @param {PairFlatMapFunction}
+ * @param {function}
  * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
- * @returns {JavaPairRDD}
+ * @returns {PairRDD}
  */
 RDD.prototype.flatMapToPair = function(func, bindArgs) {
   var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSPairFlatMapFunction, bindArgs);
   var javaObject = this.getJavaObject().flatMapToPair(fn);
-  return new RDD(javaObject);
+  return new PairRDD(javaObject);
 };
 
 /**
@@ -453,26 +454,8 @@ RDD.prototype.groupBy = function(func,numPartitions,partitioner,bindArgs) {
     var partitioner_uw = Utils.unwrapObject(partitioner);
     var result = numPartitions ? this.getJavaObject().groupBy(fn,numPartitions) :
         partitioner_uw ? this.getJavaObject().groupBy(fn,partitioner_uw) : this.getJavaObject().groupBy(fn);
-    return new RDD(result);
+    return new PairRDD(result);
 };
-
-
-/**
- * Group the values for each key in the RDD into a single sequence. Hash-partitions the
- * resulting RDD with the existing partitioner/parallelism level. The ordering of elements
- * within each group is not guaranteed, and may even differ each time the resulting RDD is
- * evaluated.
- *
- * Note: This operation may be very expensive. If you are grouping in order to perform an
- * aggregation (such as a sum or average) over each key, using {@link aggregateByKey}
- * or {@link reduceByKey} will provide much better performance.
- * @returns {RDD}
- */
-RDD.prototype.groupByKey = function() {
-  var javaObject =  this.getJavaObject().groupByKey();
-  return new RDD(javaObject);
-};
-
 
 /**
  * A unique ID for this RDD (within its SparkContext).
@@ -637,11 +620,11 @@ throw "not implemented by ElairJS";
  * Return a new RDD by applying a function to all elements of this RDD.
  * @param (function) func - (undocumented) Function with one parameter that returns tuple
  * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
- * @returns {RDD}
+ * @returns {PairRDD}
  */
 RDD.prototype.mapToPair = function(func, bindArgs) {
   var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSPairFunction, bindArgs);
-	var result = new RDD(this.getJavaObject().mapToPair(fn));
+	var result = new PairRDD(this.getJavaObject().mapToPair(fn));
 	return result;
 };
 
@@ -801,7 +784,7 @@ throw "not implemented by ElairJS";
  * associative binary operator.
  * {function} func - (undocumented) Function with two parameters
  * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
- * @returns {RDD}
+ * @returns {object}
  */
 RDD.prototype.reduce = function(func, bindArgs) {
     var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, bindArgs);
@@ -949,10 +932,13 @@ RDD.prototype.subtract = function(other,numPartitions,p) {
  */
 RDD.prototype.take = function(num) {
 	var res = this.getJavaObject().take(num);
+    //print("take: ");
+    //print(res);
+    /*
 	this.logger.debug("take " + res.getClass().getName());
 	var results = [];
-	for (var i = 0; i < res.size(); i++) {
-		var value = res.get(i);
+	for (var i = 0; i < res.length; i++) {
+		var value = res[i];
 		this.logger.debug("take value: " + value.getClass().getName());
 		var o = Utils.javaToJs(value);
 		this.logger.debug("take o:" + o.toString());
@@ -960,6 +946,15 @@ RDD.prototype.take = function(num) {
 	}
 	this.logger.debug("results " + results);
 	return results;
+    */
+	var results = [];
+	for (var i = 0; i < res.size(); i++) {
+		var value = res.get(i);
+		var o = Serialize.javaToJs(value);
+		results.push(o);
+    }
+
+   return results;
 };
 
 /**
@@ -1231,33 +1226,6 @@ RDD.prototype.mapValues = function(func, bindArgs) {
 
 
 /**
- * Return an RDD containing all pairs of elements with matching keys in `this` and `other`. Each
- * pair of elements will be returned as a (k, (v1, v2)) tuple, where (k, v1) is in `this` and
- * (k, v2) is in `other`. Performs a hash join across the cluster.
- * @param {RDD}
- * @param {number} optionanl
- * @returns {RDD}
- */
-RDD.prototype.join = function(other,numPartitions) {
-  var other_uw = Utils.unwrapObject(other);
-  var javaObject =  numPartitions ? this.getJavaObject(other_uw,numPartitions).join() :
-        this.getJavaObject().join(other_uw);
-  return new RDD(javaObject);
-};
-
-
-
-/**
- * Return an RDD with the values of each tuple.
- * @returns {RDD}
- */
-RDD.prototype.values = function() {
-  var javaObject =  this.getJavaObject().values();
-  return new RDD(javaObject);
-}
-
-
-/**
  * The asynchronous version of `collect`, which returns a future for
  * retrieving an array containing all of the elements in this RDD.
  * @returns {JavaFutureAction}
@@ -1266,3 +1234,10 @@ RDD.prototype.collectAsync = function() {
   var javaObject =  this.getJavaObject().collectAsync();
   return new FutureAction(javaObject);
 }
+RDD.prototype.joinx = function (other, numPartitions) {
+    print("rdd join")
+    var other_uw = Utils.unwrapObject(other);
+    var javaObject =  numPartitions ? this.getJavaObject(other_uw,numPartitions).join() :
+        this.getJavaObject().join(other_uw);
+    return new PairRDD(javaObject);
+};

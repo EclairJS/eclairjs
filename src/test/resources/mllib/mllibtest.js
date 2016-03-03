@@ -42,11 +42,16 @@ var LinearRegressionWithSGDTest = function(file) {
 		var label = lp.getLabel();
 		var f = lp.getFeatures();
 		var prediction = linearRegressionModel.predict(f) + delta;
-		return [prediction, label];
+		return new Tuple(prediction, label);
 	}, [linearRegressionModel, delta]); // end MapToPair
 	
 	//print("valuesAndPreds: " + valuesAndPreds.take(10).toString());
+    /*valuesAndPreds.map(function(s){
+        print(s)
+        return s
+    }).collect()*/
 	return valuesAndPreds.take(10).toString();
+	//return valuesAndPreds.take(10).toString();
 }
 
 var AssociationRulesTest = function() {
@@ -81,14 +86,8 @@ var DecisionTreeRegressionExample = function() {
 
 var fpGrowthExample = function() {
     load("examples/mllib/fp_growth_example.js");
-    var result = run(sparkContext);
-
-    // only going to take the first 3, hopefully they will always be the same 3
-    var json = [];
-    for (var i = 0; i < 3; i++) {
-        json.push(result[i].items() + " " + result[i].freq());
-    }
-    return JSON.stringify(json);
+    var result = run(sparkContext, true);
+    return JSON.stringify(result);
 }
 
 var GradientBoostingClassificationExample = function() {
@@ -97,5 +96,22 @@ var GradientBoostingClassificationExample = function() {
     var json = {};
     json.testErr = result.testErr;
     json.summary = result.model.toString();
+    return JSON.stringify(json);
+}
+
+var GradientBoostingRegressionExample = function() {
+    load("examples/mllib/gradient_boosting_regression_example.js");
+    var result = run(sparkContext);
+    var json = {};
+    json.testMSE = result.testMSE;
+    json.summary = result.model.toString();
+    return JSON.stringify(json);
+}
+
+var IsotonicRegressionExample = function() {
+    load("examples/mllib/isotonic_regression_example.js");
+    var result = run(sparkContext);
+    var json = {};
+    json.meanSquaredError = result.meanSquaredError;
     return JSON.stringify(json);
 }

@@ -44,7 +44,7 @@ function run(sc) {
 
 
     var predictionAndLabel = testData.mapToPair(function (lp, model) {
-        return [model.predict(lp.getFeatures()), lp.getLabel()]
+        return new Tuple(model.predict(lp.getFeatures()), lp.getLabel());
     }, [model]);
 
 
@@ -65,14 +65,14 @@ function run(sc) {
  */
 
 if (typeof sparkContext === 'undefined') {
-    var sparkConf = new SparkConf().setAppName("JavaFPGrowthExample").setMaster("local[*]");
+    var sparkConf = new SparkConf().setAppName("Gradient Boosting Classification").setMaster("local[*]");
     var sc = new SparkContext(sparkConf);
     var result = run(sc);
     print("Test Error: " + result.testErr);
     print("Learned classification GBT model:\n" + result.model.toDebugString());
     // Save and load model
-    result.model.save(sc, "/tmp/myGradientBoostingClassificationModel");
-    var sameModel = GradientBoostedTreesModel.load(sc, "/tmp/myGradientBoostingClassificationModel");
+    result.model.save(sc, "target/tmp/myGradientBoostingClassificationModel");
+    var sameModel = GradientBoostedTreesModel.load(sc, "target/tmp/myGradientBoostingClassificationModel");
 
     sc.stop();
 }

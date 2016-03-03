@@ -14,29 +14,32 @@
  * limitations under the License.
  */
 
+/*
+ Usage:
+ bin/eclairjs.sh examples/spark_lr.js"
+ */
 
-  function showWarning() {
+function showWarning() {
     var warning = "WARN: This is a naive implementation of Logistic Regression " +
-            "and is given as an example!\n" +
-            "Please use either org.apache.spark.mllib.classification.LogisticRegressionWithSGD " +
-            "or org.apache.spark.mllib.classification.LogisticRegressionWithLBFGS " +
-            "for more conventional use.";
+        "and is given as an example!\n" +
+        "Please use either org.apache.spark.mllib.classification.LogisticRegressionWithSGD " +
+        "or org.apache.spark.mllib.classification.LogisticRegressionWithLBFGS " +
+        "for more conventional use.";
     print(warning);
-  }
+}
 
-  function printWeights( a) {
+function printWeights(a) {
     print(a);
-  }
+}
 
 
-
-  function dot(  a,  b) {
+function dot(a, b) {
     var x = 0;
     for (var i = 0; i < D; i++) {
-      x += a[i] * b[i];
+        x += a[i] * b[i];
     }
     return x;
-  }
+}
 
 
 showWarning();
@@ -44,61 +47,76 @@ showWarning();
 
 var D = 10;   // Number of dimensions
 
-var file=(arguments.length>0) ? arguments[0] : "./examples/data/lr_data.txt";
-var ITERATIONS =  (arguments.length > 1) ? 0+arguments[1] : 10;
+var file =  "./examples/data/lr_data.txt";
+var ITERATIONS = 10;
 
-var conf = new SparkConf().setAppName("JavaScript Logistic Regression ").setMaster("local[*]");
-var sc = new SparkContext(conf);
+function run(sc) {
 
     var lines = sc.textFile(file);
-    var points = lines.map(function(line){
+    var points = lines.map(function (line) {
         var tok = line.split(/\s+/);
         var y = tok[0];
         var x = [];
         for (var i = 0; i < D; i++) {
-          x[i] = tok[i + 1];
+            x[i] = tok[i + 1];
         }
-      return {x:x,y:y} ;
+        return {x: x, y: y};
 
     }).cache();
 
     // Initialize w to a random value
-    var weights= [];
+    var weights = [];
+    var x = 1;
     for (var i = 0; i < D; i++) {
-      weights[i] = 2 * Math.random() - 1;
+        weights[i] = 2 * Math.random() - 1;
     }
 
     print("Initial w: ");
     printWeights(weights);
 
     for (var i = 1; i <= ITERATIONS; i++) {
-      print("On iteration " + i);
+        print("On iteration " + i);
+        var gradient = points.map(function (datapoint, weights) {
+            var gradient = [];
+            for (var i = 0; i < D; i++) {
+                var d = dot(weights, datapoint.x);
+                gradient[i] = (1 / (1 + Math.exp(-datapoint.y * d)) - 1) * datapoint.y * datapoint.x[i];
+            }
+            return gradient;
+        }, [weights]).reduce(function (a, b) {
+            var result = [];
+            for (var j = 0; j < D; j++) {
+                result[j] = a[j] + b[j];
+            }
+            return result;
+        });
 
-      var gradient = points.map( function (datapoint){
-        var gradient = [];
-        for (var i = 0; i < D; i++) {
-          var d  = dot(weights, datapoint.x);
-          gradient[i] = (1 / (1 + Math.exp(-datapoint.y * d)) - 1) * datapoint.y * datapoint.x[i];
-        }
-        return gradient;
-      }).reduce(function(a,b){
-        var result = [];
         for (var j = 0; j < D; j++) {
-          result[j] = a[j] + b[j];
+            weights[j] -= gradient[j];
         }
-        return result;
-      });
-
-      for (var j = 0; j < D; j++) {
-        weights[j] -= gradient[j];
-      }
 
     }
 
+    return weights;
+
+}
+
+/*
+ check if SparkContext is defined, if it is we are being run from Unit Test
+ */
+
+if (typeof sparkContext === 'undefined') {
+
+    file = (args.length > 1) ? args[1] : file;
+    ITERATIONS = (args.length > 2) ? 0 + args[2] : ITERATIONS;
+
+    var conf = new SparkConf().setAppName("JavaScript Logistic Regression").setMaster("local[*]");
+    var sc = new SparkContext(conf);
+    var result = run(sc, file);
     print("Final w: ");
-    printWeights(weights);
+    printWeights(result);
+    sc.stop();
+}
 
-
-sc.stop();
 
 

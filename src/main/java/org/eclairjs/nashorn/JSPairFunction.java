@@ -35,38 +35,27 @@ public class JSPairFunction implements PairFunction {
 
 
     private final String func;
-    private final Object[] scopeVar;
-    private String functionName = null;
+    private final Object[] args;
 
     public JSPairFunction(String func, Object[] o) {
-    	this.functionName = Utils.getUniqeFunctionName();
-        this.func = "var " + this.functionName +" = " + func;
-	    this.scopeVar = o;
+        this.func = func;
+	    this.args = o;
     }
 
     @SuppressWarnings("unchecked")
 	@Override
-    public Tuple2 call(Object a) throws Exception {
-
-        ScriptEngine e = NashornEngineSingleton.getEngine(); 
-  
-        e.eval(this.func);
+    public Tuple2 call(Object o) throws Exception {
+        ScriptEngine e =  NashornEngineSingleton.getEngine();
         Invocable invocable = (Invocable) e;
-        Object o = Utils.javaToJs(a, e);
-        Object params[] = {o};
-        if (this.scopeVar.length > 0 ) {
-        	/*
-        	 * We need to wrap the Spark objects
-        	 */
-        	@SuppressWarnings("rawtypes")
-			List sv = new ArrayList();
-        	for (int i = 0; i < this.scopeVar.length; i++) {
-        		sv.add(Utils.javaToJs(this.scopeVar[i], e));
-        	}
-        	params = ArrayUtils.addAll(params, sv.toArray());
+
+        Object params[] = {this.func, o};
+
+        if (this.args != null && this.args.length > 0 ) {
+            params = ArrayUtils.addAll(params, this.args);
         }
-        
-        ScriptObjectMirror ret = (ScriptObjectMirror) invocable.invokeFunction(this.functionName, params); // FIXME reusing the function name in same engine not a good idea
+
+        /*
+        ScriptObjectMirror ret = (ScriptObjectMirror)invocable.invokeFunction("Utils_invoke", params);
 
         @SuppressWarnings("rawtypes")
 		ArrayList l = new ArrayList(ret.values());
@@ -76,5 +65,19 @@ public class JSPairFunction implements PairFunction {
 		Tuple2 t = new Tuple2(t1, t2);
 
         return t;
+        */
+        //ScriptObjectMirror ret = (ScriptObjectMirror)invocable.invokeFunction("Utils_invoke", params);
+        //List ret = (List)invocable.invokeFunction("Utils_invoke", params);
+        Tuple2 ret = (Tuple2)invocable.invokeFunction("Utils_invoke", params);
+
+        //@SuppressWarnings("rawtypes")
+        //List l = (List)Utils.jsToJava(ret.values());
+
+        //@SuppressWarnings("rawtypes")
+        //Tuple2 t = new Tuple2(l.get(0), l.get(1));
+        //Tuple2 t = new Tuple2(ret.get(0), ret.get(1));
+
+        return ret;
+        //return (Tuple2) Utils.jsToJava(ret);
     }
 }
