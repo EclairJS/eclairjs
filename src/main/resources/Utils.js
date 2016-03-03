@@ -157,10 +157,6 @@ Utils.logger = Logger.getLogger("Utils_js");
       return l;
   };
 
-  function convertJavaTuple2(o1, o2) {
-	  return [o1 ,o2];
-  };
-
   function convertJavaJSONObject(str) {
 	  return JSON.parse(str);
   };
