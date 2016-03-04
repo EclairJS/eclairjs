@@ -106,12 +106,12 @@ PairRDD.prototype.distinct = function (numPartitions) {
 
 /**
  * Return a new PairRDD containing only the elements that satisfy a predicate.
- * @param {function} f
+ * @param {function} func
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
  * @returns {PairRDD}
  */
-PairRDD.prototype.filter = function (f) {
-    var sv = Utils.createJavaParams(f);
-    var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
+PairRDD.prototype.filter = function (func, bindArgs) {
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
     var javaObject = this.getJavaObject().filter(fn);
     return new PairRDD(javaObject);
 };
