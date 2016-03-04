@@ -11,7 +11,7 @@ The **EclairJS Nashorn** API exposes the [Spark](http://spark.apache.org/) progr
  - [Maven](https://maven.apache.org/)
 
 ```bash
-git clone git@github.rtp.raleigh.ibm.com:cfa/eclair-nashorn.git
+git clone git@github.com:EclairJS/eclairjs-nashorn.git
 mvn package
 export SPARK_HOME=<location of Spark binary distribution>
 ```
