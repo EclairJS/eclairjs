@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: BisectingKMeans</title>
+    <title>JSDoc: Class: KMeansModel</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Class: BisectingKMeans</h1>
+    <h1 class="page-title">Class: KMeansModel</h1>
     
     
 
@@ -27,7 +27,7 @@
     
 <header>
     <h2>
-    BisectingKMeans
+    KMeansModel
     </h2>
     
 </header>  
@@ -39,7 +39,7 @@
     
         
 <dt>
-    <h4 class="name" id="BisectingKMeans"><span class="type-signature"></span>new BisectingKMeans<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="KMeansModel"><span class="type-signature"></span>new KMeansModel<span class="signature">(clusterCenters)</span><span class="type-signature"> &rarr; {?}</span></h4>
     
     
 </dt>
@@ -47,7 +47,7 @@
     
     
     <div class="description">
-        Constructs with the default configuration
+        A Java-friendly constructor that takes an Iterable of Vectors.
     </div>
     
 
@@ -55,6 +55,54 @@
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>clusterCenters</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Vector[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -80,7 +128,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="BisectingKMeans.js.html">mllib/clustering/BisectingKMeans.js</a>, <a href="BisectingKMeans.js.html#line46">line 46</a>
+        <a href="KMeansModel.js.html">mllib/clustering/KMeansModel.js</a>, <a href="KMeansModel.js.html#line30">line 30</a>
     </li></ul></dd>
     
     
@@ -101,6 +149,24 @@
     
     
     
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">?</span>
+
+
+	</dd>
+</dl>
+
+        
     
     
 </dd>
@@ -126,22 +192,89 @@
         <dl>
             
 <dt>
-    <h4 class="name" id="getK"><span class="type-signature"></span>getK<span class="signature">()</span><span class="type-signature"> &rarr; {integer}</span></h4>
+    <h4 class="name" id="load"><span class="type-signature">&lt;static> </span>load<span class="signature">(sc, path)</span><span class="type-signature"> &rarr; {<a href="KMeansModel.html">KMeansModel</a>}</span></h4>
     
     
 </dt>
 <dd>
     
     
-    <div class="description">
-        Gets the desired number of leaf clusters.
-    </div>
-    
 
     
     
     
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>sc</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="SparkContext.html">SparkContext</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>path</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
     
     
     
@@ -167,7 +300,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="BisectingKMeans.js.html">mllib/clustering/BisectingKMeans.js</a>, <a href="BisectingKMeans.js.html#line78">line 78</a>
+        <a href="KMeansModel.js.html">mllib/clustering/KMeansModel.js</a>, <a href="KMeansModel.js.html#line140">line 140</a>
     </li></ul></dd>
     
     
@@ -199,7 +332,7 @@
 	</dt>
 	<dd>
 		
-<span class="param-type">integer</span>
+<span class="param-type"><a href="KMeansModel.html">KMeansModel</a></span>
 
 
 	</dd>
@@ -213,16 +346,12 @@
         
             
 <dt>
-    <h4 class="name" id="getMaxIterations"><span class="type-signature"></span>getMaxIterations<span class="signature">()</span><span class="type-signature"> &rarr; {int}</span></h4>
+    <h4 class="name" id="clusterCenters"><span class="type-signature"></span>clusterCenters<span class="signature">()</span><span class="type-signature"> &rarr; {Vector[]}</span></h4>
     
     
 </dt>
 <dd>
     
-    
-    <div class="description">
-        Gets the max number of k-means iterations to split clusters.
-    </div>
     
 
     
@@ -254,7 +383,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="BisectingKMeans.js.html">mllib/clustering/BisectingKMeans.js</a>, <a href="BisectingKMeans.js.html#line99">line 99</a>
+        <a href="KMeansModel.js.html">mllib/clustering/KMeansModel.js</a>, <a href="KMeansModel.js.html#line121">line 121</a>
     </li></ul></dd>
     
     
@@ -286,7 +415,7 @@
 	</dt>
 	<dd>
 		
-<span class="param-type">int</span>
+<span class="param-type">Vector[]</span>
 
 
 	</dd>
@@ -300,7 +429,7 @@
         
             
 <dt>
-    <h4 class="name" id="getMinDivisibleClusterSize"><span class="type-signature"></span>getMinDivisibleClusterSize<span class="signature">()</span><span class="type-signature"> &rarr; {float}</span></h4>
+    <h4 class="name" id="computeCost"><span class="type-signature"></span>computeCost<span class="signature">(data)</span><span class="type-signature"> &rarr; {number}</span></h4>
     
     
 </dt>
@@ -308,182 +437,8 @@
     
     
     <div class="description">
-        Gets the minimum number of points (if >= `1.0`) or the minimum proportion of points
-(if < `1.0`) of a divisible cluster.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="BisectingKMeans.js.html">mllib/clustering/BisectingKMeans.js</a>, <a href="BisectingKMeans.js.html#line121">line 121</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">float</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="getSeed"><span class="type-signature"></span>getSeed<span class="signature">()</span><span class="type-signature"> &rarr; {integer}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Gets the random seed.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="BisectingKMeans.js.html">mllib/clustering/BisectingKMeans.js</a>, <a href="BisectingKMeans.js.html#line141">line 141</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">integer</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="run"><span class="type-signature"></span>run<span class="signature">(input)</span><span class="type-signature"> &rarr; {<a href="BisectingKMeansModel.html">BisectingKMeansModel</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Runs the bisecting k-means algorithm.
+        Return the K-means cost (sum of squared distances of points to their nearest center) for this
+model on the given data.
     </div>
     
 
@@ -517,7 +472,7 @@
 	
         <tr>
             
-                <td class="name"><code>input</code></td>
+                <td class="name"><code>data</code></td>
             
             
             <td class="type">
@@ -533,146 +488,6 @@
             
             
             
-            <td class="description last">RDD of vectors</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="BisectingKMeans.js.html">mllib/clustering/BisectingKMeans.js</a>, <a href="BisectingKMeans.js.html#line151">line 151</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    model for the bisecting kmeans
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="BisectingKMeansModel.html">BisectingKMeansModel</a></span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="setK"><span class="type-signature"></span>setK<span class="signature">(k)</span><span class="type-signature"> &rarr; {<a href="BisectingKMeans.html">BisectingKMeans</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Sets the desired number of leaf clusters (default: 4).
-The actual number could be smaller if there are no divisible leaf clusters.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>k</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">integer</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
             <td class="description last"></td>
         </tr>
 	
@@ -704,7 +519,7 @@ The actual number could be smaller if there are no divisible leaf clusters.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="BisectingKMeans.js.html">mllib/clustering/BisectingKMeans.js</a>, <a href="BisectingKMeans.js.html#line68">line 68</a>
+        <a href="KMeansModel.js.html">mllib/clustering/KMeansModel.js</a>, <a href="KMeansModel.js.html#line102">line 102</a>
     </li></ul></dd>
     
     
@@ -736,84 +551,36 @@ The actual number could be smaller if there are no divisible leaf clusters.
 	</dt>
 	<dd>
 		
-<span class="param-type"><a href="BisectingKMeans.html">BisectingKMeans</a></span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="setMaxIterations"><span class="type-signature"></span>setMaxIterations<span class="signature">(maxIterations)</span><span class="type-signature"> &rarr; {<a href="BisectingKMeans.html">BisectingKMeans</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Sets the max number of k-means iterations to split clusters (default: 20).
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>maxIterations</code></td>
-            
-            
-            <td class="type">
-            
-                
 <span class="param-type">number</span>
 
 
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
             
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
+<dt>
+    <h4 class="name" id="k"><span class="type-signature"></span>k<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Total number of clusters.
+    </div>
+    
+
+    
+    
+    
+    
     
     
     
@@ -839,7 +606,7 @@ The actual number could be smaller if there are no divisible leaf clusters.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="BisectingKMeans.js.html">mllib/clustering/BisectingKMeans.js</a>, <a href="BisectingKMeans.js.html#line88">line 88</a>
+        <a href="KMeansModel.js.html">mllib/clustering/KMeansModel.js</a>, <a href="KMeansModel.js.html#line52">line 52</a>
     </li></ul></dd>
     
     
@@ -871,7 +638,7 @@ The actual number could be smaller if there are no divisible leaf clusters.
 	</dt>
 	<dd>
 		
-<span class="param-type"><a href="BisectingKMeans.html">BisectingKMeans</a></span>
+<span class="param-type">number</span>
 
 
 	</dd>
@@ -885,7 +652,7 @@ The actual number could be smaller if there are no divisible leaf clusters.
         
             
 <dt>
-    <h4 class="name" id="setMinDivisibleClusterSize"><span class="type-signature"></span>setMinDivisibleClusterSize<span class="signature">(minDivisibleClusterSize)</span><span class="type-signature"> &rarr; {<a href="BisectingKMeans.html">BisectingKMeans</a>}</span></h4>
+    <h4 class="name" id="predict0"><span class="type-signature"></span>predict0<span class="signature">(point)</span><span class="type-signature"> &rarr; {number}</span></h4>
     
     
 </dt>
@@ -893,8 +660,7 @@ The actual number could be smaller if there are no divisible leaf clusters.
     
     
     <div class="description">
-        Sets the minimum number of points (if >= `1.0`) or the minimum proportion of points
-(if < `1.0`) of a divisible cluster (default: 1).
+        Returns the cluster index that a given point belongs to.
     </div>
     
 
@@ -928,13 +694,13 @@ The actual number could be smaller if there are no divisible leaf clusters.
 	
         <tr>
             
-                <td class="name"><code>minDivisibleClusterSize</code></td>
+                <td class="name"><code>point</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">float</span>
+<span class="param-type"><a href="Vector.html">Vector</a></span>
 
 
             
@@ -975,7 +741,7 @@ The actual number could be smaller if there are no divisible leaf clusters.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="BisectingKMeans.js.html">mllib/clustering/BisectingKMeans.js</a>, <a href="BisectingKMeans.js.html#line110">line 110</a>
+        <a href="KMeansModel.js.html">mllib/clustering/KMeansModel.js</a>, <a href="KMeansModel.js.html#line63">line 63</a>
     </li></ul></dd>
     
     
@@ -1007,7 +773,7 @@ The actual number could be smaller if there are no divisible leaf clusters.
 	</dt>
 	<dd>
 		
-<span class="param-type"><a href="BisectingKMeans.html">BisectingKMeans</a></span>
+<span class="param-type">number</span>
 
 
 	</dd>
@@ -1021,7 +787,7 @@ The actual number could be smaller if there are no divisible leaf clusters.
         
             
 <dt>
-    <h4 class="name" id="setSeed"><span class="type-signature"></span>setSeed<span class="signature">(seed)</span><span class="type-signature"> &rarr; {<a href="BisectingKMeans.html">BisectingKMeans</a>}</span></h4>
+    <h4 class="name" id="predict1"><span class="type-signature"></span>predict1<span class="signature">(points)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
     
     
 </dt>
@@ -1029,7 +795,7 @@ The actual number could be smaller if there are no divisible leaf clusters.
     
     
     <div class="description">
-        Sets the random seed (default: hash value of the class name).
+        Maps given points to their cluster indices.
     </div>
     
 
@@ -1063,13 +829,13 @@ The actual number could be smaller if there are no divisible leaf clusters.
 	
         <tr>
             
-                <td class="name"><code>seed</code></td>
+                <td class="name"><code>points</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">integer</span>
+<span class="param-type"><a href="RDD.html">RDD</a></span>
 
 
             
@@ -1110,7 +876,7 @@ The actual number could be smaller if there are no divisible leaf clusters.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="BisectingKMeans.js.html">mllib/clustering/BisectingKMeans.js</a>, <a href="BisectingKMeans.js.html#line131">line 131</a>
+        <a href="KMeansModel.js.html">mllib/clustering/KMeansModel.js</a>, <a href="KMeansModel.js.html#line75">line 75</a>
     </li></ul></dd>
     
     
@@ -1142,13 +908,284 @@ The actual number could be smaller if there are no divisible leaf clusters.
 	</dt>
 	<dd>
 		
-<span class="param-type"><a href="BisectingKMeans.html">BisectingKMeans</a></span>
+<span class="param-type"><a href="RDD.html">RDD</a></span>
 
 
 	</dd>
 </dl>
 
         
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="predict2"><span class="type-signature"></span>predict2<span class="signature">(points)</span><span class="type-signature"> &rarr; {JavaRDD}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Maps given points to their cluster indices.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>points</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">JavaRDD</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="KMeansModel.js.html">mllib/clustering/KMeansModel.js</a>, <a href="KMeansModel.js.html#line88">line 88</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">JavaRDD</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="save"><span class="type-signature"></span>save<span class="signature">(sc, path)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>sc</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="SparkContext.html">SparkContext</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>path</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="KMeansModel.js.html">mllib/clustering/KMeansModel.js</a>, <a href="KMeansModel.js.html#line112">line 112</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
     
     
 </dd>
@@ -1175,7 +1212,7 @@ The actual number could be smaller if there are no divisible leaf clusters.
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Fri Mar 04 2016 17:25:46 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Fri Mar 04 2016 17:25:48 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>

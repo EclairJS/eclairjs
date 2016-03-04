@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: sql/types/IntegerType.js</title>
+    <title>JSDoc: Source: mllib/clustering/KMeansModel.js</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: sql/types/IntegerType.js</h1>
+    <h1 class="page-title">Source: mllib/clustering/KMeansModel.js</h1>
     
     
 
@@ -25,9 +25,8 @@
     
     <section>
         <article>
-            <pre class="prettyprint source"><code>
-/*
- * Copyright 2015 IBM Corp.
+            <pre class="prettyprint source"><code>/*                                                                         
+ * Copyright 2016 IBM Corp.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,62 +40,135 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * @constructor
- * @classdesc The data type representing Int values. Please use the singleton DataTypes.IntegerType.
- */
-
-function IntegerType(jvmObj) {
-
-	NumericType.call(this, jvmObj);
-};
 
 
-IntegerType.prototype = Object.create(NumericType.prototype); 
-
-
-IntegerType.prototype.constructor = IntegerType;
 
 /**
- * The default size of a value of the IntegerType is 4 bytes.
- * @returns {integer}
+ * A clustering model for K-means. Each point belongs to the cluster with the closest center.
+ * @classdesc
  */
-IntegerType.prototype.defaultSize = function() {
-	return this.getJavaObject().defaultSize();
-};
+
 /**
- * @returns {string}
+ * A Java-friendly constructor that takes an Iterable of Vectors.
+ * @param {Vector[]} clusterCenters
+ * @returns {??}
+ *  @class
  */
-IntegerType.prototype.simpleString = function() {
-	return this.getJavaObject().simpleString();
+var KMeansModel = function (clusterCenters) {
+    var jvmObject;
+    if (clusterCenters instanceof org.apache.spark.mllib.clustering.KMeansModel) {
+        jvmObject = clusterCenters;
+    } else {
+        jvmObject = new org.apache.spark.mllib.clustering.KMeansModel(clusterCenters);
+    }
+
+    this.logger = Logger.getLogger("KMeansModel_js");
+    JavaWrapper.call(this, jvmObject);
+
 };
-IntegerType.prototype.classTag = function() {
-	throw "not implemented by ElairJS";
-	//return this.getJavaObject().classTag();
+
+KMeansModel.prototype = Object.create(JavaWrapper.prototype);
+
+KMeansModel.prototype.constructor = KMeansModel;
+
+
+/**
+ * Total number of clusters.
+ * @returns {number}
+ */
+KMeansModel.prototype.k = function () {
+    throw "not implemented by ElairJS";
+//   return  this.getJavaObject().k();
 };
-IntegerType.prototype.numeric = function() {
-	throw "not implemented by ElairJS";
-	//return this.getJavaObject().numeric();
+
+
+/**
+ * Returns the cluster index that a given point belongs to.
+ * @param {Vector} point
+ * @returns {number}
+ */
+KMeansModel.prototype.predict0 = function (point) {
+    throw "not implemented by ElairJS";
+//   var point_uw = Utils.unwrapObject(point);
+//   return  this.getJavaObject().predict(point_uw);
 };
-IntegerType.prototype.fractional = function() {
-	throw "not implemented by ElairJS";
-	//return this.getJavaObject().fractional();
+
+
+/**
+ * Maps given points to their cluster indices.
+ * @param {RDD} points
+ * @returns {RDD}
+ */
+KMeansModel.prototype.predict1 = function (points) {
+    throw "not implemented by ElairJS";
+//   var points_uw = Utils.unwrapObject(points);
+//   var javaObject =  this.getJavaObject().predict(points_uw);
+//   return new RDD(javaObject);
 };
-IntegerType.prototype.ordering = function() {
-	throw "not implemented by ElairJS";
-	//return this.getJavaObject().ordering();
+
+
+/**
+ * Maps given points to their cluster indices.
+ * @param {JavaRDD} points
+ * @returns {JavaRDD}
+ */
+KMeansModel.prototype.predict2 = function (points) {
+    throw "not implemented by ElairJS";
+//   var points_uw = Utils.unwrapObject(points);
+//   var javaObject =  this.getJavaObject().predict(points_uw);
+//   return new JavaRDD(javaObject);
 };
-IntegerType.prototype.asIntegral = function() {
-	throw "not implemented by ElairJS";
-	//return this.getJavaObject().asIntegral();
+
+
+/**
+ * Return the K-means cost (sum of squared distances of points to their nearest center) for this
+ * model on the given data.
+ * @param {RDD} data
+ * @returns {number}
+ */
+KMeansModel.prototype.computeCost = function (data) {
+   var data_uw = Utils.unwrapObject(data);
+   return  this.getJavaObject().computeCost(data_uw.rdd());
 };
-IntegerType.prototype.tag = function() {
-	throw "not implemented by ElairJS";
-	//return this.getJavaObject().tag();
+
+
+/**
+ * @param {SparkContext} sc
+ * @param {string} path
+ */
+KMeansModel.prototype.save = function (sc, path) {
+    throw "not implemented by ElairJS";
+//   var sc_uw = Utils.unwrapObject(sc);
+//    this.getJavaObject().save(sc_uw,path);
 };
-IntegerType.prototype.unapply = function() {
-	throw "not implemented by ElairJS";
-	//return this.getJavaObject().unapply();
+
+/**
+ * @returns {Vector[]}
+ */
+KMeansModel.prototype.clusterCenters = function () {
+    var centers = this.getJavaObject().clusterCenters();
+    var ret = [];
+    for (var i = 0; i &lt; centers.length; i++) {
+        ret.push(new Vector(centers[i]));
+    }
+    return ret;
+};
+
+//
+// static methods
+//
+
+
+/**
+ * @param {SparkContext} sc
+ * @param {string} path
+ * @returns {KMeansModel}
+ */
+KMeansModel.load = function (sc, path) {
+    throw "not implemented by ElairJS";
+//   var sc_uw = Utils.unwrapObject(sc);
+//   var javaObject =  org.apache.spark.mllib.clustering.KMeansModel.load(sc_uw,path);
+//   return new KMeansModel(javaObject);
 };
 </code></pre>
         </article>

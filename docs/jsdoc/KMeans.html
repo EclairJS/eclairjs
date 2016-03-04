@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Strategy</title>
+    <title>JSDoc: Class: KMeans</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Class: Strategy</h1>
+    <h1 class="page-title">Class: KMeans</h1>
     
     
 
@@ -27,7 +27,7 @@
     
 <header>
     <h2>
-    Strategy
+    KMeans
     </h2>
     
 </header>  
@@ -39,342 +39,23 @@
     
         
 <dt>
-    <h4 class="name" id="Strategy"><span class="type-signature"></span>new Strategy<span class="signature">(algo, impurity, maxDepth, numClasses, maxBins, quantileCalculationStrategy, categoricalFeaturesInfo, minInstancesPerNode, minInfoGain, maxMemoryInMB, subsamplingRate, useNodeIdCache, checkpointInterval)</span><span class="type-signature"> &rarr; {?}</span></h4>
+    <h4 class="name" id="KMeans"><span class="type-signature"></span>new KMeans<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
 <dd>
     
     
+    <div class="description">
+        Constructs a KMeans instance with default parameters: {k: 2, maxIterations: 20, runs: 1,
+initializationMode: "k-means||", initializationSteps: 5, epsilon: 1e-4, seed: random}.
+    </div>
+    
 
     
     
     
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>algo</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Algo</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>impurity</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Impurity</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>maxDepth</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>numClasses</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>maxBins</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>quantileCalculationStrategy</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">QuantileStrategy</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>categoricalFeaturesInfo</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Map</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>minInstancesPerNode</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>minInfoGain</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>maxMemoryInMB</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>subsamplingRate</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>useNodeIdCache</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>checkpointInterval</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
     
     
     
@@ -400,7 +81,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Strategy.js.html">mllib/tree/configuration/Strategy.js</a>, <a href="Strategy.js.html#line79">line 79</a>
+        <a href="KMeans.js.html">mllib/clustering/KMeans.js</a>, <a href="KMeans.js.html#line34">line 34</a>
     </li></ul></dd>
     
     
@@ -421,24 +102,6 @@
     
     
     
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">?</span>
-
-
-	</dd>
-</dl>
-
-        
     
     
 </dd>
@@ -464,138 +127,7 @@
         <dl>
             
 <dt>
-    <h4 class="name" id="defaultStategy"><span class="type-signature">&lt;static> </span>defaultStategy<span class="signature">(algo)</span><span class="type-signature"> &rarr; {<a href="Strategy.html">Strategy</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>algo</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Algo</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last"></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Strategy.js.html">mllib/tree/configuration/Strategy.js</a>, <a href="Strategy.js.html#line188">line 188</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="Strategy.html">Strategy</a></span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="defaultStrategywithAlgo"><span class="type-signature">&lt;static> </span>defaultStrategywithAlgo<span class="signature">(algo)</span><span class="type-signature"> &rarr; {<a href="Strategy.html">Strategy</a>}</span></h4>
+    <h4 class="name" id="train"><span class="type-signature">&lt;static> </span>train<span class="signature">(data, k, maxIterations, runs, initializationMode, seed)</span><span class="type-signature"> &rarr; {<a href="KMeansModel.html">KMeansModel</a>}</span></h4>
     
     
 </dt>
@@ -603,7 +135,7 @@
     
     
     <div class="description">
-        Construct a default set of parameters for <a href="DecisionTree.html">DecisionTree</a>
+        Trains a k-means model using the given set of parameters.
     </div>
     
 
@@ -637,13 +169,13 @@
 	
         <tr>
             
-                <td class="name"><code>algo</code></td>
+                <td class="name"><code>data</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">Algo</span>
+<span class="param-type"><a href="RDD.html">RDD</a></span>
 
 
             
@@ -653,126 +185,83 @@
             
             
             
-            <td class="description last">Algo.Classification or Algo.Regression</td>
+            <td class="description last">training points stored as `RDD[Vector]`</td>
         </tr>
 	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Strategy.js.html">mllib/tree/configuration/Strategy.js</a>, <a href="Strategy.js.html#line176">line 176</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="Strategy.html">Strategy</a></span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="defaultStrategywithstring"><span class="type-signature">&lt;static> </span>defaultStrategywithstring<span class="signature">(algo)</span><span class="type-signature"> &rarr; {<a href="Strategy.html">Strategy</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Construct a default set of parameters for <a href="DecisionTree.html">DecisionTree</a>
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
 	
 	
         <tr>
             
-                <td class="name"><code>algo</code></td>
+                <td class="name"><code>k</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">number of clusters</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>maxIterations</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">max number of iterations</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>runs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional number of parallel runs, defaults to 1. The best model is returned.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>initializationMode</code></td>
             
             
             <td class="type">
@@ -788,7 +277,30 @@
             
             
             
-            <td class="description last">"Classification" or "Regression"</td>
+            <td class="description last">Optional initialization model, either "random" or "k-means||" (default).</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>seed</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional random seed value for cluster initialization</td>
         </tr>
 	
 	
@@ -819,7 +331,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Strategy.js.html">mllib/tree/configuration/Strategy.js</a>, <a href="Strategy.js.html#line164">line 164</a>
+        <a href="KMeans.js.html">mllib/clustering/KMeans.js</a>, <a href="KMeans.js.html#line252">line 252</a>
     </li></ul></dd>
     
     
@@ -851,7 +363,7 @@
 	</dt>
 	<dd>
 		
-<span class="param-type"><a href="Strategy.html">Strategy</a></span>
+<span class="param-type"><a href="KMeansModel.html">KMeansModel</a></span>
 
 
 	</dd>
@@ -865,7 +377,7 @@
         
             
 <dt>
-    <h4 class="name" id="copy"><span class="type-signature"></span>copy<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Strategy.html">Strategy</a>}</span></h4>
+    <h4 class="name" id="getEpsilon"><span class="type-signature"></span>getEpsilon<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span></h4>
     
     
 </dt>
@@ -873,7 +385,7 @@
     
     
     <div class="description">
-        Returns a shallow copy of this instance.
+        The distance threshold within which we've consider centers to have converged.
     </div>
     
 
@@ -906,7 +418,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Strategy.js.html">mllib/tree/configuration/Strategy.js</a>, <a href="Strategy.js.html#line149">line 149</a>
+        <a href="KMeans.js.html">mllib/clustering/KMeans.js</a>, <a href="KMeans.js.html#line167">line 167</a>
     </li></ul></dd>
     
     
@@ -938,7 +450,7 @@
 	</dt>
 	<dd>
 		
-<span class="param-type"><a href="Strategy.html">Strategy</a></span>
+<span class="param-type">number</span>
 
 
 	</dd>
@@ -952,173 +464,7 @@
         
             
 <dt>
-    <h4 class="name" id="isMulticlassClassification"><span class="type-signature"></span>isMulticlassClassification<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Strategy.js.html">mllib/tree/configuration/Strategy.js</a>, <a href="Strategy.js.html#line110">line 110</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">boolean</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="isMulticlassWithCategoricalFeatures"><span class="type-signature"></span>isMulticlassWithCategoricalFeatures<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Strategy.js.html">mllib/tree/configuration/Strategy.js</a>, <a href="Strategy.js.html#line119">line 119</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">boolean</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="setAlgo"><span class="type-signature"></span>setAlgo<span class="signature">(algo)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="getInitializationMode"><span class="type-signature"></span>getInitializationMode<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
     
     
 </dt>
@@ -1126,7 +472,531 @@
     
     
     <div class="description">
-        Sets Algorithm using a String.
+        The initialization algorithm. This can be either "random" or "k-means||".
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="KMeans.js.html">mllib/clustering/KMeans.js</a>, <a href="KMeans.js.html#line94">line 94</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">string</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getInitializationSteps"><span class="type-signature"></span>getInitializationSteps<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Number of steps for the k-means|| initialization mode
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="KMeans.js.html">mllib/clustering/KMeans.js</a>, <a href="KMeans.js.html#line144">line 144</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">number</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getK"><span class="type-signature"></span>getK<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Number of clusters to create (k).
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="KMeans.js.html">mllib/clustering/KMeans.js</a>, <a href="KMeans.js.html#line50">line 50</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">number</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getMaxIterations"><span class="type-signature"></span>getMaxIterations<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Maximum number of iterations to run.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="KMeans.js.html">mllib/clustering/KMeans.js</a>, <a href="KMeans.js.html#line72">line 72</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">number</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getRuns"><span class="type-signature"></span>getRuns<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        :: Experimental ::
+Number of runs of the algorithm to execute in parallel.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="KMeans.js.html">mllib/clustering/KMeans.js</a>, <a href="KMeans.js.html#line119">line 119</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">number</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getSeed"><span class="type-signature"></span>getSeed<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        The random seed for cluster initialization.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="KMeans.js.html">mllib/clustering/KMeans.js</a>, <a href="KMeans.js.html#line190">line 190</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">number</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="run"><span class="type-signature"></span>run<span class="signature">(data)</span><span class="type-signature"> &rarr; {<a href="KMeansModel.html">KMeansModel</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Train a K-means model on the given set of points; `data` should be cached for high
+performance, because this is an iterative algorithm.
     </div>
     
 
@@ -1160,7 +1030,268 @@
 	
         <tr>
             
-                <td class="name"><code>algo</code></td>
+                <td class="name"><code>data</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="RDD.html">RDD</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="KMeans.js.html">mllib/clustering/KMeans.js</a>, <a href="KMeans.js.html#line229">line 229</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="KMeansModel.html">KMeansModel</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setEpsilon"><span class="type-signature"></span>setEpsilon<span class="signature">(epsilon)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Set the distance threshold within which we've consider centers to have converged.
+If all centers move less than this Euclidean distance, we stop iterating one run.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>epsilon</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="KMeans.js.html">mllib/clustering/KMeans.js</a>, <a href="KMeans.js.html#line179">line 179</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setInitializationMode"><span class="type-signature"></span>setInitializationMode<span class="signature">(initializationMode)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Set the initialization algorithm. This can be either "random" to choose random points as
+initial cluster centers, or "k-means||" to use a parallel variant of k-means++
+(Bahmani et al., Scalable K-Means++, VLDB 2012). Default: k-means||.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>initializationMode</code></td>
             
             
             <td class="type">
@@ -1207,7 +1338,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Strategy.js.html">mllib/tree/configuration/Strategy.js</a>, <a href="Strategy.js.html#line129">line 129</a>
+        <a href="KMeans.js.html">mllib/clustering/KMeans.js</a>, <a href="KMeans.js.html#line107">line 107</a>
     </li></ul></dd>
     
     
@@ -1228,6 +1359,12 @@
     
     
     
+    <h5>Returns:</h5>
+    
+            
+
+
+        
     
     
 </dd>
@@ -1235,7 +1372,7 @@
         
             
 <dt>
-    <h4 class="name" id="setCategoricalFeaturesInfo"><span class="type-signature"></span>setCategoricalFeaturesInfo<span class="signature">(categoricalFeaturesInfo)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="setInitializationSteps"><span class="type-signature"></span>setInitializationSteps<span class="signature">(initializationSteps)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -1243,7 +1380,8 @@
     
     
     <div class="description">
-        Sets categoricalFeaturesInfo using a JavaScript object with simple key/value map.
+        Set the number of steps for the k-means|| initialization mode. This is an advanced
+setting -- the default of 5 is almost always enough. Default: 5.
     </div>
     
 
@@ -1277,126 +1415,13 @@
 	
         <tr>
             
-                <td class="name"><code>categoricalFeaturesInfo</code></td>
+                <td class="name"><code>initializationSteps</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">object</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">simple key/value map</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Strategy.js.html">mllib/tree/configuration/Strategy.js</a>, <a href="Strategy.js.html#line139">line 139</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="setMaxDepth"><span class="type-signature"></span>setMaxDepth<span class="signature">(num)</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>num</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">integer</span>
+<span class="param-type">number</span>
 
 
             
@@ -1437,7 +1462,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Strategy.js.html">mllib/tree/configuration/Strategy.js</a>, <a href="Strategy.js.html#line104">line 104</a>
+        <a href="KMeans.js.html">mllib/clustering/KMeans.js</a>, <a href="KMeans.js.html#line156">line 156</a>
     </li></ul></dd>
     
     
@@ -1458,6 +1483,12 @@
     
     
     
+    <h5>Returns:</h5>
+    
+            
+
+
+        
     
     
 </dd>
@@ -1465,12 +1496,18 @@
         
             
 <dt>
-    <h4 class="name" id="setNumClasses"><span class="type-signature"></span>setNumClasses<span class="signature">(num)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="setInitialModel"><span class="type-signature"></span>setInitialModel<span class="signature">(model)</span><span class="type-signature"></span></h4>
     
     
 </dt>
 <dd>
     
+    
+    <div class="description">
+        Set the initial starting point, bypassing the random initialization or k-means||
+The condition model.k == this.k must be met, failure results
+in an IllegalArgumentException.
+    </div>
     
 
     
@@ -1503,13 +1540,13 @@
 	
         <tr>
             
-                <td class="name"><code>num</code></td>
+                <td class="name"><code>model</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">integer</span>
+<span class="param-type"><a href="KMeansModel.html">KMeansModel</a></span>
 
 
             
@@ -1550,7 +1587,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Strategy.js.html">mllib/tree/configuration/Strategy.js</a>, <a href="Strategy.js.html#line96">line 96</a>
+        <a href="KMeans.js.html">mllib/clustering/KMeans.js</a>, <a href="KMeans.js.html#line215">line 215</a>
     </li></ul></dd>
     
     
@@ -1571,6 +1608,507 @@
     
     
     
+    <h5>Returns:</h5>
+    
+            
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setK"><span class="type-signature"></span>setK<span class="signature">(k)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Set the number of clusters to create (k). Default: 2.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>k</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="KMeans.js.html">mllib/clustering/KMeans.js</a>, <a href="KMeans.js.html#line61">line 61</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setMaxIterations"><span class="type-signature"></span>setMaxIterations<span class="signature">(maxIterations)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Set maximum number of iterations to run. Default: 20.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>maxIterations</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="KMeans.js.html">mllib/clustering/KMeans.js</a>, <a href="KMeans.js.html#line83">line 83</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setRuns"><span class="type-signature"></span>setRuns<span class="signature">(runs)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        :: Experimental ::
+Set the number of runs of the algorithm to execute in parallel. We initialize the algorithm
+this many times with random starting conditions (configured by the initialization mode), then
+return the best clustering found over any run. Default: 1.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>runs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="KMeans.js.html">mllib/clustering/KMeans.js</a>, <a href="KMeans.js.html#line133">line 133</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setSeed"><span class="type-signature"></span>setSeed<span class="signature">(seed)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Set the random seed for cluster initialization.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>seed</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="KMeans.js.html">mllib/clustering/KMeans.js</a>, <a href="KMeans.js.html#line201">line 201</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+        
     
     
 </dd>
@@ -1597,7 +2135,7 @@
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Fri Mar 04 2016 17:25:50 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Fri Mar 04 2016 17:25:48 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>
