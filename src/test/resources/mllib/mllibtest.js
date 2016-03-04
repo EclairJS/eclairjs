@@ -115,3 +115,13 @@ var IsotonicRegressionExample = function() {
     json.meanSquaredError = result.meanSquaredError;
     return JSON.stringify(json);
 }
+
+var KMeansExample = function() {
+    load("examples/mllib/kmeans_example.js");
+    var result = run(sparkContext);
+    if (result.cost > 0) {
+        return "all is good";
+    } else {
+        return "Error running test"
+    }
+}
