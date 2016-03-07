@@ -734,7 +734,10 @@ throw "not implemented by ElairJS";
  * @private
  */
 RDD.prototype.randomSplit = function(weights,seed) {
-    var res = this.getJavaObject().randomSplit(weights,seed);
+    var res = (seed != undefined) 
+        ? this.getJavaObject().randomSplit(weights,seed)
+        : this.getJavaObject().randomSplit(weights);
+
     var results = [];
     for (var i = 0; i < res.length; i++) {
         var value = res[i];

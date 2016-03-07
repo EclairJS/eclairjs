@@ -259,5 +259,23 @@ public class MlLibTest {
         assertEquals("failure - strings are not equal", expected, ret.toString());
 
     }
-    
+        /*
+            Tests
+            KMeans.train();
+            KMeansModel.clusterCenters();
+            KMeansModel.computeCost(points);
+         */
+    @Test
+    public void KMeansExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
+
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
+        Object ret = ((Invocable)engine).invokeFunction("KMeansExample");
+
+        String expected = "all is good";
+
+        assertEquals("failure - strings are not equal", expected, ret.toString());
+
+    }
 }

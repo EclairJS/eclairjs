@@ -1,4 +1,3 @@
-
 /*
  * Copyright 2016 IBM Corp.
  *
@@ -16,7 +15,6 @@
  */
 
 
-
 /**
  * Represents a numeric vector, whose index type is Int and value type is Double.
  *
@@ -26,7 +24,7 @@
  */
 
 
-var Vector = function(jvmObject) {
+var Vector = function (jvmObject) {
 
     this.logger = Logger.getLogger("Vector_js");
     JavaWrapper.call(this, jvmObject);
@@ -38,11 +36,10 @@ Vector.prototype = Object.create(JavaWrapper.prototype);
 Vector.prototype.constructor = Vector;
 
 
-
 /**
  * @returns {??}
  */
-Vector.prototype.$init$ = function() {
+Vector.prototype.$init$ = function () {
     throw "not implemented by ElairJS";
 //   var javaObject =  this.getJavaObject().$init$();
 //   return new ??(javaObject);
@@ -53,9 +50,8 @@ Vector.prototype.$init$ = function() {
  * Size of the vector.
  * @returns {number}
  */
-Vector.prototype.size = function() {
-    throw "not implemented by ElairJS";
-//   return  this.getJavaObject().size();
+Vector.prototype.size = function () {
+    return this.getJavaObject().size();
 };
 
 
@@ -63,9 +59,8 @@ Vector.prototype.size = function() {
  * Converts the instance to a double array.
  * @returns {number[]}
  */
-Vector.prototype.toArray = function() {
-    throw "not implemented by ElairJS";
-//   return  this.getJavaObject().toArray();
+Vector.prototype.toArray = function () {
+    return this.getJavaObject().toArray();
 };
 
 
@@ -73,10 +68,9 @@ Vector.prototype.toArray = function() {
  * @param {object} other
  * @returns {boolean}
  */
-Vector.prototype.equals = function(other) {
-    throw "not implemented by ElairJS";
-//   var other_uw = Utils.unwrapObject(other);
-//   return  this.getJavaObject().equals(other_uw);
+Vector.prototype.equals = function (other) {
+    var other_uw = Utils.unwrapObject(other);
+    return this.getJavaObject().equals(other_uw);
 };
 
 
@@ -85,9 +79,8 @@ Vector.prototype.equals = function(other) {
  * nonzero entries, using a hash algorithm similar to {@link hashCode}.
  * @returns {number}
  */
-Vector.prototype.hashCode = function() {
-    throw "not implemented by ElairJS";
-//   return  this.getJavaObject().hashCode();
+Vector.prototype.hashCode = function () {
+   return  this.getJavaObject().hashCode();
 };
 
 
@@ -96,9 +89,8 @@ Vector.prototype.hashCode = function() {
  * @param {number} i  index
  * @returns {number}
  */
-Vector.prototype.apply = function(i) {
-    throw "not implemented by ElairJS";
-//   return  this.getJavaObject().apply(i);
+Vector.prototype.apply = function (i) {
+   return  this.getJavaObject().apply(i);
 };
 
 
@@ -106,10 +98,9 @@ Vector.prototype.apply = function(i) {
  * Makes a deep copy of this vector.
  * @returns {Vector}
  */
-Vector.prototype.copy = function() {
-    throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().copy();
-//   return Utils.javaToJs(javaObject);
+Vector.prototype.copy = function () {
+   var javaObject =  this.getJavaObject().copy();
+   return Utils.javaToJs(javaObject);
 };
 
 
@@ -120,7 +111,7 @@ Vector.prototype.copy = function() {
  *          the vector with type `Int`, and the second parameter is the corresponding value
  *          with type `Double`.
  */
-Vector.prototype.foreachActive = function(f) {
+Vector.prototype.foreachActive = function (f) {
     throw "not implemented by ElairJS";
 //   var sv = Utils.createJavaParams(f);
 //   var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
@@ -133,7 +124,7 @@ Vector.prototype.foreachActive = function(f) {
  * regardless of its value.  Note that inactive entries have value 0.
  * @returns {number}
  */
-Vector.prototype.numActives = function() {
+Vector.prototype.numActives = function () {
     throw "not implemented by ElairJS";
 //   return  this.getJavaObject().numActives();
 };
@@ -143,7 +134,7 @@ Vector.prototype.numActives = function() {
  * Number of nonzero elements. This scans all active values and count nonzeros.
  * @returns {number}
  */
-Vector.prototype.numNonzeros = function() {
+Vector.prototype.numNonzeros = function () {
     throw "not implemented by ElairJS";
 //   return  this.getJavaObject().numNonzeros();
 };
@@ -153,7 +144,7 @@ Vector.prototype.numNonzeros = function() {
  * Converts this vector to a sparse vector with all explicit zeros removed.
  * @returns {SparseVector}
  */
-Vector.prototype.toSparse = function() {
+Vector.prototype.toSparse = function () {
     throw "not implemented by ElairJS";
 //   var javaObject =  this.getJavaObject().toSparse();
 //   return new SparseVector(javaObject);
@@ -164,7 +155,7 @@ Vector.prototype.toSparse = function() {
  * Converts this vector to a dense vector.
  * @returns {DenseVector}
  */
-Vector.prototype.toDense = function() {
+Vector.prototype.toDense = function () {
     throw "not implemented by ElairJS";
 //   var javaObject =  this.getJavaObject().toDense();
 //   return new DenseVector(javaObject);
@@ -175,7 +166,7 @@ Vector.prototype.toDense = function() {
  * Returns a vector in either dense or sparse format, whichever uses less storage.
  * @returns {Vector}
  */
-Vector.prototype.compressed = function() {
+Vector.prototype.compressed = function () {
     throw "not implemented by ElairJS";
 //   var javaObject =  this.getJavaObject().compressed();
 //   return Utils.javaToJs(javaObject);
@@ -187,7 +178,7 @@ Vector.prototype.compressed = function() {
  * Returns -1 if vector has length 0.
  * @returns {number}
  */
-Vector.prototype.argmax = function() {
+Vector.prototype.argmax = function () {
     throw "not implemented by ElairJS";
 //   return  this.getJavaObject().argmax();
 };
@@ -197,9 +188,8 @@ Vector.prototype.argmax = function() {
  * Converts the vector to a JSON string.
  * @returns {string}
  */
-Vector.prototype.toJson = function() {
-    throw "not implemented by ElairJS";
-//   return  this.getJavaObject().toJson();
+Vector.prototype.toJSON = function () {
+   return  this.getJavaObject().toJson();
 };
 
 
@@ -215,7 +205,7 @@ Vector.prototype.toJson = function() {
  * @returns {??}
  *  @class
  */
-var VectorUDT = function(jvmObject) {
+var VectorUDT = function (jvmObject) {
 
     this.logger = Logger.getLogger("VectorUDT_js");
     JavaWrapper.call(this, jvmObject);
@@ -227,11 +217,10 @@ VectorUDT.prototype = Object.create(JavaWrapper.prototype);
 VectorUDT.prototype.constructor = VectorUDT;
 
 
-
 /**
  * @returns {StructType}
  */
-VectorUDT.prototype.sqlType = function() {
+VectorUDT.prototype.sqlType = function () {
     throw "not implemented by ElairJS";
 //   var javaObject =  this.getJavaObject().sqlType();
 //   return new StructType(javaObject);
@@ -242,7 +231,7 @@ VectorUDT.prototype.sqlType = function() {
  * @param {object} obj
  * @returns {InternalRow}
  */
-VectorUDT.prototype.serialize = function(obj) {
+VectorUDT.prototype.serialize = function (obj) {
     throw "not implemented by ElairJS";
 //   var obj_uw = Utils.unwrapObject(obj);
 //   return  this.getJavaObject().serialize(obj_uw);
@@ -253,7 +242,7 @@ VectorUDT.prototype.serialize = function(obj) {
  * @param {object} datum
  * @returns {Vector}
  */
-VectorUDT.prototype.deserialize = function(datum) {
+VectorUDT.prototype.deserialize = function (datum) {
     throw "not implemented by ElairJS";
 //   var datum_uw = Utils.unwrapObject(datum);
 //   var javaObject =  this.getJavaObject().deserialize(datum_uw);
@@ -264,7 +253,7 @@ VectorUDT.prototype.deserialize = function(datum) {
 /**
  * @returns {string}
  */
-VectorUDT.prototype.pyUDT = function() {
+VectorUDT.prototype.pyUDT = function () {
     throw "not implemented by ElairJS";
 //   return  this.getJavaObject().pyUDT();
 };
@@ -273,7 +262,7 @@ VectorUDT.prototype.pyUDT = function() {
 /**
  * @returns {Class}
  */
-VectorUDT.prototype.userClass = function() {
+VectorUDT.prototype.userClass = function () {
     throw "not implemented by ElairJS";
 //   var javaObject =  this.getJavaObject().userClass();
 //   return new Class(javaObject);
@@ -284,7 +273,7 @@ VectorUDT.prototype.userClass = function() {
  * @param {object} o
  * @returns {boolean}
  */
-VectorUDT.prototype.equals = function(o) {
+VectorUDT.prototype.equals = function (o) {
     throw "not implemented by ElairJS";
 //   var o_uw = Utils.unwrapObject(o);
 //   return  this.getJavaObject().equals(o_uw);
@@ -294,7 +283,7 @@ VectorUDT.prototype.equals = function(o) {
 /**
  * @returns {number}
  */
-VectorUDT.prototype.hashCode = function() {
+VectorUDT.prototype.hashCode = function () {
     throw "not implemented by ElairJS";
 //   return  this.getJavaObject().hashCode();
 };
@@ -303,7 +292,7 @@ VectorUDT.prototype.hashCode = function() {
 /**
  * @returns {string}
  */
-VectorUDT.prototype.typeName = function() {
+VectorUDT.prototype.typeName = function () {
     throw "not implemented by ElairJS";
 //   return  this.getJavaObject().typeName();
 };
@@ -319,7 +308,7 @@ VectorUDT.prototype.typeName = function() {
  * @returns {??}
  *  @class
  */
-var DenseVector = function(arg) {
+var DenseVector = function (arg) {
     this.logger = Logger.getLogger("DenseVector_js");
     var jvmObj;
     if (Array.isArray(arg)) {
@@ -336,11 +325,10 @@ DenseVector.prototype = Object.create(Vector.prototype);
 DenseVector.prototype.constructor = DenseVector;
 
 
-
 /**
  * @returns {number}
  */
-DenseVector.prototype.size = function() {
+DenseVector.prototype.size = function () {
     throw "not implemented by ElairJS";
 //   return  this.getJavaObject().size();
 };
@@ -349,17 +337,17 @@ DenseVector.prototype.size = function() {
 /**
  * @returns {string}
  */
-DenseVector.prototype.toString = function() {
-     return  this.getJavaObject().toString();
+DenseVector.prototype.toString = function () {
+    return this.getJavaObject().toString();
 };
 
 
 /**
  * @returns {float[]}
  */
-DenseVector.prototype.toArray = function() {
+DenseVector.prototype.toArray = function () {
 
-    return  this.getJavaObject().toArray();
+    return this.getJavaObject().toArray();
 };
 
 
@@ -367,7 +355,7 @@ DenseVector.prototype.toArray = function() {
  * @param {number} i
  * @returns {number}
  */
-DenseVector.prototype.apply = function(i) {
+DenseVector.prototype.apply = function (i) {
     throw "not implemented by ElairJS";
 //   return  this.getJavaObject().apply(i);
 };
@@ -376,7 +364,7 @@ DenseVector.prototype.apply = function(i) {
 /**
  * @returns {DenseVector}
  */
-DenseVector.prototype.copy = function() {
+DenseVector.prototype.copy = function () {
     throw "not implemented by ElairJS";
 //   var javaObject =  this.getJavaObject().copy();
 //   return new DenseVector(javaObject);
@@ -386,7 +374,7 @@ DenseVector.prototype.copy = function() {
 /**
  * @param {func} f
  */
-DenseVector.prototype.foreachActive = function(f) {
+DenseVector.prototype.foreachActive = function (f) {
     throw "not implemented by ElairJS";
 //   var sv = Utils.createJavaParams(f);
 //   var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
@@ -397,7 +385,7 @@ DenseVector.prototype.foreachActive = function(f) {
 /**
  * @returns {number}
  */
-DenseVector.prototype.hashCode = function() {
+DenseVector.prototype.hashCode = function () {
     throw "not implemented by ElairJS";
 //   return  this.getJavaObject().hashCode();
 };
@@ -406,7 +394,7 @@ DenseVector.prototype.hashCode = function() {
 /**
  * @returns {number}
  */
-DenseVector.prototype.numActives = function() {
+DenseVector.prototype.numActives = function () {
     throw "not implemented by ElairJS";
 //   return  this.getJavaObject().numActives();
 };
@@ -415,7 +403,7 @@ DenseVector.prototype.numActives = function() {
 /**
  * @returns {number}
  */
-DenseVector.prototype.numNonzeros = function() {
+DenseVector.prototype.numNonzeros = function () {
     throw "not implemented by ElairJS";
 //   return  this.getJavaObject().numNonzeros();
 };
@@ -424,7 +412,7 @@ DenseVector.prototype.numNonzeros = function() {
 /**
  * @returns {SparseVector}
  */
-DenseVector.prototype.toSparse = function() {
+DenseVector.prototype.toSparse = function () {
     throw "not implemented by ElairJS";
 //   var javaObject =  this.getJavaObject().toSparse();
 //   return new SparseVector(javaObject);
@@ -434,7 +422,7 @@ DenseVector.prototype.toSparse = function() {
 /**
  * @returns {number}
  */
-DenseVector.prototype.argmax = function() {
+DenseVector.prototype.argmax = function () {
     throw "not implemented by ElairJS";
 //   return  this.getJavaObject().argmax();
 };
@@ -443,7 +431,7 @@ DenseVector.prototype.argmax = function() {
 /**
  * @returns {string}
  */
-DenseVector.prototype.toJson = function() {
+DenseVector.prototype.toJson = function () {
     throw "not implemented by ElairJS";
 //   return  this.getJavaObject().toJson();
 };
@@ -465,8 +453,8 @@ DenseVector.prototype.toJson = function() {
  * @returns {??}
  *  @class
  */
-var SparseVector = function(size,indices,values) {
-    var jvmObject = new org.apache.spark.mllib.linalg.SparseVector(size,indices,values);
+var SparseVector = function (size, indices, values) {
+    var jvmObject = new org.apache.spark.mllib.linalg.SparseVector(size, indices, values);
     this.logger = Logger.getLogger("SparseVector_js");
     Vector.call(this, jvmObject);
 
@@ -477,11 +465,10 @@ SparseVector.prototype = Object.create(Vector.prototype);
 SparseVector.prototype.constructor = SparseVector;
 
 
-
 /**
  * @returns {string}
  */
-SparseVector.prototype.toString = function() {
+SparseVector.prototype.toString = function () {
     throw "not implemented by ElairJS";
 //   return  this.getJavaObject().toString();
 };
@@ -490,7 +477,7 @@ SparseVector.prototype.toString = function() {
 /**
  * @returns {number[]}
  */
-SparseVector.prototype.toArray = function() {
+SparseVector.prototype.toArray = function () {
     throw "not implemented by ElairJS";
 //   return  this.getJavaObject().toArray();
 };
@@ -499,7 +486,7 @@ SparseVector.prototype.toArray = function() {
 /**
  * @returns {SparseVector}
  */
-SparseVector.prototype.copy = function() {
+SparseVector.prototype.copy = function () {
     throw "not implemented by ElairJS";
 //   var javaObject =  this.getJavaObject().copy();
 //   return new SparseVector(javaObject);
@@ -509,7 +496,7 @@ SparseVector.prototype.copy = function() {
 /**
  * @param {func} f
  */
-SparseVector.prototype.foreachActive = function(f) {
+SparseVector.prototype.foreachActive = function (f) {
     throw "not implemented by ElairJS";
 //   var sv = Utils.createJavaParams(f);
 //   var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
@@ -520,7 +507,7 @@ SparseVector.prototype.foreachActive = function(f) {
 /**
  * @returns {number}
  */
-SparseVector.prototype.hashCode = function() {
+SparseVector.prototype.hashCode = function () {
     throw "not implemented by ElairJS";
 //   return  this.getJavaObject().hashCode();
 };
@@ -529,7 +516,7 @@ SparseVector.prototype.hashCode = function() {
 /**
  * @returns {number}
  */
-SparseVector.prototype.numActives = function() {
+SparseVector.prototype.numActives = function () {
     throw "not implemented by ElairJS";
 //   return  this.getJavaObject().numActives();
 };
@@ -538,7 +525,7 @@ SparseVector.prototype.numActives = function() {
 /**
  * @returns {number}
  */
-SparseVector.prototype.numNonzeros = function() {
+SparseVector.prototype.numNonzeros = function () {
     throw "not implemented by ElairJS";
 //   return  this.getJavaObject().numNonzeros();
 };
@@ -547,7 +534,7 @@ SparseVector.prototype.numNonzeros = function() {
 /**
  * @returns {SparseVector}
  */
-SparseVector.prototype.toSparse = function() {
+SparseVector.prototype.toSparse = function () {
     throw "not implemented by ElairJS";
 //   var javaObject =  this.getJavaObject().toSparse();
 //   return new SparseVector(javaObject);
@@ -557,7 +544,7 @@ SparseVector.prototype.toSparse = function() {
 /**
  * @returns {number}
  */
-SparseVector.prototype.argmax = function() {
+SparseVector.prototype.argmax = function () {
     throw "not implemented by ElairJS";
 //   return  this.getJavaObject().argmax();
 };
@@ -566,7 +553,7 @@ SparseVector.prototype.argmax = function() {
 /**
  * @returns {string}
  */
-SparseVector.prototype.toJson = function() {
+SparseVector.prototype.toJson = function () {
     throw "not implemented by ElairJS";
 //   return  this.getJavaObject().toJson();
 };
@@ -576,7 +563,7 @@ SparseVector.prototype.toJson = function() {
  *
  * @constructor
  */
-var Vectors = function() {
+var Vectors = function () {
     //var jvmObject = new org.apache.spark.mllib.linalg.SparseVector(size,indices,values);
     this.logger = Logger.getLogger("Vectors_js");
     //Vector.call(this, jvmObject);
@@ -593,7 +580,7 @@ var Vectors = function() {
  * @param {...number} otherValues
  * @returns {Vector}
  */
-Vectors.densewithOtherValues = function(firstValue,otherValues) {
+Vectors.densewithOtherValues = function (firstValue, otherValues) {
     throw "not implemented by ElairJS";
 // // TODO: handle repeated parm 'otherValues'
 //   var javaObject =  org.apache.spark.mllib.linalg.Vectors.dense(firstValue,otherValues);
@@ -606,8 +593,8 @@ Vectors.densewithOtherValues = function(firstValue,otherValues) {
  * @param {float[]} values
  * @returns {Vector}
  */
-Vectors.dense = function(values) {
-    var javaObject =  org.apache.spark.mllib.linalg.Vectors.dense(values);
+Vectors.dense = function (values) {
+    var javaObject = org.apache.spark.mllib.linalg.Vectors.dense(values);
     return Utils.javaToJs(javaObject);
 };
 
@@ -620,7 +607,7 @@ Vectors.dense = function(values) {
  * @param {number[]} values  value array, must have the same length as indices.
  * @returns {Vector}
  */
-Vectors.sparse0 = function(size,indices,values) {
+Vectors.sparse0 = function (size, indices, values) {
     throw "not implemented by ElairJS";
 //   var javaObject =  org.apache.spark.mllib.linalg.Vectors.sparse(size,indices,values);
 //   return Utils.javaToJs(javaObject);
@@ -634,7 +621,7 @@ Vectors.sparse0 = function(size,indices,values) {
  * @param {Tuple2[]} elements  vector elements in (index, value) pairs.
  * @returns {Vector}
  */
-Vectors.sparse1 = function(size,elements) {
+Vectors.sparse1 = function (size, elements) {
     throw "not implemented by ElairJS";
 // // TODO: handle Tuple conversion for 'elements'
 //   var elements_uw = Utils.unwrapObject(elements);
@@ -650,7 +637,7 @@ Vectors.sparse1 = function(size,elements) {
  * @param {JavaIterable} elements  vector elements in (index, value) pairs.
  * @returns {Vector}
  */
-Vectors.sparse2 = function(size,elements) {
+Vectors.sparse2 = function (size, elements) {
     throw "not implemented by ElairJS";
 // // TODO: handle Tuple conversion for 'elements'
 //   var elements_uw = Utils.unwrapObject(elements);
@@ -665,7 +652,7 @@ Vectors.sparse2 = function(size,elements) {
  * @param {number} size  vector size
  * @returns {Vector}  a zero vector
  */
-Vectors.zeros = function(size) {
+Vectors.zeros = function (size) {
     throw "not implemented by ElairJS";
 //   var javaObject =  org.apache.spark.mllib.linalg.Vectors.zeros(size);
 //   return Utils.javaToJs(javaObject);
@@ -677,7 +664,7 @@ Vectors.zeros = function(size) {
  * @param {string} s
  * @returns {Vector}
  */
-Vectors.parse = function(s) {
+Vectors.parse = function (s) {
     throw "not implemented by ElairJS";
 //   var javaObject =  org.apache.spark.mllib.linalg.Vectors.parse(s);
 //   return Utils.javaToJs(javaObject);
@@ -689,7 +676,7 @@ Vectors.parse = function(s) {
  * @param {string} json
  * @returns {Vector}
  */
-Vectors.fromJson = function(json) {
+Vectors.fromJson = function (json) {
     throw "not implemented by ElairJS";
 //   var javaObject =  org.apache.spark.mllib.linalg.Vectors.fromJson(json);
 //   return Utils.javaToJs(javaObject);
@@ -702,7 +689,7 @@ Vectors.fromJson = function(json) {
  * @param {number} p  norm.
  * @returns {number}  norm in L^p^ space.
  */
-Vectors.norm = function(vector,p) {
+Vectors.norm = function (vector, p) {
     throw "not implemented by ElairJS";
 //   var vector_uw = Utils.unwrapObject(vector);
 //   return  org.apache.spark.mllib.linalg.Vectors.norm(vector_uw,p);
@@ -715,7 +702,7 @@ Vectors.norm = function(vector,p) {
  * @param {Vector} v2  second Vector.
  * @returns {number}  squared distance between two Vectors.
  */
-Vectors.sqdist = function(v1,v2) {
+Vectors.sqdist = function (v1, v2) {
     throw "not implemented by ElairJS";
 //   var v1_uw = Utils.unwrapObject(v1);
 //   var v2_uw = Utils.unwrapObject(v2);
@@ -727,7 +714,7 @@ Vectors.sqdist = function(v1,v2) {
  * @param {DenseVector} dv
  * @returns {Array}
  */
-DenseVector.unapply = function(dv) {
+DenseVector.unapply = function (dv) {
     throw "not implemented by ElairJS";
 //   var dv_uw = Utils.unwrapObject(dv);
 //   return  org.apache.spark.mllib.linalg.DenseVector.unapply(dv_uw);
@@ -738,7 +725,7 @@ DenseVector.unapply = function(dv) {
  * @param {SparseVector} sv
  * @returns {Tuple3}
  */
-SparseVector.unapply = function(sv) {
+SparseVector.unapply = function (sv) {
     throw "not implemented by ElairJS";
 //   var sv_uw = Utils.unwrapObject(sv);
 //   var javaObject =  org.apache.spark.mllib.linalg.SparseVector.unapply(sv_uw);
