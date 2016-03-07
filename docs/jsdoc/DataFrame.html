@@ -2305,7 +2305,7 @@ returns {Row}
         
             
 <dt>
-    <h4 class="name" id="flatMap"><span class="type-signature"></span>flatMap<span class="signature">(func)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    <h4 class="name" id="flatMap"><span class="type-signature"></span>flatMap<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
     
     
 </dt>
@@ -2367,6 +2367,29 @@ returns {Row}
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
     
@@ -2394,7 +2417,7 @@ returns {Row}
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line265">line 265</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line266">line 266</a>
     </li></ul></dd>
     
     
@@ -2440,7 +2463,7 @@ returns {Row}
         
             
 <dt>
-    <h4 class="name" id="foreach"><span class="type-signature"></span>foreach<span class="signature">(Function)</span><span class="type-signature"> &rarr; {void}</span></h4>
+    <h4 class="name" id="foreach"><span class="type-signature"></span>foreach<span class="signature">(Function, bindArgs)</span><span class="type-signature"> &rarr; {void}</span></h4>
     
     
 </dt>
@@ -2502,6 +2525,29 @@ returns {Row}
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
     
@@ -2529,7 +2575,7 @@ returns {Row}
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line279">line 279</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line281">line 281</a>
     </li></ul></dd>
     
     
@@ -2584,7 +2630,7 @@ returns {Row}
         
             
 <dt>
-    <h4 class="name" id="foreachPartition"><span class="type-signature"></span>foreachPartition<span class="signature">(Function)</span><span class="type-signature"> &rarr; {void}</span></h4>
+    <h4 class="name" id="foreachPartition"><span class="type-signature"></span>foreachPartition<span class="signature">(Function, bindArgs)</span><span class="type-signature"> &rarr; {void}</span></h4>
     
     
 </dt>
@@ -2646,6 +2692,29 @@ returns {Row}
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
     
@@ -2673,7 +2742,7 @@ returns {Row}
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line296">line 296</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line299">line 299</a>
     </li></ul></dd>
     
     
@@ -2818,7 +2887,7 @@ returns {Row}
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line306">line 306</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line309">line 309</a>
     </li></ul></dd>
     
     
@@ -2905,7 +2974,7 @@ returns {Row}
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line348">line 348</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line351">line 351</a>
     </li></ul></dd>
     
     
@@ -2994,7 +3063,7 @@ this may not find all input files. Duplicates are removed.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line357">line 357</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line360">line 360</a>
     </li></ul></dd>
     
     
@@ -3133,7 +3202,7 @@ this may not find all input files. Duplicates are removed.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line370">line 370</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line373">line 373</a>
     </li></ul></dd>
     
     
@@ -3220,7 +3289,7 @@ this may not find all input files. Duplicates are removed.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line377">line 377</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line380">line 380</a>
     </li></ul></dd>
     
     
@@ -3409,7 +3478,7 @@ If Column object, joinExprs inner join with another DataFrame, using the given j
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line399">line 399</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line402">line 402</a>
     </li></ul></dd>
     
     
@@ -3558,7 +3627,7 @@ returns an array while limit returns a new DataFrame.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line424">line 424</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line427">line 427</a>
     </li></ul></dd>
     
     
@@ -3604,7 +3673,7 @@ returns an array while limit returns a new DataFrame.
         
             
 <dt>
-    <h4 class="name" id="map"><span class="type-signature"></span>map<span class="signature">(func)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    <h4 class="name" id="map"><span class="type-signature"></span>map<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
     
     
 </dt>
@@ -3666,6 +3735,29 @@ returns an array while limit returns a new DataFrame.
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
     
@@ -3693,7 +3785,7 @@ returns an array while limit returns a new DataFrame.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line433">line 433</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line437">line 437</a>
     </li></ul></dd>
     
     
@@ -3739,7 +3831,7 @@ returns an array while limit returns a new DataFrame.
         
             
 <dt>
-    <h4 class="name" id="mapPartitions"><span class="type-signature"></span>mapPartitions<span class="signature">(func)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    <h4 class="name" id="mapPartitions"><span class="type-signature"></span>mapPartitions<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
     
     
 </dt>
@@ -3803,6 +3895,29 @@ func should return a array rather than a single item.
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
     
@@ -3830,7 +3945,7 @@ func should return a array rather than a single item.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line443">line 443</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line448">line 448</a>
     </li></ul></dd>
     
     
@@ -3917,7 +4032,7 @@ func should return a array rather than a single item.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line451">line 451</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line456">line 456</a>
     </li></ul></dd>
     
     
@@ -4056,7 +4171,7 @@ This is an alias of the sort function.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line460">line 460</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line465">line 465</a>
     </li></ul></dd>
     
     
@@ -4187,7 +4302,7 @@ This is an alias of the sort function.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line467">line 467</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line472">line 472</a>
     </li></ul></dd>
     
     
@@ -4274,7 +4389,7 @@ This is an alias of the sort function.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line474">line 474</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line479">line 479</a>
     </li></ul></dd>
     
     
@@ -4339,7 +4454,7 @@ This is an alias of the sort function.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line480">line 480</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line485">line 485</a>
     </li></ul></dd>
     
     
@@ -4497,7 +4612,7 @@ This is an alias of the sort function.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line489">line 489</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line494">line 494</a>
     </li></ul></dd>
     
     
@@ -4584,7 +4699,7 @@ This is an alias of the sort function.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line501">line 501</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line506">line 506</a>
     </li></ul></dd>
     
     
@@ -4719,7 +4834,7 @@ This is an alias of the sort function.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line508">line 508</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line513">line 513</a>
     </li></ul></dd>
     
     
@@ -4836,7 +4951,7 @@ This is an alias of the sort function.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line516">line 516</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line521">line 521</a>
     </li></ul></dd>
     
     
@@ -4975,7 +5090,7 @@ so we can run aggregation on them. See GroupedData for all the available aggrega
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line530">line 530</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line535">line 535</a>
     </li></ul></dd>
     
     
@@ -5164,7 +5279,7 @@ so we can run aggregation on them. See GroupedData for all the available aggrega
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line550">line 550</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line555">line 555</a>
     </li></ul></dd>
     
     
@@ -5251,7 +5366,7 @@ so we can run aggregation on them. See GroupedData for all the available aggrega
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line557">line 557</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line562">line 562</a>
     </li></ul></dd>
     
     
@@ -5385,7 +5500,7 @@ so we can run aggregation on them. See GroupedData for all the available aggrega
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line565">line 565</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line570">line 570</a>
     </li></ul></dd>
     
     
@@ -5520,7 +5635,7 @@ so we can run aggregation on them. See GroupedData for all the available aggrega
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line580">line 580</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line585">line 585</a>
     </li></ul></dd>
     
     
@@ -5679,7 +5794,7 @@ truncated and all cells will be aligned right</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line619">line 619</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line624">line 624</a>
     </li></ul></dd>
     
     
@@ -5799,7 +5914,7 @@ truncated and all cells will be aligned right</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line635">line 635</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line640">line 640</a>
     </li></ul></dd>
     
     
@@ -5895,7 +6010,7 @@ truncated and all cells will be aligned right</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line652">line 652</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line657">line 657</a>
     </li></ul></dd>
     
     
@@ -5982,7 +6097,7 @@ truncated and all cells will be aligned right</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line662">line 662</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line667">line 667</a>
     </li></ul></dd>
     
     
@@ -6122,7 +6237,7 @@ truncated and all cells will be aligned right</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line670">line 670</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line675">line 675</a>
     </li></ul></dd>
     
     
@@ -6258,7 +6373,7 @@ RDD of tuples into a DataFrame with meaningful names. For example:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line686">line 686</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line691">line 691</a>
     </li></ul></dd>
     
     
@@ -6351,7 +6466,7 @@ var result = nameAgeDF.toDF("newName", "newAge");</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line694">line 694</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line699">line 699</a>
     </li></ul></dd>
     
     
@@ -6438,7 +6553,7 @@ var result = nameAgeDF.toDF("newName", "newAge");</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line701">line 701</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line706">line 706</a>
     </li></ul></dd>
     
     
@@ -6573,7 +6688,7 @@ var result = nameAgeDF.toDF("newName", "newAge");</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line709">line 709</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line714">line 714</a>
     </li></ul></dd>
     
     
@@ -6704,7 +6819,7 @@ var result = nameAgeDF.toDF("newName", "newAge");</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line715">line 715</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line720">line 720</a>
     </li></ul></dd>
     
     
@@ -6824,7 +6939,7 @@ var result = nameAgeDF.toDF("newName", "newAge");</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line723">line 723</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line728">line 728</a>
     </li></ul></dd>
     
     
@@ -6982,7 +7097,7 @@ var result = nameAgeDF.toDF("newName", "newAge");</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line735">line 735</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line740">line 740</a>
     </li></ul></dd>
     
     
@@ -7146,7 +7261,7 @@ var result = nameAgeDF.toDF("newName", "newAge");</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line744">line 744</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line749">line 749</a>
     </li></ul></dd>
     
     
@@ -7233,7 +7348,7 @@ var result = nameAgeDF.toDF("newName", "newAge");</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line751">line 751</a>
+        <a href="DataFrame.js.html">sql/DataFrame.js</a>, <a href="DataFrame.js.html#line756">line 756</a>
     </li></ul></dd>
     
     
@@ -7292,13 +7407,13 @@ var result = nameAgeDF.toDF("newName", "newAge");</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ALS.html">ALS</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="AssociationRules.html">AssociationRules</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BisectingKMeans.html">BisectingKMeans</a></li><li><a href="BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="BoostingStrategy.html">BoostingStrategy</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DecisionTree.html">DecisionTree</a></li><li><a href="DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="FPGrowth.html">FPGrowth</a></li><li><a href="FPGrowthModel.html">FPGrowthModel</a></li><li><a href="FreqItemset.html">FreqItemset</a></li><li><a href="functions.html">functions</a></li><li><a href="FutureAction.html">FutureAction</a></li><li><a href="GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="List.html">List</a></li><li><a href="Loss.html">Loss</a></li><li><a href="MapType.html">MapType</a></li><li><a href="MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="MLWord2Vec.html">MLWord2Vec</a></li><li><a href="MLWord2VecModel.html">MLWord2VecModel</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RandomForestModel.html">RandomForestModel</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="Rating.html">Rating</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="Rule.html">Rule</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SparseVector.html">SparseVector</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="Strategy.html">Strategy</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li><li><a href="Vector.html">Vector</a></li><li><a href="Vectors.html">Vectors</a></li><li><a href="VectorUDT.html">VectorUDT</a></li><li><a href="Word2Vec.html">Word2Vec</a></li><li><a href="Word2VecModel.html">Word2VecModel</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ALS.html">ALS</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="AssociationRules.html">AssociationRules</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BisectingKMeans.html">BisectingKMeans</a></li><li><a href="BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="BoostingStrategy.html">BoostingStrategy</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DecisionTree.html">DecisionTree</a></li><li><a href="DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatRDD.html">FloatRDD</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="FPGrowth.html">FPGrowth</a></li><li><a href="FPGrowthModel.html">FPGrowthModel</a></li><li><a href="FreqItemset.html">FreqItemset</a></li><li><a href="functions.html">functions</a></li><li><a href="FutureAction.html">FutureAction</a></li><li><a href="GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="IsotonicRegression.html">IsotonicRegression</a></li><li><a href="IsotonicRegressionModel.html">IsotonicRegressionModel</a></li><li><a href="KMeans.html">KMeans</a></li><li><a href="KMeansModel.html">KMeansModel</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="List.html">List</a></li><li><a href="Loss.html">Loss</a></li><li><a href="MapType.html">MapType</a></li><li><a href="MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="MLWord2Vec.html">MLWord2Vec</a></li><li><a href="MLWord2VecModel.html">MLWord2VecModel</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PairRDD.html">PairRDD</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RandomForestModel.html">RandomForestModel</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="Rating.html">Rating</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="Rule.html">Rule</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SparseVector.html">SparseVector</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="Strategy.html">Strategy</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li><li><a href="Tuple.html">Tuple</a></li><li><a href="Vector.html">Vector</a></li><li><a href="Vectors.html">Vectors</a></li><li><a href="VectorUDT.html">VectorUDT</a></li><li><a href="Word2Vec.html">Word2Vec</a></li><li><a href="Word2VecModel.html">Word2VecModel</a></li></ul><h3>Global</h3><ul><li><a href="global.html#RankingMetrics">RankingMetrics</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Mon Feb 22 2016 15:50:35 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Fri Mar 04 2016 17:25:46 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>

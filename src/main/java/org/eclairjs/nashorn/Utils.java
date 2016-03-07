@@ -59,7 +59,7 @@ public class Utils {
     }
     */
     @SuppressWarnings({ "rawtypes", "unchecked" })
-	public static Object javaToJs(Object o, ScriptEngine engine) {
+	/*public static Object javaToJs(Object o, ScriptEngine engine) {
     	Logger logger = Logger.getLogger(Utils.class);
     	String packageName = null;
  		if(o != null) {
@@ -69,11 +69,11 @@ public class Utils {
 	    		packageName = pack.getName();
 	    	}
 		}
- 		/*
+ 		*//*
  		 * Any object that belongs to Spark we will wrapper it with a JavaScript object
  		 * If we don't have a JavaScript wrapper for it then we will catch the
  		 * exception and just use the wrapObject method.
- 		 */
+ 		 *//*
 		if ((packageName != null) && (packageName.indexOf("org.apache.spark") > -1)) {
 			logger.debug("spark object");
 			String className = o.getClass().getSimpleName();
@@ -85,25 +85,25 @@ public class Utils {
  	  				className = o.getClass().getSuperclass().getSimpleName();
  	  			}
  	  			if ( className.equals("JavaRDD")) {
- 	  				/*
+ 	  				*//*
  	  				 * Map JavaRDD to RDD for JavaScript
- 	  				 */
+ 	  				 *//*
  	  				className = "RDD"; //o.getClass().getSimpleName();
  	  			} else if ( className.equals("JavaDoubleRDD")) {
- 	  				/*
+ 	  				*//*
  	  				 * Map JavaDoubleRDD to FloatRDD for JavaScript
- 	  				 */
+ 	  				 *//*
                     className = "FloatRDD"; //o.getClass().getSimpleName();
                 } else if ( className.equals("JavaPairRDD")) {
- 	  				/*
+ 	  				*//*
  	  				 * Map JavaPairRDD to PairRDD for JavaScript
- 	  				 */
+ 	  				 *//*
                     className = "PairRDD"; //o.getClass().getSimpleName();
                 } else if (className.equals("Word2Vec") || className.equals("Word2VecModel")) {
 					if (packageName.indexOf("org.apache.spark.ml") > -1) {
-						/*
+						*//*
 							ML
-						 */
+						 *//*
 						className = "ML" + o.getClass().getSimpleName();
 					}
 
@@ -185,9 +185,9 @@ public class Utils {
         }
 
 
-    }
+    }*/
 
-    public static Object jsToJava(Object o) {
+   /* public static Object jsToJava(Object o) {
     	Logger logger = Logger.getLogger(Utils.class);
 		if(o != null) {
 			logger.debug("jsToJava" + o.getClass().getName());
@@ -238,13 +238,13 @@ public class Utils {
         }
 
         return o;
-    }
+    }*/
 
-    public static String getUniqeFunctionName() {
+   /* public static String getUniqeFunctionName() {
         return "EXPORTEDFUNCTION" + java.util.UUID.randomUUID().toString().replace("-", "_");
-    }
+    }*/
 
-    public static ScriptEngine addScopeVarsToEngine(HashMap scopeVars, ScriptEngine engine) {
+    /*public static ScriptEngine addScopeVarsToEngine(HashMap scopeVars, ScriptEngine engine) {
 
     	Logger logger = Logger.getLogger(Utils.class);
     	logger.debug("addScopeVarsToEngine");
@@ -257,9 +257,9 @@ public class Utils {
             }
     	}
     	return engine;
-    }
+    }*/
 
-    private static Object wrapObject(Object o) {
+    /*private static Object wrapObject(Object o) {
     	Logger logger = Logger.getLogger(Utils.class);
         if(o instanceof String ||
            o instanceof Number) {
@@ -267,7 +267,7 @@ public class Utils {
         }
         logger.debug("wrapAsJSONCompatible " + o);
         return ScriptObjectMirror.wrapAsJSONCompatible(o,null);
-    }
+    }*/
 
     public static String jarLoc() {
     	Logger logger = Logger.getLogger(Utils.class);

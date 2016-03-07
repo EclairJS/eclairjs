@@ -359,21 +359,21 @@ SparkContext.prototype.parallelize = function (list, numSlices) {
 
 
 /**
- * Distribute a local Scala collection to form an RDD.
- * @param {array} list
+ * Distribute a local collection to form an RDD.
+ * @param {array} list array of Tuple 2
  * @param {integer} numSlices - Optional
- * @returns {RDD}
+ * @returns {PairRDD}
  */
 SparkContext.prototype.parallelizePairs = function (list, numSlices) {
     //public <T> JavaRDD<T> parallelize(java.util.List<T> list, int numSlices)
     var list_uw = [];
     list.forEach(function (item) {
-        list_uw.push(Utils.unwrapTuple(item));
+        list_uw.push(Utils.unwrapObject(item));
     });
     if (numSlices) {
-        return new RDD(this.getJavaObject().parallelizePairs(list_uw, numSlices));
+        return new PairRDD(this.getJavaObject().parallelizePairs(list_uw, numSlices));
     } else {
-        return new RDD(this.getJavaObject().parallelizePairs(list_uw));
+        return new PairRDD(this.getJavaObject().parallelizePairs(list_uw));
     }
 
 };

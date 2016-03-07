@@ -156,8 +156,8 @@ tests({
         var rdd1 = sparkContext.parallelize([1,2,3,4], 2);
         var rdd2 = rdd1.glom();
         var ret = rdd2.collect();
-        var expected = "[1, 2],[3, 4]";
-        assertEquals("failure glom - arrays are not equal", expected, ret.toString());
+        var expected = "[[1,2],[3,4]]";
+        assertEquals("failure glom - arrays are not equal", expected, JSON.stringify(ret));
     },
 
     testGroupBy : function() {
@@ -301,8 +301,8 @@ tests({
             return ret;
         });
         var ret = rdd3.collect();
-        var expected = "[1, 4],[2, 5],[3, 6],[4, 7]"
-        assertEquals("failure zipPartitions - arrays are not equal", expected, ret.toString());
+        var expected = "[[1,4],[2,5],[3,6],[4,7]]"
+        assertEquals("failure zipPartitions - arrays are not equal", expected, JSON.stringify(ret));
 
     },
 

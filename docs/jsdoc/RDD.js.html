@@ -75,7 +75,8 @@ RDD.prototype.aggregate = function(zeroValue,func1,func2, bindArgs1, bindArgs2) 
    var zeroValue_uw = Utils.unwrapObject(zeroValue);
    var fn1 = Utils.createLambdaFunction(func1, org.eclairjs.nashorn.JSFunction2, bindArgs1);
    var fn2 = Utils.createLambdaFunction(func2, org.eclairjs.nashorn.JSFunction2, bindArgs2);
-   return Utils.javaToJs(this.getJavaObject().aggregate(zeroValue_uw, fn1, fn2));
+   var val = this.getJavaObject().aggregate(zeroValue_uw, fn1, fn2);
+   return Utils.javaToJs(val);
 };
 
 /**
@@ -348,14 +349,14 @@ throw "not implemented by ElairJS";
 /**
  *  Return a new RDD by first applying a function to all elements of this
  *  RDD, and then flattening the results.
- * @param {PairFlatMapFunction}
+ * @param {function}
  * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
- * @returns {JavaPairRDD}
+ * @returns {PairRDD}
  */
 RDD.prototype.flatMapToPair = function(func, bindArgs) {
   var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSPairFlatMapFunction, bindArgs);
   var javaObject = this.getJavaObject().flatMapToPair(fn);
-  return new RDD(javaObject);
+  return new PairRDD(javaObject);
 };
 
 /**
@@ -480,26 +481,8 @@ RDD.prototype.groupBy = function(func,numPartitions,partitioner,bindArgs) {
     var partitioner_uw = Utils.unwrapObject(partitioner);
     var result = numPartitions ? this.getJavaObject().groupBy(fn,numPartitions) :
         partitioner_uw ? this.getJavaObject().groupBy(fn,partitioner_uw) : this.getJavaObject().groupBy(fn);
-    return new RDD(result);
+    return new PairRDD(result);
 };
-
-
-/**
- * Group the values for each key in the RDD into a single sequence. Hash-partitions the
- * resulting RDD with the existing partitioner/parallelism level. The ordering of elements
- * within each group is not guaranteed, and may even differ each time the resulting RDD is
- * evaluated.
- *
- * Note: This operation may be very expensive. If you are grouping in order to perform an
- * aggregation (such as a sum or average) over each key, using {@link aggregateByKey}
- * or {@link reduceByKey} will provide much better performance.
- * @returns {RDD}
- */
-RDD.prototype.groupByKey = function() {
-  var javaObject =  this.getJavaObject().groupByKey();
-  return new RDD(javaObject);
-};
-
 
 /**
  * A unique ID for this RDD (within its SparkContext).
@@ -664,11 +647,11 @@ throw "not implemented by ElairJS";
  * Return a new RDD by applying a function to all elements of this RDD.
  * @param (function) func - (undocumented) Function with one parameter that returns tuple
  * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
- * @returns {RDD}
+ * @returns {PairRDD}
  */
 RDD.prototype.mapToPair = function(func, bindArgs) {
   var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSPairFunction, bindArgs);
-	var result = new RDD(this.getJavaObject().mapToPair(fn));
+	var result = new PairRDD(this.getJavaObject().mapToPair(fn));
 	return result;
 };
 
@@ -828,25 +811,12 @@ throw "not implemented by ElairJS";
  * associative binary operator.
  * {function} func - (undocumented) Function with two parameters
  * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
- * @returns {RDD}
+ * @returns {object}
  */
 RDD.prototype.reduce = function(func, bindArgs) {
     var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, bindArgs);
     var javaObject =  this.getJavaObject().reduce(fn);
     return Utils.javaToJs(javaObject);
-};
-
-/**
- * Reduces the elements of this RDD using the specified function.
- * @param {function} func - Function with two parameters
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
- * @returns {RDD}
- * @deprecated Use reduce instead
- */
-RDD.prototype.reduceByKey = function(func, bindArgs) {
-  var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, bindArgs);
-  var result = this.getJavaObject().reduceByKey(fn);
-	return new RDD(result);
 };
 
 /**
@@ -976,10 +946,13 @@ RDD.prototype.subtract = function(other,numPartitions,p) {
  */
 RDD.prototype.take = function(num) {
 	var res = this.getJavaObject().take(num);
+    //print("take: ");
+    //print(res);
+    /*
 	this.logger.debug("take " + res.getClass().getName());
 	var results = [];
-	for (var i = 0; i &lt; res.size(); i++) {
-		var value = res.get(i);
+	for (var i = 0; i &lt; res.length; i++) {
+		var value = res[i];
 		this.logger.debug("take value: " + value.getClass().getName());
 		var o = Utils.javaToJs(value);
 		this.logger.debug("take o:" + o.toString());
@@ -987,6 +960,15 @@ RDD.prototype.take = function(num) {
 	}
 	this.logger.debug("results " + results);
 	return results;
+    */
+	var results = [];
+	for (var i = 0; i &lt; res.size(); i++) {
+		var value = res.get(i);
+		var o = Serialize.javaToJs(value);
+		results.push(o);
+    }
+
+   return results;
 };
 
 /**
@@ -1258,33 +1240,6 @@ RDD.prototype.mapValues = function(func, bindArgs) {
 
 
 /**
- * Return an RDD containing all pairs of elements with matching keys in `this` and `other`. Each
- * pair of elements will be returned as a (k, (v1, v2)) tuple, where (k, v1) is in `this` and
- * (k, v2) is in `other`. Performs a hash join across the cluster.
- * @param {RDD}
- * @param {number} optionanl
- * @returns {RDD}
- */
-RDD.prototype.join = function(other,numPartitions) {
-  var other_uw = Utils.unwrapObject(other);
-  var javaObject =  numPartitions ? this.getJavaObject(other_uw,numPartitions).join() :
-        this.getJavaObject().join(other_uw);
-  return new RDD(javaObject);
-};
-
-
-
-/**
- * Return an RDD with the values of each tuple.
- * @returns {RDD}
- */
-RDD.prototype.values = function() {
-  var javaObject =  this.getJavaObject().values();
-  return new RDD(javaObject);
-}
-
-
-/**
  * The asynchronous version of `collect`, which returns a future for
  * retrieving an array containing all of the elements in this RDD.
  * @returns {JavaFutureAction}
@@ -1293,7 +1248,13 @@ RDD.prototype.collectAsync = function() {
   var javaObject =  this.getJavaObject().collectAsync();
   return new FutureAction(javaObject);
 }
-</code></pre>
+RDD.prototype.joinx = function (other, numPartitions) {
+    print("rdd join")
+    var other_uw = Utils.unwrapObject(other);
+    var javaObject =  numPartitions ? this.getJavaObject(other_uw,numPartitions).join() :
+        this.getJavaObject().join(other_uw);
+    return new PairRDD(javaObject);
+};</code></pre>
         </article>
     </section>
 
@@ -1303,13 +1264,13 @@ RDD.prototype.collectAsync = function() {
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ALS.html">ALS</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="AssociationRules.html">AssociationRules</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BisectingKMeans.html">BisectingKMeans</a></li><li><a href="BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="BoostingStrategy.html">BoostingStrategy</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DecisionTree.html">DecisionTree</a></li><li><a href="DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="FPGrowth.html">FPGrowth</a></li><li><a href="FPGrowthModel.html">FPGrowthModel</a></li><li><a href="FreqItemset.html">FreqItemset</a></li><li><a href="functions.html">functions</a></li><li><a href="FutureAction.html">FutureAction</a></li><li><a href="GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="List.html">List</a></li><li><a href="Loss.html">Loss</a></li><li><a href="MapType.html">MapType</a></li><li><a href="MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="MLWord2Vec.html">MLWord2Vec</a></li><li><a href="MLWord2VecModel.html">MLWord2VecModel</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RandomForestModel.html">RandomForestModel</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="Rating.html">Rating</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="Rule.html">Rule</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SparseVector.html">SparseVector</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="Strategy.html">Strategy</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li><li><a href="Vector.html">Vector</a></li><li><a href="Vectors.html">Vectors</a></li><li><a href="VectorUDT.html">VectorUDT</a></li><li><a href="Word2Vec.html">Word2Vec</a></li><li><a href="Word2VecModel.html">Word2VecModel</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ALS.html">ALS</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="AssociationRules.html">AssociationRules</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BisectingKMeans.html">BisectingKMeans</a></li><li><a href="BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="BoostingStrategy.html">BoostingStrategy</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DecisionTree.html">DecisionTree</a></li><li><a href="DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatRDD.html">FloatRDD</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="FPGrowth.html">FPGrowth</a></li><li><a href="FPGrowthModel.html">FPGrowthModel</a></li><li><a href="FreqItemset.html">FreqItemset</a></li><li><a href="functions.html">functions</a></li><li><a href="FutureAction.html">FutureAction</a></li><li><a href="GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="IsotonicRegression.html">IsotonicRegression</a></li><li><a href="IsotonicRegressionModel.html">IsotonicRegressionModel</a></li><li><a href="KMeans.html">KMeans</a></li><li><a href="KMeansModel.html">KMeansModel</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="List.html">List</a></li><li><a href="Loss.html">Loss</a></li><li><a href="MapType.html">MapType</a></li><li><a href="MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="MLWord2Vec.html">MLWord2Vec</a></li><li><a href="MLWord2VecModel.html">MLWord2VecModel</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PairRDD.html">PairRDD</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RandomForestModel.html">RandomForestModel</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="Rating.html">Rating</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="Rule.html">Rule</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SparseVector.html">SparseVector</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="Strategy.html">Strategy</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li><li><a href="Tuple.html">Tuple</a></li><li><a href="Vector.html">Vector</a></li><li><a href="Vectors.html">Vectors</a></li><li><a href="VectorUDT.html">VectorUDT</a></li><li><a href="Word2Vec.html">Word2Vec</a></li><li><a href="Word2VecModel.html">Word2VecModel</a></li></ul><h3>Global</h3><ul><li><a href="global.html#RankingMetrics">RankingMetrics</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Mon Feb 22 2016 15:50:35 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Fri Mar 04 2016 17:25:45 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>

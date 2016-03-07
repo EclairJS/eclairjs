@@ -31,7 +31,7 @@ function generateGraph(){
 	while (edges.length < numEdges) {
 		var from = random(numVertices);
 		var to = random(numVertices);
-		var tuple  = [from, to];
+		var tuple  = new Tuple(from, to);
 		if (from != to) {
 			var found=false;
 			for (var t in edges)
@@ -71,7 +71,7 @@ do {
 	// Perform the join, obtaining an RDD of (y, (z, x)) pairs,
 	// then project the result to obtain the new (x, z) paths.
 	tc = tc.union(tc.join(edges).mapToPair(function(triple){
-		return [triple[1][1],triple[1][0]];
+		return new Tuple(triple[1][1],triple[1][0]);
 	})).distinct().cache();
 	nextCount = tc.count();
 

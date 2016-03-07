@@ -196,6 +196,11 @@ Serialize.javaSparkObject = function (javaObj) {
     if (className === "JavaRDD") {
         //Map JavaRDD to RDD for JavaScript
         className = "RDD"; //o.getClass().getSimpleName();
+    } else if ( className.equals("JavaDoubleRDD")) {
+        /*
+         * Map JavaDoubleRDD to FloatRDD for JavaScript
+         */
+        className = "FloatRDD"; //o.getClass().getSimpleName();
     } else if (className == "JavaPairRDD") {
         className = "PairRDD";
     }
@@ -209,7 +214,7 @@ Serialize.javaSparkObject = function (javaObj) {
         }
     }
 
-    //print("we have a className = " + className);
+    Serialize.logger.debug("javaSparkObject we have a className = " + className);
     return eval("new " + className + "(javaObj)");
 };
 
@@ -255,7 +260,8 @@ Serialize.javaToJs = function(javaObj) {
 Serialize.JavaScriptObjectMirrorClass = Java.type('jdk.nashorn.api.scripting.ScriptObjectMirror');
 Serialize.jsToJava = function (obj) {
     if (obj) {
-        Serialize.logger.debug("jsToJava " + obj);
+       // var className = obj.getClass ? obj.getClass().getSimpleName() : obj
+        Serialize.logger.debug("jsToJava " + obj.class);
         //return org.eclairjs.nashorn.Utils.jsToJava(obj);
 
         if (obj.getJavaObject) {

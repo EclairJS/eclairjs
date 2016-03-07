@@ -22,16 +22,23 @@
  */
 var PairRDD = function (rdd, kClassTag, vClassTag) {
     //var jvmObject = new org.apache.spark.api.java.JavaPairRDD(rdd,kClassTag,vClassTag);
-    //this.logger = Logger.getLogger("PairRDD_js");
-    //JavaWrapper.call(this, jvmObject);
+
+    //JavaWrapper.call(this, rdd);
     RDD.call(this, Utils.unwrapObject(rdd));
+    this.className = "PairRDD_js";
+    this.logger = Logger.getLogger("PairRDD_js");
+    this.logger.debug("constructor")
 
 };
+
 
 PairRDD.prototype = Object.create(RDD.prototype);
 
 PairRDD.prototype.constructor = PairRDD;
 
+PairRDD.prototype.testme = function () {
+    print("testme")
+};
 
 /**
  * @param {RDD} rdd
@@ -42,16 +49,6 @@ PairRDD.prototype.wrapRDD = function (rdd) {
 // // TODO: handle Tuple conversion for 'rdd'
 //   var rdd_uw = Utils.unwrapObject(rdd);
 //   var javaObject =  this.getJavaObject().wrapRDD(rdd_uw);
-//   return new PairRDD(javaObject);
-};
-
-
-/**
- * @returns {PairRDD}
- */
-PairRDD.prototype.cache = function () {
-    throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().cache();
 //   return new PairRDD(javaObject);
 };
 
@@ -109,16 +106,23 @@ PairRDD.prototype.distinct = function (numPartitions) {
 
 /**
  * Return a new PairRDD containing only the elements that satisfy a predicate.
- * @param {function} f
+ * @param {function} func
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
  * @returns {PairRDD}
  */
-PairRDD.prototype.filter = function (f) {
-    var sv = Utils.createJavaParams(f);
-    var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
+PairRDD.prototype.filter = function (func, bindArgs) {
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
     var javaObject = this.getJavaObject().filter(fn);
     return new PairRDD(javaObject);
 };
 
+/**
+ * Persist this RDD with the default storage level (`MEMORY_ONLY`).
+ * @returns {RDD}
+ */
+PairRDD.prototype.cache = function () {
+    return new PairRDD(this.getJavaObject().cache());
+};
 
 /**
  * Return a new RDD that is reduced into `numPartitions` partitions.
@@ -238,12 +242,10 @@ PairRDD.prototype.sampleByKeyExact = function (withReplacement, fractions, seed)
  * @returns {PairRDD}
  */
 PairRDD.prototype.union = function (other) {
-    throw "not implemented by ElairJS";
-//   var other_uw = Utils.unwrapObject(other);
-//   var javaObject =  this.getJavaObject().union(other_uw);
-//   return new PairRDD(javaObject);
+    var other_uw = Utils.unwrapObject(other);
+    var javaObject = this.getJavaObject().union(other_uw);
+    return new PairRDD(javaObject);
 };
-
 
 /**
  * Return the intersection of this RDD and another one. The output will not contain any duplicate
@@ -367,17 +369,14 @@ PairRDD.prototype.combineByKey2 = function (createCombiner, mergeValue, mergeCom
  * Merge the values for each key using an associative reduce function. This will also perform
  * the merging locally on each mapper before sending results to a reducer, similarly to a
  * "combiner" in MapReduce.
- * @param {Partitioner} partitioner
  * @param {func} func
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
  * @returns {PairRDD}
  */
-PairRDD.prototype.reduceByKey0 = function (partitioner, func) {
-    throw "not implemented by ElairJS";
-//   var partitioner_uw = Utils.unwrapObject(partitioner);
-//   var sv = Utils.createJavaParams(func);
-//   var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
-//   var javaObject =  this.getJavaObject().reduceByKey(partitioner_uw,fn);
-//   return new PairRDD(javaObject);
+PairRDD.prototype.reduceByKey = function (func, bindArgs) {
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, bindArgs);
+    var result = this.getJavaObject().reduceByKey(fn);
+    return new PairRDD(result);
 };
 
 
@@ -395,7 +394,6 @@ PairRDD.prototype.reduceByKeyLocally = function (func) {
 //   var javaObject =  this.getJavaObject().reduceByKeyLocally(fn);
 //   return new Map(javaObject);
 };
-
 
 /**
  * @returns {Map}
@@ -585,31 +583,19 @@ PairRDD.prototype.reduceByKey1 = function (func, numPartitions) {
  * Note: If you are grouping in order to perform an aggregation (such as a sum or average) over
  * each key, using [[PairRDD.reduceByKey]] or {@link combineByKey}
  * will provide much better performance.
- * @param {Partitioner} partitioner
+ * @param {Partitioner | number} partitioner or number of partitions
  * @returns {PairRDD}
  */
-PairRDD.prototype.groupByKey0 = function (partitioner) {
-    throw "not implemented by ElairJS";
-//   var partitioner_uw = Utils.unwrapObject(partitioner);
-//   var javaObject =  this.getJavaObject().groupByKey(partitioner_uw);
-//   return new PairRDD(javaObject);
-};
+PairRDD.prototype.groupByKey = function (partitioner) {
+    var javaObject;
+    if (partitioner) {
+        var partitioner_uw = Utils.unwrapObject(partitioner);
+        javaObject = this.getJavaObject().groupByKey(partitioner_uw);
+    } else {
+        javaObject = this.getJavaObject().groupByKey();
+    }
 
-
-/**
- * Group the values for each key in the RDD into a single sequence. Hash-partitions the
- * resulting RDD with into `numPartitions` partitions.
- *
- * Note: If you are grouping in order to perform an aggregation (such as a sum or average) over
- * each key, using [[PairRDD.reduceByKey]] or {@link combineByKey}
- * will provide much better performance.
- * @param {number} numPartitions
- * @returns {PairRDD}
- */
-PairRDD.prototype.groupByKey1 = function (numPartitions) {
-    throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().groupByKey(numPartitions);
-//   return new PairRDD(javaObject);
+    return new PairRDD(javaObject);
 };
 
 
@@ -722,12 +708,11 @@ PairRDD.prototype.partitionBy = function (partitioner) {
  * @param {Partitioner} partitioner
  * @returns {PairRDD}
  */
-PairRDD.prototype.join0 = function (other, partitioner) {
-    throw "not implemented by ElairJS";
-//   var other_uw = Utils.unwrapObject(other);
-//   var partitioner_uw = Utils.unwrapObject(partitioner);
-//   var javaObject =  this.getJavaObject().join(other_uw,partitioner_uw);
-//   return new PairRDD(javaObject);
+PairRDD.prototype.join = function (other, numPartitions) {
+    var other_uw = Utils.unwrapObject(other);
+    var javaObject = numPartitions ? this.getJavaObject(other_uw, numPartitions).join() :
+        this.getJavaObject().join(other_uw);
+    return new PairRDD(javaObject);
 };
 
 
@@ -994,13 +979,9 @@ PairRDD.prototype.collectAsMap = function () {
  * @returns {PairRDD}
  */
 PairRDD.prototype.mapValues = function (f, bindArgs) {
-//   var sv = Utils.createJavaParams(f);
-//   var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
-//   var javaObject =  this.getJavaObject().mapValues(fn);
-//   return new PairRDD(javaObject);
     var fn = Utils.createLambdaFunction(f, org.eclairjs.nashorn.JSFunction, bindArgs);
-    var javaObject =  this.getJavaObject().mapValues(fn);
-    return new RDD(javaObject);
+    var javaObject = this.getJavaObject().mapValues(fn);
+    return new PairRDD(javaObject);
 };
 
 
@@ -1460,7 +1441,7 @@ PairRDD.prototype.sortByKey5 = function (comp, ascending, numPartitions) {
 
 /**
  * Return an RDD with the keys of each tuple.
- * @returns {JavaRDD}
+ * @returns {PairRDD}
  */
 PairRDD.prototype.keys = function () {
     throw "not implemented by ElairJS";
@@ -1471,12 +1452,11 @@ PairRDD.prototype.keys = function () {
 
 /**
  * Return an RDD with the values of each tuple.
- * @returns {JavaRDD}
+ * @returns {PairRDD}
  */
 PairRDD.prototype.values = function () {
-    throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().values();
-//   return new JavaRDD(javaObject);
+    var javaObject =  this.getJavaObject().values();
+    return new PairRDD(javaObject);
 };
 
 
@@ -1590,7 +1570,8 @@ PairRDD.toRDD = function (rdd) {
  */
 PairRDD.fromRDD = function (rdd) {
 // // TODO: handle Tuple conversion for 'rdd'
-   var rdd_uw = Utils.unwrapObject(rdd);
-   var javaObject =  org.apache.spark.api.java.JavaPairRDD.fromJavaRDD(rdd_uw);
-   return new PairRDD(javaObject);
+    var rdd_uw = Utils.unwrapObject(rdd);
+    var javaObject = org.apache.spark.api.java.JavaPairRDD.fromJavaRDD(rdd_uw);
+    return new PairRDD(javaObject);
 };
+

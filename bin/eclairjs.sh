@@ -36,12 +36,13 @@ fi
 # 
 # Check for java 1.8
 #
-if type -p java > /dev/null; then
-	#echo found java executable in PATH
-	_java=java
-elif [[ -n "$JAVA_HOME" ]] && [[ -x "$JAVA_HOME/bin/java" ]];  then
+if [[ -n "$JAVA_HOME" ]] && [[ -x "$JAVA_HOME/bin/java" ]];  then
 		#echo found java executable in JAVA_HOME     
 		_java="$JAVA_HOME/bin/java"
+elif type -p java > /dev/null; then
+	#echo found java executable in PATH
+	_java=java
+
 else
 	echo "Java 8 required, please Java 1.8.0_60 or greater."
 	exit 1
@@ -50,9 +51,23 @@ fi
 if [[ "$_java" ]]; then
 	version=$("$_java" -version 2>&1 | awk -F '"' '/version/ {print $2}')
 	#echo version "$version"
+	
 	if [[ "$version" < "1.8.0_60" ]]; then
-	    echo java version greater than 1.8.0_59 is required.
-	    exit 1
+	    vendor=$("$_java" -version 2>&1 | awk -F '"' '/IBM/ {print $0}')
+	    if [[ "$vendor" ]]; then 
+	       build=$(echo $vendor | cut -d' ' -f5 | cut -d',' -f1)
+	       ibmVersion=$(echo $vendor | cut -d' ' -f7)
+	      # echo build "$build"
+	      # echo ibmVersion "$ibmVersion"
+	      # echo vendor "$vendor"
+	       if [[ "$version" < "1.8.0" ]]; then
+	         echo IBM java version 1.8.0 is required.
+	        	 exit 1 
+	       fi       
+		else 
+		   echo java version greater than 1.8.0_59 is required.
+		   exit 1
+	    fi
 	fi
 fi
 
