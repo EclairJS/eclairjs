@@ -61,10 +61,10 @@ var RandomForest = {};
  *                                if numTrees > 1 (forest) set to "onethird".
  * @param impurity Criterion used for information gain calculation.
  *                 Supported values: "variance".
- * @param maxDepth Maximum depth of the tree.
+ * @param {Int} maxDepth Maximum depth of the tree.
  *                 E.g., depth 0 means 1 leaf node; depth 1 means 1 internal node + 2 leaf nodes.
  *                  (suggested value: 4)
- * @param maxBins maximum number of bins used for splitting features
+ * @param {Int} maxBins maximum number of bins used for splitting features
  *                 (suggested value: 100)
  * @param {Number} seed  Random seed for bootstrapping and choosing feature subsets.
  * @return {RandomForestModel} a random forest model that can be used for prediction
@@ -83,6 +83,59 @@ RandomForest.trainRegressor = function(
     var categoricalFeaturesInfo_uw = Utils.createJavaHashMap(categoricalFeaturesInfo);
     var javaObject =  org.apache.spark.mllib.tree.RandomForest.trainRegressor(
         Utils.unwrapObject(input), 
+        categoricalFeaturesInfo_uw, 
+        numTrees, 
+        featureSubsetStrategy, 
+        impurity, 
+        maxDepth, 
+        maxBins, 
+        seed
+    );
+
+    return new RandomForestModel(javaObject);
+};
+
+/**
+ * Method to train a decision tree model for binary or multiclass classification.
+ *
+ * @param {RDD} input Training dataset: RDD of [[org.apache.spark.mllib.regression.LabeledPoint]].
+ *              Labels should take values {0, 1, ..., numClasses-1}.
+ * @param {Int} numClasses number of classes for classification.
+ * @param {Object} categoricalFeaturesInfo Map storing arity of categorical features.
+ *                                E.g., an entry (n -> k) indicates that feature n is categorical
+ *                                with k categories indexed from 0: {0, 1, ..., k-1}.
+ * @param {Int} numTrees Number of trees in the random forest.
+ * @param {String} featureSubsetStrategy Number of features to consider for splits at each node.
+ *                              Supported: "auto", "all", "sqrt", "log2", "onethird".
+ *                              If "auto" is set, this parameter is set based on numTrees:
+ *                                if numTrees == 1, set to "all";
+ *                                if numTrees > 1 (forest) set to "sqrt".
+ * @param {String} impurity Criterion used for information gain calculation.
+ *                 Supported values: "gini" (recommended) or "entropy".
+ * @param {Int} maxDepth Maximum depth of the tree.
+ *                 E.g., depth 0 means 1 leaf node; depth 1 means 1 internal node + 2 leaf nodes.
+ *                  (suggested value: 4)
+ * @param {Int} maxBins maximum number of bins used for splitting features
+ *                 (suggested value: 100)
+ * @param seed  Random seed for bootstrapping and choosing feature subsets.
+ * @return a random forest model  that can be used for prediction
+ */
+RandomForest.trainClassifier = function(
+    input,
+    numClasses,
+    categoricalFeaturesInfo, 
+    numTrees, 
+    featureSubsetStrategy, 
+    impurity,
+    maxDepth,
+    maxBins,
+    seed
+) {
+                       
+    var categoricalFeaturesInfo_uw = Utils.createJavaHashMap(categoricalFeaturesInfo);
+    var javaObject =  org.apache.spark.mllib.tree.RandomForest.trainClassifier(
+        Utils.unwrapObject(input), 
+        numClasses,
         categoricalFeaturesInfo_uw, 
         numTrees, 
         featureSubsetStrategy, 
