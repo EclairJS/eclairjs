@@ -29,7 +29,7 @@ var ratings = data.map(function(line) {
     return r;
 }).cache();
 
-var model = ALS.train2(ratings, 10, 10, 0.01);
+var model = ALS.train(ratings, 10, 10, 0.01);
 var userRecs = model.recommendProductsForUsers(10);
 
 var userRecommendedScaled = userRecs.map(function(val) {
@@ -57,9 +57,6 @@ var userMovies = binarizedRatings.groupBy(function(r) {
     return r.user();
 });
 
-//print("userMovies:");
-//print(userMovies.take(10));
-
 var userMoviesList = userMovies.mapValues(function(docs) {
     return docs.reduce(function(prev, curr) {
         if(curr.rating() > 0.0) {
@@ -70,21 +67,13 @@ var userMoviesList = userMovies.mapValues(function(docs) {
     }, []);
 });
 
-//print("userMoviesList:");
-//print(userMoviesList.take(10));
-
 var userRecommendedList = userRecommended.mapValues(function(docs) {
     return docs.map(function(rating) {
         return rating.product();
     });
 });
 
-//print("userRecommendedList:");
-//print(userRecommendedList.take(10));
-
 var relevantDocs = userMoviesList.join(userRecommendedList).values();
-
-//print(relevantDocs.take(10));
 
 var metrics = RankingMetrics.of(relevantDocs);
 
@@ -100,23 +89,17 @@ var userProducts = ratings.map(function(r) {
     return new Tuple(r.user(), r.product());
 });
 
-print("userProducts:");
-print(userProducts.take(10));
 
 var predictions = PairRDD.fromRDD(model.predict1(userProducts).map(function(r) {
     print("r = " + r);
     return new Tuple(new Tuple(r.user(), r.product()), r.rating());
 }));
 
-print("predictions:");
-print(predictions.take(10));
 
 var ratesAndPreds = PairRDD.fromRDD(ratings.map(function(r) {
     return new Tuple(new Tuple(r.user(), r.product()), r.rating());
 })).join(predictions).values();
 
-print("ratesAndPreds:");
-print(ratesAndPreds.take(10));
 // Create regression metrics object
 var regressionMetrics = new RegressionMetrics(ratesAndPreds);
 
