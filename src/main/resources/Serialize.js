@@ -203,6 +203,8 @@ Serialize.javaSparkObject = function (javaObj) {
         className = "FloatRDD"; //o.getClass().getSimpleName();
     } else if (className == "JavaPairRDD") {
         className = "PairRDD";
+    } else if (className == "JavaPairDStream") {
+        className = "PairDStream";
     }
     else if (className === "Word2Vec" || className === "Word2VecModel") {
         if (packageName.indexOf("org.apache.spark.ml") > -1) {
