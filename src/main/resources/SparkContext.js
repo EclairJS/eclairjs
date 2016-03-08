@@ -73,6 +73,10 @@ var SparkContext = function () {
         conf.setMaster(arguments[0])
         conf.setAppName(arguments[1])
         jvmObj = initSparkContext(conf)
+    } else if (arguments.length==1 &&
+        (arguments[0] instanceof org.apache.spark.api.java.JavaSparkContext))
+    {
+        jvmObj = arguments[0];
     } else {
         jvmObj = initSparkContext(arguments[0])
     }
