@@ -142,3 +142,13 @@ var KMeansExample = function() {
         return "Error running test"
     }
 }
+
+var binaryClassificationMetricsExample = function() {
+    load("examples/mllib/binary_classification_metrics_example.js");
+    var result = run(sparkContext);
+    if (result) {
+        return "all is good";
+    } else {
+        return "Error running test"
+    }
+}

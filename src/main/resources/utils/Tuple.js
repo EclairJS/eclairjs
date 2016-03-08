@@ -11,11 +11,19 @@ function Tuple() {
      */
     this.logger = Logger.getLogger("Tuple_js");
     var i = this.length = arguments.length;
+    this._objectTypes = [];
     if ((arguments[0] instanceof Serialize.scalaProductClass) && (arguments[0].getClass().getName().indexOf("scala.Tuple") > -1)) {
         this.setJavaObject(arguments[0]);
     } else {
         while (i--) {
             this[i] = arguments[i];
+            /*
+             for some reason javaScript numbers with the type of java.lang.Double and
+             a no fractional value eg 1.0 ar stored as java.lang.integers. so we need save the type
+             of the object so if it is a double we can force them
+             back to java.lang.Double on the way out in getJavaObject
+             */
+            this._objectTypes[i] = arguments[i].class ? arguments[i].class : null;
         }
     }
 
@@ -130,8 +138,17 @@ Tuple.prototype.getJavaObject = function getJavaObject() {
     var expression = "new Tuple(";
     for (i = 0; i < length; i += 1) {
         //javaObj.push(org.eclairjs.nashorn.Utils.jsToJava(this[i]));
-        javaObj.push(Serialize.jsToJava(this[i]));
-        //expression += "this[" + i + "]";
+        /*
+        for some reason javaScript numbers with the type of java.lang.Double and
+        a no fractional value eg 1.0 ar stored as java.lang.integers. so we need to force them
+        back to java.lang.Double on the way out
+         */
+        if (this._objectTypes[i] && (this._objectTypes[i] == java.lang.Double.class)) {
+            javaObj.push(Serialize.jsToJava(Number(this[i])));
+        } else {
+            javaObj.push(Serialize.jsToJava(this[i]));
+        }
+
         expression += "javaObj[" + i + "]";
         if (i < length - 1) {
             expression += ",";
@@ -155,3 +172,12 @@ Tuple.prototype.setJavaObject = function (obj) {
 };
 
 
+Tuple.prototype.toJSON = function () {
+    var jsonObj = {};
+    jsonObj.length = this.length;
+    for (var i = 0; i < this.length; i++) {
+        jsonObj[i] = this[i];
+    }
+    // no need to copy the _objectTypes, that is for use with Java
+    return jsonObj;
+};

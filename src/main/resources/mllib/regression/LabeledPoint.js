@@ -46,7 +46,7 @@ LabeledPoint.prototype.getFeatures = function() {
 };
 /**
  * Returns label
- * @returns {double}
+ * @returns {float}
  */
 LabeledPoint.prototype.getLabel = function() {
 	return this.getJavaObject().label();

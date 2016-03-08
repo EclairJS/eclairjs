@@ -29,3 +29,11 @@ MLUtils.loadLibSVMFile = function(
         );
     }
 }
+
+/**
+ * Returns a new vector with 1.0 (bias) appended to the input vector.
+ * @param {Vector} vector
+ */
+MLUtils.appendBias = function(vector) {
+    return new Vector(org.apache.spark.mllib.util.MLUtils.appendBias(Utils.unwrapObject(vector)));
+}

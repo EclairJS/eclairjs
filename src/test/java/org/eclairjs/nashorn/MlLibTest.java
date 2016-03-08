@@ -278,4 +278,29 @@ public class MlLibTest {
         assertEquals("failure - strings are not equal", expected, ret.toString());
 
     }
+
+    /*
+        LogisticRegressionWithLBFGS()
+        LogisticRegressionWithLBFGS.setNumClasses()
+        LogisticRegressionWithLBFGS.run()
+        LogisticRegressionWithLBFGSModel.predict()
+        BinaryClassificationMetrics()
+        BinaryClassificationMetrics.precisionByThreshold()
+        BinaryClassificationMetrics.recallByThreshold()
+        BinaryClassificationMetrics.fMeasureByThreshold()
+        BinaryClassificationMetrics.pr()
+     */
+    @Test
+    public void BinaryClassificationMetricsExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
+
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
+        Object ret = ((Invocable)engine).invokeFunction("binaryClassificationMetricsExample");
+
+        String expected = "all is good";
+
+        assertEquals("failure - strings are not equal", expected, ret.toString());
+
+    }
 }
