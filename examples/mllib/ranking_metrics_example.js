@@ -44,10 +44,9 @@ var userRecommendedScaled = userRecs.map(function(val) {
 var userRecommended = PairRDD.fromRDD(userRecommendedScaled);
 
 var binarizedRatings = ratings.map(function(r) {
+    var binaryRating = 0.0;
     if (r.rating() > 0.0) {
         binaryRating = 1.0;
-    } else {
-        binaryRating = 0.0;
     }
     
     return new Rating(r.user(), r.product(), binaryRating);
@@ -91,7 +90,6 @@ var userProducts = ratings.map(function(r) {
 
 
 var predictions = PairRDD.fromRDD(model.predict1(userProducts).map(function(r) {
-    print("r = " + r);
     return new Tuple(new Tuple(r.user(), r.product()), r.rating());
 }));
 

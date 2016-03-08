@@ -1202,20 +1202,6 @@ RDD.prototype.zipWithUniqueId = function() {
 
 
 /**
- * Pass each value in the key-value pair RDD through a map function without changing the keys;
- * this also retains the original RDD's partitioning.
- * @param {func}
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
- * @returns {RDD}
- */
-RDD.prototype.mapValues = function(func, bindArgs) {
-  var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
-  var javaObject =  this.getJavaObject().mapValues(fn);
-  return new RDD(javaObject);
-};
-
-
-/**
  * The asynchronous version of `collect`, which returns a future for
  * retrieving an array containing all of the elements in this RDD.
  * @returns {JavaFutureAction}
