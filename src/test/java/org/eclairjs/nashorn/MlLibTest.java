@@ -109,7 +109,7 @@ public class MlLibTest {
         TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
         Object ret = ((Invocable)engine).invokeFunction("DecisionTreeClassificationExample");
 
-        String expected = "{\"testErr\":0.03225806451612903,\"depth\":1,\"nodes\":3}";
+        String expected = "successful";
 
         assertEquals("failure - strings are not equal", expected, ret.toString());
 
@@ -133,7 +133,7 @@ public class MlLibTest {
         TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
         Object ret = ((Invocable)engine).invokeFunction("DecisionTreeRegressionExample");
 
-        String expected = "{\"testMSE\":0.01,\"depth\":1,\"nodes\":3}";
+        String expected = "successful";
 
         assertEquals("failure - strings are not equal", expected, ret.toString());
 
@@ -194,7 +194,7 @@ public class MlLibTest {
         TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
         Object ret = ((Invocable)engine).invokeFunction("GradientBoostingClassificationExample");
 
-        String expected = "{\"testErr\":0.03225806451612903,\"summary\":\"TreeEnsembleModel classifier with 3 trees\\n\"}";
+        String expected = "successful";
 
         assertEquals("failure - strings are not equal", expected, ret.toString());
 
@@ -227,7 +227,7 @@ public class MlLibTest {
         TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
         Object ret = ((Invocable)engine).invokeFunction("GradientBoostingRegressionExample");
 
-        String expected = "{\"testMSE\":0.01,\"summary\":\"TreeEnsembleModel regressor with 3 trees\\n\"}";
+        String expected = "successful";
 
         assertEquals("failure - strings are not equal", expected, ret.toString());
 
@@ -272,6 +272,31 @@ public class MlLibTest {
 
         TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
         Object ret = ((Invocable)engine).invokeFunction("KMeansExample");
+
+        String expected = "all is good";
+
+        assertEquals("failure - strings are not equal", expected, ret.toString());
+
+    }
+
+    /*
+        LogisticRegressionWithLBFGS()
+        LogisticRegressionWithLBFGS.setNumClasses()
+        LogisticRegressionWithLBFGS.run()
+        LogisticRegressionWithLBFGSModel.predict()
+        BinaryClassificationMetrics()
+        BinaryClassificationMetrics.precisionByThreshold()
+        BinaryClassificationMetrics.recallByThreshold()
+        BinaryClassificationMetrics.fMeasureByThreshold()
+        BinaryClassificationMetrics.pr()
+     */
+    @Test
+    public void BinaryClassificationMetricsExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
+
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
+        Object ret = ((Invocable)engine).invokeFunction("binaryClassificationMetricsExample");
 
         String expected = "all is good";
 

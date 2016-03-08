@@ -14,31 +14,44 @@
  * limitations under the License.
  */
 
-var JavaStreamingContext = 
+var JavaStreamingContext =
     Java.type('org.apache.spark.streaming.api.java.JavaStreamingContext');
+
+var JLinkedList = Java.type('java.util.LinkedList');
+
 /**
  * @constructor
  * @classdesc Main entry point for Spark Streaming functionality. It provides methods used to create DStreams from various input sources.
- *  It can be either created by providing a Spark master URL and an appName, or from a org.apache.spark.SparkConf configuration 
- *  (see core Spark documentation), or from an existing org.apache.spark.SparkContext. The associated SparkContext can be accessed 
- *  using context.sparkContext. After creating and transforming DStreams, the streaming computation can be started and stopped using 
- *  context.start() and context.stop(), respectively. context.awaitTermination() allows the current thread to wait for the termination 
+ *  It can be either created by providing a Spark master URL and an appName, or from a org.apache.spark.SparkConf configuration
+ *  (see core Spark documentation), or from an existing org.apache.spark.SparkContext. The associated SparkContext can be accessed
+ *  using context.sparkContext. After creating and transforming DStreams, the streaming computation can be started and stopped using
+ *  context.start() and context.stop(), respectively. context.awaitTermination() allows the current thread to wait for the termination
  *  of the context by stop() or by an exception.
  *  @param {SparkContex} sparkContext
  *  @param {Duration} duration
  */
 var StreamingContext = function(sparkContext, duration) {
-	var jvmObj = 
-        new JavaStreamingContext(Utils.unwrapObject(sparkContext), 
+	var jvmObj =
+        new JavaStreamingContext(Utils.unwrapObject(sparkContext),
     							 Utils.unwrapObject(duration)
     							 );
 	this.logger = Logger.getLogger("streaming.Duration_js");
 	JavaWrapper.call(this, jvmObj);
 };
 
-StreamingContext.prototype = Object.create(JavaWrapper.prototype); 
+StreamingContext.prototype = Object.create(JavaWrapper.prototype);
 
 StreamingContext.prototype.constructor = StreamingContext;
+
+/**
+ * The underlying SparkContext
+ * @returns {SparkContext}
+ */
+StreamingContext.prototype.sparkContext = function () {
+    var javaObject = this.getJavaObject().sparkContext();
+    return new SparkContext(javaObject);
+};
+
 /**
  * Wait for the execution to stop
  */
@@ -84,6 +97,36 @@ StreamingContext.prototype.socketTextStream = function(host, port) {
     var jDStream = this.getJavaObject().socketTextStream(host, port);
 
     return new DStream(jDStream, this);
+};
+
+/**
+ * Create an input stream from an queue of RDDs. In each batch,
+ * it will process either one or all of the RDDs returned by the queue.
+ *
+ * NOTE:
+ * 1. Changes to the queue after the stream is created will not be recognized.
+ * 2. Arbitrary RDDs can be added to `queueStream`, there is no way to recover data of
+ * those RDDs, so `queueStream` doesn't support checkpointing.
+ *
+ * @param {RDD[] } queue       Queue of RDDs
+ * @param {boolean}  [oneAtATime=true]   Whether only one RDD should be consumed from the queue in every interval
+ * @param {RDD} [defaultRDD]  Default RDD is returned by the DStream when the queue is empty
+ * @returns {DStream}
+ */
+StreamingContext.prototype.queueStream = function(queue) {
+  var jQueue = new JLinkedList();
+  for (var index in queue)
+     jQueue.add(Utils.unwrapObject(queue[index]));
+ var oneAtATime = (arguments.length>1) ? arguments[1] : true;
+  var javaObject;
+  if (arguments.length>2)
+  {
+      var defaultRDD_uw = Utils.unwrapObject(arguments[2]);
+      javaObject =  this.getJavaObject().queueStream(jQueue,oneAtATime,defaultRDD_uw);
+  }
+  else
+    javaObject =  this.getJavaObject().queueStream(jQueue,oneAtATime);
+  return new  DStream(javaObject);
 };
 
 

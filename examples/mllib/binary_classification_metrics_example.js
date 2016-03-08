@@ -14,44 +14,56 @@
  * limitations under the License.
  */
 
-var sparkConf = new SparkConf()
-  .setAppName("Binary Classification Metrics Test")
-  .setMaster("local[*]");
+function run(sc) {
 
-var sc = new SparkContext(sparkConf);
-var data = MLUtils.loadLibSVMFile(sc, "examples/data/mllib/sample_binary_classification_data.txt");
+    var data = MLUtils.loadLibSVMFile(sc, "examples/data/mllib/sample_binary_classification_data.txt");
 
 //Split data into training (60%) and test (40%)
-var split = data.randomSplit([0.6, 0.4], 11)
-var training = split[0].cache();
-var test = split[1];
+    var split = data.randomSplit([0.6, 0.4], 11)
+    var training = split[0].cache();
+    var test = split[1];
 
-var model = new LogisticRegressionWithLBFGS()
-    .setNumClasses(2)
-    .run(training);
+    var model = new LogisticRegressionWithLBFGS()
+        .setNumClasses(2)
+        .run(training);
 
-var predictionAndLabels = test.mapToPair(function(lp, model) {
-    return [model.predict(lp.getFeatures()),
-            lp.getLabel()];
-});
+    var predictionAndLabels = test.mapToPair(function (lp, model) {
+        return new Tuple(model.predict(lp.getFeatures()), lp.getLabel());
+    }, [model]);
 
-var metrics = new BinaryClassificationMetrics(predictionAndLabels);
+    var metrics = new BinaryClassificationMetrics(predictionAndLabels);
 
 // Precision by threshold
-var precision = metrics.precisionByThreshold();
-print("Precision by threshold: " + precision.collect());
+    var precision = metrics.precisionByThreshold();
+    print("Precision by threshold: " + precision.collect());
 
 // Recall by threshold
-var recall = metrics.recallByThreshold();
-print("Recall by threshold: " + recall.collect());
+    var recall = metrics.recallByThreshold();
+    print("Recall by threshold: " + recall.collect());
 
 // F Score by threshold
-var f1Score = metrics.fMeasureByThreshold();
-print("F1 Score by threshold: " + f1Score.collect());
+    var f1Score = metrics.fMeasureByThreshold();
+    print("F1 Score by threshold: " + f1Score.collect());
 
-var f2Score = metrics.fMeasureByThreshold(2.0);
-print("F2 Score by threshold: " + f2Score.collect());
+    var f2Score = metrics.fMeasureByThreshold(2.0);
+    print("F2 Score by threshold: " + f2Score.collect());
 
 // Precision-recall curve
-var prc = metrics.pr();
-print("Precision-recall curve: " + prc.collect());
+    var prc = metrics.pr();
+    print("Precision-recall curve: " + prc.collect());
+
+    return true;
+}
+
+/*
+ check if SparkContext is defined, if it is we are being run from Unit Test
+ */
+
+if (typeof sparkContext === 'undefined') {
+
+    var sparkConf = new SparkConf().setAppName("Binary Classification Metrics Test").setMaster("local[*]");
+    var sc = new SparkContext(sparkConf);
+    var result = run(sc);
+
+    sc.stop();
+}
