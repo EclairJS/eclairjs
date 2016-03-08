@@ -31,7 +31,11 @@ var JLinkedList = Java.type('java.util.LinkedList');
  *  @param {Duration} duration
  */
 var StreamingContext = function(sparkContext, duration) {
-	var jvmObj =
+    var jvmObj;
+    if (arguments.length==1 &&  (org.apache.spark.streaming.api.java.JavaStreamingContext))
+        jvmObj=arguments[0];
+    else
+	 jvmObj =
         new JavaStreamingContext(Utils.unwrapObject(sparkContext),
     							 Utils.unwrapObject(duration)
     							 );
@@ -130,5 +134,35 @@ StreamingContext.prototype.queueStream = function(queue) {
 };
 
 
+/**
+ * Sets the context to periodically checkpoint the DStream operations for master
+ * fault-tolerance. The graph will be checkpointed every batch interval.
+ * @param {string} directory  HDFS-compatible directory where the checkpoint data will be reliably stored
+ */
+StreamingContext.prototype.checkpoint = function(directory) {
+   this.getJavaObject().checkpoint(directory);
+};
+
+//
+///  Static Functions
+///
+///
+
+/**
+ * Either recreate a StreamingContext from checkpoint data or create a new StreamingContext.
+ * If checkpoint data exists in the provided `checkpointPath`, then StreamingContext will be
+ * recreated from the checkpoint data. If the data does not exist, then the provided factory
+ * will be used to create a JavaStreamingContext.
+ *
+ * @param {string} checkpointPath  Checkpoint directory used in an earlier JavaStreamingContext program
+ * @param {func} creatingFunc    Function to create a new JavaStreamingContext
+ * @returns {JavaStreamingContext}
+ */
+StreamingContext.getOrCreate = function(checkpointPath,creatingFunc) {
+  var bindArgs;
+ var fn = Utils.createLambdaFunction(creatingFunc,org.eclairjs.nashorn.JSFunction0, bindArgs);
+  var javaObject =  org.apache.spark.streaming.api.java.JavaStreamingContext.getOrCreate(checkpointPath,fn);
+  return new StreamingContext(javaObject);
+};
 
 

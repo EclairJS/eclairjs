@@ -276,6 +276,19 @@ DStream.prototype.foreachRDD = function(func, bindArgs) {
 };
 
 /**
+ * Apply a function to each RDD in this DStream. This is an output operator, so 'this' DStream will be registered as an output
+ * stream and therefore materialized.
+ *  The time is passed into to the function.
+ * @param func
+ * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @returns {void}
+ */
+DStream.prototype.foreachRDDWithTime = function(func, bindArgs) {
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, bindArgs);
+    this.getJavaObject().foreachRDD(fn);
+};
+
+/**
  * Print the first ten elements of each RDD generated in this DStream. This is an output operator, so this DStream will be
  * registered as an output stream and there materialized.
  * @returns {void}
