@@ -343,7 +343,7 @@ public class MlLibTest {
         DistributedLDAModel.vocabSize()
         DistributedLDAModel.topicsMatrix()
         DenseMatrix.apply()
-        
+
      */
     @Test
     public void ldaExample() throws Exception {
