@@ -303,4 +303,34 @@ public class MlLibTest {
         assertEquals("failure - strings are not equal", expected, ret.toString());
 
     }
+
+    /*
+        tests
+        MLUtils.loadLibSVMFile()
+        MLUtils.appendBias()
+        RDD.sample()
+        RDD.subtract()
+        LBFGS.runLBFGS()
+        LogisticGradient()
+        SquaredL2Updater()
+        LogisticRegressionModel()
+        LogisticRegressionModel.clearThreshold()
+        BinaryClassificationMetrics()
+        BinaryClassificationMetrics.areaUnderROC
+
+     */
+
+    @Test
+    public void lbfgsSExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
+
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
+        Object ret = ((Invocable)engine).invokeFunction("lbfgsSExample");
+
+        String expected = "0.5";
+
+        assertEquals("failure - strings are not equal", expected, ret.toString());
+
+    }
 }

@@ -143,11 +143,14 @@ Tuple.prototype.getJavaObject = function getJavaObject() {
         a no fractional value eg 1.0 ar stored as java.lang.integers. so we need to force them
         back to java.lang.Double on the way out
          */
+        var obj;
         if (this._objectTypes[i] && (this._objectTypes[i] == java.lang.Double.class)) {
-            javaObj.push(Serialize.jsToJava(Number(this[i])));
+            obj = Serialize.jsToJava(Number(this[i]))
         } else {
-            javaObj.push(Serialize.jsToJava(this[i]));
+            obj = Serialize.jsToJava(this[i]);
         }
+        this.logger.debug("de-serialized " + obj.class);
+        javaObj.push(obj);
 
         expression += "javaObj[" + i + "]";
         if (i < length - 1) {
@@ -155,7 +158,9 @@ Tuple.prototype.getJavaObject = function getJavaObject() {
         }
     }
     expression += ")";
-    return eval('(' + expression + ')')
+    var retObj = eval('(' + expression + ')');
+    this.logger.debug("getJavaObj returning " + retObj.class + " with value " + retObj);
+    return retObj;
 
 };
 
@@ -163,7 +168,10 @@ Tuple.prototype.setJavaObject = function (obj) {
     var list = obj.productIterator();
     var x = 0;
     while (list.hasNext()) {
-        this[x] = Serialize.javaToJs(list.next());
+        var o = list.next();
+        this.logger.debug("setJavaObject adding " + o.class);
+        var r = Serialize.javaToJs(o);
+        this[x] = r;
         x++
     }
 
@@ -173,6 +181,7 @@ Tuple.prototype.setJavaObject = function (obj) {
 
 
 Tuple.prototype.toJSON = function () {
+    this.logger.debug("toJSON");
     var jsonObj = {};
     jsonObj.length = this.length;
     for (var i = 0; i < this.length; i++) {
