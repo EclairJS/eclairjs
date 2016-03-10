@@ -1452,11 +1452,11 @@ PairRDD.prototype.keys = function () {
 
 /**
  * Return an RDD with the values of each tuple.
- * @returns {PairRDD}
+ * @returns {RDD}
  */
 PairRDD.prototype.values = function () {
     var javaObject =  this.getJavaObject().values();
-    return new PairRDD(javaObject);
+    return new RDD(javaObject);
 };
 
 

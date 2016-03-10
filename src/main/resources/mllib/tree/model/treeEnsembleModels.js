@@ -31,10 +31,18 @@
  *  @class
  */
 var RandomForestModel = function (algo, trees) {
-    var jvmObject = new org.apache.spark.mllib.tree.model.RandomForestModel(algo, trees);
     this.logger = Logger.getLogger("RandomForestModel_js");
-    JavaWrapper.call(this, jvmObject);
+    var jvmObject;
+    if (arguments[0] instanceof org.apache.spark.mllib.tree.model.RandomForestModel) {
+        jvmObject = arguments[0];
+    } else {
+        jvmObject = new org.apache.spark.mllib.tree.model.RandomForestModel(
+            Utils.unwrapObject(arguments[0]),
+            Utils.unwrapObject(trees)
+        );
+    }
 
+    JavaWrapper.call(this, jvmObject);
 };
 
 RandomForestModel.prototype = Object.create(JavaWrapper.prototype);
@@ -49,11 +57,28 @@ RandomForestModel.prototype.constructor = RandomForestModel;
  *              If the directory already exists, this method throws an exception.
  */
 RandomForestModel.prototype.save = function (sc, path) {
-    throw "not implemented by ElairJS";
-//   var sc_uw = Utils.unwrapObject(sc);
-//    this.getJavaObject().save(sc_uw,path);
+    var sc_uw = Utils.unwrapObject(sc);
+    this.getJavaObject().save(sc_uw.sc(), path);
 };
 
+/**
+ * Predict values for a single data point using the model trained.
+ *
+ * @param features array representing a single data point
+ * @return predicted category from the trained model
+ */
+RandomForestModel.prototype.predict = function(features) {
+    var features_uw = Utils.unwrapObject(features);
+    return Utils.javaToJs(this.getJavaObject().predict(features_uw));
+};
+
+/**
+ * Print the full model to a string.
+ * @returns {string}
+ */
+RandomForestModel.prototype.toDebugString = function () {
+    return this.getJavaObject().toDebugString();
+};
 
 /**
  * Represents a gradient boosted trees model.

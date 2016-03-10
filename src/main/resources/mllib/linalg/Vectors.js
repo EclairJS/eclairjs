@@ -329,8 +329,7 @@ DenseVector.prototype.constructor = DenseVector;
  * @returns {number}
  */
 DenseVector.prototype.size = function () {
-    throw "not implemented by ElairJS";
-//   return  this.getJavaObject().size();
+    return  this.getJavaObject().size();
 };
 
 
@@ -346,8 +345,13 @@ DenseVector.prototype.toString = function () {
  * @returns {float[]}
  */
 DenseVector.prototype.toArray = function () {
-
-    return this.getJavaObject().toArray();
+    var a = this.getJavaObject().toArray();
+    var ret = [];
+    for (var i = 0; i < a.length; i++) {
+        ret.push(a[i]);
+    }
+    //return ret;
+    return a;
 };
 
 
@@ -453,10 +457,17 @@ DenseVector.prototype.toJson = function () {
  * @returns {??}
  *  @class
  */
-var SparseVector = function (size, indices, values) {
-    var jvmObject = new org.apache.spark.mllib.linalg.SparseVector(size, indices, values);
+var SparseVector = function () {
+
     this.logger = Logger.getLogger("SparseVector_js");
-    Vector.call(this, jvmObject);
+    var jvmObj;
+    if (arguments[0] instanceof org.apache.spark.mllib.linalg.SparseVector) {
+        jvmObj = arguments[0];
+    } else {
+        jvmObj = new org.apache.spark.mllib.linalg.SparseVector(arguments);
+
+    }
+    Vector.call(this, jvmObj);
 
 };
 
@@ -469,8 +480,7 @@ SparseVector.prototype.constructor = SparseVector;
  * @returns {string}
  */
 SparseVector.prototype.toString = function () {
-    throw "not implemented by ElairJS";
-//   return  this.getJavaObject().toString();
+    return  this.getJavaObject().toString();
 };
 
 

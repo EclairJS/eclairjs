@@ -734,7 +734,10 @@ throw "not implemented by ElairJS";
  * @private
  */
 RDD.prototype.randomSplit = function(weights,seed) {
-    var res = this.getJavaObject().randomSplit(weights,seed);
+    var res = (seed != undefined) 
+        ? this.getJavaObject().randomSplit(weights,seed)
+        : this.getJavaObject().randomSplit(weights);
+
     var results = [];
     for (var i = 0; i < res.length; i++) {
         var value = res[i];
@@ -1196,20 +1199,6 @@ RDD.prototype.zipWithUniqueId = function() {
 ///
 ///  from Pair functions
 ///
-
-
-/**
- * Pass each value in the key-value pair RDD through a map function without changing the keys;
- * this also retains the original RDD's partitioning.
- * @param {func}
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
- * @returns {RDD}
- */
-RDD.prototype.mapValues = function(func, bindArgs) {
-  var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
-  var javaObject =  this.getJavaObject().mapValues(fn);
-  return new RDD(javaObject);
-};
 
 
 /**

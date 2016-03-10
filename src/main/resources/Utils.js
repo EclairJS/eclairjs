@@ -150,6 +150,22 @@ Utils.logger = Logger.getLogger("Utils_js");
 	   return map;
   };
 
+  /**
+   * Creates a Java Set from a JavaScript array.
+   * @private
+   * @param {object[]} obj array
+   * @returns {Set} java.util.HashSet
+   */
+  Utils.createJavaSet = function(arr, javaSetObj) {
+    if (!Array.isArray(arr))
+      arr = [arr];
+    var set = javaSetObj ? javaSetObj : new java.util.HashSet();
+     for(var i=0; i<arr.length; i++){
+        set.add(arr[i]);
+     }
+     return set;
+  };
+
   /*function createJavaScriptArray(list) {
       var l = [];
       for(var i=0; i<list.size(); i++) {
@@ -187,7 +203,7 @@ Utils.logger = Logger.getLogger("Utils_js");
       var args = (arguments.length > 1)
           ? a.slice(1).map(function(arg) {
               return Serialize.javaToJs(arg);
-          }) 
+          })
           : [];
 
       var ret = null;

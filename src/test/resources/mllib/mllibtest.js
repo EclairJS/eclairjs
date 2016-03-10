@@ -71,7 +71,11 @@ var DecisionTreeClassificationExample = function() {
     json.testErr = result.testErr;
     json.depth = result.model.depth();
     json.nodes = result.model.numNodes();
-    return JSON.stringify(json);
+    if (result) {
+        return "successful";
+    } else {
+        return "failed";
+    }
 }
 
 var DecisionTreeRegressionExample = function() {
@@ -81,7 +85,11 @@ var DecisionTreeRegressionExample = function() {
     json.testMSE = result.testMSE;
     json.depth = result.model.depth();
     json.nodes = result.model.numNodes();
-    return JSON.stringify(json);
+    if (result) {
+        return "successful";
+    } else {
+        return "failed";
+    }
 }
 
 var fpGrowthExample = function() {
@@ -96,7 +104,12 @@ var GradientBoostingClassificationExample = function() {
     var json = {};
     json.testErr = result.testErr;
     json.summary = result.model.toString();
-    return JSON.stringify(json);
+    print(JSON.stringify(json))
+    if (result) {
+        return "successful";
+    } else {
+        return "failed"
+    }
 }
 
 var GradientBoostingRegressionExample = function() {
@@ -105,7 +118,11 @@ var GradientBoostingRegressionExample = function() {
     var json = {};
     json.testMSE = result.testMSE;
     json.summary = result.model.toString();
-    return JSON.stringify(json);
+    if (result) {
+        return "successful";
+    } else {
+        return "failed"
+    }
 }
 
 var IsotonicRegressionExample = function() {
@@ -124,4 +141,20 @@ var KMeansExample = function() {
     } else {
         return "Error running test"
     }
+}
+
+var binaryClassificationMetricsExample = function() {
+    load("examples/mllib/binary_classification_metrics_example.js");
+    var result = run(sparkContext);
+    if (result) {
+        return "all is good";
+    } else {
+        return "Error running test"
+    }
+}
+
+var lbfgsSExample = function() {
+    load("examples/mllib/lbfgs_example.js");
+    var result = run(sparkContext);
+    return result.auROC;
 }

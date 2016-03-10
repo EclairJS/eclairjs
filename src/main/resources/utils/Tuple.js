@@ -11,11 +11,19 @@ function Tuple() {
      */
     this.logger = Logger.getLogger("Tuple_js");
     var i = this.length = arguments.length;
+    this._objectTypes = [];
     if ((arguments[0] instanceof Serialize.scalaProductClass) && (arguments[0].getClass().getName().indexOf("scala.Tuple") > -1)) {
         this.setJavaObject(arguments[0]);
     } else {
         while (i--) {
             this[i] = arguments[i];
+            /*
+             for some reason javaScript numbers with the type of java.lang.Double and
+             a no fractional value eg 1.0 ar stored as java.lang.integers. so we need save the type
+             of the object so if it is a double we can force them
+             back to java.lang.Double on the way out in getJavaObject
+             */
+            this._objectTypes[i] = arguments[i].class ? arguments[i].class : null;
         }
     }
 
@@ -130,15 +138,29 @@ Tuple.prototype.getJavaObject = function getJavaObject() {
     var expression = "new Tuple(";
     for (i = 0; i < length; i += 1) {
         //javaObj.push(org.eclairjs.nashorn.Utils.jsToJava(this[i]));
-        javaObj.push(Serialize.jsToJava(this[i]));
-        //expression += "this[" + i + "]";
+        /*
+        for some reason javaScript numbers with the type of java.lang.Double and
+        a no fractional value eg 1.0 ar stored as java.lang.integers. so we need to force them
+        back to java.lang.Double on the way out
+         */
+        var obj;
+        if (this._objectTypes[i] && (this._objectTypes[i] == java.lang.Double.class)) {
+            obj = Serialize.jsToJava(Number(this[i]))
+        } else {
+            obj = Serialize.jsToJava(this[i]);
+        }
+        this.logger.debug("de-serialized " + obj.class);
+        javaObj.push(obj);
+
         expression += "javaObj[" + i + "]";
         if (i < length - 1) {
             expression += ",";
         }
     }
     expression += ")";
-    return eval('(' + expression + ')')
+    var retObj = eval('(' + expression + ')');
+    this.logger.debug("getJavaObj returning " + retObj.class + " with value " + retObj);
+    return retObj;
 
 };
 
@@ -146,7 +168,10 @@ Tuple.prototype.setJavaObject = function (obj) {
     var list = obj.productIterator();
     var x = 0;
     while (list.hasNext()) {
-        this[x] = Serialize.javaToJs(list.next());
+        var o = list.next();
+        this.logger.debug("setJavaObject adding " + o.class);
+        var r = Serialize.javaToJs(o);
+        this[x] = r;
         x++
     }
 
@@ -155,3 +180,13 @@ Tuple.prototype.setJavaObject = function (obj) {
 };
 
 
+Tuple.prototype.toJSON = function () {
+    this.logger.debug("toJSON");
+    var jsonObj = {};
+    jsonObj.length = this.length;
+    for (var i = 0; i < this.length; i++) {
+        jsonObj[i] = this[i];
+    }
+    // no need to copy the _objectTypes, that is for use with Java
+    return jsonObj;
+};

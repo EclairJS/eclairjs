@@ -100,10 +100,11 @@ class GenerateNashorn  extends  GenerateJSBase {
             "Function0"->"JSFunction"
           )
           val funcCounterStr= if (funcCounter==1) "" else ""+funcCounter
-          sb++=s"  var sv$funcCounterStr = Utils.createJavaParams(${parm.name});\n"
+          sb++=s"  var bindArgs;\n"
 
           val functionClass=funcMac.getOrElse(name,"JSFunction")
-          sb++=s"  var fn$funcCounterStr = new org.eclairjs.nashorn.${functionClass}(sv$funcCounterStr.funcStr, sv$funcCounterStr.scopeVars);\n"
+          sb++=s" var fn$funcCounterStr = Utils.createLambdaFunction(${parm.name},org.eclairjs.nashorn.${functionClass}, bindArgs);\n"
+
           parmNames+="fn"+funcCounterStr
           funcCounter+=1;
         }
