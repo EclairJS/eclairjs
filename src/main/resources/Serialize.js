@@ -54,50 +54,15 @@ Serialize.javaList = function (javaObj) {
     return false;
 };
 
-Serialize.javaTuple2Class = Java.type("scala.Tuple2");
-Serialize.javaTuple2 = function (javaObj) {
-    //var Tuple2 = Java.type("scala.Tuple2");
-    /*
-     NOTE: If we do not use a static variable for the Java.type(...)
-     we will incur HUGE performance degradations by invoking
-     Java.type(...) every time we invoke the serializer to check the
-     instance of the object
-     */
-    if (javaObj instanceof Serialize.javaTuple2Class) {
-        //print("found a Tuple2");
-        return new Tuple(Serialize.javaToJs(javaObj._1()),
-            Serialize.javaToJs(javaObj._2()));
-    }
-
-    return false;
-};
-
-Serialize.javaTuple3Class = Java.type("scala.Tuple3");
-Serialize.javaTuple3 = function (javaObj) {
-    //var Tuple3 = Java.type("scala.Tuple3");
-    if (javaObj instanceof Serialize.javaTuple3Class) {
-        //print("found a Tuple3");
-        return new Tuple(Serialize.javaToJs(javaObj._1()),
-            Serialize.javaToJs(javaObj._2()),
-            Serialize.javaToJs(javaObj._3()));
-    }
-
-    return false;
-}
-
 Serialize.scalaProductClass = Java.type("scala.Product");
 Serialize.scalaTuple = function (javaObj) {
+    var ret = false;
     if ((javaObj instanceof Serialize.scalaProductClass) && (javaObj.getClass().getName().indexOf("scala.Tuple") > -1))  {
         Serialize.logger.debug("Tuple - " + javaObj.toString());
-        try {
-            return eval("new Tuple(javaObj)");
-        } catch  (e) {
-            Serialize.logger.error(" Tuple conversion " + e);
-        }
-        return false;
+        ret = new Tuple(javaObj);
     }
 
-    return false;
+    return ret;
 }
 
 Serialize.javaIteratorWrapperClass = Java.type("scala.collection.convert.Wrappers.IteratorWrapper");

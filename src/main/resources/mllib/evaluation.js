@@ -14,47 +14,6 @@
  * limitations under the License.
  */
 
-var BinaryClassificationMetrics = function(rdd) {
-    var r = rdd.getJavaObject().rdd();
-    JavaWrapper.call(this,
-                     new org.apache.spark.mllib.evaluation.BinaryClassificationMetrics(r));
-};
-
-BinaryClassificationMetrics.prototype = Object.create(JavaWrapper.prototype); 
-
-/**
- * Returns the (threshold, precision) curve.
- */
-BinaryClassificationMetrics.prototype.precisionByThreshold = function() {
-    return new RDD(this.getJavaObject().precisionByThreshold().toJavaRDD());
-};
-
-/**
- * Returns the (threshold, recall) curve.
- */
-BinaryClassificationMetrics.prototype.recallByThreshold = function() {
-    return new RDD(this.getJavaObject().recallByThreshold().toJavaRDD());
-};
-
-/**
- * Returns the (threshold, F-Measure) curve with beta = 1.0.
- */
-BinaryClassificationMetrics.prototype.fMeasureByThreshold = function(t) {
-    if(arguments.length == 0) {
-        return new RDD(this.getJavaObject().fMeasureByThreshold().toJavaRDD());
-    } else {
-        return new RDD(this.getJavaObject().fMeasureByThreshold(t).toJavaRDD());
-    }
-};
-
-/**
- * Returns the precision-recall curve, which is an RDD of (recall, precision),
- * NOT (precision, recall), with (0.0, 1.0) prepended to it.
- * @see http://en.wikipedia.org/wiki/Precision_and_recall
- */
-BinaryClassificationMetrics.prototype.pr = function() {
-    return new RDD(this.getJavaObject().pr().toJavaRDD());
-};
 
 
 var RegressionMetrics = function(rdd) {

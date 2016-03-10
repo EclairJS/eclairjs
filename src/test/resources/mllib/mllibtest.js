@@ -152,3 +152,9 @@ var binaryClassificationMetricsExample = function() {
         return "Error running test"
     }
 }
+
+var lbfgsSExample = function() {
+    load("examples/mllib/lbfgs_example.js");
+    var result = run(sparkContext);
+    return result.auROC;
+}
