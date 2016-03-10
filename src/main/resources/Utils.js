@@ -135,12 +135,17 @@ Utils.logger = Logger.getLogger("Utils_js");
    * Creates a Java HashMap from a JavaScript object.
    * @private
    * @param {object} obj hashMap
+   * @param {entryCallback} entryMapFunction callback to modify entry value
    * @returns {HashMap} java.util.HashMap
    */
-  Utils.createJavaHashMap = function(obj, javaMapObj) {
+  Utils.createJavaHashMap = function(obj, javaMapObj,entryMapFunction) {
 	  var map = javaMapObj ? javaMapObj : new java.util.HashMap();
 	   for(var colName in obj){
-		   if (typeof obj[colName] === 'number') {
+        if (entryMapFunction)
+        {
+         map.put(colName, entryMapFunction(colName, obj[colName]));
+        }
+		    else if (typeof obj[colName] === 'number') {
 			   map.put(new java.lang.Double(colName), new java.lang.Double(obj[colName]));
 		   } else {
 			   map.put(colName, obj[colName]);
