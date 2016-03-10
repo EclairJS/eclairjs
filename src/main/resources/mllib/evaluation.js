@@ -70,6 +70,8 @@ RegressionMetrics.prototype.explainedVariance = function() {
 
 /**
  * Evaluator for ranking algorithms.
+ * @constructor
+ * @classdesc
  */
 var RankingMetrics = function(jvmObj) {
     JavaWrapper.call(this, jvmObj);
