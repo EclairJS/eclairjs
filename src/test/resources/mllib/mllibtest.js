@@ -153,8 +153,20 @@ var binaryClassificationMetricsExample = function() {
     }
 }
 
-var lbfgsSExample = function() {
+var lbfgsExample = function() {
     load("examples/mllib/lbfgs_example.js");
     var result = run(sparkContext);
     return result.auROC;
+}
+
+var ldaExample = function() {
+    load("examples/mllib/lda_example.js");
+    var result = run(sparkContext);
+    return result.vocabSize;
+}
+
+var lrExample = function() {
+    load("examples/mllib/lr_example.js");
+    var result = run(sparkContext);
+    return JSON.stringify(result);
 }

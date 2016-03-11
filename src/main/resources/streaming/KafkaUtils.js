@@ -23,10 +23,20 @@ var Class = Java.type("java.lang.Class");
 var StringClass = Class.forName("java.lang.String");
 var StringDecoderClass=Class.forName("kafka.serializer.StringDecoder");
 
-KafkaUtils.createStream = function(ssc, zkQuorum, group, topic) {
-    var integer = new java.lang.Integer(1);
-    var m = new java.util.HashMap();
-    m.put(topic, integer);
+
+
+/**
+ * Create an input stream that pulls messages from Kafka Brokers.
+ * Storage level of the data will be the default StorageLevel.MEMORY_AND_DISK_SER_2.
+ * @param {treamingContext} jssc       StreamingContext object
+ * @param {string} zkQuorum   Zookeeper quorum (hostname:port,hostname:port,..)
+ * @param {string} groupId    The group id for this consumer
+ * @param {object} topics     Map of (topic_name -> numPartitions) to consume. Each partition is consumed
+ *                  in its own thread
+ * @returns {DStream}  DStream of (Kafka message key, Kafka message value)
+ */
+KafkaUtils.createStream = function(ssc, zkQuorum, group, topics) {
+    var m = Utils.createJavaHashMap(topics,undefined,function(key,value){return new java.lang.Integer(value);});
     return new DStream(JavaKakfaUtils.createStream(ssc.getJavaObject(),
                                                    zkQuorum,
                                                    group,

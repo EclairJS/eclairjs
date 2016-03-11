@@ -59,7 +59,7 @@ if ((typeof args == "undefined")||args.length<3)
         return tuple2[1];
     });
     var words = lines.flatMap( function( x) {
-        return Lists.newArrayList(SPACE.split(x));
+        return x.split(/\s+/);
     });
     var wordCounts = words.mapToPair(function( s) {
           return new Tuple(s, 1);
