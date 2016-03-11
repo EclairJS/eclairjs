@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Partitioner</title>
+    <title>JSDoc: Class: LogisticRegressionWithLBFGS</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Class: Partitioner</h1>
+    <h1 class="page-title">Class: LogisticRegressionWithLBFGS</h1>
     
     
 
@@ -27,11 +27,8 @@
     
 <header>
     <h2>
-    Partitioner
+    LogisticRegressionWithLBFGS
     </h2>
-    
-        <div class="class-description">An object that defines how the elements in a key-value pair RDD are partitioned by key.
-Maps each key to a partition ID, from 0 to `numPartitions - 1`.</div>
     
 </header>  
 
@@ -42,7 +39,7 @@ Maps each key to a partition ID, from 0 to `numPartitions - 1`.</div>
     
         
 <dt>
-    <h4 class="name" id="Partitioner"><span class="type-signature"></span>new Partitioner<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="LogisticRegressionWithLBFGS"><span class="type-signature"></span>new LogisticRegressionWithLBFGS<span class="signature">()</span><span class="type-signature"> &rarr; {?}</span></h4>
     
     
 </dt>
@@ -79,106 +76,7 @@ Maps each key to a partition ID, from 0 to `numPartitions - 1`.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Partitioner.js.html">Partitioner.js</a>, <a href="Partitioner.js.html#line24">line 24</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-</dd>
-
-    
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-        <h3 class="subsection-title">Methods</h3>
-        
-        <dl>
-            
-<dt>
-    <h4 class="name" id="defaultPartitioner"><span class="type-signature">&lt;static> </span>defaultPartitioner<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Partitioner.html">Partitioner</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Choose a partitioner to use for a cogroup-like operation between a number of RDDs.
-
-If any of the RDDs already has a partitioner, choose that one.
-
-Otherwise, we use a default HashPartitioner. For the number of partitions, if
-spark.default.parallelism is set, then we'll use the value from SparkContext
-defaultParallelism, otherwise we'll use the max number of upstream partitions.
-
-Unless spark.default.parallelism is set, the number of partitions will be the
-same as the number of partitions in the largest upstream RDD, as this should
-be least likely to cause out-of-memory errors.
-
-We use two method parameters (rdd, others) to enforce callers passing at least 1 RDD.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Partitioner.js.html">Partitioner.js</a>, <a href="Partitioner.js.html#line167">line 167</a>
+        <a href="LogisticRegression.js.html">mllib/classification/LogisticRegression.js</a>, <a href="LogisticRegression.js.html#line202">line 202</a>
     </li></ul></dd>
     
     
@@ -210,11 +108,308 @@ We use two method parameters (rdd, others) to enforce callers passing at least 1
 	</dt>
 	<dd>
 		
-<span class="param-type"><a href="Partitioner.html">Partitioner</a></span>
+<span class="param-type">?</span>
 
 
 	</dd>
 </dl>
+
+        
+    
+    
+</dd>
+
+    
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        <h3 class="subsection-title">Methods</h3>
+        
+        <dl>
+            
+<dt>
+    <h4 class="name" id="run"><span class="type-signature"></span>run<span class="signature">(input, initialWeights)</span><span class="type-signature"> &rarr; {<a href="LogisticRegressionModel.html">LogisticRegressionModel</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>input</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="RDD.html">RDD</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>initialWeights</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Vector.html">Vector</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Optional</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="LogisticRegression.js.html">mllib/classification/LogisticRegression.js</a>, <a href="LogisticRegression.js.html#line235">line 235</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="LogisticRegressionModel.html">LogisticRegressionModel</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setNumClasses"><span class="type-signature"></span>setNumClasses<span class="signature">(numClasses)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Set the number of possible outcomes for k classes classification problem in
+Multinomial Logistic Regression.
+By default, it is binary logistic regression so k will be set to 2.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>numClasses</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="LogisticRegression.js.html">mllib/classification/LogisticRegression.js</a>, <a href="LogisticRegression.js.html#line224">line 224</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
 
         
     
@@ -243,7 +438,7 @@ We use two method parameters (rdd, others) to enforce callers passing at least 1
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Fri Mar 11 2016 16:15:50 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Fri Mar 11 2016 16:15:49 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>
