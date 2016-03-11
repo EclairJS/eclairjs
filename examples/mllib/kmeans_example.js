@@ -19,9 +19,9 @@
  bin/eclairjs.sh examples/mllib/kmeans_example.js [<input_file>] [<k>] [<max_iterations>] [<runs>]"
  */
 
-var inputFile = "examples/data/mllib/kmeans_data.txt"; // args[0];
-var k = 3; // Integer.parseInt(args[1]);
-var iterations = 10; // Integer.parseInt(args[2]);
+var inputFile = "examples/data/mllib/kmeans_data.txt";
+var k = 3;
+var iterations = 10;
 var runs = 1;
 
 function run(sc) {
@@ -64,7 +64,7 @@ if (typeof sparkContext === 'undefined') {
     if (args.length > 4) {
         runs = parseInt(args[4]);
     }
-    var sparkConf = new SparkConf().setAppName("Isotonic Regression Example").setMaster("local[*]");
+    var sparkConf = new SparkConf().setAppName("KMeans Example").setMaster("local[*]");
     var sc = new SparkContext(sparkConf);
     var result = run(sc);
     print("Cluster centers:");

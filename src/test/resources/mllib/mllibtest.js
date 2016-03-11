@@ -164,3 +164,9 @@ var ldaExample = function() {
     var result = run(sparkContext);
     return result.vocabSize;
 }
+
+var lrExample = function() {
+    load("examples/mllib/lr_example.js");
+    var result = run(sparkContext);
+    return JSON.stringify(result);
+}

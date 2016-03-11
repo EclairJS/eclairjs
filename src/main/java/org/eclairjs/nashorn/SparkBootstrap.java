@@ -85,6 +85,7 @@ public class SparkBootstrap implements Bootstrap {
             //mllib
             engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/Vectors.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/Matrices.js") + "');");
+
             engine.eval("load('" + getResourceAsURLStirng("/mllib/clustering/BisectingKMeans.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/clustering/BisectingKMeansModel.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/clustering/KMeans.js") + "');");
@@ -101,7 +102,7 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/LabeledPoint.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/util.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/evaluation.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/classification.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/mllib/classification/LogisticRegression.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/feature/Word2Vec.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/fpm/FPGrowth.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/fpm/AssociationRules.js") + "');");

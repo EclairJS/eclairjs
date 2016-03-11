@@ -14,17 +14,17 @@ org.apache.spark.ml.regression.LinearRegressionModel
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/** 
+/**
  * @constructor
  * @classdesc Model produced by LinearRegression.
  */
-var LinearRegressionModel = function(jvmObj) { 
-	this.logger = Logger.getLogger("mllib.regression.LinearRegressionModel_js");
+var LinearRegressionModel = function (jvmObj) {
+    this.logger = Logger.getLogger("mllib.regression.LinearRegressionModel_js");
 
-	JavaWrapper.call(this, jvmObj);
+    JavaWrapper.call(this, jvmObj);
 };
 
-LinearRegressionModel.prototype = Object.create(JavaWrapper.prototype); 
+LinearRegressionModel.prototype = Object.create(JavaWrapper.prototype);
 
 LinearRegressionModel.prototype.constructor = LinearRegressionModel;
 /**
@@ -32,12 +32,13 @@ LinearRegressionModel.prototype.constructor = LinearRegressionModel;
  * @param {Vector} features
  * @returns {float}
  */
-LinearRegressionModel.prototype.predict = function(features) {
+LinearRegressionModel.prototype.predict = function (features) {
 
-	var p = this.getJavaObject().predict(Utils.unwrapObject(features));
-	this.logger.debug("p " + p);
-	return p;
+    var p = this.getJavaObject().predict(Utils.unwrapObject(features));
+    this.logger.debug("p " + p);
+    return p;
 };
+
 
 
 

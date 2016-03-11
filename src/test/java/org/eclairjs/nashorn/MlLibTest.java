@@ -358,4 +358,18 @@ public class MlLibTest {
         assertEquals("failure - strings are not equal", expected, ret.toString());
 
     }
+
+    @Test
+    public void lrExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
+
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
+        Object ret = ((Invocable)engine).invokeFunction("lrExample");
+
+        String expected = "\"{\\\"type\\\":1,\\\"values\\\":[0.9550072129824428,0.7533138476702799]}\"";
+
+        assertEquals("failure - strings are not equal", expected, ret.toString());
+
+    }
 }
