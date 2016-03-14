@@ -22,36 +22,10 @@
 
 var sparkContext = new SparkContext("local[*]", "mllib Unit test");
 
-var LinearRegressionWithSGDTest = function(file) {
-	
-	var sc = sparkContext;
-	
-	var data = sc.textFile(file).cache();
-	var scopeVars = {};
-	var parsedData = data.map( function(s) { 
-		var parts = s.split(",");
-		var features = parts[1].split(" "); 
-		return new LabeledPoint(parts[0], new DenseVector(features));
-	 });
-	//var t = parsedData.take(5);
-	//print("take 5 = " + JSON.stringify(parsedData.take(5)));
-	var numIterations = 3;
-	/* var */ linearRegressionModel = LinearRegressionWithSGD.train(parsedData, numIterations); // Due to JUNIT scoping these need to be global
-	/* var */ delta = 17; // Due to JUNIT scoping these need to be global
-	var valuesAndPreds = parsedData.mapToPair(function(lp, linearRegressionModel, delta) {
-		var label = lp.getLabel();
-		var f = lp.getFeatures();
-		var prediction = linearRegressionModel.predict(f) + delta;
-		return new Tuple(prediction, label);
-	}, [linearRegressionModel, delta]); // end MapToPair
-	
-	//print("valuesAndPreds: " + valuesAndPreds.take(10).toString());
-    /*valuesAndPreds.map(function(s){
-        print(s)
-        return s
-    }).collect()*/
-	return valuesAndPreds.take(10).toString();
-	//return valuesAndPreds.take(10).toString();
+var LinearRegressionWithSGDExample = function() {
+
+    load("examples/mllib/linear_regression_example.js");
+    return JSON.stringify(run(sparkContext));
 }
 
 var AssociationRulesTest = function() {
