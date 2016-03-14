@@ -66,8 +66,14 @@ Matrix.prototype.numCols = function () {
  * @returns {number[]}
  */
 Matrix.prototype.toArray = function () {
-    throw "not implemented by ElairJS";
-//   return  this.getJavaObject().toArray();
+    var res = this.getJavaObject().toArray();
+    var results = [];
+    for (var i = 0; i < res.length; i++) {
+        var value = res[i];
+        var o = Utils.javaToJs(value);
+        results.push(o);
+    }
+    return results;
 };
 
 
