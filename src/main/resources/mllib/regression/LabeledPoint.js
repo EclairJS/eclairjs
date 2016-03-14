@@ -42,7 +42,7 @@ LabeledPoint.prototype.constructor = LabeledPoint;
  * @returns {Vector} 
  */
 LabeledPoint.prototype.getFeatures = function() {
-	return this.getJavaObject().features();
+	return Serialize.javaToJs(this.getJavaObject().features());
 };
 /**
  * Returns label
@@ -73,7 +73,11 @@ LabeledPoint.prototype.toString = function() {
  * @returns {string}
  */
 LabeledPoint.prototype.toJSON = function() {
-	return "{label: " + this.getLabel() + ", features: " + this.getFeatures() + " }";
+	//return "{label: " + this.getLabel() + ", features: " + this.getFeatures() + " }";
+    var jsonObj = {};
+    jsonObj.label = this.getLabel();
+    jsonObj.features = this.getFeatures();
+    return jsonObj;
 };
 
 

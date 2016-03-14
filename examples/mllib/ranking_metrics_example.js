@@ -89,7 +89,7 @@ var userProducts = ratings.map(function(r) {
 });
 
 
-var predictions = PairRDD.fromRDD(model.predict1(userProducts).map(function(r) {
+var predictions = PairRDD.fromRDD(model.predict(userProducts).map(function(r) {
     return new Tuple(new Tuple(r.user(), r.product()), r.rating());
 }));
 

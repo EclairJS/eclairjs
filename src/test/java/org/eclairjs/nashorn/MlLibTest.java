@@ -25,19 +25,23 @@ import javax.script.ScriptEngine;
 public class MlLibTest {
 
 	@Test
-    public void LinearRegressionTest() throws Exception {
+    public void LinearRegressionExample() throws Exception {
         ScriptEngine engine = TestUtils.getEngine();
-        String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
 
         TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
-        Object ret = ((Invocable)engine).invokeFunction("LinearRegressionWithSGDTest", file);
+        Object ret = ((Invocable)engine).invokeFunction("LinearRegressionWithSGDExample");
         
-        String expected = "(34.802055592544406,-0.4307829),(32.26369105545771,-0.1625189)," +
-                "(27.073768640300933,-0.1625189),(32.956369807610656,-0.1625189)," +
-                "(26.589176152816094,0.3715636),(34.161678328568854,0.7654678)," +
-                "(24.3647041765334,0.8544153),(26.661937949806784,1.2669476)," +
-                "(28.790597957841044,1.2669476),(20.51350661135643,1.2669476)";
-        assertEquals("failure - strings are not equal", expected, ret.toString());
+        String expected = "[{\"0\":34.802055592544406,\"1\":-0.4307829,\"length\":2}," +
+                "{\"0\":32.26369105545771,\"1\":-0.1625189,\"length\":2}," +
+                "{\"0\":27.073768640300933,\"1\":-0.1625189,\"length\":2}," +
+                "{\"0\":32.956369807610656,\"1\":-0.1625189,\"length\":2}," +
+                "{\"0\":26.589176152816094,\"1\":0.3715636,\"length\":2}," +
+                "{\"0\":34.161678328568854,\"1\":0.7654678,\"length\":2}," +
+                "{\"0\":24.3647041765334,\"1\":0.8544153,\"length\":2}," +
+                "{\"0\":26.661937949806784,\"1\":1.2669476,\"length\":2}," +
+                "{\"0\":28.790597957841044,\"1\":1.2669476,\"length\":2}," +
+                "{\"0\":20.51350661135643,\"1\":1.2669476,\"length\":2}]";
+        assertEquals("failure - strings are not equal", expected, ret);
 
     }
 
@@ -321,14 +325,53 @@ public class MlLibTest {
      */
 
     @Test
-    public void lbfgsSExample() throws Exception {
+    public void lbfgsExample() throws Exception {
         ScriptEngine engine = TestUtils.getEngine();
         //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
 
         TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
-        Object ret = ((Invocable)engine).invokeFunction("lbfgsSExample");
+        Object ret = ((Invocable)engine).invokeFunction("lbfgsExample");
 
         String expected = "0.5";
+
+        assertEquals("failure - strings are not equal", expected, ret.toString());
+
+    }
+
+    /*
+        RDD.zipWithIndex()
+        PairRDD.fromRDD()
+        LDA()
+        LDA.setK()
+        LDA.run()
+        DistributedLDAModel.vocabSize()
+        DistributedLDAModel.topicsMatrix()
+        DenseMatrix.apply()
+
+     */
+    @Test
+    public void ldaExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
+
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
+        Object ret = ((Invocable)engine).invokeFunction("ldaExample");
+
+        String expected = "11";
+
+        assertEquals("failure - strings are not equal", expected, ret.toString());
+
+    }
+
+    @Test
+    public void lrExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
+
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
+        Object ret = ((Invocable)engine).invokeFunction("lrExample");
+
+        String expected = "[0.9550072129824428,0.7533138476702799]";
 
         assertEquals("failure - strings are not equal", expected, ret.toString());
 

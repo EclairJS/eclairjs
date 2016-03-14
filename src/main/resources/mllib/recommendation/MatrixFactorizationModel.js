@@ -56,44 +56,20 @@ MatrixFactorizationModel.prototype.constructor = MatrixFactorizationModel;
 
 
 /**
- * @param {number} user
+ * @param {number | RDD} user
  * @param {number} product
- * @returns {number} 
+ * @returns {RDD | number}
  */
-MatrixFactorizationModel.prototype.predict0 = function(user,product) {
-throw "not implemented by ElairJS";
-//   return  this.getJavaObject().predict(user,product);
+MatrixFactorizationModel.prototype.predict = function(user,product) {
+  // // TODO: handle Tuple conversion for 'usersProducts'
+  if (product) {
+    return this.getJavaObject().predict(user, product);
+  } else {
+    var usersProducts_uw = Utils.unwrapObject(user);
+    var javaObject =  this.getJavaObject().predict(usersProducts_uw.rdd());
+    return new RDD(javaObject.toJavaRDD());
+  }
 };
-
-
-/**
- * Predict the rating of many users for many products.
- * The output RDD has an element per each element in the input RDD (including all duplicates)
- * unless a user or product is missing in the training set.
- *
- * @param {RDD} usersProducts   RDD of (user, product) pairs.
- * @returns {RDD}  RDD of Ratings.
- */
-MatrixFactorizationModel.prototype.predict1 = function(usersProducts) {
-// // TODO: handle Tuple conversion for 'usersProducts'
-   var usersProducts_uw = Utils.unwrapObject(usersProducts);
-   var javaObject =  this.getJavaObject().predict(usersProducts_uw.rdd());
-   return new RDD(javaObject.toJavaRDD());
-};
-
-
-/**
- * Java-friendly version of {@link predict}.
- * @param {JavaPairRDD} usersProducts
- * @returns {JavaRDD} 
- */
-MatrixFactorizationModel.prototype.predict2 = function(usersProducts) {
-throw "not implemented by ElairJS";
-//   var usersProducts_uw = Utils.unwrapObject(usersProducts);
-//   var javaObject =  this.getJavaObject().predict(usersProducts_uw);
-//   return new JavaRDD(javaObject);
-};
-
 
 /**
  * Recommends products to a user.
