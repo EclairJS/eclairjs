@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 @Tests({
         "rddtest.js"
 })
+
 @RunWith(JSRunner.class)
 public class CoreTest {
 
@@ -27,4 +28,11 @@ public class CoreTest {
 
 
     }
+
+    @Test
+    public void testCartesian() throws Exception {
+
+
+    }
+
 }
