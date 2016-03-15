@@ -57,7 +57,7 @@ RDD.prototype.aggregate = function(zeroValue,func1,func2, bindArgs1, bindArgs2) 
  * @returns {RDD}
  */
 RDD.prototype.cache = function() {
-	return new RDD(this.getJavaObject().cache());
+	return Utils.javaToJs(this.getJavaObject().cache());
 };
 
 /**
@@ -68,7 +68,7 @@ RDD.prototype.cache = function() {
  */
 RDD.prototype.cartesian = function(other) {
    var other_uw = Utils.unwrapObject(other);
-   return new RDD(this.getJavaObject().cartesian(other_uw));
+   return Utils.javaToJs(this.getJavaObject().cartesian(other_uw));
 };
 
 /**
@@ -107,7 +107,7 @@ RDD.prototype.checkpoint = function() {
  * @returns {RDD}
  */
 RDD.prototype.coalesce = function(numPartitions,shuffle) {
-    return new RDD(this.getJavaObject().coalesce(numPartitions, shuffle));
+    return Utils.javaToJs(this.getJavaObject().coalesce(numPartitions, shuffle));
 };
 
 /**
@@ -247,7 +247,7 @@ throw "not implemented by ElairJS";
 RDD.prototype.distinct = function(numPartitions) {
     var javaObject =  numPartitions ? this.getJavaObject(numPartitions).distinct() :
         this.getJavaObject().distinct();
-    return new RDD(javaObject);
+    return Utils.javaToJs(javaObject);
 };
 
 /**
@@ -259,7 +259,7 @@ RDD.prototype.distinct = function(numPartitions) {
 RDD.prototype.filter = function(func, bindArgs) {
     var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
     var javaObject =  this.getJavaObject().filter(fn);
-    return new RDD(javaObject);
+    return Utils.javaToJs(javaObject);
 };
 
 /**
@@ -276,7 +276,7 @@ RDD.prototype.filterWith = function(constructA, bindArgs) {
 throw "not implemented by ElairJS";
     //var fn = Utils.createLambdaFunction(constructA, org.eclairjs.nashorn.JSFunction, bindArgs);
     //var javaObject =  this.getJavaObject().filterWith(fn);
-    //return new RDD(javaObject);
+    //return Utils.javaToJs(javaObject);
 };
 
 /**
@@ -298,7 +298,7 @@ RDD.prototype.first = function() {
 RDD.prototype.flatMap = function(func, bindArgs) {
 	  var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFlatMapFunction, bindArgs);
     var javaObject =  this.getJavaObject().flatMap(fn);
-    return new RDD(javaObject);
+    return Utils.javaToJs(javaObject);
 };
 
 /**
@@ -314,7 +314,7 @@ throw "not implemented by ElairJS";
      //var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFlatMapFunction, bindArgs);
     //var preserves = preservesPartitioning || false;
     //var javaObject =  this.getJavaObject().flatMapWith(fn,preservesPartitioning);
-    //return new RDD(javaObject);
+    //return Utils.javaToJs(javaObject);
 };
 
 
@@ -432,7 +432,7 @@ RDD.prototype.getStorageLevel = function() {
  */
 RDD.prototype.glom = function() {
     var javaObject =  this.getJavaObject().glom();
-    return new RDD(javaObject);
+    return Utils.javaToJs(javaObject);
 };
 
 /**
@@ -481,7 +481,7 @@ RDD.prototype.intersection = function(other,numPartitions,partitioner) {
     var result = numPartitions ? this.getJavaObject().intersection(other_uw,numPartitions) :
         partitioner_uw ? this.getJavaObject().intersection(other_uw,partitioner_uw) :
         this.getJavaObject().intersection(other_uw);
-    return new RDD(result);
+    return Utils.javaToJs(result);
 };
 
 /**
@@ -513,7 +513,7 @@ RDD.prototype.isEmpty = function() {
 RDD.prototype.keyBy = function(func, bindArgs) {
     var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
     var javaObject =  this.getJavaObject().keyBy(fn);
-    return new RDD(javaObject);
+    return Utils.javaToJs(javaObject);
 };
 
 /**
@@ -537,7 +537,7 @@ RDD.prototype.keyBy = function(func, bindArgs) {
  */
 RDD.prototype.localCheckpoint = function() {
     var javaObject =  this.getJavaObject().localCheckpoint();
-    return new RDD(javaObject);
+    return Utils.javaToJs(javaObject);
 };
 
 /**
@@ -549,7 +549,7 @@ RDD.prototype.localCheckpoint = function() {
 RDD.prototype.map = function(func, bindArgs) {
     var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
     var javaObject =  this.getJavaObject().map(fn);
-    return new RDD(javaObject);
+    return Utils.javaToJs(javaObject);
 };
 
 /**
@@ -564,7 +564,7 @@ RDD.prototype.map = function(func, bindArgs) {
 RDD.prototype.mapPartitions = function(func,preservesPartitioning, bindArgs) {
     var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFlatMapFunction, bindArgs);
     var javaObject =  this.getJavaObject().mapPartitions(fn,preservesPartitioning);
-    return new RDD(javaObject);
+    return Utils.javaToJs(javaObject);
 };
 
 /**
@@ -581,7 +581,7 @@ RDD.prototype.mapPartitions = function(func,preservesPartitioning, bindArgs) {
 RDD.prototype.mapPartitionsWithIndex = function(func,preservesPartitioning, bindArgs) {
     var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
     var javaObject =  this.getJavaObject().mapPartitionsWithIndex(fn,preservesPartitioning);
-    return new RDD(javaObject);
+    return Utils.javaToJs(javaObject);
 };
 
 /**
@@ -595,7 +595,7 @@ RDD.prototype.mapPartitionsWithIndex = function(func,preservesPartitioning, bind
 RDD.prototype.mapPartitionsWithSplit = function(func,preservesPartitioning, bindArgs) {
     var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
     var javaObject =  this.getJavaObject().mapPartitionsWithSplit(fn,preservesPartitioning);
-    return new RDD(javaObject);
+    return Utils.javaToJs(javaObject);
 };
 
 /**
@@ -613,7 +613,7 @@ RDD.prototype.mapWith = function(constructA,preservesPartitioning,bindArgs) {
 throw "not implemented by ElairJS";
     //var fn = Utils.createLambdaFunction(constructA, org.eclairjs.nashorn.JSFunction, bindArgs);
     //var javaObject =  this.getJavaObject().mapWith(fn,preservesPartitioning);
-    //return new RDD(javaObject);
+    //return Utils.javaToJs(javaObject);
 };
 
 /**
@@ -667,7 +667,7 @@ RDD.prototype.numericRDDToDoubleRDDFunctions = function(rdd) {
 throw "not implemented by ElairJS";
     //var rdd_uw = Utils.unwrapObject(rdd);
     //var javaObject = this.getJavaObject().numericRDDToDoubleRDDFunctions(rdd_uw);
-    //return new RDD(javaObject);
+    //return Utils.javaToJs(javaObject);
 };
 
 /**
@@ -677,7 +677,7 @@ throw "not implemented by ElairJS";
 RDD.prototype.persist = function(newLevel) {
     var newLevel_uw = newLevel ? Utils.unwrapObject(newLevel) : null;
     var javaObject = newLevel_uw ? this.getJavaObject().persist(newLevel_uw) : this.getJavaObject().persist();
-    return new RDD(javaObject);
+    return Utils.javaToJs(javaObject);
 };
 
 /**
@@ -709,7 +709,7 @@ RDD.prototype.pipe = function(command,env,printPipeContext,printRDDElement,separ
     var result = fn && fn2 ? this.getJavaObject().pipe(command_uw,env_uw,fn,fn2,separateWorkingDir) :
         env_ua ? this.getJavaObject().pipe(command_uw,env_uw) : this.getJavaObject().pipe(command_uw);
 
-    return new RDD(result);
+    return Utils.javaToJs(result);
 };
 
 /**
@@ -741,7 +741,7 @@ RDD.prototype.randomSplit = function(weights,seed) {
     var results = [];
     for (var i = 0; i < res.length; i++) {
         var value = res[i];
-        results.push(new RDD(value));
+        results.push(Utils.javaToJs(value));
     }
     return results;
 };
@@ -808,7 +808,7 @@ RDD.prototype.reduce = function(func, bindArgs) {
  */
 RDD.prototype.repartition = function(numPartitions) {
     var javaObject =  this.getJavaObject().repartition(numPartitions);
-    return new RDD(javaObject);
+    return Utils.javaToJs(javaObject);
 };
 
 /**
@@ -823,7 +823,7 @@ RDD.prototype.repartition = function(numPartitions) {
  */
 RDD.prototype.sample = function(withReplacement,fraction,seed) {
     var javaObject =  this.getJavaObject().sample(withReplacement,fraction,seed);
-    return new RDD(javaObject);
+    return Utils.javaToJs(javaObject);
 };
 
 /**
@@ -863,7 +863,7 @@ throw "not implemented by ElairJS";
  */
 RDD.prototype.setName = function(_name) {
     var javaObject = this.getJavaObject().setName(_name);
-    return new RDD(javaObject);
+    return Utils.javaToJs(javaObject);
 };
 
 /**
@@ -877,7 +877,7 @@ RDD.prototype.setName = function(_name) {
 RDD.prototype.sortBy = function(func,ascending,numPartitions,bindArgs) {
     var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
     var javaObject =  this.getJavaObject().sortBy(fn,ascending,numPartitions);
-    return new RDD(javaObject);
+    return Utils.javaToJs(javaObject);
 };
 
 /**
@@ -887,7 +887,7 @@ RDD.prototype.sortBy = function(func,ascending,numPartitions,bindArgs) {
  * @deprecated Use sortBy instead
  */
 RDD.prototype.sortByKey = function(ascending) {
-	var result = new RDD(this.getJavaObject().sortByKey(ascending));
+	var result = Utils.javaToJs(this.getJavaObject().sortByKey(ascending));
 	return result;
 };
 
@@ -912,7 +912,7 @@ RDD.prototype.subtract = function(other,numPartitions,p) {
     var p_uw = p ? Utils.unwrapObject(p) : null;
     var result = numPartitions ? this.getJavaObject().subtract(other_uw,numPartitions) :
         p_uw ? this.getJavaObject().subtract(other_uw,p_uw) : this.getJavaObject().subtract(other_uw);
-    return new RDD(result);
+    return Utils.javaToJs(result);
 };
 
 /**
@@ -1088,7 +1088,7 @@ RDD.prototype.treeReduce = function(func,depth,bindArgs) {
 RDD.prototype.union = function(other) {
     var other_uw = Utils.unwrapObject(other);
     var javaObject =  this.getJavaObject().union(other_uw);
-    return new RDD(javaObject);
+    return Utils.javaToJs(javaObject);
 };
 
 /**
@@ -1099,7 +1099,7 @@ RDD.prototype.union = function(other) {
  */
 RDD.prototype.unpersist = function(blocking) {
     var javaObject =  this.getJavaObject().unpersist(blocking);
-    return new RDD(javaObject);
+    return Utils.javaToJs(javaObject);
 };
 
 /**
@@ -1113,7 +1113,7 @@ RDD.prototype.unpersist = function(blocking) {
 RDD.prototype.zip = function(other) {
     var other_uw = Utils.unwrapObject(other);
     var javaObject = this.getJavaObject().zip(other_uw);
-    return new RDD(javaObject);
+    return Utils.javaToJs(javaObject);
 };
 
 /**
@@ -1132,7 +1132,7 @@ RDD.prototype.zipPartitions = function(rdd2,func,preservesPartitioning, bindArgs
     var rdd2_uw = Utils.unwrapObject(rdd2);
     var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFlatMapFunction2, bindArgs);
     var result = this.getJavaObject().zipPartitions(rdd2_uw,fn);
-    return new RDD(result);
+    return Utils.javaToJs(result);
 };
 
 /**
@@ -1159,7 +1159,7 @@ RDD.prototype.zipPartitionsMulti = function(rdd2,rdd3,rdd4,preservesPartitioning
     var result = rdd4_uw ? this.getJavaObject().zipPartitions(rdd2_uw,rdd3_uw,rdd4_uw,preservesPartitioning) :
         rdd3_uw ? this.getJavaObject().zipPartitions(rdd2_uw,rdd3_uw,preservesPartitioning) :
         this.getJavaObject().zipPartitions(rdd2_uw,preservesPartitioning);
-    return new RDD(result);
+    return Utils.javaToJs(result);
 };
 
 /**
@@ -1178,7 +1178,7 @@ RDD.prototype.zipPartitionsMulti = function(rdd2,rdd3,rdd4,preservesPartitioning
  */
 RDD.prototype.zipWithIndex = function() {
     var javaObject = this.getJavaObject().zipWithIndex();
-    return new RDD(javaObject);
+    return Utils.javaToJs(javaObject);
 };
 
 /**
@@ -1193,7 +1193,7 @@ RDD.prototype.zipWithIndex = function() {
  * @returns {RDD}
  */
 RDD.prototype.zipWithUniqueId = function() {
-   return new RDD(this.getJavaObject().zipWithUniqueId());
+   return Utils.javaToJs(this.getJavaObject().zipWithUniqueId());
 };
 
 ///
@@ -1208,12 +1208,12 @@ RDD.prototype.zipWithUniqueId = function() {
  */
 RDD.prototype.collectAsync = function() {
   var javaObject =  this.getJavaObject().collectAsync();
-  return new FutureAction(javaObject);
+  return Utils.javaToJs(javaObject);
 }
 RDD.prototype.joinx = function (other, numPartitions) {
     print("rdd join")
     var other_uw = Utils.unwrapObject(other);
     var javaObject =  numPartitions ? this.getJavaObject(other_uw,numPartitions).join() :
         this.getJavaObject().join(other_uw);
-    return new PairRDD(javaObject);
+    return Utils.javaToJs(javaObject);
 };
