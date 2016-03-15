@@ -168,6 +168,8 @@ Serialize.javaSparkObject = function (javaObj) {
         className = "FloatRDD"; //o.getClass().getSimpleName();
     } else if (className == "JavaPairRDD") {
         className = "PairRDD";
+    } else if (className == "JavaDStream") {
+        className = "DStream";
     } else if (className == "JavaPairDStream") {
         className = "PairDStream";
     }
