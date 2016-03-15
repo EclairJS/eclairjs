@@ -63,19 +63,10 @@ Vector.prototype = Object.create(JavaWrapper.prototype);
 Vector.prototype.constructor = Vector;
 
 
-/**
- * @returns {??}
- */
-Vector.prototype.$init$ = function () {
-    throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().$init$();
-//   return new ??(javaObject);
-};
-
 
 /**
  * Size of the vector.
- * @returns {number}
+ * @returns {integer}
  */
 Vector.prototype.size = function () {
     return this.getJavaObject().size();
@@ -84,10 +75,12 @@ Vector.prototype.size = function () {
 
 /**
  * Converts the instance to a double array.
- * @returns {number[]}
+ * @returns {float[]}
  */
 Vector.prototype.toArray = function () {
-    return this.getJavaObject().toArray();
+    var a = this.getJavaObject().toArray();
+    var ret = Java.from(a); // convert java array to JavaScript array.
+    return ret;
 };
 
 
@@ -172,9 +165,8 @@ Vector.prototype.numNonzeros = function () {
  * @returns {SparseVector}
  */
 Vector.prototype.toSparse = function () {
-    throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().toSparse();
-//   return new SparseVector(javaObject);
+   var javaObject =  this.getJavaObject().toSparse();
+   return new SparseVector(javaObject);
 };
 
 
@@ -183,9 +175,8 @@ Vector.prototype.toSparse = function () {
  * @returns {DenseVector}
  */
 Vector.prototype.toDense = function () {
-    throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().toDense();
-//   return new DenseVector(javaObject);
+   var javaObject =  this.getJavaObject().toDense();
+   return new DenseVector(javaObject);
 };
 
 
@@ -194,20 +185,18 @@ Vector.prototype.toDense = function () {
  * @returns {Vector}
  */
 Vector.prototype.compressed = function () {
-    throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().compressed();
-//   return Utils.javaToJs(javaObject);
+   var javaObject =  this.getJavaObject().compressed();
+   return Utils.javaToJs(javaObject);
 };
 
 
 /**
  * Find the index of a maximal element.  Returns the first maximal element in case of a tie.
  * Returns -1 if vector has length 0.
- * @returns {number}
+ * @returns {integer}
  */
 Vector.prototype.argmax = function () {
-    throw "not implemented by ElairJS";
-//   return  this.getJavaObject().argmax();
+   return  this.getJavaObject().argmax();
 };
 
 
@@ -216,7 +205,7 @@ Vector.prototype.argmax = function () {
  * @returns {string}
  */
 Vector.prototype.toJSON = function () {
-   return  this.getJavaObject().toJson();
+    return  this.toArray();
 };
 
 
@@ -353,122 +342,6 @@ DenseVector.prototype.constructor = DenseVector;
 
 
 /**
- * @returns {number}
- */
-DenseVector.prototype.size = function () {
-    return  this.getJavaObject().size();
-};
-
-
-/**
- * @returns {string}
- */
-DenseVector.prototype.toString = function () {
-    return this.getJavaObject().toString();
-};
-
-
-/**
- * @returns {float[]}
- */
-DenseVector.prototype.toArray = function () {
-    var a = this.getJavaObject().toArray();
-    var ret = [];
-    for (var i = 0; i &lt; a.length; i++) {
-        ret.push(a[i]);
-    }
-    //return ret;
-    return a;
-};
-
-
-/**
- * @param {number} i
- * @returns {number}
- */
-DenseVector.prototype.apply = function (i) {
-    throw "not implemented by ElairJS";
-//   return  this.getJavaObject().apply(i);
-};
-
-
-/**
- * @returns {DenseVector}
- */
-DenseVector.prototype.copy = function () {
-    throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().copy();
-//   return new DenseVector(javaObject);
-};
-
-
-/**
- * @param {func} f
- */
-DenseVector.prototype.foreachActive = function (f) {
-    throw "not implemented by ElairJS";
-//   var sv = Utils.createJavaParams(f);
-//   var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
-//    this.getJavaObject().foreachActive(fn);
-};
-
-
-/**
- * @returns {number}
- */
-DenseVector.prototype.hashCode = function () {
-    throw "not implemented by ElairJS";
-//   return  this.getJavaObject().hashCode();
-};
-
-
-/**
- * @returns {number}
- */
-DenseVector.prototype.numActives = function () {
-    throw "not implemented by ElairJS";
-//   return  this.getJavaObject().numActives();
-};
-
-
-/**
- * @returns {number}
- */
-DenseVector.prototype.numNonzeros = function () {
-    throw "not implemented by ElairJS";
-//   return  this.getJavaObject().numNonzeros();
-};
-
-
-/**
- * @returns {SparseVector}
- */
-DenseVector.prototype.toSparse = function () {
-    throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().toSparse();
-//   return new SparseVector(javaObject);
-};
-
-
-/**
- * @returns {number}
- */
-DenseVector.prototype.argmax = function () {
-    throw "not implemented by ElairJS";
-//   return  this.getJavaObject().argmax();
-};
-
-
-/**
- * @returns {string}
- */
-DenseVector.prototype.toJson = function () {
-    throw "not implemented by ElairJS";
-//   return  this.getJavaObject().toJson();
-};
-
-
-/**
  * A sparse vector represented by an index array and an value array.
  *
  * @param size size of the vector.
@@ -501,99 +374,6 @@ var SparseVector = function () {
 SparseVector.prototype = Object.create(Vector.prototype);
 
 SparseVector.prototype.constructor = SparseVector;
-
-
-/**
- * @returns {string}
- */
-SparseVector.prototype.toString = function () {
-    return  this.getJavaObject().toString();
-};
-
-
-/**
- * @returns {number[]}
- */
-SparseVector.prototype.toArray = function () {
-    throw "not implemented by ElairJS";
-//   return  this.getJavaObject().toArray();
-};
-
-
-/**
- * @returns {SparseVector}
- */
-SparseVector.prototype.copy = function () {
-    throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().copy();
-//   return new SparseVector(javaObject);
-};
-
-
-/**
- * @param {func} f
- */
-SparseVector.prototype.foreachActive = function (f) {
-    throw "not implemented by ElairJS";
-//   var sv = Utils.createJavaParams(f);
-//   var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
-//    this.getJavaObject().foreachActive(fn);
-};
-
-
-/**
- * @returns {number}
- */
-SparseVector.prototype.hashCode = function () {
-    throw "not implemented by ElairJS";
-//   return  this.getJavaObject().hashCode();
-};
-
-
-/**
- * @returns {number}
- */
-SparseVector.prototype.numActives = function () {
-    throw "not implemented by ElairJS";
-//   return  this.getJavaObject().numActives();
-};
-
-
-/**
- * @returns {number}
- */
-SparseVector.prototype.numNonzeros = function () {
-    throw "not implemented by ElairJS";
-//   return  this.getJavaObject().numNonzeros();
-};
-
-
-/**
- * @returns {SparseVector}
- */
-SparseVector.prototype.toSparse = function () {
-    throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().toSparse();
-//   return new SparseVector(javaObject);
-};
-
-
-/**
- * @returns {number}
- */
-SparseVector.prototype.argmax = function () {
-    throw "not implemented by ElairJS";
-//   return  this.getJavaObject().argmax();
-};
-
-
-/**
- * @returns {string}
- */
-SparseVector.prototype.toJson = function () {
-    throw "not implemented by ElairJS";
-//   return  this.getJavaObject().toJson();
-};
 
 
 /**
@@ -778,13 +558,13 @@ SparseVector.unapply = function (sv) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ALS.html">ALS</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="AssociationRules.html">AssociationRules</a></li><li><a href="BinaryClassificationMetrics.html">BinaryClassificationMetrics</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BisectingKMeans.html">BisectingKMeans</a></li><li><a href="BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="BoostingStrategy.html">BoostingStrategy</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DecisionTree.html">DecisionTree</a></li><li><a href="DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="DenseMatrix.html">DenseMatrix</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DistributedLDAModel.html">DistributedLDAModel</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatRDD.html">FloatRDD</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="FPGrowth.html">FPGrowth</a></li><li><a href="FPGrowthModel.html">FPGrowthModel</a></li><li><a href="FreqItemset.html">FreqItemset</a></li><li><a href="functions.html">functions</a></li><li><a href="FutureAction.html">FutureAction</a></li><li><a href="GeneralizedLinearModel.html">GeneralizedLinearModel</a></li><li><a href="Gradient.html">Gradient</a></li><li><a href="GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="IsotonicRegression.html">IsotonicRegression</a></li><li><a href="IsotonicRegressionModel.html">IsotonicRegressionModel</a></li><li><a href="KMeans.html">KMeans</a></li><li><a href="KMeansModel.html">KMeansModel</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LBFGS.html">LBFGS</a></li><li><a href="LDA.html">LDA</a></li><li><a href="LDAModel.html">LDAModel</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="List.html">List</a></li><li><a href="LocalLDAModel.html">LocalLDAModel</a></li><li><a href="LogisticGradient.html">LogisticGradient</a></li><li><a href="LogisticRegressionModel.html">LogisticRegressionModel</a></li><li><a href="LogisticRegressionWithLBFGS.html">LogisticRegressionWithLBFGS</a></li><li><a href="LogisticRegressionWithSGD.html">LogisticRegressionWithSGD</a></li><li><a href="Loss.html">Loss</a></li><li><a href="MapType.html">MapType</a></li><li><a href="Matrix.html">Matrix</a></li><li><a href="MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="MLWord2Vec.html">MLWord2Vec</a></li><li><a href="MLWord2VecModel.html">MLWord2VecModel</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PairDStream.html">PairDStream</a></li><li><a href="PairRDD.html">PairRDD</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RandomForest.html">RandomForest</a></li><li><a href="RandomForestModel.html">RandomForestModel</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RankingMetrics.html">RankingMetrics</a></li><li><a href="Rating.html">Rating</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="Rule.html">Rule</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SparseMatrix.html">SparseMatrix</a></li><li><a href="SparseVector.html">SparseVector</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="SquaredL2Updater.html">SquaredL2Updater</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="Strategy.html">Strategy</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li><li><a href="Tuple.html">Tuple</a></li><li><a href="Updater.html">Updater</a></li><li><a href="Vector.html">Vector</a></li><li><a href="Vectors.html">Vectors</a></li><li><a href="VectorUDT.html">VectorUDT</a></li><li><a href="Word2Vec.html">Word2Vec</a></li><li><a href="Word2VecModel.html">Word2VecModel</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ALS.html">ALS</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="AssociationRules.html">AssociationRules</a></li><li><a href="BinaryClassificationMetrics.html">BinaryClassificationMetrics</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BisectingKMeans.html">BisectingKMeans</a></li><li><a href="BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="BoostingStrategy.html">BoostingStrategy</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DecisionTree.html">DecisionTree</a></li><li><a href="DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="DenseMatrix.html">DenseMatrix</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DistributedLDAModel.html">DistributedLDAModel</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatRDD.html">FloatRDD</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="FPGrowth.html">FPGrowth</a></li><li><a href="FPGrowthModel.html">FPGrowthModel</a></li><li><a href="FreqItemset.html">FreqItemset</a></li><li><a href="functions.html">functions</a></li><li><a href="FutureAction.html">FutureAction</a></li><li><a href="GeneralizedLinearModel.html">GeneralizedLinearModel</a></li><li><a href="Gradient.html">Gradient</a></li><li><a href="GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="IsotonicRegression.html">IsotonicRegression</a></li><li><a href="IsotonicRegressionModel.html">IsotonicRegressionModel</a></li><li><a href="KMeans.html">KMeans</a></li><li><a href="KMeansModel.html">KMeansModel</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LBFGS.html">LBFGS</a></li><li><a href="LDA.html">LDA</a></li><li><a href="LDAModel.html">LDAModel</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="List.html">List</a></li><li><a href="LocalLDAModel.html">LocalLDAModel</a></li><li><a href="LogisticGradient.html">LogisticGradient</a></li><li><a href="LogisticRegressionModel.html">LogisticRegressionModel</a></li><li><a href="LogisticRegressionWithLBFGS.html">LogisticRegressionWithLBFGS</a></li><li><a href="LogisticRegressionWithSGD.html">LogisticRegressionWithSGD</a></li><li><a href="Loss.html">Loss</a></li><li><a href="MapType.html">MapType</a></li><li><a href="Matrix.html">Matrix</a></li><li><a href="MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="MLWord2Vec.html">MLWord2Vec</a></li><li><a href="MLWord2VecModel.html">MLWord2VecModel</a></li><li><a href="MulticlassMetrics.html">MulticlassMetrics</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PairDStream.html">PairDStream</a></li><li><a href="PairRDD.html">PairRDD</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RandomForest.html">RandomForest</a></li><li><a href="RandomForestModel.html">RandomForestModel</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RankingMetrics.html">RankingMetrics</a></li><li><a href="Rating.html">Rating</a></li><li><a href="RDD.html">RDD</a></li><li><a href="RegressionMetrics.html">RegressionMetrics</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="Rule.html">Rule</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SparseMatrix.html">SparseMatrix</a></li><li><a href="SparseVector.html">SparseVector</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="SquaredL2Updater.html">SquaredL2Updater</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="Strategy.html">Strategy</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li><li><a href="Tuple.html">Tuple</a></li><li><a href="Updater.html">Updater</a></li><li><a href="Vector.html">Vector</a></li><li><a href="Vectors.html">Vectors</a></li><li><a href="VectorUDT.html">VectorUDT</a></li><li><a href="Word2Vec.html">Word2Vec</a></li><li><a href="Word2VecModel.html">Word2VecModel</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Fri Mar 11 2016 16:15:45 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Tue Mar 15 2016 10:14:32 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>
