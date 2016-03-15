@@ -145,18 +145,17 @@ Matrix.prototype.multiply2 = function (y) {
 
 
 /**
- * @param {number} [maxLines]
- * @param {number} [maxLineWidth]
+ * @param {integer} [maxLines]
+ * @param {integer} [maxLineWidth]
  * @returns {string}
  */
 Matrix.prototype.toString = function (maxLines, maxLineWidth) {
-    throw "not implemented by ElairJS";
-// 
-//   if (arguments[0]) {
-//   return  this.getJavaObject().toString(maxLines,maxLineWidth);
-//   } else {
-//   return  this.getJavaObject().toString();
-//   }
+
+    if (maxLines && maxLineWidth) {
+        return this.getJavaObject().toString(maxLines, maxLineWidth);
+    } else {
+        return this.getJavaObject().toString();
+    }
 };
 
 
@@ -255,7 +254,7 @@ DenseMatrix.prototype.hashCode = function () {
  * @returns {number}
  */
 DenseMatrix.prototype.apply = function (i, j) {
-     return  this.getJavaObject().apply(i,j);
+    return this.getJavaObject().apply(i, j);
 };
 
 
@@ -382,7 +381,7 @@ SparseMatrix.prototype.equals = function (o) {
  * @returns {number}
  */
 SparseMatrix.prototype.apply = function (i, j) {
-    return  this.getJavaObject().apply(i,j);
+    return this.getJavaObject().apply(i, j);
 };
 
 

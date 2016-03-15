@@ -96,9 +96,8 @@ LogisticRegressionModel.prototype.clearThreshold = function () {
  * @param {string} path
  */
 LogisticRegressionModel.prototype.save = function (sc, path) {
-    throw "not implemented by ElairJS";
-//   var sc_uw = Utils.unwrapObject(sc);
-//    this.getJavaObject().save(sc_uw,path);
+    var sc_uw = Utils.unwrapObject(sc);
+    this.getJavaObject().save(sc_uw.sc(),path);
 };
 
 
@@ -192,10 +191,6 @@ LogisticRegressionWithSGD.train = function (input, numIterations, stepSize, mini
  * NOTE: Labels used in Logistic Regression should be {0, 1, ..., k - 1}
  * for k classes multi-label classification problem.
  * @classdesc
- */
-
-/**
- * @returns {??}
  *  @class
  */
 
@@ -218,12 +213,11 @@ LogisticRegressionWithLBFGS.prototype.constructor = LogisticRegressionWithLBFGS;
  * Set the number of possible outcomes for k classes classification problem in
  * Multinomial Logistic Regression.
  * By default, it is binary logistic regression so k will be set to 2.
- * @param {number} numClasses
- * @returns {}
+ * @param {integer} numClasses
+ * @returns {LogisticRegressionWithLBFGS}
  */
 LogisticRegressionWithLBFGS.prototype.setNumClasses = function(n) {
-    return new LogisticRegressionWithLBFGS(
-        this.getJavaObject().setNumClasses(n));
+    return new LogisticRegressionWithLBFGS(this.getJavaObject().setNumClasses(n));
 };
 
 /**
@@ -254,10 +248,9 @@ LogisticRegressionWithLBFGS.prototype.run = function(input, initialWeights) {
  * @returns {LogisticRegressionModel}
  */
 LogisticRegressionModel.load = function (sc, path) {
-    throw "not implemented by ElairJS";
-//   var sc_uw = Utils.unwrapObject(sc);
-//   var javaObject =  org.apache.spark.mllib.classification.LogisticRegressionModel.load(sc_uw,path);
-//   return new LogisticRegressionModel(javaObject);
+   var sc_uw = Utils.unwrapObject(sc);
+   var javaObject =  org.apache.spark.mllib.classification.LogisticRegressionModel.load(sc_uw.sc(),path);
+   return new LogisticRegressionModel(javaObject);
 };
 
 

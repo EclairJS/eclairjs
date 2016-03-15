@@ -144,3 +144,9 @@ var lrExample = function() {
     var result = run(sparkContext);
     return JSON.stringify(result);
 }
+
+var multiclassClassificationMetricsExample = function() {
+    load("examples/mllib/multiclass_classification_metrics_example.js");
+    var result = run(sparkContext);
+    return result.metrics.weightedFalsePositiveRate();
+}

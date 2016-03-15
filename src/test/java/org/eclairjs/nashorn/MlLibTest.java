@@ -363,6 +363,11 @@ public class MlLibTest {
 
     }
 
+    /*
+        LogisticRegressionWithSGD.train()
+        LogisticRegressionModel.weights()
+     */
+
     @Test
     public void lrExample() throws Exception {
         ScriptEngine engine = TestUtils.getEngine();
@@ -372,6 +377,38 @@ public class MlLibTest {
         Object ret = ((Invocable)engine).invokeFunction("lrExample");
 
         String expected = "[0.9550072129824428,0.7533138476702799]";
+
+        assertEquals("failure - strings are not equal", expected, ret.toString());
+
+    }
+
+    /*
+        LogisticRegressionWithLBFGS()
+        LogisticRegressionWithLBFGS.setNumClasses()
+        LogisticRegressionWithLBFGS.run(training)
+        LogisticRegressionModel.predict()
+        LogisticRegressionModel.save()
+        LogisticRegressionModel.load()
+        MulticlassMetrics()
+        MulticlassMetrics.confusionMatrix()
+        MulticlassMetrics.precision());
+        MulticlassMetrics.recall());
+        MulticlassMetrics.fMeasure());
+        MulticlassMetrics.weightedPrecision());
+        MulticlassMetrics.weightedRecall());
+        MulticlassMetrics.weightedFMeasure());
+        MulticlassMetrics.weightedFalsePositiveRate());
+      */
+
+    @Test
+    public void multiclassClassificationMetricsExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
+
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
+        Object ret = ((Invocable)engine).invokeFunction("multiclassClassificationMetricsExample");
+
+        String expected = "0.04391931170794093";
 
         assertEquals("failure - strings are not equal", expected, ret.toString());
 
