@@ -36,19 +36,10 @@ Vector.prototype = Object.create(JavaWrapper.prototype);
 Vector.prototype.constructor = Vector;
 
 
-/**
- * @returns {??}
- */
-Vector.prototype.$init$ = function () {
-    throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().$init$();
-//   return new ??(javaObject);
-};
-
 
 /**
  * Size of the vector.
- * @returns {number}
+ * @returns {integer}
  */
 Vector.prototype.size = function () {
     return this.getJavaObject().size();
@@ -57,10 +48,12 @@ Vector.prototype.size = function () {
 
 /**
  * Converts the instance to a double array.
- * @returns {number[]}
+ * @returns {float[]}
  */
 Vector.prototype.toArray = function () {
-    return this.getJavaObject().toArray();
+    var a = this.getJavaObject().toArray();
+    var ret = Java.from(a); // convert java array to JavaScript array.
+    return ret;
 };
 
 
@@ -145,9 +138,8 @@ Vector.prototype.numNonzeros = function () {
  * @returns {SparseVector}
  */
 Vector.prototype.toSparse = function () {
-    throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().toSparse();
-//   return new SparseVector(javaObject);
+   var javaObject =  this.getJavaObject().toSparse();
+   return new SparseVector(javaObject);
 };
 
 
@@ -156,9 +148,8 @@ Vector.prototype.toSparse = function () {
  * @returns {DenseVector}
  */
 Vector.prototype.toDense = function () {
-    throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().toDense();
-//   return new DenseVector(javaObject);
+   var javaObject =  this.getJavaObject().toDense();
+   return new DenseVector(javaObject);
 };
 
 
@@ -167,20 +158,18 @@ Vector.prototype.toDense = function () {
  * @returns {Vector}
  */
 Vector.prototype.compressed = function () {
-    throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().compressed();
-//   return Utils.javaToJs(javaObject);
+   var javaObject =  this.getJavaObject().compressed();
+   return Utils.javaToJs(javaObject);
 };
 
 
 /**
  * Find the index of a maximal element.  Returns the first maximal element in case of a tie.
  * Returns -1 if vector has length 0.
- * @returns {number}
+ * @returns {integer}
  */
 Vector.prototype.argmax = function () {
-    throw "not implemented by ElairJS";
-//   return  this.getJavaObject().argmax();
+   return  this.getJavaObject().argmax();
 };
 
 
@@ -189,7 +178,7 @@ Vector.prototype.argmax = function () {
  * @returns {string}
  */
 Vector.prototype.toJSON = function () {
-   return  this.getJavaObject().toJson();
+    return  this.toArray();
 };
 
 
@@ -326,122 +315,6 @@ DenseVector.prototype.constructor = DenseVector;
 
 
 /**
- * @returns {number}
- */
-DenseVector.prototype.size = function () {
-    return  this.getJavaObject().size();
-};
-
-
-/**
- * @returns {string}
- */
-DenseVector.prototype.toString = function () {
-    return this.getJavaObject().toString();
-};
-
-
-/**
- * @returns {float[]}
- */
-DenseVector.prototype.toArray = function () {
-    var a = this.getJavaObject().toArray();
-    var ret = [];
-    for (var i = 0; i < a.length; i++) {
-        ret.push(a[i]);
-    }
-    //return ret;
-    return a;
-};
-
-
-/**
- * @param {number} i
- * @returns {number}
- */
-DenseVector.prototype.apply = function (i) {
-    throw "not implemented by ElairJS";
-//   return  this.getJavaObject().apply(i);
-};
-
-
-/**
- * @returns {DenseVector}
- */
-DenseVector.prototype.copy = function () {
-    throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().copy();
-//   return new DenseVector(javaObject);
-};
-
-
-/**
- * @param {func} f
- */
-DenseVector.prototype.foreachActive = function (f) {
-    throw "not implemented by ElairJS";
-//   var sv = Utils.createJavaParams(f);
-//   var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
-//    this.getJavaObject().foreachActive(fn);
-};
-
-
-/**
- * @returns {number}
- */
-DenseVector.prototype.hashCode = function () {
-    throw "not implemented by ElairJS";
-//   return  this.getJavaObject().hashCode();
-};
-
-
-/**
- * @returns {number}
- */
-DenseVector.prototype.numActives = function () {
-    throw "not implemented by ElairJS";
-//   return  this.getJavaObject().numActives();
-};
-
-
-/**
- * @returns {number}
- */
-DenseVector.prototype.numNonzeros = function () {
-    throw "not implemented by ElairJS";
-//   return  this.getJavaObject().numNonzeros();
-};
-
-
-/**
- * @returns {SparseVector}
- */
-DenseVector.prototype.toSparse = function () {
-    throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().toSparse();
-//   return new SparseVector(javaObject);
-};
-
-
-/**
- * @returns {number}
- */
-DenseVector.prototype.argmax = function () {
-    throw "not implemented by ElairJS";
-//   return  this.getJavaObject().argmax();
-};
-
-
-/**
- * @returns {string}
- */
-DenseVector.prototype.toJson = function () {
-    throw "not implemented by ElairJS";
-//   return  this.getJavaObject().toJson();
-};
-
-
-/**
  * A sparse vector represented by an index array and an value array.
  *
  * @param size size of the vector.
@@ -474,99 +347,6 @@ var SparseVector = function () {
 SparseVector.prototype = Object.create(Vector.prototype);
 
 SparseVector.prototype.constructor = SparseVector;
-
-
-/**
- * @returns {string}
- */
-SparseVector.prototype.toString = function () {
-    return  this.getJavaObject().toString();
-};
-
-
-/**
- * @returns {number[]}
- */
-SparseVector.prototype.toArray = function () {
-    throw "not implemented by ElairJS";
-//   return  this.getJavaObject().toArray();
-};
-
-
-/**
- * @returns {SparseVector}
- */
-SparseVector.prototype.copy = function () {
-    throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().copy();
-//   return new SparseVector(javaObject);
-};
-
-
-/**
- * @param {func} f
- */
-SparseVector.prototype.foreachActive = function (f) {
-    throw "not implemented by ElairJS";
-//   var sv = Utils.createJavaParams(f);
-//   var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
-//    this.getJavaObject().foreachActive(fn);
-};
-
-
-/**
- * @returns {number}
- */
-SparseVector.prototype.hashCode = function () {
-    throw "not implemented by ElairJS";
-//   return  this.getJavaObject().hashCode();
-};
-
-
-/**
- * @returns {number}
- */
-SparseVector.prototype.numActives = function () {
-    throw "not implemented by ElairJS";
-//   return  this.getJavaObject().numActives();
-};
-
-
-/**
- * @returns {number}
- */
-SparseVector.prototype.numNonzeros = function () {
-    throw "not implemented by ElairJS";
-//   return  this.getJavaObject().numNonzeros();
-};
-
-
-/**
- * @returns {SparseVector}
- */
-SparseVector.prototype.toSparse = function () {
-    throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().toSparse();
-//   return new SparseVector(javaObject);
-};
-
-
-/**
- * @returns {number}
- */
-SparseVector.prototype.argmax = function () {
-    throw "not implemented by ElairJS";
-//   return  this.getJavaObject().argmax();
-};
-
-
-/**
- * @returns {string}
- */
-SparseVector.prototype.toJson = function () {
-    throw "not implemented by ElairJS";
-//   return  this.getJavaObject().toJson();
-};
 
 
 /**

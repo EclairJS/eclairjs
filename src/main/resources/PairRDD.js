@@ -1,4 +1,4 @@
-/*                                                                         
+/*
  * Copyright 2016 IBM Corp.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -75,7 +75,7 @@ PairRDD.prototype.persist = function (newLevel) {
  */
 PairRDD.prototype.unpersist = function (blocking) {
     throw "not implemented by ElairJS";
-// 
+//
 //   if (arguments[0]) {
 //   var javaObject =  this.getJavaObject().unpersist(blocking);
 //   return new PairRDD(javaObject);
@@ -132,7 +132,7 @@ PairRDD.prototype.cache = function () {
  */
 PairRDD.prototype.coalesce = function (numPartitions, shuffle) {
     throw "not implemented by ElairJS";
-// 
+//
 //   if (arguments[1]) {
 //   var javaObject =  this.getJavaObject().coalesce(numPartitions,shuffle);
 //   return new PairRDD(javaObject);
@@ -170,7 +170,7 @@ PairRDD.prototype.repartition = function (numPartitions) {
  */
 PairRDD.prototype.sample = function (withReplacement, fraction, seed) {
     throw "not implemented by ElairJS";
-// 
+//
 //   if (arguments[2]) {
 //   var javaObject =  this.getJavaObject().sample(withReplacement,fraction,seed);
 //   return new PairRDD(javaObject);
@@ -196,7 +196,7 @@ PairRDD.prototype.sample = function (withReplacement, fraction, seed) {
 PairRDD.prototype.sampleByKey = function (withReplacement, fractions, seed) {
     throw "not implemented by ElairJS";
 //   var fractions_uw = Utils.unwrapObject(fractions);
-// 
+//
 //   if (arguments[2]) {
 //   var javaObject =  this.getJavaObject().sampleByKey(withReplacement,fractions_uw,seed);
 //   return new PairRDD(javaObject);
@@ -224,7 +224,7 @@ PairRDD.prototype.sampleByKey = function (withReplacement, fractions, seed) {
 PairRDD.prototype.sampleByKeyExact = function (withReplacement, fractions, seed) {
     throw "not implemented by ElairJS";
 //   var fractions_uw = Utils.unwrapObject(fractions);
-// 
+//
 //   if (arguments[2]) {
 //   var javaObject =  this.getJavaObject().sampleByKeyExact(withReplacement,fractions_uw,seed);
 //   return new PairRDD(javaObject);
@@ -414,7 +414,7 @@ PairRDD.prototype.countByKey = function () {
  */
 PairRDD.prototype.countByKeyApprox = function (timeout, confidence) {
     throw "not implemented by ElairJS";
-// 
+//
 //   if (arguments[1]) {
 //   var javaObject =  this.getJavaObject().countByKeyApprox(timeout,confidence);
 //   return new PartialResult(javaObject);
@@ -1332,7 +1332,7 @@ PairRDD.prototype.repartitionAndSortWithinPartitions = function (partitioner, co
     throw "not implemented by ElairJS";
 //   var partitioner_uw = Utils.unwrapObject(partitioner);
 //   var comp_uw = Utils.unwrapObject(comp);
-// 
+//
 //   if (arguments[1]) {
 //   var javaObject =  this.getJavaObject().repartitionAndSortWithinPartitions(partitioner_uw,comp_uw);
 //   return new PairRDD(javaObject);
@@ -1369,6 +1369,20 @@ PairRDD.prototype.sortByKey1 = function (ascending) {
     throw "not implemented by ElairJS";
 //   var javaObject =  this.getJavaObject().sortByKey(ascending);
 //   return new PairRDD(javaObject);
+};
+
+
+/**
+ * Sort the RDD by key, so that each partition contains a sorted range of the elements. Calling
+ * `collect` or `save` on the resulting RDD will return or output an ordered list of records
+ * (in the `save` case, they will be written to multiple `part-X` files in the filesystem, in
+ * order of the keys).
+ * @param {boolean} ascending
+ * @returns {PairRDD}
+ */
+RDD.prototype.sortByKey = function(ascending) {
+    var result = new PairRDD(this.getJavaObject().sortByKey(ascending));
+    return result;
 };
 
 

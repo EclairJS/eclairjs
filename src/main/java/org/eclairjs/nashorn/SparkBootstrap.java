@@ -79,6 +79,7 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/streaming/Time.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/streaming/StreamingContext.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/streaming/KafkaUtils.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/streaming/TwitterUtils.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/streaming/dstream/DStream.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/streaming/dstream/PairDStream.js") + "');");
 
@@ -93,6 +94,9 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/mllib/clustering/LDA.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/clustering/LDAModel.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/evaluation/BinaryClassificationMetrics.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/mllib/evaluation/RankingMetrics.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/mllib/evaluation/MulticlassMetrics.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/mllib/evaluation/RegressionMetrics.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/recommendation/ALS.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/recommendation/MatrixFactorizationModel.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/IsotonicRegression.js") + "');");
@@ -101,7 +105,6 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/LinearRegressionWithSGD.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/LabeledPoint.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/util.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/evaluation.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/classification/LogisticRegression.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/feature/Word2Vec.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/fpm/FPGrowth.js") + "');");

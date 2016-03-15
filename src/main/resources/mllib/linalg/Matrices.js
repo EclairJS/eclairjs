@@ -66,8 +66,14 @@ Matrix.prototype.numCols = function () {
  * @returns {number[]}
  */
 Matrix.prototype.toArray = function () {
-    throw "not implemented by ElairJS";
-//   return  this.getJavaObject().toArray();
+    var res = this.getJavaObject().toArray();
+    var results = [];
+    for (var i = 0; i < res.length; i++) {
+        var value = res[i];
+        var o = Utils.javaToJs(value);
+        results.push(o);
+    }
+    return results;
 };
 
 
@@ -139,18 +145,17 @@ Matrix.prototype.multiply2 = function (y) {
 
 
 /**
- * @param {number} [maxLines]
- * @param {number} [maxLineWidth]
+ * @param {integer} [maxLines]
+ * @param {integer} [maxLineWidth]
  * @returns {string}
  */
 Matrix.prototype.toString = function (maxLines, maxLineWidth) {
-    throw "not implemented by ElairJS";
-// 
-//   if (arguments[0]) {
-//   return  this.getJavaObject().toString(maxLines,maxLineWidth);
-//   } else {
-//   return  this.getJavaObject().toString();
-//   }
+
+    if (maxLines && maxLineWidth) {
+        return this.getJavaObject().toString(maxLines, maxLineWidth);
+    } else {
+        return this.getJavaObject().toString();
+    }
 };
 
 
@@ -249,7 +254,7 @@ DenseMatrix.prototype.hashCode = function () {
  * @returns {number}
  */
 DenseMatrix.prototype.apply = function (i, j) {
-     return  this.getJavaObject().apply(i,j);
+    return this.getJavaObject().apply(i, j);
 };
 
 
@@ -376,7 +381,7 @@ SparseMatrix.prototype.equals = function (o) {
  * @returns {number}
  */
 SparseMatrix.prototype.apply = function (i, j) {
-    return  this.getJavaObject().apply(i,j);
+    return this.getJavaObject().apply(i, j);
 };
 
 
