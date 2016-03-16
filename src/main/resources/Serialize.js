@@ -135,6 +135,21 @@ Serialize.javaSeqWrapper = function (javaObj) {
     return false;
 };
 
+// Map java class name to wrapper class name
+var java2wrapper = {
+  "JavaRDD" : "RDD",
+  "JavaDoubleRDD" : "FloatRDD",
+  "JavaPairRDD" : "PairRDD",
+  "JavaDStream" : "DStream",
+  "JavaInputDStream" : "DStream",
+  "JavaReceiverInputDStream" : "DStream",
+  "JavaMapWithStateDStream" : "DStream",
+  "JavaPairDStream" : "PairDStream",
+  "JavaPairInputDStream" : "PairDStream",
+  "JavaPairReceiverInputDStream" : "PairDStream",
+  "JavaFutureActionWrapper" : "FutureAction",
+  "last_place_holder" : ""
+};
 Serialize.javaSparkObject = function (javaObj) {
     if (javaObj == null) {
         return false;
@@ -158,21 +173,8 @@ Serialize.javaSparkObject = function (javaObj) {
         className = javaObj.getClass().getSuperclass().getSimpleName();
     }
 
-    if (className === "JavaRDD") {
-        //Map JavaRDD to RDD for JavaScript
-        className = "RDD"; //o.getClass().getSimpleName();
-    } else if ( className.equals("JavaDoubleRDD")) {
-        /*
-         * Map JavaDoubleRDD to FloatRDD for JavaScript
-         */
-        className = "FloatRDD"; //o.getClass().getSimpleName();
-    } else if (className == "JavaPairRDD") {
-        className = "PairRDD";
-    } else if (className == "JavaDStream") {
-        className = "DStream";
-    } else if (className == "JavaPairDStream") {
-        className = "PairDStream";
-    }
+    if (java2wrapper[className])
+       className=java2wrapper[className]
     else if (className === "Word2Vec" || className === "Word2VecModel") {
         if (packageName.indexOf("org.apache.spark.ml") > -1) {
             //ML
