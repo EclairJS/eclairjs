@@ -160,3 +160,9 @@ var RandomRDDGenerationExample = function() {
         return "Error running test"
     }
 }
+
+var multilabelClassificationMetricsExample = function() {
+    load("examples/mllib/multilabel_classification_metrics_example.js");
+    var metrics = run(sparkContext);
+    return metrics.subsetAccuracy();
+}
