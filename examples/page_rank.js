@@ -98,7 +98,7 @@ var filename = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : 
 var iters = ((typeof args !== "undefined") && (args.length > 2)) ? 0 + args[2] : 10;
 
 if (typeof sparkContext === 'undefined') {
-    var conf = new SparkConf().setAppName("JavaScript Page Rank").setMaster("local[*]");
+    var conf = new SparkConf().setAppName("JavaScript Page Rank");
     var sc = new SparkContext(conf);
     var result = run(sc);
     print(result);

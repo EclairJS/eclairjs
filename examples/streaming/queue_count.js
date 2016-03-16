@@ -16,7 +16,7 @@
 
     // Create the context with a 1 second batch size
 
-    var conf = new SparkConf().setAppName("Javascript Queue Stream").setMaster("local[*]");
+    var conf = new SparkConf().setAppName("Javascript Queue Stream");
     var ssc = new StreamingContext(conf, new Duration(1000));
 
     // Create the queue through which RDDs can be pushed to

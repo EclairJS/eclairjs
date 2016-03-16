@@ -92,7 +92,7 @@ function run(sc, file) {
 
 if (typeof sparkContext === 'undefined') {
     var dataSet = (args.length == 2) ? args[1] : null;
-    var conf = new SparkConf().setAppName("JavaScript Log Query").setMaster("local[*]");
+    var conf = new SparkConf().setAppName("JavaScript Log Query");
     var sc = new SparkContext(conf);
     var result = run(sc, dataSet);
     for (var i = 0; i < result.length; i++) {

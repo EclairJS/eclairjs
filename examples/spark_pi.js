@@ -25,7 +25,7 @@
 
 
 function run(sc) {
-    var slices = 10;
+    var slices = 50;
 
     var n = 100000 * slices;
     var l = [];
@@ -55,7 +55,7 @@ function run(sc) {
 
 if (typeof sparkContext === 'undefined') {
 
-    var conf = new SparkConf().setAppName("JavaScript Spark Pi").setMaster("local[*]");
+    var conf = new SparkConf().setAppName("JavaScript Spark Pi");
     var sc = new SparkContext(conf);
     var result = run(sc);
     print("Pi is roughly " + result);

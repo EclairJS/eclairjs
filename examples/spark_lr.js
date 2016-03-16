@@ -110,7 +110,7 @@ if (typeof sparkContext === 'undefined') {
     file = (args.length > 1) ? args[1] : file;
     ITERATIONS = (args.length > 2) ? 0 + args[2] : ITERATIONS;
 
-    var conf = new SparkConf().setAppName("JavaScript Logistic Regression").setMaster("local[*]");
+    var conf = new SparkConf().setAppName("JavaScript Logistic Regression");
     var sc = new SparkContext(conf);
     var result = run(sc, file);
     print("Final w: ");

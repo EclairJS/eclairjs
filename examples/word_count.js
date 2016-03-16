@@ -20,7 +20,10 @@
  */
 
 function run(sparkContext) {
-    var file = "src/test/resources/dream.txt"; // Should be some file on your system
+
+    var file = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "src/test/resources/dream.txt";
+
+//    var file = "src/test/resources/dream.txt"; // Should be some file on your system
 
     var rdd = sparkContext.textFile(file).cache();
 
@@ -56,7 +59,7 @@ function run(sparkContext) {
  */
 
 if (typeof sparkContext === 'undefined') {
-    var conf = new SparkConf().setAppName("JavaScript word count").setMaster("local[*]");
+    var conf = new SparkConf().setAppName("JavaScript word count");
     var sc = new SparkContext(conf);
     var result = run(sc);
     print("top 10 words = " + result);
