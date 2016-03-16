@@ -49,9 +49,33 @@ public class JSFlatMapFunction2 implements FlatMapFunction2 {
             params = ArrayUtils.addAll(params, this.args);
         }
 
-        //ScriptObjectMirror ret = (ScriptObjectMirror)invocable.invokeFunction("Utils_invoke", params);
-        List ret = (List)invocable.invokeFunction("Utils_invoke", params);
-        //return (Iterable)Utils.jsToJava(ret.values());
-        return ret;
+        Object ret = invocable.invokeFunction("Utils_invoke", params);
+        if (ret.getClass().isArray()) {
+            String type = ret.getClass().getTypeName();
+            if (type.equals("double[]")) {
+                double [] z = (double []) ret;
+                ArrayList x = new ArrayList();
+                for (int i = 0; i < z.length; i++) {
+                    x.add(z[i]);
+                }
+                ret = x;
+            } else if (type.equals("int[]")) {
+                int [] z = (int []) ret;
+                ArrayList x = new ArrayList();
+                for (int i = 0; i < z.length; i++) {
+                    x.add(z[i]);
+                }
+                ret = x;
+            } else {
+                Object [] z = (Object []) ret;
+                ArrayList x = new ArrayList();
+                for (int i = 0; i < z.length; i++) {
+                    x.add(z[i]);
+                }
+                ret = x;
+            }
+
+        }
+        return (Iterable)ret;
     }
 }

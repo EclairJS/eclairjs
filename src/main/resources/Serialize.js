@@ -231,8 +231,8 @@ Serialize.javaToJs = function(javaObj) {
 Serialize.JavaScriptObjectMirrorClass = Java.type('jdk.nashorn.api.scripting.ScriptObjectMirror');
 Serialize.jsToJava = function (obj) {
     if (obj) {
-       // var className = obj.getClass ? obj.getClass().getSimpleName() : obj
-        Serialize.logger.debug("jsToJava " + obj.class);
+        var className = obj.getClass ? obj.getClass().getSimpleName() : obj;
+        Serialize.logger.debug("jsToJava " + className);
         //return org.eclairjs.nashorn.Utils.jsToJava(obj);
 
         if (obj.getJavaObject) {
@@ -241,12 +241,37 @@ Serialize.jsToJava = function (obj) {
         }
 
         if (Array.isArray(obj)) {
-            var l = new java.util.ArrayList();
+            var l = [];
+            //var l = new java.util.ArrayList();
             obj.forEach(function (item) {
-                l.add(Serialize.jsToJava(item));
+                //l.add(Serialize.jsToJava(item));
+                l.push(Serialize.jsToJava(item));
             });
             Serialize.logger.debug("Array " + l);
-            return l;
+            //return l.toArray();
+            /*
+            run through the array
+             */
+            var type = l[0].class.name; //"java.lang.Object";
+            for (var x = 0; x < l.length -1; x++) {
+                if (l[x].class.name !== l[x+1].class.name) {
+                    type = "java.lang.Object";
+                    x = l.length;
+                }
+                type = l[x].class.name;
+            }
+            var ret;
+            if (type == "java.lang.Double") {
+                ret = Java.to(l, "double[]");
+                Serialize.logger.debug("double[] " + ret);
+            } else if (type == "java.lang.Integer") {
+                ret = Java.to(l, "int[]");
+                Serialize.logger.debug("int[] " + ret);
+            } else {
+                ret = Java.to(l);
+                Serialize.logger.debug("Object[] " + ret);
+            }
+            return ret
         }
         if (typeof obj === 'object') {
             var o = Serialize.JavaScriptObjectMirrorClass.wrapAsJSONCompatible(obj, null);

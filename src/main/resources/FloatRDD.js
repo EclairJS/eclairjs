@@ -46,6 +46,8 @@ var FloatRDD = function (srdd) {
 
 FloatRDD.prototype = Object.create(RDD.prototype);
 
+FloatRDD.prototype.constructor = FloatRDD;
+
 
 /**
  * @param {RDD} rdd

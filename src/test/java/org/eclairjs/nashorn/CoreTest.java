@@ -35,4 +35,14 @@ public class CoreTest {
 
     }
 
+    @Test
+    public void testZipPartitions() throws Exception {
+
+    }
+
+    @Test
+    public void testFlatMap() throws Exception {
+
+    }
+
 }
