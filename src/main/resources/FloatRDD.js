@@ -40,13 +40,11 @@ var FloatRDD = function (srdd) {
         jvmObject = new org.apache.spark.api.java.JavaDoubleRDD(srdd_uw);
     }
     this.logger.debug("constructor");
-    JavaWrapper.call(this, jvmObject);
+    RDD.call(this, jvmObject);
 
 };
 
-FloatRDD.prototype = Object.create(JavaWrapper.prototype);
-
-FloatRDD.prototype.constructor = FloatRDD;
+FloatRDD.prototype = Object.create(RDD.prototype);
 
 
 /**

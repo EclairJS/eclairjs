@@ -413,4 +413,21 @@ public class MlLibTest {
         assertEquals("failure - strings are not equal", expected, ret.toString());
 
     }
+
+    /*
+        RandomRDDs.normalRDD
+        RandomRDDs.normalVectorRDD
+     */
+    @Test
+    public void RandomRDDGenerationExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
+        Object ret = ((Invocable)engine).invokeFunction("RandomRDDGenerationExample");
+
+        String expected = "all is good";
+
+        assertEquals("failure - strings are not equal", expected, ret.toString());
+
+    }
 }

@@ -150,3 +150,13 @@ var multiclassClassificationMetricsExample = function() {
     var result = run(sparkContext);
     return result.metrics.weightedFalsePositiveRate();
 }
+
+var RandomRDDGenerationExample = function() {
+    load("examples/mllib/random_rdd_generation_example.js");
+    var result = run(sparkContext);
+    if (result.count > 0 && result.normalVectorCount > 0) {
+        return "all is good";
+    } else {
+        return "Error running test"
+    }
+}
