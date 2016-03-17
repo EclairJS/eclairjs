@@ -461,4 +461,28 @@ public class MlLibTest {
         assertEquals("failure - strings are not equal", expected, ret.toString());
 
     }
+
+    /*
+        NaiveBayes.train()
+        NaiveBayes.load()
+        NaiveBayesModel.predict()
+        NaiveBayesModel.save()
+     */
+
+
+    @Test
+    public void naiveBayesExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
+
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
+        Object ret = ((Invocable)engine).invokeFunction("naiveBayesExample");
+
+        String expected = "0.975609756097561";
+
+        assertEquals("failure - strings are not equal", expected, ret.toString());
+
+    }
+
+
 }

@@ -166,3 +166,9 @@ var multilabelClassificationMetricsExample = function() {
     var metrics = run(sparkContext);
     return metrics.subsetAccuracy();
 }
+
+var naiveBayesExample = function() {
+    load("examples/mllib/naive_bayes_example.js");
+    var result = run(sparkContext);
+    return result.accuracy;
+}
