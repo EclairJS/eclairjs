@@ -20,9 +20,9 @@ var ctx = new SparkContext(sparkConf);
 var sqlContext = new SQLContext(ctx);
 
 var filename = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/people.txt";
-
+var jsonFile = ((typeof args !== "undefined") && (args.length > 2)) ? args[2] :"examples/data/test.json"
 // Load a text file and convert each line to a JavaScript Object.
-var people = ctx.textFile("examples/data/people.txt").map(function(line) {
+var people = ctx.textFile(filename).map(function(line) {
 	var parts = line.split(",");
 	return person = {
     				name: parts[0], 
@@ -58,7 +58,7 @@ var names = results.toRDD().map(function(row) {
 });
 
 print("names = " + names.take(10));
-var dataFrame = sqlContext.read().json("examples/data/test.json");
+var dataFrame = sqlContext.read().json(jsonFile);
 var gd = dataFrame.groupBy(dataFrame.col("first"));
 var df2 = gd.count();
 

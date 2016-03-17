@@ -69,6 +69,39 @@ function run(sc, file) {
     var dataSet = file? sc.textFile(file) : sc.parallelize(exampleApacheLogs);
 
     var extracted = dataSet.mapToPair(function (line) {
+
+
+        var apacheLogRegex =
+            /^([\d.]+) (\S+) (\S+) \[([\w\d:/]+\s[+\-]\d{4})\] "(.+?)" (\d{3}) ([\d\-]+) "([^"]+)" "([^"]+)"/;
+
+//
+//      Lamba functions cannot call other functions,  copy those functions inline
+//
+        function extractStats(line) {
+            var match = line.match(apacheLogRegex);
+            if (match) {
+                var bytes = 0 + match[7];
+                return {count: 1, bytes: bytes};
+            } else {
+                return {count: 1, bytes: 0};
+            }
+
+        }
+
+
+        function extractKey(line) {
+            var match = line.match(apacheLogRegex);
+            if (match) {
+                var ip = match[1];
+                var user = match[3];
+                var query = match[5];
+                if (user != '"-"') {
+                    return {ip: ip, user: user, query: query};
+                }
+            }
+            return {ip: null, user: null, query: null};
+        }
+
         var key = extractKey(line);
         var stats = extractStats(line);
         return new Tuple(key, stats);
