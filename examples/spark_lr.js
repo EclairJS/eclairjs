@@ -33,15 +33,6 @@ function printWeights(a) {
 }
 
 
-function dot(a, b) {
-    var x = 0;
-    for (var i = 0; i < D; i++) {
-        x += a[i] * b[i];
-    }
-    return x;
-}
-
-
 showWarning();
 
 
@@ -76,20 +67,17 @@ function run(sc) {
 
     for (var i = 1; i <= ITERATIONS; i++) {
         print("On iteration " + i);
-        var gradient = points.map(function (datapoint, weights,D,dot) {
+        var gradient = points.map(function (datapoint, weights,D) {
             var gradient = [];
             for (var i = 0; i < D; i++) {
-
-//                var d = dot(weights, datapoint.x);
-//     Lambda functions cannot call other functions,  inline the dot() function
-                var d = 0;
+               var d = 0;
                 for (var j = 0; j < D; j++) {
                     d += weights[j] * datapoint.x[j];
                 }
                 gradient[i] = (1 / (1 + Math.exp(-datapoint.y * d)) - 1) * datapoint.y * datapoint.x[i];
             }
             return gradient;
-        }, [weights,D,dot]).reduce(function (a, b,D) {
+        }, [weights,D]).reduce(function (a, b,D) {
             var result = [];
             for (var j = 0; j < D; j++) {
                 result[j] = a[j] + b[j];
