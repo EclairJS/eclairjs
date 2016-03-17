@@ -20,6 +20,7 @@
  * @param {DataType} elementType
  * @param {boolean} containsNull
  * @classdesc The Array type of all Spark SQL data types.
+ * @extends DataType
  */
 
 var ArrayType = function() {

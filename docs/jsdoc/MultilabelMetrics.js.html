@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: mllib/evaluation/RankingMetrics.js</title>
+    <title>JSDoc: Source: mllib/evaluation/MultilabelMetrics.js</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: mllib/evaluation/RankingMetrics.js</h1>
+    <h1 class="page-title">Source: mllib/evaluation/MultilabelMetrics.js</h1>
     
     
 
@@ -44,110 +44,129 @@
 
 
 /**
- * ::Experimental::
- * Evaluator for ranking algorithms.
- *
- * Java users should use [[RankingMetrics$.of]] to create a {@link RankingMetrics} instance.
- *
- * @param predictionAndLabels an RDD of (predicted ranking, ground truth set) pairs.
+ * Evaluator for multilabel classification.
+ * @param predictionAndLabels an RDD of (predictions, labels) pairs,
+ * both are non-null Arrays, each with unique elements.
  * @classdesc
- */
-
-/**
  * @param {RDD} predictionAndLabels
  *  @class
  */
-var RankingMetrics = function(predictionAndLabels) {
-    this.logger = Logger.getLogger("RankingMetrics_js");
+var MultilabelMetrics = function(predictionAndLabels) {
+    this.logger = Logger.getLogger("MultilabelMetrics_js");
     var jvmObject;
-    if (predictionAndLabels instanceof org.apache.spark.mllib.evaluation.RankingMetrics) {
+	if (predictionAndLabels instanceof org.apache.spark.mllib.evaluation.MultilabelMetrics) {
         jvmObject = predictionAndLabels;
     } else {
-        jvmObject = new org.apache.spark.mllib.evaluation.RankingMetrics(predictionAndLabels);
+        jvmObject = new org.apache.spark.mllib.evaluation.MultilabelMetrics(Utils.unwrapObject(predictionAndLabels).rdd());
     }
-
 
 	 JavaWrapper.call(this, jvmObject);
 
 };
 
-RankingMetrics.prototype = Object.create(JavaWrapper.prototype);
+MultilabelMetrics.prototype = Object.create(JavaWrapper.prototype);
 
-RankingMetrics.prototype.constructor = RankingMetrics;
+MultilabelMetrics.prototype.constructor = MultilabelMetrics;
 
 
 
 /**
- * Compute the average precision of all the queries, truncated at ranking position k.
- *
- * If for a query, the ranking algorithm returns n (n &lt; k) results, the precision value will be
- * computed as #(relevant items retrieved) / k. This formula also applies when the size of the
- * ground truth set is less than k.
- *
- * If a query has an empty ground truth set, zero will be used as precision together with
- * a log warning.
- *
- * See the following paper for detail:
- *
- * IR evaluation methods for retrieving highly relevant documents. K. Jarvelin and J. Kekalainen
- *
- * @param {number} k  the position to compute the truncated precision, must be positive
- * @returns {number}  the average precision at the first k ranking positions
+ * Returns accuracy
+ * @returns {float}
  */
-RankingMetrics.prototype.precisionAt = function(k) {
-throw "not implemented by ElairJS";
-//   return  this.getJavaObject().precisionAt(k);
-};
-
-
-RankingMetrics.prototype.precisionAt = function(k) {
-    return this.getJavaObject().precisionAt(k);
-};
-
-
-RankingMetrics.prototype.meanAveragePrecision = function() {
-    return this.getJavaObject().meanAveragePrecision();
+MultilabelMetrics.prototype.accuracy = function() {
+    return  this.getJavaObject().accuracy();
 };
 
 /**
- * Compute the average NDCG value of all the queries, truncated at ranking position k.
- * The discounted cumulative gain at position k is computed as:
- *    sum,,i=1,,^k^ (2^{relevance of ''i''th item}^ - 1) / log(i + 1),
- * and the NDCG is obtained by dividing the DCG value on the ground truth set. In the current
- * implementation, the relevance value is binary.
-
- * If a query has an empty ground truth set, zero will be used as ndcg together with
- * a log warning.
- *
- * See the following paper for detail:
- *
- * IR evaluation methods for retrieving highly relevant documents. K. Jarvelin and J. Kekalainen
- *
- * @param {number} k  the position to compute the truncated ndcg, must be positive
- * @returns {number}  the average ndcg at the first k ranking positions
+ * Returns subset accuracy (for equal sets of labels)
+ * @returns {float}
  */
-RankingMetrics.prototype.ndcgAt = function(k) {
-    return this.getJavaObject().ndcgAt(k);
+MultilabelMetrics.prototype.subsetAccuracy = function() {
+    return  this.getJavaObject().subsetAccuracy();
 };
 
-//
-// static methods
-//
+/**
+ * Returns Hamming-loss
+ * @returns {float}
+ */
+MultilabelMetrics.prototype.hammingLoss = function() {
+    return  this.getJavaObject().hammingLoss();
+};
+
+/**
+ * Returns document-based precision averaged by the number of documents
+ * @param {float} [label]  Returns precision for a given label (category)
+ * @returns {float}
+ */
+MultilabelMetrics.prototype.precision = function(label) {
+    if (label) {
+        return  this.getJavaObject().precision(label);
+    } else {
+        return  this.getJavaObject().precision();
+    }
+
+};
 
 
 /**
- * Creates a {@link RankingMetrics} instance
- * @param {RDD} predictionAndLabels  a JavaRDD of (predicted ranking, ground truth set) pairs
- * @returns {RankingMetrics} 
+ * Returns document-based recall averaged by the number of documents
+ * @param {float} [label] Returns recall for a given label (category)
+ * @returns {float}
  */
-RankingMetrics.of = function(predictionAndLabels) {
-    var rm = org.apache.spark.mllib.evaluation.RankingMetrics.of(Utils.unwrapObject(predictionAndLabels));
-    return new RankingMetrics(rm);
+MultilabelMetrics.prototype.recall = function(label) {
+    if (label) {
+        return  this.getJavaObject().recall(label);
+    } else {
+        return  this.getJavaObject().recall();
+    }
 };
 
 
+/**
+ * Returns document-based f1-measure averaged by the number of documents
+ * @param {float} [label]  Returns f1-measure for a given label (category)
+ * @returns {float}
+ */
+MultilabelMetrics.prototype.f1Measure = function(label) {
+    if (label) {
+        return  this.getJavaObject().f1Measure(label);
+    } else {
+        return  this.getJavaObject().f1Measure();
+    }
+};
 
-</code></pre>
+/**
+ * Returns micro-averaged label-based precision (equals to micro-averaged document-based precision)
+ * @returns {float}
+ */
+MultilabelMetrics.prototype.microPrecision = function() {
+    return  this.getJavaObject().microPrecision();
+};
+
+/**
+ * Returns micro-averaged label-based recall (equals to micro-averaged document-based recall)
+ * @returns {float}
+ */
+MultilabelMetrics.prototype.microRecall = function() {
+    return  this.getJavaObject().microRecall();
+};
+
+/**
+ * Returns micro-averaged label-based f1-measure (equals to micro-averaged document-based f1-measure)
+ * @returns {float}
+ */
+MultilabelMetrics.prototype.microF1Measure = function() {
+    return  this.getJavaObject().microF1Measure();
+};
+
+/**
+ * Returns the sequence of labels in ascending order
+ * @returns {float[]}
+ */
+MultilabelMetrics.prototype.labels = function() {
+    return  Java.from(this.getJavaObject().labels());
+};</code></pre>
         </article>
     </section>
 

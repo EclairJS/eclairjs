@@ -16,6 +16,7 @@
  */
 /**
  * @constructor
+ * @extends DataType
  * @classdesc The data type for Maps. Keys in a map are not allowed to have null values.
  * Please use DataTypes.createMapType() to create a specific instance.
  * @param {DataType} keyType The data type of map keys. 
