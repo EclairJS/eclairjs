@@ -47,7 +47,7 @@ if ((typeof args == "undefined")||args.length<5)
 }
 
 
-    var conf = new SparkConf().setAppName("Javascript Twitter Popular Tags").setMaster("local[*]");
+    var conf = new SparkConf().setAppName("Javascript Twitter Popular Tags");
     var jssc = new StreamingContext(conf, new Duration(2000));
 
     var filters = (args.length>5)? args[5] : [];

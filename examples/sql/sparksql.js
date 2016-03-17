@@ -15,9 +15,11 @@
  * limitations under the License.
  */
 
-var sparkConf = new SparkConf().setAppName("JavaScriptSparkSQL").setMaster("local[*]");
+var sparkConf = new SparkConf().setAppName("JavaScriptSparkSQL");
 var ctx = new SparkContext(sparkConf);
 var sqlContext = new SQLContext(ctx);
+
+var filename = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/people.txt";
 
 // Load a text file and convert each line to a JavaScript Object.
 var people = ctx.textFile("examples/data/people.txt").map(function(line) {

@@ -352,6 +352,7 @@ SparkContext.prototype.parallelize = function (list, numSlices) {
     var list_uw = [];
     list.forEach(function (item) {
         list_uw.push(Utils.unwrapObject(item));
+        //list_uw.push(Serialize.jsToJava(item));
     });
     if (numSlices) {
         return new RDD(this.getJavaObject().parallelize(list_uw, numSlices));

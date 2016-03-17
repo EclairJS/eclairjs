@@ -22,6 +22,7 @@
  * update coming from the regularization term R(w) (if any regularization is used).
  * @class
  * @constructor
+ * @extends Updater
  */
 var SquaredL2Updater = function () {
     this.logger = Logger.getLogger("SquaredL2Updater_js");

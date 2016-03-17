@@ -96,6 +96,7 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/mllib/evaluation/BinaryClassificationMetrics.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/evaluation/RankingMetrics.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/evaluation/MulticlassMetrics.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/mllib/evaluation/MultilabelMetrics.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/evaluation/RegressionMetrics.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/recommendation/ALS.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/recommendation/MatrixFactorizationModel.js") + "');");
@@ -122,6 +123,7 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/mllib/optimization/Updater.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/optimization/SquaredL2Updater.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/tree/loss/Loss.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/mllib/random/RandomRDDs.js") + "');");
             //ml
             engine.eval("load('" + getResourceAsURLStirng("/ml/Word2Vec.js") + "');");
 

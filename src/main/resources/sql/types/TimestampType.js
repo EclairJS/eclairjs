@@ -16,6 +16,7 @@
  */
 /**
  * @constructor
+ * @extends DataType
  * @classdesc The data type representing java.sql.Timestamp values. Please use the singleton DataTypes.TimestampType.
  */
 

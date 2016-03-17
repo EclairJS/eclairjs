@@ -34,7 +34,7 @@ var run = function(sc){
  */
 
 if (typeof sparkContext === 'undefined') {
-	var conf = new SparkConf().setAppName("JavaScript accumulators test").setMaster("local[*]");
+	var conf = new SparkConf().setAppName("JavaScript accumulators test");
 	var sc = new SparkContext(conf);
     var accum = sc.accumulator([0]);
 	print(run(sc));

@@ -88,7 +88,7 @@ return tc.count();
 
 if (typeof sparkContext === 'undefined') {
 	var slices =  2;
-	var conf = new SparkConf().setAppName("JavaScript transitive closer").setMaster("local[*]");
+	var conf = new SparkConf().setAppName("JavaScript transitive closure");
 	var sc = new SparkContext(conf);
 	var result = run(sc, slices);
 	print("TC has " + result + " edges.");

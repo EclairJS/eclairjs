@@ -21,9 +21,8 @@
  * is a continuous sequence of RDDs (of the same type) representing a continuous stream of data.
  * @param {object} jDStream
   */
-var PairDStream = function(jPairDStream, streamingContext) {
+var PairDStream = function(jPairDStream) {
 	var jvmObj = jPairDStream;
-	this.streamingContext = streamingContext;
 	this.logger = Logger.getLogger("streaming.dtream.PairDStream_js");
 	JavaWrapper.call(this, jvmObj);
 };
@@ -41,7 +40,7 @@ PairDStream.prototype.constructor = PairDStream;
 PairDStream.prototype.filter = function(f,bindArgs) {
  var fn = Utils.createLambdaFunction(f,org.eclairjs.nashorn.JSFunction, bindArgs);
   var javaObject =  this.getJavaObject().filter(fn);
-  return new PairDStream(javaObject, this.streamingContext);
+  return Utils.javaToJs(javaObject);
 };
 
 
@@ -50,7 +49,7 @@ PairDStream.prototype.filter = function(f,bindArgs) {
  */
 PairDStream.prototype.cache = function() {
   var javaObject =  this.getJavaObject().cache();
-  return new PairDStream(javaObject, this.streamingContext);
+  return Utils.javaToJs(javaObject);
 };
 
 
@@ -63,10 +62,10 @@ PairDStream.prototype.persist = function(storageLevel) {
 
   if (arguments[0]) {
   var javaObject =  this.getJavaObject().persist(storageLevel_uw);
-  return new PairDStream(javaObject, this.streamingContext);
+  return Utils.javaToJs(javaObject);
   } else {
   var javaObject =  this.getJavaObject().persist();
-  return new PairDStream(javaObject, this.streamingContext);
+  return Utils.javaToJs(javaObject);
   }
 };
 
@@ -79,7 +78,7 @@ PairDStream.prototype.persist = function(storageLevel) {
  */
 PairDStream.prototype.repartition = function(numPartitions) {
   var javaObject =  this.getJavaObject().repartition(numPartitions);
-  return new PairDStream(javaObject, this.streamingContext);
+  return Utils.javaToJs(javaObject);
 };
 
 
@@ -109,10 +108,10 @@ PairDStream.prototype.window = function(windowDuration,slideDuration) {
 
   if (arguments[1]) {
   var javaObject =  this.getJavaObject().window(windowDuration_uw,slideDuration_uw);
-  return new PairDStream(javaObject, this.streamingContext);
+  return Utils.javaToJs(javaObject);
   } else {
   var javaObject =  this.getJavaObject().window(windowDuration_uw);
-  return new PairDStream(javaObject, this.streamingContext);
+  return Utils.javaToJs(javaObject);
   }
 };
 
@@ -125,7 +124,7 @@ PairDStream.prototype.window = function(windowDuration,slideDuration) {
 PairDStream.prototype.union = function(that) {
   var that_uw = Utils.unwrapObject(that);
   var javaObject =  this.getJavaObject().union(that_uw);
-  return new PairDStream(javaObject, this.streamingContext);
+  return Utils.javaToJs(javaObject);
 };
 
 
@@ -136,7 +135,7 @@ PairDStream.prototype.union = function(that) {
  */
 PairDStream.prototype.groupByKey = function() {
   var javaObject =  this.getJavaObject().groupByKey();
-  return new PairDStream(javaObject, this.streamingContext);
+  return Utils.javaToJs(javaObject);
 };
 
 
@@ -160,10 +159,10 @@ PairDStream.prototype.combineByKey = function(createCombiner,mergeValue,mergeCom
 
   if (arguments[4]) {
   var javaObject =  this.getJavaObject().combineByKey(fn,fn2,fn3,partitioner_uw,mapSideCombine);
-  return new PairDStream(javaObject, this.streamingContext);
+  return Utils.javaToJs(javaObject);
   } else {
   var javaObject =  this.getJavaObject().combineByKey(fn,fn2,fn3,partitioner_uw);
-  return new PairDStream(javaObject, this.streamingContext);
+  return Utils.javaToJs(javaObject);
   }
 };
 /**
@@ -176,7 +175,7 @@ PairDStream.prototype.combineByKey = function(createCombiner,mergeValue,mergeCom
 PairDStream.prototype.reduceByKey = function(func,bindArgs) {
       var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, bindArgs);
   var javaObject =  this.getJavaObject().reduceByKey(fn);
-  return new PairDStream(javaObject, this.streamingContext);
+  return Utils.javaToJs(javaObject);
 };
 
 
@@ -195,7 +194,7 @@ PairDStream.prototype.reduceByKeyAndWindow = function(reduceFunc,windowDuration,
  var fn = Utils.createLambdaFunction(reduceFunc,org.eclairjs.nashorn.JSFunction2, bindArgs);
   var windowDuration_uw = Utils.unwrapObject(windowDuration);
   var javaObject =  this.getJavaObject().reduceByKeyAndWindow(fn,windowDuration_uw);
-  return new PairDStream(javaObject);
+  return Utils.javaToJs(javaObject);
 };
 
 /**
@@ -207,7 +206,7 @@ PairDStream.prototype.reduceByKeyAndWindow = function(reduceFunc,windowDuration,
 PairDStream.prototype.mapValues = function(f,bindArgs) {
  var fn = Utils.createLambdaFunction(f,org.eclairjs.nashorn.JSFunction, bindArgs);
   var javaObject =  this.getJavaObject().mapValues(fn);
-  return new PairDStream(javaObject, this.streamingContext);
+  return Utils.javaToJs(javaObject);
 };
 
 
@@ -220,5 +219,5 @@ PairDStream.prototype.mapValues = function(f,bindArgs) {
 PairDStream.prototype.flatMapValues = function(f,bindArgs) {
  var fn = Utils.createLambdaFunction(f,org.eclairjs.nashorn.JSFunction, bindArgs);
   var javaObject =  this.getJavaObject().flatMapValues(fn);
-  return new PairDStream(javaObject, this.streamingContext);
+  return Utils.javaToJs(javaObject);
 };

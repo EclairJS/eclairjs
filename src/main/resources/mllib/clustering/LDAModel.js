@@ -125,6 +125,7 @@ LDAModel.prototype.describeTopics = function (maxTermsPerTopic) {
  * @param topics Inferred topics (vocabSize x k matrix).
  * @classdesc
  * @class
+ * @extends LDAModel
  */
 
 
@@ -281,6 +282,7 @@ LocalLDAModel.prototype.topicDistributionswithJavaPairRDD = function (documents)
  * This model stores the inferred topics, the full training dataset, and the topic distributions.
  * @classdesc
  * @class
+ * @extends LDAModel
  */
 
 

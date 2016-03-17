@@ -41,7 +41,7 @@ if ((typeof args == "undefined")||args.length<5)
 }
 
 
-    var conf = new SparkConf().setAppName("Javascript Kafka Word Count").setMaster("local[*]");
+    var conf = new SparkConf().setAppName("Javascript Kafka Word Count");
     var jssc = new StreamingContext(conf, new Duration(2000));
 
 

@@ -50,7 +50,7 @@ function run(sc) {
  */
 
 if (typeof sparkContext === 'undefined') {
-    var conf = new SparkConf().setAppName("JavaScript Status Tracker").setMaster("local[*]");
+    var conf = new SparkConf().setAppName("JavaScript Status Tracker");
     var sc = new SparkContext(conf);
     var result = run(sc);
     print("Job results are: " + result);

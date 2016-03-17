@@ -413,4 +413,52 @@ public class MlLibTest {
         assertEquals("failure - strings are not equal", expected, ret.toString());
 
     }
+
+    /*
+        RandomRDDs.normalRDD
+        RandomRDDs.normalVectorRDD
+     */
+    @Test
+    public void RandomRDDGenerationExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
+        Object ret = ((Invocable)engine).invokeFunction("RandomRDDGenerationExample");
+
+        String expected = "all is good";
+
+        assertEquals("failure - strings are not equal", expected, ret.toString());
+
+    }
+
+    /*
+        MultilabelMetrics()
+        MultilabelMetrics.recall()
+        MultilabelMetrics.precision());
+        MultilabelMetrics.f1Measure());
+        MultilabelMetrics.accuracy());
+        MultilabelMetrics.labels()
+        MultilabelMetrics.precision(metrics.labels()[i]));
+        MultilabelMetrics.recall(metrics.labels()[i]));
+        MultilabelMetrics.f1Measure(metrics.labels()[i]));
+        MultilabelMetrics.microRecall());
+        MultilabelMetrics.microPrecision());
+        MultilabelMetrics.microF1Measure());
+        MultilabelMetrics.hammingLoss());
+        MultilabelMetrics.subsetAccuracy());
+     */
+
+    @Test
+    public void multilabelClassificationMetricsExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
+
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
+        Object ret = ((Invocable)engine).invokeFunction("multilabelClassificationMetricsExample");
+
+        String expected = "0.3333333333333333";
+
+        assertEquals("failure - strings are not equal", expected, ret.toString());
+
+    }
 }

@@ -24,6 +24,7 @@ import org.apache.spark.api.java.function.FlatMapFunction;
 import jdk.nashorn.api.scripting.ScriptObjectMirror;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -49,10 +50,33 @@ public class JSFlatMapFunction implements FlatMapFunction {
             params = ArrayUtils.addAll(params, this.args);
         }
 
-        //ScriptObjectMirror ret = (ScriptObjectMirror)invocable.invokeFunction("Utils_invoke", params);
-        List ret = (List)invocable.invokeFunction("Utils_invoke", params);
+        Object ret = invocable.invokeFunction("Utils_invoke", params);
+        if (ret.getClass().isArray()) {
+            String type = ret.getClass().getTypeName();
+            if (type.equals("double[]")) {
+                double [] z = (double []) ret;
+                ArrayList x = new ArrayList();
+                for (int i = 0; i < z.length; i++) {
+                    x.add(z[i]);
+                }
+                ret = x;
+            } else if (type.equals("int[]")) {
+                int [] z = (int []) ret;
+                ArrayList x = new ArrayList();
+                for (int i = 0; i < z.length; i++) {
+                    x.add(z[i]);
+                }
+                ret = x;
+            } else {
+                Object [] z = (Object []) ret;
+                ArrayList x = new ArrayList();
+                for (int i = 0; i < z.length; i++) {
+                    x.add(z[i]);
+                }
+                ret = x;
+            }
 
-        //return (Iterable)Utils.jsToJava(ret.values());
+        }
         return (Iterable)ret;
     }
 }

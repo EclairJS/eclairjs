@@ -16,6 +16,7 @@
  */
 /**
  * @constructor
+ * @extends NumericType
  * @classdesc The data type representing Int values. Please use the singleton DataTypes.IntegerType.
  */
 

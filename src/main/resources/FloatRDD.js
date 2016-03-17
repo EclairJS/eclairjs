@@ -23,9 +23,10 @@
 
 
 /**
- * * @classdesc
+ * @classdesc
  * @param {RDD} srdd
  * @class
+ * @extends RDD
  */
 var FloatRDD = function (srdd) {
     this.logger = Logger.getLogger("FloatRDD_js");
@@ -40,11 +41,11 @@ var FloatRDD = function (srdd) {
         jvmObject = new org.apache.spark.api.java.JavaDoubleRDD(srdd_uw);
     }
     this.logger.debug("constructor");
-    JavaWrapper.call(this, jvmObject);
+    RDD.call(this, jvmObject);
 
 };
 
-FloatRDD.prototype = Object.create(JavaWrapper.prototype);
+FloatRDD.prototype = Object.create(RDD.prototype);
 
 FloatRDD.prototype.constructor = FloatRDD;
 

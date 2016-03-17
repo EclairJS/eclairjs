@@ -149,7 +149,7 @@ Tuple.prototype.getJavaObject = function getJavaObject() {
         } else {
             obj = Serialize.jsToJava(this[i]);
         }
-        this.logger.debug("de-serialized " + obj.class);
+        this.logger.debug("de-serialized " + obj);
         javaObj.push(obj);
 
         expression += "javaObj[" + i + "]";
@@ -159,7 +159,7 @@ Tuple.prototype.getJavaObject = function getJavaObject() {
     }
     expression += ")";
     var retObj = eval('(' + expression + ')');
-    this.logger.debug("getJavaObj returning " + retObj.class + " with value " + retObj);
+    this.logger.debug("getJavaObj returning " + retObj.class + " with value " + retObj.toString());
     return retObj;
 
 };

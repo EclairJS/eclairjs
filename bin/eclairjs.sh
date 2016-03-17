@@ -71,6 +71,18 @@ if [[ "$_java" ]]; then
 	fi
 fi
 
+
+spark_master="local[*]"
+#
+# Check for spark master
+#
+if [ -n "$SPARK_MASTER" ]; then
+	spark_master=$SPARK_MASTER
+    echo "using $spark_master as spark master"
+else
+    echo "using $spark_master as spark master, set SPARK_MASTER if you want something different"
+fi
+
 # Use > 1 to consume two arguments per pass in the loop (e.g. each
 # argument has a corresponding value to go with it).
 # Use > 0 to consume one or more arguments per pass in the loop (e.g.
@@ -99,5 +111,5 @@ done
 # start the REPL
 #
 
-exec "${SPARK_HOME}"/bin/spark-submit --class org.eclairjs.nashorn.SparkJS --name "EclairJSShell" $options $ECLAIRJS_JAR  $proargs
+exec "${SPARK_HOME}"/bin/spark-submit --master $spark_master --class org.eclairjs.nashorn.SparkJS --name "EclairJSShell" $options $ECLAIRJS_JAR  $proargs
 

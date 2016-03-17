@@ -17,8 +17,8 @@
 
 /**
  * @param {RDD} rdd of [Tuple(value, value)]{@link Tuple}.
- * @returns {??}
  *  @class
+ *  @extends RDD
  */
 var PairRDD = function (rdd, kClassTag, vClassTag) {
     //var jvmObject = new org.apache.spark.api.java.JavaPairRDD(rdd,kClassTag,vClassTag);
