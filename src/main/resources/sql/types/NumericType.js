@@ -16,6 +16,7 @@
  */
 /**
  * @constructor
+ * @extends DataType
  * @classdesc The base type of all Spark SQL Numeric data types.
  */
 

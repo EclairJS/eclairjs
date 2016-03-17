@@ -16,6 +16,7 @@
  */
 /**
  * @constructor
+ * @extends DataType
  * @classdesc The data type representing String values. Please use the singleton DataTypes.StringType.
  */
 

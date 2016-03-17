@@ -23,9 +23,10 @@
 
 
 /**
- * * @classdesc
+ * @classdesc
  * @param {RDD} srdd
  * @class
+ * @extends RDD
  */
 var FloatRDD = function (srdd) {
     this.logger = Logger.getLogger("FloatRDD_js");

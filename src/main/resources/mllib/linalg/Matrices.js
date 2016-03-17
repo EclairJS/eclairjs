@@ -203,8 +203,8 @@ Matrix.prototype.numActives = function () {
  * @param {number} numCols
  * @param {number[]} values
  * @param {boolean} isTransposed
- * @returns {??}
- *  @class
+ * @class
+ * @extends Matrix
  */
 var DenseMatrix = function (numRows, numCols, values, isTransposed) {
     var jvmObject;
@@ -339,8 +339,8 @@ DenseMatrix.prototype.toSparse = function () {
  * @param {number[]} rowIndices
  * @param {number[]} values
  * @param {boolean} isTransposed
- * @returns {??}
- *  @class
+ * @class
+ * @extends Matrix
  */
 var SparseMatrix = function (numRows, numCols, colPtrs, rowIndices, values, isTransposed) {
 

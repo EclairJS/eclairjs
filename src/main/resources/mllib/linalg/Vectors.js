@@ -294,8 +294,8 @@ VectorUDT.prototype.typeName = function () {
 
 /**
  * @param {number[]} values
- * @returns {??}
- *  @class
+ * @class
+ * @extends Vector
  */
 var DenseVector = function (arg) {
     this.logger = Logger.getLogger("DenseVector_js");
@@ -327,8 +327,8 @@ DenseVector.prototype.constructor = DenseVector;
  * @param {number} size
  * @param {number[]} indices
  * @param {number[]} values
- * @returns {??}
- *  @class
+ * @class
+ * @extends Vector
  */
 var SparseVector = function () {
 
