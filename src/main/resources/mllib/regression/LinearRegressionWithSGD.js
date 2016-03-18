@@ -35,9 +35,9 @@ LinearRegressionWithSGD.DEFAULT_NUM_ITERATIONS = 100;
  *
  * @param {RDD} rdd of LabeledPoints
  * @param {integer} numIterations
- * @param {float} stepSize - Optional step size to be used for each iteration of gradient descent, defaults to 1.0
- * @param {floar} miniBatchFraction - Optional fraction of data to be used per iteration, defaults to 1.0
- * @param {Vactor} initialWeights - Optional initial set of weights to be used. Array should be equal in size to the number of features in the data.
+ * @param {float} [stepSize] - step size to be used for each iteration of gradient descent, defaults to 1.0
+ * @param {floar} [miniBatchFraction] - fraction of data to be used per iteration, defaults to 1.0
+ * @param {Vactor} [initialWeights] - initial set of weights to be used. Array should be equal in size to the number of features in the data.
  * @returns {LinearRegressionModel}
  */
 LinearRegressionWithSGD.train = function (rdd, numIterations, stepSize, miniBatchFraction, initialWeights) {

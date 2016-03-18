@@ -92,7 +92,7 @@ MulticlassMetrics.prototype.weightedFalsePositiveRate = function () {
 
 /**
  * Returns precision
- * @param {float} label  Optional Returns precision for a given label (category)
+ * @param {float} [label] Returns precision for a given label (category)
  * @returns {float}
  */
 MulticlassMetrics.prototype.precision = function (label) {
@@ -116,7 +116,7 @@ MulticlassMetrics.prototype.weightedPrecision = function () {
 
 /**
  * Returns recall (equals to precision for multiclass classifier because sum of all false positives is equal to sum of all false negatives)
- * @param {float} label Optional, Returns recall for a given label (category)
+ * @param {float} [label] Returns recall for a given label (category)
  * @returns {float}
  */
 MulticlassMetrics.prototype.recall = function (label) {
@@ -139,7 +139,7 @@ MulticlassMetrics.prototype.weightedRecall = function () {
 
 /**
  * Returns f-measure (equals to precision and recall because precision equals recall)
- * @param {float} [label] Optional, Returns f1-measure for a given label (category)
+ * @param {float} [label] Returns f1-measure for a given label (category)
  * @param {float} [beta]
  * @returns {float}
  */

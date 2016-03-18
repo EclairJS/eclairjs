@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: LogisticRegressionWithLBFGS</title>
+    <title>JSDoc: Source: mllib/linalg/distributed/DistributedMatrix.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,477 +17,72 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: LogisticRegressionWithLBFGS</h1>
+    <h1 class="page-title">Source: mllib/linalg/distributed/DistributedMatrix.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
-    
-        <h2>
-        LogisticRegressionWithLBFGS
-        </h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-    
-
-    <h4 class="name" id="LogisticRegressionWithLBFGS"><span class="type-signature"></span>new LogisticRegressionWithLBFGS<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    Train a classification model for Multinomial/Binary Logistic Regression using
-Limited-memory BFGS. Standard feature scaling and L2 regularization are used by default.
-NOTE: Labels used in Logistic Regression should be {0, 1, ..., k - 1}
-for k classes multi-label classification problem.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="mllib_classification_LogisticRegression.js.html">mllib/classification/LogisticRegression.js</a>, <a href="mllib_classification_LogisticRegression.js.html#line198">line 198</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    <h4 class="name" id="run"><span class="type-signature"></span>run<span class="signature">(input, initialWeights<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="LogisticRegressionModel.html">LogisticRegressionModel</a>}</span></h4>
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>input</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="RDD.html">RDD</a></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>initialWeights</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Vector.html">Vector</a></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="mllib_classification_LogisticRegression.js.html">mllib/classification/LogisticRegression.js</a>, <a href="mllib_classification_LogisticRegression.js.html#line230">line 230</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="LogisticRegressionModel.html">LogisticRegressionModel</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="setNumClasses"><span class="type-signature"></span>setNumClasses<span class="signature">(numClasses)</span><span class="type-signature"> &rarr; {<a href="LogisticRegressionWithLBFGS.html">LogisticRegressionWithLBFGS</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Set the number of possible outcomes for k classes classification problem in
-Multinomial Logistic Regression.
-By default, it is binary logistic regression so k will be set to 2.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>numClasses</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">integer</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="mllib_classification_LogisticRegression.js.html">mllib/classification/LogisticRegression.js</a>, <a href="mllib_classification_LogisticRegression.js.html#line220">line 220</a>
-    </li></ul></dd>
-    
-
-    
-
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*                                                                         
+* Copyright 2016 IBM Corp.                                                 
+*                                                                          
+* Licensed under the Apache License, Version 2.0 (the "License");          
+* you may not use this file except in compliance with the License.         
+* You may obtain a copy of the License at                                  
+*                                                                          
+*      http://www.apache.org/licenses/LICENSE-2.0                          
+*                                                                          
+* Unless required by applicable law or agreed to in writing, software      
+* distributed under the License is distributed on an "AS IS" BASIS,        
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+* See the License for the specific language governing permissions and      
+* limitations under the License.                                           
+*/ 
 
-    
-</dl>
-
-
-
-
-
-
-
-
 
 
+/**
+ * Represents a distributively stored matrix backed by one or more RDDs.
+ * @classdesc
+ * @class
+ * @abstract
+ */
 
 
+var DistributedMatrix = function(jvmObject) {
+    this.logger = Logger.getLogger("DistributedMatrix_js");
+	JavaWrapper.call(this, jvmObject);
 
-<h5>Returns:</h5>
+};
 
-        
+DistributedMatrix.prototype = Object.create(JavaWrapper.prototype);
 
+DistributedMatrix.prototype.constructor = DistributedMatrix;
 
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="LogisticRegressionWithLBFGS.html">LogisticRegressionWithLBFGS</a></span>
 
 
-    </dd>
-</dl>
+/**
+ * Gets or computes the number of rows.
+ * @returns {integer}
+ */
+DistributedMatrix.prototype.numRows = function() {
+    return  this.getJavaObject().numRows();
+};
 
-    
-
-
-
-        
-    
-
-    
-
-    
-</article>
 
-</section>
+/**
+ * Gets or computes the number of rows.
+ * @returns {integer}
+ */
+DistributedMatrix.prototype.numCols = function() {
+    return  this.getJavaObject().numCols();
+};
+</code></pre>
+        </article>
+    </section>
 
 
 
@@ -501,7 +96,7 @@ By default, it is binary logistic regression so k will be set to 2.
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Fri Mar 18 2016 16:06:04 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Fri Mar 18 2016 16:05:59 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>

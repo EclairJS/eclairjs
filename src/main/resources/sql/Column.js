@@ -77,7 +77,7 @@ Column.prototype.apply = function(extraction) {
 /**
  * Gives the column an alias. 
  * @param {string | string[]} aliases, if array of strings assigns the given aliases to the results of a table generating function.
- * @param {Metadata} metadata Optional, not valid with string array
+ * @param {Metadata} [metadata] not valid with string array
  * @returns {Column} 
  */
 Column.prototype.as = function(aliases, metadata) {

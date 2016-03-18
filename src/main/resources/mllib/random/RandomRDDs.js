@@ -98,8 +98,8 @@ RandomRDDs.uniformJavaRDD2 = function(jsc,size) {
  *
  * @param {SparkContext} sc  SparkContext used to create the RDD.
  * @param {number} size  Size of the RDD.
- * @param {number} numPartitions  Optional Number of partitions in the RDD (default: `sc.defaultParallelism`).
- * @param {number} seed  Optional Random seed (default: a random long integer).
+ * @param {number} [numPartitions] Number of partitions in the RDD (default: `sc.defaultParallelism`).
+ * @param {number} [seed] Random seed (default: a random long integer).
  * @returns {RDD}  RDD[Double] Optional comprised of `i.i.d.` samples ~ N(0.0, 1.0).
  */
 RandomRDDs.normalRDD = function(sc,size,numPartitions,seed) {
@@ -457,8 +457,8 @@ RandomRDDs.uniformJavaVectorRDD2 = function(jsc,numRows,numCols) {
  * @param {SparkContext} sc  SparkContext used to create the RDD.
  * @param {number} numRows  Number of Vectors in the RDD.
  * @param {number} numCols  Number of elements in each Vector.
- * @param {number} numPartitions  Optional Number of partitions in the RDD (default: `sc.defaultParallelism`).
- * @param {number} seed  Optional Random seed (default: a random long integer).
+ * @param {number} [numPartitions] Number of partitions in the RDD (default: `sc.defaultParallelism`).
+ * @param {number} [seed] Random seed (default: a random long integer).
  * @returns {RDD}  RDD[Vector] with vectors containing `i.i.d.` samples ~ `N(0.0, 1.0)`.
  */
 RandomRDDs.normalVectorRDD = function(sc,numRows,numCols,numPartitions,seed) {

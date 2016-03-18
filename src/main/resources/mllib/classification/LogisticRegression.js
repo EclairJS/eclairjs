@@ -24,8 +24,8 @@
  * @param {float} intercept Intercept computed for this model. (Only used in Binary Logistic Regression.
  * In Multinomial Logistic Regression, the intercepts will not be a single value,
  * so the intercepts will be part of the weights.)
- * @param {int} numFeatures Optional the dimension of the features.
- * @param {int} numClasses Optional the number of possible outcomes for k classes classification problem in
+ * @param {int} [numFeatures] the dimension of the features.
+ * @param {int} [numClasses] the number of possible outcomes for k classes classification problem in
  * Multinomial Logistic Regression. By default, it is binary logistic regression
  * so numClasses will be set to 2.
  *  @class
@@ -155,9 +155,9 @@ LogisticRegressionWithSGD.prototype.constructor = LogisticRegressionWithSGD;
  *
  * @param {RDD} input  RDD of (label, array of features) pairs.
  * @param {number} numIterations  Number of iterations of gradient descent to run.
- * @param {number} stepSize  Optional step size to be used for each iteration of gradient descent, defaults to 1.0.
- * @param {number} miniBatchFraction  Optional fraction of data to be used per iteration.
- * @param {Vector} initialWeights  Optional: initial set of weights to be used. Array should be equal in size to
+ * @param {number} [stepSize]  step size to be used for each iteration of gradient descent, defaults to 1.0.
+ * @param {number} [miniBatchFraction]  fraction of data to be used per iteration.
+ * @param {Vector} [initialWeights] initial set of weights to be used. Array should be equal in size to
  *        the number of features in the data.
  * @returns {LogisticRegressionModel}
  */
@@ -224,7 +224,7 @@ LogisticRegressionWithLBFGS.prototype.setNumClasses = function(n) {
 /**
  *
  * @param {RDD} input
- * @param {Vector} initialWeights Optional
+ * @param {Vector} [initialWeights]
  * @returns {LogisticRegressionModel}
  */
 LogisticRegressionWithLBFGS.prototype.run = function(input, initialWeights) {

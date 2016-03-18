@@ -68,8 +68,8 @@ RDD.prototype.constructor = RDD;
  * @param {RDD} zeroValue - (undocumented)
  * @param {function} func1 seqOp - (undocumented) Function with two parameters
  * @param {function} func2 combOp - (undocumented) Function with two parameters
- * @param {Object[]} bindArgs1 - Optional array whose values will be added to func1's argument list.
- * @param {Object[]} bindArgs2 - Optional array whose values will be added to func2's argument list.
+ * @param {Object[]} [bindArgs1] - array whose values will be added to func1's argument list.
+ * @param {Object[]} [bindArgs2] - array whose values will be added to func2's argument list.
  * @returns {object}
  */
 RDD.prototype.aggregate = function(zeroValue,func1,func2, bindArgs1, bindArgs2) {
@@ -269,7 +269,7 @@ throw "not implemented by ElairJS";
 
 /**
  * Return a new RDD containing the distinct elements in this RDD.
- * @param {int} numPartitions (optional)
+ * @param {int} [numPartitions]
  * @returns {RDD}
  */
 RDD.prototype.distinct = function(numPartitions) {
@@ -281,7 +281,7 @@ RDD.prototype.distinct = function(numPartitions) {
 /**
  * Return a new RDD containing only the elements that satisfy a predicate.
  * @param {function} func - (undocumented) Function with one parameter
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
  * @returns {RDD}
  */
 RDD.prototype.filter = function(func, bindArgs) {
@@ -296,7 +296,7 @@ RDD.prototype.filter = function(func, bindArgs) {
  * partition with the index of that partition.
  * Note: Doesn't make sense for JavaScript.
  * @param constructA
- * @param {Object[]} bindArgs - Optional array whose values will be added to constructA's argument list.
+ * @param {Object[]} [bindArgs] - array whose values will be added to constructA's argument list.
  * @returns {RDD}
  * @private
  */
@@ -320,7 +320,7 @@ RDD.prototype.first = function() {
 /**
  * Return a new RDD by first applying a function to all elements of this RDD, and then flattening the results.
  * @param {function} func - (undocumented) - Function with one parameter
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
  * @returns {RDD}
 */
 RDD.prototype.flatMap = function(func, bindArgs) {
@@ -351,7 +351,7 @@ throw "not implemented by ElairJS";
  *  Return a new RDD by first applying a function to all elements of this
  *  RDD, and then flattening the results.
  * @param {function}
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
  * @returns {PairRDD}
  */
 RDD.prototype.flatMapToPair = function(func, bindArgs) {
@@ -374,7 +374,7 @@ RDD.prototype.flatMapToPair = function(func, bindArgs) {
  * non-distributed collection.
  * @param {RDD} zeroValue - (undocumented)
  * @param {function} func - (undocumented) Function with two parameters
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
  * @returns {object}
  */
 RDD.prototype.fold = function(zeroValue, func, bindArgs) {
@@ -394,7 +394,7 @@ RDD.prototype.fold = function(zeroValue, func, bindArgs) {
  *    connection.close()
  * });
  * @param {function} func - Function with one parameter that returns void
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
  * @returns {void}
  */
 RDD.prototype.foreach = function(func, bindArgs) {
@@ -413,7 +413,7 @@ RDD.prototype.foreach = function(func, bindArgs) {
  *    connection.close()
  * });
  * @param {function} func - Function with one Array parameter that returns void
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
  * @returns {void}
  */
 RDD.prototype.foreachPartition = function(func, bindArgs) {
@@ -427,7 +427,7 @@ RDD.prototype.foreachPartition = function(func, bindArgs) {
  * partition with the index of that partition.
  * Note: Doesn't make sense for JavaScript.
  * @param {constructA} - (undocumented)
- * @param {Object[]} bindArgs - Optional array whose values will be added to constructA's argument list.
+ * @param {Object[]} [bindArgs] - array whose values will be added to constructA's argument list.
  * @returns {void}
  * @private
  */
@@ -472,9 +472,9 @@ RDD.prototype.glom = function() {
  * aggregation (such as a sum or average) over each key, using {@link aggregateByKey}
  * or {@link reduceByKey} will provide much better performance.
  * @param {function} func - (undocumented) Function with one parameter
- * @param {number} numPartitions - (optional) How many partitions to use in the resulting RDD (if non-zero partitioner is ignored)
- * @param {Partitioner} partitioner - (optional) Partitioner to use for the resulting RDD
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {number} [numPartitions] -  How many partitions to use in the resulting RDD (if non-zero partitioner is ignored)
+ * @param {Partitioner} [partitioner] -  Partitioner to use for the resulting RDD
+ * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
  * @returns {RDD}
  */
 RDD.prototype.groupBy = function(func,numPartitions,partitioner,bindArgs) {
@@ -535,7 +535,7 @@ RDD.prototype.isEmpty = function() {
 /**
  * Creates tuples of the elements in this RDD by applying `f`.
  * @param {function} func - (undocumented)
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
  * @returns {RDD}
  */
 RDD.prototype.keyBy = function(func, bindArgs) {
@@ -571,7 +571,7 @@ RDD.prototype.localCheckpoint = function() {
 /**
  * Return a new RDD by applying a function to all elements of this RDD.
  * @param {function} func - (undocumented) Function with one parameter
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
  * @returns {RDD}
  */
 RDD.prototype.map = function(func, bindArgs) {
@@ -585,8 +585,8 @@ RDD.prototype.map = function(func, bindArgs) {
  * Similar to map, but runs separately on each partition (block) of the RDD, so func must accept an Array.
  * func should return a array rather than a single item.
  * @param {function} func - (undocumented) Function with one parameter
- * @param {boolean} preservesPartitioning - (optional)
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {boolean} [preservesPartitioning]
+ * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
  * @returns {RDD}
  */
 RDD.prototype.mapPartitions = function(func,preservesPartitioning, bindArgs) {
@@ -602,8 +602,8 @@ RDD.prototype.mapPartitions = function(func,preservesPartitioning, bindArgs) {
  * `preservesPartitioning` indicates whether the input function preserves the partitioner, which
  * should be `false` unless this is a pair RDD and the input function doesn't modify the keys.
  * @param {function} func - (undocumented) Function with one parameter
- * @param {boolean} preservesPartitioning - (optional)
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {boolean} [preservesPartitioning]
+ * @param {Object[]} [bindArgs] array whose values will be added to func's argument list.
  * @returns {RDD}
  */
 RDD.prototype.mapPartitionsWithIndex = function(func,preservesPartitioning, bindArgs) {
@@ -616,8 +616,8 @@ RDD.prototype.mapPartitionsWithIndex = function(func,preservesPartitioning, bind
  * Return a new RDD by applying a function to each partition of this RDD, while tracking the index
  * of the original partition.
  * @param {function} func - (undocumented) Function with one parameter
- * @param {boolean} preservesPartitioning - (optional)
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {boolean} [preservesPartitioning]
+ * @param {Object[]} [bindArgs]  array whose values will be added to func's argument list.
  * @returns {RDD}
  */
 RDD.prototype.mapPartitionsWithSplit = function(func,preservesPartitioning, bindArgs) {
@@ -633,7 +633,7 @@ RDD.prototype.mapPartitionsWithSplit = function(func,preservesPartitioning, bind
  * Note: Doesn't make sense for JavaScript.
  * @param {function}
  * @param {boolean}
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] array whose values will be added to func's argument list.
  * @returns {RDD}
  * @private
  */
@@ -647,7 +647,7 @@ throw "not implemented by ElairJS";
 /**
  * Return a new RDD by applying a function to all elements of this RDD.
  * @param (function) func - (undocumented) Function with one parameter that returns tuple
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] array whose values will be added to func's argument list.
  * @returns {PairRDD}
  */
 RDD.prototype.mapToPair = function(func, bindArgs) {
@@ -659,7 +659,7 @@ RDD.prototype.mapToPair = function(func, bindArgs) {
 /**
  * Returns the max of this RDD as defined by the implicit Ordering[T].
  * @param (function) comparator - Compares its two arguments for order. Returns a negative integer, zero, or a positive integer as the first argument is less than, equal to, or greater than the second.
- * @param {Object[]} bindArgs - Optional array whose values will be added to comparator's argument list.
+ * @param {Object[]} [bindArgs] - array whose values will be added to comparator's argument list.
  * @returns {object}  the maximum element of the RDD
  */
 RDD.prototype.max = function(comparator, bindArgs) {
@@ -670,7 +670,7 @@ RDD.prototype.max = function(comparator, bindArgs) {
 /**
  * Returns the min of this RDD as defined by the implicit Ordering[T].
  * @param (function) comparator - Compares its two arguments for order. Returns a negative integer, zero, or a positive integer as the second argument is less than, equal to, or greater than the first.
- * @param {Object[]} bindArgs - Optional array whose values will be added to compartor's argument list.
+ * @param {Object[]} [bindArgs] - array whose values will be added to compartor's argument list.
  * @returns {object}  the minimum element of the RDD
  */
 RDD.prototype.min = function(comparator, bindArgs) {
@@ -714,19 +714,19 @@ RDD.prototype.persist = function(newLevel) {
  *
  * @param {Seq|string} command - command to run in forked process.
  * @param {Map} env -  environment variables to set.
- * @param {func} printPipeContext - (optional) Before piping elements, this function is called as an opportunity
+ * @param {func} [printPipeContext] - Before piping elements, this function is called as an opportunity
  *                         to pipe context data. Print line function (like out.println) will be
  *                         passed as printPipeContext's parameter.
- * @param {func} printRDDElement - (optional) Use this function to customize how to pipe elements.
+ * @param {func} [printRDDElement] - Use this function to customize how to pipe elements.
  *                        This function will be called with each RDD element as the 1st parameter,
  *                        and the print line function (like out.println()) as the 2nd parameter.
  *                        An example of pipe the RDD data of groupBy() in a streaming way,
  *                        instead of constructing a huge String to concat all the elements:
  *                        def printRDDElement(record:(String, Seq[String]), f:String=&amp;gt;Unit) =
  *                          for (e &amp;lt;- record._2){f(e)}
- * @param {boolean} separateWorkingDir - (optional) Use separate working directories for each task.
- * @param {Object[]} bindArgs - Optional array whose values will be added to printPipeContext's argument list.
- * @param {Object[]} bindArgs - Optional array whose values will be added to printRDDElement's argument list.
+ * @param {boolean} [separateWorkingDir] - Use separate working directories for each task.
+ * @param {Object[]} [bindArgs] - array whose values will be added to printPipeContext's argument list.
+ * @param {Object[]} [bindArgs] - array whose values will be added to printRDDElement's argument list.
  * @returns {RDD}  the result RDD
  */
 RDD.prototype.pipe = function(command,env,printPipeContext,printRDDElement,separateWorkingDir,bindArgs1,bindArgs2) {
@@ -814,7 +814,7 @@ throw "not implemented by ElairJS";
  * Reduces the elements of this RDD using the specified commutative and
  * associative binary operator.
  * {function} func - (undocumented) Function with two parameters
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
  * @returns {object}
  */
 RDD.prototype.reduce = function(func, bindArgs) {
@@ -899,7 +899,7 @@ RDD.prototype.setName = function(_name) {
  * @param {function} func - (undocumented) Function with one parameter
  * @param {boolean} ascending
  * @param {int} numPartitions
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
  * @returns {RDD}
  */
 RDD.prototype.sortBy = function(func,ascending,numPartitions,bindArgs) {
@@ -931,8 +931,8 @@ RDD.prototype.sparkContext = function() {
 /**
  * Return an RDD with the elements from `this` that are not in `other`.
  * @param other {RDD}
- * @param numPartitions {int} (optional)
- * @param p {Partition} (optional - ignored if numPartitions is non-zero)
+ * @param  {int} [numPartitions]
+ * @param  {Partition} [p] - ignored if numPartitions is non-zero)
  * @returns {RDD}
  */
 RDD.prototype.subtract = function(other,numPartitions,p) {
@@ -1081,8 +1081,8 @@ RDD.prototype.toString = function() {
  * @param zeroValue - (undocumented)
  * @param {function} func1 - (undocumented) Function with two parameters
  * @param {function} func2 combOp - (undocumented) Function with two parameters
- * @param {Object[]} bindArgs1 - Optional array whose values will be added to func1's argument list.
- * @param {Object[]} bindArgs2 - Optional array whose values will be added to func2's argument list.
+ * @param {Object[]} [bindArgs1] - array whose values will be added to func1's argument list.
+ * @param {Object[]} [bindArgs2] - array whose values will be added to func2's argument list.
  * @see [[org.apache.spark.rdd.RDD#aggregate]]
  * @returns {object}
  */
@@ -1097,7 +1097,7 @@ RDD.prototype.treeAggregate = function(zeroValue,func1,func2,bindArgs1,bindArgs2
  *
  * @param {function} func - (undocumented) Function with one parameter
  * @param {number} depth  suggested depth of the tree (default: 2)
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
  * @see [[org.apache.spark.rdd.RDD#reduce]]
  * @returns {object}
  */
@@ -1152,8 +1152,8 @@ RDD.prototype.zip = function(other) {
  *
  * @param {RDD} rdd2
  * @param {function} func - Function with two parameters
- * @param {boolean} preservesPartitioning - (optional)
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {boolean} [preservesPartitioning]
+ * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
  * @returns {RDD}
  */
 RDD.prototype.zipPartitions = function(rdd2,func,preservesPartitioning, bindArgs) {
@@ -1173,9 +1173,9 @@ RDD.prototype.zipPartitions = function(rdd2,func,preservesPartitioning, bindArgs
  * Renaming this version and making this private for now.
  *
  * @param {RDD} rdd2
- * @param {RDD} rdd3 - (optional)
- * @param {RDD} rdd4 - (optional)
- * @param {boolean} preservesPartitioning - (optional)
+ * @param {RDD} [rdd3]
+ * @param {RDD} [rdd4]
+ * @param {boolean} [preservesPartitioning]
  * @returns {RDD}
  * @private
  */
@@ -1255,13 +1255,13 @@ RDD.prototype.joinx = function (other, numPartitions) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ALS.html">ALS</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="AssociationRules.html">AssociationRules</a></li><li><a href="BinaryClassificationMetrics.html">BinaryClassificationMetrics</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BisectingKMeans.html">BisectingKMeans</a></li><li><a href="BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="BoostingStrategy.html">BoostingStrategy</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DecisionTree.html">DecisionTree</a></li><li><a href="DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="DenseMatrix.html">DenseMatrix</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DistributedLDAModel.html">DistributedLDAModel</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatRDD.html">FloatRDD</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="FPGrowth.html">FPGrowth</a></li><li><a href="FPGrowthModel.html">FPGrowthModel</a></li><li><a href="FreqItemset.html">FreqItemset</a></li><li><a href="functions.html">functions</a></li><li><a href="FutureAction.html">FutureAction</a></li><li><a href="GeneralizedLinearModel.html">GeneralizedLinearModel</a></li><li><a href="Gradient.html">Gradient</a></li><li><a href="GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="IsotonicRegression.html">IsotonicRegression</a></li><li><a href="IsotonicRegressionModel.html">IsotonicRegressionModel</a></li><li><a href="KMeans.html">KMeans</a></li><li><a href="KMeansModel.html">KMeansModel</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LBFGS.html">LBFGS</a></li><li><a href="LDA.html">LDA</a></li><li><a href="LDAModel.html">LDAModel</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="List.html">List</a></li><li><a href="LocalLDAModel.html">LocalLDAModel</a></li><li><a href="Logger.html">Logger</a></li><li><a href="LogisticGradient.html">LogisticGradient</a></li><li><a href="LogisticRegressionModel.html">LogisticRegressionModel</a></li><li><a href="LogisticRegressionWithLBFGS.html">LogisticRegressionWithLBFGS</a></li><li><a href="LogisticRegressionWithSGD.html">LogisticRegressionWithSGD</a></li><li><a href="Loss.html">Loss</a></li><li><a href="MapType.html">MapType</a></li><li><a href="Matrix.html">Matrix</a></li><li><a href="MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="MLWord2Vec.html">MLWord2Vec</a></li><li><a href="MLWord2VecModel.html">MLWord2VecModel</a></li><li><a href="MulticlassMetrics.html">MulticlassMetrics</a></li><li><a href="MultilabelMetrics.html">MultilabelMetrics</a></li><li><a href="NaiveBayes.html">NaiveBayes</a></li><li><a href="NaiveBayesModel.html">NaiveBayesModel</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PairDStream.html">PairDStream</a></li><li><a href="PairRDD.html">PairRDD</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RandomForest.html">RandomForest</a></li><li><a href="RandomForestModel.html">RandomForestModel</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RankingMetrics.html">RankingMetrics</a></li><li><a href="Rating.html">Rating</a></li><li><a href="RDD.html">RDD</a></li><li><a href="RegressionMetrics.html">RegressionMetrics</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="Rule.html">Rule</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SparseMatrix.html">SparseMatrix</a></li><li><a href="SparseVector.html">SparseVector</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="SquaredL2Updater.html">SquaredL2Updater</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="Strategy.html">Strategy</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li><li><a href="Tuple.html">Tuple</a></li><li><a href="Updater.html">Updater</a></li><li><a href="Vector.html">Vector</a></li><li><a href="Vectors.html">Vectors</a></li><li><a href="VectorUDT.html">VectorUDT</a></li><li><a href="Word2Vec.html">Word2Vec</a></li><li><a href="Word2VecModel.html">Word2VecModel</a></li></ul><h3>Interfaces</h3><ul><li><a href="ClassificationModel.html">ClassificationModel</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ALS.html">ALS</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="AssociationRules.html">AssociationRules</a></li><li><a href="BinaryClassificationMetrics.html">BinaryClassificationMetrics</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BisectingKMeans.html">BisectingKMeans</a></li><li><a href="BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="BoostingStrategy.html">BoostingStrategy</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DecisionTree.html">DecisionTree</a></li><li><a href="DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="DenseMatrix.html">DenseMatrix</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DistributedLDAModel.html">DistributedLDAModel</a></li><li><a href="DistributedMatrix.html">DistributedMatrix</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatRDD.html">FloatRDD</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="FPGrowth.html">FPGrowth</a></li><li><a href="FPGrowthModel.html">FPGrowthModel</a></li><li><a href="FreqItemset.html">FreqItemset</a></li><li><a href="functions.html">functions</a></li><li><a href="FutureAction.html">FutureAction</a></li><li><a href="GeneralizedLinearModel.html">GeneralizedLinearModel</a></li><li><a href="Gradient.html">Gradient</a></li><li><a href="GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="IsotonicRegression.html">IsotonicRegression</a></li><li><a href="IsotonicRegressionModel.html">IsotonicRegressionModel</a></li><li><a href="KMeans.html">KMeans</a></li><li><a href="KMeansModel.html">KMeansModel</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LBFGS.html">LBFGS</a></li><li><a href="LDA.html">LDA</a></li><li><a href="LDAModel.html">LDAModel</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="List.html">List</a></li><li><a href="LocalLDAModel.html">LocalLDAModel</a></li><li><a href="Logger.html">Logger</a></li><li><a href="LogisticGradient.html">LogisticGradient</a></li><li><a href="LogisticRegressionModel.html">LogisticRegressionModel</a></li><li><a href="LogisticRegressionWithLBFGS.html">LogisticRegressionWithLBFGS</a></li><li><a href="LogisticRegressionWithSGD.html">LogisticRegressionWithSGD</a></li><li><a href="Loss.html">Loss</a></li><li><a href="MapType.html">MapType</a></li><li><a href="Matrix.html">Matrix</a></li><li><a href="MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="MLWord2Vec.html">MLWord2Vec</a></li><li><a href="MLWord2VecModel.html">MLWord2VecModel</a></li><li><a href="MulticlassMetrics.html">MulticlassMetrics</a></li><li><a href="MultilabelMetrics.html">MultilabelMetrics</a></li><li><a href="NaiveBayes.html">NaiveBayes</a></li><li><a href="NaiveBayesModel.html">NaiveBayesModel</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PairDStream.html">PairDStream</a></li><li><a href="PairRDD.html">PairRDD</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RandomForest.html">RandomForest</a></li><li><a href="RandomForestModel.html">RandomForestModel</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RankingMetrics.html">RankingMetrics</a></li><li><a href="Rating.html">Rating</a></li><li><a href="RDD.html">RDD</a></li><li><a href="RegressionMetrics.html">RegressionMetrics</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="RowMatrix.html">RowMatrix</a></li><li><a href="Rule.html">Rule</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SparseMatrix.html">SparseMatrix</a></li><li><a href="SparseVector.html">SparseVector</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="SquaredL2Updater.html">SquaredL2Updater</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="Strategy.html">Strategy</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li><li><a href="Tuple.html">Tuple</a></li><li><a href="Updater.html">Updater</a></li><li><a href="Vector.html">Vector</a></li><li><a href="Vectors.html">Vectors</a></li><li><a href="VectorUDT.html">VectorUDT</a></li><li><a href="Word2Vec.html">Word2Vec</a></li><li><a href="Word2VecModel.html">Word2VecModel</a></li></ul><h3>Interfaces</h3><ul><li><a href="ClassificationModel.html">ClassificationModel</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Fri Mar 18 2016 12:29:05 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Fri Mar 18 2016 16:05:59 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -22,7 +22,7 @@ var DebugUtils = {};
  * Print a list of functions for the specified object
  * or {@link reduceByKey} will provide much better performance.
  * @param {object} obj - The object to dump
- * @param {boolean} showSrc - (optional) show the function source
+ * @param {boolean} [showSrc] - show the function source
  */
 DebugUtils.dumpFunctions = function (obj, showSrc)
 {
@@ -41,7 +41,7 @@ DebugUtils.dumpFunctions = function (obj, showSrc)
  *
  * Print all the members of the specified object
  * @param {object} obj - The object to dump
- * @param {showFunctions} showSrc - (optional) show the functions
+ * @param {showFunctions} [showSrc] - show the functions
  */
 DebugUtils.dumpObject = function (obj,showFunctions)
 {

@@ -60,7 +60,7 @@ DataFrameStatFunctions.prototype.cov = function(col1,col2) {
  *
  * @param {string} col1  the name of the column
  * @param {string} col2  the name of the column to calculate the correlation against
- * @param {string} method Optional currently only supports the "pearson"
+ * @param {string} [method] currently only supports the "pearson"
  * @example 
  *    var stat = peopleDataFrame.stat().cov("income", "networth", "pearson");
  *  

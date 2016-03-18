@@ -69,7 +69,7 @@ SQLContext.prototype.setConf = function() {
  *
  * @since EclairJS 0.1 Spark  1.0.0
  * @param {string} key
- * @param {string} defaultValue, Optional
+ * @param {string} [defaultValue]
  * @returns {string} 
  */
 SQLContext.prototype.getConf = function(key, defaultValue) {
@@ -217,8 +217,8 @@ SQLContext.prototype.read = function() {
  * @since EclairJS 0.1 Spark  1.3.0
  * @param {string} tableName
  * @param {string} path
- * @param {string} source, optional Creates an external table from the given path based on a data source
- * @param {object} map of options (key, value), if specified path is ignored.
+ * @param {string} [source] Creates an external table from the given path based on a data source
+ * @param {object} [map] of options (key, value), if specified path is ignored.
  * @returns {DataFrame} 
  */
 SQLContext.prototype.createExternalTable = function(tableName,path,source,options,schema) {
@@ -262,8 +262,8 @@ SQLContext.prototype.dropTempTable = function(tableName) {
  * @since EclairJS 0.1 Spark  1.4.1
  * @param {integer} start
  * @param {integer} end
- * @param {integer} step optional defaults to 1
- * @param {integer} numPartitions optional
+ * @param {integer} [step] defaults to 1
+ * @param {integer} [numPartitions]
  * @returns {DataFrame} 
  */
 SQLContext.prototype.range = function(start,end,step,numPartitions) {
@@ -307,7 +307,7 @@ SQLContext.prototype.table = function(tableName) {
  * indicating if a table is a temporary one or not).
  *
  * @since EclairJS 0.1 Spark  1.3.0
- * @param {string} databaseName optional, if not specified the current database is used.
+ * @param {string} [databaseName] if not specified the current database is used.
  * @returns {DataFrame} 
  */
 SQLContext.prototype.tables = function(databaseName) {
@@ -325,7 +325,7 @@ SQLContext.prototype.tables = function(databaseName) {
  * Returns the names of tables in the database as an array.
  *
  * @since EclairJS 0.1 Spark  1.3.0
- * @param {string} databaseName optional, if not specified the current database is used.
+ * @param {string} [databaseName] if not specified the current database is used.
  * @returns {string[]} 
  */
 SQLContext.prototype.tableNames = function(databaseName) {

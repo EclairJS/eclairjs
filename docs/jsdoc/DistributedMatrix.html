@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: LogisticRegressionWithLBFGS</title>
+    <title>JSDoc: Class: DistributedMatrix</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: LogisticRegressionWithLBFGS</h1>
+    <h1 class="page-title">Class: DistributedMatrix</h1>
 
     
 
@@ -29,7 +29,7 @@
 <header>
     
         <h2>
-        LogisticRegressionWithLBFGS
+        DistributedMatrix
         </h2>
         
     
@@ -42,17 +42,14 @@
 
     
 
-    <h4 class="name" id="LogisticRegressionWithLBFGS"><span class="type-signature"></span>new LogisticRegressionWithLBFGS<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="DistributedMatrix"><span class="type-signature">(abstract) </span>new DistributedMatrix<span class="signature">()</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    Train a classification model for Multinomial/Binary Logistic Regression using
-Limited-memory BFGS. Standard feature scaling and L2 regularization are used by default.
-NOTE: Labels used in Logistic Regression should be {0, 1, ..., k - 1}
-for k classes multi-label classification problem.
+    Represents a distributively stored matrix backed by one or more RDDs.
 </div>
 
 
@@ -96,7 +93,7 @@ for k classes multi-label classification problem.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="mllib_classification_LogisticRegression.js.html">mllib/classification/LogisticRegression.js</a>, <a href="mllib_classification_LogisticRegression.js.html#line198">line 198</a>
+        <a href="mllib_linalg_distributed_DistributedMatrix.js.html">mllib/linalg/distributed/DistributedMatrix.js</a>, <a href="mllib_linalg_distributed_DistributedMatrix.js.html#line27">line 27</a>
     </li></ul></dd>
     
 
@@ -145,12 +142,15 @@ for k classes multi-label classification problem.
 
     
 
-    <h4 class="name" id="run"><span class="type-signature"></span>run<span class="signature">(input, initialWeights<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="LogisticRegressionModel.html">LogisticRegressionModel</a>}</span></h4>
+    <h4 class="name" id="numCols"><span class="type-signature"></span>numCols<span class="signature">()</span><span class="type-signature"> &rarr; {integer}</span></h4>
 
     
 
 
 
+<div class="description">
+    Gets or computes the number of rows.
+</div>
 
 
 
@@ -158,97 +158,6 @@ for k classes multi-label classification problem.
 
 
 
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>input</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="RDD.html">RDD</a></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>initialWeights</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Vector.html">Vector</a></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
 
 
 
@@ -284,7 +193,7 @@ for k classes multi-label classification problem.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="mllib_classification_LogisticRegression.js.html">mllib/classification/LogisticRegression.js</a>, <a href="mllib_classification_LogisticRegression.js.html#line230">line 230</a>
+        <a href="mllib_linalg_distributed_DistributedMatrix.js.html">mllib/linalg/distributed/DistributedMatrix.js</a>, <a href="mllib_linalg_distributed_DistributedMatrix.js.html#line52">line 52</a>
     </li></ul></dd>
     
 
@@ -318,7 +227,7 @@ for k classes multi-label classification problem.
     </dt>
     <dd>
         
-<span class="param-type"><a href="LogisticRegressionModel.html">LogisticRegressionModel</a></span>
+<span class="param-type">integer</span>
 
 
     </dd>
@@ -333,16 +242,14 @@ for k classes multi-label classification problem.
 
     
 
-    <h4 class="name" id="setNumClasses"><span class="type-signature"></span>setNumClasses<span class="signature">(numClasses)</span><span class="type-signature"> &rarr; {<a href="LogisticRegressionWithLBFGS.html">LogisticRegressionWithLBFGS</a>}</span></h4>
+    <h4 class="name" id="numRows"><span class="type-signature"></span>numRows<span class="signature">()</span><span class="type-signature"> &rarr; {integer}</span></h4>
 
     
 
 
 
 <div class="description">
-    Set the number of possible outcomes for k classes classification problem in
-Multinomial Logistic Regression.
-By default, it is binary logistic regression so k will be set to 2.
+    Gets or computes the number of rows.
 </div>
 
 
@@ -351,55 +258,6 @@ By default, it is binary logistic regression so k will be set to 2.
 
 
 
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>numClasses</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">integer</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
 
 
 
@@ -435,7 +293,7 @@ By default, it is binary logistic regression so k will be set to 2.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="mllib_classification_LogisticRegression.js.html">mllib/classification/LogisticRegression.js</a>, <a href="mllib_classification_LogisticRegression.js.html#line220">line 220</a>
+        <a href="mllib_linalg_distributed_DistributedMatrix.js.html">mllib/linalg/distributed/DistributedMatrix.js</a>, <a href="mllib_linalg_distributed_DistributedMatrix.js.html#line43">line 43</a>
     </li></ul></dd>
     
 
@@ -469,7 +327,7 @@ By default, it is binary logistic regression so k will be set to 2.
     </dt>
     <dd>
         
-<span class="param-type"><a href="LogisticRegressionWithLBFGS.html">LogisticRegressionWithLBFGS</a></span>
+<span class="param-type">integer</span>
 
 
     </dd>
@@ -501,7 +359,7 @@ By default, it is binary logistic regression so k will be set to 2.
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Fri Mar 18 2016 16:06:04 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Fri Mar 18 2016 16:06:02 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>

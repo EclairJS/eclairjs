@@ -108,7 +108,7 @@ functions.desc = function(columnName) {
  *
  * @since EclairJS 0.1 Spark  1.3.0
  * @param {Column | string} column object or column name as a string
- * @param {float} rsd Optional
+ * @param {float} [rsd]
  * @returns {Column} 
  */
 functions.approxCountDistinct = function(column, rsd) {
@@ -609,7 +609,7 @@ functions.not = function(e) {
  * Generate a random column with i.i.d. samples from U[0.0, 1.0].
  *
  * @since EclairJS 0.1 Spark  1.4.0
- * @param {integer} seed Optional
+ * @param {integer} [seed]
  * @returns {Column} 
  */
 functions.rand = function(seed) {
@@ -628,7 +628,7 @@ functions.rand = function(seed) {
  * Generate a column with i.i.d. samples from the standard normal distribution.
  *
  * @since EclairJS 0.1 Spark  1.4.0
- * @param {integer} seed Optional
+ * @param {integer} [seed]
  * @returns {Column} 
  */
 functions.randn = function(seed) {
@@ -1071,7 +1071,7 @@ functions.least = function() {
  *
  * @since EclairJS 0.1 Spark  1.4.0
  * @param {Column | string}
- * @param {float} base Optional, Returns the first argument-base logarithm for the column
+ * @param {float} [base] Returns the first argument-base logarithm for the column
  * @returns {Column} 
  */
 functions.log = function(col, base) {
@@ -1640,7 +1640,7 @@ functions.levenshtein = function(l,r) {
  * @since EclairJS 0.1 Spark  1.5.0
  * @param {string} substr
  * @param {Column} str
- * @param {integer} pos Optional
+ * @param {integer} [pos]
  * @returns {Column} 
  */
 functions.locate = function(substr,str,pos) {
@@ -2182,7 +2182,7 @@ functions.weekofyear = function(e) {
  * format.
  * @since EclairJS 0.1 Spark  1.5.0
  * @param {Column} ut
- * @param {string} f, Optional data format example: "yyyy-MM-dd"
+ * @param {string} [f] data format example: "yyyy-MM-dd"
  * @returns {Column} 
  */
 functions.from_unixtime = function(ut,f) {
@@ -2204,9 +2204,9 @@ functions.from_unixtime = function(ut,f) {
  * (see [http://docs.oracle.com/javase/tutorial/i18n/format/simpleDateFormat.html])
  * to Unix time stamp (in seconds), return null if fail.
  * @since EclairJS 0.1 Spark  1.5.0
- * @param {Column} s, Optional converts time string in format yyyy-MM-dd HH:mm:ss to Unix timestamp (in seconds), 
+ * @param {Column} [s] converts time string in format yyyy-MM-dd HH:mm:ss to Unix timestamp (in seconds),
  * using the default timezone and the default locale, return null if fail.
- * @param {string} p, Optional convert time string with given pattern 
+ * @param {string} [p] convert time string with given pattern
  * (see [http://docs.oracle.com/javase/tutorial/i18n/format/simpleDateFormat.html]) to Unix time stamp (in seconds), return null if fail.
  * @returns {Column} 
  */
@@ -2335,7 +2335,7 @@ functions.size = function(e) {
  *
  * @since EclairJS 0.1 Spark  1.5.0
  * @param {Column} e
- * @param {boolean} asc Optional, defaults to true
+ * @param {boolean} [asc] defaults to true
  * @returns {Column} 
  */
 functions.sort_array = function(e, asc) {
