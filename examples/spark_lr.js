@@ -33,15 +33,6 @@ function printWeights(a) {
 }
 
 
-function dot(a, b) {
-    var x = 0;
-    for (var i = 0; i < D; i++) {
-        x += a[i] * b[i];
-    }
-    return x;
-}
-
-
 showWarning();
 
 
@@ -53,7 +44,7 @@ var ITERATIONS = 10;
 function run(sc) {
 
     var lines = sc.textFile(file);
-    var points = lines.map(function (line) {
+    var points = lines.map(function (line,D) {
         var tok = line.split(/\s+/);
         var y = tok[0];
         var x = [];
@@ -62,7 +53,7 @@ function run(sc) {
         }
         return {x: x, y: y};
 
-    }).cache();
+    },[D]).cache();
 
     // Initialize w to a random value
     var weights = [];
@@ -76,20 +67,23 @@ function run(sc) {
 
     for (var i = 1; i <= ITERATIONS; i++) {
         print("On iteration " + i);
-        var gradient = points.map(function (datapoint, weights) {
+        var gradient = points.map(function (datapoint, weights,D) {
             var gradient = [];
             for (var i = 0; i < D; i++) {
-                var d = dot(weights, datapoint.x);
+               var d = 0;
+                for (var j = 0; j < D; j++) {
+                    d += weights[j] * datapoint.x[j];
+                }
                 gradient[i] = (1 / (1 + Math.exp(-datapoint.y * d)) - 1) * datapoint.y * datapoint.x[i];
             }
             return gradient;
-        }, [weights]).reduce(function (a, b) {
+        }, [weights,D]).reduce(function (a, b,D) {
             var result = [];
             for (var j = 0; j < D; j++) {
                 result[j] = a[j] + b[j];
             }
             return result;
-        });
+        },[D]);
 
         for (var j = 0; j < D; j++) {
             weights[j] -= gradient[j];

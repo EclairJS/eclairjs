@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: mllib/clustering/LDAModel.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: mllib/clustering/LDAModel.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*                                                                         
+ * Copyright 2016 IBM Corp.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+
+/**
+ * Latent Dirichlet Allocation (LDA) model.
+ *
+ * This abstraction permits for different underlying representations,
+ * including local and distributed data structures.
+ * @classdesc
+ * @abstract
+ * @class
+ */
+
+
+var LDAModel = function (jvmObject) {
+
+    this.logger = Logger.getLogger("LDAModel_js");
+    JavaWrapper.call(this, jvmObject);
+
+};
+
+LDAModel.prototype = Object.create(JavaWrapper.prototype);
+
+LDAModel.prototype.constructor = LDAModel;
+
+
+/**
+ * @returns {number}
+ */
+LDAModel.prototype.k = function () {
+    throw "not implemented by ElairJS";
+//   return  this.getJavaObject().k();
+};
+
+
+/**
+ * @returns {number}
+ */
+LDAModel.prototype.vocabSize = function () {
+   return  this.getJavaObject().vocabSize();
+};
+
+
+/**
+ * Concentration parameter (commonly named "alpha") for the prior placed on documents'
+ * distributions over topics ("theta").
+ *
+ * This is the parameter to a Dirichlet distribution.
+ * @returns {Vector}
+ */
+LDAModel.prototype.docConcentration = function () {
+    throw "not implemented by ElairJS";
+//   var javaObject =  this.getJavaObject().docConcentration();
+//   return Utils.javaToJs(javaObject);
+};
+
+
+/**
+ * Concentration parameter (commonly named "beta" or "eta") for the prior placed on topics'
+ * distributions over terms.
+ *
+ * This is the parameter to a symmetric Dirichlet distribution.
+ *
+ * Note: The topics' distributions over terms are called "beta" in the original LDA paper
+ * by Blei et al., but are called "phi" in many later papers such as Asuncion et al., 2009.
+ * @returns {number}
+ */
+LDAModel.prototype.topicConcentration = function () {
+    throw "not implemented by ElairJS";
+//   return  this.getJavaObject().topicConcentration();
+};
+
+
+/**
+ * Inferred topics, where each topic is represented by a distribution over terms.
+ * This is a matrix of size vocabSize x k, where each column is a topic.
+ * No guarantees are given about the ordering of the topics.
+ * @returns {Matrix}
+ */
+LDAModel.prototype.topicsMatrix = function () {
+   var javaObject =  this.getJavaObject().topicsMatrix();
+   return Utils.javaToJs(javaObject);
+};
+
+
+/**
+ * Return the topics described by weighted terms.
+ *
+ * @param {number} [maxTermsPerTopic]   Maximum number of terms to collect for each topic.
+ *          (term indices, term weights in topic).
+ *          Each topic's terms are sorted in order of decreasing weight.
+ * @returns {Tuple2[]}   Array over topics.  Each topic is represented as a pair of matching arrays:
+ */
+LDAModel.prototype.describeTopics = function (maxTermsPerTopic) {
+    throw "not implemented by ElairJS";
+// 
+//   if (arguments[0]) {
+//   var javaObject =  this.getJavaObject().describeTopics(maxTermsPerTopic);
+//   return Utils.javaToJs(javaObject);
+//   } else {
+//   var javaObject =  this.getJavaObject().describeTopics();
+//   return Utils.javaToJs(javaObject);
+//   }
+};
+
+
+/**
+ * Local LDA model.
+ * This model stores only the inferred topics.
+ *
+ * @param topics Inferred topics (vocabSize x k matrix).
+ * @classdesc
+ * @class
+ * @extends LDAModel
+ */
+
+
+var LocalLDAModel = function (jvmObject) {
+
+    this.logger = Logger.getLogger("LocalLDAModel_js");
+    LDAModel.call(this, jvmObject);
+
+};
+
+LocalLDAModel.prototype = Object.create(LDAModel.prototype);
+
+LocalLDAModel.prototype.constructor = LocalLDAModel;
+
+
+/**
+ * @returns {number}
+ */
+LocalLDAModel.prototype.k = function () {
+    throw "not implemented by ElairJS";
+//   return  this.getJavaObject().k();
+};
+
+
+/**
+ * @returns {number}
+ */
+LocalLDAModel.prototype.vocabSize = function () {
+    throw "not implemented by ElairJS";
+//   return  this.getJavaObject().vocabSize();
+};
+
+
+/**
+ * @returns {Matrix}
+ */
+LocalLDAModel.prototype.topicsMatrix = function () {
+    throw "not implemented by ElairJS";
+//   var javaObject =  this.getJavaObject().topicsMatrix();
+//   return Utils.javaToJs(javaObject);
+};
+
+
+/**
+ * @param {number} maxTermsPerTopic
+ * @returns {Tuple2[]}
+ */
+LocalLDAModel.prototype.describeTopics = function (maxTermsPerTopic) {
+    throw "not implemented by ElairJS";
+//   var javaObject =  this.getJavaObject().describeTopics(maxTermsPerTopic);
+//   return Utils.javaToJs(javaObject);
+};
+
+
+/**
+ * @param {SparkContext} sc
+ * @param {string} path
+ */
+LocalLDAModel.prototype.save = function (sc, path) {
+    throw "not implemented by ElairJS";
+//   var sc_uw = Utils.unwrapObject(sc);
+//    this.getJavaObject().save(sc_uw,path);
+};
+
+
+/**
+ * Calculates a lower bound on the log likelihood of the entire corpus.
+ *
+ * See Equation (16) in original Online LDA paper.
+ *
+ * @param {RDD} documents  test corpus to use for calculating log likelihood
+ * @returns {number}  variational lower bound on the log likelihood of the entire corpus
+ */
+LocalLDAModel.prototype.logLikelihoodwithRDD = function (documents) {
+    throw "not implemented by ElairJS";
+// // TODO: handle Tuple conversion for 'documents'
+//   var documents_uw = Utils.unwrapObject(documents);
+//   return  this.getJavaObject().logLikelihood(documents_uw);
+};
+
+
+/**
+ * Java-friendly version of {@link logLikelihood}
+ * @param {JavaPairRDD} documents
+ * @returns {number}
+ */
+LocalLDAModel.prototype.logLikelihoodwithJavaPairRDD = function (documents) {
+    throw "not implemented by ElairJS";
+//   var documents_uw = Utils.unwrapObject(documents);
+//   return  this.getJavaObject().logLikelihood(documents_uw);
+};
+
+
+/**
+ * Calculate an upper bound bound on perplexity.  (Lower is better.)
+ * See Equation (16) in original Online LDA paper.
+ *
+ * @param {RDD} documents  test corpus to use for calculating perplexity
+ * @returns {number}  Variational upper bound on log perplexity per token.
+ */
+LocalLDAModel.prototype.logPerplexitywithRDD = function (documents) {
+    throw "not implemented by ElairJS";
+// // TODO: handle Tuple conversion for 'documents'
+//   var documents_uw = Utils.unwrapObject(documents);
+//   return  this.getJavaObject().logPerplexity(documents_uw);
+};
+
+
+/**
+ * @param {JavaPairRDD} documents
+ * @returns {number}
+ */
+LocalLDAModel.prototype.logPerplexitywithJavaPairRDD = function (documents) {
+    throw "not implemented by ElairJS";
+//   var documents_uw = Utils.unwrapObject(documents);
+//   return  this.getJavaObject().logPerplexity(documents_uw);
+};
+
+
+/**
+ * Predicts the topic mixture distribution for each document (often called "theta" in the
+ * literature).  Returns a vector of zeros for an empty document.
+ *
+ * This uses a variational approximation following Hoffman et al. (2010), where the approximate
+ * distribution is called "gamma."  Technically, this method returns this approximation "gamma"
+ * for each document.
+ * @param {RDD} documents  documents to predict topic mixture distributions for
+ * @returns {RDD}  An RDD of (document ID, topic mixture distribution for document)
+ */
+LocalLDAModel.prototype.topicDistributionswithRDD = function (documents) {
+    throw "not implemented by ElairJS";
+// // TODO: handle Tuple conversion for 'documents'
+//   var documents_uw = Utils.unwrapObject(documents);
+//   var javaObject =  this.getJavaObject().topicDistributions(documents_uw);
+//   return new RDD(javaObject);
+};
+
+
+/**
+ * Java-friendly version of {@link topicDistributions}
+ * @param {JavaPairRDD} documents
+ * @returns {JavaPairRDD}
+ */
+LocalLDAModel.prototype.topicDistributionswithJavaPairRDD = function (documents) {
+    throw "not implemented by ElairJS";
+//   var documents_uw = Utils.unwrapObject(documents);
+//   var javaObject =  this.getJavaObject().topicDistributions(documents_uw);
+//   return new JavaPairRDD(javaObject);
+};
+
+
+/**
+ * Distributed LDA model.
+ * This model stores the inferred topics, the full training dataset, and the topic distributions.
+ * @classdesc
+ * @class
+ * @extends LDAModel
+ */
+
+
+var DistributedLDAModel = function (jvmObject) {
+
+    this.logger = Logger.getLogger("DistributedLDAModel_js");
+    LDAModel.call(this, jvmObject);
+
+};
+
+DistributedLDAModel.prototype = Object.create(LDAModel.prototype);
+
+DistributedLDAModel.prototype.constructor = DistributedLDAModel;
+
+
+/**
+ * Convert model to a local model.
+ * The local model stores the inferred topics but not the topic distributions for training
+ * documents.
+ * @returns {LocalLDAModel}
+ */
+DistributedLDAModel.prototype.toLocal = function () {
+    throw "not implemented by ElairJS";
+//   var javaObject =  this.getJavaObject().toLocal();
+//   return new LocalLDAModel(javaObject);
+};
+
+
+/**
+ * @param {number} maxTermsPerTopic
+ * @returns {Tuple2[]}
+ */
+DistributedLDAModel.prototype.describeTopics = function (maxTermsPerTopic) {
+    throw "not implemented by ElairJS";
+//   var javaObject =  this.getJavaObject().describeTopics(maxTermsPerTopic);
+//   return Utils.javaToJs(javaObject);
+};
+
+
+/**
+ * Return the top documents for each topic
+ *
+ * @param {number} maxDocumentsPerTopic   Maximum number of documents to collect for each topic.
+ *          (IDs for the documents, weights of the topic in these documents).
+ *          For each topic, documents are sorted in order of decreasing topic weights.
+ * @returns {Tuple2[]}   Array over topics.  Each element represent as a pair of matching arrays:
+ */
+DistributedLDAModel.prototype.topDocumentsPerTopic = function (maxDocumentsPerTopic) {
+    throw "not implemented by ElairJS";
+//   var javaObject =  this.getJavaObject().topDocumentsPerTopic(maxDocumentsPerTopic);
+//   return Utils.javaToJs(javaObject);
+};
+
+
+/**
+ * For each document in the training set, return the distribution over topics for that document
+ * ("theta_doc").
+ *
+ * @returns {RDD}   RDD of (document ID, topic distribution) pairs
+ */
+DistributedLDAModel.prototype.topicDistributions = function () {
+    throw "not implemented by ElairJS";
+//   var javaObject =  this.getJavaObject().topicDistributions();
+//   return new RDD(javaObject);
+};
+
+
+/**
+ * Java-friendly version of {@link topicDistributions}
+ * @returns {JavaPairRDD}
+ */
+DistributedLDAModel.prototype.javaTopicDistributions = function () {
+    throw "not implemented by ElairJS";
+//   var javaObject =  this.getJavaObject().javaTopicDistributions();
+//   return new JavaPairRDD(javaObject);
+};
+
+
+/**
+ * For each document, return the top k weighted topics for that document and their weights.
+ * @param {number} k
+ * @returns {RDD}  RDD of (doc ID, topic indices, topic weights)
+ */
+DistributedLDAModel.prototype.topTopicsPerDocument = function (k) {
+    throw "not implemented by ElairJS";
+//   var javaObject =  this.getJavaObject().topTopicsPerDocument(k);
+//   return new RDD(javaObject);
+};
+
+
+/**
+ * Java-friendly version of {@link topTopicsPerDocument}
+ * @param {number} k
+ * @returns {JavaRDD}
+ */
+DistributedLDAModel.prototype.javaTopTopicsPerDocument = function (k) {
+    throw "not implemented by ElairJS";
+//   var javaObject =  this.getJavaObject().javaTopTopicsPerDocument(k);
+//   return new JavaRDD(javaObject);
+};
+
+
+/**
+ * Java-friendly version of {@link topicDistributions}
+ * @param {SparkContext} sc
+ * @param {string} path
+ */
+DistributedLDAModel.prototype.save = function (sc, path) {
+    throw "not implemented by ElairJS";
+//   var sc_uw = Utils.unwrapObject(sc);
+//    this.getJavaObject().save(sc_uw,path);
+};
+//
+// static methods
+//
+
+
+/**
+ * @param {SparkContext} sc
+ * @param {string} path
+ * @returns {LocalLDAModel}
+ */
+LocalLDAModel.load = function (sc, path) {
+    throw "not implemented by ElairJS";
+//   var sc_uw = Utils.unwrapObject(sc);
+//   var javaObject =  org.apache.spark.mllib.clustering.LocalLDAModel.load(sc_uw,path);
+//   return new LocalLDAModel(javaObject);
+};
+
+
+/**
+ * @param {SparkContext} sc
+ * @param {string} path
+ * @returns {DistributedLDAModel}
+ */
+DistributedLDAModel.load = function (sc, path) {
+    throw "not implemented by ElairJS";
+//   var sc_uw = Utils.unwrapObject(sc);
+//   var javaObject =  org.apache.spark.mllib.clustering.DistributedLDAModel.load(sc_uw,path);
+//   return new DistributedLDAModel(javaObject);
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ALS.html">ALS</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="AssociationRules.html">AssociationRules</a></li><li><a href="BinaryClassificationMetrics.html">BinaryClassificationMetrics</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BisectingKMeans.html">BisectingKMeans</a></li><li><a href="BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="BoostingStrategy.html">BoostingStrategy</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DecisionTree.html">DecisionTree</a></li><li><a href="DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="DenseMatrix.html">DenseMatrix</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DistributedLDAModel.html">DistributedLDAModel</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatRDD.html">FloatRDD</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="FPGrowth.html">FPGrowth</a></li><li><a href="FPGrowthModel.html">FPGrowthModel</a></li><li><a href="FreqItemset.html">FreqItemset</a></li><li><a href="functions.html">functions</a></li><li><a href="FutureAction.html">FutureAction</a></li><li><a href="GeneralizedLinearModel.html">GeneralizedLinearModel</a></li><li><a href="Gradient.html">Gradient</a></li><li><a href="GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="IsotonicRegression.html">IsotonicRegression</a></li><li><a href="IsotonicRegressionModel.html">IsotonicRegressionModel</a></li><li><a href="KMeans.html">KMeans</a></li><li><a href="KMeansModel.html">KMeansModel</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LBFGS.html">LBFGS</a></li><li><a href="LDA.html">LDA</a></li><li><a href="LDAModel.html">LDAModel</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="List.html">List</a></li><li><a href="LocalLDAModel.html">LocalLDAModel</a></li><li><a href="Logger.html">Logger</a></li><li><a href="LogisticGradient.html">LogisticGradient</a></li><li><a href="LogisticRegressionModel.html">LogisticRegressionModel</a></li><li><a href="LogisticRegressionWithLBFGS.html">LogisticRegressionWithLBFGS</a></li><li><a href="LogisticRegressionWithSGD.html">LogisticRegressionWithSGD</a></li><li><a href="Loss.html">Loss</a></li><li><a href="MapType.html">MapType</a></li><li><a href="Matrix.html">Matrix</a></li><li><a href="MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="MLWord2Vec.html">MLWord2Vec</a></li><li><a href="MLWord2VecModel.html">MLWord2VecModel</a></li><li><a href="MulticlassMetrics.html">MulticlassMetrics</a></li><li><a href="MultilabelMetrics.html">MultilabelMetrics</a></li><li><a href="NaiveBayes.html">NaiveBayes</a></li><li><a href="NaiveBayesModel.html">NaiveBayesModel</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PairDStream.html">PairDStream</a></li><li><a href="PairRDD.html">PairRDD</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RandomForest.html">RandomForest</a></li><li><a href="RandomForestModel.html">RandomForestModel</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RankingMetrics.html">RankingMetrics</a></li><li><a href="Rating.html">Rating</a></li><li><a href="RDD.html">RDD</a></li><li><a href="RegressionMetrics.html">RegressionMetrics</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="Rule.html">Rule</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SparseMatrix.html">SparseMatrix</a></li><li><a href="SparseVector.html">SparseVector</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="SquaredL2Updater.html">SquaredL2Updater</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="Strategy.html">Strategy</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li><li><a href="Tuple.html">Tuple</a></li><li><a href="Updater.html">Updater</a></li><li><a href="Vector.html">Vector</a></li><li><a href="Vectors.html">Vectors</a></li><li><a href="VectorUDT.html">VectorUDT</a></li><li><a href="Word2Vec.html">Word2Vec</a></li><li><a href="Word2VecModel.html">Word2VecModel</a></li></ul><h3>Interfaces</h3><ul><li><a href="ClassificationModel.html">ClassificationModel</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Fri Mar 18 2016 12:29:05 GMT-0400 (EDT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

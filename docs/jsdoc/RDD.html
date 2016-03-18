@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>JSDoc: Class: RDD</title>
-    
+
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
     <!--[if lt IE 9]>
@@ -16,165 +16,184 @@
 <body>
 
 <div id="main">
-    
+
     <h1 class="page-title">Class: RDD</h1>
+
     
-    
+
 
 
 
 <section>
-    
+
 <header>
-    <h2>
-    RDD
-    </h2>
     
-        <div class="class-description">A Resilient Distributed Dataset (RDD), the basic abstraction in Spark. Represents an immutable,
+        <h2>
+        RDD
+        </h2>
+        
+            <div class="class-description">A Resilient Distributed Dataset (RDD), the basic abstraction in Spark. Represents an immutable,
 partitioned collection of elements that can be operated on in parallel.</div>
+        
     
-</header>  
+</header>
 
 <article>
     <div class="container-overview">
     
-    
-    
         
-<dt>
+
+    
+    <h2>Constructor</h2>
+    
+
     <h4 class="name" id="RDD"><span class="type-signature"></span>new RDD<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
 
     
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line23">line 23</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    
-    
-</dd>
+
+
+
+
+
+
+
+
+
+
+
+
 
     
     </div>
+
     
+
     
+
     
+
+     
+
     
+
     
-    
-    
-    
-    
-    
-    
-    
-    
+
     
         <h3 class="subsection-title">Methods</h3>
+
         
-        <dl>
             
-<dt>
+
+    
+
     <h4 class="name" id="aggregate"><span class="type-signature"></span>aggregate<span class="signature">(zeroValue, func1, func2, bindArgs1, bindArgs2)</span><span class="type-signature"> &rarr; {object}</span></h4>
+
     
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Aggregate the elements of each partition, and then the results for all the partitions, using
+
+
+
+<div class="description">
+    Aggregate the elements of each partition, and then the results for all the partitions, using
 given combine functions and a neutral "zero value". This function can return a different result
 type, U, than the type of this RDD, T. Thus, we need one operation for merging a T into an U
 and one operation for merging two U's, as in scala.TraversableOnce. Both of these functions are
 allowed to modify and return their first argument instead of creating a new U to avoid memory
 allocation.
-    </div>
-    
+</div>
 
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>zeroValue</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -183,21 +202,21 @@ allocation.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">(undocumented)</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>func1</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -206,21 +225,21 @@ allocation.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">seqOp - (undocumented) Function with two parameters</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>func2</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -229,267 +248,294 @@ allocation.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">combOp - (undocumented) Function with two parameters</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>bindArgs1</code></td>
             
-            
+
             <td class="type">
             
                 
-<span class="param-type">Object[]</span>
+<span class="param-type">Array.&lt;Object></span>
 
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Optional array whose values will be added to func1's argument list.</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>bindArgs2</code></td>
             
-            
+
             <td class="type">
             
                 
-<span class="param-type">Object[]</span>
+<span class="param-type">Array.&lt;Object></span>
 
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Optional array whose values will be added to func2's argument list.</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line47">line 47</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">object</span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
+
+    
+
     <h4 class="name" id="cache"><span class="type-signature"></span>cache<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Persist this RDD with the default storage level (`MEMORY_ONLY`).
-    </div>
-    
 
     
-    
-    
-    
-    
-    
-    
+
+
+
+<div class="description">
+    Persist this RDD with the default storage level (`MEMORY_ONLY`).
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line59">line 59</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="RDD.html">RDD</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
-    <h4 class="name" id="cartesian"><span class="type-signature"></span>cartesian<span class="signature">(other)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Return the Cartesian product of this RDD and another one, that is, the RDD of all pairs of
-elements (a, b) where a is in `this` and b is in `other`.
-    </div>
-    
 
     
+
+    <h4 class="name" id="cartesian"><span class="type-signature"></span>cartesian<span class="signature">(other)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+
     
+
+
+
+<div class="description">
+    Return the Cartesian product of this RDD and another one, that is, the RDD of all pairs of
+elements (a, b) where a is in `this` and b is in `other`.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>other</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -498,180 +544,205 @@ elements (a, b) where a is in `this` and b is in `other`.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">(undocumented)</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line69">line 69</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="RDD.html">RDD</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
+
+    
+
     <h4 class="name" id="checkpoint"><span class="type-signature"></span>checkpoint<span class="signature">()</span><span class="type-signature"></span></h4>
+
     
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Mark this RDD for checkpointing. It will be saved to a file inside the checkpoint
+
+
+
+<div class="description">
+    Mark this RDD for checkpointing. It will be saved to a file inside the checkpoint
 directory set with `SparkContext#setCheckpointDir` and all references to its parent
 RDDs will be removed. This function must be called before any job has been
 executed on this RDD. It is strongly recommended that this RDD is persisted in
 memory, otherwise saving it on a file will require recomputation.
-    </div>
-    
+</div>
 
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line82">line 82</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 <div class="param-desc">
     void
 </div>
 
 
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
+
+    
+
     <h4 class="name" id="coalesce"><span class="type-signature"></span>coalesce<span class="signature">(numPartitions, shuffle)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+
     
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Return a new RDD that is reduced into `numPartitions` partitions.
+
+
+
+<div class="description">
+    Return a new RDD that is reduced into `numPartitions` partitions.
 
 This results in a narrow dependency, e.g. if you go from 1000 partitions
 to 100 partitions, there will not be a shuffle, instead each of the 100
@@ -689,42 +760,44 @@ of partitions. This is useful if you have a small number of partitions,
 say 100, potentially with a few partitions being abnormally large. Calling
 coalesce(1000, shuffle = true) will result in 1000 partitions with the
 data distributed using a hash partitioner.
-    </div>
-    
+</div>
 
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>numPartitions</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -733,21 +806,21 @@ data distributed using a hash partitioner.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last"></td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>shuffle</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -756,484 +829,550 @@ data distributed using a hash partitioner.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last"></td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line109">line 109</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="RDD.html">RDD</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
+
+    
+
     <h4 class="name" id="collect"><span class="type-signature"></span>collect<span class="signature">()</span><span class="type-signature"> &rarr; {Array}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Return an array that contains all of the elements in this RDD.
-    </div>
-    
 
     
-    
-    
-    
-    
-    
-    
+
+
+
+<div class="description">
+    Return an array that contains all of the elements in this RDD.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line117">line 117</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">Array</span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
+
+    
+
     <h4 class="name" id="collectAsync"><span class="type-signature"></span>collectAsync<span class="signature">()</span><span class="type-signature"> &rarr; {JavaFutureAction}</span></h4>
+
     
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        The asynchronous version of `collect`, which returns a future for
+
+
+
+<div class="description">
+    The asynchronous version of `collect`, which returns a future for
 retrieving an array containing all of the elements in this RDD.
-    </div>
-    
+</div>
 
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1209">line 1209</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">JavaFutureAction</span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
+
+    
+
     <h4 class="name" id="context"><span class="type-signature"></span>context<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="SparkContext.html">SparkContext</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Return the SparkContext that this RDD was created on.
-    </div>
-    
 
     
-    
-    
-    
-    
-    
-    
+
+
+
+<div class="description">
+    Return the SparkContext that this RDD was created on.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line138">line 138</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="SparkContext.html">SparkContext</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
+
+    
+
     <h4 class="name" id="count"><span class="type-signature"></span>count<span class="signature">()</span><span class="type-signature"> &rarr; {integer}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Return the number of elements in the RDD.
-    </div>
-    
 
     
-    
-    
-    
-    
-    
-    
+
+
+
+<div class="description">
+    Return the number of elements in the RDD.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line147">line 147</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">integer</span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
-    <h4 class="name" id="countApprox"><span class="type-signature"></span>countApprox<span class="signature">(timeout, confidence)</span><span class="type-signature"> &rarr; {<a href="PartialResult.html">PartialResult</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        :: Experimental ::
-Approximate version of count() that returns a potentially incomplete result
-within a timeout, even if not all tasks have finished.
-    </div>
-    
 
     
+
+    <h4 class="name" id="countApprox"><span class="type-signature"></span>countApprox<span class="signature">(timeout, confidence)</span><span class="type-signature"> &rarr; {<a href="PartialResult.html">PartialResult</a>}</span></h4>
+
     
+
+
+
+<div class="description">
+    :: Experimental ::
+Approximate version of count() that returns a potentially incomplete result
+within a timeout, even if not all tasks have finished.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>timeout</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -1242,21 +1381,21 @@ within a timeout, even if not all tasks have finished.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">(undocumented)</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>confidence</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -1265,137 +1404,151 @@ within a timeout, even if not all tasks have finished.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">(undocumented)</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line160">line 160</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="PartialResult.html">PartialResult</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
+
+    
+
     <h4 class="name" id="countApproxDistinct"><span class="type-signature"></span>countApproxDistinct<span class="signature">(relativeSD)</span><span class="type-signature"> &rarr; {number}</span></h4>
+
     
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Return approximate number of distinct elements in the RDD.
+
+
+
+<div class="description">
+    Return approximate number of distinct elements in the RDD.
 
 The algorithm used is based on streamlib's implementation of "HyperLogLog in Practice:
 Algorithmic Engineering of a State of The Art Cardinality Estimation Algorithm", available
 <a href="http://dx.doi.org/10.1145/2452376.2452456">here</a>.
-    </div>
-    
+</div>
 
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>relativeSD</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -1404,98 +1557,110 @@ Algorithmic Engineering of a State of The Art Cardinality Estimation Algorithm",
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Relative accuracy. Smaller values create counters that require more space.
                   It must be greater than 0.000017.</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line176">line 176</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">number</span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
+
+    
+
     <h4 class="name" id="countApproxDistinctwithSp"><span class="type-signature"></span>countApproxDistinctwithSp<span class="signature">(p, sp)</span><span class="type-signature"> &rarr; {number}</span></h4>
+
     
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        :: Experimental ::
+
+
+
+<div class="description">
+    :: Experimental ::
 Return approximate number of distinct elements in the RDD.
 
 The algorithm used is based on streamlib's implementation of "HyperLogLog in Practice:
@@ -1505,42 +1670,44 @@ Algorithmic Engineering of a State of The Art Cardinality Estimation Algorithm",
 The relative accuracy is approximately `1.054 / sqrt(2^p)`. Setting a nonzero `sp &gt; p`
 would trigger sparse representation of registers, which may reduce the memory consumption
 and increase accuracy when the cardinality is small.
-    </div>
-    
+</div>
 
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>p</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -1549,22 +1716,22 @@ and increase accuracy when the cardinality is small.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">The precision value for the normal set.
          `p` must be a value between 4 and `sp` if `sp` is not zero (32 max).</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>sp</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -1573,135 +1740,149 @@ and increase accuracy when the cardinality is small.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">The precision value for the sparse set, between 0 and 32.
           If `sp` equals 0, the sparse representation is skipped.</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line198">line 198</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">number</span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
-    <h4 class="name" id="countByValueApprox"><span class="type-signature"></span>countByValueApprox<span class="signature">(timeout, confidence)</span><span class="type-signature"> &rarr; {<a href="PartialResult.html">PartialResult</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        :: Experimental ::
-Approximate version of countByValue().
-    </div>
-    
 
     
+
+    <h4 class="name" id="countByValueApprox"><span class="type-signature"></span>countByValueApprox<span class="signature">(timeout, confidence)</span><span class="type-signature"> &rarr; {<a href="PartialResult.html">PartialResult</a>}</span></h4>
+
     
+
+
+
+<div class="description">
+    :: Experimental ::
+Approximate version of countByValue().
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>timeout</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -1710,21 +1891,21 @@ Approximate version of countByValue().
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">(undocumented)</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>confidence</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -1733,133 +1914,147 @@ Approximate version of countByValue().
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">(undocumented)</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line225">line 225</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="PartialResult.html">PartialResult</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
-    <h4 class="name" id="distinct"><span class="type-signature"></span>distinct<span class="signature">(numPartitions)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Return a new RDD containing the distinct elements in this RDD.
-    </div>
-    
 
     
+
+    <h4 class="name" id="distinct"><span class="type-signature"></span>distinct<span class="signature">(numPartitions)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+
     
+
+
+
+<div class="description">
+    Return a new RDD containing the distinct elements in this RDD.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>numPartitions</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -1868,133 +2063,147 @@ Approximate version of countByValue().
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">(optional)</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line247">line 247</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="RDD.html">RDD</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
-    <h4 class="name" id="filter"><span class="type-signature"></span>filter<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Return a new RDD containing only the elements that satisfy a predicate.
-    </div>
-    
 
     
+
+    <h4 class="name" id="filter"><span class="type-signature"></span>filter<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+
     
+
+
+
+<div class="description">
+    Return a new RDD containing only the elements that satisfy a predicate.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>func</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -2003,243 +2212,270 @@ Approximate version of countByValue().
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">(undocumented) Function with one parameter</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>bindArgs</code></td>
             
-            
+
             <td class="type">
             
                 
-<span class="param-type">Object[]</span>
+<span class="param-type">Array.&lt;Object></span>
 
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Optional array whose values will be added to func's argument list.</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line259">line 259</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="RDD.html">RDD</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
+
+    
+
     <h4 class="name" id="first"><span class="type-signature"></span>first<span class="signature">()</span><span class="type-signature"> &rarr; {object}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Return the first element in this RDD.
-    </div>
-    
 
     
-    
-    
-    
-    
-    
-    
+
+
+
+<div class="description">
+    Return the first element in this RDD.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line286">line 286</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">object</span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
-    <h4 class="name" id="flatMap"><span class="type-signature"></span>flatMap<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Return a new RDD by first applying a function to all elements of this RDD, and then flattening the results.
-    </div>
-    
 
     
+
+    <h4 class="name" id="flatMap"><span class="type-signature"></span>flatMap<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+
     
+
+
+
+<div class="description">
+    Return a new RDD by first applying a function to all elements of this RDD, and then flattening the results.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>func</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -2248,157 +2484,171 @@ Approximate version of countByValue().
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">(undocumented) - Function with one parameter</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>bindArgs</code></td>
             
-            
+
             <td class="type">
             
                 
-<span class="param-type">Object[]</span>
+<span class="param-type">Array.&lt;Object></span>
 
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Optional array whose values will be added to func's argument list.</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line298">line 298</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="RDD.html">RDD</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
-    <h4 class="name" id="flatMapToPair"><span class="type-signature"></span>flatMapToPair<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {<a href="PairRDD.html">PairRDD</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Return a new RDD by first applying a function to all elements of this
- RDD, and then flattening the results.
-    </div>
-    
 
     
+
+    <h4 class="name" id="flatMapToPair"><span class="type-signature"></span>flatMapToPair<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {<a href="PairRDD.html">PairRDD</a>}</span></h4>
+
     
+
+
+
+<div class="description">
+    Return a new RDD by first applying a function to all elements of this
+ RDD, and then flattening the results.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>func</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -2407,120 +2657,132 @@ Approximate version of countByValue().
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last"></td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>bindArgs</code></td>
             
-            
+
             <td class="type">
             
                 
-<span class="param-type">Object[]</span>
+<span class="param-type">Array.&lt;Object></span>
 
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Optional array whose values will be added to func's argument list.</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line329">line 329</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="PairRDD.html">PairRDD</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
+
+    
+
     <h4 class="name" id="fold"><span class="type-signature"></span>fold<span class="signature">(zeroValue, func, bindArgs)</span><span class="type-signature"> &rarr; {object}</span></h4>
+
     
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Aggregate the elements of each partition, and then the results for all the partitions, using a
+
+
+
+<div class="description">
+    Aggregate the elements of each partition, and then the results for all the partitions, using a
 given associative and commutative function and a neutral "zero value". The function
 op(t1, t2) is allowed to modify t1 and return it as its result value to avoid object
 allocation; however, it should not modify t2.
@@ -2531,42 +2793,44 @@ partitions individually, and then fold those results into the final result, rath
 apply the fold to each element sequentially in some defined ordering. For functions
 that are not commutative, the result may differ from that of a fold applied to a
 non-distributed collection.
-    </div>
-    
+</div>
 
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>zeroValue</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -2575,21 +2839,21 @@ non-distributed collection.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">(undocumented)</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>func</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -2598,156 +2862,170 @@ non-distributed collection.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">(undocumented) Function with two parameters</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>bindArgs</code></td>
             
-            
+
             <td class="type">
             
                 
-<span class="param-type">Object[]</span>
+<span class="param-type">Array.&lt;Object></span>
 
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Optional array whose values will be added to func's argument list.</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line352">line 352</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">object</span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
-    <h4 class="name" id="foreach"><span class="type-signature"></span>foreach<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {void}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Applies a function to all elements of this RDD.
-    </div>
-    
 
     
+
+    <h4 class="name" id="foreach"><span class="type-signature"></span>foreach<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {void}</span></h4>
+
     
+
+
+
+<div class="description">
+    Applies a function to all elements of this RDD.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>func</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -2756,165 +3034,179 @@ non-distributed collection.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Function with one parameter that returns void</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>bindArgs</code></td>
             
-            
+
             <td class="type">
             
                 
-<span class="param-type">Object[]</span>
+<span class="param-type">Array.&lt;Object></span>
 
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Optional array whose values will be added to func's argument list.</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line372">line 372</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">void</span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
+
+
+    <h5>Example</h5>
     
-        <h5>Example</h5>
-        
     <pre class="prettyprint"><code>rdd3.foreach(function(record) {
    var connection = createNewConnection()
    connection.send(record);
    connection.close()
 });</code></pre>
 
-    
-</dd>
+
 
         
             
-<dt>
-    <h4 class="name" id="foreachPartition"><span class="type-signature"></span>foreachPartition<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {void}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Applies a function to each partition of this RDD.
-    </div>
-    
 
     
+
+    <h4 class="name" id="foreachPartition"><span class="type-signature"></span>foreachPartition<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {void}</span></h4>
+
     
+
+
+
+<div class="description">
+    Applies a function to each partition of this RDD.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>func</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -2923,108 +3215,120 @@ non-distributed collection.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Function with one Array parameter that returns void</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>bindArgs</code></td>
             
-            
+
             <td class="type">
             
                 
-<span class="param-type">Object[]</span>
+<span class="param-type">Array.&lt;Object></span>
 
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Optional array whose values will be added to func's argument list.</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line391">line 391</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">void</span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
+
+
+    <h5>Example</h5>
     
-        <h5>Example</h5>
-        
     <pre class="prettyprint"><code>rdd3.foreachPartition(function(partitionOfRecords) {
    var connection = createNewConnection()
    partitionOfRecords.forEach(function(record){
@@ -3033,321 +3337,362 @@ non-distributed collection.
    connection.close()
 });</code></pre>
 
-    
-</dd>
+
 
         
             
-<dt>
+
+    
+
     <h4 class="name" id="getCheckpointFile"><span class="type-signature"></span>getCheckpointFile<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
     
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Gets the name of the directory to which this RDD was checkpointed.
+
+
+
+<div class="description">
+    Gets the name of the directory to which this RDD was checkpointed.
 This is not defined if the RDD is checkpointed locally.
-    </div>
-    
+</div>
 
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line417">line 417</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">string</span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
+
+    
+
     <h4 class="name" id="getStorageLevel"><span class="type-signature"></span>getStorageLevel<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="StorageLevel.html">StorageLevel</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
 
     
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line424">line 424</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="StorageLevel.html">StorageLevel</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
+
+    
+
     <h4 class="name" id="glom"><span class="type-signature"></span>glom<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Return an RDD created by coalescing all elements within each partition into an array.
-    </div>
-    
 
     
-    
-    
-    
-    
-    
-    
+
+
+
+<div class="description">
+    Return an RDD created by coalescing all elements within each partition into an array.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line433">line 433</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="RDD.html">RDD</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
+
+    
+
     <h4 class="name" id="groupBy"><span class="type-signature"></span>groupBy<span class="signature">(func, numPartitions, partitioner, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+
     
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Return an RDD of grouped items. Each group consists of a key and a sequence of elements
+
+
+
+<div class="description">
+    Return an RDD of grouped items. Each group consists of a key and a sequence of elements
 mapping to that key. The ordering of elements within each group is not guaranteed, and
 may even differ each time the resulting RDD is evaluated.
 
 Note: This operation may be very expensive. If you are grouping in order to perform an
 aggregation (such as a sum or average) over each key, using aggregateByKey
-or {@link reduceByKey} will provide much better performance.
-    </div>
-    
+or reduceByKey will provide much better performance.
+</div>
 
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>func</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -3356,21 +3701,21 @@ or {@link reduceByKey} will provide much better performance.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">(undocumented) Function with one parameter</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>numPartitions</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -3379,21 +3724,21 @@ or {@link reduceByKey} will provide much better performance.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">(optional) How many partitions to use in the resulting RDD (if non-zero partitioner is ignored)</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>partitioner</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -3402,246 +3747,273 @@ or {@link reduceByKey} will provide much better performance.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">(optional) Partitioner to use for the resulting RDD</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>bindArgs</code></td>
             
-            
+
             <td class="type">
             
                 
-<span class="param-type">Object[]</span>
+<span class="param-type">Array.&lt;Object></span>
 
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Optional array whose values will be added to func's argument list.</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line452">line 452</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="RDD.html">RDD</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
+
+    
+
     <h4 class="name" id="id"><span class="type-signature"></span>id<span class="signature">()</span><span class="type-signature"> &rarr; {int}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        A unique ID for this RDD (within its SparkContext).
-    </div>
-    
 
     
-    
-    
-    
-    
-    
-    
+
+
+
+<div class="description">
+    A unique ID for this RDD (within its SparkContext).
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line464">line 464</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">int</span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
+
+    
+
     <h4 class="name" id="intersection"><span class="type-signature"></span>intersection<span class="signature">(other, numPartitions, partitioner)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+
     
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Return the intersection of this RDD and another one. The output will not contain any duplicate
+
+
+
+<div class="description">
+    Return the intersection of this RDD and another one. The output will not contain any duplicate
 elements, even if the input RDDs did.
 
 Note that this method performs a shuffle internally.
-    </div>
-    
+</div>
 
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>other</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -3650,21 +4022,21 @@ Note that this method performs a shuffle internally.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">the other RDD</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>numPartitions</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -3673,21 +4045,21 @@ Note that this method performs a shuffle internally.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">How many partitions to use in the resulting RDD (if non-zero partitioner is ignored)</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>partitioner</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -3696,236 +4068,274 @@ Note that this method performs a shuffle internally.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Partitioner to use for the resulting RDD</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line478">line 478</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="RDD.html">RDD</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
+
+    
+
     <h4 class="name" id="isCheckpointed"><span class="type-signature"></span>isCheckpointed<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Return whether this RDD is checkpointed and materialized, either reliably or locally.
-    </div>
-    
 
     
-    
-    
-    
-    
-    
-    
+
+
+
+<div class="description">
+    Return whether this RDD is checkpointed and materialized, either reliably or locally.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line491">line 491</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">boolean</span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
+
+    
+
     <h4 class="name" id="isEmpty"><span class="type-signature"></span>isEmpty<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
 
     
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line503">line 503</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 <div class="param-desc">
     true if and only if the RDD contains no elements at all. Note that an RDD
 </div>
@@ -3933,70 +4343,72 @@ Note that this method performs a shuffle internally.
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">boolean</span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
-    <h4 class="name" id="keyBy"><span class="type-signature"></span>keyBy<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Creates tuples of the elements in this RDD by applying `f`.
-    </div>
-    
 
     
+
+    <h4 class="name" id="keyBy"><span class="type-signature"></span>keyBy<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+
     
+
+
+
+<div class="description">
+    Creates tuples of the elements in this RDD by applying `f`.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>func</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -4005,120 +4417,132 @@ Note that this method performs a shuffle internally.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">(undocumented)</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>bindArgs</code></td>
             
-            
+
             <td class="type">
             
                 
-<span class="param-type">Object[]</span>
+<span class="param-type">Array.&lt;Object></span>
 
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Optional array whose values will be added to func's argument list.</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line513">line 513</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="RDD.html">RDD</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
+
+    
+
     <h4 class="name" id="localCheckpoint"><span class="type-signature"></span>localCheckpoint<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+
     
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Mark this RDD for local checkpointing using Spark's existing caching layer.
+
+
+
+<div class="description">
+    Mark this RDD for local checkpointing using Spark's existing caching layer.
 
 This method is for users who wish to truncate RDD lineages while skipping the expensive
 step of replicating the materialized data in a reliable distributed file system. This is
@@ -4134,129 +4558,144 @@ with their cached blocks. If you must use both features, you are advised to set
 `spark.dynamicAllocation.cachedExecutorIdleTimeout` to a high value.
 
 The checkpoint directory set through `SparkContext#setCheckpointDir` is not used.
-    </div>
-    
+</div>
 
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line538">line 538</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="RDD.html">RDD</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
-    <h4 class="name" id="map"><span class="type-signature"></span>map<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Return a new RDD by applying a function to all elements of this RDD.
-    </div>
-    
 
     
+
+    <h4 class="name" id="map"><span class="type-signature"></span>map<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+
     
+
+
+
+<div class="description">
+    Return a new RDD by applying a function to all elements of this RDD.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>func</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -4265,158 +4704,172 @@ The checkpoint directory set through `SparkContext#setCheckpointDir` is not used
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">(undocumented) Function with one parameter</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>bindArgs</code></td>
             
-            
+
             <td class="type">
             
                 
-<span class="param-type">Object[]</span>
+<span class="param-type">Array.&lt;Object></span>
 
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Optional array whose values will be added to func's argument list.</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line549">line 549</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="RDD.html">RDD</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
-    <h4 class="name" id="mapPartitions"><span class="type-signature"></span>mapPartitions<span class="signature">(func, preservesPartitioning, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Return a new RDD by applying a function to each partition of this RDD.
-Similar to map, but runs separately on each partition (block) of the RDD, so func must accept an Array.
-func should return a array rather than a single item.
-    </div>
-    
 
     
+
+    <h4 class="name" id="mapPartitions"><span class="type-signature"></span>mapPartitions<span class="signature">(func, preservesPartitioning, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+
     
+
+
+
+<div class="description">
+    Return a new RDD by applying a function to each partition of this RDD.
+Similar to map, but runs separately on each partition (block) of the RDD, so func must accept an Array.
+func should return a array rather than a single item.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>func</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -4425,21 +4878,21 @@ func should return a array rather than a single item.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">(undocumented) Function with one parameter</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>preservesPartitioning</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -4448,160 +4901,174 @@ func should return a array rather than a single item.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">(optional)</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>bindArgs</code></td>
             
-            
+
             <td class="type">
             
                 
-<span class="param-type">Object[]</span>
+<span class="param-type">Array.&lt;Object></span>
 
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Optional array whose values will be added to func's argument list.</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line564">line 564</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="RDD.html">RDD</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
+
+    
+
     <h4 class="name" id="mapPartitionsWithIndex"><span class="type-signature"></span>mapPartitionsWithIndex<span class="signature">(func, preservesPartitioning, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+
     
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Return a new RDD by applying a function to each partition of this RDD, while tracking the index
+
+
+
+<div class="description">
+    Return a new RDD by applying a function to each partition of this RDD, while tracking the index
 of the original partition.
 
 `preservesPartitioning` indicates whether the input function preserves the partitioner, which
 should be `false` unless this is a pair RDD and the input function doesn't modify the keys.
-    </div>
-    
+</div>
 
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>func</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -4610,21 +5077,21 @@ should be `false` unless this is a pair RDD and the input function doesn't modif
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">(undocumented) Function with one parameter</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>preservesPartitioning</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -4633,157 +5100,171 @@ should be `false` unless this is a pair RDD and the input function doesn't modif
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">(optional)</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>bindArgs</code></td>
             
-            
+
             <td class="type">
             
                 
-<span class="param-type">Object[]</span>
+<span class="param-type">Array.&lt;Object></span>
 
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Optional array whose values will be added to func's argument list.</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line581">line 581</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="RDD.html">RDD</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
-    <h4 class="name" id="mapPartitionsWithSplit"><span class="type-signature"></span>mapPartitionsWithSplit<span class="signature">(func, preservesPartitioning, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Return a new RDD by applying a function to each partition of this RDD, while tracking the index
-of the original partition.
-    </div>
-    
 
     
+
+    <h4 class="name" id="mapPartitionsWithSplit"><span class="type-signature"></span>mapPartitionsWithSplit<span class="signature">(func, preservesPartitioning, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+
     
+
+
+
+<div class="description">
+    Return a new RDD by applying a function to each partition of this RDD, while tracking the index
+of the original partition.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>func</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -4792,21 +5273,21 @@ of the original partition.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">(undocumented) Function with one parameter</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>preservesPartitioning</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -4815,395 +5296,435 @@ of the original partition.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">(optional)</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>bindArgs</code></td>
             
-            
+
             <td class="type">
             
                 
-<span class="param-type">Object[]</span>
+<span class="param-type">Array.&lt;Object></span>
 
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Optional array whose values will be added to func's argument list.</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line595">line 595</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="RDD.html">RDD</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
-    <h4 class="name" id="mapToPair"><span class="type-signature"></span>mapToPair<span class="signature">((function), bindArgs)</span><span class="type-signature"> &rarr; {<a href="PairRDD.html">PairRDD</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Return a new RDD by applying a function to all elements of this RDD.
-    </div>
-    
 
     
+
+    <h4 class="name" id="mapToPair"><span class="type-signature"></span>mapToPair<span class="signature">((function), bindArgs)</span><span class="type-signature"> &rarr; {<a href="PairRDD.html">PairRDD</a>}</span></h4>
+
     
+
+
+
+<div class="description">
+    Return a new RDD by applying a function to all elements of this RDD.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>(function)</code></td>
             
-            
+
             <td class="type">
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">func - (undocumented) Function with one parameter that returns tuple</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>bindArgs</code></td>
             
-            
+
             <td class="type">
             
                 
-<span class="param-type">Object[]</span>
+<span class="param-type">Array.&lt;Object></span>
 
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Optional array whose values will be added to func's argument list.</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line625">line 625</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="PairRDD.html">PairRDD</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
-    <h4 class="name" id="max"><span class="type-signature"></span>max<span class="signature">((function), bindArgs)</span><span class="type-signature"> &rarr; {object}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Returns the max of this RDD as defined by the implicit Ordering[T].
-    </div>
-    
 
     
+
+    <h4 class="name" id="max"><span class="type-signature"></span>max<span class="signature">((function), bindArgs)</span><span class="type-signature"> &rarr; {object}</span></h4>
+
     
+
+
+
+<div class="description">
+    Returns the max of this RDD as defined by the implicit Ordering[T].
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>(function)</code></td>
             
-            
+
             <td class="type">
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">comparator - Compares its two arguments for order. Returns a negative integer, zero, or a positive integer as the first argument is less than, equal to, or greater than the second.</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>bindArgs</code></td>
             
-            
+
             <td class="type">
             
                 
-<span class="param-type">Object[]</span>
+<span class="param-type">Array.&lt;Object></span>
 
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Optional array whose values will be added to comparator's argument list.</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line637">line 637</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 <div class="param-desc">
     the maximum element of the RDD
 </div>
@@ -5211,156 +5732,170 @@ of the original partition.
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">object</span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
-    <h4 class="name" id="min"><span class="type-signature"></span>min<span class="signature">((function), bindArgs)</span><span class="type-signature"> &rarr; {object}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Returns the min of this RDD as defined by the implicit Ordering[T].
-    </div>
-    
 
     
+
+    <h4 class="name" id="min"><span class="type-signature"></span>min<span class="signature">((function), bindArgs)</span><span class="type-signature"> &rarr; {object}</span></h4>
+
     
+
+
+
+<div class="description">
+    Returns the min of this RDD as defined by the implicit Ordering[T].
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>(function)</code></td>
             
-            
+
             <td class="type">
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">comparator - Compares its two arguments for order. Returns a negative integer, zero, or a positive integer as the second argument is less than, equal to, or greater than the first.</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>bindArgs</code></td>
             
-            
+
             <td class="type">
             
                 
-<span class="param-type">Object[]</span>
+<span class="param-type">Array.&lt;Object></span>
 
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Optional array whose values will be added to compartor's argument list.</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line648">line 648</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 <div class="param-desc">
     the minimum element of the RDD
 </div>
@@ -5368,153 +5903,168 @@ of the original partition.
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">object</span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
+
+    
+
     <h4 class="name" id="name"><span class="type-signature"></span>name<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        A friendly name for this RDD
-    </div>
-    
 
     
-    
-    
-    
-    
-    
-    
+
+
+
+<div class="description">
+    A friendly name for this RDD
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line657">line 657</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">string</span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
-    <h4 class="name" id="persist"><span class="type-signature"></span>persist<span class="signature">(newLevel)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
 
     
+
+    <h4 class="name" id="persist"><span class="type-signature"></span>persist<span class="signature">(newLevel)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+
     
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>newLevel</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -5523,134 +6073,148 @@ of the original partition.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last"></td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line677">line 677</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="RDD.html">RDD</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
-    <h4 class="name" id="pipe"><span class="type-signature"></span>pipe<span class="signature">(command, env, printPipeContext, printRDDElement, separateWorkingDir, bindArgs, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Return an RDD created by piping elements to a forked external process.
-The print behavior can be customized by providing two functions.
-    </div>
-    
 
     
+
+    <h4 class="name" id="pipe"><span class="type-signature"></span>pipe<span class="signature">(command, env, printPipeContext, printRDDElement, separateWorkingDir, bindArgs, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+
     
+
+
+
+<div class="description">
+    Return an RDD created by piping elements to a forked external process.
+The print behavior can be customized by providing two functions.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>command</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -5662,21 +6226,21 @@ The print behavior can be customized by providing two functions.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">command to run in forked process.</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>env</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -5685,21 +6249,21 @@ The print behavior can be customized by providing two functions.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">environment variables to set.</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>printPipeContext</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -5708,23 +6272,23 @@ The print behavior can be customized by providing two functions.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">(optional) Before piping elements, this function is called as an opportunity
                         to pipe context data. Print line function (like out.println) will be
                         passed as printPipeContext's parameter.</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>printRDDElement</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -5733,11 +6297,11 @@ The print behavior can be customized by providing two functions.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">(optional) Use this function to customize how to pipe elements.
                        This function will be called with each RDD element as the 1st parameter,
                        and the print line function (like out.println()) as the 2nd parameter.
@@ -5746,14 +6310,14 @@ The print behavior can be customized by providing two functions.
                        def printRDDElement(record:(String, Seq[String]), f:String=&gt;Unit) =
                          for (e &lt;- record._2){f(e)}</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>separateWorkingDir</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -5762,112 +6326,124 @@ The print behavior can be customized by providing two functions.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">(optional) Use separate working directories for each task.</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>bindArgs</code></td>
             
-            
+
             <td class="type">
             
                 
-<span class="param-type">Object[]</span>
+<span class="param-type">Array.&lt;Object></span>
 
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Optional array whose values will be added to printPipeContext's argument list.</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>bindArgs</code></td>
             
-            
+
             <td class="type">
             
                 
-<span class="param-type">Object[]</span>
+<span class="param-type">Array.&lt;Object></span>
 
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Optional array whose values will be added to printRDDElement's argument list.</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line704">line 704</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 <div class="param-desc">
     the result RDD
 </div>
@@ -5875,213 +6451,229 @@ The print behavior can be customized by providing two functions.
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="RDD.html">RDD</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
-    <h4 class="name" id="reduce"><span class="type-signature"></span>reduce<span class="signature">(bindArgs)</span><span class="type-signature"> &rarr; {object}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Reduces the elements of this RDD using the specified commutative and
-associative binary operator.
-{function} func - (undocumented) Function with two parameters
-    </div>
-    
 
     
+
+    <h4 class="name" id="reduce"><span class="type-signature"></span>reduce<span class="signature">(bindArgs)</span><span class="type-signature"> &rarr; {object}</span></h4>
+
     
+
+
+
+<div class="description">
+    Reduces the elements of this RDD using the specified commutative and
+associative binary operator.
+{function} func - (undocumented) Function with two parameters
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>bindArgs</code></td>
             
-            
+
             <td class="type">
             
                 
-<span class="param-type">Object[]</span>
+<span class="param-type">Array.&lt;Object></span>
 
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Optional array whose values will be added to func's argument list.</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line792">line 792</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">object</span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
+
+    
+
     <h4 class="name" id="repartition"><span class="type-signature"></span>repartition<span class="signature">(numPartitions)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+
     
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Return a new RDD that has exactly numPartitions partitions.
+
+
+
+<div class="description">
+    Return a new RDD that has exactly numPartitions partitions.
 
 Can increase or decrease the level of parallelism in this RDD. Internally, this uses
 a shuffle to redistribute data.
 
 If you are decreasing the number of partitions in this RDD, consider using `coalesce`,
 which can avoid performing a shuffle.
-    </div>
-    
+</div>
 
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>numPartitions</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -6090,133 +6682,147 @@ which can avoid performing a shuffle.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">(undocumented)</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line809">line 809</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="RDD.html">RDD</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
-    <h4 class="name" id="sample"><span class="type-signature"></span>sample<span class="signature">(withReplacement, fraction, seed)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Return a sampled subset of this RDD.
-    </div>
-    
 
     
+
+    <h4 class="name" id="sample"><span class="type-signature"></span>sample<span class="signature">(withReplacement, fraction, seed)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+
     
+
+
+
+<div class="description">
+    Return a sampled subset of this RDD.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>withReplacement</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -6225,21 +6831,21 @@ which can avoid performing a shuffle.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">can elements be sampled multiple times (replaced when sampled out)</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>fraction</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -6248,23 +6854,23 @@ which can avoid performing a shuffle.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">expected size of the sample as a fraction of this RDD's size
  without replacement: probability that each element is chosen; fraction must be [0, 1]
  with replacement: expected number of times each element is chosen; fraction must be >= 0</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>seed</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -6273,133 +6879,147 @@ which can avoid performing a shuffle.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">seed for the random number generator</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line824">line 824</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="RDD.html">RDD</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
-    <h4 class="name" id="saveAsObjectFile"><span class="type-signature"></span>saveAsObjectFile<span class="signature">(path)</span><span class="type-signature"> &rarr; {void}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Save this RDD as a SequenceFile of serialized objects.
-    </div>
-    
 
     
+
+    <h4 class="name" id="saveAsObjectFile"><span class="type-signature"></span>saveAsObjectFile<span class="signature">(path)</span><span class="type-signature"> &rarr; {void}</span></h4>
+
     
+
+
+
+<div class="description">
+    Save this RDD as a SequenceFile of serialized objects.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>path</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -6408,133 +7028,147 @@ which can avoid performing a shuffle.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last"></td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line834">line 834</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">void</span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
-    <h4 class="name" id="saveAsTextFile"><span class="type-signature"></span>saveAsTextFile<span class="signature">(path)</span><span class="type-signature"> &rarr; {void}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Save this RDD as a text file, using string representations of elements.
-    </div>
-    
 
     
+
+    <h4 class="name" id="saveAsTextFile"><span class="type-signature"></span>saveAsTextFile<span class="signature">(path)</span><span class="type-signature"> &rarr; {void}</span></h4>
+
     
+
+
+
+<div class="description">
+    Save this RDD as a text file, using string representations of elements.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>path</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -6543,220 +7177,247 @@ which can avoid performing a shuffle.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last"></td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line843">line 843</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">void</span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
+
+    
+
     <h4 class="name" id="setName"><span class="type-signature"></span>setName<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Assign a name to this RDD.
-    </div>
-    
 
     
-    
-    
-    
-    
-    
-    
+
+
+
+<div class="description">
+    Assign a name to this RDD.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line864">line 864</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="RDD.html">RDD</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
-    <h4 class="name" id="sortBy"><span class="type-signature"></span>sortBy<span class="signature">(func, ascending, numPartitions, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Return this RDD sorted by the given key function.
-    </div>
-    
 
     
+
+    <h4 class="name" id="sortBy"><span class="type-signature"></span>sortBy<span class="signature">(func, ascending, numPartitions, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+
     
+
+
+
+<div class="description">
+    Return this RDD sorted by the given key function.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>func</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -6765,21 +7426,21 @@ which can avoid performing a shuffle.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">(undocumented) Function with one parameter</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>ascending</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -6788,21 +7449,21 @@ which can avoid performing a shuffle.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last"></td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>numPartitions</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -6811,159 +7472,173 @@ which can avoid performing a shuffle.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last"></td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>bindArgs</code></td>
             
-            
+
             <td class="type">
             
                 
-<span class="param-type">Object[]</span>
+<span class="param-type">Array.&lt;Object></span>
 
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Optional array whose values will be added to func's argument list.</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line877">line 877</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="RDD.html">RDD</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
+
+    
+
     <h4 class="name" id="sortByKey"><span class="type-signature"></span>sortByKey<span class="signature">(ascending)</span><span class="type-signature"> &rarr; {<a href="PairRDD.html">PairRDD</a>}</span></h4>
+
     
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Sort the RDD by key, so that each partition contains a sorted range of the elements. Calling
+
+
+
+<div class="description">
+    Sort the RDD by key, so that each partition contains a sorted range of the elements. Calling
 `collect` or `save` on the resulting RDD will return or output an ordered list of records
 (in the `save` case, they will be written to multiple `part-X` files in the filesystem, in
 order of the keys).
-    </div>
-    
+</div>
 
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>ascending</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -6972,133 +7647,147 @@ order of the keys).
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last"></td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="PairRDD.js.html">PairRDD.js</a>, <a href="PairRDD.js.html#line1383">line 1383</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="PairRDD.html">PairRDD</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
-    <h4 class="name" id="sortByKey"><span class="type-signature"></span>sortByKey<span class="signature">(ascending)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Return this RDD sorted by the given key function.
-    </div>
-    
 
     
+
+    <h4 class="name" id="sortByKey"><span class="type-signature"></span>sortByKey<span class="signature">(ascending)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+
     
+
+
+
+<div class="description">
+    Return this RDD sorted by the given key function.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>ascending</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -7107,222 +7796,249 @@ order of the keys).
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last"></td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
-        <dt class="important tag-deprecated">Deprecated:</dt><dd><ul class="dummy"><li>Use sortBy instead</li><ul></dd>
+
     
+
     
+
     
+
     
+        <dt class="important tag-deprecated">Deprecated:</dt><dd><ul class="dummy"><li>Use sortBy instead</li></ul></dd>
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line889">line 889</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="RDD.html">RDD</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
+
+    
+
     <h4 class="name" id="sparkContext"><span class="type-signature"></span>sparkContext<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="SparkContext.html">SparkContext</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        The SparkContext that created this RDD.
-    </div>
-    
 
     
-    
-    
-    
-    
-    
-    
+
+
+
+<div class="description">
+    The SparkContext that created this RDD.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line898">line 898</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="SparkContext.html">SparkContext</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
-    <h4 class="name" id="subtract"><span class="type-signature"></span>subtract<span class="signature">(other, numPartitions, p)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Return an RDD with the elements from `this` that are not in `other`.
-    </div>
-    
 
     
+
+    <h4 class="name" id="subtract"><span class="type-signature"></span>subtract<span class="signature">(other, numPartitions, p)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+
     
+
+
+
+<div class="description">
+    Return an RDD with the elements from `this` that are not in `other`.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>other</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -7331,21 +8047,21 @@ order of the keys).
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last"></td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>numPartitions</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -7354,21 +8070,21 @@ order of the keys).
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">(optional)</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>p</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -7377,133 +8093,147 @@ order of the keys).
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">(optional - ignored if numPartitions is non-zero)</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line910">line 910</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="RDD.html">RDD</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
-    <h4 class="name" id="take"><span class="type-signature"></span>take<span class="signature">(num)</span><span class="type-signature"> &rarr; {Array}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Take the first num elements of the RDD.
-    </div>
-    
 
     
+
+    <h4 class="name" id="take"><span class="type-signature"></span>take<span class="signature">(num)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+
     
+
+
+
+<div class="description">
+    Take the first num elements of the RDD.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>num</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -7512,97 +8242,109 @@ order of the keys).
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last"></td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line923">line 923</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">Array</span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
+
+    
+
     <h4 class="name" id="takeOrdered"><span class="type-signature"></span>takeOrdered<span class="signature">(num)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+
     
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Returns the first k (smallest) elements from this RDD as defined by the specified
+
+
+
+<div class="description">
+    Returns the first k (smallest) elements from this RDD as defined by the specified
 implicit Ordering[T] and maintains the ordering. This does the opposite of top.
 For example:
 {{{
@@ -7612,42 +8354,44 @@ For example:
   sc.parallelize(Seq(2, 3, 4, 5, 6)).takeOrdered(2)
   // returns Array(2, 3)
 }}}
-    </div>
-    
+</div>
 
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>num</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -7656,66 +8400,78 @@ For example:
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">the number of elements to return</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line965">line 965</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 <div class="param-desc">
     an array of top elements
 </div>
@@ -7723,70 +8479,72 @@ For example:
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">Array</span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
-    <h4 class="name" id="takeSample"><span class="type-signature"></span>takeSample<span class="signature">(withReplacement, num, seed)</span><span class="type-signature"> &rarr; {Array}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Return a fixed-size sampled subset of this RDD in an array
-    </div>
-    
 
     
+
+    <h4 class="name" id="takeSample"><span class="type-signature"></span>takeSample<span class="signature">(withReplacement, num, seed)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+
     
+
+
+
+<div class="description">
+    Return a fixed-size sampled subset of this RDD in an array
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>withReplacement</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -7795,21 +8553,21 @@ For example:
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">whether sampling is done with replacement</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>num</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -7818,21 +8576,21 @@ For example:
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">size of the returned sample</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>seed</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -7841,66 +8599,78 @@ For example:
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">seed for the random number generator</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line984">line 984</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 <div class="param-desc">
     sample of specified size in an array
 </div>
@@ -7908,208 +8678,234 @@ For example:
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">Array</span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
+
+    
+
     <h4 class="name" id="toArray"><span class="type-signature"></span>toArray<span class="signature">()</span><span class="type-signature"> &rarr; {Array}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Return an array that contains all of the elements in this RDD.
-    </div>
-    
 
     
-    
-    
-    
-    
-    
-    
+
+
+
+<div class="description">
+    Return an array that contains all of the elements in this RDD.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line999">line 999</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">Array</span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
+
+    
+
     <h4 class="name" id="toDebugString"><span class="type-signature"></span>toDebugString<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        A description of this RDD and its recursive dependencies for debugging.
-    </div>
-    
 
     
-    
-    
-    
-    
-    
-    
+
+
+
+<div class="description">
+    A description of this RDD and its recursive dependencies for debugging.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1014">line 1014</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">string</span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
+
+    
+
     <h4 class="name" id="top"><span class="type-signature"></span>top<span class="signature">(num)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+
     
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Returns the top k (largest) elements from this RDD as defined by the specified
+
+
+
+<div class="description">
+    Returns the top k (largest) elements from this RDD as defined by the specified
 implicit Ordering[T]. This does the opposite of takeOrdered. For example:
 {{{
   sc.parallelize(Seq(10, 4, 2, 12, 3)).top(1)
@@ -8118,42 +8914,44 @@ implicit Ordering[T]. This does the opposite of takeOrdered. For example:
   sc.parallelize(Seq(2, 3, 4, 5, 6)).top(2)
   // returns Array(6, 5)
 }}}
-    </div>
-    
+</div>
 
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>num</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -8162,66 +8960,78 @@ implicit Ordering[T]. This does the opposite of takeOrdered. For example:
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">k, the number of top elements to return</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1032">line 1032</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 <div class="param-desc">
     an array of top elements
 </div>
@@ -8229,171 +9039,186 @@ implicit Ordering[T]. This does the opposite of takeOrdered. For example:
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">Array</span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
+
+    
+
     <h4 class="name" id="toString"><span class="type-signature"></span>toString<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
 
     
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1046">line 1046</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">string</span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
-    <h4 class="name" id="treeAggregate"><span class="type-signature"></span>treeAggregate<span class="signature">(zeroValue, func1, func2, bindArgs1, bindArgs2)</span><span class="type-signature"> &rarr; {object}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Aggregates the elements of this RDD in a multi-level tree pattern.
-    </div>
-    
 
     
+
+    <h4 class="name" id="treeAggregate"><span class="type-signature"></span>treeAggregate<span class="signature">(zeroValue, func1, func2, bindArgs1, bindArgs2)</span><span class="type-signature"> &rarr; {object}</span></h4>
+
     
+
+
+
+<div class="description">
+    Aggregates the elements of this RDD in a multi-level tree pattern.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>zeroValue</code></td>
             
-            
+
             <td class="type">
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">(undocumented)</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>func1</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -8402,21 +9227,21 @@ implicit Ordering[T]. This does the opposite of takeOrdered. For example:
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">(undocumented) Function with two parameters</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>func2</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -8425,94 +9250,104 @@ implicit Ordering[T]. This does the opposite of takeOrdered. For example:
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">combOp - (undocumented) Function with two parameters</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>bindArgs1</code></td>
             
-            
+
             <td class="type">
             
                 
-<span class="param-type">Object[]</span>
+<span class="param-type">Array.&lt;Object></span>
 
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Optional array whose values will be added to func1's argument list.</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>bindArgs2</code></td>
             
-            
+
             <td class="type">
             
                 
-<span class="param-type">Object[]</span>
+<span class="param-type">Array.&lt;Object></span>
 
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Optional array whose values will be added to func2's argument list.</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1061">line 1061</a>
     </li></ul></dd>
     
+
     
-    
-    
+
     
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
@@ -8521,90 +9356,94 @@ implicit Ordering[T]. This does the opposite of takeOrdered. For example:
         </ul>
     </dd>
     
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">object</span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
-    <h4 class="name" id="treeReduce"><span class="type-signature"></span>treeReduce<span class="signature">(func, depth, bindArgs)</span><span class="type-signature"> &rarr; {object}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Reduces the elements of this RDD in a multi-level tree pattern.
-    </div>
-    
 
     
+
+    <h4 class="name" id="treeReduce"><span class="type-signature"></span>treeReduce<span class="signature">(func, depth, bindArgs)</span><span class="type-signature"> &rarr; {object}</span></h4>
+
     
+
+
+
+<div class="description">
+    Reduces the elements of this RDD in a multi-level tree pattern.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>func</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -8613,21 +9452,21 @@ implicit Ordering[T]. This does the opposite of takeOrdered. For example:
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">(undocumented) Function with one parameter</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>depth</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -8636,71 +9475,81 @@ implicit Ordering[T]. This does the opposite of takeOrdered. For example:
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">suggested depth of the tree (default: 2)</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>bindArgs</code></td>
             
-            
+
             <td class="type">
             
                 
-<span class="param-type">Object[]</span>
+<span class="param-type">Array.&lt;Object></span>
 
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Optional array whose values will be added to func's argument list.</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1076">line 1076</a>
     </li></ul></dd>
     
+
     
-    
-    
+
     
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
@@ -8709,91 +9558,95 @@ implicit Ordering[T]. This does the opposite of takeOrdered. For example:
         </ul>
     </dd>
     
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">object</span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
-    <h4 class="name" id="union"><span class="type-signature"></span>union<span class="signature">(other)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Return the union of this RDD and another one. Any identical elements will appear multiple
-times (use `.distinct()` to eliminate them).
-    </div>
-    
 
     
+
+    <h4 class="name" id="union"><span class="type-signature"></span>union<span class="signature">(other)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+
     
+
+
+
+<div class="description">
+    Return the union of this RDD and another one. Any identical elements will appear multiple
+times (use `.distinct()` to eliminate them).
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>other</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -8802,133 +9655,147 @@ times (use `.distinct()` to eliminate them).
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">(undocumented)</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1088">line 1088</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="RDD.html">RDD</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
-    <h4 class="name" id="unpersist"><span class="type-signature"></span>unpersist<span class="signature">(blocking)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Mark the RDD as non-persistent, and remove all blocks for it from memory and disk.
-    </div>
-    
 
     
+
+    <h4 class="name" id="unpersist"><span class="type-signature"></span>unpersist<span class="signature">(blocking)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+
     
+
+
+
+<div class="description">
+    Mark the RDD as non-persistent, and remove all blocks for it from memory and disk.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>blocking</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -8937,66 +9804,78 @@ times (use `.distinct()` to eliminate them).
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Whether to block until all blocks are deleted.</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1100">line 1100</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 <div class="param-desc">
     This RDD.
 </div>
@@ -9004,73 +9883,75 @@ times (use `.distinct()` to eliminate them).
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="RDD.html">RDD</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
+
+    
+
     <h4 class="name" id="zip"><span class="type-signature"></span>zip<span class="signature">(other)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+
     
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Zips this RDD with another one, returning key-value pairs with the first element in each RDD,
+
+
+
+<div class="description">
+    Zips this RDD with another one, returning key-value pairs with the first element in each RDD,
 second element in each RDD, etc. Assumes that the two RDDs have the *same number of
 partitions* and the *same number of elements in each partition* (e.g. one was made through
 a map on the other).
-    </div>
-    
+</div>
 
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>other</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -9079,136 +9960,150 @@ a map on the other).
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">(undocumented)</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1113">line 1113</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="RDD.html">RDD</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
+
+    
+
     <h4 class="name" id="zipPartitions"><span class="type-signature"></span>zipPartitions<span class="signature">(rdd2, func, preservesPartitioning, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+
     
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Zip this RDD's partitions with another RDD and return a new RDD by
+
+
+
+<div class="description">
+    Zip this RDD's partitions with another RDD and return a new RDD by
 applying a function to the zipped partitions. Assumes that both the RDDs have the
 same number of partitions, but does not require them to have the same number
 of elements in each partition.
-    </div>
-    
+</div>
 
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>rdd2</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -9217,21 +10112,21 @@ of elements in each partition.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last"></td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>func</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -9240,21 +10135,21 @@ of elements in each partition.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Function with two parameters</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>preservesPartitioning</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -9263,120 +10158,132 @@ of elements in each partition.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">(optional)</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>bindArgs</code></td>
             
-            
+
             <td class="type">
             
                 
-<span class="param-type">Object[]</span>
+<span class="param-type">Array.&lt;Object></span>
 
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Optional array whose values will be added to func's argument list.</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1131">line 1131</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="RDD.html">RDD</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
+
+    
+
     <h4 class="name" id="zipWithIndex"><span class="type-signature"></span>zipWithIndex<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+
     
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Zips this RDD with its element indices. The ordering is first based on the partition index
+
+
+
+<div class="description">
+    Zips this RDD with its element indices. The ordering is first based on the partition index
 and then the ordering of items within each partition. So the first item in the first
 partition gets index 0, and the last item in the last partition receives the largest index.
 
@@ -9387,93 +10294,106 @@ Note that some RDDs, such as those returned by groupBy(), do not guarantee order
 elements in a partition. The index assigned to each element is therefore not guaranteed,
 and may even change if the RDD is reevaluated. If a fixed ordering is required to guarantee
 the same index assignments, you should sort the RDD with sortByKey() or save it to a file.
-    </div>
-    
+</div>
 
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1179">line 1179</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="RDD.html">RDD</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
+
+    
+
     <h4 class="name" id="zipWithUniqueId"><span class="type-signature"></span>zipWithUniqueId<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+
     
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Zips this RDD with generated unique Long ids. Items in the kth partition will get ids k, n+k,
+
+
+
+<div class="description">
+    Zips this RDD with generated unique Long ids. Items in the kth partition will get ids k, n+k,
 2*n+k, ..., where n is the number of partitions. So there may exist gaps, but this method
 won't trigger a spark job, which is different from [[org.apache.spark.rdd.RDD#zipWithIndex]].
 
@@ -9481,90 +10401,102 @@ Note that some RDDs, such as those returned by groupBy(), do not guarantee order
 elements in a partition. The unique ID assigned to each element is therefore not guaranteed,
 and may even change if the RDD is reevaluated. If a fixed ordering is required to guarantee
 the same index assignments, you should sort the RDD with sortByKey() or save it to a file.
-    </div>
-    
+</div>
 
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="RDD.js.html">RDD.js</a>, <a href="RDD.js.html#line1195">line 1195</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="RDD.html">RDD</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
+
+    
+
+
 
         
     
-    
-</dd>
 
-        </dl>
     
-    
-    
-    
+
     
 </article>
 
-</section>  
+</section>
 
 
 
@@ -9572,13 +10504,13 @@ the same index assignments, you should sort the RDD with sortByKey() or save it 
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ALS.html">ALS</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="AssociationRules.html">AssociationRules</a></li><li><a href="BinaryClassificationMetrics.html">BinaryClassificationMetrics</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BisectingKMeans.html">BisectingKMeans</a></li><li><a href="BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="BoostingStrategy.html">BoostingStrategy</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DecisionTree.html">DecisionTree</a></li><li><a href="DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="DenseMatrix.html">DenseMatrix</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DistributedLDAModel.html">DistributedLDAModel</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatRDD.html">FloatRDD</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="FPGrowth.html">FPGrowth</a></li><li><a href="FPGrowthModel.html">FPGrowthModel</a></li><li><a href="FreqItemset.html">FreqItemset</a></li><li><a href="functions.html">functions</a></li><li><a href="FutureAction.html">FutureAction</a></li><li><a href="GeneralizedLinearModel.html">GeneralizedLinearModel</a></li><li><a href="Gradient.html">Gradient</a></li><li><a href="GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="IsotonicRegression.html">IsotonicRegression</a></li><li><a href="IsotonicRegressionModel.html">IsotonicRegressionModel</a></li><li><a href="KMeans.html">KMeans</a></li><li><a href="KMeansModel.html">KMeansModel</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LBFGS.html">LBFGS</a></li><li><a href="LDA.html">LDA</a></li><li><a href="LDAModel.html">LDAModel</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="List.html">List</a></li><li><a href="LocalLDAModel.html">LocalLDAModel</a></li><li><a href="LogisticGradient.html">LogisticGradient</a></li><li><a href="LogisticRegressionModel.html">LogisticRegressionModel</a></li><li><a href="LogisticRegressionWithLBFGS.html">LogisticRegressionWithLBFGS</a></li><li><a href="LogisticRegressionWithSGD.html">LogisticRegressionWithSGD</a></li><li><a href="Loss.html">Loss</a></li><li><a href="MapType.html">MapType</a></li><li><a href="Matrix.html">Matrix</a></li><li><a href="MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="MLWord2Vec.html">MLWord2Vec</a></li><li><a href="MLWord2VecModel.html">MLWord2VecModel</a></li><li><a href="MulticlassMetrics.html">MulticlassMetrics</a></li><li><a href="MultilabelMetrics.html">MultilabelMetrics</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PairDStream.html">PairDStream</a></li><li><a href="PairRDD.html">PairRDD</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RandomForest.html">RandomForest</a></li><li><a href="RandomForestModel.html">RandomForestModel</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RankingMetrics.html">RankingMetrics</a></li><li><a href="Rating.html">Rating</a></li><li><a href="RDD.html">RDD</a></li><li><a href="RegressionMetrics.html">RegressionMetrics</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="Rule.html">Rule</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SparseMatrix.html">SparseMatrix</a></li><li><a href="SparseVector.html">SparseVector</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="SquaredL2Updater.html">SquaredL2Updater</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="Strategy.html">Strategy</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li><li><a href="Tuple.html">Tuple</a></li><li><a href="Updater.html">Updater</a></li><li><a href="Vector.html">Vector</a></li><li><a href="Vectors.html">Vectors</a></li><li><a href="VectorUDT.html">VectorUDT</a></li><li><a href="Word2Vec.html">Word2Vec</a></li><li><a href="Word2VecModel.html">Word2VecModel</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ALS.html">ALS</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="AssociationRules.html">AssociationRules</a></li><li><a href="BinaryClassificationMetrics.html">BinaryClassificationMetrics</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BisectingKMeans.html">BisectingKMeans</a></li><li><a href="BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="BoostingStrategy.html">BoostingStrategy</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DecisionTree.html">DecisionTree</a></li><li><a href="DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="DenseMatrix.html">DenseMatrix</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DistributedLDAModel.html">DistributedLDAModel</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatRDD.html">FloatRDD</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="FPGrowth.html">FPGrowth</a></li><li><a href="FPGrowthModel.html">FPGrowthModel</a></li><li><a href="FreqItemset.html">FreqItemset</a></li><li><a href="functions.html">functions</a></li><li><a href="FutureAction.html">FutureAction</a></li><li><a href="GeneralizedLinearModel.html">GeneralizedLinearModel</a></li><li><a href="Gradient.html">Gradient</a></li><li><a href="GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="IsotonicRegression.html">IsotonicRegression</a></li><li><a href="IsotonicRegressionModel.html">IsotonicRegressionModel</a></li><li><a href="KMeans.html">KMeans</a></li><li><a href="KMeansModel.html">KMeansModel</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LBFGS.html">LBFGS</a></li><li><a href="LDA.html">LDA</a></li><li><a href="LDAModel.html">LDAModel</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="List.html">List</a></li><li><a href="LocalLDAModel.html">LocalLDAModel</a></li><li><a href="Logger.html">Logger</a></li><li><a href="LogisticGradient.html">LogisticGradient</a></li><li><a href="LogisticRegressionModel.html">LogisticRegressionModel</a></li><li><a href="LogisticRegressionWithLBFGS.html">LogisticRegressionWithLBFGS</a></li><li><a href="LogisticRegressionWithSGD.html">LogisticRegressionWithSGD</a></li><li><a href="Loss.html">Loss</a></li><li><a href="MapType.html">MapType</a></li><li><a href="Matrix.html">Matrix</a></li><li><a href="MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="MLWord2Vec.html">MLWord2Vec</a></li><li><a href="MLWord2VecModel.html">MLWord2VecModel</a></li><li><a href="MulticlassMetrics.html">MulticlassMetrics</a></li><li><a href="MultilabelMetrics.html">MultilabelMetrics</a></li><li><a href="NaiveBayes.html">NaiveBayes</a></li><li><a href="NaiveBayesModel.html">NaiveBayesModel</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PairDStream.html">PairDStream</a></li><li><a href="PairRDD.html">PairRDD</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RandomForest.html">RandomForest</a></li><li><a href="RandomForestModel.html">RandomForestModel</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RankingMetrics.html">RankingMetrics</a></li><li><a href="Rating.html">Rating</a></li><li><a href="RDD.html">RDD</a></li><li><a href="RegressionMetrics.html">RegressionMetrics</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="Rule.html">Rule</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SparseMatrix.html">SparseMatrix</a></li><li><a href="SparseVector.html">SparseVector</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="SquaredL2Updater.html">SquaredL2Updater</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="Strategy.html">Strategy</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li><li><a href="Tuple.html">Tuple</a></li><li><a href="Updater.html">Updater</a></li><li><a href="Vector.html">Vector</a></li><li><a href="Vectors.html">Vectors</a></li><li><a href="VectorUDT.html">VectorUDT</a></li><li><a href="Word2Vec.html">Word2Vec</a></li><li><a href="Word2VecModel.html">Word2VecModel</a></li></ul><h3>Interfaces</h3><ul><li><a href="ClassificationModel.html">ClassificationModel</a></li></ul>
 </nav>
 
-<br clear="both">
+<br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Thu Mar 17 2016 11:32:07 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Fri Mar 18 2016 12:29:13 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>
