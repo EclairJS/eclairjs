@@ -19,18 +19,10 @@
 /**
  * Model for Naive Bayes Classifiers.
  *
- * @param labels list of labels
- * @param pi log of class priors, whose dimension is C, number of labels
- * @param theta log of class conditional probabilities, whose dimension is C-by-D,
- *              where D is number of features
- * @param modelType The type of NB model to fit  can be "multinomial" or "bernoulli"
  * @classdesc
- */
-
-/**
  *
  * @constructor
- * @implements ClassificationModel
+ * @implements {ClassificationModel}
  */
 var NaiveBayesModel = function(jvmObject) {
 	 

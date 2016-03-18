@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>JSDoc: Class: RandomForest</title>
-    
+
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
     <!--[if lt IE 9]>
@@ -16,21 +16,23 @@
 <body>
 
 <div id="main">
-    
+
     <h1 class="page-title">Class: RandomForest</h1>
+
     
-    
+
 
 
 
 <section>
-    
+
 <header>
-    <h2>
-    RandomForest
-    </h2>
     
-        <div class="class-description">The settings for featureSubsetStrategy are based on the following references:
+        <h2>
+        RandomForest
+        </h2>
+        
+            <div class="class-description">The settings for featureSubsetStrategy are based on the following references:
  - log2: tested in Breiman (2001)
  - sqrt: recommended by Breiman manual for random forests
  - The defaults of sqrt (classification) and onethird (regression) match the R randomForest
@@ -38,63 +40,67 @@
 [[http://www.stat.berkeley.edu/~breiman/randomforest2001.pdf  Breiman (2001)]]
 [[http://www.stat.berkeley.edu/~breiman/Using_random_forests_V3.1.pdf  Breiman manual for
     random forests]]</div>
+        
     
-</header>  
+</header>
 
 <article>
     <div class="container-overview">
     
-    
-    
         
-<dt>
-    <h4 class="name" id="RandomForest"><span class="type-signature"></span>new RandomForest<span class="signature">(strategy, numTrees, featureSubsetStrategy, seed)</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        A class that implements a [[http://en.wikipedia.org/wiki/Random_forest  Random Forest]]
-learning algorithm for classification and regression.
-It supports both continuous and categorical features.
-    </div>
-    
 
     
+    <h2>Constructor</h2>
     
+
+    <h4 class="name" id="RandomForest"><span class="type-signature"></span>new RandomForest<span class="signature">(strategy, numTrees, featureSubsetStrategy, seed)</span><span class="type-signature"></span></h4>
+
     
+
+
+
+<div class="description">
+    A class that implements a [[http://en.wikipedia.org/wiki/Random_forest  Random Forest]]
+learning algorithm for classification and regression.
+It supports both continuous and categorical features.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>strategy</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -103,24 +109,24 @@ It supports both continuous and categorical features.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">The configuration parameters for the random forest algorithm which specify
                 the type of algorithm (classification, regression, etc.), feature type
                 (continuous, categorical), depth of the tree, quantile calculation strategy,
                 etc.</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>numTrees</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -129,29 +135,29 @@ It supports both continuous and categorical features.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">If 1, then no bootstrapping is used.  If > 1, then bootstrapping is done.</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>featureSubsetStrategy</code></td>
             
-            
+
             <td class="type">
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Number of features to consider for splits at each node.
                              Supported: "auto", "all", "sqrt", "log2", "onethird".
                              If "auto" is set, this parameter is set based on numTrees:
@@ -159,144 +165,158 @@ It supports both continuous and categorical features.
                                if numTrees > 1 (forest) set to "sqrt" for classification and
                                  to "onethird" for regression.</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>seed</code></td>
             
-            
+
             <td class="type">
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Random seed for bootstrapping and choosing feature subsets.</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RandomForest.js.html">mllib/tree/RandomForest.js</a>, <a href="RandomForest.js.html#line46">line 46</a>
+        <a href="mllib_tree_RandomForest.js.html">mllib/tree/RandomForest.js</a>, <a href="mllib_tree_RandomForest.js.html#line46">line 46</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    
-    
-</dd>
+
+
+
+
+
+
+
+
+
+
+
+
 
     
     </div>
+
     
+
     
+
     
+
+     
+
     
+
     
-    
-    
-    
-    
-    
-    
-    
-    
+
     
         <h3 class="subsection-title">Methods</h3>
+
         
-        <dl>
             
-<dt>
-    <h4 class="name" id="trainClassifier"><span class="type-signature">&lt;static> </span>trainClassifier<span class="signature">(input, numClasses, categoricalFeaturesInfo, numTrees, featureSubsetStrategy, impurity, maxDepth, maxBins, seed)</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Method to train a decision tree model for binary or multiclass classification.
-    </div>
-    
 
     
+
+    <h4 class="name" id=".trainClassifier"><span class="type-signature">(static) </span>trainClassifier<span class="signature">(input, numClasses, categoricalFeaturesInfo, numTrees, featureSubsetStrategy, impurity, maxDepth, maxBins, seed)</span><span class="type-signature"></span></h4>
+
     
+
+
+
+<div class="description">
+    Method to train a decision tree model for binary or multiclass classification.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>input</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -305,22 +325,22 @@ It supports both continuous and categorical features.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Training dataset: RDD of [[org.apache.spark.mllib.regression.LabeledPoint]].
              Labels should take values {0, 1, ..., numClasses-1}.</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>numClasses</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -329,21 +349,21 @@ It supports both continuous and categorical features.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">number of classes for classification.</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>categoricalFeaturesInfo</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -352,23 +372,23 @@ It supports both continuous and categorical features.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Map storing arity of categorical features.
                                E.g., an entry (n -> k) indicates that feature n is categorical
                                with k categories indexed from 0: {0, 1, ..., k-1}.</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>numTrees</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -377,21 +397,21 @@ It supports both continuous and categorical features.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Number of trees in the random forest.</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>featureSubsetStrategy</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -400,25 +420,25 @@ It supports both continuous and categorical features.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Number of features to consider for splits at each node.
                              Supported: "auto", "all", "sqrt", "log2", "onethird".
                              If "auto" is set, this parameter is set based on numTrees:
                                if numTrees == 1, set to "all";
                                if numTrees > 1 (forest) set to "sqrt".</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>impurity</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -427,22 +447,22 @@ It supports both continuous and categorical features.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Criterion used for information gain calculation.
                 Supported values: "gini" (recommended) or "entropy".</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>maxDepth</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -451,23 +471,23 @@ It supports both continuous and categorical features.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Maximum depth of the tree.
                 E.g., depth 0 means 1 leaf node; depth 1 means 1 internal node + 2 leaf nodes.
                  (suggested value: 4)</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>maxBins</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -476,144 +496,158 @@ It supports both continuous and categorical features.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">maximum number of bins used for splitting features
                 (suggested value: 100)</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>seed</code></td>
             
-            
+
             <td class="type">
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Random seed for bootstrapping and choosing feature subsets.</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RandomForest.js.html">mllib/tree/RandomForest.js</a>, <a href="RandomForest.js.html#line124">line 124</a>
+        <a href="mllib_tree_RandomForest.js.html">mllib/tree/RandomForest.js</a>, <a href="mllib_tree_RandomForest.js.html#line124">line 124</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 <div class="param-desc">
     a random forest model  that can be used for prediction
 </div>
 
 
 
-        
     
-    
-</dd>
+
+
 
         
             
-<dt>
-    <h4 class="name" id="trainRegressor"><span class="type-signature">&lt;static> </span>trainRegressor<span class="signature">(input, categoricalFeaturesInfo, numTrees, featureSubsetStrategy, impurity, maxDepth, maxBins, seed)</span><span class="type-signature"> &rarr; {<a href="RandomForestModel.html">RandomForestModel</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Method to train a decision tree model for regression.
-    </div>
-    
 
     
+
+    <h4 class="name" id=".trainRegressor"><span class="type-signature">(static) </span>trainRegressor<span class="signature">(input, categoricalFeaturesInfo, numTrees, featureSubsetStrategy, impurity, maxDepth, maxBins, seed)</span><span class="type-signature"> &rarr; {<a href="RandomForestModel.html">RandomForestModel</a>}</span></h4>
+
     
+
+
+
+<div class="description">
+    Method to train a decision tree model for regression.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
-    
-    
-        <h5>Parameters:</h5>
-        
 
 <table class="params">
     <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
         <tr>
             
                 <td class="name"><code>input</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -622,22 +656,22 @@ It supports both continuous and categorical features.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Training dataset: RDD of [[org.apache.spark.mllib.regression.LabeledPoint]].
              Labels are real numbers.</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>categoricalFeaturesInfo</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -646,23 +680,23 @@ It supports both continuous and categorical features.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Map storing arity of categorical features.
                                E.g., an entry (n -> k) indicates that feature n is categorical
                                with k categories indexed from 0: {0, 1, ..., k-1}.</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>numTrees</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -671,21 +705,21 @@ It supports both continuous and categorical features.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Number of trees in the random forest.</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>featureSubsetStrategy</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -694,44 +728,44 @@ It supports both continuous and categorical features.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Number of features to consider for splits at each node.
                              Supported: "auto", "all", "sqrt", "log2", "onethird".
                              If "auto" is set, this parameter is set based on numTrees:
                                if numTrees == 1, set to "all";
                                if numTrees > 1 (forest) set to "onethird".</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>impurity</code></td>
             
-            
+
             <td class="type">
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Criterion used for information gain calculation.
                 Supported values: "variance".</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>maxDepth</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -740,23 +774,23 @@ It supports both continuous and categorical features.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Maximum depth of the tree.
                 E.g., depth 0 means 1 leaf node; depth 1 means 1 internal node + 2 leaf nodes.
                  (suggested value: 4)</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>maxBins</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -765,22 +799,22 @@ It supports both continuous and categorical features.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">maximum number of bins used for splitting features
                 (suggested value: 100)</td>
         </tr>
-	
-	
-	
+
+    
+
         <tr>
             
                 <td class="name"><code>seed</code></td>
             
-            
+
             <td class="type">
             
                 
@@ -789,66 +823,78 @@ It supports both continuous and categorical features.
 
             
             </td>
+
             
+
             
-            
-            
-            
+
             <td class="description last">Random seed for bootstrapping and choosing feature subsets.</td>
         </tr>
-	
-	
-	</tbody>
+
+    
+    </tbody>
 </table>
-    
-    
-    
+
+
+
+
+
+
 <dl class="details">
-    
-        
-    
-    
+
     
 
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     
-    
+
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="RandomForest.js.html">mllib/tree/RandomForest.js</a>, <a href="RandomForest.js.html#line73">line 73</a>
+        <a href="mllib_tree_RandomForest.js.html">mllib/tree/RandomForest.js</a>, <a href="mllib_tree_RandomForest.js.html#line73">line 73</a>
     </li></ul></dd>
     
+
     
+
     
-    
-    
-    
+
     
 </dl>
 
-    
-    
 
-    
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 <div class="param-desc">
     a random forest model that can be used for prediction
 </div>
@@ -856,31 +902,30 @@ It supports both continuous and categorical features.
 
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type"><a href="RandomForestModel.html">RandomForestModel</a></span>
 
 
-	</dd>
+    </dd>
 </dl>
+
+    
+
+
 
         
     
-    
-</dd>
 
-        </dl>
     
-    
-    
-    
+
     
 </article>
 
-</section>  
+</section>
 
 
 
@@ -888,13 +933,13 @@ It supports both continuous and categorical features.
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ALS.html">ALS</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="AssociationRules.html">AssociationRules</a></li><li><a href="BinaryClassificationMetrics.html">BinaryClassificationMetrics</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BisectingKMeans.html">BisectingKMeans</a></li><li><a href="BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="BoostingStrategy.html">BoostingStrategy</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DecisionTree.html">DecisionTree</a></li><li><a href="DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="DenseMatrix.html">DenseMatrix</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DistributedLDAModel.html">DistributedLDAModel</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatRDD.html">FloatRDD</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="FPGrowth.html">FPGrowth</a></li><li><a href="FPGrowthModel.html">FPGrowthModel</a></li><li><a href="FreqItemset.html">FreqItemset</a></li><li><a href="functions.html">functions</a></li><li><a href="FutureAction.html">FutureAction</a></li><li><a href="GeneralizedLinearModel.html">GeneralizedLinearModel</a></li><li><a href="Gradient.html">Gradient</a></li><li><a href="GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="IsotonicRegression.html">IsotonicRegression</a></li><li><a href="IsotonicRegressionModel.html">IsotonicRegressionModel</a></li><li><a href="KMeans.html">KMeans</a></li><li><a href="KMeansModel.html">KMeansModel</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LBFGS.html">LBFGS</a></li><li><a href="LDA.html">LDA</a></li><li><a href="LDAModel.html">LDAModel</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="List.html">List</a></li><li><a href="LocalLDAModel.html">LocalLDAModel</a></li><li><a href="LogisticGradient.html">LogisticGradient</a></li><li><a href="LogisticRegressionModel.html">LogisticRegressionModel</a></li><li><a href="LogisticRegressionWithLBFGS.html">LogisticRegressionWithLBFGS</a></li><li><a href="LogisticRegressionWithSGD.html">LogisticRegressionWithSGD</a></li><li><a href="Loss.html">Loss</a></li><li><a href="MapType.html">MapType</a></li><li><a href="Matrix.html">Matrix</a></li><li><a href="MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="MLWord2Vec.html">MLWord2Vec</a></li><li><a href="MLWord2VecModel.html">MLWord2VecModel</a></li><li><a href="MulticlassMetrics.html">MulticlassMetrics</a></li><li><a href="MultilabelMetrics.html">MultilabelMetrics</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PairDStream.html">PairDStream</a></li><li><a href="PairRDD.html">PairRDD</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RandomForest.html">RandomForest</a></li><li><a href="RandomForestModel.html">RandomForestModel</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RankingMetrics.html">RankingMetrics</a></li><li><a href="Rating.html">Rating</a></li><li><a href="RDD.html">RDD</a></li><li><a href="RegressionMetrics.html">RegressionMetrics</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="Rule.html">Rule</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SparseMatrix.html">SparseMatrix</a></li><li><a href="SparseVector.html">SparseVector</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="SquaredL2Updater.html">SquaredL2Updater</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="Strategy.html">Strategy</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li><li><a href="Tuple.html">Tuple</a></li><li><a href="Updater.html">Updater</a></li><li><a href="Vector.html">Vector</a></li><li><a href="Vectors.html">Vectors</a></li><li><a href="VectorUDT.html">VectorUDT</a></li><li><a href="Word2Vec.html">Word2Vec</a></li><li><a href="Word2VecModel.html">Word2VecModel</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ALS.html">ALS</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="AssociationRules.html">AssociationRules</a></li><li><a href="BinaryClassificationMetrics.html">BinaryClassificationMetrics</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BisectingKMeans.html">BisectingKMeans</a></li><li><a href="BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="BoostingStrategy.html">BoostingStrategy</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DecisionTree.html">DecisionTree</a></li><li><a href="DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="DenseMatrix.html">DenseMatrix</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DistributedLDAModel.html">DistributedLDAModel</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatRDD.html">FloatRDD</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="FPGrowth.html">FPGrowth</a></li><li><a href="FPGrowthModel.html">FPGrowthModel</a></li><li><a href="FreqItemset.html">FreqItemset</a></li><li><a href="functions.html">functions</a></li><li><a href="FutureAction.html">FutureAction</a></li><li><a href="GeneralizedLinearModel.html">GeneralizedLinearModel</a></li><li><a href="Gradient.html">Gradient</a></li><li><a href="GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="IsotonicRegression.html">IsotonicRegression</a></li><li><a href="IsotonicRegressionModel.html">IsotonicRegressionModel</a></li><li><a href="KMeans.html">KMeans</a></li><li><a href="KMeansModel.html">KMeansModel</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LBFGS.html">LBFGS</a></li><li><a href="LDA.html">LDA</a></li><li><a href="LDAModel.html">LDAModel</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="List.html">List</a></li><li><a href="LocalLDAModel.html">LocalLDAModel</a></li><li><a href="Logger.html">Logger</a></li><li><a href="LogisticGradient.html">LogisticGradient</a></li><li><a href="LogisticRegressionModel.html">LogisticRegressionModel</a></li><li><a href="LogisticRegressionWithLBFGS.html">LogisticRegressionWithLBFGS</a></li><li><a href="LogisticRegressionWithSGD.html">LogisticRegressionWithSGD</a></li><li><a href="Loss.html">Loss</a></li><li><a href="MapType.html">MapType</a></li><li><a href="Matrix.html">Matrix</a></li><li><a href="MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="MLWord2Vec.html">MLWord2Vec</a></li><li><a href="MLWord2VecModel.html">MLWord2VecModel</a></li><li><a href="MulticlassMetrics.html">MulticlassMetrics</a></li><li><a href="MultilabelMetrics.html">MultilabelMetrics</a></li><li><a href="NaiveBayes.html">NaiveBayes</a></li><li><a href="NaiveBayesModel.html">NaiveBayesModel</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PairDStream.html">PairDStream</a></li><li><a href="PairRDD.html">PairRDD</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RandomForest.html">RandomForest</a></li><li><a href="RandomForestModel.html">RandomForestModel</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RankingMetrics.html">RankingMetrics</a></li><li><a href="Rating.html">Rating</a></li><li><a href="RDD.html">RDD</a></li><li><a href="RegressionMetrics.html">RegressionMetrics</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="Rule.html">Rule</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SparseMatrix.html">SparseMatrix</a></li><li><a href="SparseVector.html">SparseVector</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="SquaredL2Updater.html">SquaredL2Updater</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="Strategy.html">Strategy</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li><li><a href="Tuple.html">Tuple</a></li><li><a href="Updater.html">Updater</a></li><li><a href="Vector.html">Vector</a></li><li><a href="Vectors.html">Vectors</a></li><li><a href="VectorUDT.html">VectorUDT</a></li><li><a href="Word2Vec.html">Word2Vec</a></li><li><a href="Word2VecModel.html">Word2VecModel</a></li></ul><h3>Interfaces</h3><ul><li><a href="ClassificationModel.html">ClassificationModel</a></li></ul>
 </nav>
 
-<br clear="both">
+<br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.3-dev</a> on Thu Mar 17 2016 11:32:07 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Fri Mar 18 2016 12:29:13 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>
