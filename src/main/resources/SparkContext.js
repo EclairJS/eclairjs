@@ -344,7 +344,7 @@ SparkContext.prototype.broadcast = function (value) {
 /**
  * Distribute a local Scala collection to form an RDD.
  * @param {array} list
- * @param {integer} numSlices - Optional
+ * @param {integer} [numSlices] - Optional
  * @returns {RDD}
  */
 SparkContext.prototype.parallelize = function (list, numSlices) {
