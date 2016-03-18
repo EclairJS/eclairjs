@@ -92,7 +92,7 @@ LogisticGradient.prototype.constructor = Gradient;
  * @param {Vector} data
  * @param {float} label
  * @param {Vector} weights
- * @param {Vector} cumGradient Optional, add the gradient to a provided vector to avoid creating new objects, and return loss.
+ * @param {Vector} [cumGradient] add the gradient to a provided vector to avoid creating new objects, and return loss.
  * @returns {float} loss
  */
 LogisticGradient.prototype.compute = function (data,label,weights, cumGradient) {

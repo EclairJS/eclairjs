@@ -107,7 +107,7 @@ PairRDD.prototype.distinct = function (numPartitions) {
 /**
  * Return a new PairRDD containing only the elements that satisfy a predicate.
  * @param {function} func
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
  * @returns {PairRDD}
  */
 PairRDD.prototype.filter = function (func, bindArgs) {
@@ -370,7 +370,7 @@ PairRDD.prototype.combineByKey2 = function (createCombiner, mergeValue, mergeCom
  * the merging locally on each mapper before sending results to a reducer, similarly to a
  * "combiner" in MapReduce.
  * @param {func} func
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
  * @returns {PairRDD}
  */
 PairRDD.prototype.reduceByKey = function (func, bindArgs) {

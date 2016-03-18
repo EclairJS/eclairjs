@@ -32,7 +32,7 @@ Time.prototype.constructor = Time;
 /**
  *
  * @param {Duration} that
- * @param {Duration} zeroTime (optional)
+ * @param {Duration} [zeroTime]
  * @returns {Time}
  */
 Time.prototype.floor = function(that, zeroTime) {

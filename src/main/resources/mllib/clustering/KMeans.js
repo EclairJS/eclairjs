@@ -244,9 +244,9 @@ KMeans.RANDOM = org.apache.spark.mllib.clustering.KMeans.RANDOM(); //string
  * @param {RDD} data  training points stored as `RDD[Vector]`
  * @param {number} k  number of clusters
  * @param {number} maxIterations  max number of iterations
- * @param {number} runs  Optional number of parallel runs, defaults to 1. The best model is returned.
- * @param {string} initializationMode  Optional initialization model, either "random" or "k-means||" (default).
- * @param {number} seed  Optional random seed value for cluster initialization
+ * @param {number} [runs] number of parallel runs, defaults to 1. The best model is returned.
+ * @param {string} [initializationMode] initialization model, either "random" or "k-means||" (default).
+ * @param {number} [seed] random seed value for cluster initialization
  * @returns {KMeansModel}
  */
 KMeans.train = function (data, k, maxIterations, runs, initializationMode, seed) {

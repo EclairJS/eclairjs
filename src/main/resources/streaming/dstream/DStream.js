@@ -49,7 +49,7 @@ DStream.prototype.compute = function(validTime) {
 /**
  * Return a new DStream containing only the elements that satisfy a predicate.
  * @param {function} func
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] array whose values will be added to func's argument list.
  * @returns {DStream}
  */
 DStream.prototype.filter = function(func, bindArgs) {
@@ -58,7 +58,7 @@ DStream.prototype.filter = function(func, bindArgs) {
 };
 /**
  * Persist RDDs of this DStream with the storage level
- * @param {StorageLevel} Optional (MEMORY_ONLY_SER) by default
+ * @param {StorageLevel} [level] (MEMORY_ONLY_SER) by default
  * @return {DStream}
  */
 DStream.prototype.persist = function() {
@@ -89,7 +89,7 @@ DStream.prototype.union = function(that) {
  * Return a new DStream in which each RDD contains all the elements in seen in a sliding window of time over this DStream.
  * The new DStream generates RDDs with the same interval as this DStream.
  * @param duration - width of the window; must be a multiple of this DStream's interval.
- * @param slideInterval - Optional
+ * @param [slideInterval]
  * @returns {DStream}
  */
 DStream.prototype.window = function(duration) {
@@ -212,7 +212,7 @@ DStream.prototype.countByValueAndWindow = function(windowDuration,slideDuration,
  * Return a new DStream by first applying a function to all elements of this
  * DStream, and then flattening the results.
  * @param func
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] array whose values will be added to func's argument list.
  * @returns {DStream}
  */
 DStream.prototype.flatMap = function(func, bindArgs) {
@@ -223,7 +223,7 @@ DStream.prototype.flatMap = function(func, bindArgs) {
  * Return a new DStream by applying a function to all elements of this DStream,
  * and then flattening the results
  * @param func
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] array whose values will be added to func's argument list.
  * @returns {PairDStream}
  */
 DStream.prototype.flatMapToPair = function(func, bindArgs) {
@@ -242,7 +242,7 @@ DStream.prototype.glom = function() {
 /**
  * Return a new DStream by applying a function to all elements of this DStream.
  * @param func
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] array whose values will be added to func's argument list.
  * @returns {DStream}
  */
 DStream.prototype.map = function(func, bindArgs) {
@@ -253,7 +253,7 @@ DStream.prototype.map = function(func, bindArgs) {
 /**
  * Return a new DStream by applying a function to all elements of this DStream.
  * @param func
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] array whose values will be added to func's argument list.
  * @returns {PairDStream}
  */
 DStream.prototype.mapToPair = function(func, bindArgs) {
@@ -266,7 +266,7 @@ DStream.prototype.mapToPair = function(func, bindArgs) {
  * mapPartitions() to each RDDs of this DStream. Applying mapPartitions() to an
  * RDD applies a function to each partition of the RDD.
  * @param func
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] array whose values will be added to func's argument list.
  * @returns {DStream}
  */
 DStream.prototype.mapPartitions = function(func, bindArgs) {
@@ -365,7 +365,7 @@ DStream.prototype.transformToPair = function(transformFunc,bindArgs) {
  * Apply a function to each RDD in this DStream. This is an output operator, so 'this' DStream will be registered as an output
  * stream and therefore materialized.
  * @param func
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] array whose values will be added to func's argument list.
  * @returns {void}
  */
 DStream.prototype.foreachRDD = function(func, bindArgs) {
@@ -378,7 +378,7 @@ DStream.prototype.foreachRDD = function(func, bindArgs) {
  * stream and therefore materialized.
  *  The time is passed into to the function.
  * @param func
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] array whose values will be added to func's argument list.
  * @returns {void}
  */
 DStream.prototype.foreachRDDWithTime = function(func, bindArgs) {

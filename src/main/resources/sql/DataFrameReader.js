@@ -96,7 +96,7 @@ DataFrameReader.prototype.options = function(map) {
  * Loads input in as a {@link DataFrame}
  *
  * @since EclairJS 0.1 Spark  1.4.0
- * @param {string} path optional, Loads data sources that require a path (e.g. data backed by
+ * @param {string} [path] Loads data sources that require a path (e.g. data backed by
  * a local or distributed file system). If not specified loads data sources that don't require a path (e.g. external
  * key-value stores).
  * @returns {DataFrame} 

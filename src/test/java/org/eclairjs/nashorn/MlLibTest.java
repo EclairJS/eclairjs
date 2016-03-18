@@ -484,5 +484,28 @@ public class MlLibTest {
 
     }
 
+    /*
+            RowMatrix()
+            RowMatrix.computePrincipalComponents()
+            RowMatrix.multiply()
+            RowMatrix.rows()
+
+     */
+
+    @Test
+    public void pcaExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
+
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
+        Object ret = ((Invocable)engine).invokeFunction("pcaExample");
+
+        String expected = "[[-3.727797721898679,-0.6667956524404748,0.9220670813414288]," +
+                "[-11.822603105047087,-3.1066779875032884,0.9220670813414369]," +
+                "[-24.217100376746416,-0.9858202879303413,0.9220670813414298]]";
+
+        assertEquals("failure - strings are not equal", expected, ret.toString());
+
+    }
 
 }

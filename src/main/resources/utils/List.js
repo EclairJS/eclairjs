@@ -46,7 +46,7 @@ List.prototype.constructor = List;
 /**
  * Inserts the specified element at the specified position in this list (optional operation).
  * @param {object} obj
- * @param {integer} position if not specified object is appended to the end of the list.
+ * @param {integer} [position] if not specified object is appended to the end of the list.
  */
 List.prototype.add = function(obj, position) {
     var obj_uw = Utils.unwrapObject(obj);
@@ -63,7 +63,7 @@ List.prototype.add = function(obj, position) {
 /**
  * Inserts all of the elements in the specified collection into this list at the specified position (optional operation).
  * @param {List | array} obj
- * @param {integer} position
+ * @param {integer} [position]
  * @returns {List}
  */
 List.prototype.addAll = function(obj, position) {

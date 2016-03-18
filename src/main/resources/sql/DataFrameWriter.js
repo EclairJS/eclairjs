@@ -120,7 +120,7 @@ DataFrameWriter.prototype.partitionBy = function() {
  * Saves the content of the {@link DataFrame} as the specified table., unless path is specified.
  *
  * @since EclairJS 0.1 Spark  1.4.0
- * @param {string} path Optional, Saves the content of the {@link DataFrame} at the specified path.
+ * @param {string} [path] Saves the content of the {@link DataFrame} at the specified path.
  */
 DataFrameWriter.prototype.savewithPath = function(path) {
 	if(path) {

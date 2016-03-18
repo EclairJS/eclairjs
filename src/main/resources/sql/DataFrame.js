@@ -260,7 +260,7 @@ DataFrame.prototype.first = function() {
 /**
  * Returns a new RDD by first applying a function to all rows of this DataFrame, and then flattening the results.
  * @param {function} func
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] array whose values will be added to func's argument list.
  * @returns {RDD}
  */
 DataFrame.prototype.flatMap = function(func, bindArgs) {
@@ -275,7 +275,7 @@ DataFrame.prototype.flatMap = function(func, bindArgs) {
  *    connection.close()
  * });
  * @param {function} Function with one parameter
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] array whose values will be added to func's argument list.
  * @returns {void}
  */
 DataFrame.prototype.foreach = function(func, bindArgs) {
@@ -293,7 +293,7 @@ DataFrame.prototype.foreach = function(func, bindArgs) {
  *    connection.close()
  * });
  * @param {function} Function with one Array parameter
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] array whose values will be added to func's argument list.
  * @returns {void}
  */
 DataFrame.prototype.foreachPartition = function(func, bindArgs) {
@@ -383,10 +383,10 @@ DataFrame.prototype.isLocal = function() {
 /**
  * Cartesian join with another DataFrame. Note that cartesian joins are very expensive without an extra filter that can be pushed down.
  * @param {DataFrame} Right side of the join operation.
- * @param {string | string[] | Column} columnNamesOrJoinExpr Optional: If string or array of strings column names, inner equi-join with another DataFrame using the given columns. 
+ * @param {string | string[] | Column} [columnNamesOrJoinExpr] If string or array of strings column names, inner equi-join with another DataFrame using the given columns.
  * Different from other join functions, the join columns will only appear once in the output, i.e. similar to SQL's JOIN USING syntax.
  * If Column object, joinExprs inner join with another DataFrame, using the given join expression.
- * @param {string} joinType Optional, only valid if using Column joinExprs. 
+ * @param {string} [joinType] only valid if using Column joinExprs.
  * @returns {DataFrame} 
  * @example
  * var joinedDf = df1.join(df2);
@@ -431,7 +431,7 @@ DataFrame.prototype.limit = function(number) {
 /**
  * Returns a new RDD by applying a function to all rows of this DataFrame.
  * @param {function} func
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] array whose values will be added to func's argument list.
  * @returns {RDD}
  */
 DataFrame.prototype.map = function(func, bindArgs) {
@@ -442,7 +442,7 @@ DataFrame.prototype.map = function(func, bindArgs) {
  * Similar to map, but runs separately on each partition (block) of the DataFrame, so func must accept an Array.  
  * func should return a array rather than a single item.
  * @param {function}
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] array whose values will be added to func's argument list.
  * @returns {RDD}
  */
 DataFrame.prototype.mapPartitions = function(func, bindArgs) {
@@ -549,7 +549,7 @@ DataFrame.prototype.rollup = function() {
  * Returns a new DataFrame by sampling a fraction of rows, using a random seed.
  * @param {boolean} withReplacement
  * @param {float} fraction
- * @param {integer} seed Optional
+ * @param {integer} [seed]
  * @returns {DataFrame}
  */
 DataFrame.prototype.sample = function(withReplacement, fraction, seed) {
@@ -617,8 +617,8 @@ DataFrame.prototype.selectWithStrings = function(args) {
 };
 /**
  * Displays the DataFrame rows in a tabular form.
- * @param {interger} numberOfRows Optional, defaults to 20.
- * @param {boolean] truncate Optional defaults to false, Whether truncate long strings. If true, strings more than 20 characters will be 
+ * @param {interger} [numberOfRows] defaults to 20.
+ * @param {boolean] [truncate] defaults to false, Whether truncate long strings. If true, strings more than 20 characters will be
  * truncated and all cells will be aligned right
  */
 DataFrame.prototype.show = function(numberOfRows, truncate) {

@@ -2,10 +2,10 @@
  * Simple tuple implementation. This constructor will create new instances
  * and store immutable values within them.
  * @classdesc
- * @class Tuple A tiny tuple implementation.
+ * @class
  * @param {objects[]} List of values to store within the tuple.
  */
-function Tuple() {
+var Tuple = function() {
     /**
      * Contains the number of elements held within the tuple.
      */
@@ -28,7 +28,9 @@ function Tuple() {
     }
 
 }
+Tuple.prototype = Object.create(Tuple.prototype);
 
+Tuple.prototype.constructor = Tuple;
 
 /**
  * Passes the values as arguments, in the same order they were set, to the

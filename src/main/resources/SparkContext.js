@@ -269,8 +269,8 @@ SparkContext.prototype.accumulable = function (initialValue, param, name) {
  * Only the master can access the accumulator's value.
  *
  * @param {int | float} initialValue
- * @param {string | AccumulableParam} name of  the accumulator for display in Spark's web UI. or param. Optional, defaults to FloatAccumulatorParam
- * @param {AccumulableParam} param Optional defaults to FloatAccumulatorParam, use only if also specifying name
+ * @param {string | AccumulableParam} [name] of  the accumulator for display in Spark's web UI. or param.  defaults to FloatAccumulatorParam
+ * @param {AccumulableParam} [param]  defaults to FloatAccumulatorParam, use only if also specifying name
  * @returns {Accumulator}
  */
 SparkContext.prototype.accumulator = function () {
@@ -344,7 +344,7 @@ SparkContext.prototype.broadcast = function (value) {
 /**
  * Distribute a local Scala collection to form an RDD.
  * @param {array} list
- * @param {integer} numSlices - Optional
+ * @param {integer} [numSlices]
  * @returns {RDD}
  */
 SparkContext.prototype.parallelize = function (list, numSlices) {
@@ -366,7 +366,7 @@ SparkContext.prototype.parallelize = function (list, numSlices) {
 /**
  * Distribute a local collection to form an RDD.
  * @param {array} list array of Tuple 2
- * @param {integer} numSlices - Optional
+ * @param {integer} numSlices
  * @returns {PairRDD}
  */
 SparkContext.prototype.parallelizePairs = function (list, numSlices) {
@@ -404,7 +404,7 @@ SparkContext.prototype.range = function (start, end, step, numSlices) {
  * Read a text file from HDFS, a local file system (available on all nodes), or any Hadoop-supported file system URI,
  * and return it as an RDD of Strings.
  * @param {string} path - path to file
- * @param {int} minPartitions - Optional
+ * @param {int} [minPartitions]
  * @returns {RDD}
  */
 SparkContext.prototype.textFile = function (path, minPartitions) {

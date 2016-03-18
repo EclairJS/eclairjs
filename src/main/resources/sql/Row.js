@@ -320,9 +320,9 @@ Row.prototype.length = function() {
 };
 /**
  * Displays all elements of this traversable or iterator in a string using start, end, and separator strings.
- * @param {string} Optional separator
- * @param {string} Optional start, start will be ignored if end parameter is not specified
- * @param {string} Required end, if start specified 
+ * @param {string} [separator]
+ * @param {string} [start] start will be ignored if end parameter is not specified
+ * @param {string} [end] Required if start specified
  * @returns {string}
  */
 Row.prototype.mkString = function(separator, start, end) {

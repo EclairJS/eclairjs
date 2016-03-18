@@ -172,8 +172,11 @@ Serialize.javaSparkObject = function (javaObj) {
     if (className.endsWith("$")) {
         className = javaObj.getClass().getSuperclass().getSimpleName();
     }
+    if (className === "MapPartitionsRDD") {
+        className = "RDD";
+        javaObj = javaObj.toJavaRDD();
 
-    if (java2wrapper[className])
+    } else if (java2wrapper[className])
        className=java2wrapper[className]
     else if (className === "Word2Vec" || className === "Word2VecModel") {
         if (packageName.indexOf("org.apache.spark.ml") > -1) {

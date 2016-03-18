@@ -61,8 +61,8 @@ StructType.prototype.constructor = StructType;
  * Creates a new StructType by adding a new nullable field with no metadata.
  * @param {string | StructField} name
  * @param {DataType | string} dataType
- * @param {boolean} nullable - optional defaults true, nullable field
- * @param {Metadata} metadata - Optional defaults to null, specifying metadata
+ * @param {boolean} [nullable]  defaults true, nullable field
+ * @param {Metadata} [metadata] defaults to null, specifying metadata
  * @returns {StructType}
  */
 StructType.prototype.add = function(name, dataType, nullable, metadata) {

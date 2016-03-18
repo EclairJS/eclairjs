@@ -172,3 +172,9 @@ var naiveBayesExample = function() {
     var result = run(sparkContext);
     return result.accuracy;
 }
+
+var pcaExample = function() {
+    load("examples/mllib/pca_example.js");
+    var result = run(sparkContext);
+    return JSON.stringify(result);
+}

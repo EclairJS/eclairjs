@@ -488,7 +488,7 @@
 
     
 
-    <h4 class="name" id="aggregate"><span class="type-signature"></span>aggregate<span class="signature">(zeroValue, func1, func2, bindArgs1, bindArgs2)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id="aggregate"><span class="type-signature"></span>aggregate<span class="signature">(zeroValue, func1, func2, bindArgs1<span class="signature-attributes">opt</span>, bindArgs2<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {object}</span></h4>
 
     
 
@@ -524,6 +524,8 @@ allocation.
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -549,6 +551,14 @@ allocation.
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -571,6 +581,14 @@ allocation.
             
             </td>
 
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -595,6 +613,14 @@ allocation.
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -618,10 +644,20 @@ allocation.
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Optional array whose values will be added to func1's argument list.</td>
+            <td class="description last">array whose values will be added to func1's argument list.</td>
         </tr>
 
     
@@ -641,10 +677,20 @@ allocation.
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Optional array whose values will be added to func2's argument list.</td>
+            <td class="description last">array whose values will be added to func2's argument list.</td>
         </tr>
 
     
@@ -2839,7 +2885,7 @@ Approximate version of countByValue().
 
     
 
-    <h4 class="name" id="flatMap"><span class="type-signature"></span>flatMap<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    <h4 class="name" id="flatMap"><span class="type-signature"></span>flatMap<span class="signature">(func, bindArgs<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
 
     
 
@@ -2870,6 +2916,8 @@ Approximate version of countByValue().
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -2895,6 +2943,14 @@ Approximate version of countByValue().
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -2918,10 +2974,20 @@ Approximate version of countByValue().
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+            <td class="description last">array whose values will be added to func's argument list.</td>
         </tr>
 
     
@@ -3016,7 +3082,7 @@ Approximate version of countByValue().
 
     
 
-    <h4 class="name" id="flatMapToPair"><span class="type-signature"></span>flatMapToPair<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {<a href="PairRDD.html">PairRDD</a>}</span></h4>
+    <h4 class="name" id="flatMapToPair"><span class="type-signature"></span>flatMapToPair<span class="signature">(func, bindArgs<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="PairRDD.html">PairRDD</a>}</span></h4>
 
     
 
@@ -3048,6 +3114,8 @@ Approximate version of countByValue().
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -3073,6 +3141,14 @@ Approximate version of countByValue().
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -3096,10 +3172,20 @@ Approximate version of countByValue().
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+            <td class="description last">array whose values will be added to func's argument list.</td>
         </tr>
 
     
@@ -3194,7 +3280,7 @@ Approximate version of countByValue().
 
     
 
-    <h4 class="name" id="fold"><span class="type-signature"></span>fold<span class="signature">(zeroValue, func, bindArgs)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id="fold"><span class="type-signature"></span>fold<span class="signature">(zeroValue, func, bindArgs<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {object}</span></h4>
 
     
 
@@ -3235,6 +3321,8 @@ non-distributed collection.
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -3260,6 +3348,14 @@ non-distributed collection.
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -3282,6 +3378,14 @@ non-distributed collection.
             
             </td>
 
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -3306,10 +3410,20 @@ non-distributed collection.
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+            <td class="description last">array whose values will be added to func's argument list.</td>
         </tr>
 
     
@@ -3404,7 +3518,7 @@ non-distributed collection.
 
     
 
-    <h4 class="name" id="foreach"><span class="type-signature"></span>foreach<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {void}</span></h4>
+    <h4 class="name" id="foreach"><span class="type-signature"></span>foreach<span class="signature">(func, bindArgs<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {void}</span></h4>
 
     
 
@@ -3435,6 +3549,8 @@ non-distributed collection.
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -3460,6 +3576,14 @@ non-distributed collection.
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -3483,10 +3607,20 @@ non-distributed collection.
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+            <td class="description last">array whose values will be added to func's argument list.</td>
         </tr>
 
     
@@ -3590,7 +3724,7 @@ non-distributed collection.
 
     
 
-    <h4 class="name" id="foreachPartition"><span class="type-signature"></span>foreachPartition<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {void}</span></h4>
+    <h4 class="name" id="foreachPartition"><span class="type-signature"></span>foreachPartition<span class="signature">(func, bindArgs<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {void}</span></h4>
 
     
 
@@ -3621,6 +3755,8 @@ non-distributed collection.
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -3646,6 +3782,14 @@ non-distributed collection.
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -3669,10 +3813,20 @@ non-distributed collection.
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+            <td class="description last">array whose values will be added to func's argument list.</td>
         </tr>
 
     
@@ -4090,7 +4244,7 @@ This is not defined if the RDD is checkpointed locally.
 
     
 
-    <h4 class="name" id="groupBy"><span class="type-signature"></span>groupBy<span class="signature">(func, numPartitions, partitioner, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    <h4 class="name" id="groupBy"><span class="type-signature"></span>groupBy<span class="signature">(func, numPartitions<span class="signature-attributes">opt</span>, partitioner<span class="signature-attributes">opt</span>, bindArgs<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
 
     
 
@@ -4127,6 +4281,8 @@ or reduceByKey will provide much better performance.
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -4152,6 +4308,14 @@ or reduceByKey will provide much better performance.
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -4175,10 +4339,20 @@ or reduceByKey will provide much better performance.
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">(optional) How many partitions to use in the resulting RDD (if non-zero partitioner is ignored)</td>
+            <td class="description last">How many partitions to use in the resulting RDD (if non-zero partitioner is ignored)</td>
         </tr>
 
     
@@ -4198,10 +4372,20 @@ or reduceByKey will provide much better performance.
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">(optional) Partitioner to use for the resulting RDD</td>
+            <td class="description last">Partitioner to use for the resulting RDD</td>
         </tr>
 
     
@@ -4221,10 +4405,20 @@ or reduceByKey will provide much better performance.
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+            <td class="description last">array whose values will be added to func's argument list.</td>
         </tr>
 
     
@@ -5276,7 +5470,7 @@ Note that this method performs a shuffle internally.
 
     
 
-    <h4 class="name" id="keyBy"><span class="type-signature"></span>keyBy<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    <h4 class="name" id="keyBy"><span class="type-signature"></span>keyBy<span class="signature">(func, bindArgs<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
 
     
 
@@ -5307,6 +5501,8 @@ Note that this method performs a shuffle internally.
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -5332,6 +5528,14 @@ Note that this method performs a shuffle internally.
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -5355,10 +5559,20 @@ Note that this method performs a shuffle internally.
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+            <td class="description last">array whose values will be added to func's argument list.</td>
         </tr>
 
     
@@ -5573,7 +5787,7 @@ The checkpoint directory set through `SparkContext#setCheckpointDir` is not used
 
     
 
-    <h4 class="name" id="map"><span class="type-signature"></span>map<span class="signature">(func, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    <h4 class="name" id="map"><span class="type-signature"></span>map<span class="signature">(func, bindArgs<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
 
     
 
@@ -5604,6 +5818,8 @@ The checkpoint directory set through `SparkContext#setCheckpointDir` is not used
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -5629,6 +5845,14 @@ The checkpoint directory set through `SparkContext#setCheckpointDir` is not used
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -5652,10 +5876,20 @@ The checkpoint directory set through `SparkContext#setCheckpointDir` is not used
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+            <td class="description last">array whose values will be added to func's argument list.</td>
         </tr>
 
     
@@ -5750,7 +5984,7 @@ The checkpoint directory set through `SparkContext#setCheckpointDir` is not used
 
     
 
-    <h4 class="name" id="mapPartitions"><span class="type-signature"></span>mapPartitions<span class="signature">(func, preservesPartitioning, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    <h4 class="name" id="mapPartitions"><span class="type-signature"></span>mapPartitions<span class="signature">(func, preservesPartitioning<span class="signature-attributes">opt</span>, bindArgs<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
 
     
 
@@ -5783,6 +6017,8 @@ func should return a array rather than a single item.
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -5808,6 +6044,14 @@ func should return a array rather than a single item.
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -5831,10 +6075,20 @@ func should return a array rather than a single item.
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">(optional)</td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -5854,10 +6108,20 @@ func should return a array rather than a single item.
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+            <td class="description last">array whose values will be added to func's argument list.</td>
         </tr>
 
     
@@ -5952,7 +6216,7 @@ func should return a array rather than a single item.
 
     
 
-    <h4 class="name" id="mapPartitionsWithIndex"><span class="type-signature"></span>mapPartitionsWithIndex<span class="signature">(func, preservesPartitioning, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    <h4 class="name" id="mapPartitionsWithIndex"><span class="type-signature"></span>mapPartitionsWithIndex<span class="signature">(func, preservesPartitioning<span class="signature-attributes">opt</span>, bindArgs<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
 
     
 
@@ -5987,6 +6251,8 @@ should be `false` unless this is a pair RDD and the input function doesn't modif
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -6012,6 +6278,14 @@ should be `false` unless this is a pair RDD and the input function doesn't modif
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -6035,10 +6309,20 @@ should be `false` unless this is a pair RDD and the input function doesn't modif
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">(optional)</td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -6058,10 +6342,20 @@ should be `false` unless this is a pair RDD and the input function doesn't modif
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+            <td class="description last">array whose values will be added to func's argument list.</td>
         </tr>
 
     
@@ -6156,7 +6450,7 @@ should be `false` unless this is a pair RDD and the input function doesn't modif
 
     
 
-    <h4 class="name" id="mapPartitionsWithSplit"><span class="type-signature"></span>mapPartitionsWithSplit<span class="signature">(func, preservesPartitioning, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    <h4 class="name" id="mapPartitionsWithSplit"><span class="type-signature"></span>mapPartitionsWithSplit<span class="signature">(func, preservesPartitioning<span class="signature-attributes">opt</span>, bindArgs<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
 
     
 
@@ -6188,6 +6482,8 @@ of the original partition.
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -6213,6 +6509,14 @@ of the original partition.
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -6236,10 +6540,20 @@ of the original partition.
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">(optional)</td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -6259,10 +6573,20 @@ of the original partition.
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+            <td class="description last">array whose values will be added to func's argument list.</td>
         </tr>
 
     
@@ -6357,7 +6681,7 @@ of the original partition.
 
     
 
-    <h4 class="name" id="mapToPair"><span class="type-signature"></span>mapToPair<span class="signature">((function), bindArgs)</span><span class="type-signature"> &rarr; {<a href="PairRDD.html">PairRDD</a>}</span></h4>
+    <h4 class="name" id="mapToPair"><span class="type-signature"></span>mapToPair<span class="signature">((function), bindArgs<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="PairRDD.html">PairRDD</a>}</span></h4>
 
     
 
@@ -6388,6 +6712,8 @@ of the original partition.
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -6407,6 +6733,14 @@ of the original partition.
             
             </td>
 
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -6431,10 +6765,20 @@ of the original partition.
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+            <td class="description last">array whose values will be added to func's argument list.</td>
         </tr>
 
     
@@ -7293,7 +7637,7 @@ it is computed. Can only be called once on each RDD.
 
     
 
-    <h4 class="name" id="pipe"><span class="type-signature"></span>pipe<span class="signature">(command, env, printPipeContext, printRDDElement, separateWorkingDir, bindArgs, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    <h4 class="name" id="pipe"><span class="type-signature"></span>pipe<span class="signature">(command, env, printPipeContext<span class="signature-attributes">opt</span>, printRDDElement<span class="signature-attributes">opt</span>, separateWorkingDir<span class="signature-attributes">opt</span>, bindArgs<span class="signature-attributes">opt</span>, bindArgs<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
 
     
 
@@ -7325,6 +7669,8 @@ The print behavior can be customized by providing two functions.
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -7353,6 +7699,14 @@ The print behavior can be customized by providing two functions.
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -7375,6 +7729,14 @@ The print behavior can be customized by providing two functions.
             
             </td>
 
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -7399,10 +7761,20 @@ The print behavior can be customized by providing two functions.
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">(optional) Before piping elements, this function is called as an opportunity
+            <td class="description last">Before piping elements, this function is called as an opportunity
                         to pipe context data. Print line function (like out.println) will be
                         passed as printPipeContext's parameter.</td>
         </tr>
@@ -7424,10 +7796,20 @@ The print behavior can be customized by providing two functions.
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">(optional) Use this function to customize how to pipe elements.
+            <td class="description last">Use this function to customize how to pipe elements.
                        This function will be called with each RDD element as the 1st parameter,
                        and the print line function (like out.println()) as the 2nd parameter.
                        An example of pipe the RDD data of groupBy() in a streaming way,
@@ -7453,10 +7835,20 @@ The print behavior can be customized by providing two functions.
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">(optional) Use separate working directories for each task.</td>
+            <td class="description last">Use separate working directories for each task.</td>
         </tr>
 
     
@@ -7476,10 +7868,20 @@ The print behavior can be customized by providing two functions.
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Optional array whose values will be added to printPipeContext's argument list.</td>
+            <td class="description last">array whose values will be added to printPipeContext's argument list.</td>
         </tr>
 
     
@@ -7499,10 +7901,20 @@ The print behavior can be customized by providing two functions.
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Optional array whose values will be added to printRDDElement's argument list.</td>
+            <td class="description last">array whose values will be added to printRDDElement's argument list.</td>
         </tr>
 
     
@@ -7601,7 +8013,7 @@ The print behavior can be customized by providing two functions.
 
     
 
-    <h4 class="name" id="reduce"><span class="type-signature"></span>reduce<span class="signature">(bindArgs)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id="reduce"><span class="type-signature"></span>reduce<span class="signature">(bindArgs<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {object}</span></h4>
 
     
 
@@ -7634,6 +8046,8 @@ associative binary operator.
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -7659,10 +8073,20 @@ associative binary operator.
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+            <td class="description last">array whose values will be added to func's argument list.</td>
         </tr>
 
     
@@ -8805,7 +9229,7 @@ estimating the standard variance by dividing by N-1 instead of N).
 
     
 
-    <h4 class="name" id="sortBy"><span class="type-signature"></span>sortBy<span class="signature">(func, ascending, numPartitions, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    <h4 class="name" id="sortBy"><span class="type-signature"></span>sortBy<span class="signature">(func, ascending, numPartitions, bindArgs<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
 
     
 
@@ -8836,6 +9260,8 @@ estimating the standard variance by dividing by N-1 instead of N).
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -8861,6 +9287,14 @@ estimating the standard variance by dividing by N-1 instead of N).
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -8883,6 +9317,14 @@ estimating the standard variance by dividing by N-1 instead of N).
             
             </td>
 
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -8907,6 +9349,14 @@ estimating the standard variance by dividing by N-1 instead of N).
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -8930,10 +9380,20 @@ estimating the standard variance by dividing by N-1 instead of N).
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+            <td class="description last">array whose values will be added to func's argument list.</td>
         </tr>
 
     
@@ -9487,7 +9947,7 @@ count of the RDD's elements in one operation.
 
     
 
-    <h4 class="name" id="subtract"><span class="type-signature"></span>subtract<span class="signature">(other, numPartitions, p)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    <h4 class="name" id="subtract"><span class="type-signature"></span>subtract<span class="signature">(other, numPartitions<span class="signature-attributes">opt</span>, p<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
 
     
 
@@ -9518,6 +9978,8 @@ count of the RDD's elements in one operation.
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -9543,6 +10005,14 @@ count of the RDD's elements in one operation.
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -9566,10 +10036,20 @@ count of the RDD's elements in one operation.
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">(optional)</td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -9589,10 +10069,20 @@ count of the RDD's elements in one operation.
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">(optional - ignored if numPartitions is non-zero)</td>
+            <td class="description last">ignored if numPartitions is non-zero)</td>
         </tr>
 
     
@@ -11473,7 +11963,7 @@ implicit Ordering[T]. This does the opposite of takeOrdered. For example:
 
     
 
-    <h4 class="name" id="treeAggregate"><span class="type-signature"></span>treeAggregate<span class="signature">(zeroValue, func1, func2, bindArgs1, bindArgs2)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id="treeAggregate"><span class="type-signature"></span>treeAggregate<span class="signature">(zeroValue, func1, func2, bindArgs1<span class="signature-attributes">opt</span>, bindArgs2<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {object}</span></h4>
 
     
 
@@ -11504,6 +11994,8 @@ implicit Ordering[T]. This does the opposite of takeOrdered. For example:
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -11523,6 +12015,14 @@ implicit Ordering[T]. This does the opposite of takeOrdered. For example:
             
             </td>
 
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -11547,6 +12047,14 @@ implicit Ordering[T]. This does the opposite of takeOrdered. For example:
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -11569,6 +12077,14 @@ implicit Ordering[T]. This does the opposite of takeOrdered. For example:
             
             </td>
 
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -11593,10 +12109,20 @@ implicit Ordering[T]. This does the opposite of takeOrdered. For example:
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Optional array whose values will be added to func1's argument list.</td>
+            <td class="description last">array whose values will be added to func1's argument list.</td>
         </tr>
 
     
@@ -11616,10 +12142,20 @@ implicit Ordering[T]. This does the opposite of takeOrdered. For example:
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Optional array whose values will be added to func2's argument list.</td>
+            <td class="description last">array whose values will be added to func2's argument list.</td>
         </tr>
 
     
@@ -11721,7 +12257,7 @@ implicit Ordering[T]. This does the opposite of takeOrdered. For example:
 
     
 
-    <h4 class="name" id="treeReduce"><span class="type-signature"></span>treeReduce<span class="signature">(func, depth, bindArgs)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id="treeReduce"><span class="type-signature"></span>treeReduce<span class="signature">(func, depth, bindArgs<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {object}</span></h4>
 
     
 
@@ -11752,6 +12288,8 @@ implicit Ordering[T]. This does the opposite of takeOrdered. For example:
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -11777,6 +12315,14 @@ implicit Ordering[T]. This does the opposite of takeOrdered. For example:
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -11799,6 +12345,14 @@ implicit Ordering[T]. This does the opposite of takeOrdered. For example:
             
             </td>
 
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -11823,10 +12377,20 @@ implicit Ordering[T]. This does the opposite of takeOrdered. For example:
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+            <td class="description last">array whose values will be added to func's argument list.</td>
         </tr>
 
     
@@ -12647,7 +13211,7 @@ a map on the other).
 
     
 
-    <h4 class="name" id="zipPartitions"><span class="type-signature"></span>zipPartitions<span class="signature">(rdd2, func, preservesPartitioning, bindArgs)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+    <h4 class="name" id="zipPartitions"><span class="type-signature"></span>zipPartitions<span class="signature">(rdd2, func, preservesPartitioning<span class="signature-attributes">opt</span>, bindArgs<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
 
     
 
@@ -12681,6 +13245,8 @@ of elements in each partition.
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -12706,6 +13272,14 @@ of elements in each partition.
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -12728,6 +13302,14 @@ of elements in each partition.
             
             </td>
 
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -12752,10 +13334,20 @@ of elements in each partition.
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">(optional)</td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -12775,10 +13367,20 @@ of elements in each partition.
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Optional array whose values will be added to func's argument list.</td>
+            <td class="description last">array whose values will be added to func's argument list.</td>
         </tr>
 
     
@@ -13111,13 +13713,13 @@ the same index assignments, you should sort the RDD with sortByKey() or save it 
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ALS.html">ALS</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="AssociationRules.html">AssociationRules</a></li><li><a href="BinaryClassificationMetrics.html">BinaryClassificationMetrics</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BisectingKMeans.html">BisectingKMeans</a></li><li><a href="BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="BoostingStrategy.html">BoostingStrategy</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DecisionTree.html">DecisionTree</a></li><li><a href="DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="DenseMatrix.html">DenseMatrix</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DistributedLDAModel.html">DistributedLDAModel</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatRDD.html">FloatRDD</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="FPGrowth.html">FPGrowth</a></li><li><a href="FPGrowthModel.html">FPGrowthModel</a></li><li><a href="FreqItemset.html">FreqItemset</a></li><li><a href="functions.html">functions</a></li><li><a href="FutureAction.html">FutureAction</a></li><li><a href="GeneralizedLinearModel.html">GeneralizedLinearModel</a></li><li><a href="Gradient.html">Gradient</a></li><li><a href="GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="IsotonicRegression.html">IsotonicRegression</a></li><li><a href="IsotonicRegressionModel.html">IsotonicRegressionModel</a></li><li><a href="KMeans.html">KMeans</a></li><li><a href="KMeansModel.html">KMeansModel</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LBFGS.html">LBFGS</a></li><li><a href="LDA.html">LDA</a></li><li><a href="LDAModel.html">LDAModel</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="List.html">List</a></li><li><a href="LocalLDAModel.html">LocalLDAModel</a></li><li><a href="Logger.html">Logger</a></li><li><a href="LogisticGradient.html">LogisticGradient</a></li><li><a href="LogisticRegressionModel.html">LogisticRegressionModel</a></li><li><a href="LogisticRegressionWithLBFGS.html">LogisticRegressionWithLBFGS</a></li><li><a href="LogisticRegressionWithSGD.html">LogisticRegressionWithSGD</a></li><li><a href="Loss.html">Loss</a></li><li><a href="MapType.html">MapType</a></li><li><a href="Matrix.html">Matrix</a></li><li><a href="MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="MLWord2Vec.html">MLWord2Vec</a></li><li><a href="MLWord2VecModel.html">MLWord2VecModel</a></li><li><a href="MulticlassMetrics.html">MulticlassMetrics</a></li><li><a href="MultilabelMetrics.html">MultilabelMetrics</a></li><li><a href="NaiveBayes.html">NaiveBayes</a></li><li><a href="NaiveBayesModel.html">NaiveBayesModel</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PairDStream.html">PairDStream</a></li><li><a href="PairRDD.html">PairRDD</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RandomForest.html">RandomForest</a></li><li><a href="RandomForestModel.html">RandomForestModel</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RankingMetrics.html">RankingMetrics</a></li><li><a href="Rating.html">Rating</a></li><li><a href="RDD.html">RDD</a></li><li><a href="RegressionMetrics.html">RegressionMetrics</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="Rule.html">Rule</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SparseMatrix.html">SparseMatrix</a></li><li><a href="SparseVector.html">SparseVector</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="SquaredL2Updater.html">SquaredL2Updater</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="Strategy.html">Strategy</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li><li><a href="Tuple.html">Tuple</a></li><li><a href="Updater.html">Updater</a></li><li><a href="Vector.html">Vector</a></li><li><a href="Vectors.html">Vectors</a></li><li><a href="VectorUDT.html">VectorUDT</a></li><li><a href="Word2Vec.html">Word2Vec</a></li><li><a href="Word2VecModel.html">Word2VecModel</a></li></ul><h3>Interfaces</h3><ul><li><a href="ClassificationModel.html">ClassificationModel</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ALS.html">ALS</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="AssociationRules.html">AssociationRules</a></li><li><a href="BinaryClassificationMetrics.html">BinaryClassificationMetrics</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BisectingKMeans.html">BisectingKMeans</a></li><li><a href="BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="BoostingStrategy.html">BoostingStrategy</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DecisionTree.html">DecisionTree</a></li><li><a href="DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="DenseMatrix.html">DenseMatrix</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DistributedLDAModel.html">DistributedLDAModel</a></li><li><a href="DistributedMatrix.html">DistributedMatrix</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatRDD.html">FloatRDD</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="FPGrowth.html">FPGrowth</a></li><li><a href="FPGrowthModel.html">FPGrowthModel</a></li><li><a href="FreqItemset.html">FreqItemset</a></li><li><a href="functions.html">functions</a></li><li><a href="FutureAction.html">FutureAction</a></li><li><a href="GeneralizedLinearModel.html">GeneralizedLinearModel</a></li><li><a href="Gradient.html">Gradient</a></li><li><a href="GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="IsotonicRegression.html">IsotonicRegression</a></li><li><a href="IsotonicRegressionModel.html">IsotonicRegressionModel</a></li><li><a href="KMeans.html">KMeans</a></li><li><a href="KMeansModel.html">KMeansModel</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LBFGS.html">LBFGS</a></li><li><a href="LDA.html">LDA</a></li><li><a href="LDAModel.html">LDAModel</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="List.html">List</a></li><li><a href="LocalLDAModel.html">LocalLDAModel</a></li><li><a href="Logger.html">Logger</a></li><li><a href="LogisticGradient.html">LogisticGradient</a></li><li><a href="LogisticRegressionModel.html">LogisticRegressionModel</a></li><li><a href="LogisticRegressionWithLBFGS.html">LogisticRegressionWithLBFGS</a></li><li><a href="LogisticRegressionWithSGD.html">LogisticRegressionWithSGD</a></li><li><a href="Loss.html">Loss</a></li><li><a href="MapType.html">MapType</a></li><li><a href="Matrix.html">Matrix</a></li><li><a href="MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="MLWord2Vec.html">MLWord2Vec</a></li><li><a href="MLWord2VecModel.html">MLWord2VecModel</a></li><li><a href="MulticlassMetrics.html">MulticlassMetrics</a></li><li><a href="MultilabelMetrics.html">MultilabelMetrics</a></li><li><a href="NaiveBayes.html">NaiveBayes</a></li><li><a href="NaiveBayesModel.html">NaiveBayesModel</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PairDStream.html">PairDStream</a></li><li><a href="PairRDD.html">PairRDD</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RandomForest.html">RandomForest</a></li><li><a href="RandomForestModel.html">RandomForestModel</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RankingMetrics.html">RankingMetrics</a></li><li><a href="Rating.html">Rating</a></li><li><a href="RDD.html">RDD</a></li><li><a href="RegressionMetrics.html">RegressionMetrics</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="RowMatrix.html">RowMatrix</a></li><li><a href="Rule.html">Rule</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SparseMatrix.html">SparseMatrix</a></li><li><a href="SparseVector.html">SparseVector</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="SquaredL2Updater.html">SquaredL2Updater</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="Strategy.html">Strategy</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li><li><a href="Tuple.html">Tuple</a></li><li><a href="Updater.html">Updater</a></li><li><a href="Vector.html">Vector</a></li><li><a href="Vectors.html">Vectors</a></li><li><a href="VectorUDT.html">VectorUDT</a></li><li><a href="Word2Vec.html">Word2Vec</a></li><li><a href="Word2VecModel.html">Word2VecModel</a></li></ul><h3>Interfaces</h3><ul><li><a href="ClassificationModel.html">ClassificationModel</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Fri Mar 18 2016 12:29:08 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Fri Mar 18 2016 16:06:02 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>

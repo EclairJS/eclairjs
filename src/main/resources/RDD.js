@@ -40,8 +40,8 @@ RDD.prototype.constructor = RDD;
  * @param {RDD} zeroValue - (undocumented)
  * @param {function} func1 seqOp - (undocumented) Function with two parameters
  * @param {function} func2 combOp - (undocumented) Function with two parameters
- * @param {Object[]} bindArgs1 - Optional array whose values will be added to func1's argument list.
- * @param {Object[]} bindArgs2 - Optional array whose values will be added to func2's argument list.
+ * @param {Object[]} [bindArgs1] - array whose values will be added to func1's argument list.
+ * @param {Object[]} [bindArgs2] - array whose values will be added to func2's argument list.
  * @returns {object}
  */
 RDD.prototype.aggregate = function(zeroValue,func1,func2, bindArgs1, bindArgs2) {
@@ -241,7 +241,7 @@ throw "not implemented by ElairJS";
 
 /**
  * Return a new RDD containing the distinct elements in this RDD.
- * @param {int} numPartitions (optional)
+ * @param {int} [numPartitions]
  * @returns {RDD}
  */
 RDD.prototype.distinct = function(numPartitions) {
@@ -253,7 +253,7 @@ RDD.prototype.distinct = function(numPartitions) {
 /**
  * Return a new RDD containing only the elements that satisfy a predicate.
  * @param {function} func - (undocumented) Function with one parameter
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
  * @returns {RDD}
  */
 RDD.prototype.filter = function(func, bindArgs) {
@@ -268,7 +268,7 @@ RDD.prototype.filter = function(func, bindArgs) {
  * partition with the index of that partition.
  * Note: Doesn't make sense for JavaScript.
  * @param constructA
- * @param {Object[]} bindArgs - Optional array whose values will be added to constructA's argument list.
+ * @param {Object[]} [bindArgs] - array whose values will be added to constructA's argument list.
  * @returns {RDD}
  * @private
  */
@@ -292,7 +292,7 @@ RDD.prototype.first = function() {
 /**
  * Return a new RDD by first applying a function to all elements of this RDD, and then flattening the results.
  * @param {function} func - (undocumented) - Function with one parameter
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
  * @returns {RDD}
 */
 RDD.prototype.flatMap = function(func, bindArgs) {
@@ -323,7 +323,7 @@ throw "not implemented by ElairJS";
  *  Return a new RDD by first applying a function to all elements of this
  *  RDD, and then flattening the results.
  * @param {function}
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
  * @returns {PairRDD}
  */
 RDD.prototype.flatMapToPair = function(func, bindArgs) {
@@ -346,7 +346,7 @@ RDD.prototype.flatMapToPair = function(func, bindArgs) {
  * non-distributed collection.
  * @param {RDD} zeroValue - (undocumented)
  * @param {function} func - (undocumented) Function with two parameters
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
  * @returns {object}
  */
 RDD.prototype.fold = function(zeroValue, func, bindArgs) {
@@ -366,7 +366,7 @@ RDD.prototype.fold = function(zeroValue, func, bindArgs) {
  *    connection.close()
  * });
  * @param {function} func - Function with one parameter that returns void
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
  * @returns {void}
  */
 RDD.prototype.foreach = function(func, bindArgs) {
@@ -385,7 +385,7 @@ RDD.prototype.foreach = function(func, bindArgs) {
  *    connection.close()
  * });
  * @param {function} func - Function with one Array parameter that returns void
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
  * @returns {void}
  */
 RDD.prototype.foreachPartition = function(func, bindArgs) {
@@ -399,7 +399,7 @@ RDD.prototype.foreachPartition = function(func, bindArgs) {
  * partition with the index of that partition.
  * Note: Doesn't make sense for JavaScript.
  * @param {constructA} - (undocumented)
- * @param {Object[]} bindArgs - Optional array whose values will be added to constructA's argument list.
+ * @param {Object[]} [bindArgs] - array whose values will be added to constructA's argument list.
  * @returns {void}
  * @private
  */
@@ -444,9 +444,9 @@ RDD.prototype.glom = function() {
  * aggregation (such as a sum or average) over each key, using {@link aggregateByKey}
  * or {@link reduceByKey} will provide much better performance.
  * @param {function} func - (undocumented) Function with one parameter
- * @param {number} numPartitions - (optional) How many partitions to use in the resulting RDD (if non-zero partitioner is ignored)
- * @param {Partitioner} partitioner - (optional) Partitioner to use for the resulting RDD
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {number} [numPartitions] -  How many partitions to use in the resulting RDD (if non-zero partitioner is ignored)
+ * @param {Partitioner} [partitioner] -  Partitioner to use for the resulting RDD
+ * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
  * @returns {RDD}
  */
 RDD.prototype.groupBy = function(func,numPartitions,partitioner,bindArgs) {
@@ -507,7 +507,7 @@ RDD.prototype.isEmpty = function() {
 /**
  * Creates tuples of the elements in this RDD by applying `f`.
  * @param {function} func - (undocumented)
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
  * @returns {RDD}
  */
 RDD.prototype.keyBy = function(func, bindArgs) {
@@ -543,7 +543,7 @@ RDD.prototype.localCheckpoint = function() {
 /**
  * Return a new RDD by applying a function to all elements of this RDD.
  * @param {function} func - (undocumented) Function with one parameter
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
  * @returns {RDD}
  */
 RDD.prototype.map = function(func, bindArgs) {
@@ -557,8 +557,8 @@ RDD.prototype.map = function(func, bindArgs) {
  * Similar to map, but runs separately on each partition (block) of the RDD, so func must accept an Array.
  * func should return a array rather than a single item.
  * @param {function} func - (undocumented) Function with one parameter
- * @param {boolean} preservesPartitioning - (optional)
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {boolean} [preservesPartitioning]
+ * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
  * @returns {RDD}
  */
 RDD.prototype.mapPartitions = function(func,preservesPartitioning, bindArgs) {
@@ -574,8 +574,8 @@ RDD.prototype.mapPartitions = function(func,preservesPartitioning, bindArgs) {
  * `preservesPartitioning` indicates whether the input function preserves the partitioner, which
  * should be `false` unless this is a pair RDD and the input function doesn't modify the keys.
  * @param {function} func - (undocumented) Function with one parameter
- * @param {boolean} preservesPartitioning - (optional)
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {boolean} [preservesPartitioning]
+ * @param {Object[]} [bindArgs] array whose values will be added to func's argument list.
  * @returns {RDD}
  */
 RDD.prototype.mapPartitionsWithIndex = function(func,preservesPartitioning, bindArgs) {
@@ -588,8 +588,8 @@ RDD.prototype.mapPartitionsWithIndex = function(func,preservesPartitioning, bind
  * Return a new RDD by applying a function to each partition of this RDD, while tracking the index
  * of the original partition.
  * @param {function} func - (undocumented) Function with one parameter
- * @param {boolean} preservesPartitioning - (optional)
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {boolean} [preservesPartitioning]
+ * @param {Object[]} [bindArgs]  array whose values will be added to func's argument list.
  * @returns {RDD}
  */
 RDD.prototype.mapPartitionsWithSplit = function(func,preservesPartitioning, bindArgs) {
@@ -605,7 +605,7 @@ RDD.prototype.mapPartitionsWithSplit = function(func,preservesPartitioning, bind
  * Note: Doesn't make sense for JavaScript.
  * @param {function}
  * @param {boolean}
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] array whose values will be added to func's argument list.
  * @returns {RDD}
  * @private
  */
@@ -619,7 +619,7 @@ throw "not implemented by ElairJS";
 /**
  * Return a new RDD by applying a function to all elements of this RDD.
  * @param (function) func - (undocumented) Function with one parameter that returns tuple
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] array whose values will be added to func's argument list.
  * @returns {PairRDD}
  */
 RDD.prototype.mapToPair = function(func, bindArgs) {
@@ -631,7 +631,7 @@ RDD.prototype.mapToPair = function(func, bindArgs) {
 /**
  * Returns the max of this RDD as defined by the implicit Ordering[T].
  * @param (function) comparator - Compares its two arguments for order. Returns a negative integer, zero, or a positive integer as the first argument is less than, equal to, or greater than the second.
- * @param {Object[]} bindArgs - Optional array whose values will be added to comparator's argument list.
+ * @param {Object[]} [bindArgs] - array whose values will be added to comparator's argument list.
  * @returns {object}  the maximum element of the RDD
  */
 RDD.prototype.max = function(comparator, bindArgs) {
@@ -642,7 +642,7 @@ RDD.prototype.max = function(comparator, bindArgs) {
 /**
  * Returns the min of this RDD as defined by the implicit Ordering[T].
  * @param (function) comparator - Compares its two arguments for order. Returns a negative integer, zero, or a positive integer as the second argument is less than, equal to, or greater than the first.
- * @param {Object[]} bindArgs - Optional array whose values will be added to compartor's argument list.
+ * @param {Object[]} [bindArgs] - array whose values will be added to compartor's argument list.
  * @returns {object}  the minimum element of the RDD
  */
 RDD.prototype.min = function(comparator, bindArgs) {
@@ -686,19 +686,19 @@ RDD.prototype.persist = function(newLevel) {
  *
  * @param {Seq|string} command - command to run in forked process.
  * @param {Map} env -  environment variables to set.
- * @param {func} printPipeContext - (optional) Before piping elements, this function is called as an opportunity
+ * @param {func} [printPipeContext] - Before piping elements, this function is called as an opportunity
  *                         to pipe context data. Print line function (like out.println) will be
  *                         passed as printPipeContext's parameter.
- * @param {func} printRDDElement - (optional) Use this function to customize how to pipe elements.
+ * @param {func} [printRDDElement] - Use this function to customize how to pipe elements.
  *                        This function will be called with each RDD element as the 1st parameter,
  *                        and the print line function (like out.println()) as the 2nd parameter.
  *                        An example of pipe the RDD data of groupBy() in a streaming way,
  *                        instead of constructing a huge String to concat all the elements:
  *                        def printRDDElement(record:(String, Seq[String]), f:String=&gt;Unit) =
  *                          for (e &lt;- record._2){f(e)}
- * @param {boolean} separateWorkingDir - (optional) Use separate working directories for each task.
- * @param {Object[]} bindArgs - Optional array whose values will be added to printPipeContext's argument list.
- * @param {Object[]} bindArgs - Optional array whose values will be added to printRDDElement's argument list.
+ * @param {boolean} [separateWorkingDir] - Use separate working directories for each task.
+ * @param {Object[]} [bindArgs] - array whose values will be added to printPipeContext's argument list.
+ * @param {Object[]} [bindArgs] - array whose values will be added to printRDDElement's argument list.
  * @returns {RDD}  the result RDD
  */
 RDD.prototype.pipe = function(command,env,printPipeContext,printRDDElement,separateWorkingDir,bindArgs1,bindArgs2) {
@@ -786,7 +786,7 @@ throw "not implemented by ElairJS";
  * Reduces the elements of this RDD using the specified commutative and
  * associative binary operator.
  * {function} func - (undocumented) Function with two parameters
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
  * @returns {object}
  */
 RDD.prototype.reduce = function(func, bindArgs) {
@@ -871,7 +871,7 @@ RDD.prototype.setName = function(_name) {
  * @param {function} func - (undocumented) Function with one parameter
  * @param {boolean} ascending
  * @param {int} numPartitions
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
  * @returns {RDD}
  */
 RDD.prototype.sortBy = function(func,ascending,numPartitions,bindArgs) {
@@ -903,8 +903,8 @@ RDD.prototype.sparkContext = function() {
 /**
  * Return an RDD with the elements from `this` that are not in `other`.
  * @param other {RDD}
- * @param numPartitions {int} (optional)
- * @param p {Partition} (optional - ignored if numPartitions is non-zero)
+ * @param  {int} [numPartitions]
+ * @param  {Partition} [p] - ignored if numPartitions is non-zero)
  * @returns {RDD}
  */
 RDD.prototype.subtract = function(other,numPartitions,p) {
@@ -1053,8 +1053,8 @@ RDD.prototype.toString = function() {
  * @param zeroValue - (undocumented)
  * @param {function} func1 - (undocumented) Function with two parameters
  * @param {function} func2 combOp - (undocumented) Function with two parameters
- * @param {Object[]} bindArgs1 - Optional array whose values will be added to func1's argument list.
- * @param {Object[]} bindArgs2 - Optional array whose values will be added to func2's argument list.
+ * @param {Object[]} [bindArgs1] - array whose values will be added to func1's argument list.
+ * @param {Object[]} [bindArgs2] - array whose values will be added to func2's argument list.
  * @see [[org.apache.spark.rdd.RDD#aggregate]]
  * @returns {object}
  */
@@ -1069,7 +1069,7 @@ RDD.prototype.treeAggregate = function(zeroValue,func1,func2,bindArgs1,bindArgs2
  *
  * @param {function} func - (undocumented) Function with one parameter
  * @param {number} depth  suggested depth of the tree (default: 2)
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
  * @see [[org.apache.spark.rdd.RDD#reduce]]
  * @returns {object}
  */
@@ -1124,8 +1124,8 @@ RDD.prototype.zip = function(other) {
  *
  * @param {RDD} rdd2
  * @param {function} func - Function with two parameters
- * @param {boolean} preservesPartitioning - (optional)
- * @param {Object[]} bindArgs - Optional array whose values will be added to func's argument list.
+ * @param {boolean} [preservesPartitioning]
+ * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
  * @returns {RDD}
  */
 RDD.prototype.zipPartitions = function(rdd2,func,preservesPartitioning, bindArgs) {
@@ -1145,9 +1145,9 @@ RDD.prototype.zipPartitions = function(rdd2,func,preservesPartitioning, bindArgs
  * Renaming this version and making this private for now.
  *
  * @param {RDD} rdd2
- * @param {RDD} rdd3 - (optional)
- * @param {RDD} rdd4 - (optional)
- * @param {boolean} preservesPartitioning - (optional)
+ * @param {RDD} [rdd3]
+ * @param {RDD} [rdd4]
+ * @param {boolean} [preservesPartitioning]
  * @returns {RDD}
  * @private
  */
