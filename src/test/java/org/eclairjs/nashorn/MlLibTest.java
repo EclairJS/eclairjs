@@ -508,4 +508,29 @@ public class MlLibTest {
 
     }
 
+    /*
+        PowerIterationClustering()
+        PowerIterationClustering.setK()
+        PowerIterationClustering.setMaxIterations();
+        PowerIterationClustering.run();
+        PowerIterationClusteringModel.assignments()
+        PowerIterationClusteringAssignment.id()
+        PowerIterationClusteringAssignment.cluster()
+     */
+
+    @Test
+    public void PowerIterationClusteringExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
+
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
+        Object ret = ((Invocable)engine).invokeFunction("PowerIterationClusteringExample");
+
+        String expected = "[{\"id\":0,\"cluster\":1},{\"id\":1,\"cluster\":0},{\"id\":2,\"cluster\":0}," +
+                "{\"id\":3,\"cluster\":1},{\"id\":4,\"cluster\":0},{\"id\":5,\"cluster\":0}]";
+
+        assertEquals("failure - strings are not equal", expected, ret.toString());
+
+    }
+
 }

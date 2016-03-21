@@ -178,3 +178,9 @@ var pcaExample = function() {
     var result = run(sparkContext);
     return JSON.stringify(result);
 }
+
+var PowerIterationClusteringExample = function() {
+    load("examples/mllib/power_iteration_clustering_example.js");
+    var result = run(sparkContext);
+    return JSON.stringify(result);
+}
