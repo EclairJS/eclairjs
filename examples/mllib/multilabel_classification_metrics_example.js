@@ -47,7 +47,7 @@ function run(sc) {
  */
 
 if (typeof sparkContext === 'undefined') {
-    var sparkConf = new SparkConf().setAppName("Multilabel Classification Metrics Example").setMaster("local[*]");
+    var sparkConf = new SparkConf().setAppName("Multilabel Classification Metrics Example");
     var sc = new SparkContext(sparkConf);
     var metrics = run(sc);
 

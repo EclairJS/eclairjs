@@ -19,7 +19,7 @@
  bin/eclairjs.sh examples/mllib/lr_example.js [<input_dir>] [<step_size>] [<niters>]"
  */
 
-var directory = "examples/data/mllib/lr-data";
+var directory =  ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/lr-data";
 var stepSize = 3.0;
 var iterations = 10;
 
@@ -73,7 +73,7 @@ if (typeof sparkContext === 'undefined') {
         iterations = parseInt(args[3]);
     }
 
-    var sparkConf = new SparkConf().setAppName("LR example").setMaster("local[*]");
+    var sparkConf = new SparkConf().setAppName("LR example");
     var sc = new SparkContext(sparkConf);
     var result = run(sc);
     print("Final w: " + result);

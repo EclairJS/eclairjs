@@ -22,7 +22,7 @@ if (args.length < 2) {
 }
 
 var datapath = args[1];
-var conf = new SparkConf().setAppName("PythonSampledRDDs").setMaster("local[*]");
+var conf = new SparkConf().setAppName("PythonSampledRDDs");
 var sc = new SparkContext(conf);
 
 var fraction = 0.1  // fraction of data to sample

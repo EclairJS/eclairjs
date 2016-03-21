@@ -45,7 +45,7 @@ function run(sc, useTake) {
 /*
  check if SparkContext is defined, if it is we are being run from Unit Test
  */
-var inputFile = "examples/data/mllib/sample_fpgrowth.txt";
+var inputFile = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/sample_fpgrowth.txt";
 var minSupport = 0.3;
 var numPartition = -1;
 
@@ -61,7 +61,7 @@ if (typeof sparkContext === 'undefined') {
         numPartition = parseInt(args[3]);
     }
 
-    var sparkConf = new SparkConf().setAppName("FPGrowthExample").setMaster("local[*]");
+    var sparkConf = new SparkConf().setAppName("FPGrowthExample");
     var sc = new SparkContext(sparkConf);
     var result = run(sc);
     result.forEach(function(item){

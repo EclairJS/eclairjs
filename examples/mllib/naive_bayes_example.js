@@ -22,7 +22,7 @@
 
 function run(sc) {
 
-    var path = "examples/data/mllib/sample_libsvm_data.txt";
+    var path =  ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/sample_libsvm_data.txt";
     var inputData = MLUtils.loadLibSVMFile(sc, path);
     var tmp = inputData.randomSplit([0.6, 0.4], 12345);
     var training = tmp[0]; // training set

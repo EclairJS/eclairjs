@@ -16,7 +16,10 @@
 
 function run(sc) {
 
-    var data = MLUtils.loadLibSVMFile(sc, "examples/data/mllib/sample_binary_classification_data.txt");
+    var filename = ((typeof args !== "undefined") && (args.length > 1)) ?
+        args[1] : "examples/data/mllib/sample_binary_classification_data.txt";
+
+    var data = MLUtils.loadLibSVMFile(sc, filename);
 
 //Split data into training (60%) and test (40%)
     var split = data.randomSplit([0.6, 0.4], 11)
@@ -61,7 +64,7 @@ function run(sc) {
 
 if (typeof sparkContext === 'undefined') {
 
-    var sparkConf = new SparkConf().setAppName("Binary Classification Metrics Test").setMaster("local[*]");
+    var sparkConf = new SparkConf().setAppName("Binary Classification Metrics Test");
     var sc = new SparkContext(sparkConf);
     var result = run(sc);
 

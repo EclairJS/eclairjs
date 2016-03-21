@@ -15,11 +15,10 @@
  */
 
 var sparkConf = new SparkConf()
-  .setAppName("Random Forest Classification Example")
-  .setMaster("local[*]");
+  .setAppName("Random Forest Classification Example");
 
 var sc = new SparkContext(sparkConf);
-var datapath = "examples/data/mllib/sample_libsvm_data.txt";
+var datapath =  ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/sample_libsvm_data.txt";
 
 var data = MLUtils.loadLibSVMFile(sc, datapath);
 

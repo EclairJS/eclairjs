@@ -21,7 +21,7 @@
 
 function run(sc) {
 
-    var path = "examples/data/mllib/sample_libsvm_data.txt";
+    var path = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/sample_libsvm_data.txt";
     var data = MLUtils.loadLibSVMFile(sc, path);
     var ret = {};
 
@@ -97,7 +97,7 @@ function run(sc) {
  */
 
 if (typeof sparkContext === 'undefined') {
-    var sparkConf = new SparkConf().setAppName("L-BFGS Example").setMaster("local[*]");
+    var sparkConf = new SparkConf().setAppName("L-BFGS Example");
     var sc = new SparkContext(sparkConf);
     var result = run(sc);
     print("Loss of each step in training process");

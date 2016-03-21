@@ -15,11 +15,11 @@
  */
 
 var sparkConf = new SparkConf()
-  .setAppName("Regression Metrics Example")
-  .setMaster("local[*]");
+  .setAppName("Regression Metrics Example");
 
 var sc = new SparkContext(sparkConf);
-var data = data = sc.textFile("examples/data/mllib/sample_linear_regression_data.txt");
+var filename = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/sample_linear_regression_data.txt";
+var data = data = sc.textFile(filename);
 
 var parsedData = data.map(function(line) {
     var arr = line.split(" ");
