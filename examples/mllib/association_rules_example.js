@@ -41,7 +41,7 @@ function run(sc) {
  */
 
 if (typeof sparkContext === 'undefined')  {
-    var sparkConf = new SparkConf().setAppName("JavaScriptAssociationRulesExample").setMaster("local[*]");
+    var sparkConf = new SparkConf().setAppName("JavaScriptAssociationRulesExample");
     var sc = new SparkContext(sparkConf);
     print(run(sc));
 }

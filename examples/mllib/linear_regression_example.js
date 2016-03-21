@@ -21,7 +21,8 @@
 
 function run(sc) {
 
-    var data = sc.textFile("examples/data/lpsa.data").cache();
+    var filename = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/lpsa.data";
+    var data = sc.textFile(filename).cache();
     var parsedData = data.map(function (s) {
         var parts = s.split(",");
         var features = parts[1].split(" ");
@@ -50,7 +51,7 @@ function run(sc) {
 
 if (typeof sparkContext === 'undefined') {
 
-    var sparkConf = new SparkConf().setAppName("Linear Regression Example").setMaster("local[*]");
+    var sparkConf = new SparkConf().setAppName("Linear Regression Example");
     var sc = new SparkContext(sparkConf);
     var result = run(sc);
     print("valuesAndPreds: " + result.toString());

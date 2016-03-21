@@ -22,7 +22,7 @@
 
 function run(sc) {
 
-    var path = "examples/data/mllib/sample_multiclass_classification_data.txt";
+    var path =  ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/sample_multiclass_classification_data.txt";
     var data = MLUtils.loadLibSVMFile(sc, path);
 
     // Split initial RDD into two... [60% training data, 40% testing data].
@@ -55,7 +55,7 @@ function run(sc) {
  */
 
 if (typeof sparkContext === 'undefined') {
-    var sparkConf = new SparkConf().setAppName("Multi class Classification Metrics Example").setMaster("local[*]");
+    var sparkConf = new SparkConf().setAppName("Multi class Classification Metrics Example");
     var sc = new SparkContext(sparkConf);
     var result = run(sc);
 

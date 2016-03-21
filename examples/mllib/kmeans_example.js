@@ -19,7 +19,7 @@
  bin/eclairjs.sh examples/mllib/kmeans_example.js [<input_file>] [<k>] [<max_iterations>] [<runs>]"
  */
 
-var inputFile = "examples/data/mllib/kmeans_data.txt";
+var inputFile = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/kmeans_data.txt";
 var k = 3;
 var iterations = 10;
 var runs = 1;
@@ -64,7 +64,7 @@ if (typeof sparkContext === 'undefined') {
     if (args.length > 4) {
         runs = parseInt(args[4]);
     }
-    var sparkConf = new SparkConf().setAppName("KMeans Example").setMaster("local[*]");
+    var sparkConf = new SparkConf().setAppName("KMeans Example");
     var sc = new SparkContext(sparkConf);
     var result = run(sc);
     print("Cluster centers:");

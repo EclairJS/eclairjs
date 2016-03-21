@@ -21,7 +21,8 @@
 
 function run(sc) {
 
-    var data = sc.textFile("examples/data/mllib/sample_isotonic_regression_data.txt");
+    var filename = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/sample_isotonic_regression_data.txt";
+    var data = sc.textFile(filename);
 
     // Create label, feature, weight tuples from input data with weight set to default value 1.0.
     var parsedData = data.map(function (line) {
@@ -64,7 +65,7 @@ function run(sc) {
  */
 
 if (typeof sparkContext === 'undefined') {
-    var sparkConf = new SparkConf().setAppName("Isotonic Regression Example").setMaster("local[*]");
+    var sparkConf = new SparkConf().setAppName("Isotonic Regression Example");
     var sc = new SparkContext(sparkConf);
     var result = run(sc);
     print("Mean Squared Error = " + result.meanSquaredError);

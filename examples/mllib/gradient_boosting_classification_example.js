@@ -23,7 +23,7 @@
 function run(sc) {
 
     // Load and parse the data file.
-    var datapath = "examples/data/mllib/sample_libsvm_data.txt";
+    var datapath = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/sample_libsvm_data.txt";
     var data = MLUtils.loadLibSVMFile(sc, datapath);
     // Split the data into training and test sets (30% held out for testing)
     var splits = data.randomSplit([0.7, 0.3]);
@@ -65,7 +65,7 @@ function run(sc) {
  */
 
 if (typeof sparkContext === 'undefined') {
-    var sparkConf = new SparkConf().setAppName("Gradient Boosting Classification").setMaster("local[*]");
+    var sparkConf = new SparkConf().setAppName("Gradient Boosting Classification");
     var sc = new SparkContext(sparkConf);
     var result = run(sc);
     print("Test Error: " + result.testErr);

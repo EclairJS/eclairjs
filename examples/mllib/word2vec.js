@@ -35,7 +35,7 @@ if (args.length < 2) {
 }
 
 var file_path = args[1];
-var conf = new SparkConf().setAppName("Word2Vec").setMaster("local[*]");
+var conf = new SparkConf().setAppName("Word2Vec");
 var sc = new SparkContext(conf);
 var inp = sc.textFile(file_path).map(function(s) {
     return new List(s.split(" "));

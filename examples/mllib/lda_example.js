@@ -22,7 +22,7 @@
 function run(sc) {
 
     // Load and parse the data
-    var path = "examples/data/mllib/sample_lda_data.txt";
+    var path = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/sample_lda_data.txt";
     var data = sc.textFile(path);
     var parsedData = data.map(function (s) {
        var sarray = s.trim().split(" ");
@@ -62,7 +62,7 @@ function run(sc) {
  */
 
 if (typeof sparkContext === 'undefined') {
-    var sparkConf = new SparkConf().setAppName("LDA Example").setMaster("local[*]");
+    var sparkConf = new SparkConf().setAppName("LDA Example");
     var sc = new SparkContext(sparkConf);
     var result = run(sc);
     print("Learned topics (as distributions over vocab of " + result.vocabSize + " words):");

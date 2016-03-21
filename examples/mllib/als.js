@@ -28,7 +28,7 @@ if (args.length < 5) {
         "Usage: bin/eclairjs.sh examples/mllib/als.js <ratings_file> <rank> <iterations> <output_dir> [<blocks>]");
     exit(1);
 }
-var sparkConf = new SparkConf().setAppName("JavaALS").setMaster("local[*]");
+var sparkConf = new SparkConf().setAppName("JavaALS");
 var rank = parseInt(args[2]);
 var iterations = parseInt(args[3]);
 var outputDir = args[4];
