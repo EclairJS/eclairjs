@@ -591,4 +591,28 @@ public class MlLibTest {
 
     }
 
+    /*
+        Vectors.dense()
+        RowMatrix()
+        RowMatrix.computeSVD()
+        SingularValueDecomposition.U()
+        SingularValueDecomposition.s()
+        SingularValueDecomposition.V()
+        
+     */
+
+    @Test
+    public void SVDExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
+
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
+        Object ret = ((Invocable)engine).invokeFunction("SVDExample");
+
+        String expected = "[27.33836680427936,2.437246301571649,0.6560723589297411]";
+
+        assertEquals("failure - strings are not equal", expected, ret.toString());
+
+    }
+
 }

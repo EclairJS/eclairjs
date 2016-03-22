@@ -200,3 +200,9 @@ var RecommendationExample = function() {
         return "failed";
     }
 }
+
+var SVDExample = function() {
+    load("examples/mllib/svd_example.js");
+    var result = run(sparkContext);
+    return JSON.stringify(result.s);
+}
