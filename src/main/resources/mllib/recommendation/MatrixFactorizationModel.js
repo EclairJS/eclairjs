@@ -61,7 +61,7 @@ MatrixFactorizationModel.prototype.constructor = MatrixFactorizationModel;
  * @returns {RDD | number}
  */
 MatrixFactorizationModel.prototype.predict = function(user,product) {
-  // // TODO: handle Tuple conversion for 'usersProducts'
+  //  TODO: handle Tuple conversion for 'usersProducts'
   if (product) {
     return this.getJavaObject().predict(user, product);
   } else {
@@ -122,9 +122,8 @@ throw "not implemented by ElairJS";
  *              If the directory already exists, this method throws an exception.
  */
 MatrixFactorizationModel.prototype.save = function(sc,path) {
-throw "not implemented by ElairJS";
-//   var sc_uw = Utils.unwrapObject(sc);
-//    this.getJavaObject().save(sc_uw,path);
+   var sc_uw = Utils.unwrapObject(sc);
+    this.getJavaObject().save(sc_uw.sc(),path);
 };
 
 
@@ -188,9 +187,8 @@ MatrixFactorizationModel.prototype.productFeatures = function() {
  * @returns {MatrixFactorizationModel}   Model instance
  */
 MatrixFactorizationModel.load = function(sc,path) {
-throw "not implemented by ElairJS";
-//   var sc_uw = Utils.unwrapObject(sc);
-//   var javaObject =  org.apache.spark.mllib.recommendation.MatrixFactorizationModel.load(sc_uw,path);
-//   return new MatrixFactorizationModel(javaObject);
+   var sc_uw = Utils.unwrapObject(sc);
+   var javaObject =  org.apache.spark.mllib.recommendation.MatrixFactorizationModel.load(sc_uw.sc(),path);
+   return new MatrixFactorizationModel(javaObject);
 };
 
