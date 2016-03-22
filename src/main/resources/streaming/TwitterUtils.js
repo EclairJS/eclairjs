@@ -27,7 +27,7 @@ var TwitterAuthorization =Java.type('twitter4j.auth.Authorization');
  * Create a input stream that returns tweets received from Twitter.
  * Storage level of the data will be the default StorageLevel.MEMORY_AND_DISK_SER_2.
  * @param {JavaStreamingContext} jssc         JavaStreamingContext object
- * @param {Authorization} twitterAuth  Twitter4J Authorization
+ * @param {TwitterAuthorization} twitterAuth  Twitter  Authorization
  * @param {string[]} filters      Set of filter strings to get only those tweets that match them
  * @returns {JavaReceiverInputDStream}
  */
@@ -152,3 +152,29 @@ throw "not implemented by ElairJS";
 //   var javaObject =  org.apache.spark.streaming.twitter.TwitterUtils.createStream(jssc_uw,twitterAuth_uw,filters,storageLevel_uw);
 //   return new JavaReceiverInputDStream(javaObject);
 };
+
+
+
+
+
+/**
+ * @constructor
+ * @classdesc Twitter Authorization.
+ * @param {string} oauthConsumerKey
+ * @param {string} oauthConsumerSecret
+ * @param {string} oauthAccessToken
+ * @param {string} oauthAccessTokenSecret
+ */
+var TwitterAuthorization = function(oauthConsumerKey,oauthConsumerSecret,oauthAccessToken,oauthAccessTokenSecret) {
+    var AuthorizationFactory=Java.type("twitter4j.auth.AuthorizationFactory");
+    var ConfigurationBuilder=Java.type("twitter4j.conf.ConfigurationBuilder");
+    var conf=new ConfigurationBuilder().setOAuthConsumerKey(oauthConsumerKey).setOAuthConsumerSecret(oauthConsumerSecret).
+      setOAuthAccessToken(oauthAccessToken).setOAuthAccessTokenSecret(oauthAccessTokenSecret).build();
+    var auth=AuthorizationFactory.getInstance(conf);
+    JavaWrapper.call(this, auth);
+
+};
+
+TwitterAuthorization.prototype = Object.create(JavaWrapper.prototype);
+
+TwitterAuthorization.prototype.constructor = TwitterAuthorization;
