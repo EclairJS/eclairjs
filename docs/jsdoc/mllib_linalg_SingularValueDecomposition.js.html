@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: streaming/Duration.js</title>
+    <title>JSDoc: Source: mllib/linalg/SingularValueDecomposition.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: streaming/Duration.js</h1>
+    <h1 class="page-title">Source: mllib/linalg/SingularValueDecomposition.js</h1>
 
     
 
@@ -26,8 +26,8 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/*
- * Copyright 2015 IBM Corp.
+            <pre class="prettyprint source linenums"><code>/*                                                                         
+ * Copyright 2016 IBM Corp.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,125 +42,99 @@
  * limitations under the License.
  */
 
-var JavaDuration = Java.type("org.apache.spark.streaming.Duration");
+
 /**
- * @constructor
- * @classdesc Duration of time to wait.
- * @param {long} millis
+ * Represents singular value decomposition (SVD) factors.
+ * @classdesc
+ * @param {UType} U
+ * @param {Vector} s
+ * @param {VType} V
+ * @class
  */
-var Duration = function(millis) { 
-	var jvmObj = new JavaDuration(millis);
-	this.logger = Logger.getLogger("streaming.Duration_js");
-	JavaWrapper.call(this, jvmObj);
+var SingularValueDecomposition = function (U, s, V) {
+    var jvmObject;
+    this.logger = Logger.getLogger("SingularValueDecomposition_js");
+    if (arguments[0] instanceof org.apache.spark.mllib.linalg.SingularValueDecomposition) {
+        jvmObject = arguments[0];
+    } else {
+        jvmObject = new org.apache.spark.mllib.linalg.SingularValueDecomposition(
+            Utils.unwrapObject(U),
+            Utils.unwrapObject(s),
+            Utils.unwrapObject(V)
+        );
+    }
+
+    JavaWrapper.call(this, jvmObject);
+
 };
 
-Duration.prototype = Object.create(JavaWrapper.prototype); 
+SingularValueDecomposition.prototype = Object.create(JavaWrapper.prototype);
 
-Duration.prototype.constructor = Duration;
+SingularValueDecomposition.prototype.constructor = SingularValueDecomposition;
+
 /**
- * 
- * @param {Duration} that
- * @returns {double}
+ * @returns {Vector}
  */
-Duration.prototype.div = function(that) {
-    return this.getJavaObject().div(Utils.unwrapObject(that));
+SingularValueDecomposition.prototype.s = function() {
+    return Utils.javaToJs(this.getJavaObject().s());
 };
+
 /**
- * 
- * @param {Duration} that
- * @returns {boolean}
+ * @returns {UType}
  */
-Duration.prototype.greater = function(that) {
-    return this.getJavaObject().greater(Utils.unwrapObject(that));
+SingularValueDecomposition.prototype.U = function() {
+    return Utils.javaToJs(this.getJavaObject().U());
 };
+
 /**
- * 
- * @param {Duration} that
- * @returns {boolean}
+ * @returns {VType}
  */
-Duration.prototype.greaterEq = function(that) {
-    return this.getJavaObject().greaterEq(Utils.unwrapObject(that));
+SingularValueDecomposition.prototype.V = function() {
+    return Utils.javaToJs(this.getJavaObject().V());
 };
+
+
 /**
- * 
- * @param {Duration} that
- * @returns {boolean}
+ * :: Experimental ::
+ * Represents QR factors.
+ * @classdesc
+ * @param {QType} Q
+ * @param {RType} R
+ * @class
  */
-Duration.prototype.isMultipleOf = function(that) {
-    return this.getJavaObject().isMultipleOf(Utils.unwrapObject(that));
+var QRDecomposition = function (Q, R) {
+    var jvmObject;
+    this.logger = Logger.getLogger("QRDecomposition_js");
+    if (arguments[0] instanceof org.apache.spark.mllib.linalg.QRDecomposition) {
+        jvmObject = arguments[0];
+    } else {
+        jvmObject = new org.apache.spark.mllib.linalg.QRDecomposition(
+            Utils.unwrapObject(Q),
+            Utils.unwrapObject(R)
+        );
+    }
+    JavaWrapper.call(this, jvmObject);
+
 };
+
+QRDecomposition.prototype = Object.create(JavaWrapper.prototype);
+
+QRDecomposition.prototype.constructor = QRDecomposition;
+
 /**
- * @returns {boolean}
+ *
+ * @returns {QType}
  */
-Duration.prototype.isZero = function() {
-    return this.getJavaObject().isZero();
+QRDecomposition.prototype.Q = function() {
+    return Utils.javaToJs(this.getJavaObject().Q());
 };
+
 /**
- * 
- * @param {Duration} that
- * @returns {boolean}
+ *
+ * @returns {RType}
  */
-Duration.prototype.less = function(that) {
-    return this.getJavaObject().less(Utils.unwrapObject(that));
-};
-/**
- * 
- * @param {Duration} that
- * @returns {boolean}
- */
-Duration.prototype.lessEq = function(that) {
-    return this.getJavaObject().lessEq(Utils.unwrapObject(that));
-};
-/**
- * 
- * @param {Duration} that
- * @returns {Duration}
- */
-Duration.prototype.max = function(that) {
-    var d = this.getJavaObject().max(Utils.unwrapObject(that));
-    return new Duration(d);
-};
-/**
- * 
- * @returns {long}
- */
-Duration.prototype.milliseconds = function() {
-    return this.getJavaObject().milliseconds();
-};
-/**
- * @param {Duration} that
- * @returns {Duration}
- */
-Duration.prototype.min = function(that) {
-    var d = this.getJavaObject().min(Utils.unwrapObject(that));
-    return new Duration(d);
-};
-/**
- * 
- * @param {Duration} that
- * @returns {Duration}
- */
-Duration.prototype.minus = function(that) {
-    var d = this.getJavaObject().minus(Utils.unwrapObject(that));
-    return new Duration(d);
-};
-/**
- * 
- * @param {Duration} that
- * @returns {Duration}
- */
-Duration.prototype.plus = function(that) {
-    var d = this.getJavaObject().plus(Utils.unwrapObject(that));
-    return new Duration(d);
-};
-/**
- * 
- * @param {integer} times
- * @returns {Duration}
- */
-Duration.prototype.times = function(times) {
-    var d = this.getJavaObject().times();
-    return new Duration(d);
+QRDecomposition.prototype.R = function() {
+    return Utils.javaToJs(this.getJavaObject().R());
 };
 </code></pre>
         </article>

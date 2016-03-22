@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: streaming/Duration.js</title>
+    <title>JSDoc: Class: SingularValueDecomposition</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,154 +17,518 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: streaming/Duration.js</h1>
+    <h1 class="page-title">Class: SingularValueDecomposition</h1>
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/*
- * Copyright 2015 IBM Corp.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+        <h2>
+        SingularValueDecomposition
+        </h2>
+        
+    
+</header>
 
-var JavaDuration = Java.type("org.apache.spark.streaming.Duration");
-/**
- * @constructor
- * @classdesc Duration of time to wait.
- * @param {long} millis
- */
-var Duration = function(millis) { 
-	var jvmObj = new JavaDuration(millis);
-	this.logger = Logger.getLogger("streaming.Duration_js");
-	JavaWrapper.call(this, jvmObj);
-};
+<article>
+    <div class="container-overview">
+    
+        
 
-Duration.prototype = Object.create(JavaWrapper.prototype); 
+    
 
-Duration.prototype.constructor = Duration;
-/**
- * 
- * @param {Duration} that
- * @returns {double}
- */
-Duration.prototype.div = function(that) {
-    return this.getJavaObject().div(Utils.unwrapObject(that));
-};
-/**
- * 
- * @param {Duration} that
- * @returns {boolean}
- */
-Duration.prototype.greater = function(that) {
-    return this.getJavaObject().greater(Utils.unwrapObject(that));
-};
-/**
- * 
- * @param {Duration} that
- * @returns {boolean}
- */
-Duration.prototype.greaterEq = function(that) {
-    return this.getJavaObject().greaterEq(Utils.unwrapObject(that));
-};
-/**
- * 
- * @param {Duration} that
- * @returns {boolean}
- */
-Duration.prototype.isMultipleOf = function(that) {
-    return this.getJavaObject().isMultipleOf(Utils.unwrapObject(that));
-};
-/**
- * @returns {boolean}
- */
-Duration.prototype.isZero = function() {
-    return this.getJavaObject().isZero();
-};
-/**
- * 
- * @param {Duration} that
- * @returns {boolean}
- */
-Duration.prototype.less = function(that) {
-    return this.getJavaObject().less(Utils.unwrapObject(that));
-};
-/**
- * 
- * @param {Duration} that
- * @returns {boolean}
- */
-Duration.prototype.lessEq = function(that) {
-    return this.getJavaObject().lessEq(Utils.unwrapObject(that));
-};
-/**
- * 
- * @param {Duration} that
- * @returns {Duration}
- */
-Duration.prototype.max = function(that) {
-    var d = this.getJavaObject().max(Utils.unwrapObject(that));
-    return new Duration(d);
-};
-/**
- * 
- * @returns {long}
- */
-Duration.prototype.milliseconds = function() {
-    return this.getJavaObject().milliseconds();
-};
-/**
- * @param {Duration} that
- * @returns {Duration}
- */
-Duration.prototype.min = function(that) {
-    var d = this.getJavaObject().min(Utils.unwrapObject(that));
-    return new Duration(d);
-};
-/**
- * 
- * @param {Duration} that
- * @returns {Duration}
- */
-Duration.prototype.minus = function(that) {
-    var d = this.getJavaObject().minus(Utils.unwrapObject(that));
-    return new Duration(d);
-};
-/**
- * 
- * @param {Duration} that
- * @returns {Duration}
- */
-Duration.prototype.plus = function(that) {
-    var d = this.getJavaObject().plus(Utils.unwrapObject(that));
-    return new Duration(d);
-};
-/**
- * 
- * @param {integer} times
- * @returns {Duration}
- */
-Duration.prototype.times = function(times) {
-    var d = this.getJavaObject().times();
-    return new Duration(d);
-};
-</code></pre>
-        </article>
-    </section>
+    <h4 class="name" id="SingularValueDecomposition"><span class="type-signature"></span>new SingularValueDecomposition<span class="signature">(U, s, V)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Represents singular value decomposition (SVD) factors.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>U</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">UType</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>s</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Vector.html">Vector</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>V</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">VType</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mllib_linalg_SingularValueDecomposition.js.html">mllib/linalg/SingularValueDecomposition.js</a>, <a href="mllib_linalg_SingularValueDecomposition.js.html#line26">line 26</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="s"><span class="type-signature"></span>s<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Vector.html">Vector</a>}</span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mllib_linalg_SingularValueDecomposition.js.html">mllib/linalg/SingularValueDecomposition.js</a>, <a href="mllib_linalg_SingularValueDecomposition.js.html#line50">line 50</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Vector.html">Vector</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="U"><span class="type-signature"></span>U<span class="signature">()</span><span class="type-signature"> &rarr; {UType}</span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mllib_linalg_SingularValueDecomposition.js.html">mllib/linalg/SingularValueDecomposition.js</a>, <a href="mllib_linalg_SingularValueDecomposition.js.html#line57">line 57</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">UType</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="V"><span class="type-signature"></span>V<span class="signature">()</span><span class="type-signature"> &rarr; {VType}</span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mllib_linalg_SingularValueDecomposition.js.html">mllib/linalg/SingularValueDecomposition.js</a>, <a href="mllib_linalg_SingularValueDecomposition.js.html#line64">line 64</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">VType</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 
@@ -178,7 +542,7 @@ Duration.prototype.times = function(times) {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Tue Mar 22 2016 17:13:10 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Tue Mar 22 2016 17:13:19 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>
