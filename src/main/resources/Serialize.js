@@ -45,7 +45,7 @@ Serialize.javaList = function (javaObj) {
     if (javaObj instanceof java.util.List) {
         var res = [];
         for (var i = 0; i < javaObj.size(); i++) {
-            res.push(javaObj.get(i));
+            res.push(Serialize.javaToJs(javaObj.get(i)));
         }
 
         return res;
@@ -149,6 +149,7 @@ var java2wrapper = {
     "JavaPairReceiverInputDStream": "PairDStream",
     "JavaFutureActionWrapper": "FutureAction",
     "Assignment": "PowerIterationClusteringAssignment", // PowerIterationClustering$Assignment
+    "FreqSequence": "PrefixSpanFreqSequence", // PrefixSpan$FreqSequence
     "last_place_holder": ""
 };
 Serialize.javaSparkObject = function (javaObj) {
@@ -260,7 +261,8 @@ Serialize.jsToJava = function (obj) {
             for (var x = 0; x < l.length - 1; x++) {
                 if (l[x].class.name !== l[x + 1].class.name) {
                     type = "java.lang.Object";
-                    x = l.length;
+                    //x = l.length;
+                    break;
                 }
                 type = l[x].class.name;
             }
