@@ -246,6 +246,9 @@ Serialize.jsToJava = function (obj) {
         }
 
         if (Array.isArray(obj)) {
+            if (obj.length < 1) {
+                return;
+            }
             var l = [];
             //var l = new java.util.ArrayList();
             obj.forEach(function (item) {
