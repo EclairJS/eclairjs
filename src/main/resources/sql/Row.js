@@ -262,6 +262,15 @@ Row.prototype.getString = function(index) {
 	return this.getJavaObject().getString(index);
 };
 /**
+ * Returns the value at position i of array type as List.
+ * @param {integer} index
+ * @returns {Array}
+ */
+Row.prototype.getList = function(index) {
+    var l = this.getJavaObject().getList(index);
+    return Serialize.javaList(l);
+};
+/**
  * Returns the value at position index of  struct type as an Row object.
  * @param {integer} index
  * @returns {String}
