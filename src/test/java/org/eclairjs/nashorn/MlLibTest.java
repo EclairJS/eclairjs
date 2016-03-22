@@ -533,4 +533,34 @@ public class MlLibTest {
 
     }
 
+    /*
+        PrefixSpan()
+        PrefixSpan.setMinSupport()
+        PrefixSpan.setMaxPatternLength();
+        PrefixSpan.run();
+        PrefixSpanModel.freqSequences()
+        PrefixSpanFreqSequence.sequence()
+        PrefixSpanFreqSequence.freq()
+     */
+
+    @Test
+    public void PrefixSpanExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
+
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
+        Object ret = ((Invocable)engine).invokeFunction("PrefixSpanExample");
+
+        String expected = "[" +
+                "{\"freq\":3,\"sequence\":[[2]]}," +
+                "{\"freq\":2,\"sequence\":[[3]]}," +
+                "{\"freq\":3,\"sequence\":[[1]]}," +
+                "{\"freq\":3,\"sequence\":[[2,1]]}," +
+                "{\"freq\":2,\"sequence\":[[1],[3]]}" +
+                "]";
+
+        assertEquals("failure - strings are not equal", expected, ret.toString());
+
+    }
+
 }

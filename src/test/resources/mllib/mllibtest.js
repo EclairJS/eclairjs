@@ -184,3 +184,9 @@ var PowerIterationClusteringExample = function() {
     var result = run(sparkContext);
     return JSON.stringify(result);
 }
+
+var PrefixSpanExample = function() {
+    load("examples/mllib/prefix_span_example.js");
+    var result = run(sparkContext);
+    return JSON.stringify(result);
+}
