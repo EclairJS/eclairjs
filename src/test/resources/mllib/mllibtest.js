@@ -190,3 +190,13 @@ var PrefixSpanExample = function() {
     var result = run(sparkContext);
     return JSON.stringify(result);
 }
+
+var RecommendationExample = function() {
+    load("examples/mllib/recommendation_example.js");
+    var result = run(sparkContext);
+    if (result.MSE > 0) {
+        return "successful";
+    } else {
+        return "failed";
+    }
+}

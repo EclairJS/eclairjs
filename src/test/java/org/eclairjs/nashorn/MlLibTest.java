@@ -563,4 +563,32 @@ public class MlLibTest {
 
     }
 
+    /*
+        ALS.train()
+        MatrixFactorizationModel.predict()
+        Rating()
+        Rating.user()
+        Rating.product()
+        Rating.rating()
+        PairRDD.fromRDD()
+        PairRDD.join()
+        PairRDD.values()
+        FloatRDD.fromRDD()
+        FloatRDD.mean()
+     */
+
+    @Test
+    public void RecommendationExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
+
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
+        Object ret = ((Invocable)engine).invokeFunction("RecommendationExample");
+
+        String expected = "successful";
+
+        assertEquals("failure - strings are not equal", expected, ret.toString());
+
+    }
+
 }
