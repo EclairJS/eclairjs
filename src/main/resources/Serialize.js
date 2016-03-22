@@ -260,7 +260,8 @@ Serialize.jsToJava = function (obj) {
             for (var x = 0; x < l.length - 1; x++) {
                 if (l[x].class.name !== l[x + 1].class.name) {
                     type = "java.lang.Object";
-                    x = l.length;
+                    //x = l.length;
+                    break;
                 }
                 type = l[x].class.name;
             }
