@@ -508,4 +508,111 @@ public class MlLibTest {
 
     }
 
+    /*
+        PowerIterationClustering()
+        PowerIterationClustering.setK()
+        PowerIterationClustering.setMaxIterations();
+        PowerIterationClustering.run();
+        PowerIterationClusteringModel.assignments()
+        PowerIterationClusteringAssignment.id()
+        PowerIterationClusteringAssignment.cluster()
+     */
+
+    @Test
+    public void PowerIterationClusteringExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
+
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
+        Object ret = ((Invocable)engine).invokeFunction("PowerIterationClusteringExample");
+
+        String expected = "[{\"id\":0,\"cluster\":1},{\"id\":1,\"cluster\":0},{\"id\":2,\"cluster\":0}," +
+                "{\"id\":3,\"cluster\":1},{\"id\":4,\"cluster\":0},{\"id\":5,\"cluster\":0}]";
+
+        assertEquals("failure - strings are not equal", expected, ret.toString());
+
+    }
+
+    /*
+        PrefixSpan()
+        PrefixSpan.setMinSupport()
+        PrefixSpan.setMaxPatternLength();
+        PrefixSpan.run();
+        PrefixSpanModel.freqSequences()
+        PrefixSpanFreqSequence.sequence()
+        PrefixSpanFreqSequence.freq()
+     */
+
+    @Test
+    public void PrefixSpanExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
+
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
+        Object ret = ((Invocable)engine).invokeFunction("PrefixSpanExample");
+
+        String expected = "[" +
+                "{\"freq\":3,\"sequence\":[[2]]}," +
+                "{\"freq\":2,\"sequence\":[[3]]}," +
+                "{\"freq\":3,\"sequence\":[[1]]}," +
+                "{\"freq\":3,\"sequence\":[[2,1]]}," +
+                "{\"freq\":2,\"sequence\":[[1],[3]]}" +
+                "]";
+
+        assertEquals("failure - strings are not equal", expected, ret.toString());
+
+    }
+
+    /*
+        ALS.train()
+        MatrixFactorizationModel.predict()
+        Rating()
+        Rating.user()
+        Rating.product()
+        Rating.rating()
+        PairRDD.fromRDD()
+        PairRDD.join()
+        PairRDD.values()
+        FloatRDD.fromRDD()
+        FloatRDD.mean()
+     */
+
+    @Test
+    public void RecommendationExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
+
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
+        Object ret = ((Invocable)engine).invokeFunction("RecommendationExample");
+
+        String expected = "successful";
+
+        assertEquals("failure - strings are not equal", expected, ret.toString());
+
+    }
+
+    /*
+        Vectors.dense()
+        RowMatrix()
+        RowMatrix.computeSVD()
+        SingularValueDecomposition.U()
+        SingularValueDecomposition.s()
+        SingularValueDecomposition.V()
+        
+     */
+
+    @Test
+    public void SVDExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
+
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
+        Object ret = ((Invocable)engine).invokeFunction("SVDExample");
+
+        String expected = "[27.33836680427936,2.437246301571649,0.6560723589297411]";
+
+        assertEquals("failure - strings are not equal", expected, ret.toString());
+
+    }
+
 }

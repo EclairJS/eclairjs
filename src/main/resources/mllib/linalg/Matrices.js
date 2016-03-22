@@ -158,6 +158,9 @@ Matrix.prototype.toString = function (maxLines, maxLineWidth) {
     }
 };
 
+Matrix.prototype.toJSON = function () {
+    return this.toArray();
+};
 
 /**
  * Find the number of non-zero active values.

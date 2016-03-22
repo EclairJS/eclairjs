@@ -178,3 +178,31 @@ var pcaExample = function() {
     var result = run(sparkContext);
     return JSON.stringify(result);
 }
+
+var PowerIterationClusteringExample = function() {
+    load("examples/mllib/power_iteration_clustering_example.js");
+    var result = run(sparkContext);
+    return JSON.stringify(result);
+}
+
+var PrefixSpanExample = function() {
+    load("examples/mllib/prefix_span_example.js");
+    var result = run(sparkContext);
+    return JSON.stringify(result);
+}
+
+var RecommendationExample = function() {
+    load("examples/mllib/recommendation_example.js");
+    var result = run(sparkContext);
+    if (result.MSE > 0) {
+        return "successful";
+    } else {
+        return "failed";
+    }
+}
+
+var SVDExample = function() {
+    load("examples/mllib/svd_example.js");
+    var result = run(sparkContext);
+    return JSON.stringify(result.s);
+}

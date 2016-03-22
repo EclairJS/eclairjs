@@ -15,9 +15,6 @@
  */
 
 
-org.apache.log4j.Logger.getLogger("org").setLevel(org.apache.log4j.Level.WARN);
-org.apache.log4j.Logger.getLogger("akka").setLevel(org.apache.log4j.Level.WARN);
-
 var initSparkContext = function (conf) {
     var logger = Logger.getLogger("SparkContext_js");
     if (typeof kernel !== 'undefined') {

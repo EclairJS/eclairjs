@@ -94,20 +94,19 @@ RowMatrix.prototype.computeGramianMatrix = function() {
  * @note The conditions that decide which method to use internally and the default parameters are
  *       subject to change.
  *
- * @param {number} k  number of leading singular values to keep (0 &lt; k &lt;= n).
+ * @param {integer} k  number of leading singular values to keep (0 &lt; k &lt;= n).
  *          It might return less than k if
  *          there are numerically zero singular values or there are not enough Ritz values
  *          converged before the maximum number of Arnoldi update iterations is reached (in case
  *          that matrix A is ill-conditioned).
  * @param {boolean} computeU  whether to compute U
- * @param {number} rCond  the reciprocal condition number. All singular values smaller than rCond * sigma(0)
+ * @param {float} rCond  the reciprocal condition number. All singular values smaller than rCond * sigma(0)
  *              are treated as zero, where sigma(0) is the largest singular value.
  * @returns {SingularValueDecomposition}  SingularValueDecomposition(U, s, V). U = null if computeU = false.
  */
 RowMatrix.prototype.computeSVD = function(k,computeU,rCond) {
-throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().computeSVD(k,computeU,rCond);
-//   return new SingularValueDecomposition(javaObject);
+   var javaObject =  this.getJavaObject().computeSVD(k,computeU,rCond);
+   return new SingularValueDecomposition(javaObject);
 };
 
 

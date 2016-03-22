@@ -45,7 +45,7 @@ Serialize.javaList = function (javaObj) {
     if (javaObj instanceof java.util.List) {
         var res = [];
         for (var i = 0; i < javaObj.size(); i++) {
-            res.push(javaObj.get(i));
+            res.push(Serialize.javaToJs(javaObj.get(i)));
         }
 
         return res;
@@ -57,7 +57,7 @@ Serialize.javaList = function (javaObj) {
 Serialize.scalaProductClass = Java.type("scala.Product");
 Serialize.scalaTuple = function (javaObj) {
     var ret = false;
-    if ((javaObj instanceof Serialize.scalaProductClass) && (javaObj.getClass().getName().indexOf("scala.Tuple") > -1))  {
+    if ((javaObj instanceof Serialize.scalaProductClass) && (javaObj.getClass().getName().indexOf("scala.Tuple") > -1)) {
         Serialize.logger.debug("Tuple - " + javaObj.toString());
         ret = new Tuple(javaObj);
     }
@@ -137,18 +137,20 @@ Serialize.javaSeqWrapper = function (javaObj) {
 
 // Map java class name to wrapper class name
 var java2wrapper = {
-  "JavaRDD" : "RDD",
-  "JavaDoubleRDD" : "FloatRDD",
-  "JavaPairRDD" : "PairRDD",
-  "JavaDStream" : "DStream",
-  "JavaInputDStream" : "DStream",
-  "JavaReceiverInputDStream" : "DStream",
-  "JavaMapWithStateDStream" : "DStream",
-  "JavaPairDStream" : "PairDStream",
-  "JavaPairInputDStream" : "PairDStream",
-  "JavaPairReceiverInputDStream" : "PairDStream",
-  "JavaFutureActionWrapper" : "FutureAction",
-  "last_place_holder" : ""
+    "JavaRDD": "RDD",
+    "JavaDoubleRDD": "FloatRDD",
+    "JavaPairRDD": "PairRDD",
+    "JavaDStream": "DStream",
+    "JavaInputDStream": "DStream",
+    "JavaReceiverInputDStream": "DStream",
+    "JavaMapWithStateDStream": "DStream",
+    "JavaPairDStream": "PairDStream",
+    "JavaPairInputDStream": "PairDStream",
+    "JavaPairReceiverInputDStream": "PairDStream",
+    "JavaFutureActionWrapper": "FutureAction",
+    "Assignment": "PowerIterationClusteringAssignment", // PowerIterationClustering$Assignment
+    "FreqSequence": "PrefixSpanFreqSequence", // PrefixSpan$FreqSequence
+    "last_place_holder": ""
 };
 Serialize.javaSparkObject = function (javaObj) {
     if (javaObj == null) {
@@ -177,7 +179,7 @@ Serialize.javaSparkObject = function (javaObj) {
         javaObj = javaObj.toJavaRDD();
 
     } else if (java2wrapper[className])
-       className=java2wrapper[className]
+        className = java2wrapper[className]
     else if (className === "Word2Vec" || className === "Word2VecModel") {
         if (packageName.indexOf("org.apache.spark.ml") > -1) {
             //ML
@@ -192,7 +194,7 @@ Serialize.javaSparkObject = function (javaObj) {
     return eval("new " + className + "(javaObj)");
 };
 
-Serialize.JSONObject = function(javaObj) {
+Serialize.JSONObject = function (javaObj) {
     if (javaObj instanceof org.json.simple.JSONObject) {
         var jsonStr = javaObj.toJSONString();
         Serialize.logger.debug("JSONObject " + jsonStr)
@@ -212,23 +214,23 @@ Serialize.handlers = [
     Serialize.JSONObject
 ];
 
-Serialize.javaToJs = function(javaObj) {
-  var t = (typeof javaObj);
-  if(t == 'number' || t == 'string') {
-      return javaObj;
-  }
-
-  var res = null;
-  for(var i=0; i<Serialize.handlers.length; i++) {
-    var fn = Serialize.handlers[i];
-    var ret = fn(javaObj);
-    if(ret) {
-        res = ret;
-        break;
+Serialize.javaToJs = function (javaObj) {
+    var t = (typeof javaObj);
+    if (t == 'number' || t == 'string') {
+        return javaObj;
     }
-  }
 
-  return res ? res : javaObj;
+    var res = null;
+    for (var i = 0; i < Serialize.handlers.length; i++) {
+        var fn = Serialize.handlers[i];
+        var ret = fn(javaObj);
+        if (ret) {
+            res = ret;
+            break;
+        }
+    }
+
+    return res ? res : javaObj;
 };
 
 Serialize.JavaScriptObjectMirrorClass = Java.type('jdk.nashorn.api.scripting.ScriptObjectMirror');
@@ -244,6 +246,9 @@ Serialize.jsToJava = function (obj) {
         }
 
         if (Array.isArray(obj)) {
+            if (obj.length < 1) {
+                return;
+            }
             var l = [];
             //var l = new java.util.ArrayList();
             obj.forEach(function (item) {
@@ -253,13 +258,14 @@ Serialize.jsToJava = function (obj) {
             Serialize.logger.debug("Array " + l);
             //return l.toArray();
             /*
-            run through the array
+             run through the array
              */
             var type = l[0].class.name; //"java.lang.Object";
-            for (var x = 0; x < l.length -1; x++) {
-                if (l[x].class.name !== l[x+1].class.name) {
+            for (var x = 0; x < l.length - 1; x++) {
+                if (l[x].class.name !== l[x + 1].class.name) {
                     type = "java.lang.Object";
-                    x = l.length;
+                    //x = l.length;
+                    break;
                 }
                 type = l[x].class.name;
             }

@@ -449,9 +449,8 @@ FloatRDD.prototype.setName = function (name) {
  * @returns {FloatRDD}
  */
 FloatRDD.fromRDD = function (rdd) {
-    throw "not implemented by ElairJS";
-//   var rdd_uw = Utils.unwrapObject(rdd);
-//   return  org.apache.spark.api.java.JavaDoubleRDD.fromRDD(rdd_uw);
+   var rdd_uw = Utils.unwrapObject(rdd);
+   return  Utils.javaToJs(org.apache.spark.api.java.JavaDoubleRDD.fromRDD(rdd_uw.rdd()));
 };
 
 
