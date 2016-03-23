@@ -1204,7 +1204,7 @@ RDD.prototype.zipWithUniqueId = function() {
 /**
  * The asynchronous version of `collect`, which returns a future for
  * retrieving an array containing all of the elements in this RDD.
- * @returns {JavaFutureAction}
+ * @returns {FutureAction}
  */
 RDD.prototype.collectAsync = function() {
   var javaObject =  this.getJavaObject().collectAsync();
