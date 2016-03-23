@@ -206,3 +206,9 @@ var SVDExample = function() {
     var result = run(sparkContext);
     return JSON.stringify(result.s);
 }
+
+var SVMwithSGDExample = function() {
+    load("examples/mllib/svm_with_sgd_example.js");
+    var result = run(sparkContext);
+    return result.auROC;
+}
