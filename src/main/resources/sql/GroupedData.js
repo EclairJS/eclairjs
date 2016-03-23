@@ -17,21 +17,21 @@
  * @constructor
  * @classdec A set of methods for aggregations on a DataFrame, created by DataFrame.groupBy.
  */
-var GroupedData = function(jvmGroupedData) {
-	
+var GroupedData = function (jvmGroupedData) {
+
     JavaWrapper.call(this, jvmGroupedData);
 
-	  // Initialize our Row-specific properties
-	this.logger = Logger.getLogger("sql.GroupData_js");
+    // Initialize our Row-specific properties
+    this.logger = Logger.getLogger("sql.GroupData_js");
 }
 
-GroupedData.prototype = Object.create(JavaWrapper.prototype); 
+GroupedData.prototype = Object.create(JavaWrapper.prototype);
 
 //Set the "constructor" property to refer to GroupedData
 GroupedData.prototype.constructor = GroupedData;
 
 /**
- * Compute aggregates by specifying a series of aggregate columns. Note that this function by default retains the grouping columns in its output. 
+ * Compute aggregates by specifying a series of aggregate columns. Note that this function by default retains the grouping columns in its output.
  * To not retain grouping columns, set spark.sql.retainGroupColumns to false.
  * The available aggregate methods are defined in {@link functions}.
  * @example
@@ -39,25 +39,25 @@ GroupedData.prototype.constructor = GroupedData;
  * df.groupBy("department").agg(max("age"), sum("expense"));
  * @since EclairJS 0.1 Spark  1.3.0
  * @param {Column | string} columnExpr,...columnExpr or columnName, ...columnName
- * @returns {DataFrame} 
+ * @returns {DataFrame}
  */
-GroupedData.prototype.agg = function() {
-	/*
-	 * First convert any strings to Columns
-	 */
+GroupedData.prototype.agg = function () {
+    /*
+     * First convert any strings to Columns
+     */
 
-	var args = Utils.createJavaObjectArguments(arguments, Column);
-	/*
-	 * Create a argument list we can send to Java
-	 */
-	var str = "this.getJavaObject().agg("
-	for (var i = 0; i < args.length; i++) {
-		var spacer = i < 1 ? "" : ",";
-		str += spacer + "args[" + i + "]";
-	}	
-	str += ");";
+    var args = Utils.createJavaObjectArguments(arguments, Column);
+    /*
+     * Create a argument list we can send to Java
+     */
+    var str = "this.getJavaObject().agg("
+    for (var i = 0; i < args.length; i++) {
+        var spacer = i < 1 ? "" : ",";
+        str += spacer + "args[" + i + "]";
+    }
+    str += ");";
 
-	var javaObject = eval(str);
+    var javaObject = eval(str);
     return new DataFrame(javaObject);
 };
 /**
@@ -65,18 +65,18 @@ GroupedData.prototype.agg = function() {
  * @param {string[]} cols
  * @returns {DataFrame}
  */
-GroupedData.prototype.avg = function(cols) {
+GroupedData.prototype.avg = function (cols) {
     return new DataFrame(this.getJavaObject().avg(cols));
 };
 
-GroupedData.prototype.apply = function(cols) {
-	throw "not implemented by ElairJS";
+GroupedData.prototype.apply = function (cols) {
+    throw "not implemented by ElairJS";
 };
 /**
  * Count the number of rows for each group.
  * @returns {DataFrame}
  */
-GroupedData.prototype.count = function() {
+GroupedData.prototype.count = function () {
     var jdf = this.getJavaObject().count();
     var df = new DataFrame(jdf);
 
@@ -87,7 +87,7 @@ GroupedData.prototype.count = function() {
  * @param {string[]} cols
  * @returns {DataFrame}
  */
-GroupedData.prototype.max = function(cols) {
+GroupedData.prototype.max = function (cols) {
     return new DataFrame(this.getJavaObject().max(cols));
 };
 /**
@@ -95,7 +95,7 @@ GroupedData.prototype.max = function(cols) {
  * @param {string[]} cols
  * @returns {DataFrame}
  */
-GroupedData.prototype.mean = function(cols) {
+GroupedData.prototype.mean = function (cols) {
     return new DataFrame(this.getJavaObject().mean(cols));
 };
 /**
@@ -103,7 +103,7 @@ GroupedData.prototype.mean = function(cols) {
  * @param {string[]} cols
  * @returns {DataFrame}
  */
-GroupedData.prototype.min = function(cols) {
+GroupedData.prototype.min = function (cols) {
     return new DataFrame(this.getJavaObject().min(cols));
 };
 /**
@@ -111,7 +111,38 @@ GroupedData.prototype.min = function(cols) {
  * @param {string[]} cols
  * @returns {DataFrame}
  */
-GroupedData.prototype.sum = function(cols) {
+GroupedData.prototype.sum = function (cols) {
     return new DataFrame(this.getJavaObject().sum(cols));
+};
+
+
+/**
+ * Pivots a column of the current {@link DataFrame} and perform the specified aggregation.
+ * There are two versions of pivot function: one that requires the caller to specify the list
+ * of distinct values to pivot on, and one that does not. The latter is more concise but less
+ * efficient, because Spark needs to first compute the list of distinct values internally.
+ *
+ * @example
+ *   // Compute the sum of earnings for each year by course with each course as a separate column
+ *   df.groupBy("year").pivot("course", new List(["dotNET", "Java"])).sum("earnings")
+ *
+ *   // Or without specifying column values (less efficient)
+ *   df.groupBy("year").pivot("course").sum("earnings")
+ *
+ *
+ * @param {string} pivotColumn  Name of the column to pivot.
+ * @param {List} [values]  List of values that will be translated to columns in the output DataFrame.
+ * @since EclairJS 0.1 Spark  1.6.0
+ * @returns {GroupedData}
+ */
+GroupedData.prototype.pivot1 = function (pivotColumn, values) {
+    var javaObject;
+    if (values) {
+        javaObject = this.getJavaObject().pivot(pivotColumn, Utils.unwrapObject(values));
+    } else {
+        javaObject = this.getJavaObject().pivot(pivotColumn);
+    }
+
+    return new GroupedData(javaObject);
 };
 
