@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: LabeledPoint</title>
+    <title>JSDoc: Class: SVMModel</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: LabeledPoint</h1>
+    <h1 class="page-title">Class: SVMModel</h1>
 
     
 
@@ -29,10 +29,8 @@
 <header>
     
         <h2>
-        LabeledPoint
+        SVMModel
         </h2>
-        
-            <div class="class-description">Class that represents the features and labels of a data point.</div>
         
     
 </header>
@@ -43,14 +41,16 @@
         
 
     
-    <h2>Constructor</h2>
-    
 
-    <h4 class="name" id="LabeledPoint"><span class="type-signature"></span>new LabeledPoint<span class="signature">(label, features)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="SVMModel"><span class="type-signature"></span>new SVMModel<span class="signature">(weights, intercept, weights, intercept)</span><span class="type-signature"></span></h4>
 
     
 
 
+
+<div class="description">
+    Model for Support Vector Machines (SVMs).
+</div>
 
 
 
@@ -85,13 +85,49 @@
 
         <tr>
             
-                <td class="name"><code>label</code></td>
+                <td class="name"><code>weights</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Weights computed for every feature.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>intercept</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Intercept computed for this model.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>weights</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">double</span>
+<span class="param-type"><a href="Vector.html">Vector</a></span>
 
 
             
@@ -108,13 +144,13 @@
 
         <tr>
             
-                <td class="name"><code>features</code></td>
+                <td class="name"><code>intercept</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="Vector.html">Vector</a></span>
+<span class="param-type">float</span>
 
 
             
@@ -165,7 +201,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="mllib_regression_LabeledPoint.js.html">mllib/regression/LabeledPoint.js</a>, <a href="mllib_regression_LabeledPoint.js.html#line24">line 24</a>
+        <a href="mllib_classification_SVM.js.html">mllib/classification/SVM.js</a>, <a href="mllib_classification_SVM.js.html#line28">line 28</a>
     </li></ul></dd>
     
 
@@ -214,215 +250,11 @@
 
     
 
-    <h4 class="name" id="getFeatures"><span class="type-signature"></span>getFeatures<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Vector.html">Vector</a>}</span></h4>
+    <h4 class="name" id=".load"><span class="type-signature">(static) </span>load<span class="signature">(sc, path)</span><span class="type-signature"> &rarr; {<a href="SVMModel.html">SVMModel</a>}</span></h4>
 
     
 
 
-
-<div class="description">
-    Returns features
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="mllib_regression_LabeledPoint.js.html">mllib/regression/LabeledPoint.js</a>, <a href="mllib_regression_LabeledPoint.js.html#line44">line 44</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="Vector.html">Vector</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="getLabel"><span class="type-signature"></span>getLabel<span class="signature">()</span><span class="type-signature"> &rarr; {float}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Returns label
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="mllib_regression_LabeledPoint.js.html">mllib/regression/LabeledPoint.js</a>, <a href="mllib_regression_LabeledPoint.js.html#line51">line 51</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">float</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="parse"><span class="type-signature"></span>parse<span class="signature">(string)</span><span class="type-signature"> &rarr; {<a href="LabeledPoint.html">LabeledPoint</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Parses a string resulted from LabeledPoint#toString into an LabeledPoint.
-</div>
 
 
 
@@ -457,10 +289,38 @@
 
         <tr>
             
-                <td class="name"><code>string</code></td>
+                <td class="name"><code>sc</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type"><a href="SparkContext.html">SparkContext</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>path</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
             
             </td>
 
@@ -509,7 +369,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="mllib_regression_LabeledPoint.js.html">mllib/regression/LabeledPoint.js</a>, <a href="mllib_regression_LabeledPoint.js.html#line59">line 59</a>
+        <a href="mllib_classification_SVM.js.html">mllib/classification/SVM.js</a>, <a href="mllib_classification_SVM.js.html#line143">line 143</a>
     </li></ul></dd>
     
 
@@ -543,7 +403,7 @@
     </dt>
     <dd>
         
-<span class="param-type"><a href="LabeledPoint.html">LabeledPoint</a></span>
+<span class="param-type"><a href="SVMModel.html">SVMModel</a></span>
 
 
     </dd>
@@ -558,14 +418,14 @@
 
     
 
-    <h4 class="name" id="toJSON"><span class="type-signature"></span>toJSON<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+    <h4 class="name" id="clearThreshold"><span class="type-signature"></span>clearThreshold<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="SVMModel.html">SVMModel</a>}</span></h4>
 
     
 
 
 
 <div class="description">
-    Returns string representation of JSON object
+    Clears the threshold so that `predict` will output raw prediction scores.
 </div>
 
 
@@ -609,7 +469,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="mllib_regression_LabeledPoint.js.html">mllib/regression/LabeledPoint.js</a>, <a href="mllib_regression_LabeledPoint.js.html#line75">line 75</a>
+        <a href="mllib_classification_SVM.js.html">mllib/classification/SVM.js</a>, <a href="mllib_classification_SVM.js.html#line72">line 72</a>
     </li></ul></dd>
     
 
@@ -643,11 +503,496 @@
     </dt>
     <dd>
         
-<span class="param-type">string</span>
+<span class="param-type"><a href="SVMModel.html">SVMModel</a></span>
 
 
     </dd>
 </dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getThreshold"><span class="type-signature"></span>getThreshold<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Returns the threshold (if any) used for converting raw prediction scores into 0/1 predictions.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mllib_classification_SVM.js.html">mllib/classification/SVM.js</a>, <a href="mllib_classification_SVM.js.html#line63">line 63</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="intercept"><span class="type-signature"></span>intercept<span class="signature">()</span><span class="type-signature"> &rarr; {float}</span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mllib_classification_SVM.js.html">mllib/classification/SVM.js</a>, <a href="mllib_classification_SVM.js.html#line88">line 88</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">float</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="save"><span class="type-signature"></span>save<span class="signature">(sc, path)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>sc</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="SparkContext.html">SparkContext</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>path</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mllib_classification_SVM.js.html">mllib/classification/SVM.js</a>, <a href="mllib_classification_SVM.js.html#line96">line 96</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="setThreshold"><span class="type-signature"></span>setThreshold<span class="signature">(threshold)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Sets the threshold that separates positive predictions from negative predictions. An example
+with prediction score greater than or equal to this threshold is identified as an positive,
+and negative otherwise. The default value is 0.0.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>threshold</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">float</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mllib_classification_SVM.js.html">mllib/classification/SVM.js</a>, <a href="mllib_classification_SVM.js.html#line53">line 53</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
 
     
 
@@ -664,9 +1009,101 @@
 
 
 
-<div class="description">
-    Returns string representation of object
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="mllib_classification_SVM.js.html">mllib/classification/SVM.js</a>, <a href="mllib_classification_SVM.js.html#line105">line 105</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="weights"><span class="type-signature"></span>weights<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Vector.html">Vector</a>}</span></h4>
+
+    
+
+
 
 
 
@@ -709,7 +1146,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="mllib_regression_LabeledPoint.js.html">mllib/regression/LabeledPoint.js</a>, <a href="mllib_regression_LabeledPoint.js.html#line68">line 68</a>
+        <a href="mllib_classification_SVM.js.html">mllib/classification/SVM.js</a>, <a href="mllib_classification_SVM.js.html#line80">line 80</a>
     </li></ul></dd>
     
 
@@ -743,7 +1180,7 @@
     </dt>
     <dd>
         
-<span class="param-type">string</span>
+<span class="param-type"><a href="Vector.html">Vector</a></span>
 
 
     </dd>
@@ -775,7 +1212,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Wed Mar 23 2016 14:44:09 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Wed Mar 23 2016 14:44:15 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>
