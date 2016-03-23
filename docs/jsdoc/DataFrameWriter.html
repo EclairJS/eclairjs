@@ -405,7 +405,7 @@ Because it inserts data to an existing table, format or options will be ignored.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sql_DataFrameWriter.js.html">sql/DataFrameWriter.js</a>, <a href="sql_DataFrameWriter.js.html#line144">line 144</a>
+        <a href="sql_DataFrameWriter.js.html">sql/DataFrameWriter.js</a>, <a href="sql_DataFrameWriter.js.html#line143">line 143</a>
     </li></ul></dd>
     
 
@@ -589,7 +589,7 @@ your external database systems.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sql_DataFrameWriter.js.html">sql/DataFrameWriter.js</a>, <a href="sql_DataFrameWriter.js.html#line187">line 187</a>
+        <a href="sql_DataFrameWriter.js.html">sql/DataFrameWriter.js</a>, <a href="sql_DataFrameWriter.js.html#line186">line 186</a>
     </li></ul></dd>
     
 
@@ -724,7 +724,7 @@ This is equivalent to:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sql_DataFrameWriter.js.html">sql/DataFrameWriter.js</a>, <a href="sql_DataFrameWriter.js.html#line205">line 205</a>
+        <a href="sql_DataFrameWriter.js.html">sql/DataFrameWriter.js</a>, <a href="sql_DataFrameWriter.js.html#line204">line 204</a>
     </li></ul></dd>
     
 
@@ -751,8 +751,7 @@ This is equivalent to:
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>format("json").save(path)
- </code></pre>
+    <pre class="prettyprint"><code>format("json").save(path)</code></pre>
 
 
 
@@ -1200,7 +1199,7 @@ This is equivalent to:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sql_DataFrameWriter.js.html">sql/DataFrameWriter.js</a>, <a href="sql_DataFrameWriter.js.html#line236">line 236</a>
+        <a href="sql_DataFrameWriter.js.html">sql/DataFrameWriter.js</a>, <a href="sql_DataFrameWriter.js.html#line235">line 235</a>
     </li></ul></dd>
     
 
@@ -1227,8 +1226,7 @@ This is equivalent to:
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>format("orc").save(path)
- </code></pre>
+    <pre class="prettyprint"><code>format("orc").save(path)</code></pre>
 
 
 
@@ -1341,7 +1339,7 @@ This is equivalent to:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sql_DataFrameWriter.js.html">sql/DataFrameWriter.js</a>, <a href="sql_DataFrameWriter.js.html#line220">line 220</a>
+        <a href="sql_DataFrameWriter.js.html">sql/DataFrameWriter.js</a>, <a href="sql_DataFrameWriter.js.html#line219">line 219</a>
     </li></ul></dd>
     
 
@@ -1368,8 +1366,7 @@ This is equivalent to:
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>format("parquet").save(path)
- </code></pre>
+    <pre class="prettyprint"><code>format("parquet").save(path)</code></pre>
 
 
 
@@ -1649,7 +1646,7 @@ specific format.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sql_DataFrameWriter.js.html">sql/DataFrameWriter.js</a>, <a href="sql_DataFrameWriter.js.html#line168">line 168</a>
+        <a href="sql_DataFrameWriter.js.html">sql/DataFrameWriter.js</a>, <a href="sql_DataFrameWriter.js.html#line167">line 167</a>
     </li></ul></dd>
     
 
@@ -1822,6 +1819,147 @@ specific format.
 
 
         
+            
+
+    
+
+    <h4 class="name" id="text"><span class="type-signature"></span>text<span class="signature">(path)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Saves the content of the <a href="DataFrame.html">DataFrame</a> in a text file at the specified path.
+The DataFrame must have only one column that is of string type.
+Each row becomes a new line in the output file. For example:
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>path</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>EclairJS 0.1 Spark  1.6.0</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="sql_DataFrameWriter.js.html">sql/DataFrameWriter.js</a>, <a href="sql_DataFrameWriter.js.html#line250">line 250</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>df.write().text("/path/to/output")</code></pre>
+
+
+
+        
     
 
     
@@ -1843,7 +1981,7 @@ specific format.
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Wed Mar 23 2016 15:52:42 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Wed Mar 23 2016 15:57:07 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>

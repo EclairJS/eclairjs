@@ -23,10 +23,10 @@
  * @constructor
  * @classdesc
  */
-var DataFrameWriter = function(javaDataFrameWriter) {
-	var jvmObj = javaDataFrameWriter;
-	this.logger = Logger.getLogger("sql.DataFrameWriter_js");
-	JavaWrapper.call(this, jvmObj);
+var DataFrameWriter = function (javaDataFrameWriter) {
+    var jvmObj = javaDataFrameWriter;
+    this.logger = Logger.getLogger("sql.DataFrameWriter_js");
+    JavaWrapper.call(this, jvmObj);
 };
 
 DataFrameWriter.prototype = Object.create(JavaWrapper.prototype);
@@ -44,11 +44,11 @@ DataFrameWriter.prototype.constructor = DataFrameWriter;
  *
  * @since EclairJS 0.1 Spark  1.4.0
  * @param {string}
- * @returns {DataFrameWriter} 
+ * @returns {DataFrameWriter}
  */
-DataFrameWriter.prototype.mode = function(saveMode) {
-	var javaObject =  this.getJavaObject().mode(saveMode);
-	return new DataFrameWriter(javaObject);
+DataFrameWriter.prototype.mode = function (saveMode) {
+    var javaObject = this.getJavaObject().mode(saveMode);
+    return new DataFrameWriter(javaObject);
 }
 
 
@@ -57,11 +57,11 @@ DataFrameWriter.prototype.mode = function(saveMode) {
  *
  * @since EclairJS 0.1 Spark  1.4.0
  * @param {string} source
- * @returns {DataFrameWriter} 
+ * @returns {DataFrameWriter}
  */
-DataFrameWriter.prototype.format = function(source) {
-   var javaObject =  this.getJavaObject().format(source);
-   return new DataFrameWriter(javaObject);
+DataFrameWriter.prototype.format = function (source) {
+    var javaObject = this.getJavaObject().format(source);
+    return new DataFrameWriter(javaObject);
 }
 
 
@@ -71,19 +71,19 @@ DataFrameWriter.prototype.format = function(source) {
  * @since EclairJS 0.1 Spark  1.4.0
  * @param {string | object} keyOrMap
  * If object, the object is expected to be a HashMap, the key of the map is type: 'String'
- * The value must be of the following type: `String`. 
+ * The value must be of the following type: `String`.
  * @param {string}
- * @returns {DataFrameWriter} 
+ * @returns {DataFrameWriter}
  */
-DataFrameWriter.prototype.option = function(keyOrMap,value) {
-	var javaObject;
-	if (typeof keyOrMap === 'object') {
-		var map = Utils.createJavaHashMap(keyOrMap);
-		javaObject =  this.getJavaObject().option(map);
-	} else {
-		javaObject =  this.getJavaObject().option(keyOrMap,value);
-	}
-	return new DataFrameWriter(javaObject);
+DataFrameWriter.prototype.option = function (keyOrMap, value) {
+    var javaObject;
+    if (typeof keyOrMap === 'object') {
+        var map = Utils.createJavaHashMap(keyOrMap);
+        javaObject = this.getJavaObject().option(map);
+    } else {
+        javaObject = this.getJavaObject().option(keyOrMap, value);
+    }
+    return new DataFrameWriter(javaObject);
 };
 
 
@@ -95,23 +95,23 @@ DataFrameWriter.prototype.option = function(keyOrMap,value) {
  *
  * @since EclairJS 0.1 Spark  1.4.0
  * @param {string} colName,...colName
- * @returns {DataFrameWriter} 
+ * @returns {DataFrameWriter}
  */
-DataFrameWriter.prototype.partitionBy = function() {
-	/*
-	 * Create a argument list we can send to Java
-	 */
-	var args = Array.prototype.slice.call(arguments);
-	var str = "this.getJavaObject().partitionBy("
-	for (var i = 0; i < args.length; i++) {
-		var spacer = i < 1 ? "" : ",";
-		str += spacer + "args[" + i + "]";
-	}	
-	str += ");";
-	
-	var javaObject = eval(str);
+DataFrameWriter.prototype.partitionBy = function () {
+    /*
+     * Create a argument list we can send to Java
+     */
+    var args = Array.prototype.slice.call(arguments);
+    var str = "this.getJavaObject().partitionBy("
+    for (var i = 0; i < args.length; i++) {
+        var spacer = i < 1 ? "" : ",";
+        str += spacer + "args[" + i + "]";
+    }
+    str += ");";
 
-	return new DataFrameWriter(javaObject);
+    var javaObject = eval(str);
+
+    return new DataFrameWriter(javaObject);
 
 };
 
@@ -122,14 +122,13 @@ DataFrameWriter.prototype.partitionBy = function() {
  * @since EclairJS 0.1 Spark  1.4.0
  * @param {string} [path] Saves the content of the {@link DataFrame} at the specified path.
  */
-DataFrameWriter.prototype.savewithPath = function(path) {
-	if(path) {
-		this.getJavaObject().save(path);
-	} else {
-		this.getJavaObject().save();
-	}  
+DataFrameWriter.prototype.savewithPath = function (path) {
+    if (path) {
+        this.getJavaObject().save(path);
+    } else {
+        this.getJavaObject().save();
+    }
 };
-
 
 
 /**
@@ -141,8 +140,8 @@ DataFrameWriter.prototype.savewithPath = function(path) {
  * @since EclairJS 0.1 Spark  1.4.0
  * @param {string} tableName
  */
-DataFrameWriter.prototype.insertInto = function(tableName) {
-	this.getJavaObject().insertInto(tableName);
+DataFrameWriter.prototype.insertInto = function (tableName) {
+    this.getJavaObject().insertInto(tableName);
 };
 
 
@@ -165,7 +164,7 @@ DataFrameWriter.prototype.insertInto = function(tableName) {
  * @since EclairJS 0.1 Spark  1.4.0
  * @param {string} tableName
  */
-DataFrameWriter.prototype.saveAsTable = function(tableName) {
+DataFrameWriter.prototype.saveAsTable = function (tableName) {
     this.javaDataFrameWriter.saveAsTable(tableName);
 };
 
@@ -184,25 +183,25 @@ DataFrameWriter.prototype.saveAsTable = function(tableName) {
  *                             tag/value. Normally at least a "user" and "password" property
  *                             should be included.
  */
-DataFrameWriter.prototype.jdbc = function(url,table,connectionProperties) {
+DataFrameWriter.prototype.jdbc = function (url, table, connectionProperties) {
 
-	var map = Utils.createJavaHashMap(connectionProperties, new java.util.Properties());
-	var connectionProperties_uw = Utils.unwrapObject(connectionProperties);
-    this.getJavaObject().jdbc(url,table,map);
+    var map = Utils.createJavaHashMap(connectionProperties, new java.util.Properties());
+    var connectionProperties_uw = Utils.unwrapObject(connectionProperties);
+    this.getJavaObject().jdbc(url, table, map);
 };
 
 
 /**
  * Saves the content of the {@link DataFrame} in JSON format at the specified path.
  * This is equivalent to:
- * @example 
+ * @example
  *   format("json").save(path)
- *  
+ *
  *
  * @since EclairJS 0.1 Spark  1.4.0
  * @param {string} path
  */
-DataFrameWriter.prototype.json = function(path) {
+DataFrameWriter.prototype.json = function (path) {
     this.getJavaObject().json(path);
 };
 
@@ -210,14 +209,14 @@ DataFrameWriter.prototype.json = function(path) {
 /**
  * Saves the content of the {@link DataFrame} in Parquet format at the specified path.
  * This is equivalent to:
- * @example 
+ * @example
  *   format("parquet").save(path)
- *  
+ *
  *
  * @since EclairJS 0.1 Spark  1.4.0
  * @param {string} path
  */
-DataFrameWriter.prototype.parquet = function(path) {
+DataFrameWriter.prototype.parquet = function (path) {
     this.getJavaObject().parquet(path);
 };
 
@@ -225,15 +224,29 @@ DataFrameWriter.prototype.parquet = function(path) {
 /**
  * Saves the content of the {@link DataFrame} in ORC format at the specified path.
  * This is equivalent to:
- * @example 
+ * @example
  *   format("orc").save(path)
- *  
+ *
  *
  * @since EclairJS 0.1 Spark  1.5.0
  * @note Currently, this method can only be used together with `HiveContext`.
  * @param {string} path
  */
-DataFrameWriter.prototype.orc = function(path) {
+DataFrameWriter.prototype.orc = function (path) {
     this.getJavaObject().orc(path);
 };
 
+/**
+ * Saves the content of the {@link DataFrame} in a text file at the specified path.
+ * The DataFrame must have only one column that is of string type.
+ * Each row becomes a new line in the output file. For example:
+ * @example
+ *   df.write().text("/path/to/output")
+ *
+ *
+ * @since EclairJS 0.1 Spark  1.6.0
+ * @param {string} path
+ */
+DataFrameWriter.prototype.text = function (path) {
+    this.getJavaObject().text(path);
+};
