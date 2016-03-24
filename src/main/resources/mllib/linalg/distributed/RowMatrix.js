@@ -242,3 +242,7 @@ RowMatrix.prototype.rows = function() {
    var javaObject =  this.getJavaObject().rows();
    return Utils.javaToJs(javaObject);
 };
+
+RowMatrix.prototype.toJSON = function() {
+  return this.rows().collect();
+};
