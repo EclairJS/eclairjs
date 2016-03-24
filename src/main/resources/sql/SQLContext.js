@@ -350,6 +350,18 @@ SQLContext.prototype.sparkContext = function() {
    return new SparkContext(javaObject);
 };
 
+/**
+ * Returns a SQLContext as new session, with separated SQL configurations, temporary tables,
+ * registered functions, but sharing the same SparkContext, CacheManager, SQLListener and SQLTab.
+ *
+ * @since EclairJS 0.1 Spark  1.6.0
+ * @returns {SQLContext}
+ */
+SQLContext.prototype.newSession = function() {
+    var javaObject = this.getJavaObject().newSession();
+    return new SQLContext(javaObject);
+};
+
 
 //
 // static methods
@@ -543,4 +555,29 @@ SQLContext.SQLSession.prototype.constructor = SQLContext.SQLSession;
 SQLContext.SQLSession.prototype.conf = function() {
 	throw "not implemented by ElairJS";
 	//return this.getJavaObject().conf();
+};
+
+
+/**
+ * Changes the SQLContext that will be returned in this thread and its children when
+ * SQLContext.getOrCreate() is called. This can be used to ensure that a given thread receives
+ * a SQLContext with an isolated session, instead of the global (first created) context.
+ *
+ * @since EclairJS 0.1 Spark  1.6.0
+ * @param {SQLContext} sqlContext
+ */
+SQLContext.setActive = function(sqlContext) {
+    var sqlContext_uw = Utils.unwrapObject(sqlContext);
+    org.apache.spark.sql.SQLContext.setActive(sqlContext_uw);
+};
+
+
+/**
+ * Clears the active SQLContext for current thread. Subsequent calls to getOrCreate will
+ * return the first created context instead of a thread-local override.
+ *
+ * @since EclairJS 0.1 Spark  1.6.0
+ */
+SQLContext.clearActive = function() {
+    org.apache.spark.sql.SQLContext.clearActive();
 };
