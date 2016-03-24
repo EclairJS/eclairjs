@@ -135,7 +135,7 @@ GroupedData.prototype.sum = function (cols) {
  * @since EclairJS 0.1 Spark  1.6.0
  * @returns {GroupedData}
  */
-GroupedData.prototype.pivot1 = function (pivotColumn, values) {
+GroupedData.prototype.pivot = function (pivotColumn, values) {
     var javaObject;
     if (values) {
         javaObject = this.getJavaObject().pivot(pivotColumn, Utils.unwrapObject(values));
