@@ -48,6 +48,11 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>org.eclairjs.nashorn.SparkJS</mainClass>
+                                </transformer>
+                            </transformers>
                             <filters>
                                 <filter>
                                   <artifact>*:*</artifact>
@@ -68,6 +73,93 @@
                                     <exclude>org.apache.maven:lib:tests</exclude>
                                     <exclude>log4j:log4j:jar:</exclude>
                                     <exclude>org.eclipse.jetty:*</exclude>
+                                    <exclude>org.apache.spark:spark-core*</exclude>
+                                    <exclude>org.apache.spark:spark-launcher*</exclude>
+                                    <exclude>org.apache.spark:spark-network*</exclude>
+                                    <exclude>org.apache.spark:spark-unsafe*</exclude>
+                                    <exclude>org.apache.spark:spark-sql*</exclude>
+                                    <exclude>org.apache.spark:spark-catalyst*</exclude>
+                                    <exclude>org.apache.spark:spark-hive*</exclude>
+                                    <exclude>org.apache.spark:spark-streaming_*</exclude>
+                                    <exclude>org.apache.spark:spark-mllib*</exclude>
+                                    <exclude>org.apache.spark:spark-graphx*</exclude>
+                                    <exclude>org.spark-project.hive*</exclude>
+                                    <exclude>org.apache.parquet:*</exclude>
+                                    <exclude>org.apache.curator:*</exclude>
+                                    <exclude>org.apache.zookeeper:*</exclude>
+                                    <exclue>org.apache.avro:*</exclue>
+                                    <exclude>org.apache.xbean:*</exclude>
+                                    <eclude>org.apache.hadoop:*</eclude>
+                                    <exclude>org.apache.commons:*</exclude>
+                                    <exclude>org.apache.mesos:*</exclude>
+                                    <exclude>org.apache.ivy:*</exclude>
+                                    <exclude>org.apache.derby:*</exclude>
+                                    <exclude>org.apache.calcite:*</exclude>
+                                    <exclude>org.apache.httpcomponents:*</exclude>
+                                    <exclude>org.apache.thrift:*</exclude>
+                                    <exclude>com.esotericsoftware.*</exclude>
+                                    <exclude>org.codehaus.*</exclude>
+                                    <exclude>org.objenesis:*</exclude>
+                                    <exclude>xmlenc:*</exclude>
+                                    <exclude>commons-*:*</exclude>
+                                    <exclude>org.mortbay.*</exclude>
+                                    <exclude>com.google.*</exclude>
+                                    <exclude>javax.*</exclude>
+                                    <exclude>aopalliance:*</exclude>
+                                    <exclude>com.sun.*</exclude>
+                                    <exclude>org.glassfish.*</exclude>
+                                    <exclude>org.glassfish:*</exclude>
+                                    <exclude>org.fusesource.leveldbjni:*</exclude>
+                                    <exclude>com.fasterxml.*</exclude>
+                                    <exclude>org.eclipse.*</exclude>
+                                    <exclude>org.slf4j:jul-to-slf4j:jar:</exclude>
+                                    <exclude>org.slf4j:jcl-over-slf4j:jar:</exclude>
+                                    <exclude>org.slf4j:slf4j-log4j12:jar:</exclude>
+                                    <exclude>com.ning:*</exclude>
+                                    <exclude>net.java.dev.jets3t:*</exclude>
+                                    <!--<exclude>org.xerial.snappy:*</exclude>-->
+                                    <!--<exclude>net.jpountz.lz4:*</exclude>-->
+                                    <exclude>org.roaringbitmap:*</exclude>
+                                    <exclude>com.typesafe.*</exclude>
+                                    <exclude>com.typesafe:*</exclude>
+                                    <exclude>io.netty:*</exclude>
+                                    <exclude>org.uncommons.maths:*</exclude>
+                                   <!-- <exclude>org.json4s:*</exclude>-->
+                                    <exclude>asm:*</exclude>
+                                    <exclude>com.clearspring.*</exclude>
+                                    <exclude>io.dropwizard.*</exclude>
+                                    <exclude>com.thoughtworks.*</exclude>
+                                    <exclude>oro:*</exclude>
+                                    <exclude>org.tachyonproject:*</exclude>
+                                    <exclude>net.razorvine:*</exclude>
+                                    <exclude>net.sf.*</exclude>
+                                    <!--<exclude>org.spark-project.*</exclude>-->
+                                    <exclude>javolution:*</exclude>
+                                    <exclude>log4j:*</exclude>
+                                    <exclude>org.antlr:*</exclude>
+                                    <exclude>antlr:*</exclude>
+                                    <exclude>com.googlecode.javaewah:*</exclude>
+                                    <exclude>org.iq80.*</exclude>
+                                    <exclude>org.json:*</exclude>
+                                    <exclude>stax:*</exclude>
+                                    <exclude>jline:*</exclude>
+                                    <exclude>com.jolbox:*</exclude>
+                                    <exclude>org.datanucleus:*</exclude>
+                                    <exclude>net.hydromatic:*</exclude>
+                                    <exclude>joda-time:*</exclude>
+                                    <exclude>org.jodd:*</exclude>
+                                    <exclude>com.github.*</exclude>
+                                    <exclude>net.sourceforge.*</exclude>
+                                    <exclude>org.scalanlp:*</exclude>
+                                    <exclude>org.scalamacros:*</exclude>
+                                    <exclude>org.spire-math:*</exclude>
+                                    <exclude>org.tukaani:*</exclude>
+                                    <exclude>org.jpmml:*</exclude>
+                                    <!--<exclude>com.101tec:*</exclude>-->
+                                    <exclude>com.twitter:*</exclude>
+                                    <exclude>org.json4s:*</exclude>
+                                    <!--<exclude>org.twitter4j:*</exclude>-->
+                                    <!--<exclude>com.yammer.*</exclude>-->
                                 </excludes>
                             </artifactSet>
                         </configuration>
@@ -115,7 +207,6 @@
         <spark.version>1.6.0</spark.version>
     </properties>
     <dependencies>
-
         <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
@@ -125,41 +216,49 @@
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-core_2.10</artifactId>
             <version>${spark.version}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
 		    <groupId>org.apache.spark</groupId>
 		    <artifactId>spark-sql_2.10</artifactId>
 		    <version>${spark.version}</version>
+            <scope>compile</scope>
 		</dependency>
 		<dependency>
 		    <groupId>org.apache.spark</groupId>
 		    <artifactId>spark-catalyst_2.10</artifactId>
 		    <version>${spark.version}</version>
+            <scope>compile</scope>
 		</dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-hive_2.10</artifactId>
             <version>${spark.version}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-streaming_2.10</artifactId>
             <version>${spark.version}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-mllib_2.10</artifactId>
             <version>${spark.version}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-streaming-kafka_2.10</artifactId>
             <version>${spark.version}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-streaming-twitter_2.10</artifactId>
             <version>${spark.version}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.googlecode.json-simple</groupId>
