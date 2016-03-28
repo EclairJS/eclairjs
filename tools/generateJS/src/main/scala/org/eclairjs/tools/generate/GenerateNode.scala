@@ -5,6 +5,7 @@ import org.eclairjs.tools.generate.model._
 
 class GenerateNode  extends  GenerateJSBase {
 
+    val NewCodeGen=true;
 
 
   override def generateConstructor(cls:Clazz, sb:StringBuilder): Unit = {
@@ -81,7 +82,7 @@ class GenerateNode  extends  GenerateJSBase {
 
   def getMethodBody(method:Method): String =
   {
-    val sb=new StringBuilder
+     val sb=new StringBuilder
 
     val returnType=method.returnType
     val isStatic=method.parent.isStatic
@@ -109,11 +110,6 @@ class GenerateNode  extends  GenerateJSBase {
       }
     })
 
-    val templateParms= method.parms.map("{{"+_.name+"}}").toArray.mkString(",")
-    val assignParms= method.parms.map(parm=> parm.name+" : "+parm.name).toArray.mkString(",")
-    val parms = if (method.parms.isEmpty) "" else {
-      s", {$assignParms}"
-    }
 
     if (isPromise(returnType) )
       {
@@ -133,22 +129,29 @@ class GenerateNode  extends  GenerateJSBase {
 
       }
 
-    val onObject =
-      if (isStatic)
-        method.parent.name
-      else
-        "{{inRefId}}"
 
-    if (returnType.isSparkClass())
+    if (!NewCodeGen)
     {
+      val templateParms= method.parms.map("{{"+_.name+"}}").toArray.mkString(",")
+      val assignParms= method.parms.map(parm=> parm.name+" : "+parm.name).toArray.mkString(",")
+      val parms = if (method.parms.isEmpty) "" else {
+        s", {$assignParms}"
+      }
+      val onObject =
+        if (isStatic)
+          method.parent.name
+        else
+          "{{inRefId}}"
+      if (returnType.isSparkClass())
+      {
 
-      sb ++= getTemplate("node_templateStrAssign",onObject,method.name,templateParms)
+        sb ++= getTemplate("node_templateStrAssign",onObject,method.name,templateParms)
 
 
-      sb ++= getTemplate("node_genAssign",returnType.getJSType(),parms)
+        sb ++= getTemplate("node_genAssign",returnType.getJSType(),parms)
 
-    }
-    else if (isVoidPromise(returnType))
+      }
+      else if (isVoidPromise(returnType))
       {
         sb ++= getTemplate("node_templateVoidPromise",onObject,method.name,templateParms)
 
@@ -156,7 +159,7 @@ class GenerateNode  extends  GenerateJSBase {
         sb ++= getTemplate("node_genVoidPromise",parms)
 
       }
-    else if (isPromise(returnType))
+      else if (isPromise(returnType))
       {
         if (returnType.isArray())
           sb ++= getTemplate("node_templatePromiseArray",onObject,method.name,templateParms)
@@ -168,11 +171,69 @@ class GenerateNode  extends  GenerateJSBase {
         sb ++= getTemplate("node_genPromise",parms)
 
       }
-    else
-      throw new RuntimeException("SHOULD NOT HAPPEN")
+      else
+        throw new RuntimeException("SHOULD NOT HAPPEN")
+
+    }
+    else   // new code gen
+    {
+      sb ++="  var args ={\n"
+
+      val targetStr = if (isStatic) method.parent.name else "this"
+      sb ++= s"    target: ${targetStr}, \n"
+      sb ++= s"    method: '${method.name}', \n"
+
+      if (!method.parms.isEmpty)
+      {
+        sb ++= s"    args: [ \n"
+        sb ++= method.parms.map(getParmEntry(_)).mkString(",\n")
+        sb ++= s"\n    ], \n"
+
+      }
+
+      if (returnType.isArray() && !returnType.isSparkClass())
+        sb++="    stringify: true,\n"
+      if (isPromise(returnType))
+        sb++="    resolver: _resolve,\n"
+
+      val returnTypeStr= getReturnTypeStr(returnType)
+      sb ++=s"    returnType: $returnTypeStr\n"
+      sb ++="\n  };\n\n  return Utils.generate(args);\n"
+    }
 
     sb.toString()
 
+  }
+
+
+  def getParmEntry( parm:Parm) : String =
+  {
+    val sb=new StringBuilder
+    val parmTypeStr=parm.typ.getJSType() match
+    {
+      case _ => parm.typ.getJSType()
+    }
+    sb ++=s"      { value: ${parm.name}, type: '$parmTypeStr' "
+    if (parm.isOptional)
+      sb ++=s",  optional: true"
+    sb ++="}"
+    sb.toString()
+  }
+
+  def getReturnTypeStr(returnType:DataType):String =
+  {
+    val name=returnType.getJSType(returnType.name)
+    if (returnType.isArray())
+      {
+        s"[${returnType.refName()}]"
+      }
+    else
+      name match {
+        case "number" => "Number"
+        case "string" => "String"
+        case "undefined" => "null"
+        case _ => name
+      }
   }
 
   def jsDocType(typ:DataType):String = {
