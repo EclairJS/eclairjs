@@ -18,7 +18,7 @@ var sparkConf = new SparkConf()
   .setAppName("Ranking Metrics Example");
 
 var sc = new SparkContext(sparkConf);
-var filename = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "xamples/data/mllib/sample_movielens_data.txt";
+var filename = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/sample_movielens_data.txt";
 var data = data = sc.textFile(filename);
 
 var ratings = data.map(function(line) {
