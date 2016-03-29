@@ -212,3 +212,14 @@ var SVMwithSGDExample = function() {
     var result = run(sparkContext);
     return result.auROC;
 }
+
+
+var RankingMetricExample = function() {
+    load("examples/mllib/ranking_metrics_example.js");
+    var result = run(sparkContext);
+    if (result) {
+        return "passed";
+    } else {
+        return "failed";
+    }
+}

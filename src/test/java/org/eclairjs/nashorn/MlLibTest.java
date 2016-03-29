@@ -629,4 +629,18 @@ public class MlLibTest {
 
     }
 
+    @Test
+    public void RankingMetricExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
+
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
+        Object ret = ((Invocable)engine).invokeFunction("RankingMetricExample");
+
+        String expected = "passed";
+
+        assertEquals("failure - strings are not equal", expected, ret.toString());
+
+    }
+
 }
