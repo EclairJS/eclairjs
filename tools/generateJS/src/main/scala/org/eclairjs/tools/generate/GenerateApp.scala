@@ -72,7 +72,9 @@ object Main extends App {
       "mllib/src/main/scala/org/apache/spark",
       "sql/core/src/main/scala/org/apache/spark",
       "sql/catalyst/src/main/scala/org/apache/spark",
-      "streaming/src/main/scala/org/apache/spark"
+      "streaming/src/main/scala/org/apache/spark",
+      "external/kafka/src/main/scala/org/apache/spark",
+      "external/twitter/src/main/scala/org/apache/spark"
     )
     srcDirs foreach( dir=> {
       val srcDir=new File(repoDir,dir)
