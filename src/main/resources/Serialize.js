@@ -191,7 +191,38 @@ Serialize.javaSparkObject = function (javaObj) {
     }
 
     Serialize.logger.debug("javaSparkObject we have a className = " + className);
-    return eval("new " + className + "(javaObj)");
+    //return eval("new " + className + "(javaObj)");
+
+    var ret = false;
+    try {
+        // If TypeError exception is thrown catch it and try loading
+        // module before giving up - this could be on worker node
+        ret = eval("new " + className + "(javaObj)");
+    } catch(se) {
+        Serialize.logger.debug("Exception in trying to create javaSparkObject. Going to try and load required module");
+        Serialize.logger.debug(se);
+        var mod = ModuleUtils.getModuleFromJavaPackageAndClass(packageName, className);
+        // Should probably raise exception if module has not been required 
+        if (mod) {
+            eval(mod.body);
+            ret = eval("new " + className + "(javaObj)");
+        }
+    }
+
+    return ret;
+};
+
+Serialize.JSModule = function(obj) {
+  //print("#####Serialize.JSModule obj: "+obj);
+  if (ModuleUtils.isModule(obj)) {
+    var mod = ModuleUtils.getRequiredFile(obj);
+
+    Serialize.logger.debug("###Serialize.JSModule found a lambda required module: "+mod.toString());
+
+    return (mod && mod.exportname) ? mod.exports[mod.exportname] : (mod ? mod.exports : false);
+  }
+
+  return false;
 };
 
 Serialize.JSONObject = function (javaObj) {
@@ -211,6 +242,7 @@ Serialize.handlers = [
     Serialize.javaIteratorWrapper,
     Serialize.javaIterableWrapper,
     Serialize.javaSeqWrapper,
+    Serialize.JSModule, // test for module before JSONObject since techinically it is an instance of org.json.simple.JSONObject
     Serialize.JSONObject
 ];
 
@@ -283,6 +315,12 @@ Serialize.jsToJava = function (obj) {
             return ret
         }
         if (typeof obj === 'object') {
+            // The module will have already been converted from export function into
+            // metadata object by createLambdaFunction before it gets here but we still
+            // need it's JSON form.
+            if (ModuleUtils.isModule(obj)) {
+                obj = obj.toJSON();
+            }
             var o = Serialize.JavaScriptObjectMirrorClass.wrapAsJSONCompatible(obj, null);
             var j = org.json.simple.JSONValue.toJSONString(o);
             return org.json.simple.JSONValue.parse(j);

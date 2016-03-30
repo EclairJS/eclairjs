@@ -81,6 +81,5 @@ LabeledPoint.prototype.toJSON = function() {
 };
 
 
-
-
+module.exports = LabeledPoint;
 

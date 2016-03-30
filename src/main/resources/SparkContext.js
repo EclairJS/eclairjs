@@ -526,3 +526,28 @@ SparkContext.prototype.version = function () {
     }
     return "EclairJS-nashorn 0.1 Spark " + sparkVersion;
 };
+
+/**
+ * Zip up a file in a directory to preserve it's path and add it to worker node for download via addFile.
+ */
+SparkContext.prototype.addModule = function(module) {
+    print("SparkContext.addModule: "+module.toString());
+    //var folder = module.modname.slice(0, module.modname.lastIndexOf("\/")),
+    var parent = ModuleUtils.getParent(module);
+    print("SparkContext.addModule parent: "+parent);
+ 
+    var folder = (parent && parent.subdir && module.subdir.indexOf(parent.subdir) > -1) ? parent.subdir : (module.subdir || "."),
+        zipfile = parent && parent.zipfile ? parent.zipfile.replace(".zip", "_child_"+Date.now()+".zip")  : "module_"+Date.now()+".zip",
+        filename = module.id.slice(module.id.lastIndexOf("\/")+1, module.id.length);
+    print("SparkContext.addModule folder: "+folder);
+    print("SparkContext.addModule filename: "+filename);
+    try {
+        org.eclairjs.nashorn.Utils.zipFile(folder, zipfile, [filename]);
+        print("SparkContext.addModule zipped file now going to try and addFile: "+zipfile);
+        this.getJavaObject().addFile(zipfile);
+        module.zipfile = zipfile;
+    } catch (exc) {
+        print("Cannot add module: "+module.modname);
+        print(exc);
+    }
+};

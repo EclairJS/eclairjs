@@ -370,7 +370,7 @@ RDD.prototype.fold = function(zeroValue, func, bindArgs) {
  * @returns {void}
  */
 RDD.prototype.foreach = function(func, bindArgs) {
-  var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSVoidFunction, bindArgs);
+  var fn = Utils.createLambdaFunctionWithContext(func, org.eclairjs.nashorn.JSVoidFunction, this.context(), bindArgs);
 	this.getJavaObject().foreach(fn);
 };
 
@@ -547,7 +547,7 @@ RDD.prototype.localCheckpoint = function() {
  * @returns {RDD}
  */
 RDD.prototype.map = function(func, bindArgs) {
-    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
+    var fn = Utils.createLambdaFunctionWithContext(func, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
     var javaObject =  this.getJavaObject().map(fn);
     return Utils.javaToJs(javaObject);
 };
@@ -623,7 +623,7 @@ throw "not implemented by ElairJS";
  * @returns {PairRDD}
  */
 RDD.prototype.mapToPair = function(func, bindArgs) {
-  var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSPairFunction, bindArgs);
+  var fn = Utils.createLambdaFunctionWithContext(func, org.eclairjs.nashorn.JSPairFunction, this.context(), bindArgs);
 	var result = new PairRDD(this.getJavaObject().mapToPair(fn));
 	return result;
 };
@@ -937,12 +937,17 @@ RDD.prototype.take = function(num) {
 	this.logger.debug("results " + results);
 	return results;
     */
+    /*
 	var results = [];
 	for (var i = 0; i < res.size(); i++) {
 		var value = res.get(i);
 		var o = Serialize.javaToJs(value);
 		results.push(o);
     }
+    */
+    // Just send the whole list in and do it all in there.
+    // Each value will be serialized in javaToJs.
+    var results = Serialize.javaToJs(res);
 
    return results;
 };

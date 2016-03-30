@@ -36,10 +36,19 @@ import scala.collection.Seq;
 import scala.collection.convert.Wrappers.IteratorWrapper;
 import scala.collection.convert.Wrappers.IterableWrapper;
 
-import java.io.FileReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileFilter;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.*;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+import java.util.zip.ZipOutputStream;
 
 /**
  * Created by bburns on 9/18/15.
@@ -306,5 +315,121 @@ public class Utils {
 
     }
 
+    /**
+     * @param {String} folderToZip - folder containing files to zip
+     * @param {String} zipFile - zipfile name for destination
+     * @param {String[]} filesToInclude - files to include; if omitted everything under folder will be zipped
+     */
+    public static void zipFile(String folderToZip, String zipFile, String[] filesToInclude)
+        throws IOException {
+        Logger logger = Logger.getLogger(Utils.class);
+ 
+        ZipOutputStream zipOut = new ZipOutputStream(new FileOutputStream(zipFile));    
+        boolean excludeContainingFolder = false;
+
+        File srcFile = new File(folderToZip);
+        if(excludeContainingFolder && srcFile.isDirectory()) {
+            for(String fileName : srcFile.list()) {
+                addToZip("", folderToZip + "/" + fileName, zipOut, filesToInclude);
+            }
+        } else {
+            addToZip("", folderToZip, zipOut, filesToInclude);
+        }
+
+        zipOut.flush();
+        zipOut.close();
+        logger.debug("Successfully created zipFile: " + zipFile);
+    }
+
+    private static void addToZip(String path, String srcFile, ZipOutputStream zipOut, String[] filesToInclude)
+        throws IOException {        
+        Logger logger = Logger.getLogger(Utils.class);
+        int DEFAULT_BUFFER_SIZE = 4096;
+
+        FileFilter filter = new FileFilter() {
+            public boolean accept(File file) {
+                if (Arrays.asList(filesToInclude).contains(file.getName()) || file.isDirectory()) {
+                    logger.debug("Adding to zipfile: "+file.getName());
+                    return true;
+                } else {
+                    logger.debug("Skipping not including in zipfile: "+file.getName());
+                }
+                return false;
+            }
+        };
+
+        File file = new File(srcFile);
+        String filePath = "".equals(path) ? file.getName() : path + "/" + file.getName();
+        if (file.isDirectory()) {
+            for (File childFile : file.listFiles(filter)) {
+                addToZip(filePath, srcFile + "/" + childFile.getName(), zipOut, filesToInclude);
+            }
+        } else {
+            zipOut.putNextEntry(new ZipEntry(filePath));
+            FileInputStream in = new FileInputStream(srcFile);
+
+            byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
+            int len;
+            while ((len = in.read(buffer)) != -1) {
+                zipOut.write(buffer, 0, len);
+            }
+            in.close();
+        }
+    }
+
+    public static void unzipFile(String zipfile, String directory) throws IOException {
+        Logger logger = Logger.getLogger(Utils.class);
+        int DEFAULT_BUFFER_SIZE = 4096;
+
+        logger.debug("Going to try and unzip: "+zipfile);
+
+        ZipFile zfile = new ZipFile(zipfile);
+        Enumeration<? extends ZipEntry> entries = zfile.entries();
+        while (entries.hasMoreElements()) {
+            ZipEntry entry = entries.nextElement();
+            logger.debug("Extracting: " +entry.getName());
+
+            File file = new File(directory, entry.getName());
+            if (entry.isDirectory()) {
+                file.mkdirs();
+            } else {
+                file.getParentFile().mkdirs();
+                InputStream in = zfile.getInputStream(entry);
+                OutputStream out = new FileOutputStream(file);
+                try {
+                    byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
+                    while (true) {
+                        int readCount = in.read(buffer);
+                        if (readCount < 0) {
+                            break;
+                        }
+                        out.write(buffer, 0, readCount);
+                    }
+                } finally {
+                    in.close();
+                }
+            }
+        }
+    }
+
+    public static void unzipChildren(String zipfilePrefix, String directory) throws IOException {
+        Logger logger = Logger.getLogger(Utils.class);
+        
+        logger.debug("UNZIP CHILDREN FOR PREFIX: "+zipfilePrefix);
+        FileFilter filter = new FileFilter() {
+            public boolean accept(File file) {
+                if (file.getName().startsWith(zipfilePrefix)) {
+                    logger.debug("Unzipping zipfile: "+file.getName());
+                    return true;
+                } 
+                return false;
+            }
+        };
+
+        File dir = new File(directory);
+        for (File childFile : dir.listFiles(filter)) {
+            unzipFile(childFile.getName(), directory);
+        }
+    }
 
 }

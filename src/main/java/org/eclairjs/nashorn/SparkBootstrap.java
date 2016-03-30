@@ -27,10 +27,12 @@ import javax.script.ScriptException;
 public class SparkBootstrap implements Bootstrap {
 
     private String debugJSSourceLocation = null;
+    private String sparkHome = null;
 
     public  SparkBootstrap() {
         Properties props = System.getProperties();
         debugJSSourceLocation = (String) props.getProperty("eclairjs.jssource");
+        sparkHome = System.getenv().get("SPARK_HOME");
     }
 
     private String getResourceAsURLStirng(String file) {
@@ -49,8 +51,24 @@ public class SparkBootstrap implements Bootstrap {
         return res;
     }
 
+    /*
+     * If we're on a workernode then SPARK_HOME will be in JAR's path.
+     */
+    private boolean isLoadingOnWorkerNode() {
+        String jarLoc = Utils.jarLoc();
+        if (jarLoc != null && sparkHome != null) {
+            return jarLoc.indexOf(sparkHome, 0) > -1;
+        }
+        return false;
+    }
+
     public void load(ScriptEngine engine) {
         try {
+            //module loading
+            engine.eval("load('" + getResourceAsURLStirng("/ModuleUtils.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/jvm-npm/jvm-npm.js") + "');");
+
+            // core
         	engine.eval("load('" + getResourceAsURLStirng("/JavaWrapper.js") + "');");
         	engine.eval("load('" + getResourceAsURLStirng("/Logger.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/Utils.js") + "');");
@@ -84,7 +102,16 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/streaming/dstream/PairDStream.js") + "');");
 
             //mllib
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/Vectors.js") + "');");
+            // NOTE: Eventaully we want to keep all of mllib, ml, streaming, sql, etc. (anything other than
+            // core modules) from being loaded on workder nodes and loading only on need be basis as they
+            // are required.  For now just working with Vectors and LabeledPoint to get all the kinks worked
+            // out and loading mechanism in place on master.  Then can go back and do the rest.
+            if (!isLoadingOnWorkerNode()) {
+                engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/Vectors.js") + "');");
+            } else {
+                System.out.println("NOT BLINDLY LOADING VECTORS ON WORKER NODE");
+            }
+
             engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/Matrices.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/SingularValueDecomposition.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/distributed/DistributedMatrix.js") + "');");
@@ -108,7 +135,14 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/GeneralizedLinearModel.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/LinearRegressionModel.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/LinearRegressionWithSGD.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/LabeledPoint.js") + "');");
+
+            // NOTE: See note above for Vectors.js - ditto for LabeledPoint
+            if (!isLoadingOnWorkerNode()) {
+                engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/LabeledPoint.js") + "');");
+            } else {
+                System.out.println("NOT BLINDLY LOADING LABELEDPOINT ON WORKER NODE");
+            }
+
             engine.eval("load('" + getResourceAsURLStirng("/mllib/util.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/classification/LogisticRegression.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/classification/ClassificationModel.js") + "');");

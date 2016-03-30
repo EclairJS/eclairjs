@@ -188,18 +188,54 @@ Utils.logger = Logger.getLogger("Utils_js");
 	  return eval("new " + className + "(obj)");
   };*/
 
+  function addModule(sc, module) {
+    if (sc && !sc.isLocal() && module && !module.core) {
+        print("not local and not core so addingModule: " + module.id);
+        // If module/file is under a subdir we need to zip it up to preserve directory structure
+        // on worker node otherwise addFile it will flatten path and can lead to file-overwrites.
+        if (module.inFolder) {
+            sc.addModule(module);
+        } else {
+            sc.addFile(module.id, true);
+        }
+
+        // look for children modules
+        if (module.children && module.children.length) {
+            module.children.forEach(function(childname) {
+                print("addingModule for child: "+childname);
+                addModule(sc, ModuleUtils.getRequiredFile(childname));
+            });
+        }
+    }
+  }
+
+  Utils.createLambdaFunctionWithContext = function(func, clazz, sc, bindArgs) {
+    //var x = bindArgs ? org.eclairjs.nashorn.Utils.jsToJava(bindArgs) : []
+    var unObj = [];
+    if (bindArgs) {
+        for (var i = 0; i < bindArgs.length; i++) {
+            //unObj.push(org.eclairjs.nashorn.Utils.jsToJava(bindArgs[i]));
+            print("Utils.createLambdaFunction bindArg: "+bindArgs[i]);
+
+            // If it's a bound module then make sure it's the metadata object so it can be serialized.
+            if (ModuleUtils.isModule(bindArgs[i])) {
+                print("Utils.createLambdaFunction bindArg isModule");
+                bindArgs[i] = ModuleUtils.getRequiredFile(bindArgs[i]);
+                if (sc) {
+                    print("Utils.createLambdaFunction bindArg isModule and we have a SparkContext for master: "+sc.master());
+                    addModule(sc, bindArgs[i]);
+                }
+            }
+
+            unObj.push(Serialize.jsToJava(bindArgs[i]));
+        }
+    }
+    //return new clazz(func.toString(), bindArgs ? Utils.unwrapObject(bindArgs) : [])
+    return new clazz(func.toString(), unObj /*x*/)
+  };
 
   Utils.createLambdaFunction = function(func, clazz, bindArgs) {
-      //var x = bindArgs ? org.eclairjs.nashorn.Utils.jsToJava(bindArgs) : []
-      var unObj = [];
-      if (bindArgs) {
-          for (var i = 0; i < bindArgs.length; i++) {
-              //unObj.push(org.eclairjs.nashorn.Utils.jsToJava(bindArgs[i]));
-              unObj.push(Serialize.jsToJava(bindArgs[i]));
-          }
-     }
-    //return new clazz(func.toString(), bindArgs ? Utils.unwrapObject(bindArgs) : [])
-      return new clazz(func.toString(), unObj /*x*/)
+    return Utils.createLambdaFunctionWithContext(func, clazz, null, bindArgs);
   };
 
   function Utils_invoke(func) {

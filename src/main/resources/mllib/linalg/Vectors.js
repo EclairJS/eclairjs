@@ -521,3 +521,13 @@ SparseVector.unapply = function (sv) {
 //   var javaObject =  org.apache.spark.mllib.linalg.SparseVector.unapply(sv_uw);
 //   return new Tuple3(javaObject);
 };
+
+
+module.exports = {
+    Vector: Vector,
+    VectorUDT: VectorUDT,
+    DenseVector: DenseVector,
+    SparseVector: SparseVector,
+    Vectors: Vectors 
+};
+
