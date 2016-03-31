@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
+var LabeledPoint = require("mllib/regression/LabeledPoint");
+var Vectors = require("mllib/linalg/Vectors").Vectors;
+
 function run(sc) {
 
     var filename = ((typeof args !== "undefined") && (args.length > 1)) ?

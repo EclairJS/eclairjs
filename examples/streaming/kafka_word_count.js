@@ -42,7 +42,7 @@ if ((typeof args == "undefined")||args.length<5)
 
 
     var conf = new SparkConf().setAppName("Javascript Kafka Word Count");
-    var jssc = new StreamingContext(conf, new Duration(2000));
+    var jssc = new StreamingContext(new SparkContext(conf), new Duration(2000));
 
 
     var numThreads = parseInt(args[4]);

@@ -29,23 +29,9 @@ ModuleUtils.addRequiredFile = function(module) {
         //print("ModuleUtils.addRequiredFile - Module already required: "+module.modname);
     } else {
         // include the path
-        print("ModuleUtils.addRequiredFile - ADDING MODULE: "+module.modname);
+        //print("ModuleUtils.addRequiredFile - ADDING MODULE: "+module.modname);
         //print("WITH BODY: "+module.body);
         ModuleUtils.requires[module.modname] = module;
-
-        // TODO: Remove - doesn't seem to be needed any more.
-        /*
-        if (module.parent) {
-            print("MODULE MAKESURE MODULE IS LOADED IN NASHORN: "+module.modname);
-            try {
-                var e = org.eclairjs.nashorn.NashornEngineSingleton.getEngine();
-                e.eval(module.body);
-            } catch(exc) {
-                print("CANNOT getEngine");
-                print(exc);
-            }
-        }
-        */
     }
 };
 
@@ -60,7 +46,7 @@ ModuleUtils.getRequiredFile = function(module) {
 
     var requiredMod = ModuleUtils.requires[name];
     if (!requiredMod) {
-        print("ModuleUtils.getRequiredFile file not found - going to try and load");
+        //print("ModuleUtils.getRequiredFile file not found - going to try and load");
         // this could be a worker node - try and load it
         requiredMod = ModuleUtils._loadFile(module);
     }
@@ -68,9 +54,9 @@ ModuleUtils.getRequiredFile = function(module) {
 };
 
 ModuleUtils.getRequiredFileById = function(modid) {
-    print("ModuleUtils.getRequiredFileById for modid: "+modid);
+    //print("ModuleUtils.getRequiredFileById for modid: "+modid);
     for (var name in ModuleUtils.requires) {
-        print("ModuleUtils.getRequiredFileById testing name: "+name);
+        //print("ModuleUtils.getRequiredFileById testing name: "+name);
         if (ModuleUtils.requires[name].id === modid) {
             return ModuleUtils.requires[name];
         }
@@ -89,7 +75,7 @@ function getModIdFromExport(func) {
                 return {modid: modid};
             } else if (typeof cache[modid] === "object"){
                 for (var exp in cache[modid]) {
-                    print("cache[modid][exp]: "+cache[modid][exp]);
+                    //print("cache[modid][exp]: "+cache[modid][exp]);
                     if (typeof cache[modid][exp] === "function" && cache[modid][exp].toString() === func.toString()) {
                         return {modid: modid, expname: exp};
                     }
@@ -100,7 +86,7 @@ function getModIdFromExport(func) {
 }
 
 ModuleUtils.getRequiredFileByExport = function(func) {
-    print("ModuleUtils.getRequiredFileByExport func: "+func.toString());
+    //print("ModuleUtils.getRequiredFileByExport func: "+func.toString());
     var obj = getModIdFromExport(func) || {},
         modid = obj.modid || "",
         expname = obj.expname;
@@ -132,21 +118,6 @@ ModuleUtils.getModuleFromJavaPackageAndClass = function(packageName, className) 
     return ModuleUtils.requires[modname];
 };
 
-/*
-ModuleUtils.getChildIds = function(mod) {
-    var childIds = [];
-    for (var i = 0; i < (mod.children && mod.children.length ? mod.children.length : 0); i++) {
-        var child = ModuleUtils.getRequiredFile(mod.children[i]);
-        if (child) {
-            childIds.push(child.id);
-        }
-    }
-    print("ModuleUtils.getChildIds for: "+mod.modname);
-    print("ModuleUtils.getChildIds: "+childIds.toString());
-    return childIds;
-};
-*/
-
 ModuleUtils.getParent = function(mod) {
     //print("*****ModuleUtils.getParent for: "+mod.toString());
     //print("*****ModuleUtils.getParent for parent: "+mod.parent);
@@ -157,7 +128,7 @@ ModuleUtils.getParent = function(mod) {
  * On worker node so have to try and manually find and load required required file.
  */
 ModuleUtils._loadFile = function(mod) {
-    print('ModuleUtils._loadFile: '+mod.toString());
+    //print('ModuleUtils._loadFile: '+mod.toString());
     try {
         var e = org.eclairjs.nashorn.NashornEngineSingleton.getEngine();
         // If the required file is NOT on classpath (e.g. core file part of JAR) then it was 
@@ -172,12 +143,12 @@ ModuleUtils._loadFile = function(mod) {
             var filename = mod.modname + ModuleUtils._getModuleExtension(mod.id);
             if (mod.inFolder) {
                 var abspath = org.apache.spark.SparkFiles.get(mod.zipfile);
-                print("*******ModuleUtils._loadFile zipfile abspath: "+abspath);
+                //print("*******ModuleUtils._loadFile zipfile abspath: "+abspath);
                 try {
                     org.eclairjs.nashorn.Utils.unzipFile(abspath, ".");
-                    print("Going to try and unzip kids: "+mod.zipfile.replace(".zip", "_child_"));
+                    //print("Going to try and unzip kids: "+mod.zipfile.replace(".zip", "_child_"));
                     org.eclairjs.nashorn.Utils.unzipChildren(mod.zipfile.replace(".zip", "_child_"), ".");
-                    print("Going to try and load file from unzipped file: "+filename);
+                    //print("Going to try and load file from unzipped file: "+filename);
                     e.eval("load('" + filename  + "');");
                 } catch (exc) {
                     print("Cannot unzipFile and loadfile: "+abspath);
@@ -186,14 +157,14 @@ ModuleUtils._loadFile = function(mod) {
                 }
             } else {
                 var abspath = org.apache.spark.SparkFiles.get(filename);
-                print("*******ModuleUtils.loadFile that is not in zipfile abspath: "+abspath);
+                //print("*******ModuleUtils.loadFile that is not in zipfile abspath: "+abspath);
                 e.eval("load('" + abspath + "');");
             }
         } else {
             // Module is part of JAR but not part of Bootstrap so have to manually load for i
             // worker node.
             var abspath = ModuleUtils._getResourcePath(mod.id);
-            print("*******ModuleUtils.loadCoreFile: "+abspath);
+            //print("*******ModuleUtils.loadCoreFile: "+abspath);
             e.eval("load('" + abspath + "');");
         }
 
@@ -201,7 +172,7 @@ ModuleUtils._loadFile = function(mod) {
             // If this is worker node then required module needs to pass thru jvm-npm so it's
             // exports are made "live"/available to lambdas thus we have to simulate "require".
             var reqAddOn = mod.exportname ? "\."+mod.exportname : "";
-            print("About to try and eval/require: "+"require('" + mod.modname + "')"+reqAddOn+";");
+            //print("About to try and eval/require: "+"require('" + mod.modname + "')"+reqAddOn+";");
             e.eval("require('" + mod.modname + "')"+reqAddOn+";");
         }
 

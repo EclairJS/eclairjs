@@ -257,7 +257,7 @@ RDD.prototype.distinct = function(numPartitions) {
  * @returns {RDD}
  */
 RDD.prototype.filter = function(func, bindArgs) {
-    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
     var javaObject =  this.getJavaObject().filter(fn);
     return Utils.javaToJs(javaObject);
 };
@@ -274,7 +274,7 @@ RDD.prototype.filter = function(func, bindArgs) {
  */
 RDD.prototype.filterWith = function(constructA, bindArgs) {
 throw "not implemented by ElairJS";
-    //var fn = Utils.createLambdaFunction(constructA, org.eclairjs.nashorn.JSFunction, bindArgs);
+    //var fn = Utils.createLambdaFunction(constructA, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
     //var javaObject =  this.getJavaObject().filterWith(fn);
     //return Utils.javaToJs(javaObject);
 };
@@ -296,7 +296,7 @@ RDD.prototype.first = function() {
  * @returns {RDD}
 */
 RDD.prototype.flatMap = function(func, bindArgs) {
-	  var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFlatMapFunction, bindArgs);
+	  var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFlatMapFunction, this.context(), bindArgs);
     var javaObject =  this.getJavaObject().flatMap(fn);
     return Utils.javaToJs(javaObject);
 };
@@ -311,7 +311,7 @@ RDD.prototype.flatMap = function(func, bindArgs) {
  */
 RDD.prototype.flatMapWith = function(constructA,preservesPartitioning) {
 throw "not implemented by ElairJS";
-     //var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFlatMapFunction, bindArgs);
+     //var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFlatMapFunction, this.context(), bindArgs);
     //var preserves = preservesPartitioning || false;
     //var javaObject =  this.getJavaObject().flatMapWith(fn,preservesPartitioning);
     //return Utils.javaToJs(javaObject);
@@ -327,7 +327,7 @@ throw "not implemented by ElairJS";
  * @returns {PairRDD}
  */
 RDD.prototype.flatMapToPair = function(func, bindArgs) {
-  var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSPairFlatMapFunction, bindArgs);
+  var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSPairFlatMapFunction, this.context(), bindArgs);
   var javaObject = this.getJavaObject().flatMapToPair(fn);
   return new PairRDD(javaObject);
 };
@@ -351,7 +351,7 @@ RDD.prototype.flatMapToPair = function(func, bindArgs) {
  */
 RDD.prototype.fold = function(zeroValue, func, bindArgs) {
     var zeroValue_uw = Utils.unwrapObject(zeroValue);
-    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, bindArgs);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
     var result = this.getJavaObject().fold(zeroValue_uw, fn);
     var o = Utils.javaToJs(result);
     return (o);
@@ -370,7 +370,7 @@ RDD.prototype.fold = function(zeroValue, func, bindArgs) {
  * @returns {void}
  */
 RDD.prototype.foreach = function(func, bindArgs) {
-  var fn = Utils.createLambdaFunctionWithContext(func, org.eclairjs.nashorn.JSVoidFunction, this.context(), bindArgs);
+  var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSVoidFunction, this.context(), bindArgs);
 	this.getJavaObject().foreach(fn);
 };
 
@@ -389,7 +389,7 @@ RDD.prototype.foreach = function(func, bindArgs) {
  * @returns {void}
  */
 RDD.prototype.foreachPartition = function(func, bindArgs) {
-  var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSVoidFunction, bindArgs);
+  var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSVoidFunction, this.context(), bindArgs);
 	this.getJavaObject().foreachPartition(fn);
 };
 
@@ -405,7 +405,7 @@ RDD.prototype.foreachPartition = function(func, bindArgs) {
  */
 RDD.prototype.foreachWith = function(constructA, bindArgs) {
 throw "not implemented by ElairJS";
-    //var fn = Utils.createLambdaFunction(constructA, org.eclairjs.nashorn.JSFunction, bindArgs);
+    //var fn = Utils.createLambdaFunction(constructA, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
     //this.getJavaObject().foreachWith(fn);
 };
 
@@ -450,7 +450,7 @@ RDD.prototype.glom = function() {
  * @returns {RDD}
  */
 RDD.prototype.groupBy = function(func,numPartitions,partitioner,bindArgs) {
-    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
     var partitioner_uw = Utils.unwrapObject(partitioner);
     var result = numPartitions ? this.getJavaObject().groupBy(fn,numPartitions) :
         partitioner_uw ? this.getJavaObject().groupBy(fn,partitioner_uw) : this.getJavaObject().groupBy(fn);
@@ -511,7 +511,7 @@ RDD.prototype.isEmpty = function() {
  * @returns {RDD}
  */
 RDD.prototype.keyBy = function(func, bindArgs) {
-    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
     var javaObject =  this.getJavaObject().keyBy(fn);
     return Utils.javaToJs(javaObject);
 };
@@ -547,7 +547,7 @@ RDD.prototype.localCheckpoint = function() {
  * @returns {RDD}
  */
 RDD.prototype.map = function(func, bindArgs) {
-    var fn = Utils.createLambdaFunctionWithContext(func, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
     var javaObject =  this.getJavaObject().map(fn);
     return Utils.javaToJs(javaObject);
 };
@@ -562,7 +562,7 @@ RDD.prototype.map = function(func, bindArgs) {
  * @returns {RDD}
  */
 RDD.prototype.mapPartitions = function(func,preservesPartitioning, bindArgs) {
-    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFlatMapFunction, bindArgs);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFlatMapFunction, this.context(), bindArgs);
     var javaObject =  this.getJavaObject().mapPartitions(fn,preservesPartitioning);
     return Utils.javaToJs(javaObject);
 };
@@ -579,7 +579,7 @@ RDD.prototype.mapPartitions = function(func,preservesPartitioning, bindArgs) {
  * @returns {RDD}
  */
 RDD.prototype.mapPartitionsWithIndex = function(func,preservesPartitioning, bindArgs) {
-    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
     var javaObject =  this.getJavaObject().mapPartitionsWithIndex(fn,preservesPartitioning);
     return Utils.javaToJs(javaObject);
 };
@@ -593,7 +593,7 @@ RDD.prototype.mapPartitionsWithIndex = function(func,preservesPartitioning, bind
  * @returns {RDD}
  */
 RDD.prototype.mapPartitionsWithSplit = function(func,preservesPartitioning, bindArgs) {
-    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
     var javaObject =  this.getJavaObject().mapPartitionsWithSplit(fn,preservesPartitioning);
     return Utils.javaToJs(javaObject);
 };
@@ -611,7 +611,7 @@ RDD.prototype.mapPartitionsWithSplit = function(func,preservesPartitioning, bind
  */
 RDD.prototype.mapWith = function(constructA,preservesPartitioning,bindArgs) {
 throw "not implemented by ElairJS";
-    //var fn = Utils.createLambdaFunction(constructA, org.eclairjs.nashorn.JSFunction, bindArgs);
+    //var fn = Utils.createLambdaFunction(constructA, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
     //var javaObject =  this.getJavaObject().mapWith(fn,preservesPartitioning);
     //return Utils.javaToJs(javaObject);
 };
@@ -623,7 +623,7 @@ throw "not implemented by ElairJS";
  * @returns {PairRDD}
  */
 RDD.prototype.mapToPair = function(func, bindArgs) {
-  var fn = Utils.createLambdaFunctionWithContext(func, org.eclairjs.nashorn.JSPairFunction, this.context(), bindArgs);
+  var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSPairFunction, this.context(), bindArgs);
 	var result = new PairRDD(this.getJavaObject().mapToPair(fn));
 	return result;
 };
@@ -635,7 +635,7 @@ RDD.prototype.mapToPair = function(func, bindArgs) {
  * @returns {object}  the maximum element of the RDD
  */
 RDD.prototype.max = function(comparator, bindArgs) {
-    var fn = Utils.createLambdaFunction(comparator, org.eclairjs.nashorn.JSComparator, bindArgs);
+    var fn = Utils.createLambdaFunction(comparator, org.eclairjs.nashorn.JSComparator, this.context(), bindArgs);
     return  this.getJavaObject().max(fn);
 };
 
@@ -646,7 +646,7 @@ RDD.prototype.max = function(comparator, bindArgs) {
  * @returns {object}  the minimum element of the RDD
  */
 RDD.prototype.min = function(comparator, bindArgs) {
-    var fn = Utils.createLambdaFunction(comparator, org.eclairjs.nashorn.JSComparator, bindArgs);
+    var fn = Utils.createLambdaFunction(comparator, org.eclairjs.nashorn.JSComparator, this.context(), bindArgs);
     return  this.getJavaObject().min(fn);
 };
 
@@ -790,7 +790,7 @@ throw "not implemented by ElairJS";
  * @returns {object}
  */
 RDD.prototype.reduce = function(func, bindArgs) {
-    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, bindArgs);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
     var javaObject =  this.getJavaObject().reduce(fn);
     return Utils.javaToJs(javaObject);
 };
@@ -875,7 +875,7 @@ RDD.prototype.setName = function(_name) {
  * @returns {RDD}
  */
 RDD.prototype.sortBy = function(func,ascending,numPartitions,bindArgs) {
-    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
     var javaObject =  this.getJavaObject().sortBy(fn,ascending,numPartitions);
     return Utils.javaToJs(javaObject);
 };
@@ -1079,7 +1079,7 @@ RDD.prototype.treeAggregate = function(zeroValue,func1,func2,bindArgs1,bindArgs2
  * @returns {object}
  */
 RDD.prototype.treeReduce = function(func,depth,bindArgs) {
-    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
     var javaObject = this.getJavaObject().treeReduce(fn,depth);
     return Utils.javaToJs(javaObject);
 };
@@ -1135,7 +1135,7 @@ RDD.prototype.zip = function(other) {
  */
 RDD.prototype.zipPartitions = function(rdd2,func,preservesPartitioning, bindArgs) {
     var rdd2_uw = Utils.unwrapObject(rdd2);
-    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFlatMapFunction2, bindArgs);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFlatMapFunction2, this.context(), bindArgs);
     var result = this.getJavaObject().zipPartitions(rdd2_uw,fn);
     return Utils.javaToJs(result);
 };

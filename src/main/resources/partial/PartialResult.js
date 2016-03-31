@@ -78,7 +78,7 @@ PartialResult.prototype.getFinalValue = function() {
  */
 PartialResult.prototype.onComplete = function(handler) {
    var bindArgs;
-  var fn = Utils.createLambdaFunction(handler,org.eclairjs.nashorn.JSFunction, bindArgs);
+  var fn = Utils.createLambdaFunction(handler,org.eclairjs.nashorn.JSFunction, null, bindArgs);
    var javaObject =  this.getJavaObject().onComplete(fn);
    return new PartialResult(javaObject);
 };
@@ -91,7 +91,7 @@ PartialResult.prototype.onComplete = function(handler) {
  */
 PartialResult.prototype.onFail = function(handler) {
    var bindArgs;
-  var fn = Utils.createLambdaFunction(handler,org.eclairjs.nashorn.JSFunction, bindArgs);
+  var fn = Utils.createLambdaFunction(handler,org.eclairjs.nashorn.JSFunction, null, bindArgs);
     this.getJavaObject().onFail(fn);
 };
 
@@ -103,7 +103,7 @@ PartialResult.prototype.onFail = function(handler) {
  */
 PartialResult.prototype.map = function(f) {
    var bindArgs;
-  var fn = Utils.createLambdaFunction(f,org.eclairjs.nashorn.JSFunction, bindArgs);
+  var fn = Utils.createLambdaFunction(f,org.eclairjs.nashorn.JSFunction, null, bindArgs);
    var javaObject =  this.getJavaObject().map(fn);
    return new PartialResult(javaObject);
 };

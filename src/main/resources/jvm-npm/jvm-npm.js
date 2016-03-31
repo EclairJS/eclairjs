@@ -29,9 +29,9 @@ module = (typeof module == 'undefined') ? {} :  module;
   }
 
   function Module(id, parent, core, modname, subdir, fullpath) {
-    print("new Module id: "+id);
-    print("new Module parent: "+parent);
-    print("new Module modname: ",modname);
+    //print("new Module id: "+id);
+    //print("new Module parent: "+parent);
+    //print("new Module modname: ",modname);
     this.id = id;
     this.core = core;
     this.parent = parent;
@@ -95,7 +95,7 @@ module = (typeof module == 'undefined') ? {} :  module;
   };
 
   Module._load = function _load(file, parent, core, main, modname, subdir, fullpath) {
-    print('Module._load args: '+arguments);
+    //print('Module._load args: '+arguments);
     var module = new Module(file, parent, core, modname, subdir, fullpath);
 
     var __FILENAME__ = module.filename;
@@ -310,22 +310,22 @@ module = (typeof module == 'undefined') ? {} :  module;
       }
     } else {
       file = new File([root, normalizeName(id, ext || '.js')].join('/'));
-      print('file: '+file);
+      //print('file: '+file);
     }
     if (file.exists()) {
-      print("########IS RESOLVED AS FILE");
+      //print("########IS RESOLVED AS FILE: "+file.getName());
       return file.getCanonicalPath();
     }
   }
 
   function resolveCoreModule(id, root) {
-    print("resolveCoreModule id: "+id);
-    print("resolveCoreModule root: "+root);
+    //print("resolveCoreModule id: "+id);
+    //print("resolveCoreModule root: "+root);
     var name = normalizeName(id);
     var classloader = java.lang.Thread.currentThread().getContextClassLoader();
     var resource = classloader.getResource(name);
     if (resource) {
-        print("########IS RESOLVED AS CORE: "+resource);
+        //print("########IS RESOLVED AS CORE: "+resource);
         return { path: name, core: true, fullpath: resource.toString() };
     }
   }
@@ -339,7 +339,7 @@ module = (typeof module == 'undefined') ? {} :  module;
   }
 
   function readFile(filename, core) {
-    print('readFile: '+filename);
+    //print('readFile: '+filename);
     var input;
     try {
       if (core) {

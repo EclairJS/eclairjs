@@ -92,7 +92,7 @@ print("Using checkpoint directory - "+checkpointDirectory)
     }
     // Create the context with a 1 second batch size
     var conf = new SparkConf().setAppName("Javascript Recoverable Network Word Count");
-    var ssc = new StreamingContext(conf, new Duration(1000));
+    var ssc = new StreamingContext(new SparkContext(conf), new Duration(1000));
     ssc.checkpoint(checkpointDirectory);
 
 

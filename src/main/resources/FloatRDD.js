@@ -127,7 +127,7 @@ FloatRDD.prototype.distinct = function (numPartitions) {
  * @returns {FloatRDD}
  */
 FloatRDD.prototype.filter = function (func, bindArgs) {
-    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, this.context, bindArgs);
     var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
     var obj = this.getJavaObject().filter(fn);
     return new FloatRDD(obj);

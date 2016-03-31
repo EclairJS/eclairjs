@@ -111,7 +111,7 @@ PairRDD.prototype.distinct = function (numPartitions) {
  * @returns {PairRDD}
  */
 PairRDD.prototype.filter = function (func, bindArgs) {
-    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
     var javaObject = this.getJavaObject().filter(fn);
     return new PairRDD(javaObject);
 };
@@ -374,7 +374,7 @@ PairRDD.prototype.combineByKey2 = function (createCombiner, mergeValue, mergeCom
  * @returns {PairRDD}
  */
 PairRDD.prototype.reduceByKey = function (func, bindArgs) {
-    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, bindArgs);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
     var result = this.getJavaObject().reduceByKey(fn);
     return new PairRDD(result);
 };
@@ -979,7 +979,7 @@ PairRDD.prototype.collectAsMap = function () {
  * @returns {PairRDD}
  */
 PairRDD.prototype.mapValues = function (f, bindArgs) {
-    var fn = Utils.createLambdaFunction(f, org.eclairjs.nashorn.JSFunction, bindArgs);
+    var fn = Utils.createLambdaFunction(f, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
     var javaObject = this.getJavaObject().mapValues(fn);
     return new PairRDD(javaObject);
 };

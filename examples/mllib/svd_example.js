@@ -19,6 +19,8 @@
  bin/eclairjs.sh examples/mllib/svd_example.js"
  */
 
+var Vectors = require("mllib/linalg/Vectors").Vectors;
+
 function run(sc) {
 
     var rows = sc.parallelize([

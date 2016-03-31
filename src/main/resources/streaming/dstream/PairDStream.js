@@ -38,7 +38,7 @@ PairDStream.prototype.constructor = PairDStream;
  * @returns {PairDStream}
  */
 PairDStream.prototype.filter = function(f,bindArgs) {
- var fn = Utils.createLambdaFunction(f,org.eclairjs.nashorn.JSFunction, bindArgs);
+ var fn = Utils.createLambdaFunction(f,org.eclairjs.nashorn.JSFunction, this.context().sparkContext(), bindArgs);
   var javaObject =  this.getJavaObject().filter(fn);
   return Utils.javaToJs(javaObject);
 };
@@ -152,9 +152,9 @@ PairDStream.prototype.groupByKey = function() {
  * @returns {PairDStream}
  */
 PairDStream.prototype.combineByKey = function(createCombiner,mergeValue,mergeCombiners,partitioner,mapSideCombine,bindArgs) {
- var fn = Utils.createLambdaFunction(createCombiner,org.eclairjs.nashorn.JSFunction, bindArgs);
- var fn2 = Utils.createLambdaFunction(mergeValue,org.eclairjs.nashorn.JSFunction2, bindArgs);
- var fn3 = Utils.createLambdaFunction(mergeCombiners,org.eclairjs.nashorn.JSFunction2, bindArgs);
+ var fn = Utils.createLambdaFunction(createCombiner,org.eclairjs.nashorn.JSFunction, this.context().sparkContext(), bindArgs);
+ var fn2 = Utils.createLambdaFunction(mergeValue,org.eclairjs.nashorn.JSFunction2, this.context().sparkContext(), bindArgs);
+ var fn3 = Utils.createLambdaFunction(mergeCombiners,org.eclairjs.nashorn.JSFunction2, this.context().sparkContext(), bindArgs);
   var partitioner_uw = Utils.unwrapObject(partitioner);
 
   if (arguments[4]) {
@@ -173,7 +173,7 @@ PairDStream.prototype.combineByKey = function(createCombiner,mergeValue,mergeCom
  * @returns {PairDStream}
  */
 PairDStream.prototype.reduceByKey = function(func,bindArgs) {
-      var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, bindArgs);
+      var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, this.context().sparkContext(), bindArgs);
   var javaObject =  this.getJavaObject().reduceByKey(fn);
   return Utils.javaToJs(javaObject);
 };
@@ -191,7 +191,7 @@ PairDStream.prototype.reduceByKey = function(func,bindArgs) {
  * @returns {PairDStream}
  */
 PairDStream.prototype.reduceByKeyAndWindow = function(reduceFunc,windowDuration,bindArgs) {
- var fn = Utils.createLambdaFunction(reduceFunc,org.eclairjs.nashorn.JSFunction2, bindArgs);
+ var fn = Utils.createLambdaFunction(reduceFunc,org.eclairjs.nashorn.JSFunction2, this.context().sparkContext(), bindArgs);
   var windowDuration_uw = Utils.unwrapObject(windowDuration);
   var javaObject =  this.getJavaObject().reduceByKeyAndWindow(fn,windowDuration_uw);
   return Utils.javaToJs(javaObject);
@@ -204,7 +204,7 @@ PairDStream.prototype.reduceByKeyAndWindow = function(reduceFunc,windowDuration,
  * @returns {PairDStream}
  */
 PairDStream.prototype.mapValues = function(f,bindArgs) {
- var fn = Utils.createLambdaFunction(f,org.eclairjs.nashorn.JSFunction, bindArgs);
+ var fn = Utils.createLambdaFunction(f,org.eclairjs.nashorn.JSFunction, this.context().sparkContext(), bindArgs);
   var javaObject =  this.getJavaObject().mapValues(fn);
   return Utils.javaToJs(javaObject);
 };
@@ -217,7 +217,7 @@ PairDStream.prototype.mapValues = function(f,bindArgs) {
  * @returns {PairDStream}
  */
 PairDStream.prototype.flatMapValues = function(f,bindArgs) {
- var fn = Utils.createLambdaFunction(f,org.eclairjs.nashorn.JSFunction, bindArgs);
+ var fn = Utils.createLambdaFunction(f,org.eclairjs.nashorn.JSFunction, this.context().sparkContext(), bindArgs);
   var javaObject =  this.getJavaObject().flatMapValues(fn);
   return Utils.javaToJs(javaObject);
 };

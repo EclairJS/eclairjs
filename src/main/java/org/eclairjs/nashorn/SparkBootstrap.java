@@ -53,7 +53,11 @@ public class SparkBootstrap implements Bootstrap {
 
     /*
      * If we're on a workernode then SPARK_HOME will be in JAR's path.
+     * Note: Commenting out for now as we don't need given that we're only
+     * going to load bare essentials for both driver and worker nodes now.
+     * Leaving in for now but commented out in case we change our minds.
      */
+    /*
     private boolean isLoadingOnWorkerNode() {
         String jarLoc = Utils.jarLoc();
         if (jarLoc != null && sparkHome != null) {
@@ -61,6 +65,7 @@ public class SparkBootstrap implements Bootstrap {
         }
         return false;
     }
+    */
 
     public void load(ScriptEngine engine) {
         try {
@@ -102,15 +107,9 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/streaming/dstream/PairDStream.js") + "');");
 
             //mllib
-            // NOTE: Eventaully we want to keep all of mllib, ml, streaming, sql, etc. (anything other than
-            // core modules) from being loaded on workder nodes and loading only on need be basis as they
-            // are required.  For now just working with Vectors and LabeledPoint to get all the kinks worked
-            // out and loading mechanism in place on master.  Then can go back and do the rest.
-            if (!isLoadingOnWorkerNode()) {
-                engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/Vectors.js") + "');");
-            } else {
-                System.out.println("NOT BLINDLY LOADING VECTORS ON WORKER NODE");
-            }
+
+            // Not blindly loading Vectors any more for master or slave
+            //engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/Vectors.js") + "');");
 
             engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/Matrices.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/SingularValueDecomposition.js") + "');");
@@ -136,12 +135,8 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/LinearRegressionModel.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/LinearRegressionWithSGD.js") + "');");
 
-            // NOTE: See note above for Vectors.js - ditto for LabeledPoint
-            if (!isLoadingOnWorkerNode()) {
-                engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/LabeledPoint.js") + "');");
-            } else {
-                System.out.println("NOT BLINDLY LOADING LABELEDPOINT ON WORKER NODE");
-            }
+            // Not blindly loading LabeledPoint any more for master or slave
+            //engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/LabeledPoint.js") + "');");
 
             engine.eval("load('" + getResourceAsURLStirng("/mllib/util.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/classification/LogisticRegression.js") + "');");

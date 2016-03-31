@@ -19,9 +19,6 @@
  bin/eclairjs.sh examples/mllib/linear_regression_example.js"
  */
 
-/*
- * Require modules needed within lambda functions.
- */
 var LabeledPoint = require('mllib/regression/LabeledPoint');
 var DenseVector = require('mllib/linalg/Vectors').DenseVector;
 

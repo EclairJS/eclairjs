@@ -53,7 +53,7 @@ DStream.prototype.compute = function(validTime) {
  * @returns {DStream}
  */
 DStream.prototype.filter = function(func, bindArgs) {
-    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, this.context().sparkContext(), bindArgs);
     return Utils.javaToJs(this.getJavaObject().filter(fn));
 };
 /**
@@ -216,7 +216,7 @@ DStream.prototype.countByValueAndWindow = function(windowDuration,slideDuration,
  * @returns {DStream}
  */
 DStream.prototype.flatMap = function(func, bindArgs) {
-    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFlatMapFunction, bindArgs);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFlatMapFunction, this.context().sparkContext(), bindArgs);
     return Utils.javaToJs(this.getJavaObject().flatMap(fn));
 };
 /**
@@ -227,7 +227,7 @@ DStream.prototype.flatMap = function(func, bindArgs) {
  * @returns {PairDStream}
  */
 DStream.prototype.flatMapToPair = function(func, bindArgs) {
-    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSPairFlatMapFunction, bindArgs);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSPairFlatMapFunction, this.context().sparkContext(), bindArgs);
     return Utils.javaToJs(this.getJavaObject().flatMapToPair(fn));
 };
 /**
@@ -246,7 +246,7 @@ DStream.prototype.glom = function() {
  * @returns {DStream}
  */
 DStream.prototype.map = function(func, bindArgs) {
-    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, this.context().sparkContext(), bindArgs);
     return Utils.javaToJs(this.getJavaObject().map(fn));
 };
 
@@ -257,7 +257,7 @@ DStream.prototype.map = function(func, bindArgs) {
  * @returns {PairDStream}
  */
 DStream.prototype.mapToPair = function(func, bindArgs) {
-    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSPairFunction, bindArgs);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSPairFunction, this.context().sparkContext(), bindArgs);
     return Utils.javaToJs(this.getJavaObject().mapToPair(fn));
 };
 
@@ -270,7 +270,7 @@ DStream.prototype.mapToPair = function(func, bindArgs) {
  * @returns {DStream}
  */
 DStream.prototype.mapPartitions = function(func, bindArgs) {
-    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFlatMapFunction, bindArgs);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFlatMapFunction, this.context().sparkContext(), bindArgs);
     return Utils.javaToJs(this.getJavaObject().mapPartitions(fn));
 };
 
@@ -281,7 +281,7 @@ DStream.prototype.mapPartitions = function(func, bindArgs) {
  * @returns {DStream}
  */
 DStream.prototype.reduce = function(f,bindArgs) {
- var fn = Utils.createLambdaFunction(f,org.eclairjs.nashorn.JSFunction2, bindArgs);
+ var fn = Utils.createLambdaFunction(f,org.eclairjs.nashorn.JSFunction2, this.context().sparkContext(), bindArgs);
   var javaObject =  this.getJavaObject().reduce(fn);
   return Utils.javaToJs(javaObject);
 };
@@ -299,7 +299,7 @@ DStream.prototype.reduce = function(f,bindArgs) {
  * @returns {DStream}
  */
 DStream.prototype.reduceByWindow = function(reduceFunc,windowDuration,slideDuration,bindArgs) {
- var fn = Utils.createLambdaFunction(reduceFunc,org.eclairjs.nashorn.JSFunction2, bindArgs);
+ var fn = Utils.createLambdaFunction(reduceFunc,org.eclairjs.nashorn.JSFunction2, this.context().sparkContext(), bindArgs);
   var windowDuration_uw = Utils.unwrapObject(windowDuration);
   var slideDuration_uw = Utils.unwrapObject(slideDuration);
   var javaObject =  this.getJavaObject().reduceByWindow(fn,windowDuration_uw,slideDuration_uw);
@@ -325,8 +325,8 @@ DStream.prototype.reduceByWindow = function(reduceFunc,windowDuration,slideDurat
  * @returns {DStream}
  */
 DStream.prototype.reduceByWindowwithSlideDuration = function(reduceFunc,invReduceFunc,windowDuration,slideDuration,bindArgs) {
- var fn = Utils.createLambdaFunction(reduceFunc,org.eclairjs.nashorn.JSFunction2, bindArgs);
- var fn2 = Utils.createLambdaFunction(invReduceFunc,org.eclairjs.nashorn.JSFunction2, bindArgs);
+ var fn = Utils.createLambdaFunction(reduceFunc,org.eclairjs.nashorn.JSFunction2, this.context().sparkContext(), bindArgs);
+ var fn2 = Utils.createLambdaFunction(invReduceFunc,org.eclairjs.nashorn.JSFunction2, this.context().sparkContext(), bindArgs);
   var windowDuration_uw = Utils.unwrapObject(windowDuration);
   var slideDuration_uw = Utils.unwrapObject(slideDuration);
   var javaObject =  this.getJavaObject().reduceByWindow(fn,fn2,windowDuration_uw,slideDuration_uw);
@@ -342,7 +342,7 @@ DStream.prototype.reduceByWindowwithSlideDuration = function(reduceFunc,invReduc
  * @returns {DStream}
  */
 DStream.prototype.transform = function(transformFunc,bindArgs) {
- var fn = Utils.createLambdaFunction(transformFunc,org.eclairjs.nashorn.JSFunction2, bindArgs);
+ var fn = Utils.createLambdaFunction(transformFunc,org.eclairjs.nashorn.JSFunction2, this.context().sparkContext(), bindArgs);
   var javaObject =  this.getJavaObject().transform(fn);
   return Utils.javaToJs(javaObject);
 };
@@ -355,7 +355,7 @@ DStream.prototype.transform = function(transformFunc,bindArgs) {
  * @returns {PairDStream}
  */
 DStream.prototype.transformToPair = function(transformFunc,bindArgs) {
- var fn = Utils.createLambdaFunction(transformFunc,org.eclairjs.nashorn.JSFunction, bindArgs);
+ var fn = Utils.createLambdaFunction(transformFunc,org.eclairjs.nashorn.JSFunction, this.context().sparkContext(), bindArgs);
   var javaObject =  this.getJavaObject().transformToPair(fn);
   return Utils.javaToJs(javaObject);
 };
@@ -369,7 +369,7 @@ DStream.prototype.transformToPair = function(transformFunc,bindArgs) {
  * @returns {void}
  */
 DStream.prototype.foreachRDD = function(func, bindArgs) {
-    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, this.context().sparkContext(), bindArgs);
     this.getJavaObject().foreachRDD(fn);
 };
 
@@ -382,7 +382,7 @@ DStream.prototype.foreachRDD = function(func, bindArgs) {
  * @returns {void}
  */
 DStream.prototype.foreachRDDWithTime = function(func, bindArgs) {
-    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, bindArgs);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, this.context().sparkContext(), bindArgs);
     this.getJavaObject().foreachRDD(fn);
 };
 

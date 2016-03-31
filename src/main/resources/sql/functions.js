@@ -2357,7 +2357,7 @@ functions.sort_array = function(e, asc) {
  */
 functions.udf = function(f, bindArgs) {
 throw "not implemented by ElairJS";
-//   var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
+//   var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, null, bindArgs);
 //   var javaObject = org.apache.spark.sql.functions.udf(fn);
 //   return new UserDefinedFunction(javaObject);
 }
