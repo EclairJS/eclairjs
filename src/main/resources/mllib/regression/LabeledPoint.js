@@ -20,66 +20,67 @@
  * @param {double} label
  * @param {Vector} features
  */
+{
+	var LabeledPoint = function (label, features) {
+		this.logger = Logger.getLogger("mllib.regression.LabeledPoint_js");
+		var jvmObj;
+		if (features == null) {
+			this.logger.debug("Java object ");
+			jvmObj = label;
+		} else {
+			jvmObj = new org.apache.spark.mllib.regression.LabeledPoint(label, Utils.unwrapObject(features));
 
-var LabeledPoint = function(label, features) { 
-	this.logger = Logger.getLogger("mllib.regression.LabeledPoint_js");
-	var jvmObj;
-	if ( features == null) {
-  	 	this.logger.debug("Java object ");
-  	 	jvmObj = label;
-	} else {
-		jvmObj = new org.apache.spark.mllib.regression.LabeledPoint(label, Utils.unwrapObject(features));
+		}
+		JavaWrapper.call(this, jvmObj);
+	};
 
-	}
-	JavaWrapper.call(this, jvmObj);
-};
+	LabeledPoint.prototype = Object.create(JavaWrapper.prototype);
 
-LabeledPoint.prototype = Object.create(JavaWrapper.prototype); 
-
-LabeledPoint.prototype.constructor = LabeledPoint;
-/**
- * Returns features
- * @returns {Vector} 
- */
-LabeledPoint.prototype.getFeatures = function() {
-	return Serialize.javaToJs(this.getJavaObject().features());
-};
-/**
- * Returns label
- * @returns {float}
- */
-LabeledPoint.prototype.getLabel = function() {
-	return this.getJavaObject().label();
-};
-/**
- * Parses a string resulted from LabeledPoint#toString into an LabeledPoint.
- * @param string
- * @returns {LabeledPoint}
- */
-LabeledPoint.prototype.parse = function(string) {
-	var lp = org.apache.spark.mllib.regression.LabeledPoint.parse(s);
-	var l = new LabeledPoint(lp);
-	return l;
-};
-/**
- * Returns string representation of object
- * @returns {string}
- */
-LabeledPoint.prototype.toString = function() {
-	return "[" + this.getLabel() + ", [" + this.getFeatures() + "]]";
-};
-/**
- * Returns string representation of JSON object
- * @returns {string}
- */
-LabeledPoint.prototype.toJSON = function() {
-	//return "{label: " + this.getLabel() + ", features: " + this.getFeatures() + " }";
-    var jsonObj = {};
-    jsonObj.label = this.getLabel();
-    jsonObj.features = this.getFeatures();
-    return jsonObj;
-};
+	LabeledPoint.prototype.constructor = LabeledPoint;
+	/**
+	 * Returns features
+	 * @returns {Vector}
+	 */
+	LabeledPoint.prototype.getFeatures = function () {
+		return Serialize.javaToJs(this.getJavaObject().features());
+	};
+	/**
+	 * Returns label
+	 * @returns {float}
+	 */
+	LabeledPoint.prototype.getLabel = function () {
+		return this.getJavaObject().label();
+	};
+	/**
+	 * Parses a string resulted from LabeledPoint#toString into an LabeledPoint.
+	 * @param string
+	 * @returns {LabeledPoint}
+	 */
+	LabeledPoint.prototype.parse = function (string) {
+		var lp = org.apache.spark.mllib.regression.LabeledPoint.parse(s);
+		var l = new LabeledPoint(lp);
+		return l;
+	};
+	/**
+	 * Returns string representation of object
+	 * @returns {string}
+	 */
+	LabeledPoint.prototype.toString = function () {
+		return "[" + this.getLabel() + ", [" + this.getFeatures() + "]]";
+	};
+	/**
+	 * Returns string representation of JSON object
+	 * @returns {string}
+	 */
+	LabeledPoint.prototype.toJSON = function () {
+		//return "{label: " + this.getLabel() + ", features: " + this.getFeatures() + " }";
+		var jsonObj = {};
+		jsonObj.label = this.getLabel();
+		jsonObj.features = this.getFeatures();
+		return jsonObj;
+	};
 
 
-module.exports = LabeledPoint;
+	module.exports = LabeledPoint;
 
+}

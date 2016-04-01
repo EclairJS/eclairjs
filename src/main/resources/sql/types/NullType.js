@@ -14,27 +14,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * @constructor
- * @extends DataType
- * @classdesc The data type representing NULL values. Please use the singleton DataTypes.NullType.
- */
+{
+    var DataType = require('sql/types/DataType');
 
-function NullType(jvmObj) {
-	var jvmObj = arguments[0];
-	DataType.call(this, jvmObj);
-};
+	/**
+	 * @constructor
+	 * @extends module:sql/types/DataType
+	 * @classdesc The data type representing NULL values. Please use the singleton DataTypes.NullType.
+     * @memberof module:sql/types
+	 */
+
+	var NullType = function(jvmObj) {
+		var jvmObj = arguments[0];
+		DataType.call(this, jvmObj);
+	};
 
 
-NullType.prototype = Object.create(DataType.prototype); 
+	NullType.prototype = Object.create(DataType.prototype);
 
 
-NullType.prototype.constructor = NullType;
+	NullType.prototype.constructor = NullType;
 
-/**
- * The default size of a value of this data type, used internally for size estimation.
- * @returns {integer}
- */
-NullType.prototype.defaultSize = function() {
-	return this.getJavaObject().defaultSize();
-};
+	/**
+	 * The default size of a value of this data type, used internally for size estimation.
+	 * @returns {integer}
+	 */
+	NullType.prototype.defaultSize = function () {
+		return this.getJavaObject().defaultSize();
+	};
+
+	module.exports = NullType;
+}

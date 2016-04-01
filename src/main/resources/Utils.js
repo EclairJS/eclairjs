@@ -253,3 +253,5 @@ Utils.logger = Logger.getLogger("Utils_js");
 
       return ret;
   };
+
+module.exports = Utils;

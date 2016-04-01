@@ -522,7 +522,10 @@ SparseVector.unapply = function (sv) {
 //   return new Tuple3(javaObject);
 };
 
-
+/**
+ * Vectors module.
+ * @module mllib/linalg/Vectors
+ */
 module.exports = {
     Vector: Vector,
     VectorUDT: VectorUDT,

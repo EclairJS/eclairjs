@@ -14,65 +14,72 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * @constructor
- * @classdesc The data type representing Short values. Please use the singleton DataTypes.ShortType. not a valid primitive type for JavaScript
- * @ignore
- */
+{
+    var NumericType = require('sql/types/NumericType');
 
-function ShortType(jvmObj) {
-	throw "not implemented by ElairJS";
-	//NumericType.call(this, jvmObj);
-};
+    /**
+     * @constructor
+     * @classdesc The data type representing Short values. Please use the singleton DataTypes.ShortType. not a valid primitive type for JavaScript
+     * @memberof module:sql/types
+     * @ignore
+     */
+
+    var ShortType = function(jvmObj) {
+        throw "not implemented by ElairJS";
+        //NumericType.call(this, jvmObj);
+    };
 
 
-ShortType.prototype = Object.create(NumericType.prototype); 
+    ShortType.prototype = Object.create(NumericType.prototype);
 
 
-ShortType.prototype.constructor = ShortType;
+    ShortType.prototype.constructor = ShortType;
 
-/**
- * The default size of a value of the ShortType is 2 bytes.
- * @returns {integer}
- * @ignore
- */
-ShortType.prototype.defaultSize = function() {
-	throw "not implemented by ElairJS";
-	//return this.getJavaObject().defaultSize();
-};
-/**
- * @returns {string}
- * @ignore
- */
-ShortType.prototype.simpleString = function() {
-	throw "not implemented by ElairJS";
-	//return this.getJavaObject().simpleString();
-};
-ShortType.prototype.classTag = function() {
-	throw "not implemented by ElairJS";
-	//return this.getJavaObject().classTag();
-};
-ShortType.prototype.numeric = function() {
-	throw "not implemented by ElairJS";
-	//return this.getJavaObject().numeric();
-};
-ShortType.prototype.fractional = function() {
-	throw "not implemented by ElairJS";
-	//return this.getJavaObject().fractional();
-};
-ShortType.prototype.ordering = function() {
-	throw "not implemented by ElairJS";
-	//return this.getJavaObject().ordering();
-};
-ShortType.prototype.asIntegral = function() {
-	throw "not implemented by ElairJS";
-	//return this.getJavaObject().asIntegral();
-};
-ShortType.prototype.tag = function() {
-	throw "not implemented by ElairJS";
-	//return this.getJavaObject().tag();
-};
-ShortType.prototype.unapply = function() {
-	throw "not implemented by ElairJS";
-	//return this.getJavaObject().unapply();
-};
+    /**
+     * The default size of a value of the ShortType is 2 bytes.
+     * @returns {integer}
+     * @ignore
+     */
+    ShortType.prototype.defaultSize = function () {
+        throw "not implemented by ElairJS";
+        //return this.getJavaObject().defaultSize();
+    };
+    /**
+     * @returns {string}
+     * @ignore
+     */
+    ShortType.prototype.simpleString = function () {
+        throw "not implemented by ElairJS";
+        //return this.getJavaObject().simpleString();
+    };
+    ShortType.prototype.classTag = function () {
+        throw "not implemented by ElairJS";
+        //return this.getJavaObject().classTag();
+    };
+    ShortType.prototype.numeric = function () {
+        throw "not implemented by ElairJS";
+        //return this.getJavaObject().numeric();
+    };
+    ShortType.prototype.fractional = function () {
+        throw "not implemented by ElairJS";
+        //return this.getJavaObject().fractional();
+    };
+    ShortType.prototype.ordering = function () {
+        throw "not implemented by ElairJS";
+        //return this.getJavaObject().ordering();
+    };
+    ShortType.prototype.asIntegral = function () {
+        throw "not implemented by ElairJS";
+        //return this.getJavaObject().asIntegral();
+    };
+    ShortType.prototype.tag = function () {
+        throw "not implemented by ElairJS";
+        //return this.getJavaObject().tag();
+    };
+    ShortType.prototype.unapply = function () {
+        throw "not implemented by ElairJS";
+        //return this.getJavaObject().unapply();
+    };
+
+    module.exports = ShortType;
+}

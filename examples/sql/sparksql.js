@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+var DataTypes = require('sql/types/DataTypes');
+
 var sparkConf = new SparkConf().setAppName("JavaScriptSparkSQL");
 var ctx = new SparkContext(sparkConf);
 var sqlContext = new SQLContext(ctx);

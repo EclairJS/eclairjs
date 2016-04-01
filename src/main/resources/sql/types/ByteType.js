@@ -14,51 +14,55 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+{
+    var NumericType = require('sql/types/NumericType');
 
-/*
- * Not a valid type for JavaScript
- */
-function ByteType(jvmObj) {
-	throw "not implemented by ElairJS";
-	NumericType.call(this, jvmObj);
-};
+	/*
+	 * Not a valid type for JavaScript
+	 */
+	var ByteType = function (jvmObj) {
+		throw "not implemented by ElairJS";
+		NumericType.call(this, jvmObj);
+	};
 
 
-ByteType.prototype = Object.create(NumericType.prototype); 
+	ByteType.prototype = Object.create(NumericType.prototype);
 
 
-ByteType.prototype.constructor = ByteType;
+	ByteType.prototype.constructor = ByteType;
 
-ByteType.prototype.defaultSize = function() {
-	throw "not implemented by ElairJS";
-	//return this.getJavaObject().defaultSize();
-};
-ByteType.prototype.classTag = function() {
-	throw "not implemented by ElairJS";
-	//return this.getJavaObject().classTag();
-};
-ByteType.prototype.integral = function() {
-	throw "not implemented by ElairJS";
-	//return this.getJavaObject().integral();
-};
-ByteType.prototype.numeric = function() {
-	throw "not implemented by ElairJS";
-	//return this.getJavaObject().numeric();
-};
-ByteType.prototype.ordering = function() {
-	throw "not implemented by ElairJS";
-	//return this.getJavaObject().ordering();
-};
-ByteType.prototype.tag = function() {
-	throw "not implemented by ElairJS";
-	//return this.getJavaObject().tag();
-};
-ByteType.prototype.unapply = function() {
-	throw "not implemented by ElairJS";
-	//return this.getJavaObject().unapply();
-};
-ByteType.prototype.simpleString = function() {
-	throw "not implemented by ElairJS";
-	//return this.getJavaObject().simpleString();
-};
+	ByteType.prototype.defaultSize = function () {
+		throw "not implemented by ElairJS";
+		//return this.getJavaObject().defaultSize();
+	};
+	ByteType.prototype.classTag = function () {
+		throw "not implemented by ElairJS";
+		//return this.getJavaObject().classTag();
+	};
+	ByteType.prototype.integral = function () {
+		throw "not implemented by ElairJS";
+		//return this.getJavaObject().integral();
+	};
+	ByteType.prototype.numeric = function () {
+		throw "not implemented by ElairJS";
+		//return this.getJavaObject().numeric();
+	};
+	ByteType.prototype.ordering = function () {
+		throw "not implemented by ElairJS";
+		//return this.getJavaObject().ordering();
+	};
+	ByteType.prototype.tag = function () {
+		throw "not implemented by ElairJS";
+		//return this.getJavaObject().tag();
+	};
+	ByteType.prototype.unapply = function () {
+		throw "not implemented by ElairJS";
+		//return this.getJavaObject().unapply();
+	};
+	ByteType.prototype.simpleString = function () {
+		throw "not implemented by ElairJS";
+		//return this.getJavaObject().simpleString();
+	};
 
+    module.exports = ByteType;
+}
