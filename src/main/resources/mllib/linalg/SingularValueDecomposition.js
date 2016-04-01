@@ -13,103 +13,105 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+{
+    /**
+     * Represents singular value decomposition (SVD) factors.
+     * @classdesc
+     * @param {UType} U
+     * @param {Vector} s
+     * @param {VType} V
+     * @class
+     * @memberof module:mllib/linalg
+     */
+    var SingularValueDecomposition = function (U, s, V) {
+        var jvmObject;
+        this.logger = Logger.getLogger("SingularValueDecomposition_js");
+        if (arguments[0] instanceof org.apache.spark.mllib.linalg.SingularValueDecomposition) {
+            jvmObject = arguments[0];
+        } else {
+            jvmObject = new org.apache.spark.mllib.linalg.SingularValueDecomposition(
+                Utils.unwrapObject(U),
+                Utils.unwrapObject(s),
+                Utils.unwrapObject(V)
+            );
+        }
+
+        JavaWrapper.call(this, jvmObject);
+
+    };
+
+    SingularValueDecomposition.prototype = Object.create(JavaWrapper.prototype);
+
+    SingularValueDecomposition.prototype.constructor = SingularValueDecomposition;
+
+    /**
+     * @returns {Vector}
+     */
+    SingularValueDecomposition.prototype.s = function() {
+        return Utils.javaToJs(this.getJavaObject().s());
+    };
+
+    /**
+     * @returns {UType}
+     */
+    SingularValueDecomposition.prototype.U = function() {
+        return Utils.javaToJs(this.getJavaObject().U());
+    };
+
+    /**
+     * @returns {VType}
+     */
+    SingularValueDecomposition.prototype.V = function() {
+        return Utils.javaToJs(this.getJavaObject().V());
+    };
 
 
-/**
- * Represents singular value decomposition (SVD) factors.
- * @classdesc
- * @param {UType} U
- * @param {Vector} s
- * @param {VType} V
- * @class
- */
-var SingularValueDecomposition = function (U, s, V) {
-    var jvmObject;
-    this.logger = Logger.getLogger("SingularValueDecomposition_js");
-    if (arguments[0] instanceof org.apache.spark.mllib.linalg.SingularValueDecomposition) {
-        jvmObject = arguments[0];
-    } else {
-        jvmObject = new org.apache.spark.mllib.linalg.SingularValueDecomposition(
-            Utils.unwrapObject(U),
-            Utils.unwrapObject(s),
-            Utils.unwrapObject(V)
-        );
-    }
+    /**
+     * :: Experimental ::
+     * Represents QR factors.
+     * @classdesc
+     * @param {QType} Q
+     * @param {RType} R
+     * @class
+     * @memberof module:mllib/linalg
+     */
+    var QRDecomposition = function (Q, R) {
+        var jvmObject;
+        this.logger = Logger.getLogger("QRDecomposition_js");
+        if (arguments[0] instanceof org.apache.spark.mllib.linalg.QRDecomposition) {
+            jvmObject = arguments[0];
+        } else {
+            jvmObject = new org.apache.spark.mllib.linalg.QRDecomposition(
+                Utils.unwrapObject(Q),
+                Utils.unwrapObject(R)
+            );
+        }
+        JavaWrapper.call(this, jvmObject);
 
-    JavaWrapper.call(this, jvmObject);
+    };
 
-};
+    QRDecomposition.prototype = Object.create(JavaWrapper.prototype);
 
-SingularValueDecomposition.prototype = Object.create(JavaWrapper.prototype);
+    QRDecomposition.prototype.constructor = QRDecomposition;
 
-SingularValueDecomposition.prototype.constructor = SingularValueDecomposition;
+    /**
+     *
+     * @returns {QType}
+     */
+    QRDecomposition.prototype.Q = function() {
+        return Utils.javaToJs(this.getJavaObject().Q());
+    };
 
-/**
- * @returns {Vector}
- */
-SingularValueDecomposition.prototype.s = function() {
-    return Utils.javaToJs(this.getJavaObject().s());
-};
+    /**
+     *
+     * @returns {RType}
+     */
+    QRDecomposition.prototype.R = function() {
+        return Utils.javaToJs(this.getJavaObject().R());
+    };
 
-/**
- * @returns {UType}
- */
-SingularValueDecomposition.prototype.U = function() {
-    return Utils.javaToJs(this.getJavaObject().U());
-};
-
-/**
- * @returns {VType}
- */
-SingularValueDecomposition.prototype.V = function() {
-    return Utils.javaToJs(this.getJavaObject().V());
-};
-
-
-/**
- * :: Experimental ::
- * Represents QR factors.
- * @classdesc
- * @param {QType} Q
- * @param {RType} R
- * @class
- */
-var QRDecomposition = function (Q, R) {
-    var jvmObject;
-    this.logger = Logger.getLogger("QRDecomposition_js");
-    if (arguments[0] instanceof org.apache.spark.mllib.linalg.QRDecomposition) {
-        jvmObject = arguments[0];
-    } else {
-        jvmObject = new org.apache.spark.mllib.linalg.QRDecomposition(
-            Utils.unwrapObject(Q),
-            Utils.unwrapObject(R)
-        );
-    }
-    JavaWrapper.call(this, jvmObject);
-
-};
-
-QRDecomposition.prototype = Object.create(JavaWrapper.prototype);
-
-QRDecomposition.prototype.constructor = QRDecomposition;
-
-/**
- *
- * @returns {QType}
- */
-QRDecomposition.prototype.Q = function() {
-    return Utils.javaToJs(this.getJavaObject().Q());
-};
-
-/**
- *
- * @returns {RType}
- */
-QRDecomposition.prototype.R = function() {
-    return Utils.javaToJs(this.getJavaObject().R());
-};
-
-module.exports = {
-    SingularValueDecomposition: SingularValueDecomposition,
-    QRDecomposition: QRDecomposition
-};
+    module.exports = {
+        SingularValueDecomposition: SingularValueDecomposition,
+        QRDecomposition: QRDecomposition
+    };
+}

@@ -14,43 +14,46 @@
 * limitations under the License.                                           
 */ 
 
+{
+    /**
+     * Represents a distributively stored matrix backed by one or more RDDs.
+     * @memberof module:mllib/linalg/distributed
+     * @classdesc
+     * @class
+     * @abstract
+     * @example
+     * var DistributedMatrix = require('mllib/linalg/distributed/DistributedMatrix');
+     */
 
 
-/**
- * Represents a distributively stored matrix backed by one or more RDDs.
- * @classdesc
- * @class
- * @abstract
- */
+    var DistributedMatrix = function(jvmObject) {
+        this.logger = Logger.getLogger("DistributedMatrix_js");
+        JavaWrapper.call(this, jvmObject);
 
+    };
 
-var DistributedMatrix = function(jvmObject) {
-    this.logger = Logger.getLogger("DistributedMatrix_js");
-	JavaWrapper.call(this, jvmObject);
+    DistributedMatrix.prototype = Object.create(JavaWrapper.prototype);
 
-};
-
-DistributedMatrix.prototype = Object.create(JavaWrapper.prototype);
-
-DistributedMatrix.prototype.constructor = DistributedMatrix;
+    DistributedMatrix.prototype.constructor = DistributedMatrix;
 
 
 
-/**
- * Gets or computes the number of rows.
- * @returns {integer}
- */
-DistributedMatrix.prototype.numRows = function() {
-    return  this.getJavaObject().numRows();
-};
+    /**
+     * Gets or computes the number of rows.
+     * @returns {integer}
+     */
+    DistributedMatrix.prototype.numRows = function() {
+        return  this.getJavaObject().numRows();
+    };
 
 
-/**
- * Gets or computes the number of rows.
- * @returns {integer}
- */
-DistributedMatrix.prototype.numCols = function() {
-    return  this.getJavaObject().numCols();
-};
+    /**
+     * Gets or computes the number of rows.
+     * @returns {integer}
+     */
+    DistributedMatrix.prototype.numCols = function() {
+        return  this.getJavaObject().numCols();
+    };
 
-module.exports = DistributedMatrix;
+    module.exports = DistributedMatrix;
+}
