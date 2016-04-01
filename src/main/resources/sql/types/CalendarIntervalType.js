@@ -23,6 +23,7 @@
      * @classdesc The data type representing calendar time intervals.
      * The calendar time interval is stored internally in two components: number of months the number of microseconds.
      * Note that calendar intervals are not comparable.
+     * @memberof module:sql/types
      */
 
     var CalendarIntervalType = function (jvmObj) {
@@ -43,10 +44,7 @@
     CalendarIntervalType.prototype.defaultSize = function () {
         return this.getJavaObject().defaultSize();
     };
-    /**
-     * CalendarIntervalType module.
-     * @module sql/types/CalendarIntervalType
-     */
+
     module.exports = CalendarIntervalType;
 }
 

@@ -21,6 +21,7 @@
      * @constructor
      * @extends module:sql/types/DataType
      * @classdesc The data type representing String values. Please use the singleton DataTypes.StringType.
+     * @memberof module:sql/types
      */
 
     var StringType = function(jvmObj) {
@@ -53,10 +54,7 @@
         throw "not implemented by ElairJS";
         //return this.getJavaObject().tag();
     };
-    /**
-     * StringType module.
-     * @module sql/types/StringType
-     */
+
     module.exports = StringType;
 }
 

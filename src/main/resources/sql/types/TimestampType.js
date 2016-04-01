@@ -20,6 +20,7 @@
     /**
      * @constructor
      * @extends module:sql/types/DataType
+     * @memberof module:sql/types
      * @classdesc The data type representing java.sql.Timestamp values. Please use the singleton DataTypes.TimestampType.
      */
 
@@ -53,10 +54,7 @@
         throw "not implemented by ElairJS";
         //return this.getJavaObject().tag();
     };
-    /**
-     * TimestampType module.
-     * @module sql/types/TimestampType
-     */
+
     module.exports = TimestampType;
 
 }

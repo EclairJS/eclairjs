@@ -17,9 +17,10 @@
 var sparkContext = new SparkContext("local[*]", "dataframe");
 var sqlContext = new SQLContext(sparkContext);
 var useDateType = false;
-var DataTypes = require('sql/types/DataTypes');
+var sqlTypes = require('sql/types');
+var DataTypes = sqlTypes.DataTypes;
 var DataType = require('sql/types/DataType');
-var ArrayType = require('sql/types/ArrayType');
+var ArrayType = sqlTypes.ArrayType;
 var StructType = require('sql/types/StructType');
 var StructField = require('sql/types/StructField');
 

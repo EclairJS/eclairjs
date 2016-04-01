@@ -19,11 +19,16 @@
 
     /**
      * @constructor
+     * @memberof module:sql/types
      * @protected
      * @param {DataType} elementType
      * @param {boolean} containsNull
      * @classdesc The Array type of all Spark SQL data types.
-     * @extends module:sql/types/DataType
+     * @extends DataType
+     * @example
+     * var ArrayType = require('sql/types/ArrayType');
+     * var IntegerType = require('sql/types/IntegerType');
+     * var at = new ArrayType(IntegerType, true);
      */
 
     var ArrayType = function () {
@@ -80,9 +85,6 @@
     ArrayType.prototype.simpleString = function () {
         return this.getJavaObject().simpleString();
     };
-    /**
-     * ArrayType module.
-     * @module sql/types/ArrayType
-     */
+
     module.exports = ArrayType;
 }

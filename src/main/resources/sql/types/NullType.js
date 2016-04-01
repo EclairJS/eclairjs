@@ -21,6 +21,7 @@
 	 * @constructor
 	 * @extends module:sql/types/DataType
 	 * @classdesc The data type representing NULL values. Please use the singleton DataTypes.NullType.
+     * @memberof module:sql/types
 	 */
 
 	var NullType = function(jvmObj) {
@@ -41,9 +42,6 @@
 	NullType.prototype.defaultSize = function () {
 		return this.getJavaObject().defaultSize();
 	};
-    /**
-     * NullType module.
-     * @module sql/types/NullType
-     */
+
 	module.exports = NullType;
 }

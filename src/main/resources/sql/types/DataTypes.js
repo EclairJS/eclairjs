@@ -32,6 +32,7 @@
     /**
      * @constructor
      * @classdesc The base type of all Spark SQL data types.
+     * @memberof module:sql/types
      */
     var DataTypes = function () {
 
@@ -153,9 +154,6 @@
         var ret = new StructType(org.apache.spark.sql.types.DataTypes.createStructType(f));
         return ret;
     };
-    /**
-     * DataTypes module.
-     * @module sql/types/DataTypes
-     */
+
     module.exports = DataTypes;
 }

@@ -20,6 +20,7 @@
      * @constructor
      * @extends module:sql/types/DataType
      * @classdesc The data type representing Array[Byte] values. Please use the singleton DataTypes.BinaryType.
+     * @memberof module:sql/types
      */
 
     var BinaryType = function () {
@@ -48,10 +49,7 @@
         throw "not implemented by ElairJS";
         //return this.getJavaObject().tag();
     };
-    /**
-     * BinaryType module.
-     * @module sql/types/BinaryType
-     */
+
     module.exports = BinaryType;
 }
 

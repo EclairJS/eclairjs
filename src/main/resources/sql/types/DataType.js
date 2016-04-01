@@ -19,6 +19,7 @@
     /**
      * @constructor
      * @classdesc The base type of all Spark SQL data types.
+     * @memberof module:sql/types
      */
 
     var DataType = function(jvmObj) {
@@ -80,9 +81,6 @@
     DataType.prototype.simpleString = function () {
         return this.getJavaObject().simpleString();
     };
-    /**
-     * DataType module.
-     * @module sql/types/DataType
-     */
+
     module.exports = DataType;
 }

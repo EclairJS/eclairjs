@@ -22,6 +22,7 @@
      * @classdesc A date type, supporting "0001-01-01" through "9999-12-31".
      * Please use the singleton DataTypes.DateType.
      * Internally, this is represented as the number of days from epoch (1970-01-01 00:00:00 UTC).
+     * @memberof module:sql/types
      */
 
     var DateType = function(jvmObj) {
@@ -54,9 +55,6 @@
         throw "not implemented by ElairJS";
         //return this.getJavaObject().tag();
     };
-    /**
-     * DateType module.
-     * @module sql/types/DateType
-     */
+
     module.exports = DateType;
 }

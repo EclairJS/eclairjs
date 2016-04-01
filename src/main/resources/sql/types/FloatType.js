@@ -21,6 +21,7 @@
      * @constructor
      * @extends module:sql/types/NumericType
      * @classdesc The data type representing Float values. Please use the singleton DataTypes.FloatType.
+     * @memberof module:sql/types
      */
 
     function FloatType(jvmObj) {
@@ -69,9 +70,6 @@
         throw "not implemented by ElairJS";
         //return this.getJavaObject().unapply();
     };
-    /**
-     * FloatType module.
-     * @module sql/types/FloatType
-     */
+
     module.exports = FloatType;
 }

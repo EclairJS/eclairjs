@@ -21,6 +21,7 @@
      * @constructor
      * @extends module:sql/types/NumericType
      * @classdesc The data type representing Double values. Please use the singleton DataTypes.DoubleType.
+     * @memberof module:sql/types
      */
 
     DoubleType = function(jvmObj) {
@@ -69,9 +70,6 @@
         throw "not implemented by ElairJS";
         //return this.getJavaObject().unapply();
     };
-    /**
-     * DoubleType module.
-     * @module sql/types/DoubleType
-     */
+
     module.exports = DoubleType;
 }

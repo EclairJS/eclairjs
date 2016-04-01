@@ -20,6 +20,7 @@
      * @constructor
      * @extends module:sql/types/DataType
      * @classdesc The base type of all Spark SQL Numeric data types.
+     * @memberof module:sql/types
      */
 
     function NumericType(jvmObj) {
@@ -61,9 +62,6 @@
         throw "not implemented by ElairJS";
         //return this.getJavaObject().unapply();
     };
-    /**
-     * NumericType module.
-     * @module sql/types/NumericType
-     */
+
     module.exports = NumericType;
 }

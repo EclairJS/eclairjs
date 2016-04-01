@@ -21,6 +21,7 @@
      * @constructor
      * @extends module:sql/types/NumericType
      * @classdesc The data type representing Int values. Please use the singleton DataTypes.IntegerType.
+     * @memberof module:sql/types
      */
 
     var IntegerType = function(jvmObj) {
@@ -75,9 +76,6 @@
         throw "not implemented by ElairJS";
         //return this.getJavaObject().unapply();
     };
-    /**
-     * IntegerType module.
-     * @module sql/types/IntegerType
-     */
+
     module.exports = IntegerType;
 }

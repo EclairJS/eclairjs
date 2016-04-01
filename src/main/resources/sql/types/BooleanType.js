@@ -21,6 +21,7 @@
      * @constructor
      * @extends module:sql/types/DataType
      * @classdesc The data type representing Boolean values. Please use the singleton DataTypes.BooleanType.
+     * @memberof module:sql/types
      */
 
     function BooleanType(jvmObj) {
@@ -53,9 +54,6 @@
         throw "not implemented by ElairJS";
         //return this.getJavaObject().tag();
     };
-    /**
-     * BooleanType module.
-     * @module sql/types/BooleanType
-     */
+
     module.exports = BooleanType;
 }

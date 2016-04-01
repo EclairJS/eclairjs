@@ -24,6 +24,7 @@
      * JSON is used for serialization.
      * The default constructor is private. User should use either MetadataBuilder or Metadata.fromJson() to create Metadata instances.
      * @protected
+     * @memberof module:sql/types
      */
     var Metadata = function (jvmObj) {
 
@@ -175,9 +176,6 @@
     Metadata.prototype.toString = function () {
         return this.getJavaObject().toString();
     };
-    /**
-     * Metadata module.
-     * @module sql/types/Metadata
-     */
+
     module.exports = Metadata;
 }

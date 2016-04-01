@@ -25,6 +25,7 @@
      * @param {DataType} keyType The data type of map keys.
      * @param {DataType} valueType The data type of map values.
      * @param {boolean} valueContainsNull Indicates if map values have null values.
+     * @memberof module:sql/types
      */
 
     function MapType(jvmObj) {
@@ -86,10 +87,7 @@
     MapType.prototype.valueContainsNull = function () {
         return this.getJavaObject().valueContainsNull();
     };
-    /**
-     * MapType module.
-     * @module sql/types/MapType
-     */
+
     module.exports = MapType;
 }
 

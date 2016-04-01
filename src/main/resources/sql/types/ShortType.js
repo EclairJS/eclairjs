@@ -20,6 +20,7 @@
     /**
      * @constructor
      * @classdesc The data type representing Short values. Please use the singleton DataTypes.ShortType. not a valid primitive type for JavaScript
+     * @memberof module:sql/types
      * @ignore
      */
 
