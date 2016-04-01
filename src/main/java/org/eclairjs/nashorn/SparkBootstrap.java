@@ -182,6 +182,7 @@ public class SparkBootstrap implements Bootstrap {
 
 
             // sql.types
+            /*
             engine.eval("load('" + getResourceAsURLStirng("/sql/types/DataType.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/types/ArrayType.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/types/BinaryType.js") + "');");
@@ -200,6 +201,7 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/sql/types/StructField.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/types/StructType.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/types/DataTypes.js") + "');");
+            */
             NashornEngineSingleton.setEngine(engine);
         } catch(Exception e) {
             e.printStackTrace();

@@ -17,9 +17,16 @@
 var sparkContext = new SparkContext("local[*]", "dataframe");
 var sqlContext = new SQLContext(sparkContext);
 var useDateType = false;
+var DataTypes = require('sql/types/DataTypes');
+var DataType = require('sql/types/DataType');
+var ArrayType = require('sql/types/ArrayType');
+var StructType = require('sql/types/StructType');
+var StructField = require('sql/types/StructField');
 
 
 var buildPeopleTable = function(file, date) {
+
+
 	// Load a text file and convert each line to a JavaScript Object.
 	var people = sparkContext.textFile(file).map(function(line) {
 		var parts = line.split(",");
@@ -700,7 +707,6 @@ var booleanType = function(file) {
 }
 
 var arrayTypeTest = function() {
-
 	var at = ArrayType.apply(DataTypes.IntegerType, true);
 	return at.elementType().defaultSize();
 }

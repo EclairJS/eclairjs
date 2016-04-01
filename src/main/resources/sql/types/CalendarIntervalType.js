@@ -14,31 +14,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * @constructor
- * @extends DataType
- * @classdesc The data type representing calendar time intervals. 
- * The calendar time interval is stored internally in two components: number of months the number of microseconds.
- * Note that calendar intervals are not comparable.
- */
+{
+    var DataType = require('sql/types/DataType');
 
-function CalendarIntervalType(jvmObj) {
+    /**
+     * @constructor
+     * @extends module:sql/types/DataType
+     * @classdesc The data type representing calendar time intervals.
+     * The calendar time interval is stored internally in two components: number of months the number of microseconds.
+     * Note that calendar intervals are not comparable.
+     */
 
-	DataType.call(this, jvmObj);
-};
+    var CalendarIntervalType = function (jvmObj) {
+
+        DataType.call(this, jvmObj);
+    };
 
 
-CalendarIntervalType.prototype = Object.create(DataType.prototype); 
+    CalendarIntervalType.prototype = Object.create(DataType.prototype);
 
 
-CalendarIntervalType.prototype.constructor = CalendarIntervalType;
+    CalendarIntervalType.prototype.constructor = CalendarIntervalType;
 
-/**
- * The default size of a value of this data type, used internally for size estimation.
- * @returns {integer}
- */
-CalendarIntervalType.prototype.defaultSize = function() {
-	return this.getJavaObject().defaultSize();
-};
-
+    /**
+     * The default size of a value of this data type, used internally for size estimation.
+     * @returns {integer}
+     */
+    CalendarIntervalType.prototype.defaultSize = function () {
+        return this.getJavaObject().defaultSize();
+    };
+    /**
+     * CalendarIntervalType module.
+     * @module sql/types/CalendarIntervalType
+     */
+    module.exports = CalendarIntervalType;
+}
 

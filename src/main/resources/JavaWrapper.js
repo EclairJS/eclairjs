@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+
 var JavaWrapper = function(jvmObj) {
 	this._jvmObj = jvmObj;
 	this.javaWrapperLogger = Logger.getLogger("JavaWrapper_js");
@@ -37,3 +38,5 @@ JavaWrapper.prototype.toString = function() {
 JavaWrapper.prototype.toJSON = function() {
 	return this.toString();
 }
+
+module.exports = JavaWrapper;

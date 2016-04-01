@@ -14,40 +14,49 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * @constructor
- * @extends DataType
- * @classdesc The data type representing String values. Please use the singleton DataTypes.StringType.
- */
+{
+    var DataType = require('sql/types/DataType');
 
-function StringType(jvmObj) {
+    /**
+     * @constructor
+     * @extends module:sql/types/DataType
+     * @classdesc The data type representing String values. Please use the singleton DataTypes.StringType.
+     */
 
-	DataType.call(this, jvmObj);
-};
+    var StringType = function(jvmObj) {
+
+        DataType.call(this, jvmObj);
+    };
 
 
-StringType.prototype = Object.create(DataType.prototype); 
+    StringType.prototype = Object.create(DataType.prototype);
 
 
-StringType.prototype.constructor = StringType;
+    StringType.prototype.constructor = StringType;
 
-/**
- * The default size of a value of the StringType is 4096 bytes.
- * @returns {integer}
- */
-StringType.prototype.defaultSize = function() {
-	return this.getJavaObject().defaultSize();
-};
-StringType.prototype.classTag = function() {
-	throw "not implemented by ElairJS";
-	//return this.getJavaObject().classTag();
-};
-StringType.prototype.ordering = function() {
-	throw "not implemented by ElairJS";
-	//return this.getJavaObject().ordering();
-};
-StringType.prototype.tag = function() {
-	throw "not implemented by ElairJS";
-	//return this.getJavaObject().tag();
-};
+    /**
+     * The default size of a value of the StringType is 4096 bytes.
+     * @returns {integer}
+     */
+    StringType.prototype.defaultSize = function () {
+        return this.getJavaObject().defaultSize();
+    };
+    StringType.prototype.classTag = function () {
+        throw "not implemented by ElairJS";
+        //return this.getJavaObject().classTag();
+    };
+    StringType.prototype.ordering = function () {
+        throw "not implemented by ElairJS";
+        //return this.getJavaObject().ordering();
+    };
+    StringType.prototype.tag = function () {
+        throw "not implemented by ElairJS";
+        //return this.getJavaObject().tag();
+    };
+    /**
+     * StringType module.
+     * @module sql/types/StringType
+     */
+    module.exports = StringType;
+}
 

@@ -13,67 +13,76 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * @constructor
- * @classdesc The base type of all Spark SQL data types.
- */
+{
+    var JavaWrapper = require('JavaWrapper');
 
-function DataType(jvmObj) {
+    /**
+     * @constructor
+     * @classdesc The base type of all Spark SQL data types.
+     */
 
-  JavaWrapper.call(this, jvmObj);
-};
+    var DataType = function(jvmObj) {
+
+        JavaWrapper.call(this, jvmObj);
+    };
 
 
-DataType.prototype = Object.create(JavaWrapper.prototype); 
+    DataType.prototype = Object.create(JavaWrapper.prototype);
 
 
-DataType.prototype.constructor = DataType;
+    DataType.prototype.constructor = DataType;
 
-/**
- * The default size of a value of this data type, used internally for size estimation.
- * @abstract
- * @returns {integer}
- */
-DataType.prototype.defaultSize = function() {
-	print("dt")
-	var pack = this.getJavaObject().getClass().getPackage();
-    print( pack.getName());
-	return this.getJavaObject().defaultSize();
-};
-/**
- * @param {string} json
- * @returns {DataType}
- */
-DataType.fromJson = function(json) {
-	return new DataType(new org.apache.spark.sql.types.DataType.fromJson(json));
-};
-/**
- * The compact JSON representation of this data type.
- * @returns {string}
- */
-DataType.prototype.json = function() {
-	return this.getJavaObject().json();
-};
-DataType.prototype.toJSON = function() {
-	return this.typeName();
-};
-/**
- *The pretty (i.e. indented) JSON representation of this data type.
- * @returns {string}
- */
-DataType.prototype.prettyJson = function() {
-	return this.getJavaObject().prettyJson();
-};
-/**
- * Name of the type used in JSON serialization.
- * @returns {string}
- */
-DataType.prototype.typeName = function() {
-	return this.getJavaObject().typeName();
-};
-/**
- * @returns {string}
- */
-DataType.prototype.simpleString = function() { 
-	return this.getJavaObject().simpleString();
-};
+    /**
+     * The default size of a value of this data type, used internally for size estimation.
+     * @abstract
+     * @returns {integer}
+     */
+    DataType.prototype.defaultSize = function () {
+        print("dt")
+        var pack = this.getJavaObject().getClass().getPackage();
+        print(pack.getName());
+        return this.getJavaObject().defaultSize();
+    };
+    /**
+     * @param {string} json
+     * @returns {DataType}
+     */
+    DataType.fromJson = function (json) {
+        return new DataType(new org.apache.spark.sql.types.DataType.fromJson(json));
+    };
+    /**
+     * The compact JSON representation of this data type.
+     * @returns {string}
+     */
+    DataType.prototype.json = function () {
+        return this.getJavaObject().json();
+    };
+    DataType.prototype.toJSON = function () {
+        return this.typeName();
+    };
+    /**
+     *The pretty (i.e. indented) JSON representation of this data type.
+     * @returns {string}
+     */
+    DataType.prototype.prettyJson = function () {
+        return this.getJavaObject().prettyJson();
+    };
+    /**
+     * Name of the type used in JSON serialization.
+     * @returns {string}
+     */
+    DataType.prototype.typeName = function () {
+        return this.getJavaObject().typeName();
+    };
+    /**
+     * @returns {string}
+     */
+    DataType.prototype.simpleString = function () {
+        return this.getJavaObject().simpleString();
+    };
+    /**
+     * DataType module.
+     * @module sql/types/DataType
+     */
+    module.exports = DataType;
+}

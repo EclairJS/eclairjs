@@ -14,40 +14,48 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * @constructor
- * @extends DataType
- * @classdesc The data type representing Boolean values. Please use the singleton DataTypes.BooleanType.
- */
+{
+    var DataType = require('sql/types/DataType');
 
-function BooleanType(jvmObj) {
+    /**
+     * @constructor
+     * @extends module:sql/types/DataType
+     * @classdesc The data type representing Boolean values. Please use the singleton DataTypes.BooleanType.
+     */
 
-	DataType.call(this, jvmObj);
-};
+    function BooleanType(jvmObj) {
+
+        DataType.call(this, jvmObj);
+    };
 
 
-BooleanType.prototype = Object.create(DataType.prototype); 
+    BooleanType.prototype = Object.create(DataType.prototype);
 
 
-BooleanType.prototype.constructor = BooleanType;
+    BooleanType.prototype.constructor = BooleanType;
 
-/**
- * The default size of a value of the BooleanType is 1 byte.
- * @returns {integer}
- */
-BooleanType.prototype.defaultSize = function() {
-	return this.getJavaObject().defaultSize();
-};
-BooleanType.prototype.classTag = function() {
-	throw "not implemented by ElairJS";
-	//return this.getJavaObject().classTag();
-};
-BooleanType.prototype.ordering = function() {
-	throw "not implemented by ElairJS";
-	//return this.getJavaObject().ordering();
-};
-BooleanType.prototype.tag = function() {
-	throw "not implemented by ElairJS";
-	//return this.getJavaObject().tag();
-};
-
+    /**
+     * The default size of a value of the BooleanType is 1 byte.
+     * @returns {integer}
+     */
+    BooleanType.prototype.defaultSize = function () {
+        return this.getJavaObject().defaultSize();
+    };
+    BooleanType.prototype.classTag = function () {
+        throw "not implemented by ElairJS";
+        //return this.getJavaObject().classTag();
+    };
+    BooleanType.prototype.ordering = function () {
+        throw "not implemented by ElairJS";
+        //return this.getJavaObject().ordering();
+    };
+    BooleanType.prototype.tag = function () {
+        throw "not implemented by ElairJS";
+        //return this.getJavaObject().tag();
+    };
+    /**
+     * BooleanType module.
+     * @module sql/types/BooleanType
+     */
+    module.exports = BooleanType;
+}

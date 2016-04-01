@@ -14,36 +14,44 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * @constructor
- * @extends DataType
- * @classdesc The data type representing Array[Byte] values. Please use the singleton DataTypes.BinaryType.
- */
+{
+    var DataType = require('sql/types/DataType');
+    /**
+     * @constructor
+     * @extends module:sql/types/DataType
+     * @classdesc The data type representing Array[Byte] values. Please use the singleton DataTypes.BinaryType.
+     */
 
-var BinaryType = function() {
-	var jvmObj  = arguments[0];
-	DataType.call(this, jvmObj);
-};
+    var BinaryType = function () {
+        var jvmObj = arguments[0];
+        DataType.call(this, jvmObj);
+    };
 
 
-BinaryType.prototype = Object.create(DataType.prototype); 
+    BinaryType.prototype = Object.create(DataType.prototype);
 
 
-BinaryType.prototype.constructor = BinaryType;
+    BinaryType.prototype.constructor = BinaryType;
 
-/**
- * The default size of a value of the BinaryType is 4096 bytes.
- * @returns {integer}
- */
-BinaryType.prototype.defaultSize = function() {
-	return this.getJavaObject().defaultSize();
-};
-BinaryType.prototype.ordering = function() {
-	throw "not implemented by ElairJS";
-	//return this.getJavaObject().ordering();
-};
-BinaryType.prototype.tag = function() {
-	throw "not implemented by ElairJS";
-	//return this.getJavaObject().tag();
-};
+    /**
+     * The default size of a value of the BinaryType is 4096 bytes.
+     * @returns {integer}
+     */
+    BinaryType.prototype.defaultSize = function () {
+        return this.getJavaObject().defaultSize();
+    };
+    BinaryType.prototype.ordering = function () {
+        throw "not implemented by ElairJS";
+        //return this.getJavaObject().ordering();
+    };
+    BinaryType.prototype.tag = function () {
+        throw "not implemented by ElairJS";
+        //return this.getJavaObject().tag();
+    };
+    /**
+     * BinaryType module.
+     * @module sql/types/BinaryType
+     */
+    module.exports = BinaryType;
+}
 
