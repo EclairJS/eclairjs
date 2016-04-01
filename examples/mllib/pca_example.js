@@ -21,6 +21,7 @@
 
 var Vector = require("mllib/linalg/Vectors").Vector;
 var Vectors = require("mllib/linalg/Vectors").Vectors;
+var RowMatrix = require("mllib/linalg/distributed/RowMatrix");
 
 function run(sc) {
 

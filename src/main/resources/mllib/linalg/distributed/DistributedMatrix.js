@@ -52,3 +52,5 @@ DistributedMatrix.prototype.numRows = function() {
 DistributedMatrix.prototype.numCols = function() {
     return  this.getJavaObject().numCols();
 };
+
+module.exports = DistributedMatrix;

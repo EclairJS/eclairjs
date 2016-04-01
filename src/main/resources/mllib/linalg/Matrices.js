@@ -787,3 +787,10 @@ Matrices.vertcat = function (matrices) {
 //   var javaObject =  org.apache.spark.mllib.linalg.Matrices.vertcat(matrices_uw);
 //   return Utils.javaToJs(javaObject);
 };
+
+module.exports = {
+    Matrix: Matrix,
+    DenseMatrix: DenseMatrix,
+    SparseMatrix: SparseMatrix,
+    Matrices: Matrices
+};

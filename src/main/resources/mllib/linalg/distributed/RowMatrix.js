@@ -14,7 +14,8 @@
 * limitations under the License.                                           
 */ 
 
-
+var DistributedMatrix = require("mllib/linalg/distributed/DistributedMatrix");
+var SingularValueDecomposition = require("mllib/linalg/SingularValueDecomposition").SingularValueDecomposition;
 
 /**
  * Represents a row-oriented distributed Matrix with no meaningful row indices.
@@ -246,3 +247,5 @@ RowMatrix.prototype.rows = function() {
 RowMatrix.prototype.toJSON = function() {
   return this.rows().collect();
 };
+
+module.exports = RowMatrix;

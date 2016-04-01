@@ -108,3 +108,8 @@ QRDecomposition.prototype.Q = function() {
 QRDecomposition.prototype.R = function() {
     return Utils.javaToJs(this.getJavaObject().R());
 };
+
+module.exports = {
+    SingularValueDecomposition: SingularValueDecomposition,
+    QRDecomposition: QRDecomposition
+};

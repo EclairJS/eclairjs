@@ -108,13 +108,12 @@ public class SparkBootstrap implements Bootstrap {
 
             //mllib
 
-            // Not blindly loading Vectors any more for master or slave
+            // Not blindly loading mllib/linalg package any more for master or slave
             //engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/Vectors.js") + "');");
-
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/Matrices.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/SingularValueDecomposition.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/distributed/DistributedMatrix.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/distributed/RowMatrix.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/Matrices.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/SingularValueDecomposition.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/distributed/DistributedMatrix.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/distributed/RowMatrix.js") + "');");
 
             engine.eval("load('" + getResourceAsURLStirng("/mllib/clustering/BisectingKMeans.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/mllib/clustering/BisectingKMeansModel.js") + "');");
