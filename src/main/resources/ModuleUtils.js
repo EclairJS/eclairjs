@@ -32,6 +32,9 @@ ModuleUtils.addRequiredFile = function(module) {
         //print("ModuleUtils.addRequiredFile - ADDING MODULE: "+module.modname);
         //print("WITH BODY: "+module.body);
         ModuleUtils.requires[module.modname] = module;
+
+        // Make sure it's loaded in Nashorn
+        ModuleUtils.loadFileInNashorn(module);
     }
 };
 
@@ -48,7 +51,7 @@ ModuleUtils.getRequiredFile = function(module) {
     if (!requiredMod) {
         //print("ModuleUtils.getRequiredFile file not found - going to try and load");
         // this could be a worker node - try and load it
-        requiredMod = ModuleUtils._loadFile(module);
+        requiredMod = ModuleUtils._tryToLoadFile(module);
     }
     return requiredMod;
 };
@@ -124,26 +127,45 @@ ModuleUtils.getParent = function(mod) {
     return  ModuleUtils.getRequiredFileById(mod.parent ? mod.parent.id : "");
 };
 
+ModuleUtils.loadFileInNashorn = function(mod) {
+    if (mod && mod.id) {
+        try {
+            var e = org.eclairjs.nashorn.NashornEngineSingleton.getEngine();
+            var filename = mod.core ? ModuleUtils._getResourcePath(mod.id) : mod.filename;
+            //print("Going to try and load in Nashorn filename: "+filename);
+            engine.eval("load('" + filename + "');");
+        } catch(exc) {
+            print("Could not load module in Nashron: "+mod.id);
+            print(exc);
+        }
+    }
+};
+
 /*
  * On worker node so have to try and manually find and load required required file.
  */
-ModuleUtils._loadFile = function(mod) {
-    //print('ModuleUtils._loadFile: '+mod.toString());
+ModuleUtils._tryToLoadFile = function(mod) {
+    //print('ModuleUtils._tryToLoadFile: '+mod.toString());
     try {
         var e = org.eclairjs.nashorn.NashornEngineSingleton.getEngine();
-        // If the required file is NOT on classpath (e.g. core file part of JAR) then it was 
-        // downlaoded to the worker node via SparkContext.addFile and we have to get it via 
-        // SparkFiles to find it's absolute path and then manually load it as it was not part 
-        // of bootstrap process for the NashronSingletonEngine running on worker node.
         var require = true;
+
         // Save off any exportname that has been determined by master as it will be lost once
         // require is envoked again to load module on worker node.
         var expname = mod.exportname || "";
-        if (!mod.core) {
+
+        if (mod.core) {
+            // Module is part of JAR but not part of Bootstrap so have to manually load for worker node.
+            ModuleUtils.loadFileInNashorn(mod);
+        } else {
+            // If the required file is NOT on classpath (e.g. core file part of JAR) then it was
+            // downlaoded to the worker node via SparkContext.addFile and we have to get it via
+            // SparkFiles to find it's absolute path and then manually load it as it was not part
+            // of bootstrap process for the NashronSingletonEngine running on worker node.
             var filename = mod.modname + ModuleUtils._getModuleExtension(mod.id);
             if (mod.inFolder) {
                 var abspath = org.apache.spark.SparkFiles.get(mod.zipfile);
-                //print("*******ModuleUtils._loadFile zipfile abspath: "+abspath);
+                //print("*******ModuleUtils._tryToLoadFile zipfile abspath: "+abspath);
                 try {
                     org.eclairjs.nashorn.Utils.unzipFile(abspath, ".");
                     //print("Going to try and unzip kids: "+mod.zipfile.replace(".zip", "_child_"));
@@ -157,15 +179,9 @@ ModuleUtils._loadFile = function(mod) {
                 }
             } else {
                 var abspath = org.apache.spark.SparkFiles.get(filename);
-                //print("*******ModuleUtils.loadFile that is not in zipfile abspath: "+abspath);
+                //print("*******ModuleUtils._tryToLoadFile that is not in zipfile abspath: "+abspath);
                 e.eval("load('" + abspath + "');");
             }
-        } else {
-            // Module is part of JAR but not part of Bootstrap so have to manually load for i
-            // worker node.
-            var abspath = ModuleUtils._getResourcePath(mod.id);
-            //print("*******ModuleUtils.loadCoreFile: "+abspath);
-            e.eval("load('" + abspath + "');");
         }
 
         if (require) {
@@ -182,7 +198,7 @@ ModuleUtils._loadFile = function(mod) {
         }
         return ModuleUtils.requires[mod.modname];
     } catch(exc) {
-        print("ModuleUtils.loadFile CANNOT load file in Nashorn engine");
+        print("ModuleUtils._tryToLoadFile CANNOT load file in Nashorn engine: "+mod.id);
         print(exc);
     }
     return null;

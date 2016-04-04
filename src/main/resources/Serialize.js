@@ -204,7 +204,8 @@ Serialize.javaSparkObject = function (javaObj) {
         var mod = ModuleUtils.getModuleFromJavaPackageAndClass(packageName, className);
         // Should probably raise exception if module has not been required 
         if (mod) {
-            eval(mod.body);
+            ModuleUtils.loadFileInNashorn(mod);
+
             ret = eval("new " + className + "(javaObj)");
         }
     }
@@ -217,7 +218,7 @@ Serialize.JSModule = function(obj) {
   if (ModuleUtils.isModule(obj)) {
     var mod = ModuleUtils.getRequiredFile(obj);
 
-    Serialize.logger.debug("###Serialize.JSModule found a lambda required module: "+mod.toString());
+    //Serialize.logger.debug("###Serialize.JSModule found a lambda required module: "+mod);
 
     return (mod && mod.exportname) ? mod.exports[mod.exportname] : (mod ? mod.exports : false);
   }
