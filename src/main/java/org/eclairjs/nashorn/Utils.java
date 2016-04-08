@@ -42,6 +42,7 @@ import java.io.FileOutputStream;
 import java.io.FileFilter;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -316,12 +317,16 @@ public class Utils {
     }
 
     /**
-     * @param {String} folderToZip - folder containing files to zip
-     * @param {String} zipFile - zipfile name for destination
-     * @param {String[]} filesToInclude - files to include; if omitted everything under folder will be zipped
+     * Zip up all files (or those that match filesToInclude[]) under a directory into a zipfile with the given name.
+     * @param folderToZip {String} folder containing files to zip
+     * @param zipFile {String} zipfile name for destination
+     * @param filesToInclude {String[]} files to include - if omitted everything under folder will be zipped
+     * @throws FileNotFoundException folder to zip up not found
+     * @throws IOException problem in creating zipfile
      */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public static void zipFile(String folderToZip, String zipFile, String[] filesToInclude)
-        throws IOException {
+        throws FileNotFoundException, IOException {
         Logger logger = Logger.getLogger(Utils.class);
  
         ZipOutputStream zipOut = new ZipOutputStream(new FileOutputStream(zipFile));    
