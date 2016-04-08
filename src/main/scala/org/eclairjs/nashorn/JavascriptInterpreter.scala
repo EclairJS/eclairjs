@@ -3,12 +3,17 @@ package org.eclairjs.nashorn
 import java.net.URL
 import javax.script.ScriptEngineManager
 
+import org.apache.toree.comm.{CommWriter, CommRegistrar}
 import org.apache.toree.interpreter._
 import org.apache.toree.interpreter.Interpreter
 import org.apache.toree.interpreter.Results.Result
 import org.apache.toree.kernel.api.KernelLike
+import org.apache.toree.kernel.api.Kernel
 import org.apache.spark.SparkContext
 import org.apache.spark.sql.SQLContext
+import org.apache.toree.kernel.protocol._
+import org.apache.toree.kernel.protocol.v5.MsgData
+import play.api.libs.json.{JsString, JsObject, Json}
 
 import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
@@ -17,7 +22,29 @@ import scala.tools.nsc.interpreter.{InputStream, OutputStream}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
+class Comm(val kernel: Kernel, val commWriter:CommWriter = null) {
+
+  def open(target: String): Comm = {
+    new Comm(kernel, kernel.comm.open(target))
+  }
+
+  def send(target: String, msg: String): Unit = {
+    val jsValue = Json.parse(msg)
+    //commWriter.writeMsg(JsObject(Seq(
+    //  "repsonse" -> jsValue
+    //)))
+    commWriter.writeMsg(jsValue)
+  }
+
+  def close(): Unit = {
+    commWriter.close()
+  }
+}
+
+
 class JavascriptInterpreter() extends org.apache.toree.interpreter.Interpreter {
+
+  type CommMap = java.util.HashMap[String, Comm]
 
   private val engine = {
     val manager = new ScriptEngineManager()
@@ -27,8 +54,44 @@ class JavascriptInterpreter() extends org.apache.toree.interpreter.Interpreter {
     e
   }
 
+  private var comm:Comm = null
+
+  //private var register:CommRegistrar = null
+
   override def init(kernel: KernelLike) = {
     engine.put("kernel", kernel)
+    engine.put("commMap", new CommMap())
+    //val comm = new Comm(kernel.asInstanceOf[Kernel]).open("foreachrdd")
+
+    val  kernelImpl = kernel.asInstanceOf[Kernel]
+    kernelImpl.comm.register("foreachrdd").addOpenHandler {
+      (commWriter, commId, targetName, data) =>
+        System.out.println("got comm open")
+        System.out.println(data)
+
+        comm = new Comm(kernelImpl, commWriter)
+        engine.get("commMap")
+          .asInstanceOf[CommMap]
+          .put("foreachrdd:"+commId, comm)
+    }
+    kernelImpl.comm.register("foreachrdd").addCloseHandler {
+      (commWriter, commId, data: MsgData) =>
+        System.out.println("got close " + commId)
+        engine.get("commMap")
+          .asInstanceOf[CommMap]
+          .remove("foreachrdd:"+commId)
+    }
+    /*
+    kernelImpl.comm.register("foreachrdd").addMsgHandler {
+      (commWriter, commId, data: MsgData) =>
+        System.out.println("got comm message");
+        commWriter.writeMsg(JsObject(Seq(
+          "response" -> data
+        )))
+    }
+    */
+
+
     this
   }
 
