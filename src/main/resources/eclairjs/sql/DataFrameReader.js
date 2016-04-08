@@ -21,7 +21,7 @@
 
     /**
      * @constructor
-     * @memberof module:sql
+     * @memberof module:eclairjs/sql
      * @classdesc Interface used to load a DataFrame from external storage systems (e.g. file systems, key-value stores, etc).
      * Use SQLContext.read to access this.
      */

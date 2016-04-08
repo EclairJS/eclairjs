@@ -19,7 +19,7 @@
 
     /**
      * @constructor
-     * @memberof module:sql
+     * @memberof module:eclairjs/sql
      * @classdesc A thin wrapper around Date that allows the JDBC API to identify this as an SQL TIMESTAMP value.
      * It adds the ability to hold the SQL TIMESTAMP fractional seconds value, by allowing the specification of
      * fractional seconds to a precision of nanoseconds. A Timestamp also provides formatting and parsing operations

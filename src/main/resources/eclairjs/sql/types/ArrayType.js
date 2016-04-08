@@ -19,7 +19,7 @@
 
     /**
      * @constructor
-     * @memberof module:sql/types
+     * @memberof module:eclairjs/sql/types
      * @protected
      * @param {DataType} elementType
      * @param {boolean} containsNull

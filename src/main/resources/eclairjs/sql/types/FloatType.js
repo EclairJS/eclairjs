@@ -21,7 +21,7 @@
      * @constructor
      * @extends NumericType
      * @classdesc The data type representing Float values. Please use the singleton DataTypes.FloatType.
-     * @memberof module:sql/types
+     * @memberof module:eclairjs/sql/types
      */
 
     function FloatType(jvmObj) {

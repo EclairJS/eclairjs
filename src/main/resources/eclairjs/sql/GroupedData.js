@@ -22,7 +22,7 @@
 
     /**
      * @constructor
-     * @memberof module:sql
+     * @memberof module:eclairjs/sql
      * @classdec A set of methods for aggregations on a DataFrame, created by DataFrame.groupBy.
      */
     var GroupedData = function (jvmGroupedData) {

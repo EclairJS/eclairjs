@@ -19,7 +19,7 @@
 
     /**
      * Represents a row-oriented distributed Matrix with no meaningful row indices.
-     * @memberof module:mllib/linalg/distributed
+     * @memberof module:eclairjs/mllib/linalg/distributed
      * @classdesc
      * @param {RDD} rows stored as an RDD[Vector]
      * @param {number} [nRows] number of rows. A non-positive value means unknown, and then the number of rows will

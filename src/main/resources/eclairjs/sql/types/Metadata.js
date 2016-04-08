@@ -24,7 +24,7 @@
      * JSON is used for serialization.
      * The default constructor is private. User should use either MetadataBuilder or Metadata.fromJson() to create Metadata instances.
      * @protected
-     * @memberof module:sql/types
+     * @memberof module:eclairjs/sql/types
      */
     var Metadata = function (jvmObj) {
 

@@ -20,7 +20,7 @@
      * @constructor
      * @extends DataType
      * @classdesc The base type of all Spark SQL Numeric data types.
-     * @memberof module:sql/types
+     * @memberof module:eclairjs/sql/types
      */
 
     function NumericType(jvmObj) {

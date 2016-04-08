@@ -17,7 +17,7 @@
 {
     /**
      * Represents a distributively stored matrix backed by one or more RDDs.
-     * @memberof module:mllib/linalg/distributed
+     * @memberof module:eclairjs/mllib/linalg/distributed
      * @classdesc
      * @class
      * @abstract

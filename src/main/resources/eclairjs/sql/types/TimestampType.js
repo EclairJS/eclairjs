@@ -20,7 +20,7 @@
     /**
      * @constructor
      * @extends DataType
-     * @memberof module:sql/types
+     * @memberof module:eclairjs/sql/types
      * @classdesc The data type representing java.sql.Timestamp values. Please use the singleton DataTypes.TimestampType.
      */
 

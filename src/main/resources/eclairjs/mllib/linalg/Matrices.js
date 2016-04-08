@@ -19,7 +19,7 @@
      * @classdesc
      * @abstract
      * @class
-     * @memberof module:mllib/linalg
+     * @memberof module:eclairjs/mllib/linalg
      */
 
 
@@ -208,7 +208,7 @@
      * @param {boolean} isTransposed
      * @class
      * @extends Matrix
-     * @memberof module:mllib/linalg
+     * @memberof module:eclairjs/mllib/linalg
      */
     var DenseMatrix = function (numRows, numCols, values, isTransposed) {
         var jvmObject;
@@ -345,7 +345,7 @@
      * @param {boolean} isTransposed
      * @class
      * @extends Matrix
-     * @memberof module:mllib/linalg
+     * @memberof module:eclairjs/mllib/linalg
      */
     var SparseMatrix = function (numRows, numCols, colPtrs, rowIndices, values, isTransposed) {
 

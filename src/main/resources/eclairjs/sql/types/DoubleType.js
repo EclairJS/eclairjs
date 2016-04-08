@@ -21,7 +21,7 @@
      * @constructor
      * @extends NumericType
      * @classdesc The data type representing Double values. Please use the singleton DataTypes.DoubleType.
-     * @memberof module:sql/types
+     * @memberof module:eclairjs/sql/types
      */
 
     DoubleType = function(jvmObj) {

@@ -19,7 +19,7 @@
      * @example
      * var sqlTypes = require('eclairjs/sql/types');
      * var at = new sqlTypes.ArrayType(sqlTypes.IntegerType, true);
-     * @module sql/types
+     * @module eclairjs/sql/types
      */
     module.exports = {
         ArrayType: require(EclairJS_Globals.NAMESPACE + '/sql/types/ArrayType'),

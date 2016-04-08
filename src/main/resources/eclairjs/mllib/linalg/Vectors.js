@@ -21,7 +21,7 @@
      * Note: Users should not implement this interface.
      * @classdesc
      * @constructor
-     * @memberof module:mllib/linalg
+     * @memberof module:eclairjs/mllib/linalg
      */
 
 
@@ -189,7 +189,7 @@
      * User-defined type for {@link Vector} which allows easy interaction with SQL
      * via {@link DataFrame}.
      * @classdesc
-     * @memberof module:mllib/linalg
+     * @memberof module:eclairjs/mllib/linalg
      */
 
     /**
@@ -292,7 +292,7 @@
     /**
      * A dense vector represented by a value array.
      * @classdesc
-     * @memberof module:mllib/linalg
+     * @memberof module:eclairjs/mllib/linalg
      */
 
     /**
@@ -324,7 +324,7 @@
      * @param indices index array, assume to be strictly increasing.
      * @param values value array, must have the same length as the index array.
      * @classdesc
-     * @memberof module:mllib/linalg
+     * @memberof module:eclairjs/mllib/linalg
      */
 
     /**
@@ -528,7 +528,7 @@
 
     /**
      * Vectors module.
-     * @module mllib/linalg/Vectors
+     * @module eclairjs/mllib/linalg/Vectors
      */
     module.exports = {
         Vector: Vector,

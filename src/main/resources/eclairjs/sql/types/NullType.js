@@ -21,7 +21,7 @@
 	 * @constructor
 	 * @extends DataType
 	 * @classdesc The data type representing NULL values. Please use the singleton DataTypes.NullType.
-     * @memberof module:sql/types
+     * @memberof module:eclairjs/sql/types
 	 */
 
 	var NullType = function(jvmObj) {

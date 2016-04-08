@@ -24,7 +24,7 @@
 
     /**
      * @constructor
-     * @memberof module:sql
+     * @memberof module:eclairjs/sql
      * @classdesc Spark SQL functions.
      */
 

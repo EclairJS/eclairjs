@@ -23,7 +23,7 @@
     /**
      * Statistic functions for {@link DataFrame}s.
      * @constructor
-     * @memberof module:sql
+     * @memberof module:eclairjs/sql
      * @since EclairJS 0.1 Spark  1.4.0
      * @classdesc
      */

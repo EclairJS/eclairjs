@@ -21,7 +21,7 @@
      * @param {Vector} s
      * @param {VType} V
      * @class
-     * @memberof module:mllib/linalg
+     * @memberof module:eclairjs/mllib/linalg
      */
     var SingularValueDecomposition = function (U, s, V) {
         var jvmObject;
@@ -73,7 +73,7 @@
      * @param {QType} Q
      * @param {RType} R
      * @class
-     * @memberof module:mllib/linalg
+     * @memberof module:eclairjs/mllib/linalg
      */
     var QRDecomposition = function (Q, R) {
         var jvmObject;
