@@ -700,9 +700,8 @@
 	 * var result = nameAgeDF.toDF("newName", "newAge");
 	 */
 	DataFrame.prototype.toDF = function () {
-		var args = Array.prototype.slice.call(arguments);
-        var Row = require("sql/Row");
-		return new Row(this.getJavaObject().toDF(args));
+		var args = Array.prototype.slice.call(arguments);;
+		return Utils.javaToJs(this.getJavaObject().toDF(args));
 	};
 	/**
 	 * Returns the content of the DataFrame as a RDD of JSON strings.

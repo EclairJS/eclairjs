@@ -195,7 +195,6 @@ Serialize.javaSparkObject = function (javaObj) {
     //return eval("new " + className + "(javaObj)");
 
     var req = "";
-   // packageName = packageName.replace(/\./g, "x");
     packageName = packageName.replace(/org.apache.spark./i, EclairJS_Globals.NAMESPACE + '/');
     packageName = packageName.replace(/\./g, "/");
     packageName = (packageName == "eclairjs/sql/catalyst/expressions") ? "eclairjs/sql" : packageName; // FIXME

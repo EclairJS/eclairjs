@@ -22,6 +22,10 @@ var StructField = require(EclairJS_Globals.NAMESPACE + '/sql/types/StructField')
 var SQLContext = require(EclairJS_Globals.NAMESPACE + '/sql/SQLContext');
 var SqlTimestamp = require(EclairJS_Globals.NAMESPACE + '/sql/SqlTimestamp');
 var RowFactory = require(EclairJS_Globals.NAMESPACE + '/sql/RowFactory');
+var Column = require(EclairJS_Globals.NAMESPACE + '/sql/Column');
+var functions = require(EclairJS_Globals.NAMESPACE + '/sql/functions');
+var SqlDate = require(EclairJS_Globals.NAMESPACE + '/sql/SqlDate');
+var SqlTimestamp = require(EclairJS_Globals.NAMESPACE + '/sql/SqlTimestamp');
 //var sql = require('sql');
 //require('sql');
 
