@@ -153,6 +153,14 @@ var java2wrapper = {
     "GenericRowWithSchema": "Row",
     "last_place_holder": ""
 };
+var javaPackageMap = {
+    "eclairjs/sql/catalyst/expressions": "eclairjs/sql",
+    "eclairjs/api/java": "eclairjs"
+};
+var completedModules = { // FIXME temporary until all Class are require compatible
+    "eclairjs/sql/types": true,
+    "eclairjs/sql": true
+};
 Serialize.javaSparkObject = function (javaObj) {
     if (javaObj == null) {
         return false;
@@ -197,8 +205,8 @@ Serialize.javaSparkObject = function (javaObj) {
     var req = "";
     packageName = packageName.replace(/org.apache.spark./i, EclairJS_Globals.NAMESPACE + '/');
     packageName = packageName.replace(/\./g, "/");
-    packageName = (packageName == "eclairjs/sql/catalyst/expressions") ? "eclairjs/sql" : packageName; // FIXME
-    if (packageName == EclairJS_Globals.NAMESPACE +"/sql" || packageName == EclairJS_Globals.NAMESPACE +"/sql/types") { // FIXME temporary util all Class are require compatible
+    packageName = (javaPackageMap[packageName]) ? javaPackageMap[packageName] : packageName;
+    if (completedModules[packageName] ) { // FIXME temporary util all Class are require compatible
         req = 'var ' + className + ' = require("'+packageName+'/'+className+'");'
     }
     var ret = false;
