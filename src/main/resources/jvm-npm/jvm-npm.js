@@ -30,9 +30,8 @@ module = (typeof module == 'undefined') ? {} :  module;
   }
 
   function Module(id, parent, core, modname, subdir, fullpath) {
-    print("new Module id: "+id);
-    print("new Module parent: "+parent);
-    //print("new Module modname: ",modname);
+    //print("new Module id: "+id);
+    //print("new Module parent: "+parent);
     this.id = id;
     this.core = core || false;
     this.parent = parent;
@@ -62,8 +61,6 @@ module = (typeof module == 'undefined') ? {} :  module;
 
     this.require = function(id) {
       id = id || this.id;
-      print("Doing Require for id: "+id);
-      print("and this: "+this.toString());
       return Require(id, this);
     }.bind(this);
   }
@@ -98,20 +95,24 @@ module = (typeof module == 'undefined') ? {} :  module;
     };
   };
 
+  /*
+   * We need to load JSfiles in the ScriptEngine (e.g. Nashorn) to preserve line
+   * numbering in the log files for better exception reporting. If we use Module._load
+   * the line numbering gets all thrown off because the script is loaded with the 
+   * func.apply() instead of via the ScriptEngine.load()
+   */
   Module._loadJSFile = function(file, parent, core, main, modname, subdir, fullpath) {
     var mod = new Module(file, parent, core, modname, subdir, fullpath);
 
-    var __FILENAME__ = mod.filename;
+    //var __FILENAME__ = mod.filename;
+    //var dir = new File(mod.filename).getParent();
 
-    var dir    = new File(mod.filename).getParent();
+    //print("***Loading JS module: "+mod.toString());
+    //print("***and fullpath: "+mod.fullpath);
+    //print("***and core: "+core);
 
-    print("***Loading JS module: "+mod.toString());
-    print("***and filename: "+mod.filename);
-    print("***and fullpath: "+mod.fullpath);
-    print("***and core: "+core);
-    print("***and dir: "+dir);
-
-    //eval("load('"+mod.fullpath+"');");
+    // Load the module via it's fullpath and make sure it's exports are properly
+    // captured while we have them before any other require is hit.
     load(mod.fullpath);
     mod.exports = module.exports;
 
@@ -126,7 +127,6 @@ module = (typeof module == 'undefined') ? {} :  module;
   };
 
   Module._load = function(file, parent, core, main, modname, subdir, fullpath) {
-        //print('Module._load args: '+arguments);
     var module = new Module(file, parent, core, modname, subdir, fullpath);
 
     var __FILENAME__ = module.filename;
@@ -136,16 +136,14 @@ module = (typeof module == 'undefined') ? {} :  module;
     var args   = ['exports', 'module', 'require', '__filename', '__dirname'],
         func   = new Function(args, body);
 
-    print("***Calling func.apply for: " + module.toString());
+    //print("***Calling func.apply for: " + module.toString());
     //print("***with body: "+body);
-    print("***and exports: "+module.exports);
-    print("***and filename: "+module.filename);
-    print("***and dir: "+dir);
+    //print("***and exports: "+module.exports);
+    //print("***and filename: "+module.filename);
+    //print("***and dir: "+dir);
 
-    //load({ script: "print('hello');", name: "myscript.js"});
-
-    eval("load({ script:"+func.apply(module,
-        [module.exports, module, module.require, module.filename, dir])+", name:'"+ module.filename + "'})");
+    func.apply(module,
+        [module.exports, module, module.require, module.filename, dir]);
 
     module.loaded = true;
     module.main = main;
@@ -188,14 +186,13 @@ module = (typeof module == 'undefined') ? {} :  module;
       file = file.path;
     }
 
-    print("Require file: "+file);
+    //print("Require file: "+file);
 
     try {
       if (Require.cache[file]) {
         //print("Require returing cached file: ",file);
         return Require.cache[file];
       } else if (file.endsWith('.js')) {
-        print("Require loading JS module: ",file);
         return Module._loadJSFile(file, parent, core, false, modname, subdir, fullpath);
       } else if (file.endsWith('.json')) {
         return loadJSON(file);
@@ -211,8 +208,8 @@ module = (typeof module == 'undefined') ? {} :  module;
   }
 
   Require.resolve = function(id, parent) {
-    print("resolve id: "+id);
-    print("resolve parent: "+ (parent ? parent.id : "DNE"));
+    //print("resolve id: "+id);
+    //print("resolve parent: "+ (parent ? parent.id : "DNE"));
 
     var roots = findRoots(parent);
     for ( var i = 0 ; i < roots.length ; ++i ) {

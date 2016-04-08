@@ -225,7 +225,10 @@ Utils.logger = Logger.getLogger("Utils_js");
                 //print("Utils.createLambdaFunction bindArg isModule: "+bindArgs[i]);
                 bindArgs[i] = ModuleUtils.getRequiredFile(bindArgs[i]);
                 modNotInJar = modNotInJar || !bindArgs[i].core;
+
                 //print("modNotInJar: " + modNotInJar);
+                // See note above - maybe in future will try and do single zipfile per module
+                // to include only what lambda function truly needs.
                 //if (sc) {
                     //addModule(sc, bindArgs[i]);
                 //}
@@ -235,8 +238,7 @@ Utils.logger = Logger.getLogger("Utils_js");
 
             // Add the zipfile of non-JAR zipfiles to SparkContext.
             if (modNotInJar && sc && !sc.isLocal()) {
-            //if (modNotInJar && sc) {
-                print("Found non-core modules and sc is NOT local to sending zipfile of all custom mods");
+                //print("Found non-core modules and sc is NOT local to sending zipfile of all custom mods");
                 sc.addCustomModules();
             }
         }

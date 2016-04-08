@@ -66,7 +66,6 @@
 	 * @returns {string}
 	 */
 	LabeledPoint.prototype.toString = function () {
-        var foo = bar.substring(0, 4);
 		return "[" + this.getLabel() + ", [" + this.getFeatures() + "]]";
 	};
 	/**

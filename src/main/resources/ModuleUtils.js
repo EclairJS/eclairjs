@@ -24,6 +24,8 @@ var ModuleUtils = {};
 
 ModuleUtils.requires = {};
 
+ModuleUtils.defaultZipFile = "modules.zip";
+
 ModuleUtils.addRequiredFile = function(module) {
     var logger= org.apache.log4j.Logger.getLogger("org.eclairjs.nashorn.resource.ModuleUtils_js");
     if (ModuleUtils.requires[module.modname]) {
@@ -130,15 +132,20 @@ ModuleUtils.getResourcePath = function(filename) {
     return classloader.getResource(filename);
 };
 
+/*
+ * Get any modules that match the given type/attribute.
+ *
+ * For example {type: "core", value: "true"} to find any core modules loaded from
+ * the classpath.
+ */
 ModuleUtils.getModulesByType = function(typeobj) {
     typeobj = typeobj || {};
     var type = typeobj.type;
     var value = typeobj.value;
-    print("getModuleByType: " + type + ":" + value); 
+    //print("getModuleByType: " + type + ":" + value); 
     var mods = [];
     for (var name in ModuleUtils.requires) {
-        print("ModuleUtils.requires["+name+"]: "+ModuleUtils.requires[name]);
-        print("ModuleUtils.requires["+name+"]["+type+"]: "+ModuleUtils.requires[name][type]);
+        //print("ModuleUtils.requires["+name+"]["+type+"]: "+ModuleUtils.requires[name][type]);
         if (ModuleUtils.requires[name][type] === value) {
             mods.push(ModuleUtils.requires[name]);
         }
@@ -147,7 +154,8 @@ ModuleUtils.getModulesByType = function(typeobj) {
 };
 
 /*
- * On worker node so have to try and manually find and load required required file.
+ * On worker node so have to try and manually find and load required required file
+ * into the ScriptEngine (e.g. Nashorn).
  */
 ModuleUtils._tryToLoadFile = function(mod) {
     //print('ModuleUtils._tryToLoadFile: '+mod.toString());
@@ -160,9 +168,8 @@ ModuleUtils._tryToLoadFile = function(mod) {
         var expname = mod.exportname || "";
 
         if (mod.core) {
-            // Module is part of JAR but not part of Bootstrap so have to manually load for worker node.
+            // Module is part of JAR but not part of Bootstrap so have to manually load.
             var filename = ModuleUtils.getResourcePath(mod.id);
-            //e.eval("load('" + filename + "');");
             load(filename);
         } else {
             // If the required file is NOT on classpath (e.g. core file part of JAR) then it was
@@ -171,15 +178,17 @@ ModuleUtils._tryToLoadFile = function(mod) {
             // of bootstrap process for the NashronSingletonEngine running on worker node.
             var filename = mod.modname + ModuleUtils._getModuleExtension(mod.id);
             if (mod.inFolder) {
+                // Note: For now using one big zipfile for all custom modules. In future may
+                // revert back to single zips for only modules we need for that worker node.
                 //var abspath = org.apache.spark.SparkFiles.get(mod.zipfile);
-                var abspath = org.apache.spark.SparkFiles.get("modules.zip");
+                var abspath = org.apache.spark.SparkFiles.get(ModuleUtils.defaultZipFile);
                 //print("*******ModuleUtils._tryToLoadFile zipfile abspath: "+abspath);
                 try {
+                    // Note: For now using one big zipfile for all custom modules (see above note).
                     org.eclairjs.nashorn.Utils.unzipFile(abspath, ".");
                     //print("Going to try and unzip kids: "+mod.zipfile.replace(".zip", "_child_"));
                     //org.eclairjs.nashorn.Utils.unzipChildren(mod.zipfile.replace(".zip", "_child_"), ".");
-                    print("Going to try and load file from unzipped file: "+filename);
-                    //e.eval("load('" + filename  + "');");
+                    //print("Going to try and load file from unzipped file: "+filename);
                     load(filename);
                 } catch (exc) {
                     print("Cannot unzipFile and loadfile: "+abspath);

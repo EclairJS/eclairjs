@@ -210,9 +210,7 @@ Serialize.javaSparkObject = function (javaObj) {
         var mod = ModuleUtils.getModuleFromJavaPackageAndClass(packageName, className);
         // Should probably raise exception if module has not been required 
         if (mod) {
-            //ModuleUtils.loadFileInNashorn(mod);
             load(ModuleUtils.getResourcePath(mod.id));
-
             ret = eval("new " + className + "(javaObj)");
         }
     }
@@ -221,7 +219,6 @@ Serialize.javaSparkObject = function (javaObj) {
 };
 
 Serialize.JSModule = function(obj) {
-  //print("#####Serialize.JSModule obj: "+obj);
   if (ModuleUtils.isModule(obj)) {
     var mod = ModuleUtils.getRequiredFile(obj);
 
