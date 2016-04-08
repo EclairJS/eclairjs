@@ -20,7 +20,7 @@
      * @constructor
      * @extends DataType
      * @classdesc The data type representing Array[Byte] values. Please use the singleton DataTypes.BinaryType.
-     * @memberof module:sql/types
+     * @memberof module:eclairjs/sql/types
      */
 
     var BinaryType = function () {

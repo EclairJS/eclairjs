@@ -18,7 +18,7 @@
     /**
      * @constructor
      * @classdesc A field inside a StructType.
-     * @memberof module:sql/types
+     * @memberof module:eclairjs/sql/types
      * @param {string} name - The name of this field.
      * @param {DataType} dataType - The data type of this field.
      * @param {boolean}  nullable -  Indicates if values of this field can be null values.

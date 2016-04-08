@@ -21,7 +21,7 @@
 
     /**
      * @constructor
-     * @memberof module:sql
+     * @memberof module:eclairjs/sql
      * @classdesc A container for a DataFrame, used for implicit conversions.
      */
     var DataFrameHolder = function (jvmDataFrame) {

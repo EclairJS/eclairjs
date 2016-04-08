@@ -20,7 +20,7 @@
      * @example
      * var mllibDistrib = require('eclairjs/mllib/linalg/distributed');
      * var rm = new mllibDistrib.RowMatrix(...);
-     * @module mllib/linalg/distributed
+     * @module eclairjs/mllib/linalg/distributed
      */
     module.exports = {
         DistributedMatrix: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/distributed/DistributedMatrix'),

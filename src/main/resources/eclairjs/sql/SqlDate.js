@@ -19,7 +19,7 @@
 
     /**
      * @constructor
-     * @memberof module:sql
+     * @memberof module:eclairjs/sql
      * @classdesc A thin wrapper around a millisecond value that allows JDBC to identify this as an SQL DATE value.
      * A milliseconds value represents the number of milliseconds that have passed since January 1, 1970 00:00:00.000 GMT.
      * To conform with the definition of SQL DATE, the millisecond values wrapped by a java.sql.Date instance must be 'normalized'

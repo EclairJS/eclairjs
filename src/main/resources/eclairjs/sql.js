@@ -19,7 +19,7 @@
      * @example
      * var sql = require('sql');
      * var at = new sql.Column("name");
-     * @module sql
+     * @module eclairjs/sql
      */
     module.exports = {
         Column: require(EclairJS_Globals.NAMESPACE + '/sql/Column'),

@@ -22,7 +22,7 @@
 
     /**
      * @constructor
-     * @memberof module:sql
+     * @memberof module:eclairjs/sql
      * @since EclairJS 0.1 Spark  1.3.1
      * @classdesc Functionality for working with missing data in {@link DataFrame}.
      */

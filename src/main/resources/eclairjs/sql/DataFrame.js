@@ -21,7 +21,7 @@
 
 	/**
 	 * @constructor
-     * @memberof module:sql
+     * @memberof module:eclairjs/sql
 	 * @classdesc A distributed collection of data organized into named columns. A DataFrame is equivalent to a relational table in Spark SQL.
 	 * @example
 	 * var people = sqlContext.read.parquet("...")

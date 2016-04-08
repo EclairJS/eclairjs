@@ -21,7 +21,7 @@
      * @constructor
      * @extends DataType
      * @classdesc The data type representing Boolean values. Please use the singleton DataTypes.BooleanType.
-     * @memberof module:sql/types
+     * @memberof module:eclairjs/sql/types
      */
 
     function BooleanType(jvmObj) {

@@ -20,7 +20,7 @@
      * @example
      * var mllibLinalg = require('eclairjs/mllib/linalg');
      * var dv = new mllibLinalg.Vectors.DenseVector([0.0, 0.1, 0.2]);
-     * @module mllib/linalg
+     * @module eclairjs/mllib/linalg
      */
     module.exports = {
         Matrices: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Matrices'),

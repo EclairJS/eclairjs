@@ -19,7 +19,7 @@
     /**
      * @constructor
      * @classdesc The base type of all Spark SQL data types.
-     * @memberof module:sql/types
+     * @memberof module:eclairjs/sql/types
      */
 
     var DataType = function(jvmObj) {

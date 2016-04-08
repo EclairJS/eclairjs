@@ -26,7 +26,7 @@
      *
      * @since EclairJS 0.1 Spark  1.4.0
      * @constructor
-     * @memberof module:sql
+     * @memberof module:eclairjs/sql
      * @classdesc
      */
     var DataFrameWriter = function (javaDataFrameWriter) {

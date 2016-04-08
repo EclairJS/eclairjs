@@ -21,7 +21,7 @@
      * @constructor
      * @extends NumericType
      * @classdesc The data type representing Int values. Please use the singleton DataTypes.IntegerType.
-     * @memberof module:sql/types
+     * @memberof module:eclairjs/sql/types
      */
 
     var IntegerType = function(jvmObj) {

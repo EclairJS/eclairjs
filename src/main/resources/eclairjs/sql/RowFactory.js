@@ -23,7 +23,7 @@
 
     /**
      * @constructor
-     * @memberof module:sql
+     * @memberof module:eclairjs/sql
      * @classdesc A factory class used to construct Row objects.
      */
 

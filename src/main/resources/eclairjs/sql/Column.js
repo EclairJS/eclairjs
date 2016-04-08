@@ -20,7 +20,7 @@
 	/**
 	 *
 	 * @constructor
-     * @memberof module:sql
+     * @memberof module:eclairjs/sql
 	 * @classdesc A column in a DataFrame.
 	 * @param {string} column name of the column
 	 */
