@@ -1,9 +1,46 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.ibm</groupId>
+    <groupId>org.eclairjs</groupId>
     <artifactId>eclairjs-nashorn</artifactId>
-    <version>0.1</version>
+    <version>0.4-SNAPSHOT</version>
+
+    <name>EclairJS Nashorn</name>
+    <description>JavaScript API for Apache Spark</description>
+    <url>https://github.com/EclairJS/eclairjs-nashorn</url>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>EclairJS</name>
+            <email>eclairjs@us.ibm.com</email>
+            <organization>IBM Corporation</organization>
+            <organizationUrl>http://www.ibm.com</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git@github.com:eclairjs/eclairjs-nashorn.git</connection>
+        <developerConnection>scm:git:git@github.com:eclairjs/eclairjs-nashorn.git</developerConnection>
+        <url>git@github.com:eclairjs/eclairjs-nashorn.git</url>
+    </scm>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 
     <build>
         <plugins>
@@ -48,11 +85,8 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>org.eclairjs.nashorn.SparkJS</mainClass>
-                                </transformer>
-                            </transformers>
+                            <shadedArtifactAttached>true</shadedArtifactAttached>
+                            <shadedClassifierName>jar-with-dependencies</shadedClassifierName> <!-- Any name that makes sense -->
                             <filters>
                                 <filter>
                                   <artifact>*:*</artifact>
@@ -63,108 +97,60 @@
                                   </excludes>
                                 </filter>
                             </filters>
-                            <artifactSet>
-                                <excludes>
-                                    <exclude>classworlds:classworlds</exclude>
-                                    <exclude>junit:junit</exclude>
-                                    <exclude>jmock:*</exclude>
-                                    <exclude>*:xml-apis</exclude>
-                                    <exclude>org.scala-lang:*</exclude>
-                                    <exclude>org.apache.maven:lib:tests</exclude>
-                                    <exclude>log4j:log4j:jar:</exclude>
-                                    <exclude>org.eclipse.jetty:*</exclude>
-                                    <exclude>org.apache.spark:spark-core*</exclude>
-                                    <exclude>org.apache.spark:spark-launcher*</exclude>
-                                    <exclude>org.apache.spark:spark-network*</exclude>
-                                    <exclude>org.apache.spark:spark-unsafe*</exclude>
-                                    <exclude>org.apache.spark:spark-sql*</exclude>
-                                    <exclude>org.apache.spark:spark-catalyst*</exclude>
-                                    <exclude>org.apache.spark:spark-hive*</exclude>
-                                    <exclude>org.apache.spark:spark-streaming_*</exclude>
-                                    <exclude>org.apache.spark:spark-mllib*</exclude>
-                                    <exclude>org.apache.spark:spark-graphx*</exclude>
-                                    <exclude>org.spark-project.hive*</exclude>
-                                    <exclude>org.apache.parquet:*</exclude>
-                                    <exclude>org.apache.curator:*</exclude>
-                                    <exclude>org.apache.zookeeper:*</exclude>
-                                    <exclue>org.apache.avro:*</exclue>
-                                    <exclude>org.apache.xbean:*</exclude>
-                                    <eclude>org.apache.hadoop:*</eclude>
-                                    <exclude>org.apache.commons:*</exclude>
-                                    <exclude>org.apache.mesos:*</exclude>
-                                    <exclude>org.apache.ivy:*</exclude>
-                                    <exclude>org.apache.derby:*</exclude>
-                                    <exclude>org.apache.calcite:*</exclude>
-                                    <exclude>org.apache.httpcomponents:*</exclude>
-                                    <exclude>org.apache.thrift:*</exclude>
-                                    <exclude>com.esotericsoftware.*</exclude>
-                                    <exclude>org.codehaus.*</exclude>
-                                    <exclude>org.objenesis:*</exclude>
-                                    <exclude>xmlenc:*</exclude>
-                                    <exclude>commons-*:*</exclude>
-                                    <exclude>org.mortbay.*</exclude>
-                                    <exclude>com.google.*</exclude>
-                                    <exclude>javax.*</exclude>
-                                    <exclude>aopalliance:*</exclude>
-                                    <exclude>com.sun.*</exclude>
-                                    <exclude>org.glassfish.*</exclude>
-                                    <exclude>org.glassfish:*</exclude>
-                                    <exclude>org.fusesource.leveldbjni:*</exclude>
-                                    <exclude>com.fasterxml.*</exclude>
-                                    <exclude>org.eclipse.*</exclude>
-                                    <exclude>org.slf4j:jul-to-slf4j:jar:</exclude>
-                                    <exclude>org.slf4j:jcl-over-slf4j:jar:</exclude>
-                                    <exclude>org.slf4j:slf4j-log4j12:jar:</exclude>
-                                    <exclude>com.ning:*</exclude>
-                                    <exclude>net.java.dev.jets3t:*</exclude>
-                                    <!--<exclude>org.xerial.snappy:*</exclude>-->
-                                    <!--<exclude>net.jpountz.lz4:*</exclude>-->
-                                    <exclude>org.roaringbitmap:*</exclude>
-                                    <exclude>com.typesafe.*</exclude>
-                                    <exclude>com.typesafe:*</exclude>
-                                    <exclude>io.netty:*</exclude>
-                                    <exclude>org.uncommons.maths:*</exclude>
-                                   <!-- <exclude>org.json4s:*</exclude>-->
-                                    <exclude>asm:*</exclude>
-                                    <exclude>com.clearspring.*</exclude>
-                                    <exclude>io.dropwizard.*</exclude>
-                                    <exclude>com.thoughtworks.*</exclude>
-                                    <exclude>oro:*</exclude>
-                                    <exclude>org.tachyonproject:*</exclude>
-                                    <exclude>net.razorvine:*</exclude>
-                                    <exclude>net.sf.*</exclude>
-                                    <!--<exclude>org.spark-project.*</exclude>-->
-                                    <exclude>javolution:*</exclude>
-                                    <exclude>log4j:*</exclude>
-                                    <exclude>org.antlr:*</exclude>
-                                    <exclude>antlr:*</exclude>
-                                    <exclude>com.googlecode.javaewah:*</exclude>
-                                    <exclude>org.iq80.*</exclude>
-                                    <exclude>org.json:*</exclude>
-                                    <exclude>stax:*</exclude>
-                                    <exclude>jline:*</exclude>
-                                    <exclude>com.jolbox:*</exclude>
-                                    <exclude>org.datanucleus:*</exclude>
-                                    <exclude>net.hydromatic:*</exclude>
-                                    <exclude>joda-time:*</exclude>
-                                    <exclude>org.jodd:*</exclude>
-                                    <exclude>com.github.*</exclude>
-                                    <exclude>net.sourceforge.*</exclude>
-                                    <exclude>org.scalanlp:*</exclude>
-                                    <exclude>org.scalamacros:*</exclude>
-                                    <exclude>org.spire-math:*</exclude>
-                                    <exclude>org.tukaani:*</exclude>
-                                    <exclude>org.jpmml:*</exclude>
-                                    <!--<exclude>com.101tec:*</exclude>-->
-                                    <exclude>com.twitter:*</exclude>
-                                    <exclude>org.json4s:*</exclude>
-                                    <!--<exclude>org.twitter4j:*</exclude>-->
-                                    <!--<exclude>com.yammer.*</exclude>-->
-                                </excludes>
-                            </artifactSet>
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.3</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
             </plugin>
         </plugins>
         <pluginManagement>
@@ -207,58 +193,58 @@
         <spark.version>1.6.0</spark.version>
     </properties>
     <dependencies>
+
         <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
             <version>2.10.2</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-core_2.10</artifactId>
             <version>${spark.version}</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
 		    <groupId>org.apache.spark</groupId>
 		    <artifactId>spark-sql_2.10</artifactId>
 		    <version>${spark.version}</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
 		</dependency>
 		<dependency>
 		    <groupId>org.apache.spark</groupId>
 		    <artifactId>spark-catalyst_2.10</artifactId>
 		    <version>${spark.version}</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
 		</dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-hive_2.10</artifactId>
             <version>${spark.version}</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-streaming_2.10</artifactId>
             <version>${spark.version}</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-mllib_2.10</artifactId>
             <version>${spark.version}</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-streaming-kafka_2.10</artifactId>
             <version>${spark.version}</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-streaming-twitter_2.10</artifactId>
             <version>${spark.version}</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.googlecode.json-simple</groupId>
@@ -279,6 +265,68 @@
         </dependency>
     </dependencies>
     <profiles>
+        <profile>
+            <id>local</id>
+            <properties>
+                <spark.scope>compile</spark.scope>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.scala-lang</groupId>
+                    <artifactId>scala-library</artifactId>
+                    <version>2.10.2</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.spark</groupId>
+                    <artifactId>spark-core_2.10</artifactId>
+                    <version>${spark.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.spark</groupId>
+                    <artifactId>spark-sql_2.10</artifactId>
+                    <version>${spark.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.spark</groupId>
+                    <artifactId>spark-catalyst_2.10</artifactId>
+                    <version>${spark.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.spark</groupId>
+                    <artifactId>spark-hive_2.10</artifactId>
+                    <version>${spark.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.spark</groupId>
+                    <artifactId>spark-streaming_2.10</artifactId>
+                    <version>${spark.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.spark</groupId>
+                    <artifactId>spark-mllib_2.10</artifactId>
+                    <version>${spark.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.toree</groupId>
+                    <artifactId>toree-kernel-api_2.10</artifactId>
+                    <version>0.0.0-dev-SNAPSHOT</version>
+                    <scope>provided</scope>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>javax.servlet</groupId>
+                            <artifactId>servlet-api</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+            </dependencies>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+                <property>
+                    <name>env</name>
+                    <value>local</value>
+                </property>
+            </activation>
+        </profile>
     <profile>
         <id>notebook</id>
         <dependencies>
@@ -294,6 +342,18 @@
                 </exclusion>
             </exclusions>
         </dependency>
+            <dependency>
+                <groupId>org.apache.toree</groupId>
+                <artifactId>toree-kernel_2.10</artifactId>
+                <version>0.0.0-dev-SNAPSHOT</version>
+                <scope>provided</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>javax.servlet</groupId>
+                        <artifactId>servlet-api</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
         </dependencies>
         <build>
         <plugins>
