@@ -19,8 +19,8 @@
  bin/eclairjs.sh examples/mllib/lbfgs_example.js"
  */
 
-var LabeledPoint = require("mllib/regression/LabeledPoint");
-var Vectors = require("mllib/linalg/Vectors").Vectors;
+var LabeledPoint = require("eclairjs/mllib/regression/LabeledPoint");
+var Vectors = require("eclairjs/mllib/linalg/Vectors").Vectors;
 
 function run(sc) {
 

@@ -15,7 +15,7 @@
  */
 
 //var LabeledPoint = require('mllib/regression/LabeledPoint');
-var DenseVector = require('mllib/linalg/Vectors').DenseVector;
+var DenseVector = require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Vectors').DenseVector;
 
 /*
  * We need to load SparkContext.js and SparkConf.js in order to create SparkContext

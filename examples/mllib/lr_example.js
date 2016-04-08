@@ -19,8 +19,8 @@
  bin/eclairjs.sh examples/mllib/lr_example.js [<input_dir>] [<step_size>] [<niters>]"
  */
 
-var LabeledPoint = require("mllib/regression/LabeledPoint");
-var Vectors = require("mllib/linalg/Vectors").Vectors;
+var LabeledPoint = require("eclairjs/mllib/regression/LabeledPoint");
+var Vectors = require("eclairjs/mllib/linalg/Vectors").Vectors;
 
 var directory =  ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/lr-data";
 var stepSize = 3.0;

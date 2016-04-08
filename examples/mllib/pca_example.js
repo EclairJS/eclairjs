@@ -19,9 +19,9 @@
  bin/eclairjs.sh examples/mllib/pca_example.js"
  */
 
-var Vector = require("mllib/linalg/Vectors").Vector;
-var Vectors = require("mllib/linalg/Vectors").Vectors;
-var RowMatrix = require("mllib/linalg/distributed/RowMatrix");
+var Vector = require("eclairjs/mllib/linalg/Vectors").Vector;
+var Vectors = require("eclairjs/mllib/linalg/Vectors").Vectors;
+var RowMatrix = require("eclairjs/mllib/linalg/distributed/RowMatrix");
 
 function run(sc) {
 

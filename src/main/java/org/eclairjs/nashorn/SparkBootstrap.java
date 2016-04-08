@@ -16,13 +16,9 @@
 
 package org.eclairjs.nashorn;
 
-import java.io.FileReader;
-import java.net.URL;
 import java.util.Properties;
 
 import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
 
 public class SparkBootstrap implements Bootstrap {
 
@@ -70,41 +66,42 @@ public class SparkBootstrap implements Bootstrap {
     public void load(ScriptEngine engine) {
         try {
             //module loading
-            engine.eval("load('" + getResourceAsURLStirng("/ModuleUtils.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/jvm-npm/jvm-npm.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/EclairJS_Globals.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/ModuleUtils.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/jvm-npm/jvm-npm.js") + "');");
 
             // core
-        	engine.eval("load('" + getResourceAsURLStirng("/JavaWrapper.js") + "');");
-        	engine.eval("load('" + getResourceAsURLStirng("/Logger.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/Utils.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/Serialize.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/DebugUtils.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/utils/List.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/utils/Tuple.js") + "');");
+        	engine.eval("load('" + getResourceAsURLStirng("/eclairjs/JavaWrapper.js") + "');");
+        	engine.eval("load('" + getResourceAsURLStirng("/eclairjs/Logger.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/Utils.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/Serialize.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/DebugUtils.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/utils/List.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/utils/Tuple.js") + "');");
 
         	//spark
 
-        	engine.eval("load('" + getResourceAsURLStirng("/SparkConf.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/SparkContext.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/RDD.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/FloatRDD.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/PairRDD.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/Partitioner.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/Accumulators.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/FutureAction.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/SparkStatusTracker.js") + "');");
+        	engine.eval("load('" + getResourceAsURLStirng("/eclairjs/SparkConf.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/SparkContext.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/RDD.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/FloatRDD.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/PairRDD.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/Partitioner.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/Accumulators.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/FutureAction.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/SparkStatusTracker.js") + "');");
 
             // storage
-            engine.eval("load('" + getResourceAsURLStirng("/storage/StorageLevel.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/storage/StorageLevel.js") + "');");
 
             // streaming
-            engine.eval("load('" + getResourceAsURLStirng("/streaming/Duration.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/streaming/Time.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/streaming/StreamingContext.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/streaming/KafkaUtils.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/streaming/TwitterUtils.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/streaming/dstream/DStream.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/streaming/dstream/PairDStream.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/streaming/Duration.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/streaming/Time.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/streaming/StreamingContext.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/streaming/KafkaUtils.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/streaming/TwitterUtils.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/streaming/dstream/DStream.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/streaming/dstream/PairDStream.js") + "');");
 
             //mllib
 
@@ -115,53 +112,53 @@ public class SparkBootstrap implements Bootstrap {
             //engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/distributed/DistributedMatrix.js") + "');");
             //engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/distributed/RowMatrix.js") + "');");
 
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/clustering/BisectingKMeans.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/clustering/BisectingKMeansModel.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/clustering/KMeans.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/clustering/KMeansModel.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/clustering/LDA.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/clustering/LDAModel.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/clustering/PowerIterationClustering.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/evaluation/BinaryClassificationMetrics.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/evaluation/RankingMetrics.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/evaluation/MulticlassMetrics.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/evaluation/MultilabelMetrics.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/evaluation/RegressionMetrics.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/recommendation/ALS.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/recommendation/MatrixFactorizationModel.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/IsotonicRegression.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/GeneralizedLinearModel.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/LinearRegressionModel.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/LinearRegressionWithSGD.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/clustering/BisectingKMeans.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/clustering/BisectingKMeansModel.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/clustering/KMeans.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/clustering/KMeansModel.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/clustering/LDA.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/clustering/LDAModel.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/clustering/PowerIterationClustering.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/evaluation/BinaryClassificationMetrics.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/evaluation/RankingMetrics.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/evaluation/MulticlassMetrics.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/evaluation/MultilabelMetrics.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/evaluation/RegressionMetrics.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/recommendation/ALS.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/recommendation/MatrixFactorizationModel.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/regression/IsotonicRegression.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/regression/GeneralizedLinearModel.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/regression/LinearRegressionModel.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/regression/LinearRegressionWithSGD.js") + "');");
 
             // Not blindly loading LabeledPoint any more for master or slave
             //engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/LabeledPoint.js") + "');");
 
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/util.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/classification/LogisticRegression.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/classification/ClassificationModel.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/classification/NaiveBayes.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/classification/SVM.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/feature/Word2Vec.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/fpm/FPGrowth.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/fpm/AssociationRules.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/fpm/PrefixSpan.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/tree/DecisionTree.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/tree/RandomForest.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/tree/GradientBoostedTrees.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/tree/configuration/Strategy.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/tree/configuration/BoostingStrategy.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/tree/model/DecisionTreeModel.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/tree/model/treeEnsembleModels.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/optimization/LBFGS.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/optimization/Gradient.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/optimization/LogisticGradient.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/optimization/Updater.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/optimization/SquaredL2Updater.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/tree/loss/Loss.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/mllib/random/RandomRDDs.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/util.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/classification/LogisticRegression.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/classification/ClassificationModel.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/classification/NaiveBayes.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/classification/SVM.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/feature/Word2Vec.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/fpm/FPGrowth.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/fpm/AssociationRules.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/fpm/PrefixSpan.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/tree/DecisionTree.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/tree/RandomForest.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/tree/GradientBoostedTrees.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/tree/configuration/Strategy.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/tree/configuration/BoostingStrategy.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/tree/model/DecisionTreeModel.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/tree/model/treeEnsembleModels.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/optimization/LBFGS.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/optimization/Gradient.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/optimization/LogisticGradient.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/optimization/Updater.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/optimization/SquaredL2Updater.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/tree/loss/Loss.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/random/RandomRDDs.js") + "');");
             //ml
-            engine.eval("load('" + getResourceAsURLStirng("/ml/Word2Vec.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/ml/Word2Vec.js") + "');");
 
             // sql
            /* engine.eval("load('" + getResourceAsURLStirng("/sql/Column.js") + "');");

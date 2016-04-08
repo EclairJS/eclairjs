@@ -19,8 +19,8 @@
  bin/eclairjs.sh examples/mllib/kmeans_example.js [<input_file>] [<k>] [<max_iterations>] [<runs>]"
  */
 
-var Vector = require("mllib/linalg/Vectors").Vector;
-var Vectors = require("mllib/linalg/Vectors").Vectors;
+var Vector = require("eclairjs/mllib/linalg/Vectors").Vector;
+var Vectors = require("eclairjs/mllib/linalg/Vectors").Vectors;
 
 var inputFile = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/kmeans_data.txt";
 var k = 3;

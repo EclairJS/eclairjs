@@ -15,10 +15,10 @@
  * limitations under the License.
  */
 
-var DataTypes = require('sql/types').DataTypes;
-var DataType = require('sql/types/DataType');
-var SQLContext = require('sql/SQLContext');
-var sql = require('sql');
+var DataTypes = require('eclairjs/sql/types').DataTypes;
+var DataType = require('eclairjs/sql/types/DataType');
+var SQLContext = require('eclairjs/sql/SQLContext');
+var sql = require('eclairjs/sql');
 var RowFactory = sql.RowFactory;
 //var DataFrame = sql.DataFrame;
 

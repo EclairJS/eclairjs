@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-var LabeledPoint = require("mllib/regression/LabeledPoint");
-var Vectors = require("mllib/linalg/Vectors").Vectors;
+var LabeledPoint = require("eclairjs/mllib/regression/LabeledPoint");
+var Vectors = require("eclairjs/mllib/linalg/Vectors").Vectors;
 
 var sparkConf = new SparkConf()
   .setAppName("Regression Metrics Example");
