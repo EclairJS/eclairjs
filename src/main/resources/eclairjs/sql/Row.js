@@ -302,7 +302,6 @@
          java.sql.Timestamp	getTimestamp(int i)
          Returns the value at position i of date type as java.sql.Timestamp.
          */
-        print(this.getJavaObject().getTimestamp(index).getClass().getName())
         return Utils.javaToJs(this.getJavaObject().getTimestamp(index)); // FIXME
     };
     /**

@@ -330,7 +330,6 @@
 	 * @private
 	 */
 	DataFrame.prototype.groupByWithColumns = function (args) {
-        print("groupByWithColumns")
 		var jCols = args.map(function (v) {
 			return Utils.unwrapObject(v);
 		});
@@ -338,7 +337,6 @@
 		var jGroupedData = this.getJavaObject().groupBy(jCols);
        // var GroupedData = require('sql/GroupedData');
 		var gd = Utils.javaToJs(jGroupedData);
-        print(" return groupByWithColumns")
 		return gd;
 	};
 	/**
