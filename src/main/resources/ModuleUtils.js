@@ -32,9 +32,6 @@ ModuleUtils.addRequiredFile = function(module) {
         //print("ModuleUtils.addRequiredFile - ADDING MODULE: "+module.modname);
         //print("WITH BODY: "+module.body);
         ModuleUtils.requires[module.modname] = module;
-
-        // Make sure it's loaded in Nashorn
-        ModuleUtils.loadFileInNashorn(module);
     }
 };
 
@@ -127,18 +124,25 @@ ModuleUtils.getParent = function(mod) {
     return  ModuleUtils.getRequiredFileById(mod.parent ? mod.parent.id : "");
 };
 
-ModuleUtils.loadFileInNashorn = function(mod) {
-    if (mod && mod.id) {
-        try {
-            var e = org.eclairjs.nashorn.NashornEngineSingleton.getEngine();
-            var filename = mod.core ? ModuleUtils._getResourcePath(mod.id) : mod.filename;
-            //print("Going to try and load in Nashorn filename: "+filename);
-            engine.eval("load('" + filename + "');");
-        } catch(exc) {
-            print("Could not load module in Nashron: "+mod.id);
-            print(exc);
+ModuleUtils.getResourcePath = function(filename) {
+    var classloader = java.lang.Thread.currentThread().getContextClassLoader();
+    return classloader.getResource(filename);
+};
+
+ModuleUtils.getModulesByType = function(typeobj) {
+    typeobj = typeobj || {};
+    var type = typeobj.type;
+    var value = typeobj.value;
+    print("getModuleByType: " + type + ":" + value); 
+    var mods = [];
+    for (var name in ModuleUtils.requires) {
+        print("ModuleUtils.requires["+name+"]: "+ModuleUtils.requires[name]);
+        print("ModuleUtils.requires["+name+"]["+type+"]: "+ModuleUtils.requires[name][type]);
+        if (ModuleUtils.requires[name][type] === value) {
+            mods.push(ModuleUtils.requires[name]);
         }
     }
+    return mods;
 };
 
 /*
@@ -147,8 +151,8 @@ ModuleUtils.loadFileInNashorn = function(mod) {
 ModuleUtils._tryToLoadFile = function(mod) {
     //print('ModuleUtils._tryToLoadFile: '+mod.toString());
     try {
-        var e = org.eclairjs.nashorn.NashornEngineSingleton.getEngine();
-        var require = true;
+        //var e = org.eclairjs.nashorn.NashornEngineSingleton.getEngine();
+        var doRequire = true;
 
         // Save off any exportname that has been determined by master as it will be lost once
         // require is envoked again to load module on worker node.
@@ -156,7 +160,9 @@ ModuleUtils._tryToLoadFile = function(mod) {
 
         if (mod.core) {
             // Module is part of JAR but not part of Bootstrap so have to manually load for worker node.
-            ModuleUtils.loadFileInNashorn(mod);
+            var filename = ModuleUtils.getResourcePath(mod.id);
+            //e.eval("load('" + filename + "');");
+            load(filename);
         } else {
             // If the required file is NOT on classpath (e.g. core file part of JAR) then it was
             // downlaoded to the worker node via SparkContext.addFile and we have to get it via
@@ -164,32 +170,35 @@ ModuleUtils._tryToLoadFile = function(mod) {
             // of bootstrap process for the NashronSingletonEngine running on worker node.
             var filename = mod.modname + ModuleUtils._getModuleExtension(mod.id);
             if (mod.inFolder) {
-                var abspath = org.apache.spark.SparkFiles.get(mod.zipfile);
+                //var abspath = org.apache.spark.SparkFiles.get(mod.zipfile);
+                var abspath = org.apache.spark.SparkFiles.get("modules.zip");
                 //print("*******ModuleUtils._tryToLoadFile zipfile abspath: "+abspath);
                 try {
                     org.eclairjs.nashorn.Utils.unzipFile(abspath, ".");
                     //print("Going to try and unzip kids: "+mod.zipfile.replace(".zip", "_child_"));
-                    org.eclairjs.nashorn.Utils.unzipChildren(mod.zipfile.replace(".zip", "_child_"), ".");
-                    //print("Going to try and load file from unzipped file: "+filename);
-                    e.eval("load('" + filename  + "');");
+                    //org.eclairjs.nashorn.Utils.unzipChildren(mod.zipfile.replace(".zip", "_child_"), ".");
+                    print("Going to try and load file from unzipped file: "+filename);
+                    //e.eval("load('" + filename  + "');");
+                    load(filename);
                 } catch (exc) {
                     print("Cannot unzipFile and loadfile: "+abspath);
                     print(exc);
-                    require = false;
+                    doRequire = false;
                 }
             } else {
                 var abspath = org.apache.spark.SparkFiles.get(filename);
                 //print("*******ModuleUtils._tryToLoadFile that is not in zipfile abspath: "+abspath);
-                e.eval("load('" + abspath + "');");
+                //e.eval("load('" + abspath + "');");
+                load(abspath);
             }
         }
 
-        if (require) {
+        if (doRequire) {
             // If this is worker node then required module needs to pass thru jvm-npm so it's
             // exports are made "live"/available to lambdas thus we have to simulate "require".
             var reqAddOn = mod.exportname ? "\."+mod.exportname : "";
             //print("About to try and eval/require: "+"require('" + mod.modname + "')"+reqAddOn+";");
-            e.eval("require('" + mod.modname + "')"+reqAddOn+";");
+            eval("require('" + mod.modname + "')"+reqAddOn+";");
         }
 
         // Before returing set the exportname in the new Module instance so worker node had it too.
@@ -207,11 +216,6 @@ ModuleUtils._tryToLoadFile = function(mod) {
 ModuleUtils._getModuleExtension = function(id) {
     return id.slice(id.lastIndexOf("\."), id.length);
 };
-
-ModuleUtils._getResourcePath = function(filename) {
-    var classloader = java.lang.Thread.currentThread().getContextClassLoader();
-    return classloader.getResource(filename);
-}
 
 ModuleUtils._printRequires = function(msg) {
     var output = "";

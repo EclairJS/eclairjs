@@ -551,3 +551,25 @@ SparkContext.prototype.addModule = function(module) {
         print(exc);
     }
 };
+
+/**
+ * Zip up all required files not in JAR to preserve paths and add it to worker node for download via addFile.
+ */
+SparkContext.prototype.addCustomModules = function() {
+    var mods = ModuleUtils.getModulesByType({type:"core", value:false});
+    print("addingCustomMods: "+mods.toString());
+    var folder = ".", zipfile = "modules.zip", filenames = [];
+    mods.forEach(function(mod){
+        filenames.push(mod.id.slice(mod.id.lastIndexOf("\/")+1, mod.id.length));
+    });
+    print("SparkContext.addModule folder: "+folder);
+    print("SparkContext.addModule filenames: "+filenames.toString());
+    try {
+        org.eclairjs.nashorn.Utils.zipFile(folder, zipfile, filenames);
+        print("SparkContext.addModule zipped file now going to try and addFile: "+zipfile);
+        this.getJavaObject().addFile(zipfile);
+    } catch (exc) {
+        print("Cannot add non core modules: "+filenames.toString());
+        print(exc);
+    }
+};

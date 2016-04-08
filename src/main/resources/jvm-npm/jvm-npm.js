@@ -29,11 +29,11 @@ module = (typeof module == 'undefined') ? {} :  module;
   }
 
   function Module(id, parent, core, modname, subdir, fullpath) {
-    //print("new Module id: "+id);
-    //print("new Module parent: "+parent);
+    print("new Module id: "+id);
+    print("new Module parent: "+parent);
     //print("new Module modname: ",modname);
     this.id = id;
-    this.core = core;
+    this.core = core || false;
     this.parent = parent;
     this.children = [];
     this.filename = id;
@@ -60,6 +60,9 @@ module = (typeof module == 'undefined') ? {} :  module;
     if (parent && parent.children) parent.children.push(this);
 
     this.require = function(id) {
+      id = id || this.id;
+      print("Doing Require for id: "+id);
+      print("and this: "+this.toString());
       return Require(id, this);
     }.bind(this);
   }
@@ -94,8 +97,35 @@ module = (typeof module == 'undefined') ? {} :  module;
     };
   };
 
-  Module._load = function _load(file, parent, core, main, modname, subdir, fullpath) {
-    //print('Module._load args: '+arguments);
+  Module._loadJSFile = function(file, parent, core, main, modname, subdir, fullpath) {
+    var mod = new Module(file, parent, core, modname, subdir, fullpath);
+
+    var __FILENAME__ = mod.filename;
+
+    var dir    = new File(mod.filename).getParent();
+
+    print("***Loading JS module: "+mod.toString());
+    print("***and filename: "+mod.filename);
+    print("***and fullpath: "+mod.fullpath);
+    print("***and core: "+core);
+    print("***and dir: "+dir);
+
+    //eval("load('"+mod.fullpath+"');");
+    load(mod.fullpath);
+    mod.exports = module.exports;
+
+    mod.loaded = true;
+    mod.main = main;
+
+    // Cache the metadata object in ModuleUtils as only the exports
+    // are cached here in require.
+    ModuleUtils.addRequiredFile(mod);
+
+    return mod.exports;
+  };
+
+  Module._load = function(file, parent, core, main, modname, subdir, fullpath) {
+        //print('Module._load args: '+arguments);
     var module = new Module(file, parent, core, modname, subdir, fullpath);
 
     var __FILENAME__ = module.filename;
@@ -105,18 +135,22 @@ module = (typeof module == 'undefined') ? {} :  module;
     var args   = ['exports', 'module', 'require', '__filename', '__dirname'],
         func   = new Function(args, body);
 
-    //print("***Calling func.apply for: " + module.toString());
-    //print("***with args: "+args);
-    //print("***and body: "+body);
+    print("***Calling func.apply for: " + module.toString());
+    //print("***with body: "+body);
+    print("***and exports: "+module.exports);
+    print("***and filename: "+module.filename);
+    print("***and dir: "+dir);
 
-    func.apply(module,
-        [module.exports, module, module.require, module.filename, dir]);
+    //load({ script: "print('hello');", name: "myscript.js"});
+
+    eval("load({ script:"+func.apply(module,
+        [module.exports, module, module.require, module.filename, dir])+", name:'"+ module.filename + "'})");
 
     module.loaded = true;
     module.main = main;
     module.body = body;
 
-    // Cache the metadata object in ModuleUtils as only the exports 
+    // Cache the metadata object in ModuleUtils as only the exports
     // are cached here in require.
     ModuleUtils.addRequiredFile(module);
 
@@ -152,13 +186,16 @@ module = (typeof module == 'undefined') ? {} :  module;
       subdir = file.subdir;
       file = file.path;
     }
+
+    print("Require file: "+file);
+
     try {
       if (Require.cache[file]) {
         //print("Require returing cached file: ",file);
         return Require.cache[file];
       } else if (file.endsWith('.js')) {
-        //print("Require loading JS module: ",file);
-        return Module._load(file, parent, core, false, modname, subdir, fullpath);
+        print("Require loading JS module: ",file);
+        return Module._loadJSFile(file, parent, core, false, modname, subdir, fullpath);
       } else if (file.endsWith('.json')) {
         return loadJSON(file);
       }
@@ -173,8 +210,8 @@ module = (typeof module == 'undefined') ? {} :  module;
   }
 
   Require.resolve = function(id, parent) {
-    //print("resolve id: "+id);
-    //print("resolve parent: "+ (parent ? parent.id : "DNE"));
+    print("resolve id: "+id);
+    print("resolve parent: "+ (parent ? parent.id : "DNE"));
 
     var roots = findRoots(parent);
     for ( var i = 0 ; i < roots.length ; ++i ) {

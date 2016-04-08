@@ -212,20 +212,33 @@ Utils.logger = Logger.getLogger("Utils_js");
   Utils.createLambdaFunction = function(func, clazz, sc, bindArgs) {
     //var x = bindArgs ? org.eclairjs.nashorn.Utils.jsToJava(bindArgs) : []
     var unObj = [];
+    // If one or more modules are found that are not in JAR we need to send entire
+    // zipfile of custom modules because ew don't have child dependencies with the
+    // way we have to load required filed for Nashorn.
+    var modNotInJar = false;
     if (bindArgs) {
         for (var i = 0; i < bindArgs.length; i++) {
             //unObj.push(org.eclairjs.nashorn.Utils.jsToJava(bindArgs[i]));
 
             // If it's a bound module it will be a module.export so get the metadata object that can be serialized.
             if (ModuleUtils.isModule(bindArgs[i])) {
-                //print("Utils.createLambdaFunction bindArg isModule");
+                //print("Utils.createLambdaFunction bindArg isModule: "+bindArgs[i]);
                 bindArgs[i] = ModuleUtils.getRequiredFile(bindArgs[i]);
-                if (sc) {
-                    addModule(sc, bindArgs[i]);
-                }
+                modNotInJar = modNotInJar || !bindArgs[i].core;
+                //print("modNotInJar: " + modNotInJar);
+                //if (sc) {
+                    //addModule(sc, bindArgs[i]);
+                //}
             }
 
             unObj.push(Serialize.jsToJava(bindArgs[i]));
+
+            // Add the zipfile of non-JAR zipfiles to SparkContext.
+            if (modNotInJar && sc && !sc.isLocal()) {
+            //if (modNotInJar && sc) {
+                print("Found non-core modules and sc is NOT local to sending zipfile of all custom mods");
+                sc.addCustomModules();
+            }
         }
     }
     //return new clazz(func.toString(), bindArgs ? Utils.unwrapObject(bindArgs) : [])

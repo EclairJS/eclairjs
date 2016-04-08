@@ -33,7 +33,7 @@ var port = ((typeof args !== "undefined") && (args.length > 2)) ? 0 + args[2] : 
     // Create the context with a 1 second batch size
 
     var conf = new SparkConf().setAppName("Javascript Network Word Count");
-    var ssc = new StreamingContext(new SparkContext(conf), new Duration(2000));
+    var ssc = new StreamingContext(conf, new Duration(2000));
 
 
 

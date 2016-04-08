@@ -59,9 +59,9 @@ function run(sc) {
 if (typeof sparkContext === 'undefined') {
 
     var sparkConf = new SparkConf()
-        .setAppName("Linear Regression Example");
+        .setAppName("Linear Regression Example")
         //.setMaster("local[*]");
-        //.setMaster("spark://MacBook-Pro.nc.rr.com:7077");
+        .setMaster("spark://MacBook-Pro.nc.rr.com:7077");
     var sc = new SparkContext(sparkConf);
     var result = run(sc);
     print("valuesAndPreds: " + result.toString());

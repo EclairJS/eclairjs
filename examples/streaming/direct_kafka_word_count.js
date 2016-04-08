@@ -38,7 +38,7 @@ if ((typeof args == "undefined")||args.length<3)
     // Create the context with a 1 second batch size
 
     var conf = new SparkConf().setAppName("Javascript Direct Kafka Word Count");
-    var jssc = new StreamingContext(new SparkContext(conf), new Duration(2000));
+    var jssc = new StreamingContext(conf, new Duration(2000));
 
 
 
