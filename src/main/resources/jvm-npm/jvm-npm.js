@@ -21,7 +21,8 @@ module = (typeof module == 'undefined') ? {} :  module;
 (function() {
   var System  = java.lang.System,
       Scanner = java.util.Scanner,
-      File    = java.io.File;
+      File    = java.io.File,
+    logger = org.apache.log4j.Logger.getLogger("org.eclairjs.nashorn.resource.jvm-npm_js");
 
   NativeRequire = (typeof NativeRequire === 'undefined') ? {} : NativeRequire;
   if (typeof require === 'function' && !NativeRequire.require) {
@@ -359,8 +360,15 @@ module = (typeof module == 'undefined') ? {} :  module;
     //print("resolveCoreModule id: "+id);
     //print("resolveCoreModule root: "+root);
     var name = normalizeName(id);
-    var classloader = java.lang.Thread.currentThread().getContextClassLoader();
-    var resource = classloader.getResource(name);
+      var resource;
+    var debugJSSourceLocation = System.getProperties().getProperty("eclairjs.jssource");
+    if (debugJSSourceLocation != null) {
+      resource = debugJSSourceLocation + "/" + name;
+    } else {
+      var classloader = java.lang.Thread.currentThread().getContextClassLoader();
+      resource = classloader.getResource(name);
+    }
+
     if (resource) {
         //print("########IS RESOLVED AS CORE: "+resource);
         return { path: name, core: true, fullpath: resource.toString() };

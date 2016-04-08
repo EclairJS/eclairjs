@@ -25,12 +25,13 @@ var ModuleUtils = {};
 ModuleUtils.requires = {};
 
 ModuleUtils.addRequiredFile = function(module) {
+    var logger= org.apache.log4j.Logger.getLogger("org.eclairjs.nashorn.resource.ModuleUtils_js");
     if (ModuleUtils.requires[module.modname]) {
-        //print("ModuleUtils.addRequiredFile - Module already required: "+module.modname);
+        logger.debug("ModuleUtils.addRequiredFile - Module already required: "+module.modname);
     } else {
         // include the path
-        //print("ModuleUtils.addRequiredFile - ADDING MODULE: "+module.modname);
-        //print("WITH BODY: "+module.body);
+        logger.debug("ModuleUtils.addRequiredFile - ADDING MODULE: "+module.modname);
+       // logger.debug("WITH BODY: "+module.body);
         ModuleUtils.requires[module.modname] = module;
     }
 };

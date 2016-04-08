@@ -18,7 +18,7 @@
     var DataType = require('sql/types/DataType');
     /**
      * @constructor
-     * @extends module:sql/types/DataType
+     * @extends DataType
      * @classdesc The base type of all Spark SQL Numeric data types.
      * @memberof module:sql/types
      */

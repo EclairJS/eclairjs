@@ -19,7 +19,7 @@
 
     /**
      * @constructor
-     * @extends module:sql/types/DataType
+     * @extends DataType
      * @memberof module:sql/types
      * @classdesc The data type representing java.sql.Timestamp values. Please use the singleton DataTypes.TimestampType.
      */

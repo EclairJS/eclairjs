@@ -19,7 +19,7 @@
 
     /**
      * @constructor
-     * @extends module:sql/types/NumericType
+     * @extends NumericType
      * @classdesc The data type representing Int values. Please use the singleton DataTypes.IntegerType.
      * @memberof module:sql/types
      */

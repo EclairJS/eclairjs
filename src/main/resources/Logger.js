@@ -89,3 +89,5 @@ Logger.getLogger = function(str) {
  * @name Logger#warn
  * @param {string} str text to be added to the logs
  */
+
+module.exports = Logger;

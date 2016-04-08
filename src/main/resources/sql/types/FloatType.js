@@ -19,7 +19,7 @@
 
     /**
      * @constructor
-     * @extends module:sql/types/NumericType
+     * @extends NumericType
      * @classdesc The data type representing Float values. Please use the singleton DataTypes.FloatType.
      * @memberof module:sql/types
      */

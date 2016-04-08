@@ -13,39 +13,50 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * @constructor
- * @classdesc A factory class used to construct Row objects.
- */
 
-var RowFactory =  {
-	
-};
-/**
- * Create a Row from the given arguments. Position i in the argument list becomes position i in the created Row object.
- * @param {object} values
- * @returns {Row}
- */
-RowFactory.create = function(values) {
-	var javaValues = [];
-	values.forEach(function(o){
-        var uw_o = Utils.unwrapObject(o);
-        if (Array.isArray(uw_o)) {
-            /*
-                if we have a Row that has an ArrayType element need to convert to List
-                or we will get exceptions when we try to create a Dataframe with a JavaScript Array
-                Nashorn converts the top level JavaScript Array to a List for use but the JavaScript array
-                contained in the array is not converted. (Nashorn only seems to convert top level arrays for us)
-                Example:
-                StructField("text", new SqlArrayType(DataTypes.StringType, true), false, Metadata.empty());
-             */
-            uw_o = java.util.Arrays.asList(uw_o);
-        }
-        javaValues.push(Utils.unwrapObject(uw_o));
-	});
-	//public static Row create(java.lang.Object... values)
-	Logger.getLogger("sql.RowFactory_js").debug("RowFactory.create= " + javaValues);
-	var row = org.apache.spark.sql.RowFactory.create(javaValues);
-	var r = new Row(row);
-	return r;
-};
+(function () {
+
+    var JavaWrapper = require('JavaWrapper');
+    var Logger = require('Logger');
+    var Utils = require('Utils');
+    var Row = require('sql/Row');
+
+    /**
+     * @constructor
+     * @memberof module:sql
+     * @classdesc A factory class used to construct Row objects.
+     */
+
+    var RowFactory = {};
+    /**
+     * Create a Row from the given arguments. Position i in the argument list becomes position i in the created Row object.
+     * @param {object} values
+     * @returns {Row}
+     */
+    RowFactory.create = function (values) {
+        var javaValues = [];
+        values.forEach(function (o) {
+            var uw_o = Utils.unwrapObject(o);
+            if (Array.isArray(uw_o)) {
+                /*
+                 if we have a Row that has an ArrayType element need to convert to List
+                 or we will get exceptions when we try to create a Dataframe with a JavaScript Array
+                 Nashorn converts the top level JavaScript Array to a List for use but the JavaScript array
+                 contained in the array is not converted. (Nashorn only seems to convert top level arrays for us)
+                 Example:
+                 StructField("text", new SqlArrayType(DataTypes.StringType, true), false, Metadata.empty());
+                 */
+                uw_o = java.util.Arrays.asList(uw_o);
+            }
+            javaValues.push(Utils.unwrapObject(uw_o));
+        });
+        //public static Row create(java.lang.Object... values)
+        Logger.getLogger("sql.RowFactory_js").debug("RowFactory.create= " + javaValues);
+        var row = org.apache.spark.sql.RowFactory.create(javaValues);
+        var r = new Row(row);
+        return r;
+    };
+
+    module.exports = RowFactory;
+
+})();

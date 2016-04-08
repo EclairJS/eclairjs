@@ -13,24 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * @constructor
- * @classdesc A container for a DataFrame, used for implicit conversions.
- */
-var DataFrameHolder = function(jvmDataFrame) {
-    JavaWrapper.call(this, jvmDataFrame);
+(function () {
 
-    // Initialize our Row-specific properties
-    this.logger = Logger.getLogger("sql.DataFrameHolder_js");
-};
+    var JavaWrapper = require('JavaWrapper');
+    var Utils = require('Utils');
+    var Logger = require('Logger');
 
-DataFrameHolder.prototype = Object.create(JavaWrapper.prototype);
+    /**
+     * @constructor
+     * @memberof module:sql
+     * @classdesc A container for a DataFrame, used for implicit conversions.
+     */
+    var DataFrameHolder = function (jvmDataFrame) {
+        JavaWrapper.call(this, jvmDataFrame);
 
-DataFrameHolder.prototype.constructor = DataFrameHolder;
+        // Initialize our Row-specific properties
+        this.logger = Logger.getLogger("sql.DataFrameHolder_js");
+    };
 
-/**
- * @returns {DataFrame}
- */
-DataFrameHolder.prototype.toDF = function() {
-    return Utils.javaToJs(this.getJavaObject().toDF());
-};
+    DataFrameHolder.prototype = Object.create(JavaWrapper.prototype);
+
+    DataFrameHolder.prototype.constructor = DataFrameHolder;
+
+    /**
+     * @returns {DataFrame}
+     */
+    DataFrameHolder.prototype.toDF = function () {
+        return Utils.javaToJs(this.getJavaObject().toDF());
+    };
+
+    module.exports = DataFrameHolder;
+
+})();

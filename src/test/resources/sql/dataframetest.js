@@ -13,16 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-var sparkContext = new SparkContext("local[*]", "dataframe");
-var sqlContext = new SQLContext(sparkContext);
-var useDateType = false;
 var sqlTypes = require('sql/types');
 var DataTypes = sqlTypes.DataTypes;
 var DataType = require('sql/types/DataType');
 var ArrayType = sqlTypes.ArrayType;
 var StructType = require('sql/types/StructType');
 var StructField = require('sql/types/StructField');
+var SQLContext = require('sql/SQLContext');
+var SqlTimestamp = require('sql/SqlTimestamp');
+var RowFactory = require('sql/RowFactory');
+//var sql = require('sql');
+require('sql');
+
+var sparkContext = new SparkContext("local[*]", "dataframe");
+var sqlContext = new SQLContext(sparkContext);
+var useDateType = false;
+
 
 
 var buildPeopleTable = function(file, date) {

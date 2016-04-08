@@ -164,7 +164,7 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/ml/Word2Vec.js") + "');");
 
             // sql
-            engine.eval("load('" + getResourceAsURLStirng("/sql/Column.js") + "');");
+           /* engine.eval("load('" + getResourceAsURLStirng("/sql/Column.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/DataFrame.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/DataFrameHolder.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/DataFrameNaFunctions.js") + "');");
@@ -177,7 +177,7 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/sql/SqlDate.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/SqlTimestamp.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/sql/Row.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/sql/RowFactory.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/sql/RowFactory.js") + "');");*/
 
 
             // sql.types

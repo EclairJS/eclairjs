@@ -19,7 +19,7 @@
 
     /**
      * @constructor
-     * @extends module:sql/types/DataType
+     * @extends DataType
      * @classdesc The data type representing String values. Please use the singleton DataTypes.StringType.
      * @memberof module:sql/types
      */

@@ -186,18 +186,24 @@ Serialize.javaSparkObject = function (javaObj) {
             className = "ML" + o.getClass().getSimpleName();
         } else {
             // MLLIB
-            //className = "MLLIB" + o.getClass().getSimpleName(); FIXME not implmented yet
+            //className = "MLLIB" + o.getClass().getSimpleName(); FIXME not implemented yet
         }
     }
 
     Serialize.logger.debug("javaSparkObject we have a className = " + className);
     //return eval("new " + className + "(javaObj)");
 
+    var req = "";
+    packageName = packageName.replace(/org.apache.spark./i, '');
+    packageName = packageName.replace(".", "\/");
+    if (packageName == "sql" || packageName == "sql/types") { // FIXME temporary util all Class are require compatible
+        req = 'var ' + className + ' = require("'+packageName+'/'+className+'");'
+    }
     var ret = false;
     try {
         // If TypeError exception is thrown catch it and try loading
         // module before giving up - this could be on worker node
-        ret = eval("new " + className + "(javaObj)");
+        ret = eval(req + " new " + className + "(javaObj)");
     } catch(se) {
         Serialize.logger.debug("Exception in trying to create javaSparkObject. Going to try and load required module");
         Serialize.logger.debug(se);
@@ -236,9 +242,57 @@ Serialize.JSONObject = function (javaObj) {
     return false;
 };
 
+Serialize.javaSqlTimestamp = function (javaObj) {
+    if (javaObj instanceof java.sql.Timestamp) {
+        var ret = false;
+        try {
+            // If TypeError exception is thrown catch it and try loading
+            // module before giving up - this could be on worker node
+            ret = eval("new SqlTimestamp(javaObj)");
+        } catch(se) {
+            Serialize.logger.debug("Exception in trying to create SqlTimestamp. Going to try and load required module");
+            Serialize.logger.debug(se);
+            // Should probably raise exception if module has not been required
+            if (mod) {
+                ModuleUtils.loadFileInNashorn("sql/SqlTimestamp");
+                ret = eval("new SqlTimestamp(javaObj)");
+            }
+        }
+
+        return ret;
+    }
+    return false;
+};
+
+Serialize.javaSqlDate = function (javaObj) {
+    if (javaObj instanceof java.sql.Date) {
+        var ret = false;
+        try {
+            // If TypeError exception is thrown catch it and try loading
+            // module before giving up - this could be on worker node
+            ret = eval("new SqlDate(javaObj)");
+        } catch(se) {
+            Serialize.logger.debug("Exception in trying to create SqlDate. Going to try and load required module");
+            Serialize.logger.debug(se);
+            var mod = ModuleUtils.getModuleFromJavaPackageAndClass(packageName, className);
+            // Should probably raise exception if module has not been required
+            if (mod) {
+                ModuleUtils.loadFileInNashorn("sql/SqlDate");
+
+                ret = eval("new SqlDate(javaObj)");
+            }
+        }
+
+        return ret;
+    }
+    return false;
+};
+
 Serialize.handlers = [
     Serialize.javaSparkObject,
     Serialize.javaArray,
+    Serialize.javaSqlTimestamp,
+    Serialize.javaSqlDate,
     Serialize.javaList,
     Serialize.scalaTuple,
     Serialize.javaIteratorWrapper,

@@ -19,7 +19,7 @@
 
     /**
      * @constructor
-     * @extends module:sql/types/NumericType
+     * @extends NumericType
      * @classdesc The data type representing Double values. Please use the singleton DataTypes.DoubleType.
      * @memberof module:sql/types
      */
