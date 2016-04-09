@@ -55,7 +55,7 @@ object Statistics {
 
   }
 
-  case class ClassInfo(cls: Clazz,numConstructors:Int, var methods:List[MethodInfo])
+  case class ClassInfo(cls: Clazz,numConstructors:Int, var methods:List[MethodInfo], var staticMethods:List[MethodInfo])
   {
     override  def toString() ={
       val fullNameStr=asFileName()
@@ -69,7 +69,12 @@ object Statistics {
       ""
 
 // with constructors      s"* $fullNameStr   $numConstructors constructor(s) $supers\n${methods.sortWith(_.name < _.name).mkString("\n")}"
-      s"* $fullNameStr    $supers\n${methods.sortWith(_.name < _.name).mkString("\n")}"
+      var str=s"* $fullNameStr    $supers\n${methods.sortWith(_.name < _.name).mkString("\n")}"
+      if (!staticMethods.isEmpty)
+        {
+          str = str +staticMethods.sortWith(_.name < _.name).mkString(" (static) \n")
+        }
+      str
     }
 
     def asFileName()=   fullName().split("\\.").drop(3).mkString("/")+".js"
@@ -89,9 +94,10 @@ object Statistics {
         cls.parent.packageName+"."+cls.name +(if (cls.isStatic) "_static" else "")
     }
 
-    def setImplemented(method:String): Boolean =
+    def setImplemented(method:String, isStatic:Boolean): Boolean =
     {
-      methods.find(_.name==method) match {
+      val methodList = if (isStatic) staticMethods else methods
+      methodList.find(_.name==method) match {
         case Some(method)=> {
           method.implemented=true
           true
@@ -155,7 +161,7 @@ object Statistics {
       generatedFiles+=toFile;
   }
 
-  def processClass(cls:Clazz) = {
+  def processClass(cls:Clazz, addStatic:Boolean=false) = {
     if (matchFilter(cls)) //(!cls.isStatic)
     {
       val fullName=cls.parent.packageName+"."+cls.name +(if (cls.isStatic) "_static" else "")
@@ -172,8 +178,11 @@ object Statistics {
       var s = Set("")
 
       val generatedMethodInfos= scala.collection.mutable.ListBuffer.empty[MethodInfo]
+      val generatedStaticMethodInfos= scala.collection.mutable.ListBuffer.empty[MethodInfo]
 
-      methods foreach(method=>{
+
+      def addMethod(method: Method, methodInfos:mutable.ListBuffer[MethodInfo]) =
+      {
         val name=if (infoDistinctMethodNames) method.getDistinctName() else method.name
         val seen=s contains(name)
         if (!name.startsWith("$"))
@@ -190,17 +199,17 @@ object Statistics {
             val num=method.parent.methods(name).length
 
             if (name.last.isDigit)
+            {
+              val methName=name.dropRight(1)
+              if (!(s contains(methName)))
               {
-               val methName=name.dropRight(1)
-                if (!(s contains(methName)))
-                  {
-                    s += methName
-                    generatedMethodInfos+=MethodInfo(methName,num,hasDoc)
+                s += methName
+                methodInfos+=MethodInfo(methName,num,hasDoc)
 
-                  }
               }
+            }
             else
-                generatedMethodInfos+=MethodInfo(name,num,hasDoc)
+              methodInfos+=MethodInfo(name,num,hasDoc)
           }
 
           method.parms foreach ( parm => referencedTypes += (parm.typ.name +" = "+ parm.typ.getJSType()))
@@ -208,11 +217,21 @@ object Statistics {
 
         }
 
-      })
+      }
+
+      methods foreach(addMethod(_,generatedMethodInfos))
+
+      if (addStatic && !cls.isStatic) {
+        val clsOpt = Main.allClasses.get(cls.name + "$")
+        if (clsOpt.isDefined) {
+          clsOpt.get.methods() foreach (addMethod(_, generatedStaticMethodInfos))
+        }
+
+      }
 
 
 
-      generatedClassInfos += (fullName -> ClassInfo(cls,constructors.length,generatedMethodInfos.toList))
+      generatedClassInfos += (fullName -> ClassInfo(cls,constructors.length,generatedMethodInfos.toList,generatedStaticMethodInfos.toList))
 
     }
   }
@@ -384,15 +403,22 @@ object Statistics {
     }
     var referencedClasses=Set[Clazz]()
 
+//    val topLevels = List("JavaRDD"    )
     val topLevels = List("SparkConf","JavaSparkContext","SQLContext","JavaStreamingContext","CountVectorizerModel","CountVectorizer","HashingTF","Tokenizer","LogisticRegression","Pipeline",
-    "CrossValidator","ParamGridBuilder","BinaryClassificationEvaluator","KMeans","IDF","Word2Vec","MatrixFactorizationModel","FPGrowth","ALS$","DecisionTree$"
+      "CrossValidator","ParamGridBuilder","BinaryClassificationEvaluator","KMeans","IDF","Word2Vec","MatrixFactorizationModel","FPGrowth","ALS$","DecisionTree$"
     )
 
     def checkType(name:String):Unit = {
 //      System.out.println("checkTYpe="+name)
       val clsOpt=Main.allClasses.get(name)
       if (clsOpt.isDefined)
-        addReference(clsOpt.get)
+        {
+//          // Dont add scala classes which have Java api
+//          val clsOptJava=Main.allClasses.get("Java"+name)
+//          if (!clsOptJava.isDefined)
+            addReference(clsOpt.get)
+
+        }
     }
 
     def addReference(cls:Clazz) ={
@@ -440,7 +466,7 @@ object Statistics {
       }
 
 
-    referencedClasses foreach(processClass(_))
+    referencedClasses foreach(processClass(_,true))
 
     var numberImplemented=0
 
@@ -448,12 +474,12 @@ object Statistics {
     {
       // first update implemented flag in class infos
 
-      def updateImplementedClass(name:String,methods:List[String]): Unit = {
+      def updateImplementedClass(name:String,methods:List[String],isStatic:Boolean): Unit = {
         findGeneratedClass(name) match {
 
           case Some(classInfo) => {
             methods foreach( name=>
-              if (classInfo.setImplemented(name))
+              if (classInfo.setImplemented(name,isStatic))
                 numberImplemented+=1
               )
           }
@@ -470,8 +496,13 @@ object Statistics {
 
       for ((cls, methods) <- implementedClasses)
       {
-        updateImplementedClass(cls,methods)
-        updateImplementedClass("Java"+cls,methods)
+        updateImplementedClass(cls,methods,false)
+        updateImplementedClass("Java"+cls,methods,false)
+      }
+      for ((cls, methods) <- implementedClassesStatics)
+      {
+        updateImplementedClass(cls,methods,false)
+        updateImplementedClass("Java"+cls,methods,false)
       }
 
 
@@ -489,7 +520,7 @@ object Statistics {
         val fullName=clsInfo.javaFullName()
         if (!(generatedClasses.contains(fullName)))
           generatedClasses +=fullName
-        generatedClassInfos+=(fullName -> ClassInfo(clsInfo.cls,clsInfo.numConstructors,clsInfo.methods))
+        generatedClassInfos+=(fullName -> ClassInfo(clsInfo.cls,clsInfo.numConstructors,clsInfo.methods,clsInfo.staticMethods))
         removeGenClass(oldFullName)
       })
 
