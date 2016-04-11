@@ -19,6 +19,8 @@
  bin/eclairjs.sh examples/mllib/lda_example.js"
  */
 
+var LDA = require('eclairjs/mllib/clustering/LDA');
+
 function run(sc) {
 
     // Load and parse the data

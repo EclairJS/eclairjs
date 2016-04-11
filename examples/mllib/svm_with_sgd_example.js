@@ -19,6 +19,8 @@
  bin/eclairjs.sh examples/mllib/svm_with_sgd_example.js"
  */
 
+var SVMWithSGD = require('eclairjs/mllib/classification').SVMWithSGD;
+
 function run(sc) {
 
     var path = "examples/data/mllib/sample_libsvm_data.txt";

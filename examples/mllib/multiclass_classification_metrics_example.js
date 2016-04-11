@@ -19,6 +19,8 @@
  bin/eclairjs.sh examples/mllib/multiclass_classification_metrics_example.js"
  */
 
+var LogisticRegressionWithLBFGS = require('eclairjs/mllib/classification').LogisticRegressionWithLBFGS;
+var MulticlassMetrics = require('eclairjs/mllib/evaluation').MulticlassMetrics;
 
 function run(sc) {
 

@@ -19,6 +19,7 @@
  bin/eclairjs.sh examples/mllib/kmeans_example.js [<input_file>] [<k>] [<max_iterations>] [<runs>]"
  */
 
+var KMeans = require("eclairjs/mllib/clustering/KMeans");
 var Vector = require("eclairjs/mllib/linalg/Vectors").Vector;
 var Vectors = require("eclairjs/mllib/linalg/Vectors").Vectors;
 

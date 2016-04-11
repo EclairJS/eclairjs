@@ -19,6 +19,7 @@
  bin/eclairjs.sh examples/mllib/lr_example.js [<input_dir>] [<step_size>] [<niters>]"
  */
 
+var LogisticRegressionWithSGD = require('eclairjs/mllib/classification').LogisticRegressionWithSGD;
 var LabeledPoint = require("eclairjs/mllib/regression/LabeledPoint");
 var Vectors = require("eclairjs/mllib/linalg/Vectors").Vectors;
 

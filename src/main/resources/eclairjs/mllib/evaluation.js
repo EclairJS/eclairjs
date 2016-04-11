@@ -16,13 +16,16 @@
  */
 (function () {
     /**
-     * mllib module.
+     * mllib evaluation module.
      * @example
-     * var mllib = require('eclairjs/mllib');
-     * @module eclairjs/mllib
+     * var mllibEval = require('eclairjs/mllib/evaluation');
+     * @module eclairjs/mllib/evaluation
      */
     module.exports = {
-        MLUtils: require(EclairJS_Globals.NAMESPACE + '/mllib/utils')
+        BinaryClassificationMetrics: require(EclairJS_Globals.NAMESPACE + '/mllib/evaluation/BinaryClassificationMetrics'),
+        MulticlassMetrics: require(EclairJS_Globals.NAMESPACE + '/mllib/evaluation/MulticlassMetrics'),
+        MultilabelMetrics: require(EclairJS_Globals.NAMESPACE + '/mllib/evaluation/MultilabelMetrics'),
+        RankingMetrics: require(EclairJS_Globals.NAMESPACE + '/mllib/evaluation/RankingMetrics'),
+        RegressionMetrics: require(EclairJS_Globals.NAMESPACE + '/mllib/evaluation/RegressionMetrics')
     }
-
 })();

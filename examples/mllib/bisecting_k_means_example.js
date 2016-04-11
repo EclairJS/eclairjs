@@ -19,7 +19,8 @@
     bin/eclairjs.sh examples/mllib/bisecting_k_means_example.js
  */
 
-var Vectors = require("eclairjs/mllib/linalg/Vectors").Vectors;
+var BisectingKMeans = require("eclairjs/mllib/clustering").BisectingKMeans;
+var Vectors = require("eclairjs/mllib/linalg").Vectors;
 
 function run(sc) {
     var result = {};

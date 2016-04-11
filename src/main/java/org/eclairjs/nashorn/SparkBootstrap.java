@@ -112,18 +112,18 @@ public class SparkBootstrap implements Bootstrap {
             //engine.eval("load('" + getResourceAsURLStirng("/eclairjs//mllib/linalg/distributed/DistributedMatrix.js") + "');");
             //engine.eval("load('" + getResourceAsURLStirng("/eclairjs//mllib/linalg/distributed/RowMatrix.js") + "');");
 
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/clustering/BisectingKMeans.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/clustering/BisectingKMeansModel.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/clustering/KMeans.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/clustering/KMeansModel.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/clustering/LDA.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/clustering/LDAModel.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/clustering/PowerIterationClustering.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/evaluation/BinaryClassificationMetrics.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/evaluation/RankingMetrics.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/evaluation/MulticlassMetrics.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/evaluation/MultilabelMetrics.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/evaluation/RegressionMetrics.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/clustering/BisectingKMeans.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/clustering/BisectingKMeansModel.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/clustering/KMeans.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/clustering/KMeansModel.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/clustering/LDA.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/clustering/LDAModel.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/clustering/PowerIterationClustering.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/evaluation/BinaryClassificationMetrics.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/evaluation/RankingMetrics.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/evaluation/MulticlassMetrics.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/evaluation/MultilabelMetrics.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/evaluation/RegressionMetrics.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/recommendation/ALS.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/recommendation/MatrixFactorizationModel.js") + "');");
 
@@ -135,10 +135,10 @@ public class SparkBootstrap implements Bootstrap {
             //engine.eval("load('" + getResourceAsURLStirng("/eclairjs//mllib/regression/LabeledPoint.js") + "');");
 
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/util.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/classification/LogisticRegression.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/classification/ClassificationModel.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/classification/NaiveBayes.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/classification/SVM.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/classification/LogisticRegression.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/classification/ClassificationModel.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/classification/NaiveBayes.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/classification/SVM.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/feature/Word2Vec.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/fpm/FPGrowth.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/fpm/AssociationRules.js") + "');");

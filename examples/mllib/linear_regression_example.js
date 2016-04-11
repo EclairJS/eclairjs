@@ -24,6 +24,7 @@
  */
 //var RDD = require('RDD');
 LabeledPoint = 21;
+var LinearRegressionWithSGD = require('eclairjs/mllib/regression').LinearRegressionWithSGD;
 var myLabeledPoint = require('eclairjs/mllib/regression/LabeledPoint');
 var myDenseVector = require('eclairjs/mllib/linalg/Vectors').DenseVector;
 

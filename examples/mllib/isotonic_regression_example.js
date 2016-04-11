@@ -19,6 +19,8 @@
  bin/eclairjs.sh examples/mllib/isotonic_regression_example.js"
  */
 
+var IsotonicRegression = require('eclairjs/mllib/regression/IsotonicRegression');
+
 function run(sc) {
 
     var filename = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/sample_isotonic_regression_data.txt";

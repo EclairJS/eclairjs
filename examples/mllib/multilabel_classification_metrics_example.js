@@ -20,6 +20,7 @@
  bin/eclairjs.sh examples/mllib/multilabel_classification_metrics_example.js"
  */
 
+var MultilabelMetrics = require('eclairjs/mllib/evaluation').MultilabelMetrics;
 
 function run(sc) {
 

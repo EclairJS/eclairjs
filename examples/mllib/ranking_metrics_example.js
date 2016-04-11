@@ -19,6 +19,9 @@
  bin/eclairjs.sh examples/mllib/ranking_metrics_example.js  [<path to file>]
  */
 
+var RankingMetrics = require('eclairjs/mllib/evaluation').RankingMetrics;
+var RegressionMetrics = require('eclairjs/mllib/evaluation').RegressionMetrics;
+
 function run(sc) {
 
     var data = data = sc.textFile(filename);

@@ -25,7 +25,7 @@
      */
     module.exports = {
         GeneralizedLinearModel: require(EclairJS_Globals.NAMESPACE + '/mllib/regression/GeneralizedLinearModel'),
-        IsotonicRegression: require(EclairJS_Globals.NAMESPACE + '/mllib/regression/IsotonicRegression'),
+        IsotonicRegression: require(EclairJS_Globals.NAMESPACE + '/mllib/regression/IsotonicRegression').IsotonicRegression,
         IsotonicRegressionModel: require(EclairJS_Globals.NAMESPACE + '/mllib/regression/IsotonicRegression').IsotonicRegressionModel,
         LabeledPoint: require(EclairJS_Globals.NAMESPACE + '/mllib/regression/LabeledPoint'),
         LinearRegressionModel: require(EclairJS_Globals.NAMESPACE + '/mllib/regression/LinearRegressionModel'),

@@ -19,6 +19,8 @@
  bin/eclairjs.sh examples/mllib/naive_bayes_example.js"
  */
 
+var NaiveBayes = require('eclairjs/mllib/classification').NaiveBayes;
+var NaiveBayesModel = require('eclairjs/mllib/classification').NaiveBayesModel;
 
 function run(sc) {
 

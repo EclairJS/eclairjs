@@ -19,6 +19,8 @@
  bin/eclairjs.sh examples/mllib/power_iteration_clustering_example.js"
  */
 
+var PowerIterationClustering = require('eclairjs/mllib/clustering').PowerIterationClustering;
+
 function run(sc) {
 
     var similarities = sc.parallelize([

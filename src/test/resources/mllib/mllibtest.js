@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-//var LabeledPoint = require('mllib/regression/LabeledPoint');
 var DenseVector = require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Vectors').DenseVector;
 
 /*
