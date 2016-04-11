@@ -17,15 +17,12 @@
     /**
      * model module.
      * @example
-     * var model = require('eclairjs/mllib/tree/model');
-     * var at = new model.DecisionTreeModel();
-     * @module eclairjs/mllib/tree/model
+     * var loss = require('eclairjs/mllib/tree/loss');
+     * var at = new loss.Loass();
+     * @module eclairjs/mllib/tree/loss
      */
     module.exports = {
-        DecisionTreeModel: require(EclairJS_Globals.NAMESPACE + '/mllib/tree/model/DecisionTreeModel'),
-        GradientBoostedTreesModel: require(EclairJS_Globals.NAMESPACE + '/mllib/tree/model/GradientBoostedTreesModel'),
-        RandomForestModel: require(EclairJS_Globals.NAMESPACE + '/mllib/tree/model/RandomForestModel'),
+        Loss: require(EclairJS_Globals.NAMESPACE + '/mllib/tree/loss/Loss')
 
     }
 })();
-

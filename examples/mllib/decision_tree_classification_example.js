@@ -19,7 +19,8 @@
  bin/eclairjs.sh examples/mllib/decision_tree_classification_example.js
  */
 
-var DecisionTreeModel = require('eclairjs/mllib/tree/model');
+var DecisionTreeModel = require('eclairjs/mllib/tree/model/DecisionTreeModel');
+var DecisionTree = require('eclairjs/mllib/tree/DecisionTree');
 var LabeledPoint = require('eclairjs/mllib/regression/LabeledPoint');
 function run(sc) {
     // Load and parse the data file.

@@ -155,7 +155,7 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/optimization/LogisticGradient.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/optimization/Updater.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/optimization/SquaredL2Updater.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/tree/loss/Loss.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/tree/loss/Loss.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/random/RandomRDDs.js") + "');");
             //ml
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/ml/Word2Vec.js") + "');");

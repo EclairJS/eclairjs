@@ -163,6 +163,7 @@ var completedModules = { // FIXME temporary until all Class are require compatib
     "eclairjs/mllib/linalg": true,
     "eclairjs/mllib/regression": true,
     "eclairjs/mllib/tree/model": true,
+    "eclairjs/mllib/tree/loss": true,
     "eclairjs/mllib/tree": true
 };
 var subModuleMap = {

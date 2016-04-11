@@ -18,7 +18,7 @@
  Usage:
  bin/eclairjs.sh examples/mllib/gradient_boosting_classification_example.js"
  */
-
+var GradientBoostedTrees = require('eclairjs/mllib/tree/GradientBoostedTrees');
 
 function run(sc) {
 
