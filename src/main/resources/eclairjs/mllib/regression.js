@@ -16,19 +16,19 @@
  */
 (function () {
     /**
-     * mllib linalg module.
+     * mllib regression module.
      * @example
+     * var mllibRegress = require('eclairjs/mllib/regression');
      * var mllibLinalg = require('eclairjs/mllib/linalg');
-     * var dv = new mllibLinalg.Vectors.DenseVector([0.0, 0.1, 0.2]);
-     * @module eclairjs/mllib/linalg
+     * var lp = new mllibRegress.LabeledPoint(0, new DenseVector([0.0, 0.1, 0.2]));
+     * @module eclairjs/mllib/regression
      */
     module.exports = {
-        Matrices: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Matrices'),
-        SingularValueDecomposition: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/SingularValueDecomposition'),
-        Vectors: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Vectors'),
-        Vector: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Vectors').Vector,
-        VectorUDT: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Vectors').VectorUDT,
-        DenseVector: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Vectors').DenseVector,
-        SparseVector: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Vectors').SparseVector
+        GeneralizedLinearModel: require(EclairJS_Globals.NAMESPACE + '/mllib/regression/GeneralizedLinearModel'),
+        IsotonicRegression: require(EclairJS_Globals.NAMESPACE + '/mllib/regression/IsotonicRegression'),
+        IsotonicRegressionModel: require(EclairJS_Globals.NAMESPACE + '/mllib/regression/IsotonicRegression').IsotonicRegressionModel,
+        LabeledPoint: require(EclairJS_Globals.NAMESPACE + '/mllib/regression/LabeledPoint'),
+        LinearRegressionModel: require(EclairJS_Globals.NAMESPACE + '/mllib/regression/LinearRegressionModel'),
+        LinearRegressionWithSGD: require(EclairJS_Globals.NAMESPACE + '/mllib/regression/LinearRegressionWithSGD')
     }
 })();

@@ -13,8 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+(function() {
 
-{
+    var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
+    var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
+    var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
+
     /**
      * Represents a numeric vector, whose index type is Int and value type is Double.
      *
@@ -537,4 +541,5 @@
         SparseVector: SparseVector,
         Vectors: Vectors 
     };
-}
+
+})();

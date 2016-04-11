@@ -14,32 +14,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/** 
- * @constructor
- * @classdesc GeneralizedLinearModel (GLM) represents a model trained using GeneralizedLinearAlgorithm.
- * GLMs consist of a weight vector and an intercept.
- * @param {Vector} weights
- * @param {float} intercept
- */
-var GeneralizedLinearModel = function(jvmObj) {
-	this.logger = Logger.getLogger("mllib.regression.GeneralizedLinearModel_js");
+(function () {
 
-	JavaWrapper.call(this, jvmObj);
-};
+    var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
+    var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
+    var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
 
-GeneralizedLinearModel.prototype = Object.create(JavaWrapper.prototype);
+    /** 
+     * @constructor
+     * @memberof module:eclairjs/mllib/regression
+     * @classdesc GeneralizedLinearModel (GLM) represents a model trained using GeneralizedLinearAlgorithm.
+     * GLMs consist of a weight vector and an intercept.
+     * @param {Vector} weights
+     * @param {float} intercept
+     */
+    var GeneralizedLinearModel = function(jvmObj) {
+        this.logger = Logger.getLogger("mllib.regression.GeneralizedLinearModel_js");
 
-GeneralizedLinearModel.prototype.constructor = GeneralizedLinearModel;
-/**
- * Predict values for a single data point using the model trained.
- * @param {Vector} testData
- * @returns {float}
- */
-GeneralizedLinearModel.prototype.predict = function(testData) {
+        JavaWrapper.call(this, jvmObj);
+    };
 
-	return this.getJavaObject().predict(Utils.unwrapObject(testData));
-};
+    GeneralizedLinearModel.prototype = Object.create(JavaWrapper.prototype);
 
+    GeneralizedLinearModel.prototype.constructor = GeneralizedLinearModel;
+    /**
+     * Predict values for a single data point using the model trained.
+     * @param {Vector} testData
+     * @returns {float}
+     */
+    GeneralizedLinearModel.prototype.predict = function(testData) {
 
+        return this.getJavaObject().predict(Utils.unwrapObject(testData));
+    };
+
+    module.exports = GeneralizedLinearModel;
+
+})();
 
 

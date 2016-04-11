@@ -13,8 +13,11 @@
 * See the License for the specific language governing permissions and      
 * limitations under the License.                                           
 */ 
+(function () {
 
-{
+    var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
+    var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
+
     /**
      * Represents a distributively stored matrix backed by one or more RDDs.
      * @memberof module:eclairjs/mllib/linalg/distributed
@@ -56,4 +59,5 @@
     };
 
     module.exports = DistributedMatrix;
-}
+
+})();

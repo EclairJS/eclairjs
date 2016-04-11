@@ -14,32 +14,41 @@ org.apache.spark.ml.regression.LinearRegressionModel
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * @constructor
- * @classdesc Model produced by LinearRegression.
- */
-var LinearRegressionModel = function (jvmObj) {
-    this.logger = Logger.getLogger("mllib.regression.LinearRegressionModel_js");
+(function () {
 
-    JavaWrapper.call(this, jvmObj);
-};
+    var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
+    var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
+    var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
 
-LinearRegressionModel.prototype = Object.create(JavaWrapper.prototype);
+    /**
+     * @constructor
+     * @memberof module:eclairjs/mllib/regression
+     * @classdesc Model produced by LinearRegression.
+     */
+    var LinearRegressionModel = function (jvmObj) {
+        this.logger = Logger.getLogger("mllib.regression.LinearRegressionModel_js");
 
-LinearRegressionModel.prototype.constructor = LinearRegressionModel;
-/**
- * Predict label for the given features.
- * @param {Vector} features
- * @returns {float}
- */
-LinearRegressionModel.prototype.predict = function (features) {
+        JavaWrapper.call(this, jvmObj);
+    };
 
-    var p = this.getJavaObject().predict(Utils.unwrapObject(features));
-    this.logger.debug("p " + p);
-    return p;
-};
+    LinearRegressionModel.prototype = Object.create(JavaWrapper.prototype);
 
+    LinearRegressionModel.prototype.constructor = LinearRegressionModel;
+    /**
+     * Predict label for the given features.
+     * @param {Vector} features
+     * @returns {float}
+     */
+    LinearRegressionModel.prototype.predict = function (features) {
 
+        var p = this.getJavaObject().predict(Utils.unwrapObject(features));
+        this.logger.debug("p " + p);
+        return p;
+    };
+
+    module.exports = LinearRegressionModel;
+
+})();
 
 
 

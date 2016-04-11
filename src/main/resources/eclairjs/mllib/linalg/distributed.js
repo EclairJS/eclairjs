@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-{
+(function () {
     /**
      * mllib linalg distributed module.
      * @example
@@ -26,4 +26,4 @@
         DistributedMatrix: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/distributed/DistributedMatrix'),
         RowMatrix: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/distributed/RowMatrix')
     }
-}
+})();

@@ -16,19 +16,13 @@
  */
 (function () {
     /**
-     * mllib linalg module.
+     * mllib module.
      * @example
-     * var mllibLinalg = require('eclairjs/mllib/linalg');
-     * var dv = new mllibLinalg.Vectors.DenseVector([0.0, 0.1, 0.2]);
-     * @module eclairjs/mllib/linalg
+     * var mllib = require('eclairjs/mllib');
+     * @module eclairjs/mllib
      */
     module.exports = {
-        Matrices: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Matrices'),
-        SingularValueDecomposition: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/SingularValueDecomposition'),
-        Vectors: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Vectors'),
-        Vector: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Vectors').Vector,
-        VectorUDT: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Vectors').VectorUDT,
-        DenseVector: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Vectors').DenseVector,
-        SparseVector: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Vectors').SparseVector
+        utils: require(EclairJS_Globals.NAMESPACE + '/mllib/utils')
     }
+
 })();

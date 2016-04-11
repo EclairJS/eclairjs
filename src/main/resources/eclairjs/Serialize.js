@@ -159,7 +159,10 @@ var javaPackageMap = {
 };
 var completedModules = { // FIXME temporary until all Class are require compatible
     "eclairjs/sql/types": true,
-    "eclairjs/sql": true
+    "eclairjs/sql": true,
+    "eclairjs/mllib/linalg": true,
+    "eclairjs/mllib/regression": true,
+    "eclairjs/mllib": true
 };
 Serialize.javaSparkObject = function (javaObj) {
     if (javaObj == null) {

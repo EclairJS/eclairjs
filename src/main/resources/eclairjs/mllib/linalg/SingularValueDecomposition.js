@@ -13,7 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-{
+(function () {
+
+    var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
+    var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
+    var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
+
     /**
      * Represents singular value decomposition (SVD) factors.
      * @classdesc
@@ -114,4 +119,5 @@
         SingularValueDecomposition: SingularValueDecomposition,
         QRDecomposition: QRDecomposition
     };
-}
+
+})();
