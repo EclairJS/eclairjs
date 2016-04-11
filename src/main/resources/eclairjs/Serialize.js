@@ -164,7 +164,11 @@ var completedModules = { // FIXME temporary until all Class are require compatib
     "eclairjs/mllib/clustering": true,
     "eclairjs/mllib/evaluation": true,
     "eclairjs/mllib/linalg": true,
-    "eclairjs/mllib/regression": true
+    "eclairjs/mllib/regression": true,
+    "eclairjs/mllib/tree/model": true,
+    "eclairjs/mllib/tree/loss": true,
+    "eclairjs/mllib/tree/configuration": true,
+    "eclairjs/mllib/tree": true
 };
 var subModuleMap = {
     "eclairjs/mllib/classification/LogisticRegressionModel": "eclairjs/mllib/classification/LogisticRegression",
@@ -190,9 +194,7 @@ var subModuleMap = {
     "eclairjs/mllib/linalg/SparseVector": "eclairjs/mllib/linalg/Vectors",
     "eclairjs/mllib/linalg/Vector": "eclairjs/mllib/linalg/Vectors",
     "eclairjs/mllib/linalg/VectorUDT": "eclairjs/mllib/linalg/Vectors",
-    "eclairjs/mllib/linalg/Vectors": "eclairjs/mllib/linalg/Vectors",
-    "eclairjs/mllib/regression/IsotonicRegressionModel" : "eclairjs/mllib/IsotonicRegression",
-    "eclairjs/mllib/regression/IsotonicRegression" : "eclairjs/mllib/IsotonicRegression"
+    "eclairjs/mllib/linalg/Vectors": "eclairjs/mllib/linalg/Vectors"
 };
 Serialize.javaSparkObject = function (javaObj) {
     if (javaObj == null) {
@@ -258,8 +260,8 @@ Serialize.javaSparkObject = function (javaObj) {
         Serialize.logger.debug(cmd)
         ret = eval(req + " new " + className + "(javaObj)");
     } catch(se) {
-        Serialize.logger.debug("Exception in trying to create javaSparkObject. Going to try and load required module");
-        Serialize.logger.debug(se);
+        Serialize.logger.error("Exception in trying to create javaSparkObject. Going to try and load required module");
+        Serialize.logger.error(se);
         var mod = ModuleUtils.getModuleFromJavaPackageAndClass(packageName, className);
         // Should probably raise exception if module has not been required 
         if (mod) {
