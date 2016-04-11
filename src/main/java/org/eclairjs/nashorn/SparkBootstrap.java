@@ -146,8 +146,8 @@ public class SparkBootstrap implements Bootstrap {
 /*            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/tree/DecisionTree.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/tree/RandomForest.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/tree/GradientBoostedTrees.js") + "');");*/
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/tree/configuration/Strategy.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/tree/configuration/BoostingStrategy.js") + "');");
+           /* engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/tree/configuration/Strategy.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/tree/configuration/BoostingStrategy.js") + "');");*/
   /*          engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/tree/model/DecisionTreeModel.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/tree/model/treeEnsembleModels.js") + "');");*/
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/optimization/LBFGS.js") + "');");
