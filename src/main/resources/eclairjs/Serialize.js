@@ -161,8 +161,22 @@ var completedModules = { // FIXME temporary until all Class are require compatib
     "eclairjs/sql/types": true,
     "eclairjs/sql": true,
     "eclairjs/mllib/linalg": true,
-    "eclairjs/mllib/regression": true,
-    "eclairjs/mllib": true
+    "eclairjs/mllib/regression": true
+};
+var subModuleMap = {
+    "eclairjs/mllib/linalg/QRDecomposition": "eclairjs/mllib/linalg/SingularValueDecomposition",
+    "eclairjs/mllib/linalg/SingularValueDecomposition": "eclairjs/mllib/linalg/SingularValueDecomposition",
+    "eclairjs/mllib/linalg/Matrix": "eclairjs/mllib/linalg/Matrices",
+    "eclairjs/mllib/linalg/DenseMatrix": "eclairjs/mllib/linalg/Matrices",
+    "eclairjs/mllib/linalg/SparseMatrix": "eclairjs/mllib/linalg/Matrices",
+    "eclairjs/mllib/linalg/Matrices": "eclairjs/mllib/linalg/Matrices",
+    "eclairjs/mllib/linalg/DenseVector": "eclairjs/mllib/linalg/Vectors",
+    "eclairjs/mllib/linalg/SparseVector": "eclairjs/mllib/linalg/Vectors",
+    "eclairjs/mllib/linalg/Vector": "eclairjs/mllib/linalg/Vectors",
+    "eclairjs/mllib/linalg/VectorUDT": "eclairjs/mllib/linalg/Vectors",
+    "eclairjs/mllib/linalg/Vectors": "eclairjs/mllib/linalg/Vectors",
+    "eclairjs/mllib/regression/IsotonicRegressionModel" : "eclairjs/mllib/IsotonicRegression",
+    "eclairjs/mllib/regression/IsotonicRegression" : "eclairjs/mllib/IsotonicRegression"
 };
 Serialize.javaSparkObject = function (javaObj) {
     if (javaObj == null) {
@@ -208,9 +222,17 @@ Serialize.javaSparkObject = function (javaObj) {
     var req = "";
     packageName = packageName.replace(/org.apache.spark./i, EclairJS_Globals.NAMESPACE + '/');
     packageName = packageName.replace(/\./g, "/");
+    Serialize.logger.debug("javaSparkObject we have a packageName = " + packageName);
+
     packageName = (javaPackageMap[packageName]) ? javaPackageMap[packageName] : packageName;
     if (completedModules[packageName] ) { // FIXME temporary util all Class are require compatible
-        req = 'var ' + className + ' = require("'+packageName+'/'+className+'");'
+        var tmp = packageName+'/'+className;
+        if (subModuleMap[tmp]) {
+            // In this case className is a submoduleName
+            req = 'var ' + className + ' = require("' + subModuleMap[tmp] + '").'+className+';'
+        } else {
+            req = 'var ' + className + ' = require("'+packageName+'/'+className+'");'
+        }
     }
     var ret = false;
     try {

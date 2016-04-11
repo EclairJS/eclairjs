@@ -296,6 +296,7 @@ module = (typeof module == 'undefined') ? {} :  module;
   }
 
   Require.debug = true;
+  //Require.debug = false;
   Require.cache = {};
   Require.extensions = {};
   require = Require;

@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+var GeneralizedLinearModel = require(EclairJS_Globals.NAMESPACE + '/mllib/regression/GeneralizedLinearModel');
 
 /**
  * Classification model trained using Multinomial/Binary Logistic Regression.

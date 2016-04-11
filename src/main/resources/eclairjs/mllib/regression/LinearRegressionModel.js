@@ -1,4 +1,3 @@
-org.apache.spark.ml.regression.LinearRegressionModel
 /*
  * Copyright 2015 IBM Corp.
  *

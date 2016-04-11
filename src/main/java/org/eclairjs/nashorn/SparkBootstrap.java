@@ -106,11 +106,11 @@ public class SparkBootstrap implements Bootstrap {
             //mllib
 
             // Not blindly loading mllib/linalg package any more for master or slave
-            //engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/Vectors.js") + "');");
-            //engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/Matrices.js") + "');");
-            //engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/SingularValueDecomposition.js") + "');");
-            //engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/distributed/DistributedMatrix.js") + "');");
-            //engine.eval("load('" + getResourceAsURLStirng("/mllib/linalg/distributed/RowMatrix.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs//mllib/linalg/Vectors.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs//mllib/linalg/Matrices.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs//mllib/linalg/SingularValueDecomposition.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs//mllib/linalg/distributed/DistributedMatrix.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs//mllib/linalg/distributed/RowMatrix.js") + "');");
 
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/clustering/BisectingKMeans.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/clustering/BisectingKMeansModel.js") + "');");
@@ -126,13 +126,13 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/evaluation/RegressionMetrics.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/recommendation/ALS.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/recommendation/MatrixFactorizationModel.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/regression/IsotonicRegression.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/regression/GeneralizedLinearModel.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/regression/LinearRegressionModel.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/regression/LinearRegressionWithSGD.js") + "');");
 
-            // Not blindly loading LabeledPoint any more for master or slave
-            //engine.eval("load('" + getResourceAsURLStirng("/mllib/regression/LabeledPoint.js") + "');");
+            // Not blindly loading mllib/regression any more for master or slave
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/regression/IsotonicRegression.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/regression/GeneralizedLinearModel.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/regression/LinearRegressionModel.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/regression/LinearRegressionWithSGD.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs//mllib/regression/LabeledPoint.js") + "');");
 
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/util.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/classification/LogisticRegression.js") + "');");
