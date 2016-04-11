@@ -16,6 +16,8 @@
 
 (function () {
 
+    var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
+    var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     /**
      * Decision tree model for classification or regression.
      * This model stores the decision tree structure and parameters.
