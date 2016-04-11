@@ -162,7 +162,8 @@ var completedModules = { // FIXME temporary until all Class are require compatib
     "eclairjs/sql": true,
     "eclairjs/mllib/linalg": true,
     "eclairjs/mllib/regression": true,
-    "eclairjs/mllib/tree/model": true
+    "eclairjs/mllib/tree/model": true,
+    "eclairjs/mllib/tree": true
 };
 var subModuleMap = {
     "eclairjs/mllib/linalg/QRDecomposition": "eclairjs/mllib/linalg/SingularValueDecomposition",
