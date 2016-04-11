@@ -174,9 +174,7 @@ var subModuleMap = {
     "eclairjs/mllib/linalg/SparseVector": "eclairjs/mllib/linalg/Vectors",
     "eclairjs/mllib/linalg/Vector": "eclairjs/mllib/linalg/Vectors",
     "eclairjs/mllib/linalg/VectorUDT": "eclairjs/mllib/linalg/Vectors",
-    "eclairjs/mllib/linalg/Vectors": "eclairjs/mllib/linalg/Vectors",
-    "eclairjs/mllib/regression/IsotonicRegressionModel" : "eclairjs/mllib/IsotonicRegression",
-    "eclairjs/mllib/regression/IsotonicRegression" : "eclairjs/mllib/IsotonicRegression"
+    "eclairjs/mllib/linalg/Vectors": "eclairjs/mllib/linalg/Vectors"
 };
 Serialize.javaSparkObject = function (javaObj) {
     if (javaObj == null) {

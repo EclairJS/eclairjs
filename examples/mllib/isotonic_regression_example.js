@@ -18,6 +18,8 @@
  Usage:
  bin/eclairjs.sh examples/mllib/isotonic_regression_example.js"
  */
+var IsotonicRegression = require('eclairjs/mllib/regression/IsotonicRegression');
+var IsotonicRegressionModel = require('eclairjs/mllib/regression/IsotonicRegressionModel');
 
 function run(sc) {
 
