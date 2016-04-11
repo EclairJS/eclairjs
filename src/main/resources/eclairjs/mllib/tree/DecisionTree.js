@@ -203,7 +203,7 @@ DecisionTree.trainClassifier = function(input,numClasses,categoricalFeaturesInfo
    var input_uw = Utils.unwrapObject(input);
    var categoricalFeaturesInfo_uw = Utils.createJavaHashMap(categoricalFeaturesInfo);
    var javaObject =  org.apache.spark.mllib.tree.DecisionTree.trainClassifier(input_uw,numClasses,categoricalFeaturesInfo_uw,impurity,maxDepth,maxBins);
-   return new DecisionTreeModel(javaObject);
+   return Utils.javaToJs(javaObject);
 };
 
 
@@ -229,6 +229,6 @@ DecisionTree.trainRegressor = function(input,categoricalFeaturesInfo,impurity,ma
    var input_uw = Utils.unwrapObject(input);
    var categoricalFeaturesInfo_uw = Utils.createJavaHashMap(categoricalFeaturesInfo);
    var javaObject =  org.apache.spark.mllib.tree.DecisionTree.trainRegressor(input_uw,categoricalFeaturesInfo_uw,impurity,maxDepth,maxBins);
-   return new DecisionTreeModel(javaObject);
+   return Utils.javaToJs(javaObject);
 };
 

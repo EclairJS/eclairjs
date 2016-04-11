@@ -19,7 +19,8 @@
  bin/eclairjs.sh examples/mllib/decision_tree_classification_example.js
  */
 
-
+var DecisionTreeModel = require('eclairjs/mllib/tree/model');
+var LabeledPoint = require('eclairjs/mllib/regression/LabeledPoint');
 function run(sc) {
     // Load and parse the data file.
     var datapath = ((typeof args !== "undefined") && (args.length > 1)) ?
@@ -47,6 +48,7 @@ function run(sc) {
 // Evaluate model on test instances and compute test error
 
     var predictionAndLabel = testData.mapToPair(function (labeledPoint, model) {
+        print(labeledPoint.toJSON());
         return new Tuple(model.predict(labeledPoint.getFeatures()), labeledPoint.getLabel());
     }, [model]);
 
@@ -75,8 +77,7 @@ if (typeof sparkContext === 'undefined') {
 
 // Save and load model
     result.model.save(sc, "target/tmp/myDecisionTreeClassificationModel");
-    var sameModel = DecisionTreeModel
-        .load(sc, "target/tmp/myDecisionTreeClassificationModel");
+    var sameModel = DecisionTreeModel.load(sc, "target/tmp/myDecisionTreeClassificationModel");
 
     sc.stop();
 }

@@ -161,7 +161,8 @@ var completedModules = { // FIXME temporary until all Class are require compatib
     "eclairjs/sql/types": true,
     "eclairjs/sql": true,
     "eclairjs/mllib/linalg": true,
-    "eclairjs/mllib/regression": true
+    "eclairjs/mllib/regression": true,
+    "eclairjs/mllib/tree/model": true
 };
 var subModuleMap = {
     "eclairjs/mllib/linalg/QRDecomposition": "eclairjs/mllib/linalg/SingularValueDecomposition",
@@ -240,8 +241,8 @@ Serialize.javaSparkObject = function (javaObj) {
         Serialize.logger.debug(cmd)
         ret = eval(req + " new " + className + "(javaObj)");
     } catch(se) {
-        Serialize.logger.debug("Exception in trying to create javaSparkObject. Going to try and load required module");
-        Serialize.logger.debug(se);
+        Serialize.logger.error("Exception in trying to create javaSparkObject. Going to try and load required module");
+        Serialize.logger.error(se);
         var mod = ModuleUtils.getModuleFromJavaPackageAndClass(packageName, className);
         // Should probably raise exception if module has not been required 
         if (mod) {

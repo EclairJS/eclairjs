@@ -68,7 +68,7 @@ GradientBoostedTrees.prototype.constructor = GradientBoostedTrees;
 GradientBoostedTrees.prototype.run = function (input) {
     var input_uw = Utils.unwrapObject(input);
     var javaObject = this.getJavaObject().run(input_uw);
-    return new GradientBoostedTreesModel(javaObject);
+    return Utils.javaToJs(javaObject);
 };
 
 
@@ -86,7 +86,7 @@ GradientBoostedTrees.prototype.runWithValidation = function (input, validationIn
     var input_uw = Utils.unwrapObject(input);
     var validationInput_uw = Utils.unwrapObject(validationInput);
     var javaObject = this.getJavaObject().runWithValidation(input_uw, validationInput_uw);
-    return new GradientBoostedTreesModel(javaObject);
+    return Utils.javaToJs(javaObject);
 };
 
 
@@ -108,5 +108,5 @@ GradientBoostedTrees.train = function (input, boostingStrategy) {
     var input_uw = Utils.unwrapObject(input);
     var boostingStrategy_uw = Utils.unwrapObject(boostingStrategy);
     var javaObject = org.apache.spark.mllib.tree.GradientBoostedTrees.train(input_uw, boostingStrategy_uw);
-    return new GradientBoostedTreesModel(javaObject);
+    return Utils.javaToJs(javaObject);
 };
