@@ -1222,3 +1222,5 @@ RDD.prototype.joinx = function (other, numPartitions) {
         this.getJavaObject().join(other_uw);
     return Utils.javaToJs(javaObject);
 };
+
+module.exports = RDD;
