@@ -19,7 +19,6 @@
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
 
     var DistributedMatrix = require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/distributed/DistributedMatrix');
-    var SingularValueDecomposition = require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/SingularValueDecomposition').SingularValueDecomposition;
 
     /**
      * Represents a row-oriented distributed Matrix with no meaningful row indices.
@@ -117,7 +116,7 @@
      */
     RowMatrix.prototype.computeSVD = function(k,computeU,rCond) {
        var javaObject =  this.getJavaObject().computeSVD(k,computeU,rCond);
-       return new SingularValueDecomposition(javaObject);
+       return Utils.javaToJs(javaObject);
     };
 
 

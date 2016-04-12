@@ -165,6 +165,7 @@ var completedModules = { // FIXME temporary until all Class are require compatib
     "eclairjs/mllib/evaluation": true,
     "eclairjs/mllib/linalg": true,
     "eclairjs/mllib/regression": true,
+    "eclairjs/mllib/recommendation": true,
     "eclairjs/mllib/tree/model": true,
     "eclairjs/mllib/tree/loss": true,
     "eclairjs/mllib/tree/configuration": true,
@@ -177,7 +178,6 @@ var subModuleMap = {
     "eclairjs/mllib/linalg/DenseMatrix": "eclairjs/mllib/linalg/Matrices",
     "eclairjs/mllib/linalg/SparseMatrix": "eclairjs/mllib/linalg/Matrices",
     "eclairjs/mllib/linalg/Matrices": "eclairjs/mllib/linalg/Matrices"
-
 };
 Serialize.javaSparkObject = function (javaObj) {
     if (javaObj == null) {

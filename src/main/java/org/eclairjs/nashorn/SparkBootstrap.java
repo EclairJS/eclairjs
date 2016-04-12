@@ -124,8 +124,8 @@ public class SparkBootstrap implements Bootstrap {
             //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/evaluation/MulticlassMetrics.js") + "');");
             //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/evaluation/MultilabelMetrics.js") + "');");
             //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/evaluation/RegressionMetrics.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/recommendation/ALS.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/recommendation/MatrixFactorizationModel.js") + "');");
+           // engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/recommendation/ALS.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/recommendation/MatrixFactorizationModel.js") + "');");
 
             // Not blindly loading mllib/regression any more for master or slave
             //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/regression/IsotonicRegression.js") + "');");

@@ -19,6 +19,10 @@
  bin/eclairjs.sh examples/mllib/recommendation_example.js"
  */
 
+var ALS = require('eclairjs/mllib/recommendation/ALS');
+var MatrixFactorizationModel = require('eclairjs/mllib/recommendation/MatrixFactorizationModel');
+var Rating = require('eclairjs/mllib/recommendation/Rating');
+
 function run(sc) {
 
 // Load and parse the data

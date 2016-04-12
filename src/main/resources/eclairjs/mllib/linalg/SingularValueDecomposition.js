@@ -71,53 +71,7 @@
     };
 
 
-    /**
-     * :: Experimental ::
-     * Represents QR factors.
-     * @classdesc
-     * @param {QType} Q
-     * @param {RType} R
-     * @class
-     * @memberof module:eclairjs/mllib/linalg
-     */
-    var QRDecomposition = function (Q, R) {
-        var jvmObject;
-        this.logger = Logger.getLogger("QRDecomposition_js");
-        if (arguments[0] instanceof org.apache.spark.mllib.linalg.QRDecomposition) {
-            jvmObject = arguments[0];
-        } else {
-            jvmObject = new org.apache.spark.mllib.linalg.QRDecomposition(
-                Utils.unwrapObject(Q),
-                Utils.unwrapObject(R)
-            );
-        }
-        JavaWrapper.call(this, jvmObject);
 
-    };
-
-    QRDecomposition.prototype = Object.create(JavaWrapper.prototype);
-
-    QRDecomposition.prototype.constructor = QRDecomposition;
-
-    /**
-     *
-     * @returns {QType}
-     */
-    QRDecomposition.prototype.Q = function() {
-        return Utils.javaToJs(this.getJavaObject().Q());
-    };
-
-    /**
-     *
-     * @returns {RType}
-     */
-    QRDecomposition.prototype.R = function() {
-        return Utils.javaToJs(this.getJavaObject().R());
-    };
-
-    module.exports = {
-        SingularValueDecomposition: SingularValueDecomposition,
-        QRDecomposition: QRDecomposition
-    };
+    module.exports = SingularValueDecomposition;
 
 })();

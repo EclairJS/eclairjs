@@ -21,6 +21,8 @@
 
 var RankingMetrics = require('eclairjs/mllib/evaluation').RankingMetrics;
 var RegressionMetrics = require('eclairjs/mllib/evaluation').RegressionMetrics;
+var ALS = require('eclairjs/mllib/recommendation/ALS');
+var Rating = require('eclairjs/mllib/recommendation/Rating');
 
 function run(sc) {
 
