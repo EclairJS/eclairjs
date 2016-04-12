@@ -30,7 +30,7 @@ fi
 # Check for eclairJS-nashorn jar
 #
 if [ -z "$ECLAIRJS_JAR" ]; then
-	export ECLAIRJS_JAR=./target/eclairjs-nashorn-0.1.jar
+	export ECLAIRJS_JAR=./target/eclairjs-nashorn-0.4-SNAPSHOT-jar-with-dependencies.jar
 fi
 
 # 

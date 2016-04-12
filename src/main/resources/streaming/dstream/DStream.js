@@ -15,6 +15,7 @@
  */
 
 
+
 /**
  * @constructor
  * @classdec Represents a Discretized Stream (DStream), the basic abstraction in Spark Streaming,
@@ -30,6 +31,14 @@ var DStream = function(jDStream) {
 DStream.prototype = Object.create(JavaWrapper.prototype);
 
 DStream.prototype.constructor = DStream;
+
+DStream.HashMap = Java.type("java.util.HashMap");
+DStream.UUID = Java.type("java.util.UUID");
+DStream.foreachMap = new DStream.HashMap();
+DStream.unrefRDD = function(refId) {
+  var javaObj = DStream.foreachMap.get(refId);
+  return Utils.javaToJs(javaObj);
+};
 
 /**
  * Persist RDDs of this DStream with the default storage level (MEMORY_ONLY_SER)

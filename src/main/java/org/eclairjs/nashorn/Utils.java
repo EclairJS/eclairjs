@@ -293,8 +293,8 @@ public class Utils {
 
     /**
      * Takes an array of objects and returns a scala Seq
-     * @param {Object[]} o
-     * @return {scala.collection.Seq}
+     * @param o {Object[]}
+     * @return scala.collection.Seq
      */
     @SuppressWarnings({ "rawtypes", "unchecked" })
 	public static Seq toScalaSeq(Object[] o) {

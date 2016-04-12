@@ -158,23 +158,27 @@ SQLContext.prototype.clearCache = function() {
 SQLContext.prototype.createDataFrame = function(rowRDD_or_values, schema) {
 	var rowRDD_uw;
 	if (Array.isArray(rowRDD_or_values)) {
-		var rows = [];
+		//var rows = [];
+		var rows = new java.util.ArrayList();
 		rowRDD_or_values.forEach(function(row){
-			var rowValues = [];
+
 			if(Array.isArray(row)) {
+                var rowValues = [];
 				row.forEach(function(value) {
 					rowValues.push(Utils.unwrapObject(value));
 				})
+                rows.add(org.apache.spark.sql.RowFactory.create(rowValues));
 			} else {
-				rowValues.push(Utils.unwrapObject(row));
+                rows.add(Utils.unwrapObject(row)); // should be a Row
 			}
-			rows.push(RowFactory.create(rowValues));
 		});
-		rowRDD_uw = Utils.unwrapObject(this.sparkContext().parallelize(rows));
+        rowRDD_uw = rows;
 	} else {
 		rowRDD_uw = Utils.unwrapObject(rowRDD_or_values)
 	}
-    return new DataFrame(this.getJavaObject().createDataFrame(Utils.unwrapObject(rowRDD_uw), Utils.unwrapObject(schema)));
+   //  var x = this.getJavaObject().createDataFrame(rowRDD_uw, Utils.unwrapObject(schema));
+    var x = this.getJavaObject().createDataFrame(Utils.unwrapObject(rowRDD_uw), Utils.unwrapObject(schema));
+    return new DataFrame(x);
 };
 
 
