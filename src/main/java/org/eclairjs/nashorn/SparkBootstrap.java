@@ -92,7 +92,7 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/SparkStatusTracker.js") + "');");
 
             // storage
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/storage/StorageLevel.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/storage/StorageLevel.js") + "');");
 
             // streaming
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/streaming/Duration.js") + "');");

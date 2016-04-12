@@ -29,10 +29,10 @@
         Matrices: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Matrices').Matrices,
         QRDecomposition: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/SingularValueDecomposition').QRDecomposition,
         SingularValueDecomposition: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/SingularValueDecomposition').SingularValueDecomposition,
-        Vectors: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Vectors').Vectors,
-        Vector: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Vectors').Vector,
-        VectorUDT: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Vectors').VectorUDT,
-        DenseVector: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Vectors').DenseVector,
-        SparseVector: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Vectors').SparseVector
+        Vectors: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Vectors'),
+        Vector: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Vector'),
+        VectorUDT: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/VectorUDT'),
+        DenseVector: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/DenseVector'),
+        SparseVector: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/SparseVector')
     }
 })();

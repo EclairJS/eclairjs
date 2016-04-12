@@ -34,7 +34,7 @@
      * @extends {DistributedMatrix}
      * @example
      * var RowMatrix = require('eclairjs/mllib/linalg/distributed/RowMatrix');
-     * var Vectors = require("'eclairjs/mllib/linalg/Vectors").Vectors;
+     * var Vectors = require("'eclairjs/mllib/linalg/Vectors");;
      * var rowsList = [Vectors.dense([1.12, 2.05, 3.12]), Vectors.dense([5.56, 6.28, 8.94]), Vectors.dense([10.2, 8.0, 20.5])];
      * var rows = sc.parallelize(rowsList);
      * var mat = new RowMatrix(rows);

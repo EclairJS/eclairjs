@@ -21,7 +21,7 @@
 
 var LogisticRegressionWithSGD = require('eclairjs/mllib/classification').LogisticRegressionWithSGD;
 var LabeledPoint = require("eclairjs/mllib/regression/LabeledPoint");
-var Vectors = require("eclairjs/mllib/linalg/Vectors").Vectors;
+var Vectors = require("eclairjs/mllib/linalg/Vectors");
 
 var directory =  ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/lr-data";
 var stepSize = 3.0;

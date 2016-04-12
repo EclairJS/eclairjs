@@ -20,7 +20,7 @@
  */
 
 var BisectingKMeans = require("eclairjs/mllib/clustering").BisectingKMeans;
-var Vectors = require("eclairjs/mllib/linalg").Vectors;
+var Vectors = require("eclairjs/mllib/linalg/Vectors");
 
 function run(sc) {
     var result = {};

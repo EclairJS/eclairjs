@@ -17,7 +17,7 @@
     /**
      * sql module.
      * @example
-     * var sql = require('sql');
+     * var sql = require('eclairjs/sql');
      * var at = new sql.Column("name");
      * @module eclairjs/sql
      */

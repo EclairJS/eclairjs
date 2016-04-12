@@ -26,7 +26,7 @@
 LabeledPoint = 21;
 var LinearRegressionWithSGD = require('eclairjs/mllib/regression').LinearRegressionWithSGD;
 var myLabeledPoint = require('eclairjs/mllib/regression/LabeledPoint');
-var myDenseVector = require('eclairjs/mllib/linalg/Vectors').DenseVector;
+var myDenseVector = require('eclairjs/mllib/linalg/DenseVector');
 var LinearRegressionWithSGD = require('eclairjs/mllib/regression/LinearRegressionWithSGD')
 
 function run(sc) {

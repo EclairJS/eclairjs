@@ -17,7 +17,7 @@
 //var MLUtils = require("eclairjs/mllib/utils");
 var LogisticRegressionWithLBFGS = require("eclairjs/mllib/classification").LogisticRegressionWithLBFGS;
 var BinaryClassificationMetrics = require("eclairjs/mllib/evaluation/BinaryClassificationMetrics");
-var Vectors = require("eclairjs/mllib/linalg").Vectors;
+var Vectors = require("eclairjs/mllib/linalg/Vectors");
 var LabeledPoint = require("eclairjs/mllib/regression/LabeledPoint");
 
 function run(sc) {

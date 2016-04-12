@@ -19,7 +19,7 @@
  bin/eclairjs.sh examples/mllib/svd_example.js"
  */
 
-var Vectors = require("eclairjs/mllib/linalg/Vectors").Vectors;
+var Vectors = require("eclairjs/mllib/linalg/Vectors");
 var RowMatrix = require("eclairjs/mllib/linalg/distributed/RowMatrix");
 
 function run(sc) {

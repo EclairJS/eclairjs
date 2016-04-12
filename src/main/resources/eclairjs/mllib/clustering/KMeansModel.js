@@ -18,6 +18,7 @@
     var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
+    var Vector = require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Vector');
 
     /**
      * A clustering model for K-means. Each point belongs to the cluster with the closest center.

@@ -20,7 +20,7 @@
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
 
     var GeneralizedLinearModel = require(EclairJS_Globals.NAMESPACE + '/mllib/regression/GeneralizedLinearModel');
-    var Vector = require(EclairJS_Globals.NAMESPACE + '/mllib/linalg').Vector;
+    var Vector = require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Vector');
 
     /**
      * Classification model trained using Multinomial/Binary Logistic Regression.

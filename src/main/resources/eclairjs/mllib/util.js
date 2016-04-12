@@ -35,5 +35,6 @@ MLUtils.loadLibSVMFile = function(
  * @param {Vector} vector
  */
 MLUtils.appendBias = function(vector) {
+    var Vector = require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Vector');
     return new Vector(org.apache.spark.mllib.util.MLUtils.appendBias(Utils.unwrapObject(vector)));
 }

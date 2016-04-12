@@ -189,12 +189,8 @@ var subModuleMap = {
     "eclairjs/mllib/linalg/Matrix": "eclairjs/mllib/linalg/Matrices",
     "eclairjs/mllib/linalg/DenseMatrix": "eclairjs/mllib/linalg/Matrices",
     "eclairjs/mllib/linalg/SparseMatrix": "eclairjs/mllib/linalg/Matrices",
-    "eclairjs/mllib/linalg/Matrices": "eclairjs/mllib/linalg/Matrices",
-    "eclairjs/mllib/linalg/DenseVector": "eclairjs/mllib/linalg/Vectors",
-    "eclairjs/mllib/linalg/SparseVector": "eclairjs/mllib/linalg/Vectors",
-    "eclairjs/mllib/linalg/Vector": "eclairjs/mllib/linalg/Vectors",
-    "eclairjs/mllib/linalg/VectorUDT": "eclairjs/mllib/linalg/Vectors",
-    "eclairjs/mllib/linalg/Vectors": "eclairjs/mllib/linalg/Vectors"
+    "eclairjs/mllib/linalg/Matrices": "eclairjs/mllib/linalg/Matrices"
+
 };
 Serialize.javaSparkObject = function (javaObj) {
     if (javaObj == null) {

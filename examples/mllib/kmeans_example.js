@@ -20,8 +20,8 @@
  */
 
 var KMeans = require("eclairjs/mllib/clustering/KMeans");
-var Vector = require("eclairjs/mllib/linalg/Vectors").Vector;
-var Vectors = require("eclairjs/mllib/linalg/Vectors").Vectors;
+var Vector = require("eclairjs/mllib/linalg/Vector");
+var Vectors = require("eclairjs/mllib/linalg/Vectors");
 
 var inputFile = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/kmeans_data.txt";
 var k = 3;

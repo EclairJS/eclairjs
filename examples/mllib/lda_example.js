@@ -20,6 +20,7 @@
  */
 
 var LDA = require('eclairjs/mllib/clustering/LDA');
+var Vectors = require('eclairjs/mllib/linalg/Vectors');
 
 function run(sc) {
 

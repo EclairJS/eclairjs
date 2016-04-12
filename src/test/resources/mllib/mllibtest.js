@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-var DenseVector = require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Vectors').DenseVector;
+var DenseVector = require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/DenseVector');
 
 /*
  * We need to load SparkContext.js and SparkConf.js in order to create SparkContext

@@ -285,7 +285,7 @@ RDD.prototype.distinct = function(numPartitions) {
  * @returns {RDD}
  */
 RDD.prototype.filter = function(func, bindArgs) {
-    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
     var javaObject =  this.getJavaObject().filter(fn);
     return Utils.javaToJs(javaObject);
 };
@@ -302,7 +302,7 @@ RDD.prototype.filter = function(func, bindArgs) {
  */
 RDD.prototype.filterWith = function(constructA, bindArgs) {
 throw "not implemented by ElairJS";
-    //var fn = Utils.createLambdaFunction(constructA, org.eclairjs.nashorn.JSFunction, bindArgs);
+    //var fn = Utils.createLambdaFunction(constructA, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
     //var javaObject =  this.getJavaObject().filterWith(fn);
     //return Utils.javaToJs(javaObject);
 };
@@ -324,7 +324,7 @@ RDD.prototype.first = function() {
  * @returns {RDD}
 */
 RDD.prototype.flatMap = function(func, bindArgs) {
-	  var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFlatMapFunction, bindArgs);
+	  var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFlatMapFunction, this.context(), bindArgs);
     var javaObject =  this.getJavaObject().flatMap(fn);
     return Utils.javaToJs(javaObject);
 };
@@ -339,7 +339,7 @@ RDD.prototype.flatMap = function(func, bindArgs) {
  */
 RDD.prototype.flatMapWith = function(constructA,preservesPartitioning) {
 throw "not implemented by ElairJS";
-     //var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFlatMapFunction, bindArgs);
+     //var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFlatMapFunction, this.context(), bindArgs);
     //var preserves = preservesPartitioning || false;
     //var javaObject =  this.getJavaObject().flatMapWith(fn,preservesPartitioning);
     //return Utils.javaToJs(javaObject);
@@ -355,7 +355,7 @@ throw "not implemented by ElairJS";
  * @returns {PairRDD}
  */
 RDD.prototype.flatMapToPair = function(func, bindArgs) {
-  var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSPairFlatMapFunction, bindArgs);
+  var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSPairFlatMapFunction, this.context(), bindArgs);
   var javaObject = this.getJavaObject().flatMapToPair(fn);
   return new PairRDD(javaObject);
 };
@@ -379,7 +379,7 @@ RDD.prototype.flatMapToPair = function(func, bindArgs) {
  */
 RDD.prototype.fold = function(zeroValue, func, bindArgs) {
     var zeroValue_uw = Utils.unwrapObject(zeroValue);
-    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, bindArgs);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
     var result = this.getJavaObject().fold(zeroValue_uw, fn);
     var o = Utils.javaToJs(result);
     return (o);
@@ -398,7 +398,7 @@ RDD.prototype.fold = function(zeroValue, func, bindArgs) {
  * @returns {void}
  */
 RDD.prototype.foreach = function(func, bindArgs) {
-  var fn = Utils.createLambdaFunctionWithContext(func, org.eclairjs.nashorn.JSVoidFunction, this.context(), bindArgs);
+  var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSVoidFunction, this.context(), bindArgs);
 	this.getJavaObject().foreach(fn);
 };
 
@@ -417,7 +417,7 @@ RDD.prototype.foreach = function(func, bindArgs) {
  * @returns {void}
  */
 RDD.prototype.foreachPartition = function(func, bindArgs) {
-  var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSVoidFunction, bindArgs);
+  var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSVoidFunction, this.context(), bindArgs);
 	this.getJavaObject().foreachPartition(fn);
 };
 
@@ -433,7 +433,7 @@ RDD.prototype.foreachPartition = function(func, bindArgs) {
  */
 RDD.prototype.foreachWith = function(constructA, bindArgs) {
 throw "not implemented by ElairJS";
-    //var fn = Utils.createLambdaFunction(constructA, org.eclairjs.nashorn.JSFunction, bindArgs);
+    //var fn = Utils.createLambdaFunction(constructA, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
     //this.getJavaObject().foreachWith(fn);
 };
 
@@ -478,7 +478,7 @@ RDD.prototype.glom = function() {
  * @returns {RDD}
  */
 RDD.prototype.groupBy = function(func,numPartitions,partitioner,bindArgs) {
-    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
     var partitioner_uw = Utils.unwrapObject(partitioner);
     var result = numPartitions ? this.getJavaObject().groupBy(fn,numPartitions) :
         partitioner_uw ? this.getJavaObject().groupBy(fn,partitioner_uw) : this.getJavaObject().groupBy(fn);
@@ -539,7 +539,7 @@ RDD.prototype.isEmpty = function() {
  * @returns {RDD}
  */
 RDD.prototype.keyBy = function(func, bindArgs) {
-    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
     var javaObject =  this.getJavaObject().keyBy(fn);
     return Utils.javaToJs(javaObject);
 };
@@ -575,7 +575,7 @@ RDD.prototype.localCheckpoint = function() {
  * @returns {RDD}
  */
 RDD.prototype.map = function(func, bindArgs) {
-    var fn = Utils.createLambdaFunctionWithContext(func, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
     var javaObject =  this.getJavaObject().map(fn);
     return Utils.javaToJs(javaObject);
 };
@@ -590,7 +590,7 @@ RDD.prototype.map = function(func, bindArgs) {
  * @returns {RDD}
  */
 RDD.prototype.mapPartitions = function(func,preservesPartitioning, bindArgs) {
-    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFlatMapFunction, bindArgs);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFlatMapFunction, this.context(), bindArgs);
     var javaObject =  this.getJavaObject().mapPartitions(fn,preservesPartitioning);
     return Utils.javaToJs(javaObject);
 };
@@ -607,7 +607,7 @@ RDD.prototype.mapPartitions = function(func,preservesPartitioning, bindArgs) {
  * @returns {RDD}
  */
 RDD.prototype.mapPartitionsWithIndex = function(func,preservesPartitioning, bindArgs) {
-    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
     var javaObject =  this.getJavaObject().mapPartitionsWithIndex(fn,preservesPartitioning);
     return Utils.javaToJs(javaObject);
 };
@@ -621,7 +621,7 @@ RDD.prototype.mapPartitionsWithIndex = function(func,preservesPartitioning, bind
  * @returns {RDD}
  */
 RDD.prototype.mapPartitionsWithSplit = function(func,preservesPartitioning, bindArgs) {
-    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
     var javaObject =  this.getJavaObject().mapPartitionsWithSplit(fn,preservesPartitioning);
     return Utils.javaToJs(javaObject);
 };
@@ -639,7 +639,7 @@ RDD.prototype.mapPartitionsWithSplit = function(func,preservesPartitioning, bind
  */
 RDD.prototype.mapWith = function(constructA,preservesPartitioning,bindArgs) {
 throw "not implemented by ElairJS";
-    //var fn = Utils.createLambdaFunction(constructA, org.eclairjs.nashorn.JSFunction, bindArgs);
+    //var fn = Utils.createLambdaFunction(constructA, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
     //var javaObject =  this.getJavaObject().mapWith(fn,preservesPartitioning);
     //return Utils.javaToJs(javaObject);
 };
@@ -651,7 +651,7 @@ throw "not implemented by ElairJS";
  * @returns {PairRDD}
  */
 RDD.prototype.mapToPair = function(func, bindArgs) {
-  var fn = Utils.createLambdaFunctionWithContext(func, org.eclairjs.nashorn.JSPairFunction, this.context(), bindArgs);
+  var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSPairFunction, this.context(), bindArgs);
 	var result = new PairRDD(this.getJavaObject().mapToPair(fn));
 	return result;
 };
@@ -663,7 +663,7 @@ RDD.prototype.mapToPair = function(func, bindArgs) {
  * @returns {object}  the maximum element of the RDD
  */
 RDD.prototype.max = function(comparator, bindArgs) {
-    var fn = Utils.createLambdaFunction(comparator, org.eclairjs.nashorn.JSComparator, bindArgs);
+    var fn = Utils.createLambdaFunction(comparator, org.eclairjs.nashorn.JSComparator, this.context(), bindArgs);
     return  this.getJavaObject().max(fn);
 };
 
@@ -674,7 +674,7 @@ RDD.prototype.max = function(comparator, bindArgs) {
  * @returns {object}  the minimum element of the RDD
  */
 RDD.prototype.min = function(comparator, bindArgs) {
-    var fn = Utils.createLambdaFunction(comparator, org.eclairjs.nashorn.JSComparator, bindArgs);
+    var fn = Utils.createLambdaFunction(comparator, org.eclairjs.nashorn.JSComparator, this.context(), bindArgs);
     return  this.getJavaObject().min(fn);
 };
 
@@ -818,7 +818,7 @@ throw "not implemented by ElairJS";
  * @returns {object}
  */
 RDD.prototype.reduce = function(func, bindArgs) {
-    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, bindArgs);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
     var javaObject =  this.getJavaObject().reduce(fn);
     return Utils.javaToJs(javaObject);
 };
@@ -903,7 +903,7 @@ RDD.prototype.setName = function(_name) {
  * @returns {RDD}
  */
 RDD.prototype.sortBy = function(func,ascending,numPartitions,bindArgs) {
-    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
     var javaObject =  this.getJavaObject().sortBy(fn,ascending,numPartitions);
     return Utils.javaToJs(javaObject);
 };
@@ -1107,7 +1107,7 @@ RDD.prototype.treeAggregate = function(zeroValue,func1,func2,bindArgs1,bindArgs2
  * @returns {object}
  */
 RDD.prototype.treeReduce = function(func,depth,bindArgs) {
-    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
     var javaObject = this.getJavaObject().treeReduce(fn,depth);
     return Utils.javaToJs(javaObject);
 };
@@ -1163,7 +1163,7 @@ RDD.prototype.zip = function(other) {
  */
 RDD.prototype.zipPartitions = function(rdd2,func,preservesPartitioning, bindArgs) {
     var rdd2_uw = Utils.unwrapObject(rdd2);
-    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFlatMapFunction2, bindArgs);
+    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFlatMapFunction2, this.context(), bindArgs);
     var result = this.getJavaObject().zipPartitions(rdd2_uw,fn);
     return Utils.javaToJs(result);
 };
@@ -1260,13 +1260,13 @@ RDD.prototype.joinx = function (other, numPartitions) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-sql_types_ArrayType.html">sql/types/ArrayType</a></li><li><a href="module-sql_types_BinaryType.html">sql/types/BinaryType</a></li><li><a href="module-sql_types_BooleanType.html">sql/types/BooleanType</a></li><li><a href="module-sql_types_CalendarIntervalType.html">sql/types/CalendarIntervalType</a></li><li><a href="module-sql_types_DataType.html">sql/types/DataType</a></li><li><a href="module-sql_types_DataTypes.html">sql/types/DataTypes</a></li><li><a href="module-sql_types_DateType.html">sql/types/DateType</a></li><li><a href="module-sql_types_DoubleType.html">sql/types/DoubleType</a></li><li><a href="module-sql_types_FloatType.html">sql/types/FloatType</a></li><li><a href="module-sql_types_IntegerType.html">sql/types/IntegerType</a></li><li><a href="module-sql_types_MapType.html">sql/types/MapType</a></li><li><a href="module-sql_types_Metadata.html">sql/types/Metadata</a></li><li><a href="module-sql_types_NullType.html">sql/types/NullType</a></li><li><a href="module-sql_types_NumericType.html">sql/types/NumericType</a></li><li><a href="module-sql_types_StringType.html">sql/types/StringType</a></li><li><a href="module-sql_types_StructField.html">sql/types/StructField</a></li><li><a href="module-sql_types_StructType.html">sql/types/StructType</a></li><li><a href="module-sql_types_TimestampType.html">sql/types/TimestampType</a></li></ul><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ALS.html">ALS</a></li><li><a href="AssociationRules.html">AssociationRules</a></li><li><a href="BinaryClassificationMetrics.html">BinaryClassificationMetrics</a></li><li><a href="BisectingKMeans.html">BisectingKMeans</a></li><li><a href="BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="BoostingStrategy.html">BoostingStrategy</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameHolder.html">DataFrameHolder</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DecisionTree.html">DecisionTree</a></li><li><a href="DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="DenseMatrix.html">DenseMatrix</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DistributedLDAModel.html">DistributedLDAModel</a></li><li><a href="DistributedMatrix.html">DistributedMatrix</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatRDD.html">FloatRDD</a></li><li><a href="FPGrowth.html">FPGrowth</a></li><li><a href="FPGrowthModel.html">FPGrowthModel</a></li><li><a href="FreqItemset.html">FreqItemset</a></li><li><a href="functions.html">functions</a></li><li><a href="FutureAction.html">FutureAction</a></li><li><a href="GeneralizedLinearModel.html">GeneralizedLinearModel</a></li><li><a href="Gradient.html">Gradient</a></li><li><a href="GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IsotonicRegression.html">IsotonicRegression</a></li><li><a href="IsotonicRegressionModel.html">IsotonicRegressionModel</a></li><li><a href="KMeans.html">KMeans</a></li><li><a href="KMeansModel.html">KMeansModel</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LBFGS.html">LBFGS</a></li><li><a href="LDA.html">LDA</a></li><li><a href="LDAModel.html">LDAModel</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="List.html">List</a></li><li><a href="LocalLDAModel.html">LocalLDAModel</a></li><li><a href="Logger.html">Logger</a></li><li><a href="LogisticGradient.html">LogisticGradient</a></li><li><a href="LogisticRegressionModel.html">LogisticRegressionModel</a></li><li><a href="LogisticRegressionWithLBFGS.html">LogisticRegressionWithLBFGS</a></li><li><a href="LogisticRegressionWithSGD.html">LogisticRegressionWithSGD</a></li><li><a href="Loss.html">Loss</a></li><li><a href="Matrix.html">Matrix</a></li><li><a href="MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="MLWord2Vec.html">MLWord2Vec</a></li><li><a href="MLWord2VecModel.html">MLWord2VecModel</a></li><li><a href="module-sql_types_ArrayType-ArrayType.html">ArrayType</a></li><li><a href="module-sql_types_BinaryType-BinaryType.html">BinaryType</a></li><li><a href="module-sql_types_BooleanType-BooleanType.html">BooleanType</a></li><li><a href="module-sql_types_CalendarIntervalType-CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="module-sql_types_DataTypes-DataTypes.html">DataTypes</a></li><li><a href="module-sql_types_DataType-DataType.html">DataType</a></li><li><a href="module-sql_types_DateType-DateType.html">DateType</a></li><li><a href="module-sql_types_DoubleType-DoubleType.html">DoubleType</a></li><li><a href="module-sql_types_FloatType-FloatType.html">FloatType</a></li><li><a href="module-sql_types_IntegerType-IntegerType.html">IntegerType</a></li><li><a href="module-sql_types_MapType-MapType.html">MapType</a></li><li><a href="module-sql_types_Metadata-Metadata.html">Metadata</a></li><li><a href="module-sql_types_NullType-NullType.html">NullType</a></li><li><a href="module-sql_types_NumericType-NumericType.html">NumericType</a></li><li><a href="module-sql_types_StringType-StringType.html">StringType</a></li><li><a href="module-sql_types_StructField-StructField.html">StructField</a></li><li><a href="module-sql_types_StructType-StructType.html">StructType</a></li><li><a href="module-sql_types_TimestampType-TimestampType.html">TimestampType</a></li><li><a href="MulticlassMetrics.html">MulticlassMetrics</a></li><li><a href="MultilabelMetrics.html">MultilabelMetrics</a></li><li><a href="NaiveBayes.html">NaiveBayes</a></li><li><a href="NaiveBayesModel.html">NaiveBayesModel</a></li><li><a href="PairDStream.html">PairDStream</a></li><li><a href="PairRDD.html">PairRDD</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="PowerIterationClustering.html">PowerIterationClustering</a></li><li><a href="PowerIterationClusteringAssignment.html">PowerIterationClusteringAssignment</a></li><li><a href="PowerIterationClusteringModel.html">PowerIterationClusteringModel</a></li><li><a href="PrefixSpan.html">PrefixSpan</a></li><li><a href="PrefixSpanFreqSequence.html">PrefixSpanFreqSequence</a></li><li><a href="PrefixSpanModel.html">PrefixSpanModel</a></li><li><a href="QRDecomposition.html">QRDecomposition</a></li><li><a href="RandomForest.html">RandomForest</a></li><li><a href="RandomForestModel.html">RandomForestModel</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RankingMetrics.html">RankingMetrics</a></li><li><a href="Rating.html">Rating</a></li><li><a href="RDD.html">RDD</a></li><li><a href="RegressionMetrics.html">RegressionMetrics</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="RowMatrix.html">RowMatrix</a></li><li><a href="Rule.html">Rule</a></li><li><a href="SingularValueDecomposition.html">SingularValueDecomposition</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SparseMatrix.html">SparseMatrix</a></li><li><a href="SparseVector.html">SparseVector</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="SquaredL2Updater.html">SquaredL2Updater</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="Strategy.html">Strategy</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="SVMModel.html">SVMModel</a></li><li><a href="SVMWithSGD.html">SVMWithSGD</a></li><li><a href="Time.html">Time</a></li><li><a href="Tuple.html">Tuple</a></li><li><a href="TwitterAuthorization.html">TwitterAuthorization</a></li><li><a href="Updater.html">Updater</a></li><li><a href="Vector.html">Vector</a></li><li><a href="Vectors.html">Vectors</a></li><li><a href="VectorUDT.html">VectorUDT</a></li><li><a href="Word2Vec.html">Word2Vec</a></li><li><a href="Word2VecModel.html">Word2VecModel</a></li></ul><h3>Interfaces</h3><ul><li><a href="ClassificationModel.html">ClassificationModel</a></li></ul><h3>Global</h3><ul><li><a href="global.html#module">module</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-eclairjs_mllib_linalg.html">eclairjs/mllib/linalg</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.html">eclairjs/mllib/linalg/distributed</a></li><li><a href="module-eclairjs_mllib_linalg_Vectors.html">eclairjs/mllib/linalg/Vectors</a></li><li><a href="module-eclairjs_sql.html">eclairjs/sql</a></li><li><a href="module-eclairjs_sql_types.html">eclairjs/sql/types</a></li></ul><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ALS.html">ALS</a></li><li><a href="AssociationRules.html">AssociationRules</a></li><li><a href="BinaryClassificationMetrics.html">BinaryClassificationMetrics</a></li><li><a href="BisectingKMeans.html">BisectingKMeans</a></li><li><a href="BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="BoostingStrategy.html">BoostingStrategy</a></li><li><a href="DecisionTree.html">DecisionTree</a></li><li><a href="DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="DistributedLDAModel.html">DistributedLDAModel</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatRDD.html">FloatRDD</a></li><li><a href="FPGrowth.html">FPGrowth</a></li><li><a href="FPGrowthModel.html">FPGrowthModel</a></li><li><a href="FreqItemset.html">FreqItemset</a></li><li><a href="FutureAction.html">FutureAction</a></li><li><a href="GeneralizedLinearModel.html">GeneralizedLinearModel</a></li><li><a href="Gradient.html">Gradient</a></li><li><a href="GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IsotonicRegression.html">IsotonicRegression</a></li><li><a href="IsotonicRegressionModel.html">IsotonicRegressionModel</a></li><li><a href="KMeans.html">KMeans</a></li><li><a href="KMeansModel.html">KMeansModel</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LBFGS.html">LBFGS</a></li><li><a href="LDA.html">LDA</a></li><li><a href="LDAModel.html">LDAModel</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="List.html">List</a></li><li><a href="LocalLDAModel.html">LocalLDAModel</a></li><li><a href="Logger.html">Logger</a></li><li><a href="LogisticGradient.html">LogisticGradient</a></li><li><a href="LogisticRegressionModel.html">LogisticRegressionModel</a></li><li><a href="LogisticRegressionWithLBFGS.html">LogisticRegressionWithLBFGS</a></li><li><a href="LogisticRegressionWithSGD.html">LogisticRegressionWithSGD</a></li><li><a href="Loss.html">Loss</a></li><li><a href="MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="MLWord2Vec.html">MLWord2Vec</a></li><li><a href="MLWord2VecModel.html">MLWord2VecModel</a></li><li><a href="module-eclairjs_mllib_linalg.DenseMatrix.html">DenseMatrix</a></li><li><a href="module-eclairjs_mllib_linalg.Matrix.html">Matrix</a></li><li><a href="module-eclairjs_mllib_linalg.QRDecomposition.html">QRDecomposition</a></li><li><a href="module-eclairjs_mllib_linalg.SingularValueDecomposition.html">SingularValueDecomposition</a></li><li><a href="module-eclairjs_mllib_linalg.SparseMatrix.html">SparseMatrix</a></li><li><a href="module-eclairjs_mllib_linalg.Vector.html">Vector</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.DistributedMatrix.html">DistributedMatrix</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.RowMatrix.html">RowMatrix</a></li><li><a href="module-eclairjs_mllib_linalg_Vectors-DenseVector.html">DenseVector</a></li><li><a href="module-eclairjs_mllib_linalg_Vectors-SparseVector.html">SparseVector</a></li><li><a href="module-eclairjs_mllib_linalg_Vectors-Vectors.html">Vectors</a></li><li><a href="module-eclairjs_mllib_linalg_Vectors-VectorUDT.html">VectorUDT</a></li><li><a href="module-eclairjs_sql.Column.html">Column</a></li><li><a href="module-eclairjs_sql.DataFrame.html">DataFrame</a></li><li><a href="module-eclairjs_sql.DataFrameHolder.html">DataFrameHolder</a></li><li><a href="module-eclairjs_sql.DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="module-eclairjs_sql.DataFrameReader.html">DataFrameReader</a></li><li><a href="module-eclairjs_sql.DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="module-eclairjs_sql.DataFrameWriter.html">DataFrameWriter</a></li><li><a href="module-eclairjs_sql.functions.html">functions</a></li><li><a href="module-eclairjs_sql.GroupedData.html">GroupedData</a></li><li><a href="module-eclairjs_sql.Row.html">Row</a></li><li><a href="module-eclairjs_sql.RowFactory.html">RowFactory</a></li><li><a href="module-eclairjs_sql.SQLContext.html">SQLContext</a></li><li><a href="module-eclairjs_sql.SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="module-eclairjs_sql.SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="module-eclairjs_sql.SQLContext.SQLSession.html">SQLSession</a></li><li><a href="module-eclairjs_sql.SqlDate.html">SqlDate</a></li><li><a href="module-eclairjs_sql.SqlTimestamp.html">SqlTimestamp</a></li><li><a href="module-eclairjs_sql_types.ArrayType.html">ArrayType</a></li><li><a href="module-eclairjs_sql_types.BinaryType.html">BinaryType</a></li><li><a href="module-eclairjs_sql_types.BooleanType.html">BooleanType</a></li><li><a href="module-eclairjs_sql_types.CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="module-eclairjs_sql_types.DataType.html">DataType</a></li><li><a href="module-eclairjs_sql_types.DataTypes.html">DataTypes</a></li><li><a href="module-eclairjs_sql_types.DateType.html">DateType</a></li><li><a href="module-eclairjs_sql_types.DoubleType.html">DoubleType</a></li><li><a href="module-eclairjs_sql_types.FloatType.html">FloatType</a></li><li><a href="module-eclairjs_sql_types.IntegerType.html">IntegerType</a></li><li><a href="module-eclairjs_sql_types.MapType.html">MapType</a></li><li><a href="module-eclairjs_sql_types.Metadata.html">Metadata</a></li><li><a href="module-eclairjs_sql_types.NullType.html">NullType</a></li><li><a href="module-eclairjs_sql_types.NumericType.html">NumericType</a></li><li><a href="module-eclairjs_sql_types.StringType.html">StringType</a></li><li><a href="module-eclairjs_sql_types.StructField.html">StructField</a></li><li><a href="module-eclairjs_sql_types.StructType.html">StructType</a></li><li><a href="module-eclairjs_sql_types.TimestampType.html">TimestampType</a></li><li><a href="MulticlassMetrics.html">MulticlassMetrics</a></li><li><a href="MultilabelMetrics.html">MultilabelMetrics</a></li><li><a href="NaiveBayes.html">NaiveBayes</a></li><li><a href="NaiveBayesModel.html">NaiveBayesModel</a></li><li><a href="PairDStream.html">PairDStream</a></li><li><a href="PairRDD.html">PairRDD</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="PowerIterationClustering.html">PowerIterationClustering</a></li><li><a href="PowerIterationClusteringAssignment.html">PowerIterationClusteringAssignment</a></li><li><a href="PowerIterationClusteringModel.html">PowerIterationClusteringModel</a></li><li><a href="PrefixSpan.html">PrefixSpan</a></li><li><a href="PrefixSpanFreqSequence.html">PrefixSpanFreqSequence</a></li><li><a href="PrefixSpanModel.html">PrefixSpanModel</a></li><li><a href="RandomForest.html">RandomForest</a></li><li><a href="RandomForestModel.html">RandomForestModel</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RankingMetrics.html">RankingMetrics</a></li><li><a href="Rating.html">Rating</a></li><li><a href="RDD.html">RDD</a></li><li><a href="RegressionMetrics.html">RegressionMetrics</a></li><li><a href="Rule.html">Rule</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SquaredL2Updater.html">SquaredL2Updater</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="Strategy.html">Strategy</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="SVMModel.html">SVMModel</a></li><li><a href="SVMWithSGD.html">SVMWithSGD</a></li><li><a href="Time.html">Time</a></li><li><a href="Tuple.html">Tuple</a></li><li><a href="TwitterAuthorization.html">TwitterAuthorization</a></li><li><a href="Updater.html">Updater</a></li><li><a href="Word2Vec.html">Word2Vec</a></li><li><a href="Word2VecModel.html">Word2VecModel</a></li></ul><h3>Interfaces</h3><ul><li><a href="ClassificationModel.html">ClassificationModel</a></li></ul><h3>Global</h3><ul><li><a href="global.html#module">module</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Fri Apr 01 2016 10:28:40 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Fri Apr 08 2016 15:23:57 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>
