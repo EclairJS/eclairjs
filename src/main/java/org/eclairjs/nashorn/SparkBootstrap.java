@@ -140,9 +140,9 @@ public class SparkBootstrap implements Bootstrap {
             //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/classification/NaiveBayes.js") + "');");
             //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/classification/SVM.js") + "');");
             //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/feature/Word2Vec.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/fpm/FPGrowth.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/fpm/AssociationRules.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/fpm/PrefixSpan.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/fpm/FPGrowth.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/fpm/AssociationRules.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/fpm/PrefixSpan.js") + "');");
 /*            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/tree/DecisionTree.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/tree/RandomForest.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/tree/GradientBoostedTrees.js") + "');");*/
@@ -150,11 +150,11 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/tree/configuration/BoostingStrategy.js") + "');");*/
   /*          engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/tree/model/DecisionTreeModel.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/tree/model/treeEnsembleModels.js") + "');");*/
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/optimization/LBFGS.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/optimization/Gradient.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/optimization/LogisticGradient.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/optimization/Updater.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/optimization/SquaredL2Updater.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/optimization/LBFGS.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/optimization/Gradient.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/optimization/LogisticGradient.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/optimization/Updater.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/optimization/SquaredL2Updater.js") + "');");
             //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/tree/loss/Loss.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/mllib/random/RandomRDDs.js") + "');");
             //ml

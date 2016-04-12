@@ -17,67 +17,60 @@
 
     var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
-    var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
     var RDD = require(EclairJS_Globals.NAMESPACE + '/RDD');
 
     var FreqItemset = require(EclairJS_Globals.NAMESPACE + '/mllib/fpm/FreqItemset');
 
     /**
-     * :: Experimental ::
-     *
-     * Generates association rules from a [[RDD[FreqItemset[Item]]]. This method only generates
-     * association rules which have a single item as the consequent.
-     *
+     * Model trained by {@link FPGrowth}, which holds frequent itemsets.
+     * @param freqItemsets frequent itemset, which is an RDD of {@link FreqItemset}
      * @memberof module:eclairjs/mllib/fpm
      * @classdesc
      */
 
     /**
-     * Constructs a default instance with default parameters {minConfidence = 0.8}.
+     * @param {RDD} freqItemsets
      *  @class
      */
-    var AssociationRules = function() {
-         
-        this.logger = Logger.getLogger("AssociationRules_js");
+    var FPGrowthModel = function(freqItemsets) {
+        this.logger = Logger.getLogger("FPGrowthModel_js");
         var jvmObject;
-        if (arguments.length < 1) {
-            jvmObject = new org.apache.spark.mllib.fpm.AssociationRules();
+        if (freqItemsets instanceof org.apache.spark.mllib.fpm.FPGrowthModel) {
+            jvmObject = freqItemsets
         } else {
-            jvmObject = arguments[0];
+            jvmObject = new org.apache.spark.mllib.fpm.FPGrowthModel(freqItemsets);
         }
+
          JavaWrapper.call(this, jvmObject);
 
     };
 
-    AssociationRules.prototype = Object.create(JavaWrapper.prototype);
+    FPGrowthModel.prototype = Object.create(JavaWrapper.prototype);
 
-    AssociationRules.prototype.constructor = AssociationRules;
+    FPGrowthModel.prototype.constructor = FPGrowthModel;
 
-
-
-    /**
-     * Sets the minimal confidence (default: `0.8`).
-     * @param {float} minConfidence
-     * @returns {AssociationRules}
-     */
-    AssociationRules.prototype.setMinConfidence = function(minConfidence) {
-       var javaObject =  this.getJavaObject().setMinConfidence(minConfidence);
-       return new AssociationRules(javaObject);
-    };
 
 
     /**
-     * Computes the association rules with confidence above {@link minConfidence}.
-     * @param {RDD} freqItemsets  frequent itemset model obtained from {@link FPGrowth}
-     *
-     * @returns {RDD}  a [[Set[Rule[Item]]] containing the assocation rules.
+     * Generates association rules for the [[Item]]s in {@link freqItemsets}.
+     * @param {float} confidence  minimal confidence of the rules produced
+     * @returns {RDD} 
      */
-    AssociationRules.prototype.run = function(freqItemsets) {
-       var freqItemsets_uw = Utils.unwrapObject(freqItemsets);
-       var javaObject =  this.getJavaObject().run(freqItemsets_uw);
+    FPGrowthModel.prototype.generateAssociationRules = function(confidence) {
+       var javaObject =  this.getJavaObject().generateAssociationRules(confidence);
        return new RDD(javaObject);
     };
 
-    module.exports = AssociationRules;
+    /**
+     * Returns RDD of RDD FreqItemset
+     * @returns {RDD}
+     */
+    FPGrowthModel.prototype.freqItemsets = function() {
+        var javaObject =  this.getJavaObject().freqItemsets();
+        return new RDD(javaObject.toJavaRDD());
+    };
+
+
+    module.exports = FPGrowthModel;
 
 })();

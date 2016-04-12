@@ -13,40 +13,50 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+(function () {
 
-/**
- * Class used to compute the gradient for a loss function, given a single data point.
- * @class
- * @constructor
- */
-var Gradient = function () {
-    this.logger = Logger.getLogger("Gradient_js");
-    var jvmObject;
-    if (arguments[0] instanceof org.apache.spark.mllib.optimization.Gradient) {
-        jvmObject = arguments[0];
-    } else {
-        jvmObject = new org.apache.spark.mllib.optimization.Gradient();
-    }
+    var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
+    var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
+    var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
 
-    JavaWrapper.call(this, jvmObject);
+    /**
+     * Class used to compute the gradient for a loss function, given a single data point.
+     * @class
+     * @memberof module:eclairjs/mllib/optimization
+     * @constructor
+     */
+    var Gradient = function () {
+        this.logger = Logger.getLogger("Gradient_js");
+        var jvmObject;
+        if (arguments[0] instanceof org.apache.spark.mllib.optimization.Gradient) {
+            jvmObject = arguments[0];
+        } else {
+            jvmObject = new org.apache.spark.mllib.optimization.Gradient();
+        }
 
-};
+        JavaWrapper.call(this, jvmObject);
 
-Gradient.prototype = Object.create(JavaWrapper.prototype);
+    };
 
-Gradient.prototype.constructor = Gradient;
+    Gradient.prototype = Object.create(JavaWrapper.prototype);
 
-/**
- * Compute the gradient and loss given the features of a single data point.
- * @param {Vector} data
- * @param {float} label
- * @param {Vector} weights
- * @returns {Tuple}
- */
-Gradient.prototype.compute = function (data,label,weights) {
-    var data_uw = Utils.unwrapObject(data);
-    var weights_uw = Utils.unwrapObject(weights);
-    var javaObject = this.getJavaObject().compute(data_uw,label,weights_uw);
+    Gradient.prototype.constructor = Gradient;
 
-    return new Tuple(javaObject);
-};
+    /**
+     * Compute the gradient and loss given the features of a single data point.
+     * @param {Vector} data
+     * @param {float} label
+     * @param {Vector} weights
+     * @returns {Tuple}
+     */
+    Gradient.prototype.compute = function (data,label,weights) {
+        var data_uw = Utils.unwrapObject(data);
+        var weights_uw = Utils.unwrapObject(weights);
+        var javaObject = this.getJavaObject().compute(data_uw,label,weights_uw);
+
+        return new Tuple(javaObject);
+    };
+    
+    module.exports = Gradient;
+
+})();

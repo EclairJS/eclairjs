@@ -19,10 +19,13 @@
  bin/eclairjs.sh examples/mllib/lbfgs_example.js"
  */
 
-var LogisticRegressionModel = require('eclairjs/mllib/classification').LogisticRegressionModel;
-var LabeledPoint = require("eclairjs/mllib/regression/LabeledPoint");
-var Vectors = require("eclairjs/mllib/linalg/Vectors");
+var LogisticRegressionModel = require('eclairjs/mllib/classification/LogisticRegressionModel');
 var BinaryClassificationMetrics = require("eclairjs/mllib/evaluation/BinaryClassificationMetrics");
+var Vectors = require("eclairjs/mllib/linalg/Vectors");
+var LBFGS = require("eclairjs/mllib/optimization/LBFGS");
+var LogisticGradient = require("eclairjs/mllib/optimization/LogisticGradient");
+var SquaredL2Updater = require("eclairjs/mllib/optimization/SquaredL2Updater");
+var LabeledPoint = require("eclairjs/mllib/regression/LabeledPoint");
 
 function run(sc) {
 
