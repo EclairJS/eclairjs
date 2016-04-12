@@ -18,101 +18,10 @@
     var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
+    //var RDD = require(EclairJS_Globals.NAMESPACE + '/RDD');
 
-    var ClassificationModel = require(EclairJS_Globals.NAMESPACE + '/mllib/classification/ClassificationModel');
-
-    /**
-     * Model for Support Vector Machines (SVMs).
-     *
-     * @param weights Weights computed for every feature.
-     * @param intercept Intercept computed for this model.
-     * @memberof module:eclairjs/mllib/classification
-     * @classdesc
-     * @param {Vector} weights
-     * @param {float} intercept
-     *  @class
-     */
-    var SVMModel = function (weights, intercept) {
-        var jvmObject;
-        if (arguments[0] instanceof org.apache.spark.mllib.classification.SVMModel) {
-            jvmObject = arguments[0];
-        } else {
-            jvmObject = new org.apache.spark.mllib.classification.SVMModel(Utils.unwrapObject(weights), intercept);
-        }
-
-        this.logger = Logger.getLogger("SVMModel_js");
-        ClassificationModel.call(this, jvmObject);
-
-    };
-
-    SVMModel.prototype = Object.create(ClassificationModel.prototype);
-
-    SVMModel.prototype.constructor = SVMModel;
-
-
-    /**
-     * Sets the threshold that separates positive predictions from negative predictions. An example
-     * with prediction score greater than or equal to this threshold is identified as an positive,
-     * and negative otherwise. The default value is 0.0.
-     * @param {float} threshold
-     * @returns {}
-     */
-    SVMModel.prototype.setThreshold = function (threshold) {
-       var javaObject =  this.getJavaObject().setThreshold(threshold);
-       return new (javaObject);
-    };
-
-
-    /**
-     * Returns the threshold (if any) used for converting raw prediction scores into 0/1 predictions.
-     * @returns {number}
-     */
-    SVMModel.prototype.getThreshold = function () {
-       return  this.getJavaObject().getThreshold();
-    };
-
-
-    /**
-     * Clears the threshold so that `predict` will output raw prediction scores.
-     * @returns {SVMModel}
-     */
-    SVMModel.prototype.clearThreshold = function () {
-       var javaObject =  this.getJavaObject().clearThreshold();
-       return new SVMModel(javaObject);
-    };
-
-    /**
-     * @returns {Vector}
-     */
-    SVMModel.prototype.weights = function () {
-        var javaObject =  this.getJavaObject().weights();
-        return Utils.javaToJs(javaObject);
-    };
-
-    /**
-     * @returns {float}
-     */
-    SVMModel.prototype.intercept = function () {
-        return this.getJavaObject().intercept();
-    };
-
-    /**
-     * @param {SparkContext} sc
-     * @param {string} path
-     */
-    SVMModel.prototype.save = function (sc, path) {
-       var sc_uw = Utils.unwrapObject(sc);
-        this.getJavaObject().save(sc_uw.sc(),path);
-    };
-
-
-    /**
-     * @returns {string}
-     */
-    SVMModel.prototype.toString = function () {
-       return  this.getJavaObject().toString();
-    };
-
+    var SVMModel = require(EclairJS_Globals.NAMESPACE + '/mllib/classification/SVMModel');
+    //var Vector = require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Vector');
 
     /**
      * Train a Support Vector Machine (SVM) using Stochastic Gradient Descent. By default L2
@@ -141,18 +50,6 @@
     //
     // static methods
     //
-
-
-    /**
-     * @param {SparkContext} sc
-     * @param {string} path
-     * @returns {SVMModel}
-     */
-    SVMModel.load = function (sc, path) {
-       var sc_uw = Utils.unwrapObject(sc);
-       var javaObject =  org.apache.spark.mllib.classification.SVMModel.load(sc_uw.sc(),path);
-       return new SVMModel(javaObject);
-    };
 
 
     /**
@@ -193,9 +90,6 @@
        return new SVMModel(javaObject);
     };
 
-    module.exports = {
-        SVMModel: SVMModel,
-        SVMWithSGD: SVMWithSGD
-    };
+    module.exports = SVMWithSGD;
 
 })();

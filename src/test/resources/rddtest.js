@@ -1,3 +1,5 @@
+var StorageLevel = require('eclairjs/storage/StorageLevel');
+
 var sparkContext = new SparkContext();
 var rdd = sparkContext.parallelize([1, 2, 3]);
 

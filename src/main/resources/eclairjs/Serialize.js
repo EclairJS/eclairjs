@@ -171,19 +171,6 @@ var completedModules = { // FIXME temporary until all Class are require compatib
     "eclairjs/mllib/tree": true
 };
 var subModuleMap = {
-    "eclairjs/mllib/classification/LogisticRegressionModel": "eclairjs/mllib/classification/LogisticRegression",
-    "eclairjs/mllib/classification/LogisticRegressionWithSGD": "eclairjs/mllib/classification/LogisticRegression",
-    "eclairjs/mllib/classification/LogisticRegressionWithLBFGS": "eclairjs/mllib/classification/LogisticRegression",
-    "eclairjs/mllib/classification/NaiveBayes": "eclairjs/mllib/classification/NaiveBayes",
-    "eclairjs/mllib/classification/NaiveBayesModel": "eclairjs/mllib/classification/NaiveBayes",
-    "eclairjs/mllib/classification/SVMModel": "eclairjs/mllib/classification/SVM",
-    "eclairjs/mllib/classification/SVMWithSGD": "eclairjs/mllib/classification/SVM",
-    "eclairjs/mllib/clustering/LDAModel": "eclairjs/mllib/clustering/LDAModel",
-    "eclairjs/mllib/clustering/DistributedLDAModel": "eclairjs/mllib/clustering/LDAModel",
-    "eclairjs/mllib/clustering/LocalLDAModel": "eclairjs/mllib/clustering/LDAModel",
-    "eclairjs/mllib/clustering/PowerIterationClustering": "eclairjs/mllib/clustering/PowerIterationClustering",
-    "eclairjs/mllib/clustering/PowerIterationClusteringAssignment": "eclairjs/mllib/clustering/PowerIterationClustering",
-    "eclairjs/mllib/clustering/PowerIterationClusteringModel": "eclairjs/mllib/clustering/PowerIterationClustering",
     "eclairjs/mllib/linalg/QRDecomposition": "eclairjs/mllib/linalg/SingularValueDecomposition",
     "eclairjs/mllib/linalg/SingularValueDecomposition": "eclairjs/mllib/linalg/SingularValueDecomposition",
     "eclairjs/mllib/linalg/Matrix": "eclairjs/mllib/linalg/Matrices",

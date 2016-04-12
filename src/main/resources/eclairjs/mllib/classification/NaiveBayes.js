@@ -18,46 +18,9 @@
     var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
+    //var RDD = require(EclairJS_Globals.NAMESPACE + '/RDD');
 
-    var ClassificationModel = require(EclairJS_Globals.NAMESPACE + '/mllib/classification/ClassificationModel');
-
-    /**
-     * Model for Naive Bayes Classifiers.
-     *
-     * @memberof module:eclairjs/mllib/classification
-     * @classdesc
-     *
-     * @constructor
-     * @implements {ClassificationModel}
-     */
-    var NaiveBayesModel = function(jvmObject) {
-         
-         this.logger = Logger.getLogger("NaiveBayesModel_js");
-         ClassificationModel.call(this, jvmObject);
-
-    };
-
-    NaiveBayesModel.prototype = Object.create(ClassificationModel.prototype);
-
-    NaiveBayesModel.prototype.constructor = NaiveBayesModel;
-
-
-
-    // inherits the documentation from `ClassificationModel#predict`
-    NaiveBayesModel.prototype.predict = function() {
-        return ClassificationModel.prototype.predict.apply(this, arguments);
-    };
-
-
-    /**
-     * @param {SparkContext} sc
-     * @param {string} path
-     */
-    NaiveBayesModel.prototype.save = function(sc,path) {
-       var sc_uw = Utils.unwrapObject(sc);
-        this.getJavaObject().save(sc_uw.sc(),path);
-    };
-
+    var NaiveBayesModel = require(EclairJS_Globals.NAMESPACE + '/mllib/classification/NaiveBayesModel');
 
     /**
      * Trains a Naive Bayes model given an RDD of `(label, features)` pairs.
@@ -149,18 +112,6 @@
 
 
     /**
-     * @param {SparkContext} sc
-     * @param {string} path
-     * @returns {NaiveBayesModel} 
-     */
-    NaiveBayesModel.load = function(sc,path) {
-       var sc_uw = Utils.unwrapObject(sc);
-       var javaObject =  org.apache.spark.mllib.classification.NaiveBayesModel.load(sc_uw.sc(),path);
-       return new NaiveBayesModel(javaObject);
-    };
-
-
-    /**
      * Trains a Naive Bayes model given an RDD of `(label, features)` pairs.
      *
      * The model type can be set to either Multinomial NB ([[http://tinyurl.com/lsdw6p]])
@@ -192,9 +143,6 @@
        return new NaiveBayesModel(javaObject);
     };
 
-    module.exports = {
-        NaiveBayesModel: NaiveBayesModel,
-        NaiveBayes: NaiveBayes
-    }; 
+    module.exports = NaiveBayes;
 
 })();

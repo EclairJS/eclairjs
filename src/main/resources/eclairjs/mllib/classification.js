@@ -23,12 +23,12 @@
      */
     module.exports = {
         ClassificationModel: require(EclairJS_Globals.NAMESPACE + '/mllib/classification/ClassificationModel'),
-        LogisticRegressionModel: require(EclairJS_Globals.NAMESPACE + '/mllib/classification/LogisticRegression').LogisticRegressionModel,
-        LogisticRegressionWithSGD: require(EclairJS_Globals.NAMESPACE + '/mllib/classification/LogisticRegression').LogisticRegressionWithSGD,
-        LogisticRegressionWithLBFGS: require(EclairJS_Globals.NAMESPACE + '/mllib/classification/LogisticRegression').LogisticRegressionWithLBFGS,
-        NaiveBayes: require(EclairJS_Globals.NAMESPACE + '/mllib/classification/NaiveBayes').NaiveBayes,
-        NaiveBayesModel: require(EclairJS_Globals.NAMESPACE + '/mllib/classification/NaiveBayes').NaiveBayesModel,
-        SVMModel: require(EclairJS_Globals.NAMESPACE + '/mllib/classification/SVM').SVMModel,
-        SVMWithSGD: require(EclairJS_Globals.NAMESPACE + '/mllib/classification/SVM').SVMWithSGD
+        LogisticRegressionModel: require(EclairJS_Globals.NAMESPACE + '/mllib/classification/LogisticRegressionModel'),
+        LogisticRegressionWithSGD: require(EclairJS_Globals.NAMESPACE + '/mllib/classification/LogisticRegressionWithSGD'),
+        LogisticRegressionWithLBFGS: require(EclairJS_Globals.NAMESPACE + '/mllib/classification/LogisticRegressionWithLBFGS'),
+        NaiveBayes: require(EclairJS_Globals.NAMESPACE + '/mllib/classification/NaiveBayes'),
+        NaiveBayesModel: require(EclairJS_Globals.NAMESPACE + '/mllib/classification/NaiveBayesModel'),
+        SVMModel: require(EclairJS_Globals.NAMESPACE + '/mllib/classification/SVMModel'),
+        SVMWithSGD: require(EclairJS_Globals.NAMESPACE + '/mllib/classification/SVMWithSGD')
     }
 })();

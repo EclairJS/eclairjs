@@ -19,56 +19,7 @@
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
 
-    /**
-     * Model produced by {@link PowerIterationClustering}.
-     *
-     * @memberof module:eclairjs/mllib/clustering
-     * @classdesc
-     * @param {number} k number of clusters
-     * @param {RDD} assignments  an RDD of clustering [[PowerIterationClustering#Assignment]]s
-     *  @class
-     */
-    var PowerIterationClusteringModel = function(k,assignments) {
-        this.logger = Logger.getLogger("PowerIterationClusteringModel_js");
-        var jvmObject;
-        if (k instanceof org.apache.spark.mllib.clustering.PowerIterationClusteringModel) {
-            jvmObject = k;
-        } else {
-            jvmObject = new org.apache.spark.mllib.clustering.PowerIterationClusteringModel(k,assignments);
-        }
-
-         JavaWrapper.call(this, jvmObject);
-
-    };
-
-    PowerIterationClusteringModel.prototype = Object.create(JavaWrapper.prototype);
-
-    PowerIterationClusteringModel.prototype.constructor = PowerIterationClusteringModel;
-
-
-
-    /**
-     * @param {SparkContext} sc
-     * @param {string} path
-     */
-    PowerIterationClusteringModel.prototype.save = function(sc,path) {
-       var sc_uw = Utils.unwrapObject(sc).sc();
-        this.getJavaObject().save(sc_uw,path);
-    };
-
-    /**
-     * @returns {RDD}
-     */
-    PowerIterationClusteringModel.prototype.assignments = function() {
-        return Utils.javaToJs(this.getJavaObject().assignments().toJavaRDD());
-    };
-
-    /**
-     * @returns {integer}
-     */
-    PowerIterationClusteringModel.prototype.k = function() {
-        return this.getJavaObject().k();
-    };
+    var PowerIterationClusteringModel = require(EclairJS_Globals.NAMESPACE + '/mllib/clustering/PowerIterationClusteringModel');
 
     /**
      * @memberof module:eclairjs/mllib/clustering
@@ -164,76 +115,6 @@
     };
 
 
-    /**
-     * Cluster assignment. param: id node id param: cluster assigned cluster id
-     * @class
-     * @memberof module:eclairjs/mllib/clustering
-     * @classdesc
-     * @parma {integer} id
-     * @parma {integer} cluster
-     */
-
-    var PowerIterationClusteringAssignment = function(id, cluster) {
-
-        this.logger = Logger.getLogger("PowerIterationClusteringAssignment_js");
-        var jvmObject;
-        if (arguments[0]) {
-            jvmObject = arguments[0];
-        } else {
-            jvmObject = new org.apache.spark.mllib.clustering.PowerIterationClustering.Assignment(id, cluster);
-        }
-        JavaWrapper.call(this, jvmObject);
-
-    };
-
-
-    PowerIterationClusteringAssignment.prototype = Object.create(JavaWrapper.prototype);
-
-    PowerIterationClusteringAssignment.prototype.constructor = PowerIterationClusteringAssignment;
-
-
-
-    /**
-     * @returns {integer}
-     */
-    PowerIterationClusteringAssignment.prototype.id = function() {
-        return this.getJavaObject().id();
-    };
-
-    /**
-     * @returns {integer}
-     */
-    PowerIterationClusteringAssignment.prototype.cluster = function() {
-        return this.getJavaObject().cluster();
-    };
-
-    PowerIterationClusteringAssignment.prototype.toJSON = function() {
-        var obj = {};
-        obj.id = this.id();
-        obj.cluster = this.cluster();
-        return obj;
-    };
-
-    //
-    // static methods
-    //
-
-
-    /**
-     * @param {SparkContext} sc
-     * @param {string} path
-     * @returns {PowerIterationClusteringModel}
-     */
-    PowerIterationClusteringModel.load = function(sc,path) {
-       var sc_uw = Utils.unwrapObject(sc).sc();
-       var javaObject =  org.apache.spark.mllib.clustering.PowerIterationClusteringModel.load(sc_uw,path);
-       return new PowerIterationClusteringModel(javaObject);
-    };
-
-    module.exports = {
-        PowerIterationClustering: PowerIterationClustering,
-        PowerIterationClusteringAssignment: PowerIterationClusteringAssignment,
-        PowerIterationClusteringModel: PowerIterationClusteringModel
-    };
+    module.exports = PowerIterationClustering;
 
 })();

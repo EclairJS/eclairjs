@@ -27,11 +27,11 @@
         KMeans: require(EclairJS_Globals.NAMESPACE + '/mllib/clustering/KMeans'),
         KMeansModel: require(EclairJS_Globals.NAMESPACE + '/mllib/clustering/KMeansModel'),
         LDA: require(EclairJS_Globals.NAMESPACE + '/mllib/clustering/LDA'),
-        LDAModel: require(EclairJS_Globals.NAMESPACE + '/mllib/clustering/LDAModel').LDAModel,
-        DistributedLDAModel: require(EclairJS_Globals.NAMESPACE + '/mllib/clustering/LDAModel').DistributedLDAModel,
-        LocalLDAModel: require(EclairJS_Globals.NAMESPACE + '/mllib/clustering/LDAModel').LocalLDAModel,
-        PowerIterationClustering: require(EclairJS_Globals.NAMESPACE + '/mllib/clustering/PowerIterationClustering').PowerIterationClustering,
-        PowerIterationClusteringAssignment: require(EclairJS_Globals.NAMESPACE + '/mllib/clustering/PowerIterationClustering').PowerIterationClusteringAssignment,
-        PowerIterationClusteringModel: require(EclairJS_Globals.NAMESPACE + '/mllib/clustering/PowerIterationClustering').PowerIterationClusteringModel
+        LDAModel: require(EclairJS_Globals.NAMESPACE + '/mllib/clustering/LDAModel'),
+        DistributedLDAModel: require(EclairJS_Globals.NAMESPACE + '/mllib/clustering/DistributedLDAModel'),
+        LocalLDAModel: require(EclairJS_Globals.NAMESPACE + '/mllib/clustering/LocalLDAModel'),
+        PowerIterationClustering: require(EclairJS_Globals.NAMESPACE + '/mllib/clustering/PowerIterationClustering'),
+        PowerIterationClusteringAssignment: require(EclairJS_Globals.NAMESPACE + '/mllib/clustering/PowerIterationClusteringAssignment'),
+        PowerIterationClusteringModel: require(EclairJS_Globals.NAMESPACE + '/mllib/clustering/PowerIterationClusteringModel')
     }
 })();

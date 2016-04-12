@@ -26,6 +26,7 @@ var Column = require(EclairJS_Globals.NAMESPACE + '/sql/Column');
 var functions = require(EclairJS_Globals.NAMESPACE + '/sql/functions');
 var SqlDate = require(EclairJS_Globals.NAMESPACE + '/sql/SqlDate');
 var SqlTimestamp = require(EclairJS_Globals.NAMESPACE + '/sql/SqlTimestamp');
+var StorageLevel = require(EclairJS_Globals.NAMESPACE + '/storage/StorageLevel');
 //var sql = require('sql');
 //require('sql');
 
