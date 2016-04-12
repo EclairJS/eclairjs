@@ -183,9 +183,7 @@ var subModuleMap = {
     "eclairjs/mllib/clustering/LocalLDAModel": "eclairjs/mllib/clustering/LDAModel",
     "eclairjs/mllib/clustering/PowerIterationClustering": "eclairjs/mllib/clustering/PowerIterationClustering",
     "eclairjs/mllib/clustering/PowerIterationClusteringAssignment": "eclairjs/mllib/clustering/PowerIterationClustering",
-    "eclairjs/mllib/clustering/PowerIterationClusteringModel": "eclairjs/mllib/clustering/PowerIterationClustering",
-    "eclairjs/mllib/linalg/QRDecomposition": "eclairjs/mllib/linalg/SingularValueDecomposition",
-    "eclairjs/mllib/linalg/SingularValueDecomposition": "eclairjs/mllib/linalg/SingularValueDecomposition"
+    "eclairjs/mllib/clustering/PowerIterationClusteringModel": "eclairjs/mllib/clustering/PowerIterationClustering"
 
 
 };
