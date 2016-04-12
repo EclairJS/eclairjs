@@ -168,11 +168,13 @@ var completedModules = { // FIXME temporary until all Class are require compatib
     "eclairjs/mllib/optimization": true,
     "eclairjs/mllib/linalg": true,
     "eclairjs/mllib/regression": true,
+    "eclairjs/mllib/random": true,
     "eclairjs/mllib/recommendation": true,
     "eclairjs/mllib/tree/model": true,
     "eclairjs/mllib/tree/loss": true,
     "eclairjs/mllib/tree/configuration": true,
-    "eclairjs/mllib/tree": true
+    "eclairjs/mllib/tree": true,
+    "eclairjs/storage": true
 };
 var subModuleMap = {}; // Leaving for now but probably can remove.
 Serialize.javaSparkObject = function (javaObj) {
@@ -235,9 +237,12 @@ Serialize.javaSparkObject = function (javaObj) {
     try {
         // If TypeError exception is thrown catch it and try loading
         // module before giving up - this could be on worker node
-        var cmd = req + " new " + className + "(javaObj)";
+        var cmd = req + " return new " + className + "(javaObj)";
         Serialize.logger.debug(cmd)
-        ret = eval(req + " new " + className + "(javaObj)");
+       // ret = eval(req + " new " + className + "(javaObj)");
+        var wrapperObjectFunction = new Function("javaObj", cmd); // better closer, keep require our of the global space
+
+        ret = wrapperObjectFunction(javaObj);
     } catch(se) {
         Serialize.logger.error("Exception in trying to create javaSparkObject. Going to try and load required module");
         Serialize.logger.error(se);

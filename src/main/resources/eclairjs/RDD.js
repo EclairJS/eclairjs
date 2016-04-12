@@ -423,7 +423,7 @@ RDD.prototype.getCheckpointFile = function() {
  */
 RDD.prototype.getStorageLevel = function() {
     var javaObject =  this.getJavaObject().getStorageLevel();
-    return new StorageLevel(javaObject);
+    return Utils.javaToJs(javaObject);
 };
 
 /**

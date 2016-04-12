@@ -49,7 +49,6 @@ function run(sc) {
 // Evaluate model on test instances and compute test error
 
     var predictionAndLabel = testData.mapToPair(function (labeledPoint, model) {
-        print(labeledPoint.toJSON());
         return new Tuple(model.predict(labeledPoint.getFeatures()), labeledPoint.getLabel());
     }, [model]);
 

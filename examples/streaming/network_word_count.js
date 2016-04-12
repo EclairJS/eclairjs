@@ -31,7 +31,7 @@ var hostname = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : 
 var port = ((typeof args !== "undefined") && (args.length > 2)) ? 0 + args[2] : 9999;
 
     // Create the context with a 1 second batch size
-
+    var StorageLevel = require('eclairjs/storage/StorageLevel');
     var conf = new SparkConf().setAppName("Javascript Network Word Count");
     var ssc = new StreamingContext(conf, new Duration(2000));
 

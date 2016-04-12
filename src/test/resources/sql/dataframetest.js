@@ -427,7 +427,7 @@ var dataframeOrderByTest = function(file) {
 }
 
 var dataframePersistTest = function(file) {
-
+	var StorageLevel = require('eclairjs/storage/StorageLevel');
 	var peopleDataFrame = buildPeopleTable(file);
 	var result = peopleDataFrame.persist(StorageLevel.MEMORY_ONLY());
 	
