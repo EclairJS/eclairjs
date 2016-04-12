@@ -15,6 +15,7 @@
  */
 
 var USAGE = "bin/eclairjs examples/mllib/sampled_rdds.js examples/data/mllib/sample_binary_classification_data.txt";
+var MLUtils = require("eclairjs/mllib/MLUtils");
 
 if (args.length < 2) {
     print(USAGE);

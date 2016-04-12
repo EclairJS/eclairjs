@@ -37,15 +37,15 @@
      *                of bins may not exactly equal numBins. The last bin in each partition may
      *                be smaller as a result, meaning there may be an extra sample at
      *                partition boundaries.
-     * @memberof module:eclairjs/mllib/evaluation
+     *
      * @classdesc
      */
 
     /**
      * @param {RDD} scoreAndLabels
      * @param {number} numBins
-     * @returns {??} 
      *  @class
+     *  @memberof module:eclairjs/mllib/evaluation
      */
     var BinaryClassificationMetrics = function(scoreAndLabels,numBins) {
         var jvmObject;

@@ -51,7 +51,7 @@
      * @param {number} learningRate
      * @param {number} validationTol
      * @class
-     * @memberof module:eclairjs/mllib/configuration
+     * @memberof module:eclairjs/mllib/tree/configuration
      */
     var BoostingStrategy = function (treeStrategy, loss, numIterations, learningRate, validationTol) {
         this.logger = Logger.getLogger("BoostingStrategy_js");

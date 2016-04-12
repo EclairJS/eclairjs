@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-var DenseVector = require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/DenseVector');
+//var DenseVector = require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/DenseVector');
 
 /*
  * We need to load SparkContext.js and SparkConf.js in order to create SparkContext
@@ -218,6 +218,26 @@ var SVMwithSGDExample = function() {
 
 var RankingMetricExample = function() {
     load("examples/mllib/ranking_metrics_example.js");
+    var result = run(sparkContext);
+    if (result) {
+        return "passed";
+    } else {
+        return "failed";
+    }
+}
+
+var RandomForestClassificationExample = function() {
+    load("examples/mllib/random_forest_classification_example.js");
+    var result = run(sparkContext);
+    if (result) {
+        return "passed";
+    } else {
+        return "failed";
+    }
+}
+
+var RandomForestRegressionExample = function() {
+    load("examples/mllib/random_forest_regression_example.js");
     var result = run(sparkContext);
     if (result) {
         return "passed";

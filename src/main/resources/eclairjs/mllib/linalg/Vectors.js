@@ -22,6 +22,7 @@
     /**
      *
      * @constructor
+     * @memberof module:eclairjs/mllib/linalg
      */
     var Vectors = function () {
         //var jvmObject = new org.apache.spark.mllib.linalg.SparseVector(size,indices,values);

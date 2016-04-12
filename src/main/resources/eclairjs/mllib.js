@@ -22,7 +22,7 @@
      * @module eclairjs/mllib
      */
     module.exports = {
-        MLUtils: require(EclairJS_Globals.NAMESPACE + '/mllib/utils')
+        MLUtils: require(EclairJS_Globals.NAMESPACE + '/mllib/MLUtils')
     }
 
 })();

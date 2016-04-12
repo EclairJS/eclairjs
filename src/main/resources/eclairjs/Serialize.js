@@ -174,7 +174,8 @@ var completedModules = { // FIXME temporary until all Class are require compatib
     "eclairjs/mllib/tree/loss": true,
     "eclairjs/mllib/tree/configuration": true,
     "eclairjs/mllib/tree": true,
-    "eclairjs/storage": true
+    "eclairjs/storage": true,
+    "eclairjs/mllib": true
 };
 var subModuleMap = {}; // Leaving for now but probably can remove.
 Serialize.javaSparkObject = function (javaObj) {

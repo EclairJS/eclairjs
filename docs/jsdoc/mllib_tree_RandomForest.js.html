@@ -27,156 +27,160 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/*                                                                         
-* Copyright 2016 IBM Corp.                                                 
-*                                                                          
-* Licensed under the Apache License, Version 2.0 (the "License");          
-* you may not use this file except in compliance with the License.         
-* You may obtain a copy of the License at                                  
-*                                                                          
-*      http://www.apache.org/licenses/LICENSE-2.0                          
-*                                                                          
-* Unless required by applicable law or agreed to in writing, software      
-* distributed under the License is distributed on an "AS IS" BASIS,        
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
-* See the License for the specific language governing permissions and      
-* limitations under the License.                                           
-*/ 
-
-
-/**
- * A class that implements a [[http://en.wikipedia.org/wiki/Random_forest  Random Forest]]
- * learning algorithm for classification and regression.
- * It supports both continuous and categorical features.
- * @constructor
- * @classdesc
- * The settings for featureSubsetStrategy are based on the following references:
- *  - log2: tested in Breiman (2001)
- *  - sqrt: recommended by Breiman manual for random forests
- *  - The defaults of sqrt (classification) and onethird (regression) match the R randomForest
- *    package.
- * [[http://www.stat.berkeley.edu/~breiman/randomforest2001.pdf  Breiman (2001)]]
- * [[http://www.stat.berkeley.edu/~breiman/Using_random_forests_V3.1.pdf  Breiman manual for
- *     random forests]]
+ * Copyright 2016 IBM Corp.
  *
- * @param {Strategy} strategy The configuration parameters for the random forest algorithm which specify
- *                 the type of algorithm (classification, regression, etc.), feature type
- *                 (continuous, categorical), depth of the tree, quantile calculation strategy,
- *                 etc.
- * @param {Number} numTrees If 1, then no bootstrapping is used.  If > 1, then bootstrapping is done.
- * @param featureSubsetStrategy Number of features to consider for splits at each node.
- *                              Supported: "auto", "all", "sqrt", "log2", "onethird".
- *                              If "auto" is set, this parameter is set based on numTrees:
- *                                if numTrees == 1, set to "all";
- *                                if numTrees > 1 (forest) set to "sqrt" for classification and
- *                                  to "onethird" for regression.
- * @param seed Random seed for bootstrapping and choosing feature subsets.
- */
-var RandomForest = {};
-
-
-/**
- * Method to train a decision tree model for regression.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * @param {RDD} input Training dataset: RDD of [[org.apache.spark.mllib.regression.LabeledPoint]].
- *              Labels are real numbers.
- * @param {Object} categoricalFeaturesInfo Map storing arity of categorical features.
- *                                E.g., an entry (n -> k) indicates that feature n is categorical
- *                                with k categories indexed from 0: {0, 1, ..., k-1}.
- * @param {Number} numTrees Number of trees in the random forest.
- * @param {Number} featureSubsetStrategy Number of features to consider for splits at each node.
- *                              Supported: "auto", "all", "sqrt", "log2", "onethird".
- *                              If "auto" is set, this parameter is set based on numTrees:
- *                                if numTrees == 1, set to "all";
- *                                if numTrees > 1 (forest) set to "onethird".
- * @param impurity Criterion used for information gain calculation.
- *                 Supported values: "variance".
- * @param {Int} maxDepth Maximum depth of the tree.
- *                 E.g., depth 0 means 1 leaf node; depth 1 means 1 internal node + 2 leaf nodes.
- *                  (suggested value: 4)
- * @param {Int} maxBins maximum number of bins used for splitting features
- *                 (suggested value: 100)
- * @param {Number} seed  Random seed for bootstrapping and choosing feature subsets.
- * @return {RandomForestModel} a random forest model that can be used for prediction
- */
-RandomForest.trainRegressor = function(
-    input, 
-    categoricalFeaturesInfo, 
-    numTrees, 
-    featureSubsetStrategy, 
-    impurity,
-    maxDepth,
-    maxBins,
-    seed
-) {
-                       
-    var categoricalFeaturesInfo_uw = Utils.createJavaHashMap(categoricalFeaturesInfo);
-    var javaObject =  org.apache.spark.mllib.tree.RandomForest.trainRegressor(
-        Utils.unwrapObject(input), 
-        categoricalFeaturesInfo_uw, 
-        numTrees, 
-        featureSubsetStrategy, 
-        impurity, 
-        maxDepth, 
-        maxBins, 
-        seed
-    );
-
-    return new RandomForestModel(javaObject);
-};
-
-/**
- * Method to train a decision tree model for binary or multiclass classification.
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
- * @param {RDD} input Training dataset: RDD of [[org.apache.spark.mllib.regression.LabeledPoint]].
- *              Labels should take values {0, 1, ..., numClasses-1}.
- * @param {Int} numClasses number of classes for classification.
- * @param {Object} categoricalFeaturesInfo Map storing arity of categorical features.
- *                                E.g., an entry (n -> k) indicates that feature n is categorical
- *                                with k categories indexed from 0: {0, 1, ..., k-1}.
- * @param {Int} numTrees Number of trees in the random forest.
- * @param {String} featureSubsetStrategy Number of features to consider for splits at each node.
- *                              Supported: "auto", "all", "sqrt", "log2", "onethird".
- *                              If "auto" is set, this parameter is set based on numTrees:
- *                                if numTrees == 1, set to "all";
- *                                if numTrees > 1 (forest) set to "sqrt".
- * @param {String} impurity Criterion used for information gain calculation.
- *                 Supported values: "gini" (recommended) or "entropy".
- * @param {Int} maxDepth Maximum depth of the tree.
- *                 E.g., depth 0 means 1 leaf node; depth 1 means 1 internal node + 2 leaf nodes.
- *                  (suggested value: 4)
- * @param {Int} maxBins maximum number of bins used for splitting features
- *                 (suggested value: 100)
- * @param seed  Random seed for bootstrapping and choosing feature subsets.
- * @return a random forest model  that can be used for prediction
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-RandomForest.trainClassifier = function(
-    input,
-    numClasses,
-    categoricalFeaturesInfo, 
-    numTrees, 
-    featureSubsetStrategy, 
-    impurity,
-    maxDepth,
-    maxBins,
-    seed
-) {
-                       
-    var categoricalFeaturesInfo_uw = Utils.createJavaHashMap(categoricalFeaturesInfo);
-    var javaObject =  org.apache.spark.mllib.tree.RandomForest.trainClassifier(
-        Utils.unwrapObject(input), 
-        numClasses,
-        categoricalFeaturesInfo_uw, 
-        numTrees, 
-        featureSubsetStrategy, 
-        impurity, 
-        maxDepth, 
-        maxBins, 
-        seed
-    );
 
-    return new RandomForestModel(javaObject);
-};
-</code></pre>
+(function () {
+    var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
+    var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
+    var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
+
+    /**
+     * A class that implements a [[http://en.wikipedia.org/wiki/Random_forest  Random Forest]]
+     * learning algorithm for classification and regression.
+     * It supports both continuous and categorical features.
+     * @constructor
+     * @memberof module:eclairjs/mllib/tree
+     * @classdesc
+     * The settings for featureSubsetStrategy are based on the following references:
+     *  - log2: tested in Breiman (2001)
+     *  - sqrt: recommended by Breiman manual for random forests
+     *  - The defaults of sqrt (classification) and onethird (regression) match the R randomForest
+     *    package.
+     * [[http://www.stat.berkeley.edu/~breiman/randomforest2001.pdf  Breiman (2001)]]
+     * [[http://www.stat.berkeley.edu/~breiman/Using_random_forests_V3.1.pdf  Breiman manual for
+     *     random forests]]
+     *
+     * @param {Strategy} strategy The configuration parameters for the random forest algorithm which specify
+     *                 the type of algorithm (classification, regression, etc.), feature type
+     *                 (continuous, categorical), depth of the tree, quantile calculation strategy,
+     *                 etc.
+     * @param {Number} numTrees If 1, then no bootstrapping is used.  If > 1, then bootstrapping is done.
+     * @param featureSubsetStrategy Number of features to consider for splits at each node.
+     *                              Supported: "auto", "all", "sqrt", "log2", "onethird".
+     *                              If "auto" is set, this parameter is set based on numTrees:
+     *                                if numTrees == 1, set to "all";
+     *                                if numTrees > 1 (forest) set to "sqrt" for classification and
+     *                                  to "onethird" for regression.
+     * @param seed Random seed for bootstrapping and choosing feature subsets.
+     */
+    var RandomForest = {};
+
+
+    /**
+     * Method to train a decision tree model for regression.
+     *
+     * @param {RDD} input Training dataset: RDD of [[org.apache.spark.mllib.regression.LabeledPoint]].
+     *              Labels are real numbers.
+     * @param {Object} categoricalFeaturesInfo Map storing arity of categorical features.
+     *                                E.g., an entry (n -> k) indicates that feature n is categorical
+     *                                with k categories indexed from 0: {0, 1, ..., k-1}.
+     * @param {Number} numTrees Number of trees in the random forest.
+     * @param {Number} featureSubsetStrategy Number of features to consider for splits at each node.
+     *                              Supported: "auto", "all", "sqrt", "log2", "onethird".
+     *                              If "auto" is set, this parameter is set based on numTrees:
+     *                                if numTrees == 1, set to "all";
+     *                                if numTrees > 1 (forest) set to "onethird".
+     * @param impurity Criterion used for information gain calculation.
+     *                 Supported values: "variance".
+     * @param {Int} maxDepth Maximum depth of the tree.
+     *                 E.g., depth 0 means 1 leaf node; depth 1 means 1 internal node + 2 leaf nodes.
+     *                  (suggested value: 4)
+     * @param {Int} maxBins maximum number of bins used for splitting features
+     *                 (suggested value: 100)
+     * @param {Number} seed  Random seed for bootstrapping and choosing feature subsets.
+     * @return {RandomForestModel} a random forest model that can be used for prediction
+     */
+    RandomForest.trainRegressor = function (input,
+                                            categoricalFeaturesInfo,
+                                            numTrees,
+                                            featureSubsetStrategy,
+                                            impurity,
+                                            maxDepth,
+                                            maxBins,
+                                            seed) {
+
+        var categoricalFeaturesInfo_uw = Utils.createJavaHashMap(categoricalFeaturesInfo);
+        var javaObject = org.apache.spark.mllib.tree.RandomForest.trainRegressor(
+            Utils.unwrapObject(input),
+            categoricalFeaturesInfo_uw,
+            numTrees,
+            featureSubsetStrategy,
+            impurity,
+            maxDepth,
+            maxBins,
+            seed
+        );
+
+        return Utils.javaToJs(javaObject);
+    };
+
+    /**
+     * Method to train a decision tree model for binary or multiclass classification.
+     *
+     * @param {RDD} input Training dataset: RDD of [[org.apache.spark.mllib.regression.LabeledPoint]].
+     *              Labels should take values {0, 1, ..., numClasses-1}.
+     * @param {Int} numClasses number of classes for classification.
+     * @param {Object} categoricalFeaturesInfo Map storing arity of categorical features.
+     *                                E.g., an entry (n -> k) indicates that feature n is categorical
+     *                                with k categories indexed from 0: {0, 1, ..., k-1}.
+     * @param {Int} numTrees Number of trees in the random forest.
+     * @param {String} featureSubsetStrategy Number of features to consider for splits at each node.
+     *                              Supported: "auto", "all", "sqrt", "log2", "onethird".
+     *                              If "auto" is set, this parameter is set based on numTrees:
+     *                                if numTrees == 1, set to "all";
+     *                                if numTrees > 1 (forest) set to "sqrt".
+     * @param {String} impurity Criterion used for information gain calculation.
+     *                 Supported values: "gini" (recommended) or "entropy".
+     * @param {Int} maxDepth Maximum depth of the tree.
+     *                 E.g., depth 0 means 1 leaf node; depth 1 means 1 internal node + 2 leaf nodes.
+     *                  (suggested value: 4)
+     * @param {Int} maxBins maximum number of bins used for splitting features
+     *                 (suggested value: 100)
+     * @param seed  Random seed for bootstrapping and choosing feature subsets.
+     * @return a random forest model  that can be used for prediction
+     */
+    RandomForest.trainClassifier = function (input,
+                                             numClasses,
+                                             categoricalFeaturesInfo,
+                                             numTrees,
+                                             featureSubsetStrategy,
+                                             impurity,
+                                             maxDepth,
+                                             maxBins,
+                                             seed) {
+
+        var categoricalFeaturesInfo_uw = Utils.createJavaHashMap(categoricalFeaturesInfo);
+        var javaObject = org.apache.spark.mllib.tree.RandomForest.trainClassifier(
+            Utils.unwrapObject(input),
+            numClasses,
+            categoricalFeaturesInfo_uw,
+            numTrees,
+            featureSubsetStrategy,
+            impurity,
+            maxDepth,
+            maxBins,
+            seed
+        );
+
+        return Utils.javaToJs(javaObject);
+    };
+
+    module.exports = RandomForest;
+
+})();</code></pre>
         </article>
     </section>
 
@@ -186,13 +190,13 @@ RandomForest.trainClassifier = function(
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-eclairjs_mllib_linalg.html">eclairjs/mllib/linalg</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.html">eclairjs/mllib/linalg/distributed</a></li><li><a href="module-eclairjs_mllib_linalg_Vectors.html">eclairjs/mllib/linalg/Vectors</a></li><li><a href="module-eclairjs_sql.html">eclairjs/sql</a></li><li><a href="module-eclairjs_sql_types.html">eclairjs/sql/types</a></li></ul><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ALS.html">ALS</a></li><li><a href="AssociationRules.html">AssociationRules</a></li><li><a href="BinaryClassificationMetrics.html">BinaryClassificationMetrics</a></li><li><a href="BisectingKMeans.html">BisectingKMeans</a></li><li><a href="BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="BoostingStrategy.html">BoostingStrategy</a></li><li><a href="DecisionTree.html">DecisionTree</a></li><li><a href="DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="DistributedLDAModel.html">DistributedLDAModel</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatRDD.html">FloatRDD</a></li><li><a href="FPGrowth.html">FPGrowth</a></li><li><a href="FPGrowthModel.html">FPGrowthModel</a></li><li><a href="FreqItemset.html">FreqItemset</a></li><li><a href="FutureAction.html">FutureAction</a></li><li><a href="GeneralizedLinearModel.html">GeneralizedLinearModel</a></li><li><a href="Gradient.html">Gradient</a></li><li><a href="GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IsotonicRegression.html">IsotonicRegression</a></li><li><a href="IsotonicRegressionModel.html">IsotonicRegressionModel</a></li><li><a href="KMeans.html">KMeans</a></li><li><a href="KMeansModel.html">KMeansModel</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LBFGS.html">LBFGS</a></li><li><a href="LDA.html">LDA</a></li><li><a href="LDAModel.html">LDAModel</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="List.html">List</a></li><li><a href="LocalLDAModel.html">LocalLDAModel</a></li><li><a href="Logger.html">Logger</a></li><li><a href="LogisticGradient.html">LogisticGradient</a></li><li><a href="LogisticRegressionModel.html">LogisticRegressionModel</a></li><li><a href="LogisticRegressionWithLBFGS.html">LogisticRegressionWithLBFGS</a></li><li><a href="LogisticRegressionWithSGD.html">LogisticRegressionWithSGD</a></li><li><a href="Loss.html">Loss</a></li><li><a href="MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="MLWord2Vec.html">MLWord2Vec</a></li><li><a href="MLWord2VecModel.html">MLWord2VecModel</a></li><li><a href="module-eclairjs_mllib_linalg.DenseMatrix.html">DenseMatrix</a></li><li><a href="module-eclairjs_mllib_linalg.Matrix.html">Matrix</a></li><li><a href="module-eclairjs_mllib_linalg.QRDecomposition.html">QRDecomposition</a></li><li><a href="module-eclairjs_mllib_linalg.SingularValueDecomposition.html">SingularValueDecomposition</a></li><li><a href="module-eclairjs_mllib_linalg.SparseMatrix.html">SparseMatrix</a></li><li><a href="module-eclairjs_mllib_linalg.Vector.html">Vector</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.DistributedMatrix.html">DistributedMatrix</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.RowMatrix.html">RowMatrix</a></li><li><a href="module-eclairjs_mllib_linalg_Vectors-DenseVector.html">DenseVector</a></li><li><a href="module-eclairjs_mllib_linalg_Vectors-SparseVector.html">SparseVector</a></li><li><a href="module-eclairjs_mllib_linalg_Vectors-Vectors.html">Vectors</a></li><li><a href="module-eclairjs_mllib_linalg_Vectors-VectorUDT.html">VectorUDT</a></li><li><a href="module-eclairjs_sql.Column.html">Column</a></li><li><a href="module-eclairjs_sql.DataFrame.html">DataFrame</a></li><li><a href="module-eclairjs_sql.DataFrameHolder.html">DataFrameHolder</a></li><li><a href="module-eclairjs_sql.DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="module-eclairjs_sql.DataFrameReader.html">DataFrameReader</a></li><li><a href="module-eclairjs_sql.DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="module-eclairjs_sql.DataFrameWriter.html">DataFrameWriter</a></li><li><a href="module-eclairjs_sql.functions.html">functions</a></li><li><a href="module-eclairjs_sql.GroupedData.html">GroupedData</a></li><li><a href="module-eclairjs_sql.Row.html">Row</a></li><li><a href="module-eclairjs_sql.RowFactory.html">RowFactory</a></li><li><a href="module-eclairjs_sql.SQLContext.html">SQLContext</a></li><li><a href="module-eclairjs_sql.SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="module-eclairjs_sql.SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="module-eclairjs_sql.SQLContext.SQLSession.html">SQLSession</a></li><li><a href="module-eclairjs_sql.SqlDate.html">SqlDate</a></li><li><a href="module-eclairjs_sql.SqlTimestamp.html">SqlTimestamp</a></li><li><a href="module-eclairjs_sql_types.ArrayType.html">ArrayType</a></li><li><a href="module-eclairjs_sql_types.BinaryType.html">BinaryType</a></li><li><a href="module-eclairjs_sql_types.BooleanType.html">BooleanType</a></li><li><a href="module-eclairjs_sql_types.CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="module-eclairjs_sql_types.DataType.html">DataType</a></li><li><a href="module-eclairjs_sql_types.DataTypes.html">DataTypes</a></li><li><a href="module-eclairjs_sql_types.DateType.html">DateType</a></li><li><a href="module-eclairjs_sql_types.DoubleType.html">DoubleType</a></li><li><a href="module-eclairjs_sql_types.FloatType.html">FloatType</a></li><li><a href="module-eclairjs_sql_types.IntegerType.html">IntegerType</a></li><li><a href="module-eclairjs_sql_types.MapType.html">MapType</a></li><li><a href="module-eclairjs_sql_types.Metadata.html">Metadata</a></li><li><a href="module-eclairjs_sql_types.NullType.html">NullType</a></li><li><a href="module-eclairjs_sql_types.NumericType.html">NumericType</a></li><li><a href="module-eclairjs_sql_types.StringType.html">StringType</a></li><li><a href="module-eclairjs_sql_types.StructField.html">StructField</a></li><li><a href="module-eclairjs_sql_types.StructType.html">StructType</a></li><li><a href="module-eclairjs_sql_types.TimestampType.html">TimestampType</a></li><li><a href="MulticlassMetrics.html">MulticlassMetrics</a></li><li><a href="MultilabelMetrics.html">MultilabelMetrics</a></li><li><a href="NaiveBayes.html">NaiveBayes</a></li><li><a href="NaiveBayesModel.html">NaiveBayesModel</a></li><li><a href="PairDStream.html">PairDStream</a></li><li><a href="PairRDD.html">PairRDD</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="PowerIterationClustering.html">PowerIterationClustering</a></li><li><a href="PowerIterationClusteringAssignment.html">PowerIterationClusteringAssignment</a></li><li><a href="PowerIterationClusteringModel.html">PowerIterationClusteringModel</a></li><li><a href="PrefixSpan.html">PrefixSpan</a></li><li><a href="PrefixSpanFreqSequence.html">PrefixSpanFreqSequence</a></li><li><a href="PrefixSpanModel.html">PrefixSpanModel</a></li><li><a href="RandomForest.html">RandomForest</a></li><li><a href="RandomForestModel.html">RandomForestModel</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RankingMetrics.html">RankingMetrics</a></li><li><a href="Rating.html">Rating</a></li><li><a href="RDD.html">RDD</a></li><li><a href="RegressionMetrics.html">RegressionMetrics</a></li><li><a href="Rule.html">Rule</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SquaredL2Updater.html">SquaredL2Updater</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="Strategy.html">Strategy</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="SVMModel.html">SVMModel</a></li><li><a href="SVMWithSGD.html">SVMWithSGD</a></li><li><a href="Time.html">Time</a></li><li><a href="Tuple.html">Tuple</a></li><li><a href="TwitterAuthorization.html">TwitterAuthorization</a></li><li><a href="Updater.html">Updater</a></li><li><a href="Word2Vec.html">Word2Vec</a></li><li><a href="Word2VecModel.html">Word2VecModel</a></li></ul><h3>Interfaces</h3><ul><li><a href="ClassificationModel.html">ClassificationModel</a></li></ul><h3>Global</h3><ul><li><a href="global.html#module">module</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-eclairjs_mllib.html">eclairjs/mllib</a></li><li><a href="module-eclairjs_mllib_classification.html">eclairjs/mllib/classification</a></li><li><a href="module-eclairjs_mllib_clustering.html">eclairjs/mllib/clustering</a></li><li><a href="module-eclairjs_mllib_evaluation.html">eclairjs/mllib/evaluation</a></li><li><a href="module-eclairjs_mllib_feature.html">eclairjs/mllib/feature</a></li><li><a href="module-eclairjs_mllib_linalg.html">eclairjs/mllib/linalg</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.html">eclairjs/mllib/linalg/distributed</a></li><li><a href="module-eclairjs_mllib_random.html">eclairjs/mllib/random</a></li><li><a href="module-eclairjs_mllib_recommendation.html">eclairjs/mllib/recommendation</a></li><li><a href="module-eclairjs_mllib_regression.html">eclairjs/mllib/regression</a></li><li><a href="module-eclairjs_mllib_tree.html">eclairjs/mllib/tree</a></li><li><a href="module-eclairjs_mllib_tree_configuration.html">eclairjs/mllib/tree/configuration</a></li><li><a href="module-eclairjs_mllib_tree_loss.html">eclairjs/mllib/tree/loss</a></li><li><a href="module-eclairjs_mllib_tree_model.html">eclairjs/mllib/tree/model</a></li><li><a href="module-eclairjs_sql.html">eclairjs/sql</a></li><li><a href="module-eclairjs_sql_types.html">eclairjs/sql/types</a></li><li><a href="module-eclairjs_storage.html">eclairjs/storage</a></li></ul><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="AssociationRules.html">AssociationRules</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatRDD.html">FloatRDD</a></li><li><a href="FPGrowth.html">FPGrowth</a></li><li><a href="FPGrowthModel.html">FPGrowthModel</a></li><li><a href="FreqItemset.html">FreqItemset</a></li><li><a href="FutureAction.html">FutureAction</a></li><li><a href="Gradient.html">Gradient</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="LBFGS.html">LBFGS</a></li><li><a href="List.html">List</a></li><li><a href="Logger.html">Logger</a></li><li><a href="LogisticGradient.html">LogisticGradient</a></li><li><a href="MLWord2Vec.html">MLWord2Vec</a></li><li><a href="MLWord2VecModel.html">MLWord2VecModel</a></li><li><a href="module-eclairjs_mllib_classification.LogisticRegressionModel.html">LogisticRegressionModel</a></li><li><a href="module-eclairjs_mllib_classification.LogisticRegressionWithLBFGS.html">LogisticRegressionWithLBFGS</a></li><li><a href="module-eclairjs_mllib_classification.NaiveBayes.html">NaiveBayes</a></li><li><a href="module-eclairjs_mllib_classification.NaiveBayesModel.html">NaiveBayesModel</a></li><li><a href="module-eclairjs_mllib_classification.SVMModel.html">SVMModel</a></li><li><a href="module-eclairjs_mllib_clustering.BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="module-eclairjs_mllib_clustering.DistributedLDAModel.html">DistributedLDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.LDAModel.html">LDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.LocalLDAModel.html">LocalLDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClustering.html">PowerIterationClustering</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClusteringAssignment.html">PowerIterationClusteringAssignment</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClusteringModel.html">PowerIterationClusteringModel</a></li><li><a href="module-eclairjs_mllib_configuration.BoostingStrategy.html">BoostingStrategy</a></li><li><a href="module-eclairjs_mllib_evaluation.MulticlassMetrics.html">MulticlassMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.MultilabelMetrics.html">MultilabelMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.RegressionMetrics.html">RegressionMetrics</a></li><li><a href="module-eclairjs_mllib_feature.Word2Vec.html">Word2Vec</a></li><li><a href="module-eclairjs_mllib_linalg.DenseMatrix.html">DenseMatrix</a></li><li><a href="module-eclairjs_mllib_linalg.DenseVector.html">DenseVector</a></li><li><a href="module-eclairjs_mllib_linalg.Matrices.html">Matrices</a></li><li><a href="module-eclairjs_mllib_linalg.Matrix.html">Matrix</a></li><li><a href="module-eclairjs_mllib_linalg.QRDecomposition.html">QRDecomposition</a></li><li><a href="module-eclairjs_mllib_linalg.SingularValueDecomposition.html">SingularValueDecomposition</a></li><li><a href="module-eclairjs_mllib_linalg.SparseMatrix.html">SparseMatrix</a></li><li><a href="module-eclairjs_mllib_linalg.SparseVector.html">SparseVector</a></li><li><a href="module-eclairjs_mllib_linalg.Vector.html">Vector</a></li><li><a href="module-eclairjs_mllib_linalg.Vectors.html">Vectors</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.DistributedMatrix.html">DistributedMatrix</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.RowMatrix.html">RowMatrix</a></li><li><a href="module-eclairjs_mllib_random.RandomRDDs.html">RandomRDDs</a></li><li><a href="module-eclairjs_mllib_recommendation.ALS.html">ALS</a></li><li><a href="module-eclairjs_mllib_recommendation.MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="module-eclairjs_mllib_recommendation.Rating.html">Rating</a></li><li><a href="module-eclairjs_mllib_regression.GeneralizedLinearModel.html">GeneralizedLinearModel</a></li><li><a href="module-eclairjs_mllib_regression.LabeledPoint.html">LabeledPoint</a></li><li><a href="module-eclairjs_mllib_regression.LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="module-eclairjs_mllib_regression.LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="module-eclairjs_mllib_tree.DecisionTree.html">DecisionTree</a></li><li><a href="module-eclairjs_mllib_tree.GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="module-eclairjs_mllib_tree.RandomForest.html">RandomForest</a></li><li><a href="module-eclairjs_mllib_tree_loss.Loss.html">Loss</a></li><li><a href="module-eclairjs_mllib_tree_model.DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="module-eclairjs_mllib_tree_model.GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="module-eclairjs_mllib_tree_model.RandomForestModel.html">RandomForestModel</a></li><li><a href="module-eclairjs_sql.Column.html">Column</a></li><li><a href="module-eclairjs_sql.DataFrame.html">DataFrame</a></li><li><a href="module-eclairjs_sql.DataFrameHolder.html">DataFrameHolder</a></li><li><a href="module-eclairjs_sql.DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="module-eclairjs_sql.DataFrameReader.html">DataFrameReader</a></li><li><a href="module-eclairjs_sql.DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="module-eclairjs_sql.DataFrameWriter.html">DataFrameWriter</a></li><li><a href="module-eclairjs_sql.functions.html">functions</a></li><li><a href="module-eclairjs_sql.GroupedData.html">GroupedData</a></li><li><a href="module-eclairjs_sql.Row.html">Row</a></li><li><a href="module-eclairjs_sql.RowFactory.html">RowFactory</a></li><li><a href="module-eclairjs_sql.SQLContext.html">SQLContext</a></li><li><a href="module-eclairjs_sql.SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="module-eclairjs_sql.SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="module-eclairjs_sql.SQLContext.SQLSession.html">SQLSession</a></li><li><a href="module-eclairjs_sql.SqlDate.html">SqlDate</a></li><li><a href="module-eclairjs_sql.SqlTimestamp.html">SqlTimestamp</a></li><li><a href="module-eclairjs_sql_types.ArrayType.html">ArrayType</a></li><li><a href="module-eclairjs_sql_types.BinaryType.html">BinaryType</a></li><li><a href="module-eclairjs_sql_types.BooleanType.html">BooleanType</a></li><li><a href="module-eclairjs_sql_types.CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="module-eclairjs_sql_types.DataType.html">DataType</a></li><li><a href="module-eclairjs_sql_types.DataTypes.html">DataTypes</a></li><li><a href="module-eclairjs_sql_types.DateType.html">DateType</a></li><li><a href="module-eclairjs_sql_types.DoubleType.html">DoubleType</a></li><li><a href="module-eclairjs_sql_types.FloatType.html">FloatType</a></li><li><a href="module-eclairjs_sql_types.IntegerType.html">IntegerType</a></li><li><a href="module-eclairjs_sql_types.MapType.html">MapType</a></li><li><a href="module-eclairjs_sql_types.Metadata.html">Metadata</a></li><li><a href="module-eclairjs_sql_types.NullType.html">NullType</a></li><li><a href="module-eclairjs_sql_types.NumericType.html">NumericType</a></li><li><a href="module-eclairjs_sql_types.StringType.html">StringType</a></li><li><a href="module-eclairjs_sql_types.StructField.html">StructField</a></li><li><a href="module-eclairjs_sql_types.StructType.html">StructType</a></li><li><a href="module-eclairjs_sql_types.TimestampType.html">TimestampType</a></li><li><a href="module-eclairjs_storage.StorageLevel.html">StorageLevel</a></li><li><a href="PairDStream.html">PairDStream</a></li><li><a href="PairRDD.html">PairRDD</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="PrefixSpan.html">PrefixSpan</a></li><li><a href="PrefixSpanFreqSequence.html">PrefixSpanFreqSequence</a></li><li><a href="PrefixSpanModel.html">PrefixSpanModel</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Rule.html">Rule</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SquaredL2Updater.html">SquaredL2Updater</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="Time.html">Time</a></li><li><a href="Tuple.html">Tuple</a></li><li><a href="TwitterAuthorization.html">TwitterAuthorization</a></li><li><a href="Updater.html">Updater</a></li></ul><h3>Interfaces</h3><ul><li><a href="module-eclairjs_mllib_classification.ClassificationModel.html">ClassificationModel</a></li></ul><h3>Global</h3><ul><li><a href="global.html#module">module</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Fri Apr 08 2016 15:23:57 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Tue Apr 12 2016 14:56:09 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>

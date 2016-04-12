@@ -42,184 +42,190 @@
  * limitations under the License.
  */
 
+(function () {
+    var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
+    var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
+    var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
 
+    /**
+     * Stores all the configuration options for tree construction
+     * @param algo  Learning goal.  Supported:
+     *              {@link Classification},
+     *              {@link Regression}
+     * @param impurity Criterion used for information gain calculation.
+     *                 Supported for Classification: {@link Gini},
+     *                  {@link Entropy}.
+     *                 Supported for Regression: {@link Variance}.
+     * @param maxDepth Maximum depth of the tree.
+     *                 E.g., depth 0 means 1 leaf node; depth 1 means 1 internal node + 2 leaf nodes.
+     * @param numClasses Number of classes for classification.
+     *                                    (Ignored for regression.)
+     *                                    Default value is 2 (binary classification).
+     * @param maxBins Maximum number of bins used for discretizing continuous features and
+     *                for choosing how to split on features at each node.
+     *                More bins give higher granularity.
+     * @param quantileCalculationStrategy Algorithm for calculating quantiles.  Supported:
+     *                             {@link Sort}
+     * @param categoricalFeaturesInfo A map storing information about the categorical variables and the
+     *                                number of discrete values they take. For example, an entry (n ->
+     *                                k) implies the feature n is categorical with k categories 0,
+     *                                1, 2, ... , k-1. It's important to note that features are
+     *                                zero-indexed.
+     * @param minInstancesPerNode Minimum number of instances each child must have after split.
+     *                            Default value is 1. If a split cause left or right child
+     *                            to have less than minInstancesPerNode,
+     *                            this split will not be considered as a valid split.
+     * @param minInfoGain Minimum information gain a split must get. Default value is 0.0.
+     *                    If a split has less information gain than minInfoGain,
+     *                    this split will not be considered as a valid split.
+     * @param maxMemoryInMB Maximum memory in MB allocated to histogram aggregation. Default value is
+     *                      256 MB.
+     * @param subsamplingRate Fraction of the training data used for learning decision tree.
+     * @param useNodeIdCache If this is true, instead of passing trees to executors, the algorithm will
+     *                      maintain a separate RDD of node Id cache for each row.
+     * @param checkpointInterval How often to checkpoint when the node Id cache gets updated.
+     *                           E.g. 10 means that the cache will get checkpointed every 10 updates. If
+     *                           the checkpoint directory is not set in
+     *                           {@link SparkContext}, this setting is ignored.
+     * @classdesc
+     */
 
-/**
- * Stores all the configuration options for tree construction
- * @param algo  Learning goal.  Supported:
- *              {@link Classification},
- *              {@link Regression}
- * @param impurity Criterion used for information gain calculation.
- *                 Supported for Classification: {@link Gini},
- *                  {@link Entropy}.
- *                 Supported for Regression: {@link Variance}.
- * @param maxDepth Maximum depth of the tree.
- *                 E.g., depth 0 means 1 leaf node; depth 1 means 1 internal node + 2 leaf nodes.
- * @param numClasses Number of classes for classification.
- *                                    (Ignored for regression.)
- *                                    Default value is 2 (binary classification).
- * @param maxBins Maximum number of bins used for discretizing continuous features and
- *                for choosing how to split on features at each node.
- *                More bins give higher granularity.
- * @param quantileCalculationStrategy Algorithm for calculating quantiles.  Supported:
- *                             {@link Sort}
- * @param categoricalFeaturesInfo A map storing information about the categorical variables and the
- *                                number of discrete values they take. For example, an entry (n ->
- *                                k) implies the feature n is categorical with k categories 0,
- *                                1, 2, ... , k-1. It's important to note that features are
- *                                zero-indexed.
- * @param minInstancesPerNode Minimum number of instances each child must have after split.
- *                            Default value is 1. If a split cause left or right child
- *                            to have less than minInstancesPerNode,
- *                            this split will not be considered as a valid split.
- * @param minInfoGain Minimum information gain a split must get. Default value is 0.0.
- *                    If a split has less information gain than minInfoGain,
- *                    this split will not be considered as a valid split.
- * @param maxMemoryInMB Maximum memory in MB allocated to histogram aggregation. Default value is
- *                      256 MB.
- * @param subsamplingRate Fraction of the training data used for learning decision tree.
- * @param useNodeIdCache If this is true, instead of passing trees to executors, the algorithm will
- *                      maintain a separate RDD of node Id cache for each row.
- * @param checkpointInterval How often to checkpoint when the node Id cache gets updated.
- *                           E.g. 10 means that the cache will get checkpointed every 10 updates. If
- *                           the checkpoint directory is not set in
- *                           {@link SparkContext}, this setting is ignored.
- * @classdesc
- */
+    /**
+     * @param {Algo} algo
+     * @param {Impurity} impurity
+     * @param {number} maxDepth
+     * @param {number} numClasses
+     * @param {number} maxBins
+     * @param {QuantileStrategy} quantileCalculationStrategy
+     * @param {Map} categoricalFeaturesInfo
+     * @param {number} minInstancesPerNode
+     * @param {number} minInfoGain
+     * @param {number} maxMemoryInMB
+     * @param {number} subsamplingRate
+     * @param {boolean} useNodeIdCache
+     * @param {number} checkpointInterval
+     * @returns {??}
+     *  @class
+     */
+    var Strategy = function (jvmObject) {
 
-/**
- * @param {Algo} algo
- * @param {Impurity} impurity
- * @param {number} maxDepth
- * @param {number} numClasses
- * @param {number} maxBins
- * @param {QuantileStrategy} quantileCalculationStrategy
- * @param {Map} categoricalFeaturesInfo
- * @param {number} minInstancesPerNode
- * @param {number} minInfoGain
- * @param {number} maxMemoryInMB
- * @param {number} subsamplingRate
- * @param {boolean} useNodeIdCache
- * @param {number} checkpointInterval
- * @returns {??}
- *  @class
- */
-var Strategy = function (jvmObject) {
+        //var Strategy = function(algo,impurity,maxDepth,numClasses,maxBins,quantileCalculationStrategy,categoricalFeaturesInfo,minInstancesPerNode,minInfoGain,maxMemoryInMB,subsamplingRate,useNodeIdCache,checkpointInterval) {
+        // var jvmObject = new org.apache.spark.mllib.tree.configuration.Strategy(algo,impurity,maxDepth,numClasses,maxBins,quantileCalculationStrategy,categoricalFeaturesInfo,minInstancesPerNode,minInfoGain,maxMemoryInMB,subsamplingRate,useNodeIdCache,checkpointInterval);
+        this.logger = Logger.getLogger("Strategy_js");
+        JavaWrapper.call(this, jvmObject);
 
-    //var Strategy = function(algo,impurity,maxDepth,numClasses,maxBins,quantileCalculationStrategy,categoricalFeaturesInfo,minInstancesPerNode,minInfoGain,maxMemoryInMB,subsamplingRate,useNodeIdCache,checkpointInterval) {
-    // var jvmObject = new org.apache.spark.mllib.tree.configuration.Strategy(algo,impurity,maxDepth,numClasses,maxBins,quantileCalculationStrategy,categoricalFeaturesInfo,minInstancesPerNode,minInfoGain,maxMemoryInMB,subsamplingRate,useNodeIdCache,checkpointInterval);
-    this.logger = Logger.getLogger("Strategy_js");
-    JavaWrapper.call(this, jvmObject);
+    };
 
-};
+    Strategy.prototype = Object.create(JavaWrapper.prototype);
 
-Strategy.prototype = Object.create(JavaWrapper.prototype);
+    Strategy.prototype.constructor = Strategy;
 
-Strategy.prototype.constructor = Strategy;
+    /**
+     *
+     * @param {integer} num
+     */
+    Strategy.prototype.setNumClasses = function (num) {
+        this.getJavaObject().setNumClasses(num);
+    };
 
-/**
- *
- * @param {integer} num
- */
-Strategy.prototype.setNumClasses = function (num) {
-    this.getJavaObject().setNumClasses(num);
-};
-
-/**
- *
- * @param {integer} num
- */
-Strategy.prototype.setMaxDepth = function (num) {
-    this.getJavaObject().setMaxDepth(num);
-};
-/**
- * @returns {boolean}
- */
-Strategy.prototype.isMulticlassClassification = function () {
-    throw "not implemented by ElairJS";
+    /**
+     *
+     * @param {integer} num
+     */
+    Strategy.prototype.setMaxDepth = function (num) {
+        this.getJavaObject().setMaxDepth(num);
+    };
+    /**
+     * @returns {boolean}
+     */
+    Strategy.prototype.isMulticlassClassification = function () {
+        throw "not implemented by ElairJS";
 //   return  this.getJavaObject().isMulticlassClassification();
-};
+    };
 
 
-/**
- * @returns {boolean}
- */
-Strategy.prototype.isMulticlassWithCategoricalFeatures = function () {
-    throw "not implemented by ElairJS";
+    /**
+     * @returns {boolean}
+     */
+    Strategy.prototype.isMulticlassWithCategoricalFeatures = function () {
+        throw "not implemented by ElairJS";
 //   return  this.getJavaObject().isMulticlassWithCategoricalFeatures();
-};
+    };
 
 
-/**
- * Sets Algorithm using a String.
- * @param {string} algo
- */
-Strategy.prototype.setAlgo = function (algo) {
-    throw "not implemented by ElairJS";
+    /**
+     * Sets Algorithm using a String.
+     * @param {string} algo
+     */
+    Strategy.prototype.setAlgo = function (algo) {
+        throw "not implemented by ElairJS";
 //    this.getJavaObject().setAlgo(algo);
-};
+    };
 
 
-/**
- * Sets categoricalFeaturesInfo using a JavaScript object with simple key/value map.
- * @param {object} categoricalFeaturesInfo simple key/value map
- */
-Strategy.prototype.setCategoricalFeaturesInfo = function (categoricalFeaturesInfo) {
-    var categoricalFeaturesInfo_uw = Utils.createJavaHashMap(categoricalFeaturesInfo);
-    this.getJavaObject().setCategoricalFeaturesInfo(categoricalFeaturesInfo_uw);
-};
+    /**
+     * Sets categoricalFeaturesInfo using a JavaScript object with simple key/value map.
+     * @param {object} categoricalFeaturesInfo simple key/value map
+     */
+    Strategy.prototype.setCategoricalFeaturesInfo = function (categoricalFeaturesInfo) {
+        var categoricalFeaturesInfo_uw = Utils.createJavaHashMap(categoricalFeaturesInfo);
+        this.getJavaObject().setCategoricalFeaturesInfo(categoricalFeaturesInfo_uw);
+    };
 
 
-/**
- * Returns a shallow copy of this instance.
- * @returns {Strategy}
- */
-Strategy.prototype.copy = function () {
-    throw "not implemented by ElairJS";
+    /**
+     * Returns a shallow copy of this instance.
+     * @returns {Strategy}
+     */
+    Strategy.prototype.copy = function () {
+        throw "not implemented by ElairJS";
 //   var javaObject =  this.getJavaObject().copy();
 //   return new Strategy(javaObject);
-};
+    };
 //
 // static methods
 //
 
 
-/**
- * Construct a default set of parameters for {@link DecisionTree}
- * @param {string} algo   "Classification" or "Regression"
- * @returns {Strategy}
- */
-Strategy.defaultStrategywithstring = function (algo) {
-    throw "not implemented by ElairJS";
+    /**
+     * Construct a default set of parameters for {@link DecisionTree}
+     * @param {string} algo   "Classification" or "Regression"
+     * @returns {Strategy}
+     */
+    Strategy.defaultStrategywithstring = function (algo) {
+        throw "not implemented by ElairJS";
 //   var javaObject =  org.apache.spark.mllib.tree.configuration.Strategy.defaultStrategy(algo);
 //   return new Strategy(javaObject);
-};
+    };
 
 
-/**
- * Construct a default set of parameters for {@link DecisionTree}
- * @param {Algo} algo  Algo.Classification or Algo.Regression
- * @returns {Strategy}
- */
-Strategy.defaultStrategywithAlgo = function (algo) {
-    throw "not implemented by ElairJS";
+    /**
+     * Construct a default set of parameters for {@link DecisionTree}
+     * @param {Algo} algo  Algo.Classification or Algo.Regression
+     * @returns {Strategy}
+     */
+    Strategy.defaultStrategywithAlgo = function (algo) {
+        throw "not implemented by ElairJS";
 //   var algo_uw = Utils.unwrapObject(algo);
 //   var javaObject =  org.apache.spark.mllib.tree.configuration.Strategy.defaultStrategy(algo_uw);
 //   return new Strategy(javaObject);
-};
+    };
 
 
-/**
- * @param {Algo} algo
- * @returns {Strategy}
- */
-Strategy.defaultStategy = function (algo) {
-    throw "not implemented by ElairJS";
+    /**
+     * @param {Algo} algo
+     * @returns {Strategy}
+     */
+    Strategy.defaultStategy = function (algo) {
+        throw "not implemented by ElairJS";
 //   var algo_uw = Utils.unwrapObject(algo);
 //   var javaObject =  org.apache.spark.mllib.tree.configuration.Strategy.defaultStategy(algo_uw);
 //   return new Strategy(javaObject);
-};
-</code></pre>
+    };
+
+    module.exports = Strategy;
+
+})();</code></pre>
         </article>
     </section>
 
@@ -229,13 +235,13 @@ Strategy.defaultStategy = function (algo) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-eclairjs_mllib_linalg.html">eclairjs/mllib/linalg</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.html">eclairjs/mllib/linalg/distributed</a></li><li><a href="module-eclairjs_mllib_linalg_Vectors.html">eclairjs/mllib/linalg/Vectors</a></li><li><a href="module-eclairjs_sql.html">eclairjs/sql</a></li><li><a href="module-eclairjs_sql_types.html">eclairjs/sql/types</a></li></ul><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ALS.html">ALS</a></li><li><a href="AssociationRules.html">AssociationRules</a></li><li><a href="BinaryClassificationMetrics.html">BinaryClassificationMetrics</a></li><li><a href="BisectingKMeans.html">BisectingKMeans</a></li><li><a href="BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="BoostingStrategy.html">BoostingStrategy</a></li><li><a href="DecisionTree.html">DecisionTree</a></li><li><a href="DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="DistributedLDAModel.html">DistributedLDAModel</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatRDD.html">FloatRDD</a></li><li><a href="FPGrowth.html">FPGrowth</a></li><li><a href="FPGrowthModel.html">FPGrowthModel</a></li><li><a href="FreqItemset.html">FreqItemset</a></li><li><a href="FutureAction.html">FutureAction</a></li><li><a href="GeneralizedLinearModel.html">GeneralizedLinearModel</a></li><li><a href="Gradient.html">Gradient</a></li><li><a href="GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IsotonicRegression.html">IsotonicRegression</a></li><li><a href="IsotonicRegressionModel.html">IsotonicRegressionModel</a></li><li><a href="KMeans.html">KMeans</a></li><li><a href="KMeansModel.html">KMeansModel</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LBFGS.html">LBFGS</a></li><li><a href="LDA.html">LDA</a></li><li><a href="LDAModel.html">LDAModel</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="List.html">List</a></li><li><a href="LocalLDAModel.html">LocalLDAModel</a></li><li><a href="Logger.html">Logger</a></li><li><a href="LogisticGradient.html">LogisticGradient</a></li><li><a href="LogisticRegressionModel.html">LogisticRegressionModel</a></li><li><a href="LogisticRegressionWithLBFGS.html">LogisticRegressionWithLBFGS</a></li><li><a href="LogisticRegressionWithSGD.html">LogisticRegressionWithSGD</a></li><li><a href="Loss.html">Loss</a></li><li><a href="MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="MLWord2Vec.html">MLWord2Vec</a></li><li><a href="MLWord2VecModel.html">MLWord2VecModel</a></li><li><a href="module-eclairjs_mllib_linalg.DenseMatrix.html">DenseMatrix</a></li><li><a href="module-eclairjs_mllib_linalg.Matrix.html">Matrix</a></li><li><a href="module-eclairjs_mllib_linalg.QRDecomposition.html">QRDecomposition</a></li><li><a href="module-eclairjs_mllib_linalg.SingularValueDecomposition.html">SingularValueDecomposition</a></li><li><a href="module-eclairjs_mllib_linalg.SparseMatrix.html">SparseMatrix</a></li><li><a href="module-eclairjs_mllib_linalg.Vector.html">Vector</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.DistributedMatrix.html">DistributedMatrix</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.RowMatrix.html">RowMatrix</a></li><li><a href="module-eclairjs_mllib_linalg_Vectors-DenseVector.html">DenseVector</a></li><li><a href="module-eclairjs_mllib_linalg_Vectors-SparseVector.html">SparseVector</a></li><li><a href="module-eclairjs_mllib_linalg_Vectors-Vectors.html">Vectors</a></li><li><a href="module-eclairjs_mllib_linalg_Vectors-VectorUDT.html">VectorUDT</a></li><li><a href="module-eclairjs_sql.Column.html">Column</a></li><li><a href="module-eclairjs_sql.DataFrame.html">DataFrame</a></li><li><a href="module-eclairjs_sql.DataFrameHolder.html">DataFrameHolder</a></li><li><a href="module-eclairjs_sql.DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="module-eclairjs_sql.DataFrameReader.html">DataFrameReader</a></li><li><a href="module-eclairjs_sql.DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="module-eclairjs_sql.DataFrameWriter.html">DataFrameWriter</a></li><li><a href="module-eclairjs_sql.functions.html">functions</a></li><li><a href="module-eclairjs_sql.GroupedData.html">GroupedData</a></li><li><a href="module-eclairjs_sql.Row.html">Row</a></li><li><a href="module-eclairjs_sql.RowFactory.html">RowFactory</a></li><li><a href="module-eclairjs_sql.SQLContext.html">SQLContext</a></li><li><a href="module-eclairjs_sql.SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="module-eclairjs_sql.SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="module-eclairjs_sql.SQLContext.SQLSession.html">SQLSession</a></li><li><a href="module-eclairjs_sql.SqlDate.html">SqlDate</a></li><li><a href="module-eclairjs_sql.SqlTimestamp.html">SqlTimestamp</a></li><li><a href="module-eclairjs_sql_types.ArrayType.html">ArrayType</a></li><li><a href="module-eclairjs_sql_types.BinaryType.html">BinaryType</a></li><li><a href="module-eclairjs_sql_types.BooleanType.html">BooleanType</a></li><li><a href="module-eclairjs_sql_types.CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="module-eclairjs_sql_types.DataType.html">DataType</a></li><li><a href="module-eclairjs_sql_types.DataTypes.html">DataTypes</a></li><li><a href="module-eclairjs_sql_types.DateType.html">DateType</a></li><li><a href="module-eclairjs_sql_types.DoubleType.html">DoubleType</a></li><li><a href="module-eclairjs_sql_types.FloatType.html">FloatType</a></li><li><a href="module-eclairjs_sql_types.IntegerType.html">IntegerType</a></li><li><a href="module-eclairjs_sql_types.MapType.html">MapType</a></li><li><a href="module-eclairjs_sql_types.Metadata.html">Metadata</a></li><li><a href="module-eclairjs_sql_types.NullType.html">NullType</a></li><li><a href="module-eclairjs_sql_types.NumericType.html">NumericType</a></li><li><a href="module-eclairjs_sql_types.StringType.html">StringType</a></li><li><a href="module-eclairjs_sql_types.StructField.html">StructField</a></li><li><a href="module-eclairjs_sql_types.StructType.html">StructType</a></li><li><a href="module-eclairjs_sql_types.TimestampType.html">TimestampType</a></li><li><a href="MulticlassMetrics.html">MulticlassMetrics</a></li><li><a href="MultilabelMetrics.html">MultilabelMetrics</a></li><li><a href="NaiveBayes.html">NaiveBayes</a></li><li><a href="NaiveBayesModel.html">NaiveBayesModel</a></li><li><a href="PairDStream.html">PairDStream</a></li><li><a href="PairRDD.html">PairRDD</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="PowerIterationClustering.html">PowerIterationClustering</a></li><li><a href="PowerIterationClusteringAssignment.html">PowerIterationClusteringAssignment</a></li><li><a href="PowerIterationClusteringModel.html">PowerIterationClusteringModel</a></li><li><a href="PrefixSpan.html">PrefixSpan</a></li><li><a href="PrefixSpanFreqSequence.html">PrefixSpanFreqSequence</a></li><li><a href="PrefixSpanModel.html">PrefixSpanModel</a></li><li><a href="RandomForest.html">RandomForest</a></li><li><a href="RandomForestModel.html">RandomForestModel</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RankingMetrics.html">RankingMetrics</a></li><li><a href="Rating.html">Rating</a></li><li><a href="RDD.html">RDD</a></li><li><a href="RegressionMetrics.html">RegressionMetrics</a></li><li><a href="Rule.html">Rule</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SquaredL2Updater.html">SquaredL2Updater</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="Strategy.html">Strategy</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="SVMModel.html">SVMModel</a></li><li><a href="SVMWithSGD.html">SVMWithSGD</a></li><li><a href="Time.html">Time</a></li><li><a href="Tuple.html">Tuple</a></li><li><a href="TwitterAuthorization.html">TwitterAuthorization</a></li><li><a href="Updater.html">Updater</a></li><li><a href="Word2Vec.html">Word2Vec</a></li><li><a href="Word2VecModel.html">Word2VecModel</a></li></ul><h3>Interfaces</h3><ul><li><a href="ClassificationModel.html">ClassificationModel</a></li></ul><h3>Global</h3><ul><li><a href="global.html#module">module</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-eclairjs_mllib.html">eclairjs/mllib</a></li><li><a href="module-eclairjs_mllib_classification.html">eclairjs/mllib/classification</a></li><li><a href="module-eclairjs_mllib_clustering.html">eclairjs/mllib/clustering</a></li><li><a href="module-eclairjs_mllib_evaluation.html">eclairjs/mllib/evaluation</a></li><li><a href="module-eclairjs_mllib_feature.html">eclairjs/mllib/feature</a></li><li><a href="module-eclairjs_mllib_linalg.html">eclairjs/mllib/linalg</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.html">eclairjs/mllib/linalg/distributed</a></li><li><a href="module-eclairjs_mllib_random.html">eclairjs/mllib/random</a></li><li><a href="module-eclairjs_mllib_recommendation.html">eclairjs/mllib/recommendation</a></li><li><a href="module-eclairjs_mllib_regression.html">eclairjs/mllib/regression</a></li><li><a href="module-eclairjs_mllib_tree.html">eclairjs/mllib/tree</a></li><li><a href="module-eclairjs_mllib_tree_configuration.html">eclairjs/mllib/tree/configuration</a></li><li><a href="module-eclairjs_mllib_tree_loss.html">eclairjs/mllib/tree/loss</a></li><li><a href="module-eclairjs_mllib_tree_model.html">eclairjs/mllib/tree/model</a></li><li><a href="module-eclairjs_sql.html">eclairjs/sql</a></li><li><a href="module-eclairjs_sql_types.html">eclairjs/sql/types</a></li><li><a href="module-eclairjs_storage.html">eclairjs/storage</a></li></ul><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="AssociationRules.html">AssociationRules</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatRDD.html">FloatRDD</a></li><li><a href="FPGrowth.html">FPGrowth</a></li><li><a href="FPGrowthModel.html">FPGrowthModel</a></li><li><a href="FreqItemset.html">FreqItemset</a></li><li><a href="FutureAction.html">FutureAction</a></li><li><a href="Gradient.html">Gradient</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="LBFGS.html">LBFGS</a></li><li><a href="List.html">List</a></li><li><a href="Logger.html">Logger</a></li><li><a href="LogisticGradient.html">LogisticGradient</a></li><li><a href="MLWord2Vec.html">MLWord2Vec</a></li><li><a href="MLWord2VecModel.html">MLWord2VecModel</a></li><li><a href="module-eclairjs_mllib_classification.LogisticRegressionModel.html">LogisticRegressionModel</a></li><li><a href="module-eclairjs_mllib_classification.LogisticRegressionWithLBFGS.html">LogisticRegressionWithLBFGS</a></li><li><a href="module-eclairjs_mllib_classification.NaiveBayes.html">NaiveBayes</a></li><li><a href="module-eclairjs_mllib_classification.NaiveBayesModel.html">NaiveBayesModel</a></li><li><a href="module-eclairjs_mllib_classification.SVMModel.html">SVMModel</a></li><li><a href="module-eclairjs_mllib_clustering.BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="module-eclairjs_mllib_clustering.DistributedLDAModel.html">DistributedLDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.LDAModel.html">LDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.LocalLDAModel.html">LocalLDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClustering.html">PowerIterationClustering</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClusteringAssignment.html">PowerIterationClusteringAssignment</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClusteringModel.html">PowerIterationClusteringModel</a></li><li><a href="module-eclairjs_mllib_configuration.BoostingStrategy.html">BoostingStrategy</a></li><li><a href="module-eclairjs_mllib_evaluation.MulticlassMetrics.html">MulticlassMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.MultilabelMetrics.html">MultilabelMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.RegressionMetrics.html">RegressionMetrics</a></li><li><a href="module-eclairjs_mllib_feature.Word2Vec.html">Word2Vec</a></li><li><a href="module-eclairjs_mllib_linalg.DenseMatrix.html">DenseMatrix</a></li><li><a href="module-eclairjs_mllib_linalg.DenseVector.html">DenseVector</a></li><li><a href="module-eclairjs_mllib_linalg.Matrices.html">Matrices</a></li><li><a href="module-eclairjs_mllib_linalg.Matrix.html">Matrix</a></li><li><a href="module-eclairjs_mllib_linalg.QRDecomposition.html">QRDecomposition</a></li><li><a href="module-eclairjs_mllib_linalg.SingularValueDecomposition.html">SingularValueDecomposition</a></li><li><a href="module-eclairjs_mllib_linalg.SparseMatrix.html">SparseMatrix</a></li><li><a href="module-eclairjs_mllib_linalg.SparseVector.html">SparseVector</a></li><li><a href="module-eclairjs_mllib_linalg.Vector.html">Vector</a></li><li><a href="module-eclairjs_mllib_linalg.Vectors.html">Vectors</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.DistributedMatrix.html">DistributedMatrix</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.RowMatrix.html">RowMatrix</a></li><li><a href="module-eclairjs_mllib_random.RandomRDDs.html">RandomRDDs</a></li><li><a href="module-eclairjs_mllib_recommendation.ALS.html">ALS</a></li><li><a href="module-eclairjs_mllib_recommendation.MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="module-eclairjs_mllib_recommendation.Rating.html">Rating</a></li><li><a href="module-eclairjs_mllib_regression.GeneralizedLinearModel.html">GeneralizedLinearModel</a></li><li><a href="module-eclairjs_mllib_regression.LabeledPoint.html">LabeledPoint</a></li><li><a href="module-eclairjs_mllib_regression.LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="module-eclairjs_mllib_regression.LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="module-eclairjs_mllib_tree.DecisionTree.html">DecisionTree</a></li><li><a href="module-eclairjs_mllib_tree.GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="module-eclairjs_mllib_tree.RandomForest.html">RandomForest</a></li><li><a href="module-eclairjs_mllib_tree_loss.Loss.html">Loss</a></li><li><a href="module-eclairjs_mllib_tree_model.DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="module-eclairjs_mllib_tree_model.GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="module-eclairjs_mllib_tree_model.RandomForestModel.html">RandomForestModel</a></li><li><a href="module-eclairjs_sql.Column.html">Column</a></li><li><a href="module-eclairjs_sql.DataFrame.html">DataFrame</a></li><li><a href="module-eclairjs_sql.DataFrameHolder.html">DataFrameHolder</a></li><li><a href="module-eclairjs_sql.DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="module-eclairjs_sql.DataFrameReader.html">DataFrameReader</a></li><li><a href="module-eclairjs_sql.DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="module-eclairjs_sql.DataFrameWriter.html">DataFrameWriter</a></li><li><a href="module-eclairjs_sql.functions.html">functions</a></li><li><a href="module-eclairjs_sql.GroupedData.html">GroupedData</a></li><li><a href="module-eclairjs_sql.Row.html">Row</a></li><li><a href="module-eclairjs_sql.RowFactory.html">RowFactory</a></li><li><a href="module-eclairjs_sql.SQLContext.html">SQLContext</a></li><li><a href="module-eclairjs_sql.SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="module-eclairjs_sql.SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="module-eclairjs_sql.SQLContext.SQLSession.html">SQLSession</a></li><li><a href="module-eclairjs_sql.SqlDate.html">SqlDate</a></li><li><a href="module-eclairjs_sql.SqlTimestamp.html">SqlTimestamp</a></li><li><a href="module-eclairjs_sql_types.ArrayType.html">ArrayType</a></li><li><a href="module-eclairjs_sql_types.BinaryType.html">BinaryType</a></li><li><a href="module-eclairjs_sql_types.BooleanType.html">BooleanType</a></li><li><a href="module-eclairjs_sql_types.CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="module-eclairjs_sql_types.DataType.html">DataType</a></li><li><a href="module-eclairjs_sql_types.DataTypes.html">DataTypes</a></li><li><a href="module-eclairjs_sql_types.DateType.html">DateType</a></li><li><a href="module-eclairjs_sql_types.DoubleType.html">DoubleType</a></li><li><a href="module-eclairjs_sql_types.FloatType.html">FloatType</a></li><li><a href="module-eclairjs_sql_types.IntegerType.html">IntegerType</a></li><li><a href="module-eclairjs_sql_types.MapType.html">MapType</a></li><li><a href="module-eclairjs_sql_types.Metadata.html">Metadata</a></li><li><a href="module-eclairjs_sql_types.NullType.html">NullType</a></li><li><a href="module-eclairjs_sql_types.NumericType.html">NumericType</a></li><li><a href="module-eclairjs_sql_types.StringType.html">StringType</a></li><li><a href="module-eclairjs_sql_types.StructField.html">StructField</a></li><li><a href="module-eclairjs_sql_types.StructType.html">StructType</a></li><li><a href="module-eclairjs_sql_types.TimestampType.html">TimestampType</a></li><li><a href="module-eclairjs_storage.StorageLevel.html">StorageLevel</a></li><li><a href="PairDStream.html">PairDStream</a></li><li><a href="PairRDD.html">PairRDD</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="PrefixSpan.html">PrefixSpan</a></li><li><a href="PrefixSpanFreqSequence.html">PrefixSpanFreqSequence</a></li><li><a href="PrefixSpanModel.html">PrefixSpanModel</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Rule.html">Rule</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SquaredL2Updater.html">SquaredL2Updater</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="Time.html">Time</a></li><li><a href="Tuple.html">Tuple</a></li><li><a href="TwitterAuthorization.html">TwitterAuthorization</a></li><li><a href="Updater.html">Updater</a></li></ul><h3>Interfaces</h3><ul><li><a href="module-eclairjs_mllib_classification.ClassificationModel.html">ClassificationModel</a></li></ul><h3>Global</h3><ul><li><a href="global.html#module">module</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Fri Apr 08 2016 15:23:57 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Tue Apr 12 2016 14:56:09 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>

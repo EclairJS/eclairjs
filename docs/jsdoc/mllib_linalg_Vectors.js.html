@@ -41,349 +41,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-{
-    /**
-     * Represents a numeric vector, whose index type is Int and value type is Double.
-     *
-     * Note: Users should not implement this interface.
-     * @classdesc
-     * @constructor
-     * @memberof module:eclairjs/mllib/linalg
-     */
-
-
-    var Vector = function (jvmObject) {
-
-        this.logger = Logger.getLogger("Vector_js");
-        JavaWrapper.call(this, jvmObject);
-
-    };
-
-    Vector.prototype = Object.create(JavaWrapper.prototype);
-
-    Vector.prototype.constructor = Vector;
-
-
-
-    /**
-     * Size of the vector.
-     * @returns {integer}
-     */
-    Vector.prototype.size = function () {
-        return this.getJavaObject().size();
-    };
-
-
-    /**
-     * Converts the instance to a double array.
-     * @returns {float[]}
-     */
-    Vector.prototype.toArray = function () {
-        var a = this.getJavaObject().toArray();
-        var ret = Java.from(a); // convert java array to JavaScript array.
-        return ret;
-    };
-
-
-    /**
-     * @param {object} other
-     * @returns {boolean}
-     */
-    Vector.prototype.equals = function (other) {
-        var other_uw = Utils.unwrapObject(other);
-        return this.getJavaObject().equals(other_uw);
-    };
-
-
-    /**
-     * Returns a hash code value for the vector. The hash code is based on its size and its first 128
-     * nonzero entries, using a hash algorithm similar to {@link hashCode}.
-     * @returns {number}
-     */
-    Vector.prototype.hashCode = function () {
-       return  this.getJavaObject().hashCode();
-    };
-
-
-    /**
-     * Gets the value of the ith element.
-     * @param {number} i  index
-     * @returns {number}
-     */
-    Vector.prototype.apply = function (i) {
-       return  this.getJavaObject().apply(i);
-    };
-
-
-    /**
-     * Makes a deep copy of this vector.
-     * @returns {Vector}
-     */
-    Vector.prototype.copy = function () {
-       var javaObject =  this.getJavaObject().copy();
-       return Utils.javaToJs(javaObject);
-    };
-
-
-    /**
-     * Applies a function `f` to all the active elements of dense and sparse vector.
-     *
-     * @param {func} f  the function takes two parameters where the first parameter is the index of
-     *          the vector with type `Int`, and the second parameter is the corresponding value
-     *          with type `Double`.
-     */
-    Vector.prototype.foreachActive = function (f) {
-        throw "not implemented by ElairJS";
-    //   var sv = Utils.createJavaParams(f);
-    //   var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
-    //    this.getJavaObject().foreachActive(fn);
-    };
-
-
-    /**
-     * Number of active entries.  An "active entry" is an element which is explicitly stored,
-     * regardless of its value.  Note that inactive entries have value 0.
-     * @returns {number}
-     */
-    Vector.prototype.numActives = function () {
-        throw "not implemented by ElairJS";
-    //   return  this.getJavaObject().numActives();
-    };
-
-
-    /**
-     * Number of nonzero elements. This scans all active values and count nonzeros.
-     * @returns {number}
-     */
-    Vector.prototype.numNonzeros = function () {
-        throw "not implemented by ElairJS";
-    //   return  this.getJavaObject().numNonzeros();
-    };
-
-
-    /**
-     * Converts this vector to a sparse vector with all explicit zeros removed.
-     * @returns {SparseVector}
-     */
-    Vector.prototype.toSparse = function () {
-       var javaObject =  this.getJavaObject().toSparse();
-       return new SparseVector(javaObject);
-    };
-
-
-    /**
-     * Converts this vector to a dense vector.
-     * @returns {DenseVector}
-     */
-    Vector.prototype.toDense = function () {
-       var javaObject =  this.getJavaObject().toDense();
-       return new DenseVector(javaObject);
-    };
-
-
-    /**
-     * Returns a vector in either dense or sparse format, whichever uses less storage.
-     * @returns {Vector}
-     */
-    Vector.prototype.compressed = function () {
-       var javaObject =  this.getJavaObject().compressed();
-       return Utils.javaToJs(javaObject);
-    };
-
-
-    /**
-     * Find the index of a maximal element.  Returns the first maximal element in case of a tie.
-     * Returns -1 if vector has length 0.
-     * @returns {integer}
-     */
-    Vector.prototype.argmax = function () {
-       return  this.getJavaObject().argmax();
-    };
-
-
-    /**
-     * Converts the vector to a JSON string.
-     * @returns {string}
-     */
-    Vector.prototype.toJSON = function () {
-        return  this.toArray();
-    };
-
-
-    /**
-     * :: AlphaComponent ::
-     *
-     * User-defined type for {@link Vector} which allows easy interaction with SQL
-     * via {@link DataFrame}.
-     * @classdesc
-     * @memberof module:eclairjs/mllib/linalg
-     */
-
-    /**
-     * @returns {??}
-     *  @class
-     */
-    var VectorUDT = function (jvmObject) {
-
-        this.logger = Logger.getLogger("VectorUDT_js");
-        JavaWrapper.call(this, jvmObject);
-
-    };
-
-    VectorUDT.prototype = Object.create(JavaWrapper.prototype);
-
-    VectorUDT.prototype.constructor = VectorUDT;
-
-
-    /**
-     * @returns {StructType}
-     */
-    VectorUDT.prototype.sqlType = function () {
-        throw "not implemented by ElairJS";
-    //   var javaObject =  this.getJavaObject().sqlType();
-    //   return new StructType(javaObject);
-    };
-
-
-    /**
-     * @param {object} obj
-     * @returns {InternalRow}
-     */
-    VectorUDT.prototype.serialize = function (obj) {
-        throw "not implemented by ElairJS";
-    //   var obj_uw = Utils.unwrapObject(obj);
-    //   return  this.getJavaObject().serialize(obj_uw);
-    };
-
-
-    /**
-     * @param {object} datum
-     * @returns {Vector}
-     */
-    VectorUDT.prototype.deserialize = function (datum) {
-        throw "not implemented by ElairJS";
-    //   var datum_uw = Utils.unwrapObject(datum);
-    //   var javaObject =  this.getJavaObject().deserialize(datum_uw);
-    //   return Utils.javaToJs(javaObject);
-    };
-
-
-    /**
-     * @returns {string}
-     */
-    VectorUDT.prototype.pyUDT = function () {
-        throw "not implemented by ElairJS";
-    //   return  this.getJavaObject().pyUDT();
-    };
-
-
-    /**
-     * @returns {Class}
-     */
-    VectorUDT.prototype.userClass = function () {
-        throw "not implemented by ElairJS";
-    //   var javaObject =  this.getJavaObject().userClass();
-    //   return new Class(javaObject);
-    };
-
-
-    /**
-     * @param {object} o
-     * @returns {boolean}
-     */
-    VectorUDT.prototype.equals = function (o) {
-        throw "not implemented by ElairJS";
-    //   var o_uw = Utils.unwrapObject(o);
-    //   return  this.getJavaObject().equals(o_uw);
-    };
-
-
-    /**
-     * @returns {number}
-     */
-    VectorUDT.prototype.hashCode = function () {
-        throw "not implemented by ElairJS";
-    //   return  this.getJavaObject().hashCode();
-    };
-
-
-    /**
-     * @returns {string}
-     */
-    VectorUDT.prototype.typeName = function () {
-        throw "not implemented by ElairJS";
-    //   return  this.getJavaObject().typeName();
-    };
-
-
-    /**
-     * A dense vector represented by a value array.
-     * @classdesc
-     * @memberof module:eclairjs/mllib/linalg
-     */
-
-    /**
-     * @param {number[]} values
-     * @class
-     * @extends Vector
-     */
-    var DenseVector = function (arg) {
-        this.logger = Logger.getLogger("DenseVector_js");
-        var jvmObj;
-        if (Array.isArray(arg)) {
-            jvmObj = new org.apache.spark.mllib.linalg.DenseVector(arg);
-        } else {
-            jvmObj = arg;
-        }
-        Vector.call(this, jvmObj);
-
-    };
-
-    DenseVector.prototype = Object.create(Vector.prototype);
-
-    DenseVector.prototype.constructor = DenseVector;
-
-
-    /**
-     * A sparse vector represented by an index array and an value array.
-     *
-     * @param size size of the vector.
-     * @param indices index array, assume to be strictly increasing.
-     * @param values value array, must have the same length as the index array.
-     * @classdesc
-     * @memberof module:eclairjs/mllib/linalg
-     */
-
-    /**
-     * @param {number} size
-     * @param {number[]} indices
-     * @param {number[]} values
-     * @class
-     * @extends Vector
-     */
-    var SparseVector = function () {
-
-        this.logger = Logger.getLogger("SparseVector_js");
-        var jvmObj;
-        if (arguments[0] instanceof org.apache.spark.mllib.linalg.SparseVector) {
-            jvmObj = arguments[0];
-        } else {
-            jvmObj = new org.apache.spark.mllib.linalg.SparseVector(arguments);
-
-        }
-        Vector.call(this, jvmObj);
-
-    };
-
-    SparseVector.prototype = Object.create(Vector.prototype);
-
-    SparseVector.prototype.constructor = SparseVector;
-
+(function() {
+
+    var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
+    var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
+    var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
 
     /**
      *
      * @constructor
+     * @memberof module:eclairjs/mllib/linalg
      */
     var Vectors = function () {
         //var jvmObject = new org.apache.spark.mllib.linalg.SparseVector(size,indices,values);
@@ -532,40 +199,10 @@
     };
 
 
-    /**
-     * @param {DenseVector} dv
-     * @returns {Array}
-     */
-    DenseVector.unapply = function (dv) {
-        throw "not implemented by ElairJS";
-    //   var dv_uw = Utils.unwrapObject(dv);
-    //   return  org.apache.spark.mllib.linalg.DenseVector.unapply(dv_uw);
-    };
+    module.exports = Vectors;
 
 
-    /**
-     * @param {SparseVector} sv
-     * @returns {Tuple3}
-     */
-    SparseVector.unapply = function (sv) {
-        throw "not implemented by ElairJS";
-    //   var sv_uw = Utils.unwrapObject(sv);
-    //   var javaObject =  org.apache.spark.mllib.linalg.SparseVector.unapply(sv_uw);
-    //   return new Tuple3(javaObject);
-    };
-
-    /**
-     * Vectors module.
-     * @module eclairjs/mllib/linalg/Vectors
-     */
-    module.exports = {
-        Vector: Vector,
-        VectorUDT: VectorUDT,
-        DenseVector: DenseVector,
-        SparseVector: SparseVector,
-        Vectors: Vectors 
-    };
-}
+})();
 </code></pre>
         </article>
     </section>
@@ -576,13 +213,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-eclairjs_mllib_linalg.html">eclairjs/mllib/linalg</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.html">eclairjs/mllib/linalg/distributed</a></li><li><a href="module-eclairjs_mllib_linalg_Vectors.html">eclairjs/mllib/linalg/Vectors</a></li><li><a href="module-eclairjs_sql.html">eclairjs/sql</a></li><li><a href="module-eclairjs_sql_types.html">eclairjs/sql/types</a></li></ul><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ALS.html">ALS</a></li><li><a href="AssociationRules.html">AssociationRules</a></li><li><a href="BinaryClassificationMetrics.html">BinaryClassificationMetrics</a></li><li><a href="BisectingKMeans.html">BisectingKMeans</a></li><li><a href="BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="BoostingStrategy.html">BoostingStrategy</a></li><li><a href="DecisionTree.html">DecisionTree</a></li><li><a href="DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="DistributedLDAModel.html">DistributedLDAModel</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatRDD.html">FloatRDD</a></li><li><a href="FPGrowth.html">FPGrowth</a></li><li><a href="FPGrowthModel.html">FPGrowthModel</a></li><li><a href="FreqItemset.html">FreqItemset</a></li><li><a href="FutureAction.html">FutureAction</a></li><li><a href="GeneralizedLinearModel.html">GeneralizedLinearModel</a></li><li><a href="Gradient.html">Gradient</a></li><li><a href="GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IsotonicRegression.html">IsotonicRegression</a></li><li><a href="IsotonicRegressionModel.html">IsotonicRegressionModel</a></li><li><a href="KMeans.html">KMeans</a></li><li><a href="KMeansModel.html">KMeansModel</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LBFGS.html">LBFGS</a></li><li><a href="LDA.html">LDA</a></li><li><a href="LDAModel.html">LDAModel</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="List.html">List</a></li><li><a href="LocalLDAModel.html">LocalLDAModel</a></li><li><a href="Logger.html">Logger</a></li><li><a href="LogisticGradient.html">LogisticGradient</a></li><li><a href="LogisticRegressionModel.html">LogisticRegressionModel</a></li><li><a href="LogisticRegressionWithLBFGS.html">LogisticRegressionWithLBFGS</a></li><li><a href="LogisticRegressionWithSGD.html">LogisticRegressionWithSGD</a></li><li><a href="Loss.html">Loss</a></li><li><a href="MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="MLWord2Vec.html">MLWord2Vec</a></li><li><a href="MLWord2VecModel.html">MLWord2VecModel</a></li><li><a href="module-eclairjs_mllib_linalg.DenseMatrix.html">DenseMatrix</a></li><li><a href="module-eclairjs_mllib_linalg.Matrix.html">Matrix</a></li><li><a href="module-eclairjs_mllib_linalg.QRDecomposition.html">QRDecomposition</a></li><li><a href="module-eclairjs_mllib_linalg.SingularValueDecomposition.html">SingularValueDecomposition</a></li><li><a href="module-eclairjs_mllib_linalg.SparseMatrix.html">SparseMatrix</a></li><li><a href="module-eclairjs_mllib_linalg.Vector.html">Vector</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.DistributedMatrix.html">DistributedMatrix</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.RowMatrix.html">RowMatrix</a></li><li><a href="module-eclairjs_mllib_linalg_Vectors-DenseVector.html">DenseVector</a></li><li><a href="module-eclairjs_mllib_linalg_Vectors-SparseVector.html">SparseVector</a></li><li><a href="module-eclairjs_mllib_linalg_Vectors-Vectors.html">Vectors</a></li><li><a href="module-eclairjs_mllib_linalg_Vectors-VectorUDT.html">VectorUDT</a></li><li><a href="module-eclairjs_sql.Column.html">Column</a></li><li><a href="module-eclairjs_sql.DataFrame.html">DataFrame</a></li><li><a href="module-eclairjs_sql.DataFrameHolder.html">DataFrameHolder</a></li><li><a href="module-eclairjs_sql.DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="module-eclairjs_sql.DataFrameReader.html">DataFrameReader</a></li><li><a href="module-eclairjs_sql.DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="module-eclairjs_sql.DataFrameWriter.html">DataFrameWriter</a></li><li><a href="module-eclairjs_sql.functions.html">functions</a></li><li><a href="module-eclairjs_sql.GroupedData.html">GroupedData</a></li><li><a href="module-eclairjs_sql.Row.html">Row</a></li><li><a href="module-eclairjs_sql.RowFactory.html">RowFactory</a></li><li><a href="module-eclairjs_sql.SQLContext.html">SQLContext</a></li><li><a href="module-eclairjs_sql.SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="module-eclairjs_sql.SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="module-eclairjs_sql.SQLContext.SQLSession.html">SQLSession</a></li><li><a href="module-eclairjs_sql.SqlDate.html">SqlDate</a></li><li><a href="module-eclairjs_sql.SqlTimestamp.html">SqlTimestamp</a></li><li><a href="module-eclairjs_sql_types.ArrayType.html">ArrayType</a></li><li><a href="module-eclairjs_sql_types.BinaryType.html">BinaryType</a></li><li><a href="module-eclairjs_sql_types.BooleanType.html">BooleanType</a></li><li><a href="module-eclairjs_sql_types.CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="module-eclairjs_sql_types.DataType.html">DataType</a></li><li><a href="module-eclairjs_sql_types.DataTypes.html">DataTypes</a></li><li><a href="module-eclairjs_sql_types.DateType.html">DateType</a></li><li><a href="module-eclairjs_sql_types.DoubleType.html">DoubleType</a></li><li><a href="module-eclairjs_sql_types.FloatType.html">FloatType</a></li><li><a href="module-eclairjs_sql_types.IntegerType.html">IntegerType</a></li><li><a href="module-eclairjs_sql_types.MapType.html">MapType</a></li><li><a href="module-eclairjs_sql_types.Metadata.html">Metadata</a></li><li><a href="module-eclairjs_sql_types.NullType.html">NullType</a></li><li><a href="module-eclairjs_sql_types.NumericType.html">NumericType</a></li><li><a href="module-eclairjs_sql_types.StringType.html">StringType</a></li><li><a href="module-eclairjs_sql_types.StructField.html">StructField</a></li><li><a href="module-eclairjs_sql_types.StructType.html">StructType</a></li><li><a href="module-eclairjs_sql_types.TimestampType.html">TimestampType</a></li><li><a href="MulticlassMetrics.html">MulticlassMetrics</a></li><li><a href="MultilabelMetrics.html">MultilabelMetrics</a></li><li><a href="NaiveBayes.html">NaiveBayes</a></li><li><a href="NaiveBayesModel.html">NaiveBayesModel</a></li><li><a href="PairDStream.html">PairDStream</a></li><li><a href="PairRDD.html">PairRDD</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="PowerIterationClustering.html">PowerIterationClustering</a></li><li><a href="PowerIterationClusteringAssignment.html">PowerIterationClusteringAssignment</a></li><li><a href="PowerIterationClusteringModel.html">PowerIterationClusteringModel</a></li><li><a href="PrefixSpan.html">PrefixSpan</a></li><li><a href="PrefixSpanFreqSequence.html">PrefixSpanFreqSequence</a></li><li><a href="PrefixSpanModel.html">PrefixSpanModel</a></li><li><a href="RandomForest.html">RandomForest</a></li><li><a href="RandomForestModel.html">RandomForestModel</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RankingMetrics.html">RankingMetrics</a></li><li><a href="Rating.html">Rating</a></li><li><a href="RDD.html">RDD</a></li><li><a href="RegressionMetrics.html">RegressionMetrics</a></li><li><a href="Rule.html">Rule</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SquaredL2Updater.html">SquaredL2Updater</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="Strategy.html">Strategy</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="SVMModel.html">SVMModel</a></li><li><a href="SVMWithSGD.html">SVMWithSGD</a></li><li><a href="Time.html">Time</a></li><li><a href="Tuple.html">Tuple</a></li><li><a href="TwitterAuthorization.html">TwitterAuthorization</a></li><li><a href="Updater.html">Updater</a></li><li><a href="Word2Vec.html">Word2Vec</a></li><li><a href="Word2VecModel.html">Word2VecModel</a></li></ul><h3>Interfaces</h3><ul><li><a href="ClassificationModel.html">ClassificationModel</a></li></ul><h3>Global</h3><ul><li><a href="global.html#module">module</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-eclairjs_mllib.html">eclairjs/mllib</a></li><li><a href="module-eclairjs_mllib_classification.html">eclairjs/mllib/classification</a></li><li><a href="module-eclairjs_mllib_clustering.html">eclairjs/mllib/clustering</a></li><li><a href="module-eclairjs_mllib_evaluation.html">eclairjs/mllib/evaluation</a></li><li><a href="module-eclairjs_mllib_feature.html">eclairjs/mllib/feature</a></li><li><a href="module-eclairjs_mllib_linalg.html">eclairjs/mllib/linalg</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.html">eclairjs/mllib/linalg/distributed</a></li><li><a href="module-eclairjs_mllib_random.html">eclairjs/mllib/random</a></li><li><a href="module-eclairjs_mllib_recommendation.html">eclairjs/mllib/recommendation</a></li><li><a href="module-eclairjs_mllib_regression.html">eclairjs/mllib/regression</a></li><li><a href="module-eclairjs_mllib_tree.html">eclairjs/mllib/tree</a></li><li><a href="module-eclairjs_mllib_tree_configuration.html">eclairjs/mllib/tree/configuration</a></li><li><a href="module-eclairjs_mllib_tree_loss.html">eclairjs/mllib/tree/loss</a></li><li><a href="module-eclairjs_mllib_tree_model.html">eclairjs/mllib/tree/model</a></li><li><a href="module-eclairjs_sql.html">eclairjs/sql</a></li><li><a href="module-eclairjs_sql_types.html">eclairjs/sql/types</a></li><li><a href="module-eclairjs_storage.html">eclairjs/storage</a></li></ul><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="AssociationRules.html">AssociationRules</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatRDD.html">FloatRDD</a></li><li><a href="FPGrowth.html">FPGrowth</a></li><li><a href="FPGrowthModel.html">FPGrowthModel</a></li><li><a href="FreqItemset.html">FreqItemset</a></li><li><a href="FutureAction.html">FutureAction</a></li><li><a href="Gradient.html">Gradient</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="LBFGS.html">LBFGS</a></li><li><a href="List.html">List</a></li><li><a href="Logger.html">Logger</a></li><li><a href="LogisticGradient.html">LogisticGradient</a></li><li><a href="MLWord2Vec.html">MLWord2Vec</a></li><li><a href="MLWord2VecModel.html">MLWord2VecModel</a></li><li><a href="module-eclairjs_mllib_classification.LogisticRegressionModel.html">LogisticRegressionModel</a></li><li><a href="module-eclairjs_mllib_classification.LogisticRegressionWithLBFGS.html">LogisticRegressionWithLBFGS</a></li><li><a href="module-eclairjs_mllib_classification.NaiveBayes.html">NaiveBayes</a></li><li><a href="module-eclairjs_mllib_classification.NaiveBayesModel.html">NaiveBayesModel</a></li><li><a href="module-eclairjs_mllib_classification.SVMModel.html">SVMModel</a></li><li><a href="module-eclairjs_mllib_clustering.BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="module-eclairjs_mllib_clustering.DistributedLDAModel.html">DistributedLDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.LDAModel.html">LDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.LocalLDAModel.html">LocalLDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClustering.html">PowerIterationClustering</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClusteringAssignment.html">PowerIterationClusteringAssignment</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClusteringModel.html">PowerIterationClusteringModel</a></li><li><a href="module-eclairjs_mllib_configuration.BoostingStrategy.html">BoostingStrategy</a></li><li><a href="module-eclairjs_mllib_evaluation.MulticlassMetrics.html">MulticlassMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.MultilabelMetrics.html">MultilabelMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.RegressionMetrics.html">RegressionMetrics</a></li><li><a href="module-eclairjs_mllib_feature.Word2Vec.html">Word2Vec</a></li><li><a href="module-eclairjs_mllib_linalg.DenseMatrix.html">DenseMatrix</a></li><li><a href="module-eclairjs_mllib_linalg.DenseVector.html">DenseVector</a></li><li><a href="module-eclairjs_mllib_linalg.Matrices.html">Matrices</a></li><li><a href="module-eclairjs_mllib_linalg.Matrix.html">Matrix</a></li><li><a href="module-eclairjs_mllib_linalg.QRDecomposition.html">QRDecomposition</a></li><li><a href="module-eclairjs_mllib_linalg.SingularValueDecomposition.html">SingularValueDecomposition</a></li><li><a href="module-eclairjs_mllib_linalg.SparseMatrix.html">SparseMatrix</a></li><li><a href="module-eclairjs_mllib_linalg.SparseVector.html">SparseVector</a></li><li><a href="module-eclairjs_mllib_linalg.Vector.html">Vector</a></li><li><a href="module-eclairjs_mllib_linalg.Vectors.html">Vectors</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.DistributedMatrix.html">DistributedMatrix</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.RowMatrix.html">RowMatrix</a></li><li><a href="module-eclairjs_mllib_random.RandomRDDs.html">RandomRDDs</a></li><li><a href="module-eclairjs_mllib_recommendation.ALS.html">ALS</a></li><li><a href="module-eclairjs_mllib_recommendation.MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="module-eclairjs_mllib_recommendation.Rating.html">Rating</a></li><li><a href="module-eclairjs_mllib_regression.GeneralizedLinearModel.html">GeneralizedLinearModel</a></li><li><a href="module-eclairjs_mllib_regression.LabeledPoint.html">LabeledPoint</a></li><li><a href="module-eclairjs_mllib_regression.LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="module-eclairjs_mllib_regression.LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="module-eclairjs_mllib_tree.DecisionTree.html">DecisionTree</a></li><li><a href="module-eclairjs_mllib_tree.GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="module-eclairjs_mllib_tree.RandomForest.html">RandomForest</a></li><li><a href="module-eclairjs_mllib_tree_loss.Loss.html">Loss</a></li><li><a href="module-eclairjs_mllib_tree_model.DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="module-eclairjs_mllib_tree_model.GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="module-eclairjs_mllib_tree_model.RandomForestModel.html">RandomForestModel</a></li><li><a href="module-eclairjs_sql.Column.html">Column</a></li><li><a href="module-eclairjs_sql.DataFrame.html">DataFrame</a></li><li><a href="module-eclairjs_sql.DataFrameHolder.html">DataFrameHolder</a></li><li><a href="module-eclairjs_sql.DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="module-eclairjs_sql.DataFrameReader.html">DataFrameReader</a></li><li><a href="module-eclairjs_sql.DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="module-eclairjs_sql.DataFrameWriter.html">DataFrameWriter</a></li><li><a href="module-eclairjs_sql.functions.html">functions</a></li><li><a href="module-eclairjs_sql.GroupedData.html">GroupedData</a></li><li><a href="module-eclairjs_sql.Row.html">Row</a></li><li><a href="module-eclairjs_sql.RowFactory.html">RowFactory</a></li><li><a href="module-eclairjs_sql.SQLContext.html">SQLContext</a></li><li><a href="module-eclairjs_sql.SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="module-eclairjs_sql.SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="module-eclairjs_sql.SQLContext.SQLSession.html">SQLSession</a></li><li><a href="module-eclairjs_sql.SqlDate.html">SqlDate</a></li><li><a href="module-eclairjs_sql.SqlTimestamp.html">SqlTimestamp</a></li><li><a href="module-eclairjs_sql_types.ArrayType.html">ArrayType</a></li><li><a href="module-eclairjs_sql_types.BinaryType.html">BinaryType</a></li><li><a href="module-eclairjs_sql_types.BooleanType.html">BooleanType</a></li><li><a href="module-eclairjs_sql_types.CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="module-eclairjs_sql_types.DataType.html">DataType</a></li><li><a href="module-eclairjs_sql_types.DataTypes.html">DataTypes</a></li><li><a href="module-eclairjs_sql_types.DateType.html">DateType</a></li><li><a href="module-eclairjs_sql_types.DoubleType.html">DoubleType</a></li><li><a href="module-eclairjs_sql_types.FloatType.html">FloatType</a></li><li><a href="module-eclairjs_sql_types.IntegerType.html">IntegerType</a></li><li><a href="module-eclairjs_sql_types.MapType.html">MapType</a></li><li><a href="module-eclairjs_sql_types.Metadata.html">Metadata</a></li><li><a href="module-eclairjs_sql_types.NullType.html">NullType</a></li><li><a href="module-eclairjs_sql_types.NumericType.html">NumericType</a></li><li><a href="module-eclairjs_sql_types.StringType.html">StringType</a></li><li><a href="module-eclairjs_sql_types.StructField.html">StructField</a></li><li><a href="module-eclairjs_sql_types.StructType.html">StructType</a></li><li><a href="module-eclairjs_sql_types.TimestampType.html">TimestampType</a></li><li><a href="module-eclairjs_storage.StorageLevel.html">StorageLevel</a></li><li><a href="PairDStream.html">PairDStream</a></li><li><a href="PairRDD.html">PairRDD</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="PrefixSpan.html">PrefixSpan</a></li><li><a href="PrefixSpanFreqSequence.html">PrefixSpanFreqSequence</a></li><li><a href="PrefixSpanModel.html">PrefixSpanModel</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RDD.html">RDD</a></li><li><a href="Rule.html">Rule</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SquaredL2Updater.html">SquaredL2Updater</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="Time.html">Time</a></li><li><a href="Tuple.html">Tuple</a></li><li><a href="TwitterAuthorization.html">TwitterAuthorization</a></li><li><a href="Updater.html">Updater</a></li></ul><h3>Interfaces</h3><ul><li><a href="module-eclairjs_mllib_classification.ClassificationModel.html">ClassificationModel</a></li></ul><h3>Global</h3><ul><li><a href="global.html#module">module</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Fri Apr 08 2016 15:23:57 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Tue Apr 12 2016 14:56:09 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>

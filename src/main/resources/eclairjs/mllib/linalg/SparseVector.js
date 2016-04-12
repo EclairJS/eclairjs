@@ -33,6 +33,7 @@
      * @param {number[]} indices
      * @param {number[]} values
      * @class
+     * @memberof module:eclairjs/mllib/linalg
      * @extends Vector
      */
     var SparseVector = function () {

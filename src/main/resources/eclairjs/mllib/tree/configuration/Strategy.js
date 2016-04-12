@@ -76,8 +76,8 @@
      * @param {number} subsamplingRate
      * @param {boolean} useNodeIdCache
      * @param {number} checkpointInterval
-     * @returns {??}
      *  @class
+     *  @memberof module:eclairjs/mllib/tree/configuration
      */
     var Strategy = function (jvmObject) {
 

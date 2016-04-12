@@ -20,8 +20,11 @@
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
 
 
-
-
+    /**
+     * @class
+     * @memberof module:eclairjs/mllib/linalg
+     * @type {{}}
+     */
     var Matrices = {};
     /**
      * Creates a column-major dense matrix.

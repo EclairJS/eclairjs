@@ -19,9 +19,12 @@
  bin/eclairjs.sh examples/mllib/svm_with_sgd_example.js"
  */
 
-var SVMWithSGD = require('eclairjs/mllib/classification').SVMWithSGD;
+
 
 function run(sc) {
+    var MLUtils = require("eclairjs/mllib/MLUtils");
+    var SVMWithSGD = require('eclairjs/mllib/classification').SVMWithSGD;
+    var BinaryClassificationMetrics = require('eclairjs/mllib/evaluation/BinaryClassificationMetrics');
 
     var path = "examples/data/mllib/sample_libsvm_data.txt";
     var data = MLUtils.loadLibSVMFile(sc, path);
@@ -68,6 +71,7 @@ if (typeof sparkContext === 'undefined') {
 
 // Save and load model
     results.model.save(sc, "target/tmp/SVMWithSGDModel");
+    var SVMModel = require('eclairjs/mllib/classification/SVMModel');
     var sameModel = SVMModel.load(sc, "target/tmp/SVMWithSGDModel");
 
     sc.stop();

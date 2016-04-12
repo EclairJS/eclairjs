@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-//var MLUtils = require("eclairjs/mllib/utils");
-var LogisticRegressionWithLBFGS = require("eclairjs/mllib/classification").LogisticRegressionWithLBFGS;
-var BinaryClassificationMetrics = require("eclairjs/mllib/evaluation/BinaryClassificationMetrics");
-var Vectors = require("eclairjs/mllib/linalg/Vectors");
-var LabeledPoint = require("eclairjs/mllib/regression/LabeledPoint");
+
 
 function run(sc) {
+
+    var MLUtils = require("eclairjs/mllib/MLUtils");
+    var LogisticRegressionWithLBFGS = require("eclairjs/mllib/classification").LogisticRegressionWithLBFGS;
+    var BinaryClassificationMetrics = require("eclairjs/mllib/evaluation/BinaryClassificationMetrics");
+    var Vectors = require("eclairjs/mllib/linalg/Vectors");
+    var LabeledPoint = require("eclairjs/mllib/regression/LabeledPoint");
 
     var filename = ((typeof args !== "undefined") && (args.length > 1)) ?
         args[1] : "examples/data/mllib/sample_binary_classification_data.txt";
@@ -40,9 +42,20 @@ function run(sc) {
         return new Tuple(model.predict(lp.getFeatures()), lp.getLabel());
     }, [model]);
 
-    var metrics = new BinaryClassificationMetrics(predictionAndLabels);
+    return new BinaryClassificationMetrics(predictionAndLabels);
 
-// Precision by threshold
+}
+
+/*
+ check if SparkContext is defined, if it is we are being run from Unit Test
+ */
+
+if (typeof sparkContext === 'undefined') {
+
+    var sparkConf = new SparkConf().setAppName("Binary Classification Metrics Test");
+    var sc = new SparkContext(sparkConf);
+    var metrics = run(sc);
+    // Precision by threshold
     var precision = metrics.precisionByThreshold();
     print("Precision by threshold: " + precision.collect());
 
@@ -60,19 +73,6 @@ function run(sc) {
 // Precision-recall curve
     var prc = metrics.pr();
     print("Precision-recall curve: " + prc.collect());
-
-    return true;
-}
-
-/*
- check if SparkContext is defined, if it is we are being run from Unit Test
- */
-
-if (typeof sparkContext === 'undefined') {
-
-    var sparkConf = new SparkConf().setAppName("Binary Classification Metrics Test");
-    var sc = new SparkContext(sparkConf);
-    var result = run(sc);
 
     sc.stop();
 }
