@@ -18,13 +18,11 @@
     /**
      * mllib recommendation module.
      * @example
-     * var recommendation = require('eclairjs/mllib/recommendation');
-     * @module eclairjs/mllib/recommendation
+     * var random = require('eclairjs/mllib/random');
+     * @module eclairjs/mllib/random
      */
     module.exports = {
-        ALS: require(EclairJS_Globals.NAMESPACE + '/mllib/recommendation/ALS'),
-        MatrixFactorizationModel: require(EclairJS_Globals.NAMESPACE + '/mllib/recommendation/MatrixFactorizationModel'),
-        Rating: require(EclairJS_Globals.NAMESPACE + '/mllib/recommendation/Rating')
+        RandomRDDs: require(EclairJS_Globals.NAMESPACE + '/mllib/random/RandomRDDs')
 
     }
 })();
