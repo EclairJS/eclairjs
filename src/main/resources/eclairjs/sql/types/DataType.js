@@ -39,9 +39,7 @@
      * @returns {integer}
      */
     DataType.prototype.defaultSize = function () {
-        print("dt")
         var pack = this.getJavaObject().getClass().getPackage();
-        print(pack.getName());
         return this.getJavaObject().defaultSize();
     };
     /**
