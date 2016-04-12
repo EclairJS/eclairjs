@@ -23,10 +23,10 @@
      * @module eclairjs/mllib/linalg
      */
     module.exports = {
-        Matrix: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Matrices').Matrix,
-        DenseMatrix: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Matrices').DenseMatrix,
-        SparseMatrix: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Matrices').SparseMatrix,
-        Matrices: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Matrices').Matrices,
+        Matrix: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Matrix'),
+        DenseMatrix: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/DenseMatrix'),
+        SparseMatrix: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/SparseMatrix'),
+        Matrices: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Matrices'),
         QRDecomposition: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/SingularValueDecomposition').QRDecomposition,
         SingularValueDecomposition: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/SingularValueDecomposition').SingularValueDecomposition,
         Vectors: require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Vectors'),

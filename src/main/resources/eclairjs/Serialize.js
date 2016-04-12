@@ -185,11 +185,8 @@ var subModuleMap = {
     "eclairjs/mllib/clustering/PowerIterationClusteringAssignment": "eclairjs/mllib/clustering/PowerIterationClustering",
     "eclairjs/mllib/clustering/PowerIterationClusteringModel": "eclairjs/mllib/clustering/PowerIterationClustering",
     "eclairjs/mllib/linalg/QRDecomposition": "eclairjs/mllib/linalg/SingularValueDecomposition",
-    "eclairjs/mllib/linalg/SingularValueDecomposition": "eclairjs/mllib/linalg/SingularValueDecomposition",
-    "eclairjs/mllib/linalg/Matrix": "eclairjs/mllib/linalg/Matrices",
-    "eclairjs/mllib/linalg/DenseMatrix": "eclairjs/mllib/linalg/Matrices",
-    "eclairjs/mllib/linalg/SparseMatrix": "eclairjs/mllib/linalg/Matrices",
-    "eclairjs/mllib/linalg/Matrices": "eclairjs/mllib/linalg/Matrices"
+    "eclairjs/mllib/linalg/SingularValueDecomposition": "eclairjs/mllib/linalg/SingularValueDecomposition"
+
 
 };
 Serialize.javaSparkObject = function (javaObj) {
