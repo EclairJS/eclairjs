@@ -33,10 +33,14 @@ public class MlTest {
         Object ret = ((Invocable)engine).invokeFunction("Word2VecExample");
         
         String expected = "[" +
-                "{\"values\":[null],\"schema\":{\"fields\":[{\"name\":\"result\",\"dataType\":\"vector\",\"nullable\":true}]}}," +
-                "{\"values\":[null],\"schema\":{\"fields\":[{\"name\":\"result\",\"dataType\":\"vector\",\"nullable\":true}]}}," +
-                "{\"values\":[null],\"schema\":{\"fields\":[{\"name\":\"result\",\"dataType\":\"vector\",\"nullable\":true}]}}" +
+                "{\"values\":[[-0.006959987431764603,-0.002663574367761612,0.030144984275102617]]," +
+                "\"schema\":{\"fields\":[{\"name\":\"result\",\"dataType\":\"vector\",\"nullable\":true}]}}," +
+                "{\"values\":[[0.03422858566045761,0.026469426163073094,-0.02045729543481554]]," +
+                "\"schema\":{\"fields\":[{\"name\":\"result\",\"dataType\":\"vector\",\"nullable\":true}]}}," +
+                "{\"values\":[[0.04996728524565697,0.0027822263538837435,0.04833737155422568]]," +
+                "\"schema\":{\"fields\":[{\"name\":\"result\",\"dataType\":\"vector\",\"nullable\":true}]}}" +
                 "]";
+
         assertEquals("failure - strings are not equal", expected, ret);
 
     }

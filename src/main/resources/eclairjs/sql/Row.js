@@ -143,6 +143,8 @@
             v = this.getTimestamp(index);
         } else if (v !== null && v.getClass().getName() === 'java.sql.Date') {
             v = this.getDate(index);
+        } else {
+            v = Utils.javaToJs(v);
         }
         return v;
     };
