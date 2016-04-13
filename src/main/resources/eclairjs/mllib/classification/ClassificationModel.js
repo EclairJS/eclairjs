@@ -24,8 +24,9 @@
      * belongs. The categories are represented by double values: 0.0, 1.0, 2.0, etc.
      * @classdesc
      * @class
-     * @interface
      * @memberof module:eclairjs/mllib/classification
+     *
+     *
      */
 
 

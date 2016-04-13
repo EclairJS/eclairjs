@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: MapType</title>
+    <title>JSDoc: Class: LogisticRegressionWithSGD</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: MapType</h1>
+    <h1 class="page-title">Class: LogisticRegressionWithSGD</h1>
 
     
 
@@ -29,13 +29,10 @@
 <header>
     
         <h2>
-            <span class="ancestors"><a href="module-eclairjs_sql_types.html">eclairjs/sql/types</a>.</span>
+            <span class="ancestors"><a href="module-eclairjs_mllib_classification.html">eclairjs/mllib/classification</a>.</span>
         
-        MapType
+        LogisticRegressionWithSGD
         </h2>
-        
-            <div class="class-description">The data type for Maps. Keys in a map are not allowed to have null values.
-Please use DataTypes.createMapType() to create a specific instance.</div>
         
     
 </header>
@@ -46,15 +43,17 @@ Please use DataTypes.createMapType() to create a specific instance.</div>
         
 
     
-    <h2>Constructor</h2>
-    
 
-    <h4 class="name" id="MapType"><span class="type-signature"></span>new MapType<span class="signature">(keyType, valueType, valueContainsNull)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="LogisticRegressionWithSGD"><span class="type-signature"></span>new LogisticRegressionWithSGD<span class="signature">()</span><span class="type-signature"> &rarr; (nullable) {?}</span></h4>
 
     
 
 
 
+<div class="description">
+    Construct a LogisticRegression object with default parameters: {stepSize: 1.0,
+numIterations: 100, regParm: 0.01, miniBatchFraction: 1.0}.
+</div>
 
 
 
@@ -62,100 +61,6 @@ Please use DataTypes.createMapType() to create a specific instance.</div>
 
 
 
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>keyType</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">DataType</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The data type of map keys.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>valueType</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">DataType</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The data type of map values.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>valueContainsNull</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Indicates if map values have null values.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
 
 
 
@@ -191,7 +96,7 @@ Please use DataTypes.createMapType() to create a specific instance.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sql_types_MapType.js.html">sql/types/MapType.js</a>, <a href="sql_types_MapType.js.html#line31">line 31</a>
+        <a href="mllib_classification_LogisticRegressionWithSGD.js.html">mllib/classification/LogisticRegressionWithSGD.js</a>, <a href="mllib_classification_LogisticRegressionWithSGD.js.html#line44">line 44</a>
     </li></ul></dd>
     
 
@@ -214,22 +119,29 @@ Please use DataTypes.createMapType() to create a specific instance.</div>
 
 
 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">?</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
     
     </div>
-
-    
-        <h3 class="subsection-title">Extends</h3>
-
-        
-
-
-    <ul>
-        <li>DataType</li>
-    </ul>
-
 
     
 
@@ -251,14 +163,18 @@ Please use DataTypes.createMapType() to create a specific instance.</div>
 
     
 
-    <h4 class="name" id=".apply"><span class="type-signature">(static) </span>apply<span class="signature">(keyType, valueType)</span><span class="type-signature"> &rarr; {MapType}</span></h4>
+    <h4 class="name" id=".train"><span class="type-signature">(static) </span>train<span class="signature">(input, numIterations, stepSize<span class="signature-attributes">opt</span>, miniBatchFraction<span class="signature-attributes">opt</span>, initialWeights<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {LogisticRegressionModel}</span></h4>
 
     
 
 
 
 <div class="description">
-    Construct a MapType object with the given key type and value type.
+    Train a logistic regression model given an RDD of (label, features) pairs. We run a fixed
+number of iterations of gradient descent using the specified step size. Each iteration uses
+`miniBatchFraction` fraction of the data to calculate the gradient. The weights used in
+gradient descent are initialized using the initial weights provided.
+NOTE: Labels used in Logistic Regression should be {0, 1}
 </div>
 
 
@@ -282,6 +198,8 @@ Please use DataTypes.createMapType() to create a specific instance.</div>
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -294,46 +212,162 @@ Please use DataTypes.createMapType() to create a specific instance.</div>
 
         <tr>
             
-                <td class="name"><code>keyType</code></td>
+                <td class="name"><code>input</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">DataType</span>
+<span class="param-type"><a href="RDD.html">RDD</a></span>
 
 
             
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"></td>
+            <td class="description last">RDD of (label, array of features) pairs.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>valueType</code></td>
+                <td class="name"><code>numIterations</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">DataType</span>
+<span class="param-type">number</span>
 
 
             
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"></td>
+            <td class="description last">Number of iterations of gradient descent to run.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>stepSize</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">step size to be used for each iteration of gradient descent, defaults to 1.0.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>miniBatchFraction</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">fraction of data to be used per iteration.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>initialWeights</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Vector</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">initial set of weights to be used. Array should be equal in size to
+       the number of features in the data.</td>
         </tr>
 
     
@@ -374,7 +408,7 @@ Please use DataTypes.createMapType() to create a specific instance.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sql_types_MapType.js.html">sql/types/MapType.js</a>, <a href="sql_types_MapType.js.html#line55">line 55</a>
+        <a href="mllib_classification_LogisticRegressionWithSGD.js.html">mllib/classification/LogisticRegressionWithSGD.js</a>, <a href="mllib_classification_LogisticRegressionWithSGD.js.html#line71">line 71</a>
     </li></ul></dd>
     
 
@@ -408,495 +442,7 @@ Please use DataTypes.createMapType() to create a specific instance.</div>
     </dt>
     <dd>
         
-<span class="param-type">MapType</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="defaultSize"><span class="type-signature"></span>defaultSize<span class="signature">()</span><span class="type-signature"> &rarr; {integer}</span></h4>
-
-    
-
-
-
-<div class="description">
-    The default size of a value of the MapType is 100 * (the default size of the key type + the default size of the value type).
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sql_types_MapType.js.html">sql/types/MapType.js</a>, <a href="sql_types_MapType.js.html#line62">line 62</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">integer</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="keyType"><span class="type-signature"></span>keyType<span class="signature">()</span><span class="type-signature"> &rarr; {DataType}</span></h4>
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sql_types_MapType.js.html">sql/types/MapType.js</a>, <a href="sql_types_MapType.js.html#line68">line 68</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">DataType</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="simpleString"><span class="type-signature"></span>simpleString<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Readable string representation for the type.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sql_types_MapType.js.html">sql/types/MapType.js</a>, <a href="sql_types_MapType.js.html#line81">line 81</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="valueContainsNull"><span class="type-signature"></span>valueContainsNull<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sql_types_MapType.js.html">sql/types/MapType.js</a>, <a href="sql_types_MapType.js.html#line87">line 87</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">boolean</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="valueType"><span class="type-signature"></span>valueType<span class="signature">()</span><span class="type-signature"> &rarr; {DataType}</span></h4>
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sql_types_MapType.js.html">sql/types/MapType.js</a>, <a href="sql_types_MapType.js.html#line74">line 74</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">DataType</span>
+<span class="param-type">LogisticRegressionModel</span>
 
 
     </dd>
@@ -928,7 +474,7 @@ Please use DataTypes.createMapType() to create a specific instance.</div>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Wed Apr 13 2016 11:04:00 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Wed Apr 13 2016 11:03:51 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>
