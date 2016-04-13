@@ -25,7 +25,8 @@
  * and then run the example
  *    `$ bin/eclairjs.sh ./examples/streaming/network_word_count localhost 9999`
  */
-
+var Duration = require('eclairjs/streaming/Duration');
+var StreamingContext = require('eclairjs/streaming/StreamingContext');
 
 var hostname = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "localhost";
 var port = ((typeof args !== "undefined") && (args.length > 2)) ? 0 + args[2] : 9999;

@@ -95,13 +95,13 @@ public class SparkBootstrap implements Bootstrap {
             //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/storage/StorageLevel.js") + "');");
 
             // streaming
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/streaming/Duration.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/streaming/Time.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/streaming/StreamingContext.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/streaming/KafkaUtils.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/streaming/TwitterUtils.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/streaming/dstream/DStream.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/streaming/dstream/PairDStream.js") + "');");
+//            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/streaming/Duration.js") + "');");
+//            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/streaming/Time.js") + "');");
+//            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/streaming/StreamingContext.js") + "');");
+//            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/streaming/kafka/KafkaUtils.js") + "');");
+//            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/streaming/twitter/TwitterUtils.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/streaming/dstream/DStream.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/streaming/dstream/PairDStream.js") + "');");
 
             //mllib
 

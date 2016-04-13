@@ -28,6 +28,9 @@
  *    zoo03 my-consumer-group topic1,topic2 1`
  */
 
+var KafkaUtils = require('eclairjs/streaming/kafka/KafkaUtils');
+var Duration = require('eclairjs/streaming/Duration');
+var StreamingContext = require('eclairjs/streaming/StreamingContext');
 
 if ((typeof args == "undefined")||args.length<5)
 {
