@@ -17,6 +17,7 @@
 //var KafkaUtils = function() {}
 
 var JavaKakfaUtils = Java.type("org.apache.spark.streaming.kafka.KafkaUtils");
+
 var KafkaUtils = function(){};
 
 var Class = Java.type("java.lang.Class");
@@ -37,7 +38,7 @@ var StringDecoderClass=Class.forName("kafka.serializer.StringDecoder");
  */
 KafkaUtils.createStream = function(ssc, zkQuorum, group, topics) {
     var m = Utils.createJavaHashMap(topics,undefined,function(key,value){return new java.lang.Integer(value);});
-    return new DStream(JavaKakfaUtils.createStream(ssc.getJavaObject(),
+    return Utils.javaToJs(JavaKakfaUtils.createStream(ssc.getJavaObject(),
                                                    zkQuorum,
                                                    group,
                                                    m),
@@ -88,5 +89,5 @@ KafkaUtils.createDirectStream = function(ssc,kafkaParams,topics) {
         StringDecoderClass,
         StringDecoderClass,
         kafkaParams_uw,topics_uw);
-  return new DStream(javaObject,ssc);
+  return Utils.javaToJs(javaObject,ssc);
 };

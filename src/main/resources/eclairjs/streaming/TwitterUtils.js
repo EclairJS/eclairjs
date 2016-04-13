@@ -40,7 +40,7 @@ TwitterUtils.createStream = function(jssc,twitterAuth,filters) {
     filters=null;
   var javaObject =  JavaTwitterUtils["createStream(JavaStreamingContext,twitter4j.auth.Authorization,String[])"]
   (jssc_uw,twitterAuth_uw,filters);
-  return new DStream(javaObject,jssc);
+  return Utils.javaToJs(javaObject,jssc);
 };
 
 

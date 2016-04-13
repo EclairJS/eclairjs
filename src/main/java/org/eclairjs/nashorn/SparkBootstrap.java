@@ -100,8 +100,8 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/streaming/StreamingContext.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/streaming/KafkaUtils.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/streaming/TwitterUtils.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/streaming/dstream/DStream.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/streaming/dstream/PairDStream.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/streaming/dstream/DStream.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/streaming/dstream/PairDStream.js") + "');");
 
             //mllib
 

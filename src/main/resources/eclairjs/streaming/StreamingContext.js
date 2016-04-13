@@ -100,7 +100,7 @@ StreamingContext.prototype.close = function() {
 StreamingContext.prototype.socketTextStream = function(host, port) {
     var jDStream = this.getJavaObject().socketTextStream(host, port);
 
-    return new DStream(jDStream, this);
+    return Utils.javaToJs(jDStream, this);
 };
 
 /**
@@ -130,7 +130,7 @@ StreamingContext.prototype.queueStream = function(queue) {
   }
   else
     javaObject =  this.getJavaObject().queueStream(jQueue,oneAtATime);
-  return new  DStream(javaObject);
+  return  Utils.javaToJs(javaObject);
 };
 
 
@@ -162,7 +162,7 @@ StreamingContext.getOrCreate = function(checkpointPath,creatingFunc) {
   var bindArgs;
  var fn = Utils.createLambdaFunction(creatingFunc,org.eclairjs.nashorn.JSFunction0, this.sc(), bindArgs);
   var javaObject =  org.apache.spark.streaming.api.java.JavaStreamingContext.getOrCreate(checkpointPath,fn);
-  return new StreamingContext(javaObject);
+  return new Utils.javaToJs(javaObject);
 };
 
 

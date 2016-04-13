@@ -155,7 +155,8 @@ var java2wrapper = {
 };
 var javaPackageMap = {
     "eclairjs/sql/catalyst/expressions": "eclairjs/sql",
-    "eclairjs/api/java": "eclairjs"
+    "eclairjs/api/java": "eclairjs",
+    "eclairjs/streaming/api/java": "eclairjs/streaming"
 };
 var completedModules = { // FIXME temporary until all Class are require compatible
     "eclairjs/sql/types": true,
@@ -176,7 +177,8 @@ var completedModules = { // FIXME temporary until all Class are require compatib
     "eclairjs/mllib/tree": true,
     "eclairjs/storage": true,
     "eclairjs/mllib": true,
-    "eclairjs/ml/feature": true
+    "eclairjs/ml/feature": true,
+    "eclairjs/streaming/dstream": true
 };
 var subModuleMap = {}; // Leaving for now but probably can remove.
 Serialize.javaSparkObject = function (javaObj) {
@@ -207,15 +209,7 @@ Serialize.javaSparkObject = function (javaObj) {
 
     } else if (java2wrapper[className]) {
         className = java2wrapper[className]
-    }/* else if (className === "Word2Vec" || className === "Word2VecModel") {
-        if (packageName.indexOf("org.apache.spark.ml") > -1) {
-            //ML
-            className = "ML" + o.getClass().getSimpleName();
-        } else {
-            // MLLIB
-            //className = "MLLIB" + o.getClass().getSimpleName(); FIXME not implemented yet
-        }
-    }*/
+    }
 
     Serialize.logger.debug("javaSparkObject we have a className = " + className);
     //return eval("new " + className + "(javaObj)");
@@ -226,6 +220,13 @@ Serialize.javaSparkObject = function (javaObj) {
     Serialize.logger.debug("javaSparkObject we have a packageName = " + packageName);
 
     packageName = (javaPackageMap[packageName]) ? javaPackageMap[packageName] : packageName;
+    if (className === "DStream" || className === "PairDStream") {
+        /*
+        Java dstream objects are not in the dstream package so we have to force the correct
+        module path for us.
+         */
+        packageName = EclairJS_Globals.NAMESPACE+"/streaming/dstream";
+    }
     if (completedModules[packageName] ) { // FIXME temporary util all Class are require compatible
         var tmp = packageName+'/'+className;
         if (subModuleMap[tmp]) {
@@ -235,6 +236,7 @@ Serialize.javaSparkObject = function (javaObj) {
             req = 'var ' + className + ' = require("'+packageName+'/'+className+'");'
         }
     }
+
     var ret = false;
     try {
         // If TypeError exception is thrown catch it and try loading
