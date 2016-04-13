@@ -31,7 +31,7 @@
      * @classdesc
      * @param {Vector} weights
      * @param {float} intercept
-     *  @class
+     * @class
      */
     var SVMModel = function (weights, intercept) {
         var jvmObject;

@@ -30,7 +30,6 @@
      * NOTE: Labels used in Logistic Regression should be {0, 1, ..., k - 1}
      * for k classes multi-label classification problem.
      * Using {@link LogisticRegressionWithLBFGS} is recommended over this.
-     * @memberof module:eclairjs/mllib/classification
      * @classdesc
      */
 
@@ -38,7 +37,8 @@
      * Construct a LogisticRegression object with default parameters: {stepSize: 1.0,
      * numIterations: 100, regParm: 0.01, miniBatchFraction: 1.0}.
      * @returns {??}
-     *  @class
+     * @class
+     * @memberof module:eclairjs/mllib/classification
      */
     var LogisticRegressionWithSGD = function (jvmObject) {
 

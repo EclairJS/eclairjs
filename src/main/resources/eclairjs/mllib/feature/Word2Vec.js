@@ -39,7 +39,7 @@
      * Distributed Representations of Words and Phrases and their Compositionality.
      * @memberof module:eclairjs/mllib/feature
      * @classdesc
-     *  @class
+     * @class
      */
     var Word2Vec = function(jvmObject) {
          

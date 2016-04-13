@@ -20,7 +20,6 @@
     /**
      * A dense vector represented by a value array.
      * @classdesc
-     * @memberof module:eclairjs/mllib/linalg
      */
 
     /**

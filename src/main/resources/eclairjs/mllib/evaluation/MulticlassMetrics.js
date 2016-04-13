@@ -26,7 +26,7 @@
      * @memberof module:eclairjs/mllib/evaluation
      * @classdesc
      * @param {RDD} predictionAndLabels an RDD of (prediction, label) pairs.
-     *  @class
+     * @class
      */
     var MulticlassMetrics = function (predictionAndLabels) {
         var jvmObject;

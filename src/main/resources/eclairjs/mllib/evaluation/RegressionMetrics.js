@@ -26,7 +26,7 @@
      * @memberof module:eclairjs/mllib/evaluation
      * @classdesc
      * @param {RDD} predictionAndObservations
-     *  @class
+     * @class
      */
     var RegressionMetrics = function (predictionAndObservations) {
         this.logger = Logger.getLogger("RegressionMetrics_js");

@@ -27,14 +27,14 @@
      * Train a Support Vector Machine (SVM) using Stochastic Gradient Descent. By default L2
      * regularization is used, which can be changed via {@link optimizer}.
      * NOTE: Labels used in SVM should be {0, 1}.
-     * @memberof module:eclairjs/mllib/classification
      * @classdesc
      */
 
     /**
      * Construct a SVM object with default parameters: {stepSize: 1.0, numIterations: 100,
      * regParm: 0.01, miniBatchFraction: 1.0}.
-     *  @class
+     * @class
+     * @memberof module:eclairjs/mllib/classification
      */
     var SVMWithSGD = function (jvmObject) {
 

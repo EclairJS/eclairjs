@@ -44,8 +44,8 @@
     /**
      * @param {RDD} scoreAndLabels
      * @param {number} numBins
-     *  @class
-     *  @memberof module:eclairjs/mllib/evaluation
+     * @class
+     * @memberof module:eclairjs/mllib/evaluation
      */
     var BinaryClassificationMetrics = function(scoreAndLabels,numBins) {
         var jvmObject;

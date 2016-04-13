@@ -26,13 +26,13 @@
      * Java users should use [[RankingMetrics$.of]] to create a {@link RankingMetrics} instance.
      *
      * @param predictionAndLabels an RDD of (predicted ranking, ground truth set) pairs.
-     * @memberof module:eclairjs/mllib/evaluation
      * @classdesc
      */
 
     /**
      * @param {RDD} predictionAndLabels
-     *  @class
+     * @class
+     * @memberof module:eclairjs/mllib/evaluation
      */
     var RankingMetrics = function(predictionAndLabels) {
         this.logger = Logger.getLogger("RankingMetrics_js");

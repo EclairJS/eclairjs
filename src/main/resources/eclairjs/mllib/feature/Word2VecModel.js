@@ -27,14 +27,14 @@
      * @param wordVectors array of length numWords * vectorSize, vector corresponding
      *                    to the word mapped with index i can be retrieved by the slice
      *                    (i * vectorSize, i * vectorSize + vectorSize)
-     * @memberof module:eclairjs/mllib/feature
      * @classdesc
      */
 
     /**
      * @param {Map} model
      * @returns {??} 
-     *  @class
+     * @class
+     * @memberof module:eclairjs/mllib/feature
      */
     var Word2VecModel = function(jvmObject) {
 

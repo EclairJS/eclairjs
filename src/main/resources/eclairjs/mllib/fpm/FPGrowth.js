@@ -36,7 +36,6 @@
      * @see [[http://en.wikipedia.org/wiki/Association_rule_learning Association rule learning
      *       (Wikipedia)]]
      *
-     * @memberof module:eclairjs/mllib/fpm
      * @classdesc
      */
 
@@ -44,7 +43,8 @@
      * Constructs a default instance with default parameters {minSupport: `0.3`, numPartitions: same
      * as the input data}.
      *
-     *  @class
+     * @class
+     * @memberof module:eclairjs/mllib/fpm
      */
     var FPGrowth = function(obj) {
          

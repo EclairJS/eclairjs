@@ -36,8 +36,8 @@
      * @param {int} [numClasses] the number of possible outcomes for k classes classification problem in
      * Multinomial Logistic Regression. By default, it is binary logistic regression
      * so numClasses will be set to 2.
-     *  @class
-     *  @extends GeneralizedLinearModel
+     * @class
+     * @extends GeneralizedLinearModel
      */
     var LogisticRegressionModel = function (weights, intercept, numFeatures, numClasses) {
         this.logger = Logger.getLogger("LogisticRegressionModel_js");

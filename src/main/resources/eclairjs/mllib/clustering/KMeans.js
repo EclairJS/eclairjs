@@ -28,14 +28,14 @@
      *
      * This is an iterative algorithm that will make multiple passes over the data, so any RDDs given
      * to it should be cached by the user.
-     * @memberof module:eclairjs/mllib/clustering
      * @classdesc
      */
 
     /**
      * Constructs a KMeans instance with default parameters: {k: 2, maxIterations: 20, runs: 1,
      * initializationMode: "k-means||", initializationSteps: 5, epsilon: 1e-4, seed: random}.
-     *  @class
+     * @class
+     * @memberof module:eclairjs/mllib/clustering
      */
     var KMeans = function (jvmObject) {
 

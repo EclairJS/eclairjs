@@ -24,7 +24,6 @@
      * @param indices index array, assume to be strictly increasing.
      * @param values value array, must have the same length as the index array.
      * @classdesc
-     * @memberof module:eclairjs/mllib/linalg
      */
 
 

@@ -28,13 +28,13 @@
      * Generates association rules from a [[RDD[FreqItemset[Item]]]. This method only generates
      * association rules which have a single item as the consequent.
      *
-     * @memberof module:eclairjs/mllib/fpm
      * @classdesc
      */
 
     /**
      * Constructs a default instance with default parameters {minConfidence = 0.8}.
-     *  @class
+     * @class
+     * @memberof module:eclairjs/mllib/fpm
      */
     var AssociationRules = function() {
          

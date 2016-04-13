@@ -26,7 +26,7 @@
      * @classdesc
      * @param {number} k number of clusters
      * @param {RDD} assignments  an RDD of clustering [[PowerIterationClustering#Assignment]]s
-     *  @class
+     * @class
      */
     var PowerIterationClusteringModel = function(k,assignments) {
         this.logger = Logger.getLogger("PowerIterationClusteringModel_js");

@@ -26,7 +26,7 @@
      * @memberof module:eclairjs/mllib/evaluation
      * @classdesc
      * @param {RDD} predictionAndLabels
-     *  @class
+     * @class
      */
     var MultilabelMetrics = function(predictionAndLabels) {
         this.logger = Logger.getLogger("MultilabelMetrics_js");
