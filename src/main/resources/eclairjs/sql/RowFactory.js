@@ -27,7 +27,23 @@
      * @classdesc A factory class used to construct Row objects.
      */
 
-    var RowFactory = {};
+    var RowFactory = function (jvmObj) {
+        // Call the parent constructor, making sure (using Function#call)
+        // that "this" is set correctly during the call
+        JavaWrapper.call(this, jvmObj);
+
+        // Initialize our Row-specific properties
+        this.logger = Logger.getLogger("sql.RowFactory_js");
+        this.logger.debug("RowFactory constructor");
+    };
+
+
+    RowFactory.prototype = Object.create(JavaWrapper.prototype);
+
+    RowFactory.prototype.constructor = RowFactory;
+
+    // Static methods
+
     /**
      * Create a Row from the given arguments. Position i in the argument list becomes position i in the created Row object.
      * @param {object} values
