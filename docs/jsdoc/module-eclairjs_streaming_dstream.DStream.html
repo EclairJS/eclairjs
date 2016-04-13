@@ -1,0 +1,4778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Class: DStream</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Class: DStream</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+            <span class="ancestors"><a href="module-eclairjs_streaming_dstream.html">eclairjs/streaming/dstream</a>.</span>
+        
+        DStream
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+    
+
+    <h4 class="name" id="DStream"><span class="type-signature"></span>new DStream<span class="signature">(jDStream)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>jDStream</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="streaming_dstream_DStream.js.html">streaming/dstream/DStream.js</a>, <a href="streaming_dstream_DStream.js.html#line30">line 30</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="cache"><span class="type-signature"></span>cache<span class="signature">()</span><span class="type-signature"> &rarr; {DStream}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Persist RDDs of this DStream with the default storage level (MEMORY_ONLY_SER)
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="streaming_dstream_DStream.js.html">streaming/dstream/DStream.js</a>, <a href="streaming_dstream_DStream.js.html#line52">line 52</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">DStream</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="checkpoint"><span class="type-signature"></span>checkpoint<span class="signature">(interval)</span><span class="type-signature"> &rarr; {DStream}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Enable periodic checkpointing of RDDs of this DStream.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>interval</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Duration.html">Duration</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="streaming_dstream_DStream.js.html">streaming/dstream/DStream.js</a>, <a href="streaming_dstream_DStream.js.html#line124">line 124</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">DStream</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="compute"><span class="type-signature"></span>compute<span class="signature">(validTime)</span><span class="type-signature"> &rarr; {<a href="RDD.html">RDD</a>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Generate an RDD for the given duration
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>validTime</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Time.html">Time</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="streaming_dstream_DStream.js.html">streaming/dstream/DStream.js</a>, <a href="streaming_dstream_DStream.js.html#line60">line 60</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="RDD.html">RDD</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="context"><span class="type-signature"></span>context<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="StreamingContext.html">StreamingContext</a>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Return the StreamingContext associated with this DStream
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="streaming_dstream_DStream.js.html">streaming/dstream/DStream.js</a>, <a href="streaming_dstream_DStream.js.html#line131">line 131</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="StreamingContext.html">StreamingContext</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="count"><span class="type-signature"></span>count<span class="signature">()</span><span class="type-signature"> &rarr; {DStream}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Return a new DStream in which each RDD has a single element generated by
+counting each RDD of this DStream.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="streaming_dstream_DStream.js.html">streaming/dstream/DStream.js</a>, <a href="streaming_dstream_DStream.js.html#line139">line 139</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">DStream</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="countByValue"><span class="type-signature"></span>countByValue<span class="signature">(numPartitions)</span><span class="type-signature"> &rarr; {DStream}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Return a new DStream in which each RDD contains the counts of each distinct
+value in each RDD of this DStream. Hash partitioning is used to generate the
+RDDs with Spark's default number of partitions if numPartions is not
+specified.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>numPartitions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="streaming_dstream_DStream.js.html">streaming/dstream/DStream.js</a>, <a href="streaming_dstream_DStream.js.html#line150">line 150</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">DStream</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="countByValueAndWindow"><span class="type-signature"></span>countByValueAndWindow<span class="signature">(windowDuration, slideDuration, numPartitions)</span><span class="type-signature"> &rarr; {DStream}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Return a new DStream in which each RDD contains the count of distinct
+elements in RDDs in a sliding window over this DStream. Hash partitioning is
+used to generate the RDDs with Spark's default number of partitions if
+numPartitions is not specified.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>windowDuration</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Duration.html">Duration</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>slideDuration</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Duration.html">Duration</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>numPartitions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="streaming_dstream_DStream.js.html">streaming/dstream/DStream.js</a>, <a href="streaming_dstream_DStream.js.html#line167">line 167</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">DStream</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="countByValueAndWindow"><span class="type-signature"></span>countByValueAndWindow<span class="signature">(windowDuration, slideDuration, numPartitions<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {PairDStream}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Return a new DStream in which each RDD contains the count of distinct elements in
+RDDs in a sliding window over this DStream. Hash partitioning is used to generate the RDDs
+with `numPartitions` partitions.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>windowDuration</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Duration.html">Duration</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">width of the window; must be a multiple of this DStream's
+                      batching interval</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>slideDuration</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Duration.html">Duration</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">sliding interval of the window (i.e., the interval after which
+                      the new DStream will generate RDDs); must be a multiple of this
+                      DStream's batching interval</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>numPartitions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">number of partitions of each RDD in the new DStream.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="streaming_dstream_DStream.js.html">streaming/dstream/DStream.js</a>, <a href="streaming_dstream_DStream.js.html#line212">line 212</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">PairDStream</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="countByWindow"><span class="type-signature"></span>countByWindow<span class="signature">(windowDuration, slideDuration)</span><span class="type-signature"> &rarr; {DStream}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Return a new DStream in which each RDD has a single element generated by
+counting the number of elements in a window over this DStream. windowDuration
+and slideDuration are as defined in the window() operation. This is
+equivalent to window(windowDuration, slideDuration).count()
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>windowDuration</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Duration.html">Duration</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>slideDuration</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Duration.html">Duration</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="streaming_dstream_DStream.js.html">streaming/dstream/DStream.js</a>, <a href="streaming_dstream_DStream.js.html#line192">line 192</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">DStream</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="filter"><span class="type-signature"></span>filter<span class="signature">(func, bindArgs<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {DStream}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Return a new DStream containing only the elements that satisfy a predicate.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>func</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Object></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">array whose values will be added to func's argument list.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="streaming_dstream_DStream.js.html">streaming/dstream/DStream.js</a>, <a href="streaming_dstream_DStream.js.html#line69">line 69</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">DStream</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="flatMap"><span class="type-signature"></span>flatMap<span class="signature">(func, bindArgs<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {DStream}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Return a new DStream by first applying a function to all elements of this
+DStream, and then flattening the results.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>func</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Object></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">array whose values will be added to func's argument list.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="streaming_dstream_DStream.js.html">streaming/dstream/DStream.js</a>, <a href="streaming_dstream_DStream.js.html#line232">line 232</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">DStream</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="flatMapToPair"><span class="type-signature"></span>flatMapToPair<span class="signature">(func, bindArgs<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {PairDStream}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Return a new DStream by applying a function to all elements of this DStream,
+and then flattening the results
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>func</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Object></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">array whose values will be added to func's argument list.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="streaming_dstream_DStream.js.html">streaming/dstream/DStream.js</a>, <a href="streaming_dstream_DStream.js.html#line243">line 243</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">PairDStream</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="foreachRDD"><span class="type-signature"></span>foreachRDD<span class="signature">(func, bindArgs<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {void}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Apply a function to each RDD in this DStream. This is an output operator, so 'this' DStream will be registered as an output
+stream and therefore materialized.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>func</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Object></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">array whose values will be added to func's argument list.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="streaming_dstream_DStream.js.html">streaming/dstream/DStream.js</a>, <a href="streaming_dstream_DStream.js.html#line384">line 384</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="foreachRDDWithTime"><span class="type-signature"></span>foreachRDDWithTime<span class="signature">(func, bindArgs<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {void}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Apply a function to each RDD in this DStream. This is an output operator, so 'this' DStream will be registered as an output
+stream and therefore materialized.
+ The time is passed into to the function.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>func</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Object></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">array whose values will be added to func's argument list.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="streaming_dstream_DStream.js.html">streaming/dstream/DStream.js</a>, <a href="streaming_dstream_DStream.js.html#line397">line 397</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="glom"><span class="type-signature"></span>glom<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Return a new DStream in which each RDD is generated by applying glom() to
+each RDD of this DStream. Applying glom() to an RDD coalesces all elements
+within each partition into an array.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="streaming_dstream_DStream.js.html">streaming/dstream/DStream.js</a>, <a href="streaming_dstream_DStream.js.html#line252">line 252</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="map"><span class="type-signature"></span>map<span class="signature">(func, bindArgs<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {DStream}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Return a new DStream by applying a function to all elements of this DStream.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>func</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Object></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">array whose values will be added to func's argument list.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="streaming_dstream_DStream.js.html">streaming/dstream/DStream.js</a>, <a href="streaming_dstream_DStream.js.html#line262">line 262</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">DStream</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="mapPartitions"><span class="type-signature"></span>mapPartitions<span class="signature">(func, bindArgs<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {DStream}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Return a new DStream in which each RDD is generated by applying
+mapPartitions() to each RDDs of this DStream. Applying mapPartitions() to an
+RDD applies a function to each partition of the RDD.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>func</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Object></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">array whose values will be added to func's argument list.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="streaming_dstream_DStream.js.html">streaming/dstream/DStream.js</a>, <a href="streaming_dstream_DStream.js.html#line286">line 286</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">DStream</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="mapToPair"><span class="type-signature"></span>mapToPair<span class="signature">(func, bindArgs<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {PairDStream}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Return a new DStream by applying a function to all elements of this DStream.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>func</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Object></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">array whose values will be added to func's argument list.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="streaming_dstream_DStream.js.html">streaming/dstream/DStream.js</a>, <a href="streaming_dstream_DStream.js.html#line273">line 273</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">PairDStream</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="persist"><span class="type-signature"></span>persist<span class="signature">(level<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {DStream}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Persist RDDs of this DStream with the storage level
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>level</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">StorageLevel</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">(MEMORY_ONLY_SER) by default</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="streaming_dstream_DStream.js.html">streaming/dstream/DStream.js</a>, <a href="streaming_dstream_DStream.js.html#line78">line 78</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">DStream</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="print"><span class="type-signature"></span>print<span class="signature">()</span><span class="type-signature"> &rarr; {void}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Print the first ten elements of each RDD generated in this DStream. This is an output operator, so this DStream will be
+registered as an output stream and there materialized.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="streaming_dstream_DStream.js.html">streaming/dstream/DStream.js</a>, <a href="streaming_dstream_DStream.js.html#line407">line 407</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="reduce"><span class="type-signature"></span>reduce<span class="signature">(f)</span><span class="type-signature"> &rarr; {DStream}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Return a new DStream in which each RDD has a single element generated by reducing each RDD
+of this DStream.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>f</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">func</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="streaming_dstream_DStream.js.html">streaming/dstream/DStream.js</a>, <a href="streaming_dstream_DStream.js.html#line297">line 297</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">DStream</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="reduceByWindow"><span class="type-signature"></span>reduceByWindow<span class="signature">(reduceFunc, windowDuration, slideDuration)</span><span class="type-signature"> &rarr; {DStream}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Return a new DStream in which each RDD has a single element generated by reducing all
+elements in a sliding window over this DStream.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>reduceFunc</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">func</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">associative reduce function</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>windowDuration</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Duration.html">Duration</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">width of the window; must be a multiple of this DStream's
+                      batching interval</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>slideDuration</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Duration.html">Duration</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">sliding interval of the window (i.e., the interval after which
+                      the new DStream will generate RDDs); must be a multiple of this
+                      DStream's batching interval</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="streaming_dstream_DStream.js.html">streaming/dstream/DStream.js</a>, <a href="streaming_dstream_DStream.js.html#line315">line 315</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">DStream</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="reduceByWindowwithSlideDuration"><span class="type-signature"></span>reduceByWindowwithSlideDuration<span class="signature">(reduceFunc, invReduceFunc, windowDuration, slideDuration)</span><span class="type-signature"> &rarr; {DStream}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Return a new DStream in which each RDD has a single element generated by reducing all
+elements in a sliding window over this DStream. However, the reduction is done incrementally
+using the old window's reduced value :
+ 1. reduce the new values that entered the window (e.g., adding new counts)
+ 2. "inverse reduce" the old values that left the window (e.g., subtracting old counts)
+ This is more efficient than reduceByWindow without "inverse reduce" function.
+ However, it is applicable to only "invertible reduce functions".
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>reduceFunc</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">func</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">associative reduce function</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>invReduceFunc</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">func</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">inverse reduce function</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>windowDuration</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Duration.html">Duration</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">width of the window; must be a multiple of this DStream's
+                      batching interval</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>slideDuration</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Duration.html">Duration</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">sliding interval of the window (i.e., the interval after which
+                      the new DStream will generate RDDs); must be a multiple of this
+                      DStream's batching interval</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="streaming_dstream_DStream.js.html">streaming/dstream/DStream.js</a>, <a href="streaming_dstream_DStream.js.html#line341">line 341</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">DStream</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="repartition"><span class="type-signature"></span>repartition<span class="signature">(numPartitions)</span><span class="type-signature"> &rarr; {DStream}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Return a new DStream with an increased or decreased level of parallelism.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>numPartitions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="streaming_dstream_DStream.js.html">streaming/dstream/DStream.js</a>, <a href="streaming_dstream_DStream.js.html#line91">line 91</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">DStream</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="transform"><span class="type-signature"></span>transform<span class="signature">(transformFunc)</span><span class="type-signature"> &rarr; {DStream}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Return a new DStream in which each RDD is generated by applying a function
+on each RDD of 'this' DStream.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>transformFunc</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">func</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="streaming_dstream_DStream.js.html">streaming/dstream/DStream.js</a>, <a href="streaming_dstream_DStream.js.html#line357">line 357</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">DStream</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="transformToPair"><span class="type-signature"></span>transformToPair<span class="signature">(transformFunc)</span><span class="type-signature"> &rarr; {PairDStream}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Return a new DStream in which each RDD is generated by applying a function
+on each RDD of 'this' DStream.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>transformFunc</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">func</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="streaming_dstream_DStream.js.html">streaming/dstream/DStream.js</a>, <a href="streaming_dstream_DStream.js.html#line370">line 370</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">PairDStream</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="union"><span class="type-signature"></span>union<span class="signature">(that)</span><span class="type-signature"> &rarr; {DStream}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Return a new DStream by unifying data of another DStream with this DStream.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>that</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">DStream</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="streaming_dstream_DStream.js.html">streaming/dstream/DStream.js</a>, <a href="streaming_dstream_DStream.js.html#line99">line 99</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">DStream</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="window"><span class="type-signature"></span>window<span class="signature">(duration, slideInterval<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {DStream}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Return a new DStream in which each RDD contains all the elements in seen in a sliding window of time over this DStream.
+The new DStream generates RDDs with the same interval as this DStream.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>duration</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">width of the window; must be a multiple of this DStream's interval.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>slideInterval</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="streaming_dstream_DStream.js.html">streaming/dstream/DStream.js</a>, <a href="streaming_dstream_DStream.js.html#line109">line 109</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">DStream</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-eclairjs_ml_feature.html">eclairjs/ml/feature</a></li><li><a href="module-eclairjs_mllib.html">eclairjs/mllib</a></li><li><a href="module-eclairjs_mllib_classification.html">eclairjs/mllib/classification</a></li><li><a href="module-eclairjs_mllib_clustering.html">eclairjs/mllib/clustering</a></li><li><a href="module-eclairjs_mllib_evaluation.html">eclairjs/mllib/evaluation</a></li><li><a href="module-eclairjs_mllib_feature.html">eclairjs/mllib/feature</a></li><li><a href="module-eclairjs_mllib_fpm.html">eclairjs/mllib/fpm</a></li><li><a href="module-eclairjs_mllib_linalg.html">eclairjs/mllib/linalg</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.html">eclairjs/mllib/linalg/distributed</a></li><li><a href="module-eclairjs_mllib_optimization.html">eclairjs/mllib/optimization</a></li><li><a href="module-eclairjs_mllib_random.html">eclairjs/mllib/random</a></li><li><a href="module-eclairjs_mllib_recommendation.html">eclairjs/mllib/recommendation</a></li><li><a href="module-eclairjs_mllib_regression.html">eclairjs/mllib/regression</a></li><li><a href="module-eclairjs_mllib_tree.html">eclairjs/mllib/tree</a></li><li><a href="module-eclairjs_mllib_tree_configuration.html">eclairjs/mllib/tree/configuration</a></li><li><a href="module-eclairjs_mllib_tree_loss.html">eclairjs/mllib/tree/loss</a></li><li><a href="module-eclairjs_mllib_tree_model.html">eclairjs/mllib/tree/model</a></li><li><a href="module-eclairjs_sql.html">eclairjs/sql</a></li><li><a href="module-eclairjs_sql_types.html">eclairjs/sql/types</a></li><li><a href="module-eclairjs_storage.html">eclairjs/storage</a></li><li><a href="module-eclairjs_streaming_dstream.html">eclairjs/streaming/dstream</a></li></ul><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatRDD.html">FloatRDD</a></li><li><a href="FutureAction.html">FutureAction</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="List.html">List</a></li><li><a href="Logger.html">Logger</a></li><li><a href="module-eclairjs_ml_feature.Word2Vec.html">Word2Vec</a></li><li><a href="module-eclairjs_ml_feature.Word2VecModel.html">Word2VecModel</a></li><li><a href="module-eclairjs_mllib.MLUtils.html">MLUtils</a></li><li><a href="module-eclairjs_mllib_classification.ClassificationModel.html">ClassificationModel</a></li><li><a href="module-eclairjs_mllib_classification.LogisticRegressionModel.html">LogisticRegressionModel</a></li><li><a href="module-eclairjs_mllib_classification.LogisticRegressionWithLBFGS.html">LogisticRegressionWithLBFGS</a></li><li><a href="module-eclairjs_mllib_classification.LogisticRegressionWithSGD.html">LogisticRegressionWithSGD</a></li><li><a href="module-eclairjs_mllib_classification.NaiveBayes.html">NaiveBayes</a></li><li><a href="module-eclairjs_mllib_classification.NaiveBayesModel.html">NaiveBayesModel</a></li><li><a href="module-eclairjs_mllib_classification.SVMModel.html">SVMModel</a></li><li><a href="module-eclairjs_mllib_classification.SVMWithSGD.html">SVMWithSGD</a></li><li><a href="module-eclairjs_mllib_clustering.BisectingKMeans.html">BisectingKMeans</a></li><li><a href="module-eclairjs_mllib_clustering.BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="module-eclairjs_mllib_clustering.DistributedLDAModel.html">DistributedLDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.KMeans.html">KMeans</a></li><li><a href="module-eclairjs_mllib_clustering.KMeansModel.html">KMeansModel</a></li><li><a href="module-eclairjs_mllib_clustering.LDA.html">LDA</a></li><li><a href="module-eclairjs_mllib_clustering.LDAModel.html">LDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.LocalLDAModel.html">LocalLDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClustering.html">PowerIterationClustering</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClusteringAssignment.html">PowerIterationClusteringAssignment</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClusteringModel.html">PowerIterationClusteringModel</a></li><li><a href="module-eclairjs_mllib_evaluation.BinaryClassificationMetrics.html">BinaryClassificationMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.MulticlassMetrics.html">MulticlassMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.MultilabelMetrics.html">MultilabelMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.RankingMetrics.html">RankingMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.RegressionMetrics.html">RegressionMetrics</a></li><li><a href="module-eclairjs_mllib_feature.Word2Vec.html">Word2Vec</a></li><li><a href="module-eclairjs_mllib_feature.Word2VecModel.html">Word2VecModel</a></li><li><a href="module-eclairjs_mllib_fpm.AssociationRules.html">AssociationRules</a></li><li><a href="module-eclairjs_mllib_fpm.FPGrowth.html">FPGrowth</a></li><li><a href="module-eclairjs_mllib_fpm.FPGrowthModel.html">FPGrowthModel</a></li><li><a href="module-eclairjs_mllib_fpm.FreqItemset.html">FreqItemset</a></li><li><a href="module-eclairjs_mllib_fpm.PrefixSpan.html">PrefixSpan</a></li><li><a href="module-eclairjs_mllib_fpm.PrefixSpanFreqSequence.html">PrefixSpanFreqSequence</a></li><li><a href="module-eclairjs_mllib_fpm.PrefixSpanModel.html">PrefixSpanModel</a></li><li><a href="module-eclairjs_mllib_fpm.Rule.html">Rule</a></li><li><a href="module-eclairjs_mllib_linalg.DenseMatrix.html">DenseMatrix</a></li><li><a href="module-eclairjs_mllib_linalg.DenseVector.html">DenseVector</a></li><li><a href="module-eclairjs_mllib_linalg.Matrices.html">Matrices</a></li><li><a href="module-eclairjs_mllib_linalg.Matrix.html">Matrix</a></li><li><a href="module-eclairjs_mllib_linalg.QRDecomposition.html">QRDecomposition</a></li><li><a href="module-eclairjs_mllib_linalg.SingularValueDecomposition.html">SingularValueDecomposition</a></li><li><a href="module-eclairjs_mllib_linalg.SparseMatrix.html">SparseMatrix</a></li><li><a href="module-eclairjs_mllib_linalg.SparseVector.html">SparseVector</a></li><li><a href="module-eclairjs_mllib_linalg.Vector.html">Vector</a></li><li><a href="module-eclairjs_mllib_linalg.Vectors.html">Vectors</a></li><li><a href="module-eclairjs_mllib_linalg.VectorUDT.html">VectorUDT</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.DistributedMatrix.html">DistributedMatrix</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.RowMatrix.html">RowMatrix</a></li><li><a href="module-eclairjs_mllib_optimization.Gradient.html">Gradient</a></li><li><a href="module-eclairjs_mllib_optimization.LBFGS.html">LBFGS</a></li><li><a href="module-eclairjs_mllib_optimization.LogisticGradient.html">LogisticGradient</a></li><li><a href="module-eclairjs_mllib_optimization.SquaredL2Updater.html">SquaredL2Updater</a></li><li><a href="module-eclairjs_mllib_optimization.Updater.html">Updater</a></li><li><a href="module-eclairjs_mllib_random.RandomRDDs.html">RandomRDDs</a></li><li><a href="module-eclairjs_mllib_recommendation.ALS.html">ALS</a></li><li><a href="module-eclairjs_mllib_recommendation.MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="module-eclairjs_mllib_recommendation.Rating.html">Rating</a></li><li><a href="module-eclairjs_mllib_regression.GeneralizedLinearModel.html">GeneralizedLinearModel</a></li><li><a href="module-eclairjs_mllib_regression.LabeledPoint.html">LabeledPoint</a></li><li><a href="module-eclairjs_mllib_regression.LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="module-eclairjs_mllib_regression.LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="module-eclairjs_mllib_tree.DecisionTree.html">DecisionTree</a></li><li><a href="module-eclairjs_mllib_tree.GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="module-eclairjs_mllib_tree.RandomForest.html">RandomForest</a></li><li><a href="module-eclairjs_mllib_tree_configuration.BoostingStrategy.html">BoostingStrategy</a></li><li><a href="module-eclairjs_mllib_tree_configuration.Strategy.html">Strategy</a></li><li><a href="module-eclairjs_mllib_tree_loss.Loss.html">Loss</a></li><li><a href="module-eclairjs_mllib_tree_model.DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="module-eclairjs_mllib_tree_model.GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="module-eclairjs_mllib_tree_model.RandomForestModel.html">RandomForestModel</a></li><li><a href="module-eclairjs_sql.Column.html">Column</a></li><li><a href="module-eclairjs_sql.DataFrame.html">DataFrame</a></li><li><a href="module-eclairjs_sql.DataFrameHolder.html">DataFrameHolder</a></li><li><a href="module-eclairjs_sql.DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="module-eclairjs_sql.DataFrameReader.html">DataFrameReader</a></li><li><a href="module-eclairjs_sql.DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="module-eclairjs_sql.DataFrameWriter.html">DataFrameWriter</a></li><li><a href="module-eclairjs_sql.functions.html">functions</a></li><li><a href="module-eclairjs_sql.GroupedData.html">GroupedData</a></li><li><a href="module-eclairjs_sql.Row.html">Row</a></li><li><a href="module-eclairjs_sql.RowFactory.html">RowFactory</a></li><li><a href="module-eclairjs_sql.SQLContext.html">SQLContext</a></li><li><a href="module-eclairjs_sql.SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="module-eclairjs_sql.SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="module-eclairjs_sql.SQLContext.SQLSession.html">SQLSession</a></li><li><a href="module-eclairjs_sql.SqlDate.html">SqlDate</a></li><li><a href="module-eclairjs_sql.SqlTimestamp.html">SqlTimestamp</a></li><li><a href="module-eclairjs_sql_types.ArrayType.html">ArrayType</a></li><li><a href="module-eclairjs_sql_types.BinaryType.html">BinaryType</a></li><li><a href="module-eclairjs_sql_types.BooleanType.html">BooleanType</a></li><li><a href="module-eclairjs_sql_types.CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="module-eclairjs_sql_types.DataType.html">DataType</a></li><li><a href="module-eclairjs_sql_types.DataTypes.html">DataTypes</a></li><li><a href="module-eclairjs_sql_types.DateType.html">DateType</a></li><li><a href="module-eclairjs_sql_types.DoubleType.html">DoubleType</a></li><li><a href="module-eclairjs_sql_types.FloatType.html">FloatType</a></li><li><a href="module-eclairjs_sql_types.IntegerType.html">IntegerType</a></li><li><a href="module-eclairjs_sql_types.MapType.html">MapType</a></li><li><a href="module-eclairjs_sql_types.Metadata.html">Metadata</a></li><li><a href="module-eclairjs_sql_types.NullType.html">NullType</a></li><li><a href="module-eclairjs_sql_types.NumericType.html">NumericType</a></li><li><a href="module-eclairjs_sql_types.StringType.html">StringType</a></li><li><a href="module-eclairjs_sql_types.StructField.html">StructField</a></li><li><a href="module-eclairjs_sql_types.StructType.html">StructType</a></li><li><a href="module-eclairjs_sql_types.TimestampType.html">TimestampType</a></li><li><a href="module-eclairjs_storage.StorageLevel.html">StorageLevel</a></li><li><a href="module-eclairjs_streaming_dstream.DStream.html">DStream</a></li><li><a href="module-eclairjs_streaming_dstream.PairDStream.html">PairDStream</a></li><li><a href="PairRDD.html">PairRDD</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RDD.html">RDD</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="Time.html">Time</a></li><li><a href="Tuple.html">Tuple</a></li><li><a href="TwitterAuthorization.html">TwitterAuthorization</a></li></ul><h3>Global</h3><ul><li><a href="global.html#module">module</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Wed Apr 13 2016 15:50:36 GMT-0400 (EDT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
