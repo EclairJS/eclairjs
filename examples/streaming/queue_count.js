@@ -14,38 +14,40 @@
  * limitations under the License.
  */
 
-    // Create the context with a 1 second batch size
+var Duration = require('eclairjs/streaming/Duration');
+var StreamingContext = require('eclairjs/streaming/StreamingContext');
 
-    var conf = new SparkConf().setAppName("Javascript Queue Stream");
-    var ssc = new StreamingContext(conf, new Duration(1000));
+// Create the context with a 1 second batch size
 
-    // Create the queue through which RDDs can be pushed to
-          // a QueueInputDStream
-          var rddQueue = [];
+var conf = new SparkConf().setAppName("Javascript Queue Stream");
+var ssc = new StreamingContext(conf, new Duration(1000));
 
-          // Create and push some RDDs into the queue
-          var list = [];
-          for (var i = 0; i < 1000; i++) {
-            list.push(i);
-          }
-          for (var i = 0; i < 30; i++) {
-            rddQueue.push(ssc.sparkContext().parallelize(list));
-          }
+// Create the queue through which RDDs can be pushed to
+// a QueueInputDStream
+var rddQueue = [];
 
-          // Create the QueueInputDStream and use it do some processing
-          var inputStream = ssc.queueStream(rddQueue);
-          var mappedStream = inputStream.mapToPair(
-                function(i) {
-                  return new Tuple(i % 10, 1);
-              });
-          var reducedStream = mappedStream.reduceByKey(
-              function(i1, i2) {
-                return i1 + i2;
-          });
+// Create and push some RDDs into the queue
+var list = [];
+for (var i = 0; i < 1000; i++) {
+    list.push(i);
+}
+for (var i = 0; i < 30; i++) {
+    rddQueue.push(ssc.sparkContext().parallelize(list));
+}
 
-          reducedStream.print();
+// Create the QueueInputDStream and use it do some processing
+var inputStream = ssc.queueStream(rddQueue);
+var mappedStream = inputStream.mapToPair(
+    function (i) {
+        return new Tuple(i % 10, 1);
+    });
+var reducedStream = mappedStream.reduceByKey(
+    function (i1, i2) {
+        return i1 + i2;
+    });
+
+reducedStream.print();
 
 
-
-    ssc.start();
-    ssc.awaitTermination();
+ssc.start();
+ssc.awaitTermination();

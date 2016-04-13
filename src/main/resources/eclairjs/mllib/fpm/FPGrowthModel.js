@@ -24,13 +24,13 @@
     /**
      * Model trained by {@link FPGrowth}, which holds frequent itemsets.
      * @param freqItemsets frequent itemset, which is an RDD of {@link FreqItemset}
-     * @memberof module:eclairjs/mllib/fpm
      * @classdesc
      */
 
     /**
      * @param {RDD} freqItemsets
-     *  @class
+     * @class
+     * @memberof module:eclairjs/mllib/fpm
      */
     var FPGrowthModel = function(freqItemsets) {
         this.logger = Logger.getLogger("FPGrowthModel_js");

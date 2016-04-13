@@ -20,9 +20,7 @@
  * @classdesc
  */
 var Logger = function(){};
-/*Logger.prototype = Object.create(Logger.prototype);
 
-Logger.prototype.constructor = Logger;*/
 
 /**
  * Gets a logger for the specified string.

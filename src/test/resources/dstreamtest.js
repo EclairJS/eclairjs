@@ -1,3 +1,6 @@
+var Duration = require('eclairjs/streaming/Duration');
+var StreamingContext = require('eclairjs/streaming/StreamingContext');
+
 var sparkContext = new SparkContext("local[*]", "dstream");
 var streamingContext = null;
 var duration = new Duration(500);

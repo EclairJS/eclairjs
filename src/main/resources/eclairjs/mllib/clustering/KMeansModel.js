@@ -22,7 +22,6 @@
 
     /**
      * A clustering model for K-means. Each point belongs to the cluster with the closest center.
-     * @memberof module:eclairjs/mllib/clustering
      * @classdesc
      */
 
@@ -30,7 +29,8 @@
      * A Java-friendly constructor that takes an Iterable of Vectors.
      * @param {Vector[]} clusterCenters
      * @returns {??}
-     *  @class
+     * @memberof module:eclairjs/mllib/clustering
+     * @class
      */
     var KMeansModel = function (clusterCenters) {
         var jvmObject;

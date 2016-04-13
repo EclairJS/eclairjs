@@ -35,15 +35,17 @@
  *
  *
  */
-
-var System=Java.type("java.lang.System");
+var TwitterAuthorization = require('eclairjs/streaming/twitter/TwitterAuthorization');
+var TwitterUtils = require('eclairjs/streaming/twitter/TwitterUtils');
+var Duration = require('eclairjs/streaming/Duration');
+var StreamingContext = require('eclairjs/streaming/StreamingContext');
 
 if ((typeof args == "undefined")||args.length<5)
 {
           print(
           "Usage: bin/eclairjs.sh examples/streaming/twitter_popular_tags.js  <consumer key> <consumer secret> " +
         "         <access token> <access token secret> [<filters>]\n" );
-          java.lang.System.exit(-1);
+         return;
 }
 
 
@@ -52,15 +54,6 @@ if ((typeof args == "undefined")||args.length<5)
 
     var filters = (args.length>5)? args[5] : [];
 
-    // Set the system properties so that Twitter4j library used by twitter stream
-    // can use them to generat OAuth credentials
-
-// System.setProperty for twitter auth does not work when running on a cluster
-//    System.setProperty("twitter4j.oauth.consumerKey", args[1]);
-//    System.setProperty("twitter4j.oauth.consumerSecret", args[2]);
-//    System.setProperty("twitter4j.oauth.accessToken", args[3]);
-//    System.setProperty("twitter4j.oauth.accessTokenSecret", args[4]);
-//    var stream = TwitterUtils.createStream(jssc, undefined, filters);
 
     var auth=new TwitterAuthorization(args[1],args[2],args[3],args[4]);
     var stream = TwitterUtils.createStream(jssc, auth, filters);

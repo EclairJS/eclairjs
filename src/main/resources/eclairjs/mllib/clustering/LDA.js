@@ -35,14 +35,14 @@
      *
      * @see [[http://en.wikipedia.org/wiki/Latent_Dirichlet_allocation Latent Dirichlet allocation
      *       (Wikipedia)]]
-     * @memberof module:eclairjs/mllib/clustering
      * @classdesc
      */
 
     /**
      * Constructs a LDA instance with default parameters.
      * @returns {??}
-     *  @class
+     * @class
+     * @memberof module:eclairjs/mllib/clustering
      */
     var LDA = function () {
         var jvmObject;

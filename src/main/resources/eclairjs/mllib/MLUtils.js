@@ -19,7 +19,7 @@
      * @class
      * @memberof module:eclairjs/mllib
      */
-    var MLUtils = {};
+    var MLUtils = function(){};
 
     MLUtils.loadLibSVMFile = function (sc,
                                        path,

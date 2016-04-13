@@ -26,7 +26,7 @@
      * @classdesc
      * @param {RDD} freqSequences
      * @returns {??} 
-     *  @class
+     * @class
      */
     var PrefixSpanModel = function(freqSequences) {
         var jvmObject;

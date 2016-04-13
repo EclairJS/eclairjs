@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-var ModuleUtils = {};
+var ModuleUtils = function(){};
 
 /**
  * Utils to keep track of required/loaded Modules for lambda function use.

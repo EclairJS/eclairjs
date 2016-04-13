@@ -41,13 +41,13 @@
      * @see [[http://glaros.dtc.umn.edu/gkhome/fetch/papers/docclusterKDDTMW00.pdf
      *     Steinbach, Karypis, and Kumar, A comparison of document clustering techniques,
      *     KDD Workshop on Text Mining, 2000.]]
-     * @memberof module:eclairjs/mllib/clustering
      * @classdesc
      */
 
     /**
      * Constructs with the default configuration
-     *  @class
+     * @class
+     * @memberof module:eclairjs/mllib/clustering
      */
     var BisectingKMeans = function(jvmObject) {
          

@@ -42,11 +42,10 @@ var fields = [];
 fields.push(DataTypes.createStructField("name", DataTypes.StringType, true));
 fields.push(DataTypes.createStructField("age", DataTypes.IntegerType, true));
 var schema = DataTypes.createStructType(fields);
-
 // Convert records of the RDD (people) to Rows.
-var rowRDD = people.map(function(person){
+var rowRDD = people.map(function(person, RowFactory){
 	return RowFactory.create([person.name, person.age]);
-});
+},[RowFactory]);
 
 
 //Apply the schema to the RDD.

@@ -38,8 +38,8 @@
      * Construct a LogisticRegression object with default parameters: {stepSize: 1.0,
      * numIterations: 100, regParm: 0.01, miniBatchFraction: 1.0}.
      * @returns {??}
-     *  @class
-     *   @memberof module:eclairjs/mllib/classification
+     * @class
+     * @memberof module:eclairjs/mllib/classification
      */
     var LogisticRegressionWithSGD = function (jvmObject) {
 

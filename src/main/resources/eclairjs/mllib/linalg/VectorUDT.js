@@ -23,12 +23,12 @@
      * User-defined type for {@link Vector} which allows easy interaction with SQL
      * via {@link DataFrame}.
      * @classdesc
-     * @memberof module:eclairjs/mllib/linalg
      */
 
     /**
      * @returns {??}
-     *  @class
+     * @class
+     * @memberof module:eclairjs/mllib/linalg
      */
     var VectorUDT = function (jvmObject) {
 

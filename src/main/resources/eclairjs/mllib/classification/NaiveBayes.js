@@ -32,7 +32,7 @@
      * @memberof module:eclairjs/mllib/classification
      * @classdesc
      * @param {number} lambda
-     *  @class
+     * @class
      */
     var NaiveBayes = function(lambda) {
         var jvmObject;

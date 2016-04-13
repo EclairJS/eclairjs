@@ -16,7 +16,7 @@
 
 (function () {
 
-    var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
+    //var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
     var Row = require(EclairJS_Globals.NAMESPACE + '/sql/Row');
@@ -27,7 +27,11 @@
      * @classdesc A factory class used to construct Row objects.
      */
 
-    var RowFactory = {};
+    var RowFactory = function() {};
+
+
+    // Static methods
+
     /**
      * Create a Row from the given arguments. Position i in the argument list becomes position i in the created Row object.
      * @param {object} values

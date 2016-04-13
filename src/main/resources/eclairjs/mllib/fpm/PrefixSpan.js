@@ -35,7 +35,7 @@
      * @classdesc
      * Constructs a default instance with default parameters
      * {minSupport: `0.1`, maxPatternLength: `10`, maxLocalProjDBSize: `32000000L`}.
-     *  @class
+     * @class
      */
     var PrefixSpan = function(jvmObject) {
          

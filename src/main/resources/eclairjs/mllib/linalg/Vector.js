@@ -17,6 +17,7 @@
 (function () {
     var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
+    var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
     /**
      * Represents a numeric vector, whose index type is Int and value type is Double.
      *
@@ -142,7 +143,7 @@
      */
     Vector.prototype.toSparse = function () {
         var javaObject =  this.getJavaObject().toSparse();
-        return new SparseVector(javaObject);
+        return Utils.javaToJs(javaObject);
     };
 
 
@@ -152,7 +153,7 @@
      */
     Vector.prototype.toDense = function () {
         var javaObject =  this.getJavaObject().toDense();
-        return new DenseVector(javaObject);
+        return Utils.javaToJs(javaObject);
     };
 
 

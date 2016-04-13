@@ -30,7 +30,7 @@
      * for k classes multi-label classification problem.
      * @memberof module:eclairjs/mllib/classification
      * @classdesc
-     *  @class
+     * @class
      */
 
     var LogisticRegressionWithLBFGS = function(jvmObj) {
