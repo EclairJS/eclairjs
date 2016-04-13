@@ -48,7 +48,7 @@
      *                                  to "onethird" for regression.
      * @param seed Random seed for bootstrapping and choosing feature subsets.
      */
-    var RandomForest = {};
+    var RandomForest = function(){};
 
 
     /**

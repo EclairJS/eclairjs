@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-var Utils = {};
+var Utils = function(){};
 
 Utils.logger = Logger.getLogger("Utils_js");
 

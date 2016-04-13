@@ -17,7 +17,7 @@
 //var KafkaUtils = function() {}
 
 var JavaKakfaUtils = Java.type("org.apache.spark.streaming.kafka.KafkaUtils");
-var KafkaUtils = {};
+var KafkaUtils = function(){};
 
 var Class = Java.type("java.lang.Class");
 var StringClass = Class.forName("java.lang.String");

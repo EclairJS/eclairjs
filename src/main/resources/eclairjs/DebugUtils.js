@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-var DebugUtils = {};
+
+var DebugUtils = function () {};
+
 
 
 /**

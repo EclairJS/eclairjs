@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-var Serialize = {};
+var Serialize = function(){};
 
 Serialize.logger = Logger.getLogger("Serialize_js");
 
@@ -263,7 +263,7 @@ Serialize.JSModule = function(obj) {
   if (ModuleUtils.isModule(obj)) {
     var mod = ModuleUtils.getRequiredFile(obj);
 
-    //Serialize.logger.debug("###Serialize.JSModule found a lambda required module: "+mod);
+    Serialize.logger.debug("###Serialize.JSModule found a lambda required module: "+mod);
 
     return (mod && mod.exportname) ? mod.exports[mod.exportname] : (mod ? mod.exports : false);
   }

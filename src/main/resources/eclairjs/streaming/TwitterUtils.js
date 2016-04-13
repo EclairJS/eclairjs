@@ -18,7 +18,7 @@
 // static methods
 //
 
-TwitterUtils={};
+var TwitterUtils = function(){};
 var JavaTwitterUtils=Java.type('org.apache.spark.streaming.twitter.TwitterUtils');
 var JavaStreamingContext =Java.type('org.apache.spark.streaming.api.java.JavaStreamingContext');
 var TwitterAuthorization =Java.type('twitter4j.auth.Authorization');

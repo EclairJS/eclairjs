@@ -25,7 +25,7 @@
      * @memberof module:eclairjs/mllib/linalg
      * @type {{}}
      */
-    var Matrices = {};
+    var Matrices = function(){};
     /**
      * Creates a column-major dense matrix.
      *

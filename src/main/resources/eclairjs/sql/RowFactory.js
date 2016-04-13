@@ -16,7 +16,7 @@
 
 (function () {
 
-    var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
+    //var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
     var Row = require(EclairJS_Globals.NAMESPACE + '/sql/Row');
@@ -27,20 +27,8 @@
      * @classdesc A factory class used to construct Row objects.
      */
 
-    var RowFactory = function (jvmObj) {
-        // Call the parent constructor, making sure (using Function#call)
-        // that "this" is set correctly during the call
-        JavaWrapper.call(this, jvmObj);
+    var RowFactory = function() {};
 
-        // Initialize our Row-specific properties
-        this.logger = Logger.getLogger("sql.RowFactory_js");
-        this.logger.debug("RowFactory constructor");
-    };
-
-
-    RowFactory.prototype = Object.create(JavaWrapper.prototype);
-
-    RowFactory.prototype.constructor = RowFactory;
 
     // Static methods
 
