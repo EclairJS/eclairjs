@@ -41,244 +41,151 @@
 * See the License for the specific language governing permissions and      
 * limitations under the License.                                           
 */ 
+(function () {
+
+    var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
+    var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
+    var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
+
+    var Word2VecModel = require(EclairJS_Globals.NAMESPACE + '/mllib/feature/Word2VecModel');
+
+    /**
+     * Word2Vec creates vector representation of words in a text corpus.
+     * The algorithm first constructs a vocabulary from the corpus
+     * and then learns vector representation of words in the vocabulary.
+     * The vector representation can be used as features in
+     * natural language processing and machine learning algorithms.
+     *
+     * We used skip-gram model in our implementation and hierarchical softmax
+     * method to train the model. The variable names in the implementation
+     * matches the original C implementation.
+     *
+     * For original C implementation, see https://code.google.com/p/word2vec/
+     * For research papers, see
+     * Efficient Estimation of Word Representations in Vector Space
+     * and
+     * Distributed Representations of Words and Phrases and their Compositionality.
+     * @memberof module:eclairjs/mllib/feature
+     * @classdesc
+     *  @class
+     */
+    var Word2Vec = function(jvmObject) {
+         
+         this.logger = Logger.getLogger("Word2Vec_js");
+        if (!jvmObject) {
+            jvmObject = new org.apache.spark.mllib.feature.Word2Vec();
+        }
+         JavaWrapper.call(this, jvmObject);
+
+    };
+
+    Word2Vec.prototype = Object.create(JavaWrapper.prototype);
+
+    Word2Vec.prototype.constructor = Word2Vec;
 
 
 
-/**
- * Word2Vec creates vector representation of words in a text corpus.
- * The algorithm first constructs a vocabulary from the corpus
- * and then learns vector representation of words in the vocabulary.
- * The vector representation can be used as features in
- * natural language processing and machine learning algorithms.
- *
- * We used skip-gram model in our implementation and hierarchical softmax
- * method to train the model. The variable names in the implementation
- * matches the original C implementation.
- *
- * For original C implementation, see https://code.google.com/p/word2vec/
- * For research papers, see
- * Efficient Estimation of Word Representations in Vector Space
- * and
- * Distributed Representations of Words and Phrases and their Compositionality.
- * @classdesc
- *  @class
- */
-var Word2Vec = function(jvmObject) {
-	 
-	 this.logger = Logger.getLogger("Word2Vec_js");
-	if (!jvmObject) {
-		jvmObject = new org.apache.spark.mllib.feature.Word2Vec();
-	}
-	 JavaWrapper.call(this, jvmObject);
-
-};
-
-Word2Vec.prototype = Object.create(JavaWrapper.prototype);
-
-Word2Vec.prototype.constructor = Word2Vec;
+    /**
+     * Sets vector size (default: 100).
+     * @param {number} vectorSize
+     * @returns {} 
+     */
+    Word2Vec.prototype.setVectorSize = function(vectorSize) {
+    throw "not implemented by ElairJS";
+    //   var javaObject =  this.getJavaObject().setVectorSize(vectorSize);
+    //   return new (javaObject);
+    };
 
 
-
-/**
- * Sets vector size (default: 100).
- * @param {number} vectorSize
- * @returns {} 
- */
-Word2Vec.prototype.setVectorSize = function(vectorSize) {
-throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().setVectorSize(vectorSize);
-//   return new (javaObject);
-};
-
-
-/**
- * Sets initial learning rate (default: 0.025).
- * @param {number} learningRate
- * @returns {} 
- */
-Word2Vec.prototype.setLearningRate = function(learningRate) {
-throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().setLearningRate(learningRate);
-//   return new (javaObject);
-};
+    /**
+     * Sets initial learning rate (default: 0.025).
+     * @param {number} learningRate
+     * @returns {} 
+     */
+    Word2Vec.prototype.setLearningRate = function(learningRate) {
+    throw "not implemented by ElairJS";
+    //   var javaObject =  this.getJavaObject().setLearningRate(learningRate);
+    //   return new (javaObject);
+    };
 
 
-/**
- * Sets number of partitions (default: 1). Use a small number for accuracy.
- * @param {number} numPartitions
- * @returns {} 
- */
-Word2Vec.prototype.setNumPartitions = function(numPartitions) {
-throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().setNumPartitions(numPartitions);
-//   return new (javaObject);
-};
+    /**
+     * Sets number of partitions (default: 1). Use a small number for accuracy.
+     * @param {number} numPartitions
+     * @returns {} 
+     */
+    Word2Vec.prototype.setNumPartitions = function(numPartitions) {
+    throw "not implemented by ElairJS";
+    //   var javaObject =  this.getJavaObject().setNumPartitions(numPartitions);
+    //   return new (javaObject);
+    };
 
 
-/**
- * Sets number of iterations (default: 1), which should be smaller than or equal to number of
- * partitions.
- * @param {number} numIterations
- * @returns {} 
- */
-Word2Vec.prototype.setNumIterations = function(numIterations) {
-throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().setNumIterations(numIterations);
-//   return new (javaObject);
-};
+    /**
+     * Sets number of iterations (default: 1), which should be smaller than or equal to number of
+     * partitions.
+     * @param {number} numIterations
+     * @returns {} 
+     */
+    Word2Vec.prototype.setNumIterations = function(numIterations) {
+    throw "not implemented by ElairJS";
+    //   var javaObject =  this.getJavaObject().setNumIterations(numIterations);
+    //   return new (javaObject);
+    };
 
 
-/**
- * Sets random seed (default: a random long integer).
- * @param {number} seed
- * @returns {} 
- */
-Word2Vec.prototype.setSeed = function(seed) {
-throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().setSeed(seed);
-//   return new (javaObject);
-};
+    /**
+     * Sets random seed (default: a random long integer).
+     * @param {number} seed
+     * @returns {} 
+     */
+    Word2Vec.prototype.setSeed = function(seed) {
+    throw "not implemented by ElairJS";
+    //   var javaObject =  this.getJavaObject().setSeed(seed);
+    //   return new (javaObject);
+    };
 
 
-/**
- * Sets the window of words (default: 5)
- * @param {number} window
- * @returns {} 
- */
-Word2Vec.prototype.setWindowSize = function(window) {
-throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().setWindowSize(window);
-//   return new (javaObject);
-};
+    /**
+     * Sets the window of words (default: 5)
+     * @param {number} window
+     * @returns {} 
+     */
+    Word2Vec.prototype.setWindowSize = function(window) {
+    throw "not implemented by ElairJS";
+    //   var javaObject =  this.getJavaObject().setWindowSize(window);
+    //   return new (javaObject);
+    };
 
 
-/**
- * Sets minCount, the minimum number of times a token must appear to be included in the word2vec
- * model's vocabulary (default: 5).
- * @param {number} minCount
- * @returns {} 
- */
-Word2Vec.prototype.setMinCount = function(minCount) {
-throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().setMinCount(minCount);
-//   return new (javaObject);
-};
+    /**
+     * Sets minCount, the minimum number of times a token must appear to be included in the word2vec
+     * model's vocabulary (default: 5).
+     * @param {number} minCount
+     * @returns {} 
+     */
+    Word2Vec.prototype.setMinCount = function(minCount) {
+    throw "not implemented by ElairJS";
+    //   var javaObject =  this.getJavaObject().setMinCount(minCount);
+    //   return new (javaObject);
+    };
 
 
-/**
- * Computes the vector representation of each word in vocabulary.
- * @param {RDD} dataset  an RDD of words
- * @returns {Word2VecModel}  a Word2VecModel
- */
-Word2Vec.prototype.fit = function(dataset) {
-   var dataset_uw = Utils.unwrapObject(dataset);
-   var javaObject =  this.getJavaObject().fit(dataset_uw);
-   return new Word2VecModel(javaObject);
-};
+    /**
+     * Computes the vector representation of each word in vocabulary.
+     * @param {RDD} dataset  an RDD of words
+     * @returns {Word2VecModel}  a Word2VecModel
+     */
+    Word2Vec.prototype.fit = function(dataset) {
+       var dataset_uw = Utils.unwrapObject(dataset);
+       var javaObject =  this.getJavaObject().fit(dataset_uw);
+       return new Word2VecModel(javaObject);
+    };
 
-/**
- * Word2Vec model
- * @param wordIndex maps each word to an index, which can retrieve the corresponding
- *                  vector from wordVectors
- * @param wordVectors array of length numWords * vectorSize, vector corresponding
- *                    to the word mapped with index i can be retrieved by the slice
- *                    (i * vectorSize, i * vectorSize + vectorSize)
- * @classdesc
- */
+    module.exports = Word2Vec;
 
-/**
- * @param {Map} model
- * @returns {??} 
- *  @class
- */
-var Word2VecModel = function(jvmObject) {
+})();
 
-	 //var jvmObject = new org.apache.spark.mllib.feature.Word2VecModel(model);
-	 this.logger = Logger.getLogger("Word2VecModel_js");
-	 JavaWrapper.call(this, jvmObject);
-
-};
-
-Word2VecModel.prototype = Object.create(JavaWrapper.prototype);
-
-Word2VecModel.prototype.constructor = Word2VecModel;
-
-
-
-/**
- * @param {SparkContext} sc
- * @param {string} path
- */
-Word2VecModel.prototype.save = function(sc,path) {
-throw "not implemented by ElairJS";
-//   var sc_uw = Utils.unwrapObject(sc);
-//    this.getJavaObject().save(sc_uw,path);
-};
-
-
-/**
- * Transforms a word to its vector representation
- * @param {string} word  a word
- * @returns {Vector}  vector representation of word
- */
-Word2VecModel.prototype.transform = function(word) {
-throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().transform(word);
-//   return Utils.javaToJs(javaObject);
-};
-
-
-/**
- * Find synonyms of a word
- * @param {string} word  a word
- * @param {number} num  number of synonyms to find
- * @returns {Tuple2[]}  array of (word, cosineSimilarity)
- */
-Word2VecModel.prototype.findSynonyms = function(word,num) {
-    var javaObject =  this.getJavaObject().findSynonyms(word,num);
-    return Utils.javaToJs(javaObject);
-};
-
-
-/**
- * Find synonyms of the vector representation of a word
- * @param {Vector} vector  vector representation of a word
- * @param {number} num  number of synonyms to find
- * @returns {Tuple2[]}  array of (word, cosineSimilarity)
- */
-Word2VecModel.prototype.findSynonymswithnumber = function(vector,num) {
-throw "not implemented by ElairJS";
-//   var vector_uw = Utils.unwrapObject(vector);
-//   var javaObject =  this.getJavaObject().findSynonyms(vector_uw,num);
-//   return Utils.javaToJs(javaObject);
-};
-
-
-/**
- * Returns a map of words to their vector representations.
- * @returns {Map} 
- */
-Word2VecModel.prototype.getVectors = function() {
-throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().getVectors();
-//   return new Map(javaObject);
-};
-//
-// static methods
-//
-
-
-/**
- * @param {SparkContext} sc
- * @param {string} path
- * @returns {Word2VecModel} 
- */
-Word2VecModel.load = function(sc,path) {
-throw "not implemented by ElairJS";
-//   var sc_uw = Utils.unwrapObject(sc);
-//   var javaObject =  org.apache.spark.mllib.feature.Word2VecModel.load(sc_uw,path);
-//   return new Word2VecModel(javaObject);
-};
 </code></pre>
         </article>
     </section>
@@ -289,13 +196,13 @@ throw "not implemented by ElairJS";
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ALS.html">ALS</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="AssociationRules.html">AssociationRules</a></li><li><a href="BinaryClassificationMetrics.html">BinaryClassificationMetrics</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BisectingKMeans.html">BisectingKMeans</a></li><li><a href="BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="BoostingStrategy.html">BoostingStrategy</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DecisionTree.html">DecisionTree</a></li><li><a href="DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="DenseMatrix.html">DenseMatrix</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DistributedLDAModel.html">DistributedLDAModel</a></li><li><a href="DistributedMatrix.html">DistributedMatrix</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatRDD.html">FloatRDD</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="FPGrowth.html">FPGrowth</a></li><li><a href="FPGrowthModel.html">FPGrowthModel</a></li><li><a href="FreqItemset.html">FreqItemset</a></li><li><a href="functions.html">functions</a></li><li><a href="FutureAction.html">FutureAction</a></li><li><a href="GeneralizedLinearModel.html">GeneralizedLinearModel</a></li><li><a href="Gradient.html">Gradient</a></li><li><a href="GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="IsotonicRegression.html">IsotonicRegression</a></li><li><a href="IsotonicRegressionModel.html">IsotonicRegressionModel</a></li><li><a href="KMeans.html">KMeans</a></li><li><a href="KMeansModel.html">KMeansModel</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LBFGS.html">LBFGS</a></li><li><a href="LDA.html">LDA</a></li><li><a href="LDAModel.html">LDAModel</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="List.html">List</a></li><li><a href="LocalLDAModel.html">LocalLDAModel</a></li><li><a href="Logger.html">Logger</a></li><li><a href="LogisticGradient.html">LogisticGradient</a></li><li><a href="LogisticRegressionModel.html">LogisticRegressionModel</a></li><li><a href="LogisticRegressionWithLBFGS.html">LogisticRegressionWithLBFGS</a></li><li><a href="LogisticRegressionWithSGD.html">LogisticRegressionWithSGD</a></li><li><a href="Loss.html">Loss</a></li><li><a href="MapType.html">MapType</a></li><li><a href="Matrix.html">Matrix</a></li><li><a href="MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="MLWord2Vec.html">MLWord2Vec</a></li><li><a href="MLWord2VecModel.html">MLWord2VecModel</a></li><li><a href="MulticlassMetrics.html">MulticlassMetrics</a></li><li><a href="MultilabelMetrics.html">MultilabelMetrics</a></li><li><a href="NaiveBayes.html">NaiveBayes</a></li><li><a href="NaiveBayesModel.html">NaiveBayesModel</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PairDStream.html">PairDStream</a></li><li><a href="PairRDD.html">PairRDD</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="PowerIterationClustering.html">PowerIterationClustering</a></li><li><a href="PowerIterationClusteringAssignment.html">PowerIterationClusteringAssignment</a></li><li><a href="PowerIterationClusteringModel.html">PowerIterationClusteringModel</a></li><li><a href="PrefixSpan.html">PrefixSpan</a></li><li><a href="PrefixSpanFreqSequence.html">PrefixSpanFreqSequence</a></li><li><a href="PrefixSpanModel.html">PrefixSpanModel</a></li><li><a href="QRDecomposition.html">QRDecomposition</a></li><li><a href="RandomForest.html">RandomForest</a></li><li><a href="RandomForestModel.html">RandomForestModel</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RankingMetrics.html">RankingMetrics</a></li><li><a href="Rating.html">Rating</a></li><li><a href="RDD.html">RDD</a></li><li><a href="RegressionMetrics.html">RegressionMetrics</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="RowMatrix.html">RowMatrix</a></li><li><a href="Rule.html">Rule</a></li><li><a href="SingularValueDecomposition.html">SingularValueDecomposition</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SparseMatrix.html">SparseMatrix</a></li><li><a href="SparseVector.html">SparseVector</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="SquaredL2Updater.html">SquaredL2Updater</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="Strategy.html">Strategy</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li><li><a href="Tuple.html">Tuple</a></li><li><a href="Updater.html">Updater</a></li><li><a href="Vector.html">Vector</a></li><li><a href="Vectors.html">Vectors</a></li><li><a href="VectorUDT.html">VectorUDT</a></li><li><a href="Word2Vec.html">Word2Vec</a></li><li><a href="Word2VecModel.html">Word2VecModel</a></li></ul><h3>Interfaces</h3><ul><li><a href="ClassificationModel.html">ClassificationModel</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-eclairjs_ml_feature.html">eclairjs/ml/feature</a></li><li><a href="module-eclairjs_mllib.html">eclairjs/mllib</a></li><li><a href="module-eclairjs_mllib_classification.html">eclairjs/mllib/classification</a></li><li><a href="module-eclairjs_mllib_clustering.html">eclairjs/mllib/clustering</a></li><li><a href="module-eclairjs_mllib_evaluation.html">eclairjs/mllib/evaluation</a></li><li><a href="module-eclairjs_mllib_feature.html">eclairjs/mllib/feature</a></li><li><a href="module-eclairjs_mllib_fpm.html">eclairjs/mllib/fpm</a></li><li><a href="module-eclairjs_mllib_linalg.html">eclairjs/mllib/linalg</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.html">eclairjs/mllib/linalg/distributed</a></li><li><a href="module-eclairjs_mllib_optimization.html">eclairjs/mllib/optimization</a></li><li><a href="module-eclairjs_mllib_random.html">eclairjs/mllib/random</a></li><li><a href="module-eclairjs_mllib_recommendation.html">eclairjs/mllib/recommendation</a></li><li><a href="module-eclairjs_mllib_regression.html">eclairjs/mllib/regression</a></li><li><a href="module-eclairjs_mllib_tree.html">eclairjs/mllib/tree</a></li><li><a href="module-eclairjs_mllib_tree_configuration.html">eclairjs/mllib/tree/configuration</a></li><li><a href="module-eclairjs_mllib_tree_loss.html">eclairjs/mllib/tree/loss</a></li><li><a href="module-eclairjs_mllib_tree_model.html">eclairjs/mllib/tree/model</a></li><li><a href="module-eclairjs_sql.html">eclairjs/sql</a></li><li><a href="module-eclairjs_sql_types.html">eclairjs/sql/types</a></li><li><a href="module-eclairjs_storage.html">eclairjs/storage</a></li></ul><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatRDD.html">FloatRDD</a></li><li><a href="FutureAction.html">FutureAction</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="List.html">List</a></li><li><a href="Logger.html">Logger</a></li><li><a href="module-eclairjs_ml_feature.Word2Vec.html">Word2Vec</a></li><li><a href="module-eclairjs_ml_feature.Word2VecModel.html">Word2VecModel</a></li><li><a href="module-eclairjs_mllib.MLUtils.html">MLUtils</a></li><li><a href="module-eclairjs_mllib_classification.LogisticRegressionModel.html">LogisticRegressionModel</a></li><li><a href="module-eclairjs_mllib_classification.LogisticRegressionWithLBFGS.html">LogisticRegressionWithLBFGS</a></li><li><a href="module-eclairjs_mllib_classification.NaiveBayes.html">NaiveBayes</a></li><li><a href="module-eclairjs_mllib_classification.NaiveBayesModel.html">NaiveBayesModel</a></li><li><a href="module-eclairjs_mllib_classification.SVMModel.html">SVMModel</a></li><li><a href="module-eclairjs_mllib_clustering.BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="module-eclairjs_mllib_clustering.DistributedLDAModel.html">DistributedLDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.LDAModel.html">LDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.LocalLDAModel.html">LocalLDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClustering.html">PowerIterationClustering</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClusteringAssignment.html">PowerIterationClusteringAssignment</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClusteringModel.html">PowerIterationClusteringModel</a></li><li><a href="module-eclairjs_mllib_evaluation.BinaryClassificationMetrics.html">BinaryClassificationMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.MulticlassMetrics.html">MulticlassMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.MultilabelMetrics.html">MultilabelMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.RegressionMetrics.html">RegressionMetrics</a></li><li><a href="module-eclairjs_mllib_feature.Word2Vec.html">Word2Vec</a></li><li><a href="module-eclairjs_mllib_fpm.FreqItemset.html">FreqItemset</a></li><li><a href="module-eclairjs_mllib_fpm.PrefixSpan.html">PrefixSpan</a></li><li><a href="module-eclairjs_mllib_fpm.PrefixSpanFreqSequence.html">PrefixSpanFreqSequence</a></li><li><a href="module-eclairjs_mllib_fpm.PrefixSpanModel.html">PrefixSpanModel</a></li><li><a href="module-eclairjs_mllib_fpm.Rule.html">Rule</a></li><li><a href="module-eclairjs_mllib_linalg.DenseMatrix.html">DenseMatrix</a></li><li><a href="module-eclairjs_mllib_linalg.DenseVector.html">DenseVector</a></li><li><a href="module-eclairjs_mllib_linalg.Matrices.html">Matrices</a></li><li><a href="module-eclairjs_mllib_linalg.Matrix.html">Matrix</a></li><li><a href="module-eclairjs_mllib_linalg.QRDecomposition.html">QRDecomposition</a></li><li><a href="module-eclairjs_mllib_linalg.SingularValueDecomposition.html">SingularValueDecomposition</a></li><li><a href="module-eclairjs_mllib_linalg.SparseMatrix.html">SparseMatrix</a></li><li><a href="module-eclairjs_mllib_linalg.SparseVector.html">SparseVector</a></li><li><a href="module-eclairjs_mllib_linalg.Vector.html">Vector</a></li><li><a href="module-eclairjs_mllib_linalg.Vectors.html">Vectors</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.DistributedMatrix.html">DistributedMatrix</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.RowMatrix.html">RowMatrix</a></li><li><a href="module-eclairjs_mllib_optimization.Gradient.html">Gradient</a></li><li><a href="module-eclairjs_mllib_optimization.LBFGS.html">LBFGS</a></li><li><a href="module-eclairjs_mllib_optimization.LogisticGradient.html">LogisticGradient</a></li><li><a href="module-eclairjs_mllib_optimization.SquaredL2Updater.html">SquaredL2Updater</a></li><li><a href="module-eclairjs_mllib_optimization.Updater.html">Updater</a></li><li><a href="module-eclairjs_mllib_random.RandomRDDs.html">RandomRDDs</a></li><li><a href="module-eclairjs_mllib_recommendation.ALS.html">ALS</a></li><li><a href="module-eclairjs_mllib_recommendation.MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="module-eclairjs_mllib_recommendation.Rating.html">Rating</a></li><li><a href="module-eclairjs_mllib_regression.GeneralizedLinearModel.html">GeneralizedLinearModel</a></li><li><a href="module-eclairjs_mllib_regression.LabeledPoint.html">LabeledPoint</a></li><li><a href="module-eclairjs_mllib_regression.LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="module-eclairjs_mllib_regression.LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="module-eclairjs_mllib_tree.DecisionTree.html">DecisionTree</a></li><li><a href="module-eclairjs_mllib_tree.GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="module-eclairjs_mllib_tree.RandomForest.html">RandomForest</a></li><li><a href="module-eclairjs_mllib_tree_configuration.BoostingStrategy.html">BoostingStrategy</a></li><li><a href="module-eclairjs_mllib_tree_configuration.Strategy.html">Strategy</a></li><li><a href="module-eclairjs_mllib_tree_loss.Loss.html">Loss</a></li><li><a href="module-eclairjs_mllib_tree_model.DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="module-eclairjs_mllib_tree_model.GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="module-eclairjs_mllib_tree_model.RandomForestModel.html">RandomForestModel</a></li><li><a href="module-eclairjs_sql.Column.html">Column</a></li><li><a href="module-eclairjs_sql.DataFrame.html">DataFrame</a></li><li><a href="module-eclairjs_sql.DataFrameHolder.html">DataFrameHolder</a></li><li><a href="module-eclairjs_sql.DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="module-eclairjs_sql.DataFrameReader.html">DataFrameReader</a></li><li><a href="module-eclairjs_sql.DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="module-eclairjs_sql.DataFrameWriter.html">DataFrameWriter</a></li><li><a href="module-eclairjs_sql.functions.html">functions</a></li><li><a href="module-eclairjs_sql.GroupedData.html">GroupedData</a></li><li><a href="module-eclairjs_sql.Row.html">Row</a></li><li><a href="module-eclairjs_sql.RowFactory.html">RowFactory</a></li><li><a href="module-eclairjs_sql.SQLContext.html">SQLContext</a></li><li><a href="module-eclairjs_sql.SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="module-eclairjs_sql.SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="module-eclairjs_sql.SQLContext.SQLSession.html">SQLSession</a></li><li><a href="module-eclairjs_sql.SqlDate.html">SqlDate</a></li><li><a href="module-eclairjs_sql.SqlTimestamp.html">SqlTimestamp</a></li><li><a href="module-eclairjs_sql_types.ArrayType.html">ArrayType</a></li><li><a href="module-eclairjs_sql_types.BinaryType.html">BinaryType</a></li><li><a href="module-eclairjs_sql_types.BooleanType.html">BooleanType</a></li><li><a href="module-eclairjs_sql_types.CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="module-eclairjs_sql_types.DataType.html">DataType</a></li><li><a href="module-eclairjs_sql_types.DataTypes.html">DataTypes</a></li><li><a href="module-eclairjs_sql_types.DateType.html">DateType</a></li><li><a href="module-eclairjs_sql_types.DoubleType.html">DoubleType</a></li><li><a href="module-eclairjs_sql_types.FloatType.html">FloatType</a></li><li><a href="module-eclairjs_sql_types.IntegerType.html">IntegerType</a></li><li><a href="module-eclairjs_sql_types.MapType.html">MapType</a></li><li><a href="module-eclairjs_sql_types.Metadata.html">Metadata</a></li><li><a href="module-eclairjs_sql_types.NullType.html">NullType</a></li><li><a href="module-eclairjs_sql_types.NumericType.html">NumericType</a></li><li><a href="module-eclairjs_sql_types.StringType.html">StringType</a></li><li><a href="module-eclairjs_sql_types.StructField.html">StructField</a></li><li><a href="module-eclairjs_sql_types.StructType.html">StructType</a></li><li><a href="module-eclairjs_sql_types.TimestampType.html">TimestampType</a></li><li><a href="module-eclairjs_storage.StorageLevel.html">StorageLevel</a></li><li><a href="PairDStream.html">PairDStream</a></li><li><a href="PairRDD.html">PairRDD</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RDD.html">RDD</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="Time.html">Time</a></li><li><a href="Tuple.html">Tuple</a></li><li><a href="TwitterAuthorization.html">TwitterAuthorization</a></li></ul><h3>Interfaces</h3><ul><li><a href="module-eclairjs_mllib_classification.ClassificationModel.html">ClassificationModel</a></li></ul><h3>Global</h3><ul><li><a href="global.html#module">module</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Tue Mar 22 2016 17:13:10 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Wed Apr 13 2016 10:44:21 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>

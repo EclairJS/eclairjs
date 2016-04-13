@@ -13,13 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+var sqlTypes = require(EclairJS_Globals.NAMESPACE + '/sql/types');
+var DataTypes = sqlTypes.DataTypes;
+var DataType = require(EclairJS_Globals.NAMESPACE + '/sql/types/DataType');
+var ArrayType = sqlTypes.ArrayType;
+var StructType = require(EclairJS_Globals.NAMESPACE + '/sql/types/StructType');
+var StructField = require(EclairJS_Globals.NAMESPACE + '/sql/types/StructField');
+var SQLContext = require(EclairJS_Globals.NAMESPACE + '/sql/SQLContext');
+var SqlTimestamp = require(EclairJS_Globals.NAMESPACE + '/sql/SqlTimestamp');
+var RowFactory = require(EclairJS_Globals.NAMESPACE + '/sql/RowFactory');
+var Column = require(EclairJS_Globals.NAMESPACE + '/sql/Column');
+var functions = require(EclairJS_Globals.NAMESPACE + '/sql/functions');
+var SqlDate = require(EclairJS_Globals.NAMESPACE + '/sql/SqlDate');
+var SqlTimestamp = require(EclairJS_Globals.NAMESPACE + '/sql/SqlTimestamp');
+var StorageLevel = require(EclairJS_Globals.NAMESPACE + '/storage/StorageLevel');
+//var sql = require('sql');
+//require('sql');
 
 var sparkContext = new SparkContext("local[*]", "dataframe");
 var sqlContext = new SQLContext(sparkContext);
 var useDateType = false;
 
 
+
 var buildPeopleTable = function(file, date) {
+
+
 	// Load a text file and convert each line to a JavaScript Object.
 	var people = sparkContext.textFile(file).map(function(line) {
 		var parts = line.split(",");
@@ -408,7 +427,7 @@ var dataframeOrderByTest = function(file) {
 }
 
 var dataframePersistTest = function(file) {
-
+	var StorageLevel = require('eclairjs/storage/StorageLevel');
 	var peopleDataFrame = buildPeopleTable(file);
 	var result = peopleDataFrame.persist(StorageLevel.MEMORY_ONLY());
 	
@@ -700,7 +719,6 @@ var booleanType = function(file) {
 }
 
 var arrayTypeTest = function() {
-
 	var at = ArrayType.apply(DataTypes.IntegerType, true);
 	return at.elementType().defaultSize();
 }

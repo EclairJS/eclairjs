@@ -14,58 +14,81 @@
  * limitations under the License.
  */
 
-var sparkConf = new SparkConf()
-  .setAppName("Random Forest Classification Example");
+/*
+ Usage:
+ bin/eclairjs.sh examples/mllib/random_forest_classification_example.js [file]
+ */
 
-var sc = new SparkContext(sparkConf);
-var datapath =  ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/sample_libsvm_data.txt";
+function run(sc) {
+    var MLUtils = require("eclairjs/mllib/MLUtils");
+    var RandomForest = require('eclairjs/mllib/tree/RandomForest');
 
-var data = MLUtils.loadLibSVMFile(sc, datapath);
+    var datapath = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/sample_libsvm_data.txt";
+
+    var data = MLUtils.loadLibSVMFile(sc, datapath);
 
 // Split the data into training and test sets (30% held out for testing)
-var splits = data.randomSplit([0.7, 0.3]);
-var trainingData = splits[0];
-var testData = splits[1];
+    var splits = data.randomSplit([0.7, 0.3]);
+    var trainingData = splits[0];
+    var testData = splits[1];
 
 // Train a RandomForest model.
 // Empty categoricalFeaturesInfo indicates all features are continuous.
-var numClasses = 2;
-var categoricalFeaturesInfo = {};
-var numTrees = 3; // Use more in practice.
-var featureSubsetStrategy = "auto"; // Let the algorithm choose.
-var impurity = "gini";
-var maxDepth = 5;
-var maxBins = 32;
-var seed = 12345;
+    var numClasses = 2;
+    var categoricalFeaturesInfo = {};
+    var numTrees = 3; // Use more in practice.
+    var featureSubsetStrategy = "auto"; // Let the algorithm choose.
+    var impurity = "gini";
+    var maxDepth = 5;
+    var maxBins = 32;
+    var seed = 12345;
 
 // Train a RandomForest model.
-var model = RandomForest.trainClassifier(
-    trainingData,
-    numClasses,
-    categoricalFeaturesInfo, 
-    numTrees, 
-    featureSubsetStrategy, 
-    impurity, 
-    maxDepth, 
-    maxBins, 
-    seed
-);
+    var model = RandomForest.trainClassifier(
+        trainingData,
+        numClasses,
+        categoricalFeaturesInfo,
+        numTrees,
+        featureSubsetStrategy,
+        impurity,
+        maxDepth,
+        maxBins,
+        seed
+    );
 
 // Evaluate model on test instances and compute test error
-var predictionAndLabel = testData.mapToPair(function(p) {
-    return new Tuple(model.predict(p.getFeatures()), p.getLabel());
-});
+    var predictionAndLabel = testData.mapToPair(function (p, model) {
+        return new Tuple(model.predict(p.getFeatures()), p.getLabel());
+    }, [model]);
 
-var testErr = 1.0 * predictionAndLabel.filter(function(tup) {
-    return (tup[0] !== tup[1]);
-}).count() / testData.count();
+    var testErr = 1.0 * predictionAndLabel.filter(function (tup) {
+            return (tup[0] !== tup[1]);
+        }).count() / testData.count();
+    var ret = {};
+    ret.testErr = testErr;
+    ret.model = model;
+    return ret;
+}
 
-print("Test Error: " + testErr);
-print("Learned classification forest model:\n" + model.toDebugString());
+
+/*
+ check if SparkContext is defined, if it is we are being run from Unit Test
+ */
+
+if (typeof sparkContext === 'undefined') {
+    var sparkConf = new SparkConf().setAppName("Random Forest Classification Example");
+    var sc = new SparkContext(sparkConf);
+    var result = run(sc);
+    print("Test Error: " + result.testErr);
+    print("Learned classification forest model:\n" + result.model.toDebugString());
 
 // Save and load model
-//model.save(sc, "target/tmp/myRandomForestClassification");
-//var sameModel = RandomForestModel.load(
-//    sc,
-//    "target/tmp/myRandomForestClassificationModel"
-//);
+    result.model.save(sc, "target/tmp/myRandomForestClassificationModel");
+    var RandomForestModel = require('eclairjs/mllib/tree/model/RandomForestModel');
+    var sameModel = RandomForestModel.load(
+        sc,
+        "target/tmp/myRandomForestClassificationModel"
+    );
+
+    sc.stop();
+}

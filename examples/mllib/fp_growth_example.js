@@ -18,6 +18,9 @@
  Usage:
  bin/eclairjs.sh examples/mllib/fp_growth_example.js [input_file] [minSupport] [numPartition]"
  */
+
+var FPGrowth = require('eclairjs/mllib/fpm/FPGrowth');
+
 function run(sc, useTake) {
 
 

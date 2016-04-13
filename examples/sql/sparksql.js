@@ -15,6 +15,13 @@
  * limitations under the License.
  */
 
+var DataTypes = require('eclairjs/sql/types').DataTypes;
+var DataType = require('eclairjs/sql/types/DataType');
+var SQLContext = require('eclairjs/sql/SQLContext');
+var sql = require('eclairjs/sql');
+var RowFactory = sql.RowFactory;
+//var DataFrame = sql.DataFrame;
+
 var sparkConf = new SparkConf().setAppName("JavaScriptSparkSQL");
 var ctx = new SparkContext(sparkConf);
 var sqlContext = new SQLContext(ctx);
@@ -59,7 +66,8 @@ var names = results.toRDD().map(function(row) {
 
 print("names = " + names.take(10));
 var dataFrame = sqlContext.read().json(jsonFile);
-var gd = dataFrame.groupBy(dataFrame.col("first"));
+var col = dataFrame.col("first")
+var gd = dataFrame.groupBy(col);
 var df2 = gd.count();
 
 df2.show();

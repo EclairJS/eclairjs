@@ -20,6 +20,8 @@
  */
 
 function run(sc) {
+  var RandomRDDs = require('eclairjs/mllib/random/RandomRDDs');
+
   var result = {};
 
   var numExamples = 10000; // # number of examples to generate

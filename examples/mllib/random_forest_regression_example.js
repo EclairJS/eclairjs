@@ -13,60 +13,84 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/*
+ Usage:
+ bin/eclairjs.sh examples/mllib/random_forest_regression_example.js [file]
+ */
 
-var sparkConf = new SparkConf()
-  .setAppName("Random Forest Regression Example");
+function run(sc) {
+    var MLUtils = require("eclairjs/mllib/MLUtils");
+    var RandomForest = require('eclairjs/mllib/tree/RandomForest');
 
-var sc = new SparkContext(sparkConf);
-var datapath =  ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/sample_libsvm_data.txt";
+    var datapath = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/sample_libsvm_data.txt";
 
-var data = MLUtils.loadLibSVMFile(sc, datapath);
+    var data = MLUtils.loadLibSVMFile(sc, datapath);
 
 // Split the data into training and test sets (30% held out for testing)
-var splits = data.randomSplit([0.7, 0.3]);
-var trainingData = splits[0];
-var testData = splits[1];
+    var splits = data.randomSplit([0.7, 0.3]);
+    var trainingData = splits[0];
+    var testData = splits[1];
 
 // Set parameters.
 // Empty categoricalFeaturesInfo indicates all features are continuous.
-var categoricalFeaturesInfo = {};
-var numTrees = 3; // Use more in practice.
-var featureSubsetStrategy = "auto"; // Let the algorithm choose.
-var impurity = "variance";
-var maxDepth = 4;
-var maxBins = 32;
-var seed = 12345;
+    var categoricalFeaturesInfo = {};
+    var numTrees = 3; // Use more in practice.
+    var featureSubsetStrategy = "auto"; // Let the algorithm choose.
+    var impurity = "variance";
+    var maxDepth = 4;
+    var maxBins = 32;
+    var seed = 12345;
 
 // Train a RandomForest model.
-var model = RandomForest.trainRegressor(
-    trainingData,
-    categoricalFeaturesInfo, 
-    numTrees, 
-    featureSubsetStrategy, 
-    impurity, 
-    maxDepth, 
-    maxBins, 
-    seed
-);
+    var model = RandomForest.trainRegressor(
+        trainingData,
+        categoricalFeaturesInfo,
+        numTrees,
+        featureSubsetStrategy,
+        impurity,
+        maxDepth,
+        maxBins,
+        seed
+    );
 
 // Evaluate model on test instances and compute test error
-var predictionAndLabel = testData.mapToPair(function(p) {
-    return new Tuple(model.predict(p.getFeatures()), p.getLabel());
-});
+    var predictionAndLabel = testData.mapToPair(function (p, model) {
+        return new Tuple(model.predict(p.getFeatures()), p.getLabel());
+    }, [model]);
 
-var testMSE = predictionAndLabel.map(function(tup) {
-    var diff = tup[0] - tup[1];
-    return diff * diff;
-}).reduce(function(a, b) {
-    return a + b;
-}) / testData.count();
+    var testMSE = predictionAndLabel.map(function (tup) {
+            var diff = tup[0] - tup[1];
+            return diff * diff;
+        }).reduce(function (a, b) {
+            return a + b;
+        }) / testData.count();
 
-print("Test Mean Squared Error: " + testMSE);
-print("Learned regression forest model:\n" + model.toDebugString());
+    var ret = {};
+    ret.testMSE = testMSE;
+    ret.model = model;
+    return ret;
+}
+
+/*
+ check if SparkContext is defined, if it is we are being run from Unit Test
+ */
+
+if (typeof sparkContext === 'undefined') {
+    var sparkConf = new SparkConf().setAppName("Random Forest Regression Example");
+    var sc = new SparkContext(sparkConf);
+    var result = run(sc);
+    print("Test Mean Squared Error: " + result.testMSE);
+    print("Learned regression forest model:\n" + result.model.toDebugString());
 
 // Save and load model
-model.save(sc, "target/tmp/myRandomForestRegressionModel");
-var sameModel = RandomForestModel.load(
-    sc,
-    "target/tmp/myRandomForestRegressionModel"
-);
+    result.model.save(sc, "target/tmp/myRandomForestRegressionModel");
+    var RandomForestModel = require('eclairjs/mllib/tree/model/RandomForestModel');
+    var sameModel = RandomForestModel.load(
+        sc,
+        "target/tmp/myRandomForestRegressionModel"
+    );
+
+    sc.stop();
+}
+
+

@@ -19,6 +19,8 @@
  bin/eclairjs.sh examples/mllib/prefix_span_example.js"
  */
 
+var PrefixSpan = require('eclairjs/mllib/fpm/PrefixSpan');
+
 function run(sc) {
 
     var sequences = sc.parallelize([

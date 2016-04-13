@@ -15,7 +15,8 @@
  * limitations under the License.
  */
 
-
+var AssociationRules = require('eclairjs/mllib/fpm/AssociationRules');
+var FreqItemset = require('eclairjs/mllib/fpm/FreqItemset');
 
 function run(sc) {
 

@@ -20,7 +20,11 @@
  */
 
 
+
 function run(sc) {
+    var MLUtils = require("eclairjs/mllib/MLUtils");
+    var LogisticRegressionWithLBFGS = require('eclairjs/mllib/classification').LogisticRegressionWithLBFGS;
+    var MulticlassMetrics = require('eclairjs/mllib/evaluation').MulticlassMetrics;
 
     var path =  ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/sample_multiclass_classification_data.txt";
     var data = MLUtils.loadLibSVMFile(sc, path);
@@ -83,6 +87,7 @@ if (typeof sparkContext === 'undefined') {
 
 // Save and load model
     result.model.save(sc, "target/tmp/LogisticRegressionModel");
+    var LogisticRegressionModel = require('eclairjs/mllib/classification/LogisticRegressionModel');
     var sameModel = LogisticRegressionModel.load(sc, "target/tmp/LogisticRegressionModel");
 
     sc.stop();

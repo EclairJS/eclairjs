@@ -21,6 +21,9 @@
 
 
 function run(sc) {
+    var MLUtils = require("eclairjs/mllib/MLUtils");
+    var DecisionTree = require('eclairjs/mllib/tree/DecisionTree');
+
     // Load and parse the data file.
     var datapath = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/sample_libsvm_data.txt";
     var data = MLUtils.loadLibSVMFile(sc, datapath);
@@ -76,6 +79,7 @@ if (typeof sparkContext === 'undefined') {
 
 // Save and load model
     result.model.save(sc, "target/tmp/myDecisionTreeRegressionModel");
+    var DecisionTreeModel = require('eclairjs/mllib/tree/model/DecisionTreeModel');
     var sameModel = DecisionTreeModel
         .load(sc, "target/tmp/myDecisionTreeRegressionModel");
 

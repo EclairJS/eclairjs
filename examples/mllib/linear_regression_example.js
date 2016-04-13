@@ -19,15 +19,25 @@
  bin/eclairjs.sh examples/mllib/linear_regression_example.js"
  */
 
-function run(sc) {
+/*
+ * Require modules needed within lambda functions.
+ */
+//var RDD = require('RDD');
+LabeledPoint = 21;
+var LinearRegressionWithSGD = require('eclairjs/mllib/regression').LinearRegressionWithSGD;
+var myLabeledPoint = require('eclairjs/mllib/regression/LabeledPoint');
+var myDenseVector = require('eclairjs/mllib/linalg/DenseVector');
+var LinearRegressionWithSGD = require('eclairjs/mllib/regression/LinearRegressionWithSGD')
 
+function run(sc) {
+    var x = RDD;
     var filename = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/lpsa.data";
     var data = sc.textFile(filename).cache();
-    var parsedData = data.map(function (s) {
+    var parsedData = data.map(function (s, myLabeledPoint, myDenseVector) {
         var parts = s.split(",");
         var features = parts[1].split(" ");
-        return new LabeledPoint(parts[0], new DenseVector(features));
-    });
+        return new myLabeledPoint(parts[0], new myDenseVector(features));
+    }, [myLabeledPoint, myDenseVector]);
 
     var numIterations = 3;
     var linearRegressionModel = LinearRegressionWithSGD.train(parsedData, numIterations);
@@ -42,7 +52,6 @@ function run(sc) {
 
     return  valuesAndPreds.take(10);
 
-
 }
 
 /*
@@ -51,7 +60,8 @@ function run(sc) {
 
 if (typeof sparkContext === 'undefined') {
 
-    var sparkConf = new SparkConf().setAppName("Linear Regression Example");
+    var sparkConf = new SparkConf()
+        .setAppName("Linear Regression Example");
     var sc = new SparkContext(sparkConf);
     var result = run(sc);
     print("valuesAndPreds: " + result.toString());

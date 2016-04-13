@@ -1,9 +1,46 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.ibm</groupId>
+    <groupId>org.eclairjs</groupId>
     <artifactId>eclairjs-nashorn</artifactId>
-    <version>0.1</version>
+    <version>0.4-SNAPSHOT</version>
+
+    <name>EclairJS Nashorn</name>
+    <description>JavaScript API for Apache Spark</description>
+    <url>https://github.com/EclairJS/eclairjs-nashorn</url>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>EclairJS</name>
+            <email>eclairjs@us.ibm.com</email>
+            <organization>IBM Corporation</organization>
+            <organizationUrl>http://www.ibm.com</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git@github.com:eclairjs/eclairjs-nashorn.git</connection>
+        <developerConnection>scm:git:git@github.com:eclairjs/eclairjs-nashorn.git</developerConnection>
+        <url>git@github.com:eclairjs/eclairjs-nashorn.git</url>
+    </scm>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 
     <build>
         <plugins>
@@ -48,6 +85,8 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
+                            <shadedArtifactAttached>true</shadedArtifactAttached>
+                            <shadedClassifierName>jar-with-dependencies</shadedClassifierName> <!-- Any name that makes sense -->
                             <filters>
                                 <filter>
                                   <artifact>*:*</artifact>
@@ -58,21 +97,60 @@
                                   </excludes>
                                 </filter>
                             </filters>
-                            <artifactSet>
-                                <excludes>
-                                    <exclude>classworlds:classworlds</exclude>
-                                    <exclude>junit:junit</exclude>
-                                    <exclude>jmock:*</exclude>
-                                    <exclude>*:xml-apis</exclude>
-                                    <exclude>org.scala-lang:*</exclude>
-                                    <exclude>org.apache.maven:lib:tests</exclude>
-                                    <exclude>log4j:log4j:jar:</exclude>
-                                    <exclude>org.eclipse.jetty:*</exclude>
-                                </excludes>
-                            </artifactSet>
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.3</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
             </plugin>
         </plugins>
         <pluginManagement>
@@ -120,36 +198,43 @@
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
             <version>2.10.2</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-core_2.10</artifactId>
             <version>${spark.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
 		    <groupId>org.apache.spark</groupId>
 		    <artifactId>spark-sql_2.10</artifactId>
 		    <version>${spark.version}</version>
+            <scope>provided</scope>
 		</dependency>
 		<dependency>
 		    <groupId>org.apache.spark</groupId>
 		    <artifactId>spark-catalyst_2.10</artifactId>
 		    <version>${spark.version}</version>
+            <scope>provided</scope>
 		</dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-hive_2.10</artifactId>
             <version>${spark.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-streaming_2.10</artifactId>
             <version>${spark.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-mllib_2.10</artifactId>
             <version>${spark.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
@@ -180,6 +265,68 @@
         </dependency>
     </dependencies>
     <profiles>
+        <profile>
+            <id>local</id>
+            <properties>
+                <spark.scope>compile</spark.scope>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.scala-lang</groupId>
+                    <artifactId>scala-library</artifactId>
+                    <version>2.10.2</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.spark</groupId>
+                    <artifactId>spark-core_2.10</artifactId>
+                    <version>${spark.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.spark</groupId>
+                    <artifactId>spark-sql_2.10</artifactId>
+                    <version>${spark.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.spark</groupId>
+                    <artifactId>spark-catalyst_2.10</artifactId>
+                    <version>${spark.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.spark</groupId>
+                    <artifactId>spark-hive_2.10</artifactId>
+                    <version>${spark.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.spark</groupId>
+                    <artifactId>spark-streaming_2.10</artifactId>
+                    <version>${spark.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.spark</groupId>
+                    <artifactId>spark-mllib_2.10</artifactId>
+                    <version>${spark.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.toree</groupId>
+                    <artifactId>toree-kernel-api_2.10</artifactId>
+                    <version>0.0.0-dev-SNAPSHOT</version>
+                    <scope>provided</scope>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>javax.servlet</groupId>
+                            <artifactId>servlet-api</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+            </dependencies>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+                <property>
+                    <name>env</name>
+                    <value>local</value>
+                </property>
+            </activation>
+        </profile>
     <profile>
         <id>notebook</id>
         <dependencies>
@@ -195,6 +342,18 @@
                 </exclusion>
             </exclusions>
         </dependency>
+            <dependency>
+                <groupId>org.apache.toree</groupId>
+                <artifactId>toree-kernel_2.10</artifactId>
+                <version>0.0.0-dev-SNAPSHOT</version>
+                <scope>provided</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>javax.servlet</groupId>
+                        <artifactId>servlet-api</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
         </dependencies>
         <build>
         <plugins>

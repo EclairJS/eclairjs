@@ -19,6 +19,9 @@
  * bin/eclairjs.sh examples/mllib/ALS.js  examples/data/mllib/als/test.data  12 4 /tmp
  */
 
+var ALS = require('eclairjs/mllib/recommendation/ALS');
+var Rating = require('eclairjs/mllib/recommendation/Rating');
+
 function featuresToString(tuple) {
     return tuple[0] + "," + tuple[2];
 }

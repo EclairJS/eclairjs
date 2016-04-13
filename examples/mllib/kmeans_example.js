@@ -19,6 +19,10 @@
  bin/eclairjs.sh examples/mllib/kmeans_example.js [<input_file>] [<k>] [<max_iterations>] [<runs>]"
  */
 
+var KMeans = require("eclairjs/mllib/clustering/KMeans");
+var Vector = require("eclairjs/mllib/linalg/Vector");
+var Vectors = require("eclairjs/mllib/linalg/Vectors");
+
 var inputFile = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/kmeans_data.txt";
 var k = 3;
 var iterations = 10;
@@ -29,14 +33,14 @@ function run(sc) {
 
     var lines = sc.textFile(inputFile);
 
-    var points = lines.map(function (line) {
+    var points = lines.map(function (line, Vectors) {
         var tok = line.split(" ");
         var point = [];
         tok.forEach(function (t) {
             point.push(parseFloat(t));
         });
         return Vectors.dense(point);
-    });
+    }, [Vectors]);
 
     var model = KMeans.train(points, k, iterations, runs, KMeans.K_MEANS_PARALLEL);
     var center = model.clusterCenters();

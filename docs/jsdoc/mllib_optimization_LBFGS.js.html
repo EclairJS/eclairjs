@@ -41,145 +41,156 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+(function () {
 
-/**
- * Class used to solve an optimization problem using Limited-memory BFGS.
- * Reference: http://en.wikipedia.org/wiki/Limited-memory_BFGS param: gradient
- * Gradient function to be used. param: updater Updater to be used to update weights after every iteration.
- * @class
- * @constructor
- * @param {Gradient} gradient
- * @param {Updater} updater
- */
+    var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
+    var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
+    var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
 
-var LBFGS = function (gradient, updater) {
-    this.logger = Logger.getLogger("LBFGS_js");
-    var jvmObject;
-    if (gradient instanceof org.apache.spark.mllib.optimization.LBFGS) {
-        jvmObject = gradient;
-    } else {
-        jvmObject = new org.apache.spark.mllib.optimization.LBFGS(Utils.unwrapObject(gradient), Utils.unwrapObject(updater));
-    }
+    /**
+     * Class used to solve an optimization problem using Limited-memory BFGS.
+     * Reference: http://en.wikipedia.org/wiki/Limited-memory_BFGS param: gradient
+     * Gradient function to be used. param: updater Updater to be used to update weights after every iteration.
+     * @class
+     * @memberof module:eclairjs/mllib/optimization
+     * @constructor
+     * @param {Gradient} gradient
+     * @param {Updater} updater
+     */
 
-    JavaWrapper.call(this, jvmObject);
+    var LBFGS = function (gradient, updater) {
+        this.logger = Logger.getLogger("LBFGS_js");
+        var jvmObject;
+        if (gradient instanceof org.apache.spark.mllib.optimization.LBFGS) {
+            jvmObject = gradient;
+        } else {
+            jvmObject = new org.apache.spark.mllib.optimization.LBFGS(Utils.unwrapObject(gradient), Utils.unwrapObject(updater));
+        }
 
-};
+        JavaWrapper.call(this, jvmObject);
 
-LBFGS.prototype = Object.create(JavaWrapper.prototype);
+    };
 
-LBFGS.prototype.constructor = LBFGS;
-/**
- * Run Limited-memory BFGS (L-BFGS) in parallel. Averaging the subgradients over different partitions is performed
- * using one standard spark map-reduce in each iteration.
- * @param {RDD} data - - Input data for L-BFGS. RDD of the set of data examples, each of the form (label, [feature values]).
- * @param {Gradient} gradient - - Gradient object (used to compute the gradient of the loss function of one single data example)
- * @param {Updater} updater - - Updater function to actually perform a gradient step in a given direction.
- * @param {integer} numCorrections - - The number of corrections used in the L-BFGS update.
- * @param {float} convergenceTol - - The convergence tolerance of iterations for L-BFGS which is must be nonnegative.
- * Lower values are less tolerant and therefore generally cause more iterations to be run.
- * @param {integer} maxNumIterations - - Maximal number of iterations that L-BFGS can be run.
- * @param {float} regParam - - Regularization parameter
- * @param {Vector} initialWeights - (undocumented)
- * @returns {Tuple} A tuple containing two elements. The first element is a column matrix containing weights for every feature,
- * and the second element is an array containing the loss computed for every iteration.
- * @param testData
- */
-LBFGS.runLBFGS = function (data,gradient,updater,numCorrections,convergenceTol,maxNumIterations,regParam,initialWeights) {
-    var data_uw = Utils.unwrapObject(data);
-    var rdd = data_uw.rdd();
-    var gradient_uw = Utils.unwrapObject(gradient);
-    var updater_uw = Utils.unwrapObject(updater);
-    var initialWeights_uw = Utils.unwrapObject(initialWeights);
-    var javaObject = org.apache.spark.mllib.optimization.LBFGS.runLBFGS(rdd,gradient_uw,updater_uw,numCorrections,convergenceTol,maxNumIterations,regParam,initialWeights_uw);
+    LBFGS.prototype = Object.create(JavaWrapper.prototype);
 
-    return Utils.javaToJs(javaObject);
-};
+    LBFGS.prototype.constructor = LBFGS;
+    /**
+     * Run Limited-memory BFGS (L-BFGS) in parallel. Averaging the subgradients over different partitions is performed
+     * using one standard spark map-reduce in each iteration.
+     * @param {RDD} data - - Input data for L-BFGS. RDD of the set of data examples, each of the form (label, [feature values]).
+     * @param {Gradient} gradient - - Gradient object (used to compute the gradient of the loss function of one single data example)
+     * @param {Updater} updater - - Updater function to actually perform a gradient step in a given direction.
+     * @param {integer} numCorrections - - The number of corrections used in the L-BFGS update.
+     * @param {float} convergenceTol - - The convergence tolerance of iterations for L-BFGS which is must be nonnegative.
+     * Lower values are less tolerant and therefore generally cause more iterations to be run.
+     * @param {integer} maxNumIterations - - Maximal number of iterations that L-BFGS can be run.
+     * @param {float} regParam - - Regularization parameter
+     * @param {Vector} initialWeights - (undocumented)
+     * @returns {Tuple} A tuple containing two elements. The first element is a column matrix containing weights for every feature,
+     * and the second element is an array containing the loss computed for every iteration.
+     * @param testData
+     */
+    LBFGS.runLBFGS = function (data,gradient,updater,numCorrections,convergenceTol,maxNumIterations,regParam,initialWeights) {
+        var data_uw = Utils.unwrapObject(data);
+        var rdd = data_uw.rdd();
+        var gradient_uw = Utils.unwrapObject(gradient);
+        var updater_uw = Utils.unwrapObject(updater);
+        var initialWeights_uw = Utils.unwrapObject(initialWeights);
+        var javaObject = org.apache.spark.mllib.optimization.LBFGS.runLBFGS(rdd,gradient_uw,updater_uw,numCorrections,convergenceTol,maxNumIterations,regParam,initialWeights_uw);
+
+        return Utils.javaToJs(javaObject);
+    };
 
 
-/**
- * Description copied from interface: {@link Optimizer}
- * Solve the provided convex optimization problem.
- * @param {RDD} data
- * @param {Vector} initialWeights
- * @returns {Vector}
- */
-LBFGS.prototype.optimize = function (data,initialWeights) {
-    var data_uw = Utils.unwrapObject(data);
-    var initialWeights_uw = Utils.unwrapObject(initialWeights);
-    var javaObject = this.getJavaObject().optimize(data_uw,initialWeights_uw);
+    /**
+     * Description copied from interface: {@link Optimizer}
+     * Solve the provided convex optimization problem.
+     * @param {RDD} data
+     * @param {Vector} initialWeights
+     * @returns {Vector}
+     */
+    LBFGS.prototype.optimize = function (data,initialWeights) {
+        var data_uw = Utils.unwrapObject(data);
+        var initialWeights_uw = Utils.unwrapObject(initialWeights);
+        var javaObject = this.getJavaObject().optimize(data_uw,initialWeights_uw);
 
-    return Utils.javaToJs(javaObject);
-};
+        return Utils.javaToJs(javaObject);
+    };
 
-/**
- * Set the number of corrections used in the LBFGS update. Default 10. Values of numCorrections less than 3 are not recommended;
- * large values of numCorrections will result in excessive computing time. 3 &lt; numCorrections &lt; 10 is recommended. Restriction: numCorrections > 0
- * @param {integer} corrections
- * @returns {LBFGS}
- */
-LBFGS.prototype.setNumCorrections = function (corrections) {
-    var javaObject = this.getJavaObject().setNumCorrections(corrections);
+    /**
+     * Set the number of corrections used in the LBFGS update. Default 10. Values of numCorrections less than 3 are not recommended;
+     * large values of numCorrections will result in excessive computing time. 3 &lt; numCorrections &lt; 10 is recommended. Restriction: numCorrections > 0
+     * @param {integer} corrections
+     * @returns {LBFGS}
+     */
+    LBFGS.prototype.setNumCorrections = function (corrections) {
+        var javaObject = this.getJavaObject().setNumCorrections(corrections);
 
-    return new LBFGS(javaObject);
-};
+        return new LBFGS(javaObject);
+    };
 
-/**
- * Set the convergence tolerance of iterations for L-BFGS. Default 0.0001. Smaller value will lead to higher accuracy with the cost of more iterations.
- * This value must be nonnegative. Lower convergence values are less tolerant and therefore generally cause more iterations to be run.
- * @param {float} tolerance
- * @returns {LBFGS}
- */
-LBFGS.prototype.setConvergenceTol = function (tolerance) {
-    var javaObject = this.getJavaObject().setConvergenceTol(tolerance);
+    /**
+     * Set the convergence tolerance of iterations for L-BFGS. Default 0.0001. Smaller value will lead to higher accuracy with the cost of more iterations.
+     * This value must be nonnegative. Lower convergence values are less tolerant and therefore generally cause more iterations to be run.
+     * @param {float} tolerance
+     * @returns {LBFGS}
+     */
+    LBFGS.prototype.setConvergenceTol = function (tolerance) {
+        var javaObject = this.getJavaObject().setConvergenceTol(tolerance);
 
-    return new LBFGS(javaObject);
-};
+        return new LBFGS(javaObject);
+    };
 
-/**
- * Set the maximal number of iterations for L-BFGS. Default 100.
- * @param {integer} iters
- * @returns {LBFGS}
- */
-LBFGS.prototype.setNumIterations = function (iters) {
-    var javaObject = this.getJavaObject().setNumIterations(iters);
+    /**
+     * Set the maximal number of iterations for L-BFGS. Default 100.
+     * @param {integer} iters
+     * @returns {LBFGS}
+     */
+    LBFGS.prototype.setNumIterations = function (iters) {
+        var javaObject = this.getJavaObject().setNumIterations(iters);
 
-    return new LBFGS(javaObject);
-};
+        return new LBFGS(javaObject);
+    };
 
-/**
- * Set the regularization parameter. Default 0.0.
- * @param {float} regParam
- * @returns {LBFGS}
- */
-LBFGS.prototype.setRegParam = function (regParam) {
-    var javaObject = this.getJavaObject().setRegParam(regParam);
+    /**
+     * Set the regularization parameter. Default 0.0.
+     * @param {float} regParam
+     * @returns {LBFGS}
+     */
+    LBFGS.prototype.setRegParam = function (regParam) {
+        var javaObject = this.getJavaObject().setRegParam(regParam);
 
-    return new LBFGS(javaObject);
-};
+        return new LBFGS(javaObject);
+    };
 
-/**
- * Set the gradient function (of the loss function of one single data example) to be used for L-BFGS.
- * @param {Gradient} gradient
- * @returns {LBFGS}
- */
-LBFGS.prototype.setGradient = function (gradient) {
-    var javaObject = this.getJavaObject().setGradient(Utils.unwrapObject(gradient));
+    /**
+     * Set the gradient function (of the loss function of one single data example) to be used for L-BFGS.
+     * @param {Gradient} gradient
+     * @returns {LBFGS}
+     */
+    LBFGS.prototype.setGradient = function (gradient) {
+        var javaObject = this.getJavaObject().setGradient(Utils.unwrapObject(gradient));
 
-    return new LBFGS(javaObject);
-};
+        return new LBFGS(javaObject);
+    };
 
-/**
- * Set the updater function to actually perform a gradient step in a given direction.
- * The updater is responsible to perform the update from the regularization term as well,
- * and therefore determines what kind or regularization is used, if any.
- * @param {Updater} updater
- * @returns {LBFGS}
- */
-LBFGS.prototype.setUpdater = function (updater) {
-    var javaObject = this.getJavaObject().setUpdater(Utils.unwrapObject(updater));
+    /**
+     * Set the updater function to actually perform a gradient step in a given direction.
+     * The updater is responsible to perform the update from the regularization term as well,
+     * and therefore determines what kind or regularization is used, if any.
+     * @param {Updater} updater
+     * @returns {LBFGS}
+     */
+    LBFGS.prototype.setUpdater = function (updater) {
+        var javaObject = this.getJavaObject().setUpdater(Utils.unwrapObject(updater));
 
-    return new LBFGS(javaObject);
-};</code></pre>
+        return new LBFGS(javaObject);
+    };
+
+    module.exports = LBFGS;
+
+})();
+</code></pre>
         </article>
     </section>
 
@@ -189,13 +200,13 @@ LBFGS.prototype.setUpdater = function (updater) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="ALS.html">ALS</a></li><li><a href="ArrayType.html">ArrayType</a></li><li><a href="AssociationRules.html">AssociationRules</a></li><li><a href="BinaryClassificationMetrics.html">BinaryClassificationMetrics</a></li><li><a href="BinaryType.html">BinaryType</a></li><li><a href="BisectingKMeans.html">BisectingKMeans</a></li><li><a href="BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="BooleanType.html">BooleanType</a></li><li><a href="BoostingStrategy.html">BoostingStrategy</a></li><li><a href="CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="Column.html">Column</a></li><li><a href="DataFrame.html">DataFrame</a></li><li><a href="DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="DataFrameReader.html">DataFrameReader</a></li><li><a href="DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="DataFrameWriter.html">DataFrameWriter</a></li><li><a href="DataType.html">DataType</a></li><li><a href="DataTypes.html">DataTypes</a></li><li><a href="DateType.html">DateType</a></li><li><a href="DecisionTree.html">DecisionTree</a></li><li><a href="DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="DenseMatrix.html">DenseMatrix</a></li><li><a href="DenseVector.html">DenseVector</a></li><li><a href="DistributedLDAModel.html">DistributedLDAModel</a></li><li><a href="DistributedMatrix.html">DistributedMatrix</a></li><li><a href="DoubleType.html">DoubleType</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatRDD.html">FloatRDD</a></li><li><a href="FloatType.html">FloatType</a></li><li><a href="FPGrowth.html">FPGrowth</a></li><li><a href="FPGrowthModel.html">FPGrowthModel</a></li><li><a href="FreqItemset.html">FreqItemset</a></li><li><a href="functions.html">functions</a></li><li><a href="FutureAction.html">FutureAction</a></li><li><a href="GeneralizedLinearModel.html">GeneralizedLinearModel</a></li><li><a href="Gradient.html">Gradient</a></li><li><a href="GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="GroupedData.html">GroupedData</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="IntegerType.html">IntegerType</a></li><li><a href="IsotonicRegression.html">IsotonicRegression</a></li><li><a href="IsotonicRegressionModel.html">IsotonicRegressionModel</a></li><li><a href="KMeans.html">KMeans</a></li><li><a href="KMeansModel.html">KMeansModel</a></li><li><a href="LabeledPoint.html">LabeledPoint</a></li><li><a href="LBFGS.html">LBFGS</a></li><li><a href="LDA.html">LDA</a></li><li><a href="LDAModel.html">LDAModel</a></li><li><a href="LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="List.html">List</a></li><li><a href="LocalLDAModel.html">LocalLDAModel</a></li><li><a href="Logger.html">Logger</a></li><li><a href="LogisticGradient.html">LogisticGradient</a></li><li><a href="LogisticRegressionModel.html">LogisticRegressionModel</a></li><li><a href="LogisticRegressionWithLBFGS.html">LogisticRegressionWithLBFGS</a></li><li><a href="LogisticRegressionWithSGD.html">LogisticRegressionWithSGD</a></li><li><a href="Loss.html">Loss</a></li><li><a href="MapType.html">MapType</a></li><li><a href="Matrix.html">Matrix</a></li><li><a href="MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="Metadata.html">Metadata</a></li><li><a href="MLWord2Vec.html">MLWord2Vec</a></li><li><a href="MLWord2VecModel.html">MLWord2VecModel</a></li><li><a href="MulticlassMetrics.html">MulticlassMetrics</a></li><li><a href="MultilabelMetrics.html">MultilabelMetrics</a></li><li><a href="NaiveBayes.html">NaiveBayes</a></li><li><a href="NaiveBayesModel.html">NaiveBayesModel</a></li><li><a href="NullType.html">NullType</a></li><li><a href="NumericType.html">NumericType</a></li><li><a href="PairDStream.html">PairDStream</a></li><li><a href="PairRDD.html">PairRDD</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="PowerIterationClustering.html">PowerIterationClustering</a></li><li><a href="PowerIterationClusteringAssignment.html">PowerIterationClusteringAssignment</a></li><li><a href="PowerIterationClusteringModel.html">PowerIterationClusteringModel</a></li><li><a href="PrefixSpan.html">PrefixSpan</a></li><li><a href="PrefixSpanFreqSequence.html">PrefixSpanFreqSequence</a></li><li><a href="PrefixSpanModel.html">PrefixSpanModel</a></li><li><a href="QRDecomposition.html">QRDecomposition</a></li><li><a href="RandomForest.html">RandomForest</a></li><li><a href="RandomForestModel.html">RandomForestModel</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RankingMetrics.html">RankingMetrics</a></li><li><a href="Rating.html">Rating</a></li><li><a href="RDD.html">RDD</a></li><li><a href="RegressionMetrics.html">RegressionMetrics</a></li><li><a href="Row.html">Row</a></li><li><a href="RowFactory.html">RowFactory</a></li><li><a href="RowMatrix.html">RowMatrix</a></li><li><a href="Rule.html">Rule</a></li><li><a href="SingularValueDecomposition.html">SingularValueDecomposition</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="SparseMatrix.html">SparseMatrix</a></li><li><a href="SparseVector.html">SparseVector</a></li><li><a href="SQLContext.html">SQLContext</a></li><li><a href="SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="SQLContext.SQLSession.html">SQLSession</a></li><li><a href="SqlDate.html">SqlDate</a></li><li><a href="SqlTimestamp.html">SqlTimestamp</a></li><li><a href="SquaredL2Updater.html">SquaredL2Updater</a></li><li><a href="StorageLevel.html">StorageLevel</a></li><li><a href="Strategy.html">Strategy</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="StringType.html">StringType</a></li><li><a href="StructField.html">StructField</a></li><li><a href="StructType.html">StructType</a></li><li><a href="Time.html">Time</a></li><li><a href="TimestampType.html">TimestampType</a></li><li><a href="Tuple.html">Tuple</a></li><li><a href="Updater.html">Updater</a></li><li><a href="Vector.html">Vector</a></li><li><a href="Vectors.html">Vectors</a></li><li><a href="VectorUDT.html">VectorUDT</a></li><li><a href="Word2Vec.html">Word2Vec</a></li><li><a href="Word2VecModel.html">Word2VecModel</a></li></ul><h3>Interfaces</h3><ul><li><a href="ClassificationModel.html">ClassificationModel</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-eclairjs_ml_feature.html">eclairjs/ml/feature</a></li><li><a href="module-eclairjs_mllib.html">eclairjs/mllib</a></li><li><a href="module-eclairjs_mllib_classification.html">eclairjs/mllib/classification</a></li><li><a href="module-eclairjs_mllib_clustering.html">eclairjs/mllib/clustering</a></li><li><a href="module-eclairjs_mllib_evaluation.html">eclairjs/mllib/evaluation</a></li><li><a href="module-eclairjs_mllib_feature.html">eclairjs/mllib/feature</a></li><li><a href="module-eclairjs_mllib_fpm.html">eclairjs/mllib/fpm</a></li><li><a href="module-eclairjs_mllib_linalg.html">eclairjs/mllib/linalg</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.html">eclairjs/mllib/linalg/distributed</a></li><li><a href="module-eclairjs_mllib_optimization.html">eclairjs/mllib/optimization</a></li><li><a href="module-eclairjs_mllib_random.html">eclairjs/mllib/random</a></li><li><a href="module-eclairjs_mllib_recommendation.html">eclairjs/mllib/recommendation</a></li><li><a href="module-eclairjs_mllib_regression.html">eclairjs/mllib/regression</a></li><li><a href="module-eclairjs_mllib_tree.html">eclairjs/mllib/tree</a></li><li><a href="module-eclairjs_mllib_tree_configuration.html">eclairjs/mllib/tree/configuration</a></li><li><a href="module-eclairjs_mllib_tree_loss.html">eclairjs/mllib/tree/loss</a></li><li><a href="module-eclairjs_mllib_tree_model.html">eclairjs/mllib/tree/model</a></li><li><a href="module-eclairjs_sql.html">eclairjs/sql</a></li><li><a href="module-eclairjs_sql_types.html">eclairjs/sql/types</a></li><li><a href="module-eclairjs_storage.html">eclairjs/storage</a></li></ul><h3>Classes</h3><ul><li><a href="Accumulable.html">Accumulable</a></li><li><a href="AccumulableParam.html">AccumulableParam</a></li><li><a href="Accumulator.html">Accumulator</a></li><li><a href="DStream.html">DStream</a></li><li><a href="Duration.html">Duration</a></li><li><a href="FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="FloatRDD.html">FloatRDD</a></li><li><a href="FutureAction.html">FutureAction</a></li><li><a href="HashPartitioner.html">HashPartitioner</a></li><li><a href="IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="List.html">List</a></li><li><a href="Logger.html">Logger</a></li><li><a href="module-eclairjs_ml_feature.Word2Vec.html">Word2Vec</a></li><li><a href="module-eclairjs_ml_feature.Word2VecModel.html">Word2VecModel</a></li><li><a href="module-eclairjs_mllib.MLUtils.html">MLUtils</a></li><li><a href="module-eclairjs_mllib_classification.LogisticRegressionModel.html">LogisticRegressionModel</a></li><li><a href="module-eclairjs_mllib_classification.LogisticRegressionWithLBFGS.html">LogisticRegressionWithLBFGS</a></li><li><a href="module-eclairjs_mllib_classification.NaiveBayes.html">NaiveBayes</a></li><li><a href="module-eclairjs_mllib_classification.NaiveBayesModel.html">NaiveBayesModel</a></li><li><a href="module-eclairjs_mllib_classification.SVMModel.html">SVMModel</a></li><li><a href="module-eclairjs_mllib_clustering.BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="module-eclairjs_mllib_clustering.DistributedLDAModel.html">DistributedLDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.LDAModel.html">LDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.LocalLDAModel.html">LocalLDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClustering.html">PowerIterationClustering</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClusteringAssignment.html">PowerIterationClusteringAssignment</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClusteringModel.html">PowerIterationClusteringModel</a></li><li><a href="module-eclairjs_mllib_evaluation.BinaryClassificationMetrics.html">BinaryClassificationMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.MulticlassMetrics.html">MulticlassMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.MultilabelMetrics.html">MultilabelMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.RegressionMetrics.html">RegressionMetrics</a></li><li><a href="module-eclairjs_mllib_feature.Word2Vec.html">Word2Vec</a></li><li><a href="module-eclairjs_mllib_fpm.FreqItemset.html">FreqItemset</a></li><li><a href="module-eclairjs_mllib_fpm.PrefixSpan.html">PrefixSpan</a></li><li><a href="module-eclairjs_mllib_fpm.PrefixSpanFreqSequence.html">PrefixSpanFreqSequence</a></li><li><a href="module-eclairjs_mllib_fpm.PrefixSpanModel.html">PrefixSpanModel</a></li><li><a href="module-eclairjs_mllib_fpm.Rule.html">Rule</a></li><li><a href="module-eclairjs_mllib_linalg.DenseMatrix.html">DenseMatrix</a></li><li><a href="module-eclairjs_mllib_linalg.DenseVector.html">DenseVector</a></li><li><a href="module-eclairjs_mllib_linalg.Matrices.html">Matrices</a></li><li><a href="module-eclairjs_mllib_linalg.Matrix.html">Matrix</a></li><li><a href="module-eclairjs_mllib_linalg.QRDecomposition.html">QRDecomposition</a></li><li><a href="module-eclairjs_mllib_linalg.SingularValueDecomposition.html">SingularValueDecomposition</a></li><li><a href="module-eclairjs_mllib_linalg.SparseMatrix.html">SparseMatrix</a></li><li><a href="module-eclairjs_mllib_linalg.SparseVector.html">SparseVector</a></li><li><a href="module-eclairjs_mllib_linalg.Vector.html">Vector</a></li><li><a href="module-eclairjs_mllib_linalg.Vectors.html">Vectors</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.DistributedMatrix.html">DistributedMatrix</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.RowMatrix.html">RowMatrix</a></li><li><a href="module-eclairjs_mllib_optimization.Gradient.html">Gradient</a></li><li><a href="module-eclairjs_mllib_optimization.LBFGS.html">LBFGS</a></li><li><a href="module-eclairjs_mllib_optimization.LogisticGradient.html">LogisticGradient</a></li><li><a href="module-eclairjs_mllib_optimization.SquaredL2Updater.html">SquaredL2Updater</a></li><li><a href="module-eclairjs_mllib_optimization.Updater.html">Updater</a></li><li><a href="module-eclairjs_mllib_random.RandomRDDs.html">RandomRDDs</a></li><li><a href="module-eclairjs_mllib_recommendation.ALS.html">ALS</a></li><li><a href="module-eclairjs_mllib_recommendation.MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="module-eclairjs_mllib_recommendation.Rating.html">Rating</a></li><li><a href="module-eclairjs_mllib_regression.GeneralizedLinearModel.html">GeneralizedLinearModel</a></li><li><a href="module-eclairjs_mllib_regression.LabeledPoint.html">LabeledPoint</a></li><li><a href="module-eclairjs_mllib_regression.LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="module-eclairjs_mllib_regression.LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="module-eclairjs_mllib_tree.DecisionTree.html">DecisionTree</a></li><li><a href="module-eclairjs_mllib_tree.GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="module-eclairjs_mllib_tree.RandomForest.html">RandomForest</a></li><li><a href="module-eclairjs_mllib_tree_configuration.BoostingStrategy.html">BoostingStrategy</a></li><li><a href="module-eclairjs_mllib_tree_configuration.Strategy.html">Strategy</a></li><li><a href="module-eclairjs_mllib_tree_loss.Loss.html">Loss</a></li><li><a href="module-eclairjs_mllib_tree_model.DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="module-eclairjs_mllib_tree_model.GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="module-eclairjs_mllib_tree_model.RandomForestModel.html">RandomForestModel</a></li><li><a href="module-eclairjs_sql.Column.html">Column</a></li><li><a href="module-eclairjs_sql.DataFrame.html">DataFrame</a></li><li><a href="module-eclairjs_sql.DataFrameHolder.html">DataFrameHolder</a></li><li><a href="module-eclairjs_sql.DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="module-eclairjs_sql.DataFrameReader.html">DataFrameReader</a></li><li><a href="module-eclairjs_sql.DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="module-eclairjs_sql.DataFrameWriter.html">DataFrameWriter</a></li><li><a href="module-eclairjs_sql.functions.html">functions</a></li><li><a href="module-eclairjs_sql.GroupedData.html">GroupedData</a></li><li><a href="module-eclairjs_sql.Row.html">Row</a></li><li><a href="module-eclairjs_sql.RowFactory.html">RowFactory</a></li><li><a href="module-eclairjs_sql.SQLContext.html">SQLContext</a></li><li><a href="module-eclairjs_sql.SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="module-eclairjs_sql.SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="module-eclairjs_sql.SQLContext.SQLSession.html">SQLSession</a></li><li><a href="module-eclairjs_sql.SqlDate.html">SqlDate</a></li><li><a href="module-eclairjs_sql.SqlTimestamp.html">SqlTimestamp</a></li><li><a href="module-eclairjs_sql_types.ArrayType.html">ArrayType</a></li><li><a href="module-eclairjs_sql_types.BinaryType.html">BinaryType</a></li><li><a href="module-eclairjs_sql_types.BooleanType.html">BooleanType</a></li><li><a href="module-eclairjs_sql_types.CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="module-eclairjs_sql_types.DataType.html">DataType</a></li><li><a href="module-eclairjs_sql_types.DataTypes.html">DataTypes</a></li><li><a href="module-eclairjs_sql_types.DateType.html">DateType</a></li><li><a href="module-eclairjs_sql_types.DoubleType.html">DoubleType</a></li><li><a href="module-eclairjs_sql_types.FloatType.html">FloatType</a></li><li><a href="module-eclairjs_sql_types.IntegerType.html">IntegerType</a></li><li><a href="module-eclairjs_sql_types.MapType.html">MapType</a></li><li><a href="module-eclairjs_sql_types.Metadata.html">Metadata</a></li><li><a href="module-eclairjs_sql_types.NullType.html">NullType</a></li><li><a href="module-eclairjs_sql_types.NumericType.html">NumericType</a></li><li><a href="module-eclairjs_sql_types.StringType.html">StringType</a></li><li><a href="module-eclairjs_sql_types.StructField.html">StructField</a></li><li><a href="module-eclairjs_sql_types.StructType.html">StructType</a></li><li><a href="module-eclairjs_sql_types.TimestampType.html">TimestampType</a></li><li><a href="module-eclairjs_storage.StorageLevel.html">StorageLevel</a></li><li><a href="PairDStream.html">PairDStream</a></li><li><a href="PairRDD.html">PairRDD</a></li><li><a href="PartialResult.html">PartialResult</a></li><li><a href="Partitioner.html">Partitioner</a></li><li><a href="RangePartitioner.html">RangePartitioner</a></li><li><a href="RDD.html">RDD</a></li><li><a href="SparkConf.html">SparkConf</a></li><li><a href="SparkContext.html">SparkContext</a></li><li><a href="SparkFiles.html">SparkFiles</a></li><li><a href="SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="StreamingContext.html">StreamingContext</a></li><li><a href="Time.html">Time</a></li><li><a href="Tuple.html">Tuple</a></li><li><a href="TwitterAuthorization.html">TwitterAuthorization</a></li></ul><h3>Interfaces</h3><ul><li><a href="module-eclairjs_mllib_classification.ClassificationModel.html">ClassificationModel</a></li></ul><h3>Global</h3><ul><li><a href="global.html#module">module</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Tue Mar 22 2016 17:13:10 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Wed Apr 13 2016 10:44:21 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>

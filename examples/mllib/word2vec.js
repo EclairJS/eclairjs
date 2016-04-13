@@ -34,6 +34,8 @@ if (args.length < 2) {
     exit(1);
 }
 
+var Word2Vec = require('eclairjs/mllib/feature/Word2Vec');
+
 var file_path = args[1];
 var conf = new SparkConf().setAppName("Word2Vec");
 var sc = new SparkContext(conf);

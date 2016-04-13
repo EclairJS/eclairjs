@@ -19,6 +19,10 @@
  bin/eclairjs.sh examples/mllib/lr_example.js [<input_dir>] [<step_size>] [<niters>]"
  */
 
+var LogisticRegressionWithSGD = require('eclairjs/mllib/classification').LogisticRegressionWithSGD;
+var LabeledPoint = require("eclairjs/mllib/regression/LabeledPoint");
+var Vectors = require("eclairjs/mllib/linalg/Vectors");
+
 var directory =  ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/lr-data";
 var stepSize = 3.0;
 var iterations = 10;
@@ -29,7 +33,7 @@ var iterations = 10;
 
 function run(sc) {
     var lines = sc.textFile(directory);
-    var points = lines.map(function (line) {
+    var points = lines.map(function (line, LabeledPoint, Vectors) {
         var parts = line.split(",");
         var y = parseFloat(parts[0]);
         var tok = parts[1].split(" ");
@@ -40,7 +44,7 @@ function run(sc) {
 
         return new LabeledPoint(y, Vectors.dense(x));
 
-    }).cache();
+    }, [LabeledPoint, Vectors]).cache();
 
 
     // Another way to configure LogisticRegression

@@ -21,6 +21,11 @@
 
 
 function run(sc) {
+
+    var DecisionTree = require('eclairjs/mllib/tree/DecisionTree');
+    var LabeledPoint = require('eclairjs/mllib/regression/LabeledPoint');
+    var MLUtils = require("eclairjs/mllib/MLUtils");
+
     // Load and parse the data file.
     var datapath = ((typeof args !== "undefined") && (args.length > 1)) ?
         args[1] : "examples/data/mllib/sample_libsvm_data.txt";
@@ -75,8 +80,8 @@ if (typeof sparkContext === 'undefined') {
 
 // Save and load model
     result.model.save(sc, "target/tmp/myDecisionTreeClassificationModel");
-    var sameModel = DecisionTreeModel
-        .load(sc, "target/tmp/myDecisionTreeClassificationModel");
+    var DecisionTreeModel = require('eclairjs/mllib/tree/model/DecisionTreeModel');
+    var sameModel = DecisionTreeModel.load(sc, "target/tmp/myDecisionTreeClassificationModel");
 
     sc.stop();
 }

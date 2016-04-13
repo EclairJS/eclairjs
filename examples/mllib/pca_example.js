@@ -19,6 +19,10 @@
  bin/eclairjs.sh examples/mllib/pca_example.js"
  */
 
+var Vector = require("eclairjs/mllib/linalg/Vector");
+var Vectors = require("eclairjs/mllib/linalg/Vectors");
+var RowMatrix = require("eclairjs/mllib/linalg/distributed/RowMatrix");
+
 function run(sc) {
 
     var rowsList = [Vectors.dense([1.12, 2.05, 3.12]), Vectors.dense([5.56, 6.28, 8.94]), Vectors.dense([10.2, 8.0, 20.5])];
