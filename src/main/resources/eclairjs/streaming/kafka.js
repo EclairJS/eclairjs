@@ -16,15 +16,13 @@
  */
 (function () {
     /**
-     * streaming dstream module.
+     * streaming kafka module.
      * @example
-     * var dstream = require('eclairjs/streaming/dstream');
-     * @module eclairjs/streaming/dstream
+     * var kafka = require('eclairjs/streaming/kafka');
+     * @module eclairjs/streaming/kafka
      */
     module.exports = {
-        DStream: require(EclairJS_Globals.NAMESPACE + '/streaming/dstream/DStream'),
-        PairDStream: require(EclairJS_Globals.NAMESPACE + '/streaming/dstream/PairDStream')
+        KafkaUtils: require(EclairJS_Globals.NAMESPACE + '/streaming/kafka/KafkaUtils')
     }
 
 })();
-

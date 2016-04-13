@@ -16,15 +16,14 @@
  */
 (function () {
     /**
-     * streaming dstream module.
+     * streaming twitter module.
      * @example
-     * var dstream = require('eclairjs/streaming/dstream');
-     * @module eclairjs/streaming/dstream
+     * var twitter = require('eclairjs/streaming/twitter');
+     * @module eclairjs/streaming/twitter
      */
     module.exports = {
-        DStream: require(EclairJS_Globals.NAMESPACE + '/streaming/dstream/DStream'),
-        PairDStream: require(EclairJS_Globals.NAMESPACE + '/streaming/dstream/PairDStream')
+        TwitterAuthorization: require(EclairJS_Globals.NAMESPACE + '/streaming/twitter/TwitterAuthorization'),
+        TwitterUtils: require(EclairJS_Globals.NAMESPACE + '/streaming/twitter/TwitterUtils')
     }
 
 })();
-

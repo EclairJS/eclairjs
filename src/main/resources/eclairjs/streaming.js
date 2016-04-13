@@ -16,15 +16,15 @@
  */
 (function () {
     /**
-     * streaming dstream module.
+     * streaming  module.
      * @example
-     * var dstream = require('eclairjs/streaming/dstream');
-     * @module eclairjs/streaming/dstream
+     * var streaming = require('eclairjs/streaming');
+     * @module eclairjs/streaming
      */
     module.exports = {
-        DStream: require(EclairJS_Globals.NAMESPACE + '/streaming/dstream/DStream'),
-        PairDStream: require(EclairJS_Globals.NAMESPACE + '/streaming/dstream/PairDStream')
+        Duration: require(EclairJS_Globals.NAMESPACE + '/streaming/Duration'),
+        StreamingContext: require(EclairJS_Globals.NAMESPACE + '/streaming/StreamingContext'),
+        Time: require(EclairJS_Globals.NAMESPACE + '/streaming/Time')
     }
 
 })();
-

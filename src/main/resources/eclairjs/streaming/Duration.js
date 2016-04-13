@@ -13,124 +13,135 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+(function () {
 
-var JavaDuration = Java.type("org.apache.spark.streaming.Duration");
-/**
- * @constructor
- * @classdesc Duration of time to wait.
- * @param {long} millis
- */
-var Duration = function(millis) { 
-	var jvmObj = new JavaDuration(millis);
-	this.logger = Logger.getLogger("streaming.Duration_js");
-	JavaWrapper.call(this, jvmObj);
-};
+    var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
+    var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
+    var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
 
-Duration.prototype = Object.create(JavaWrapper.prototype); 
+    var JavaDuration = Java.type("org.apache.spark.streaming.Duration");
 
-Duration.prototype.constructor = Duration;
-/**
- * 
- * @param {Duration} that
- * @returns {double}
- */
-Duration.prototype.div = function(that) {
-    return this.getJavaObject().div(Utils.unwrapObject(that));
-};
-/**
- * 
- * @param {Duration} that
- * @returns {boolean}
- */
-Duration.prototype.greater = function(that) {
-    return this.getJavaObject().greater(Utils.unwrapObject(that));
-};
-/**
- * 
- * @param {Duration} that
- * @returns {boolean}
- */
-Duration.prototype.greaterEq = function(that) {
-    return this.getJavaObject().greaterEq(Utils.unwrapObject(that));
-};
-/**
- * 
- * @param {Duration} that
- * @returns {boolean}
- */
-Duration.prototype.isMultipleOf = function(that) {
-    return this.getJavaObject().isMultipleOf(Utils.unwrapObject(that));
-};
-/**
- * @returns {boolean}
- */
-Duration.prototype.isZero = function() {
-    return this.getJavaObject().isZero();
-};
-/**
- * 
- * @param {Duration} that
- * @returns {boolean}
- */
-Duration.prototype.less = function(that) {
-    return this.getJavaObject().less(Utils.unwrapObject(that));
-};
-/**
- * 
- * @param {Duration} that
- * @returns {boolean}
- */
-Duration.prototype.lessEq = function(that) {
-    return this.getJavaObject().lessEq(Utils.unwrapObject(that));
-};
-/**
- * 
- * @param {Duration} that
- * @returns {Duration}
- */
-Duration.prototype.max = function(that) {
-    var d = this.getJavaObject().max(Utils.unwrapObject(that));
-    return new Duration(d);
-};
-/**
- * 
- * @returns {long}
- */
-Duration.prototype.milliseconds = function() {
-    return this.getJavaObject().milliseconds();
-};
-/**
- * @param {Duration} that
- * @returns {Duration}
- */
-Duration.prototype.min = function(that) {
-    var d = this.getJavaObject().min(Utils.unwrapObject(that));
-    return new Duration(d);
-};
-/**
- * 
- * @param {Duration} that
- * @returns {Duration}
- */
-Duration.prototype.minus = function(that) {
-    var d = this.getJavaObject().minus(Utils.unwrapObject(that));
-    return new Duration(d);
-};
-/**
- * 
- * @param {Duration} that
- * @returns {Duration}
- */
-Duration.prototype.plus = function(that) {
-    var d = this.getJavaObject().plus(Utils.unwrapObject(that));
-    return new Duration(d);
-};
-/**
- * 
- * @param {integer} times
- * @returns {Duration}
- */
-Duration.prototype.times = function(times) {
-    var d = this.getJavaObject().times();
-    return new Duration(d);
-};
+    /**
+     * @constructor
+     * @memberof module:eclairjs/streaming
+     * @classdesc Duration of time to wait.
+     * @param {long} millis
+     */
+    var Duration = function (millis) {
+        var jvmObj = new JavaDuration(millis);
+        this.logger = Logger.getLogger("streaming.Duration_js");
+        JavaWrapper.call(this, jvmObj);
+    };
+
+    Duration.prototype = Object.create(JavaWrapper.prototype);
+
+    Duration.prototype.constructor = Duration;
+    /**
+     *
+     * @param {Duration} that
+     * @returns {double}
+     */
+    Duration.prototype.div = function (that) {
+        return this.getJavaObject().div(Utils.unwrapObject(that));
+    };
+    /**
+     *
+     * @param {Duration} that
+     * @returns {boolean}
+     */
+    Duration.prototype.greater = function (that) {
+        return this.getJavaObject().greater(Utils.unwrapObject(that));
+    };
+    /**
+     *
+     * @param {Duration} that
+     * @returns {boolean}
+     */
+    Duration.prototype.greaterEq = function (that) {
+        return this.getJavaObject().greaterEq(Utils.unwrapObject(that));
+    };
+    /**
+     *
+     * @param {Duration} that
+     * @returns {boolean}
+     */
+    Duration.prototype.isMultipleOf = function (that) {
+        return this.getJavaObject().isMultipleOf(Utils.unwrapObject(that));
+    };
+    /**
+     * @returns {boolean}
+     */
+    Duration.prototype.isZero = function () {
+        return this.getJavaObject().isZero();
+    };
+    /**
+     *
+     * @param {Duration} that
+     * @returns {boolean}
+     */
+    Duration.prototype.less = function (that) {
+        return this.getJavaObject().less(Utils.unwrapObject(that));
+    };
+    /**
+     *
+     * @param {Duration} that
+     * @returns {boolean}
+     */
+    Duration.prototype.lessEq = function (that) {
+        return this.getJavaObject().lessEq(Utils.unwrapObject(that));
+    };
+    /**
+     *
+     * @param {Duration} that
+     * @returns {Duration}
+     */
+    Duration.prototype.max = function (that) {
+        var d = this.getJavaObject().max(Utils.unwrapObject(that));
+        return new Duration(d);
+    };
+    /**
+     *
+     * @returns {long}
+     */
+    Duration.prototype.milliseconds = function () {
+        return this.getJavaObject().milliseconds();
+    };
+    /**
+     * @param {Duration} that
+     * @returns {Duration}
+     */
+    Duration.prototype.min = function (that) {
+        var d = this.getJavaObject().min(Utils.unwrapObject(that));
+        return new Duration(d);
+    };
+    /**
+     *
+     * @param {Duration} that
+     * @returns {Duration}
+     */
+    Duration.prototype.minus = function (that) {
+        var d = this.getJavaObject().minus(Utils.unwrapObject(that));
+        return new Duration(d);
+    };
+    /**
+     *
+     * @param {Duration} that
+     * @returns {Duration}
+     */
+    Duration.prototype.plus = function (that) {
+        var d = this.getJavaObject().plus(Utils.unwrapObject(that));
+        return new Duration(d);
+    };
+    /**
+     *
+     * @param {integer} times
+     * @returns {Duration}
+     */
+    Duration.prototype.times = function (times) {
+        var d = this.getJavaObject().times();
+        return new Duration(d);
+    };
+
+    module.exports = Duration;
+
+})();
