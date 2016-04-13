@@ -175,7 +175,8 @@ var completedModules = { // FIXME temporary until all Class are require compatib
     "eclairjs/mllib/tree/configuration": true,
     "eclairjs/mllib/tree": true,
     "eclairjs/storage": true,
-    "eclairjs/mllib": true
+    "eclairjs/mllib": true,
+    "eclairjs/ml/feature": true
 };
 var subModuleMap = {}; // Leaving for now but probably can remove.
 Serialize.javaSparkObject = function (javaObj) {
@@ -204,9 +205,9 @@ Serialize.javaSparkObject = function (javaObj) {
         className = "RDD";
         javaObj = javaObj.toJavaRDD();
 
-    } else if (java2wrapper[className])
+    } else if (java2wrapper[className]) {
         className = java2wrapper[className]
-    else if (className === "Word2Vec" || className === "Word2VecModel") {
+    }/* else if (className === "Word2Vec" || className === "Word2VecModel") {
         if (packageName.indexOf("org.apache.spark.ml") > -1) {
             //ML
             className = "ML" + o.getClass().getSimpleName();
@@ -214,7 +215,7 @@ Serialize.javaSparkObject = function (javaObj) {
             // MLLIB
             //className = "MLLIB" + o.getClass().getSimpleName(); FIXME not implemented yet
         }
-    }
+    }*/
 
     Serialize.logger.debug("javaSparkObject we have a className = " + className);
     //return eval("new " + className + "(javaObj)");
