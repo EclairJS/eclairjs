@@ -21,8 +21,13 @@ org.apache.spark.sql.catalyst.expressions.InterpretedOrdering	interpretedOrderin
 scala.collection.Iterator<StructField>	iterator() 
 protected scala.collection.Seq<org.apache.spark.sql.catalyst.expressions.AttributeReference>	toAttributes() 
 */
-{
+(function () {
+
     var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
+    var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
+    var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
+
+    var StructField = require(EclairJS_Globals.NAMESPACE + '/sql/types/StructField');
 
     /**
      * @constructor
@@ -224,5 +229,5 @@ protected scala.collection.Seq<org.apache.spark.sql.catalyst.expressions.Attribu
     };
 
     module.exports = StructType;
-}
 
+})();

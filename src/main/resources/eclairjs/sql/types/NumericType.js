@@ -1,4 +1,3 @@
-
 /*
  * Copyright 2015 IBM Corp.
  *
@@ -14,8 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-{
+(function () {
+
     var DataType = require(EclairJS_Globals.NAMESPACE + '/sql/types/DataType');
+
     /**
      * @constructor
      * @extends DataType
@@ -64,4 +65,5 @@
     };
 
     module.exports = NumericType;
-}
+
+})();
