@@ -372,8 +372,7 @@
          StructType	schema()
          Schema for the row.
          */
-        //return new StructType(this.getJavaObject().schema());
-        return Utils.javaToJs(this.getJavaObject().schema()); 
+        return  Utils.javaToJs(this.getJavaObject().schema());
 
     };
     /**

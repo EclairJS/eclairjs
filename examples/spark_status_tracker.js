@@ -50,6 +50,8 @@ function run(sc) {
  */
 
 if (typeof sparkContext === 'undefined') {
+    var SparkConf = require('eclairjs/SparkConf');
+    var SparkContext = require('eclairjs/SparkContext');
     var conf = new SparkConf().setAppName("JavaScript Status Tracker");
     var sc = new SparkContext(conf);
     var result = run(sc);

@@ -35,7 +35,8 @@
  */
 
 function run(sc) {
-
+    var List = require('eclairjs/List');
+    var Tuple = require('eclairjs/Tuple');
 
     // Loads in input file. It should be in format of:
     //     URL         neighbor URL
@@ -45,11 +46,10 @@ function run(sc) {
     var lines = sc.textFile(filename, 1);
 
     // Loads all URLs from input file and initialize their neighbors.
-    var links = lines.mapToPair(function (s) {
-        print(" s " + s)
+    var links = lines.mapToPair(function (s, Tuple) {
         var parts = s.split(/\s+/);
         return new Tuple(parts[0], parts[1]);
-    }).distinct().groupByKey().cache();
+    }, [Tuple]).distinct().groupByKey().cache();
 
 
     // Loads all URLs with other URL(s) link to from input file and initialize ranks of them to one.
@@ -61,7 +61,7 @@ function run(sc) {
     for (var current = 0; current < iters; current++) {
         // Calculates URL contributions to the rank of other URLs.
         var contribs = links.join(ranks).values()
-            .flatMapToPair(function (tuple) {
+            .flatMapToPair(function (tuple, List, Tuple) {
                 var t = tuple[0];
                 var urlCount = t.length;
                 var results = new List();
@@ -69,7 +69,7 @@ function run(sc) {
                     results.add(new Tuple(t[n], tuple[1] / urlCount));
                 }
                 return results;
-            });
+            }, [List, Tuple]);
 
         // Re-calculates URL ranks based on neighbor contributions.
         ranks = contribs.reduceByKey(function (a, b) {
@@ -98,6 +98,8 @@ var filename = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : 
 var iters = ((typeof args !== "undefined") && (args.length > 2)) ? 0 + args[2] : 10;
 
 if (typeof sparkContext === 'undefined') {
+    var SparkConf = require('eclairjs/SparkConf');
+    var SparkContext = require('eclairjs/SparkContext');
     var conf = new SparkConf().setAppName("JavaScript Page Rank");
     var sc = new SparkContext(conf);
     var result = run(sc);

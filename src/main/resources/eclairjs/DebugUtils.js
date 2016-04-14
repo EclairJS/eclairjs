@@ -13,71 +13,71 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+(function () {
 
 
-var DebugUtils = function () {};
+    var DebugUtils = function () {
+    };
 
 
+    /**
+     *
+     * Print a list of functions for the specified object
+     * or {@link reduceByKey} will provide much better performance.
+     * @param {object} obj - The object to dump
+     * @param {boolean} [showSrc] - show the function source
+     */
+    DebugUtils.dumpFunctions = function (obj, showSrc) {
+        for (var p in obj)
+            if (typeof obj[p] == 'function') {
+                if (showSrc)
+                    print(obj[p]);
+                else
+                    print(p);
 
-/**
- *
- * Print a list of functions for the specified object
- * or {@link reduceByKey} will provide much better performance.
- * @param {object} obj - The object to dump
- * @param {boolean} [showSrc] - show the function source
- */
-DebugUtils.dumpFunctions = function (obj, showSrc)
-{
-  for (var p in obj)
-    if (typeof obj[p] == 'function')
-     {
-      if (showSrc)
-        print(obj[p]);
-      else
-        print(p);
+            }
+    };
 
-     }
-};
+    /**
+     *
+     * Print all the members of the specified object
+     * @param {object} obj - The object to dump
+     * @param {showFunctions} [showSrc] - show the functions
+     */
+    DebugUtils.dumpObject = function (obj, showFunctions) {
+        for (var p in obj) {
+            if (typeof obj[p] == 'function') {
+                if (showFunctions)
+                    print(p + " [" + typeof obj[p] + "] ");
+            }
+            else
+                print(p + " [" + typeof obj[p] + "] = " + obj[p]);
 
-/**
- *
- * Print all the members of the specified object
- * @param {object} obj - The object to dump
- * @param {showFunctions} [showSrc] - show the functions
- */
-DebugUtils.dumpObject = function (obj,showFunctions)
-{
-  for (var p in obj)
-  {
-    if (typeof obj[p] == 'function') {
-      if (showFunctions)
-        print( p + " ["+typeof obj[p]+"] ");
+        }
+    };
+    /**
+     * Prints the time difference between date1 and date2
+     * @param {Date} date1
+     * @param {Date} date2
+     */
+    DebugUtils.timeDifference = function (date1, date2) {
+        var difference = date1.getTime() - date2.getTime();
+
+        var daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
+        difference -= daysDifference * 1000 * 60 * 60 * 24
+
+        var hoursDifference = Math.floor(difference / 1000 / 60 / 60);
+        difference -= hoursDifference * 1000 * 60 * 60
+
+        var minutesDifference = Math.floor(difference / 1000 / 60);
+        difference -= minutesDifference * 1000 * 60
+
+        var secondsDifference = Math.floor(difference / 1000);
+
+        print('difference = ' + daysDifference + ' day/s ' + hoursDifference + ' hour/s ' + minutesDifference + ' minute/s ' + secondsDifference + ' second/s ');
     }
-    else
-      print( p + " ["+typeof obj[p]+"] = "+obj[p]);
-
-  }
-};
-/**
- * Prints the time difference between date1 and date2
- * @param {Date} date1
- * @param {Date} date2
- */
-DebugUtils.timeDifference = function(date1,date2) {
-    var difference = date1.getTime() - date2.getTime();
-
-    var daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
-    difference -= daysDifference * 1000 * 60 * 60 * 24
-
-    var hoursDifference = Math.floor(difference / 1000 / 60 / 60);
-    difference -= hoursDifference * 1000 * 60 * 60
-
-    var minutesDifference = Math.floor(difference / 1000 / 60);
-    difference -= minutesDifference * 1000 * 60
-
-    var secondsDifference = Math.floor(difference / 1000);
-
-    print('difference = ' + daysDifference + ' day/s ' + hoursDifference + ' hour/s ' + minutesDifference + ' minute/s ' + secondsDifference + ' second/s ');
-}
 
 
+    module.exports = DebugUtils;
+
+})();

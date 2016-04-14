@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-//load("src/main/resources/SparkContext.js");
-//load("src/main/resources/SparkConf.js");
 
-var logFile = "/Users/billreed/cfa_dev/fallside/srv/tmp/dream.txt"; // Should be some file on your system
+var SparkConf= require('eclairjs/SparkConf');
+var SparkContext = require(EclairJS_Globals.NAMESPACE + '/SparkContext');
+
+var logFile = "/tmp/dream.txt"; // Should be some file on your system
 //var master = "spark://MacBook-Pro.local:7077";
 var master = "local[*]";
 var conf = new SparkConf().setAppName("Simple Application").setMaster(master); 

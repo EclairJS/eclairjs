@@ -76,7 +76,8 @@ if (typeof sparkContext === 'undefined') {
     if (args.length > 3) {
         iterations = parseInt(args[3]);
     }
-
+    var SparkConf = require('eclairjs/SparkConf');
+    var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("LR example");
     var sc = new SparkContext(sparkConf);
     var result = run(sc);

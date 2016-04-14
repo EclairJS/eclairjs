@@ -27,7 +27,7 @@
 function run(sc) {
     var slices = 50;
 
-    var n = 100000 * slices;
+    var n = 10000 * slices;
     var l = [];
     for (var i = 0; i < n; i++) {
         l.push(i);
@@ -54,7 +54,8 @@ function run(sc) {
  */
 
 if (typeof sparkContext === 'undefined') {
-
+    var SparkConf = require('eclairjs/SparkConf');
+    var SparkContext = require('eclairjs/SparkContext');
     var conf = new SparkConf().setAppName("JavaScript Spark Pi");
     var sc = new SparkContext(conf);
     var result = run(sc);

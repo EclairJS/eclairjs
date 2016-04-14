@@ -13,30 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+(function () {
 
+    var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
 
-var JavaWrapper = function(jvmObj) {
-	this._jvmObj = jvmObj;
-	this.javaWrapperLogger = Logger.getLogger("JavaWrapper_js");
-	this.javaWrapperLogger.debug("JavaWrapper constructor");
-};
+    var JavaWrapper = function (jvmObj) {
+        this._jvmObj = jvmObj;
+        this.javaWrapperLogger = Logger.getLogger("JavaWrapper_js");
+        this.javaWrapperLogger.debug("JavaWrapper constructor");
+    };
 
-JavaWrapper.prototype.getJavaObject = function() {
-	this.javaWrapperLogger.debug("getJavaObject");
-	return this._jvmObj;
-};
+    JavaWrapper.prototype.getJavaObject = function () {
+        this.javaWrapperLogger.debug("getJavaObject");
+        return this._jvmObj;
+    };
 
-JavaWrapper.prototype.setJavaObject = function(obj) {
-	this.javaWrapperLogger.debug("setJavaObject");
-	this._jvmObj = obj;
-};
+    JavaWrapper.prototype.setJavaObject = function (obj) {
+        this.javaWrapperLogger.debug("setJavaObject");
+        this._jvmObj = obj;
+    };
 
-JavaWrapper.prototype.toString = function() {
-	return this._jvmObj.toString();
-}
+    JavaWrapper.prototype.toString = function () {
+        return this._jvmObj.toString();
+    }
 
-JavaWrapper.prototype.toJSON = function() {
-	return this.toString();
-}
+    JavaWrapper.prototype.toJSON = function () {
+        return this.toString();
+    }
 
-module.exports = JavaWrapper;
+    module.exports = JavaWrapper;
+
+})();

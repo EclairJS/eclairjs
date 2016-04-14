@@ -39,6 +39,8 @@ var TwitterAuthorization = require('eclairjs/streaming/twitter/TwitterAuthorizat
 var TwitterUtils = require('eclairjs/streaming/twitter/TwitterUtils');
 var Duration = require('eclairjs/streaming/Duration');
 var StreamingContext = require('eclairjs/streaming/StreamingContext');
+var Tuple = require('eclairjs/Tuple');
+var SparkConf = require(EclairJS_Globals.NAMESPACE + '/SparkConf');
 
 if ((typeof args == "undefined")||args.length<5)
 {

@@ -21,7 +21,8 @@
  * The SparkContext will load the rest of sparkJS files. So these are the oly two 
  * the user has to explicitly load. 
  */
-
+var SparkConf = require('eclairjs/SparkConf');
+var SparkContext = require('eclairjs/SparkContext');
 var sparkContext = new SparkContext("local[*]", "mllib Unit test");
 
 var LinearRegressionWithSGDExample = function() {

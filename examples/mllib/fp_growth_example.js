@@ -20,13 +20,13 @@
  */
 
 var FPGrowth = require('eclairjs/mllib/fpm/FPGrowth');
+var List = require('eclairjs/List');
 
 function run(sc, useTake) {
 
-
-    var transactions = sc.textFile(inputFile).map(function(s){
+    var transactions = sc.textFile(inputFile).map(function(s, List){
         return new List(s.split(" "));
-    });
+    }, [List]);
 
     var model = new FPGrowth()
         .setMinSupport(minSupport)
@@ -63,7 +63,8 @@ if (typeof sparkContext === 'undefined') {
     if (args.length >= 4) {
         numPartition = parseInt(args[3]);
     }
-
+    var SparkConf = require('eclairjs/SparkConf');
+    var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("FPGrowthExample");
     var sc = new SparkContext(sparkConf);
     var result = run(sc);

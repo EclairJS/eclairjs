@@ -21,7 +21,8 @@ var SQLContext = require('eclairjs/sql/SQLContext');
 var sql = require('eclairjs/sql');
 var RowFactory = sql.RowFactory;
 //var DataFrame = sql.DataFrame;
-
+var SparkConf = require('eclairjs/SparkConf');
+var SparkContext = require('eclairjs/SparkContext');
 var sparkConf = new SparkConf().setAppName("JavaScriptSparkSQL");
 var ctx = new SparkContext(sparkConf);
 var sqlContext = new SQLContext(ctx);

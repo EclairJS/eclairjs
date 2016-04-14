@@ -17,6 +17,8 @@ var hello = require('examples/hello');
 var LabeledPoint = require('eclairjs/mllib/regression/LabeledPoint');
 
 //var sparkContext = new SparkContext("local[*]", "Simple module binding to lambda function example");
+var SparkConf = require('eclairjs/SparkConf');
+var SparkContext = require('eclairjs/SparkContext');
 var sparkContext = new SparkContext("spark://MacBook-Pro.nc.rr.com:7077", "Simple module binding to lambda function example");
 
 var doHello = function(){

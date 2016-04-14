@@ -53,7 +53,7 @@
         var data_uw = Utils.unwrapObject(data);
         var weights_uw = Utils.unwrapObject(weights);
         var javaObject = this.getJavaObject().compute(data_uw,label,weights_uw);
-
+        Tuple = require('eclairjs/Tuple');
         return new Tuple(javaObject);
     };
     

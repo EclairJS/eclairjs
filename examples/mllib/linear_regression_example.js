@@ -27,10 +27,10 @@ LabeledPoint = 21;
 var LinearRegressionWithSGD = require('eclairjs/mllib/regression').LinearRegressionWithSGD;
 var myLabeledPoint = require('eclairjs/mllib/regression/LabeledPoint');
 var myDenseVector = require('eclairjs/mllib/linalg/DenseVector');
-var LinearRegressionWithSGD = require('eclairjs/mllib/regression/LinearRegressionWithSGD')
+var LinearRegressionWithSGD = require('eclairjs/mllib/regression/LinearRegressionWithSGD');
+var Tuple = require('eclairjs/Tuple');
 
 function run(sc) {
-    var x = RDD;
     var filename = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/lpsa.data";
     var data = sc.textFile(filename).cache();
     var parsedData = data.map(function (s, myLabeledPoint, myDenseVector) {
@@ -59,7 +59,8 @@ function run(sc) {
  */
 
 if (typeof sparkContext === 'undefined') {
-
+    var SparkConf = require('eclairjs/SparkConf');
+    var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf()
         .setAppName("Linear Regression Example");
     var sc = new SparkContext(sparkConf);

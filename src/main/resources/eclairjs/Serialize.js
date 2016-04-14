@@ -15,7 +15,7 @@
  */
 
 var Serialize = function(){};
-
+var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
 Serialize.logger = Logger.getLogger("Serialize_js");
 
 Serialize.getJavaClass = function (javaObj) {
@@ -59,6 +59,7 @@ Serialize.scalaTuple = function (javaObj) {
     var ret = false;
     if ((javaObj instanceof Serialize.scalaProductClass) && (javaObj.getClass().getName().indexOf("scala.Tuple") > -1)) {
         Serialize.logger.debug("Tuple - " + javaObj.toString());
+        var Tuple = require('eclairjs/Tuple');
         ret = new Tuple(javaObj);
     }
 
@@ -206,6 +207,8 @@ Serialize.javaSparkObject = function (javaObj) {
     if (className === "MapPartitionsRDD") {
         className = "RDD";
         javaObj = javaObj.toJavaRDD();
+        var pack = javaObj.getClass().getPackage();
+        packageName = pack ? pack.getName() : null;
 
     } else if (java2wrapper[className]) {
         className = java2wrapper[className]
@@ -215,7 +218,7 @@ Serialize.javaSparkObject = function (javaObj) {
     //return eval("new " + className + "(javaObj)");
 
     var req = "";
-    packageName = packageName.replace(/org.apache.spark./i, EclairJS_Globals.NAMESPACE + '/');
+    packageName = packageName.replace(/org.apache.spark/i, EclairJS_Globals.NAMESPACE );
     packageName = packageName.replace(/\./g, "/");
     Serialize.logger.debug("javaSparkObject we have a packageName = " + packageName);
 
@@ -227,7 +230,7 @@ Serialize.javaSparkObject = function (javaObj) {
          */
         packageName = EclairJS_Globals.NAMESPACE+"/streaming/dstream";
     }
-    if (completedModules[packageName] ) { // FIXME temporary util all Class are require compatible
+    //if (completedModules[packageName] ) { // FIXME temporary util all Class are require compatible
         var tmp = packageName+'/'+className;
         if (subModuleMap[tmp]) {
             // In this case className is a submoduleName
@@ -235,7 +238,7 @@ Serialize.javaSparkObject = function (javaObj) {
         } else {
             req = 'var ' + className + ' = require("'+packageName+'/'+className+'");'
         }
-    }
+    //}
 
     var ret = false;
     try {
@@ -250,12 +253,12 @@ Serialize.javaSparkObject = function (javaObj) {
     } catch(se) {
         Serialize.logger.error("Exception in trying to create javaSparkObject. Going to try and load required module");
         Serialize.logger.error(se);
-        var mod = ModuleUtils.getModuleFromJavaPackageAndClass(packageName, className);
+       // var mod = ModuleUtils.getModuleFromJavaPackageAndClass(packageName, className);
         // Should probably raise exception if module has not been required 
-        if (mod) {
+       /* if (mod) {
             load(ModuleUtils.getResourcePath(mod.id));
             ret = eval("new " + className + "(javaObj)");
-        }
+        }*/
     }
 
     return ret;

@@ -17,6 +17,7 @@
 
     var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
+    var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
 
 
     /**
@@ -70,7 +71,7 @@
         } else {
             var usersProducts_uw = Utils.unwrapObject(user);
             var javaObject = this.getJavaObject().predict(usersProducts_uw.rdd());
-            return new RDD(javaObject.toJavaRDD());
+            return Utils.javaToJs(javaObject.toJavaRDD());
         }
     };
 
@@ -140,7 +141,7 @@
      */
     MatrixFactorizationModel.prototype.recommendProductsForUsers = function (num) {
         var javaObject = this.getJavaObject().recommendProductsForUsers(num);
-        return new RDD(javaObject.toJavaRDD());
+        return Utils.javaToJs(javaObject.toJavaRDD());
     };
 
 
@@ -163,7 +164,7 @@
      */
     MatrixFactorizationModel.prototype.userFeatures = function () {
         var javaObject = this.getJavaObject().userFeatures();
-        return new RDD(javaObject.toJavaRDD());
+        return Utils.javaToJs(javaObject.toJavaRDD());
     };
     /**
      *
@@ -171,7 +172,7 @@
      */
     MatrixFactorizationModel.prototype.productFeatures = function () {
         var javaObject = this.getJavaObject().productFeatures();
-        return new RDD(javaObject.toJavaRDD());
+        return Utils.javaToJs(javaObject.toJavaRDD());
     };
 
 

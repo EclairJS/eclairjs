@@ -68,6 +68,8 @@ if (typeof sparkContext === 'undefined') {
     if (args.length > 4) {
         runs = parseInt(args[4]);
     }
+    var SparkConf = require('eclairjs/SparkConf');
+    var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("KMeans Example");
     var sc = new SparkContext(sparkConf);
     var result = run(sc);

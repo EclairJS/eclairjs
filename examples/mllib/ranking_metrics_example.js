@@ -23,6 +23,9 @@ var RankingMetrics = require('eclairjs/mllib/evaluation').RankingMetrics;
 var RegressionMetrics = require('eclairjs/mllib/evaluation').RegressionMetrics;
 var ALS = require('eclairjs/mllib/recommendation/ALS');
 var Rating = require('eclairjs/mllib/recommendation/Rating');
+var List = require('eclairjs/List');
+var Tuple = require('eclairjs/Tuple');
+var PairRDD = require('eclairjs/PairRDD');
 
 function run(sc) {
 
@@ -122,6 +125,8 @@ function run(sc) {
 var filename = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/sample_movielens_data.txt";
 
 if (typeof sparkContext === 'undefined') {
+    var SparkConf = require('eclairjs/SparkConf');
+    var SparkContext = require('eclairjs/SparkContext');
     var conf = new SparkConf().setAppName("Ranking Metrics Example");
     var sc = new SparkContext(conf);
     var result = run(sc);

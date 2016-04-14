@@ -17,3 +17,25 @@
 var EclairJS_Globals = {
     NAMESPACE: 'eclairjs'
 };
+
+function Utils_invoke(func) {
+    var fn = eval(func);
+    var a = Array.prototype.slice.call(arguments);
+    var args = (arguments.length > 1)
+        ? a.slice(1).map(function (arg) {
+        return Serialize.javaToJs(arg);
+    })
+        : [];
+
+    var ret = null;
+    try {
+        ret = Serialize.jsToJava(fn.apply(this, args));
+    } catch (err) {
+        print("error invoking function");
+        print(func);
+        print(err);
+        throw err;
+    }
+
+    return ret;
+};

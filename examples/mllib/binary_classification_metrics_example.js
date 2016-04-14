@@ -23,6 +23,7 @@ function run(sc) {
     var BinaryClassificationMetrics = require("eclairjs/mllib/evaluation/BinaryClassificationMetrics");
     var Vectors = require("eclairjs/mllib/linalg/Vectors");
     var LabeledPoint = require("eclairjs/mllib/regression/LabeledPoint");
+    var Tuple = require('eclairjs/Tuple');
 
     var filename = ((typeof args !== "undefined") && (args.length > 1)) ?
         args[1] : "examples/data/mllib/sample_binary_classification_data.txt";
@@ -51,7 +52,8 @@ function run(sc) {
  */
 
 if (typeof sparkContext === 'undefined') {
-
+    var SparkConf = require('eclairjs/SparkConf');
+    var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("Binary Classification Metrics Test");
     var sc = new SparkContext(sparkConf);
     var metrics = run(sc);

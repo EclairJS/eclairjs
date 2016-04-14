@@ -97,7 +97,7 @@
 
     /**
      * Java-friendly version of {@link topicDistributions}
-     * @returns {JavaPairRDD}
+     * @returns {PairRDD}
      */
     DistributedLDAModel.prototype.javaTopicDistributions = function () {
         throw "not implemented by ElairJS";

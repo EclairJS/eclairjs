@@ -13,28 +13,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+(function () {
 
-/**
- * @constructor
- * @classdesc Resolves paths to files added through SparkContext.addFile().
- */
-var SparkFiles = function() {
+    var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
+    var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
+    var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
 
-};
-/**
- * Get the absolute path of a file added through SparkContext.addFile().
- * @param {string} fileName
- * @returns {string}
- */
-SparkFiles.get = function(fileName) {
-	return org.apache.spark.SparkFiles.get(fileName);
-};
-/**
- * Get the root directory that contains files added through SparkContext.addFile().
- * @param {string} fileName
- * @returns {string}
- */
-SparkFiles.getRootDirectory = function(fileName) {
-	return org.apache.spark.SparkFiles.getRootDirectory(fileName);
-};
+    /**
+     * @constructor
+     * @memberof module:eclairjs
+     * @classdesc Resolves paths to files added through SparkContext.addFile().
+     */
+    var SparkFiles = function () {
 
+    };
+    /**
+     * Get the absolute path of a file added through SparkContext.addFile().
+     * @param {string} fileName
+     * @returns {string}
+     */
+    SparkFiles.get = function (fileName) {
+        return org.apache.spark.SparkFiles.get(fileName);
+    };
+    /**
+     * Get the root directory that contains files added through SparkContext.addFile().
+     * @param {string} fileName
+     * @returns {string}
+     */
+    SparkFiles.getRootDirectory = function (fileName) {
+        return org.apache.spark.SparkFiles.getRootDirectory(fileName);
+    };
+
+    module.exports = SparkFiles;
+
+
+})();

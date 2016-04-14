@@ -365,7 +365,7 @@
         var javaObject;
         javaObject = this.getJavaObject().sparkContext();
 
-        return new SparkContext(javaObject);
+        return Utils.javaToJs(javaObject);
     };
 
     /**
@@ -508,7 +508,7 @@
      * @returns {SparkContext}
      */
     SQLContext.SparkPlanner.prototype.sparkContext = function () {
-        return new SparkContext(this.getJavaObject().sparkContext());
+        return Utils.javaToJs(this.getJavaObject().sparkContext());
     };
     /**
      * @returns {SQLContext}

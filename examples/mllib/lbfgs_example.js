@@ -29,6 +29,7 @@ function run(sc) {
     var LBFGS = require("eclairjs/mllib/optimization/LBFGS");
     var LogisticGradient = require("eclairjs/mllib/optimization/LogisticGradient");
     var SquaredL2Updater = require("eclairjs/mllib/optimization/SquaredL2Updater");
+    var Tuple = require('eclairjs/Tuple');
 
     var path = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/sample_libsvm_data.txt";
     var data = MLUtils.loadLibSVMFile(sc, path);
@@ -110,6 +111,8 @@ function run(sc) {
  */
 
 if (typeof sparkContext === 'undefined') {
+    var SparkConf = require('eclairjs/SparkConf');
+    var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("L-BFGS Example");
     var sc = new SparkContext(sparkConf);
     var result = run(sc);

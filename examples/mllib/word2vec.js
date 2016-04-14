@@ -26,7 +26,7 @@ This was done so that the example can be run in local mode
 NOTE: this example can take 5-10 minutes to run
 
  */
-
+var SparkConf = require(EclairJS_Globals.NAMESPACE + '/SparkConf');
 var USAGE = "bin/eclairjs examples/mllib/word2vec.js text8_lines";
 
 if (args.length < 2) {
@@ -35,8 +35,11 @@ if (args.length < 2) {
 }
 
 var Word2Vec = require('eclairjs/mllib/feature/Word2Vec');
+var List = require('eclairjs/List');
 
 var file_path = args[1];
+var SparkConf = require('eclairjs/SparkConf');
+var SparkContext = require('eclairjs/SparkContext');
 var conf = new SparkConf().setAppName("Word2Vec");
 var sc = new SparkContext(conf);
 var inp = sc.textFile(file_path).map(function(s) {

@@ -27,7 +27,7 @@
                                        minPartitions,
                                        multiclass) {
         if (arguments.length == 2) {
-            return new RDD(org.apache.spark.mllib.util.MLUtils.loadLibSVMFile(
+            return Utils.javaToJs(org.apache.spark.mllib.util.MLUtils.loadLibSVMFile(
                 sc.getJavaObject().sc(),
                 path).toJavaRDD()
             );
