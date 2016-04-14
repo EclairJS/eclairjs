@@ -1,4 +1,5 @@
-/*                                                                         
+
+/*
 * Copyright 2015 IBM Corp.                                                 
 *                                                                          
 * Licensed under the Apache License, Version 2.0 (the "License");          
@@ -21,6 +22,8 @@
 (function () {
 
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
+
+    var Column = require(EclairJS_Globals.NAMESPACE + '/sql/Column');
 
     /**
      * @constructor

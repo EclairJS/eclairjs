@@ -19,6 +19,8 @@
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
 
+	  var Column = require(EclairJS_Globals.NAMESPACE + '/sql/Column');
+
 	/**
 	 * @constructor
      * @memberof module:eclairjs/sql
