@@ -72,6 +72,7 @@
     var SparkContext = function () {
         var jvmObj;
         this.logger = Logger.getLogger("SparkContext_js");
+        this.customModsAdded = false; // only add the big zip of all non-core required mods once per SparkContext
         if (arguments.length == 2) {
             var conf = new SparkConf()
             conf.setMaster(arguments[0])
@@ -571,17 +572,23 @@
      * Zip up all required files not in JAR to preserve paths and add it to worker node for download via addFile.
      */
     SparkContext.prototype.addCustomModules = function () {
+        // Only add the big zip of all non-core required mods once per SparkContext
+        if (this.customModsAdded) {
+            this.logger.debug(ModuleUtils.defaultZipFile + " has already been added for this SparkContext instance");
+            return;
+        }            
         var mods = ModuleUtils.getModulesByType({type: "core", value: false});
-        //print("addingCustomMods: "+mods.toString());
+        this.logger.debug("addingCustomModules: "+mods.toString());
         var folder = ".", zipfile = ModuleUtils.defaultZipFile, filenames = [];
         mods.forEach(function (mod) {
             filenames.push(mod.id.slice(mod.id.lastIndexOf("\/") + 1, mod.id.length));
         });
-        //print("SparkContext.addModule folder: "+folder);
-        //print("SparkContext.addModule filenames: "+filenames.toString());
+        this.logger.debug("SparkContext.addCustomModules folder: "+folder);
+        this.logger.debug("SparkContext.addCustomModules filenames: "+filenames.toString());
         try {
             org.eclairjs.nashorn.Utils.zipFile(folder, zipfile, filenames);
             this.getJavaObject().addFile(zipfile);
+            this.customModsAdded = true;
         } catch (exc) {
             print("Cannot add non core modules: " + filenames.toString());
             print(exc);

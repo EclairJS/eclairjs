@@ -151,7 +151,7 @@
         //var x = bindArgs ? org.eclairjs.nashorn.Utils.jsToJava(bindArgs) : []
         var unObj = [];
         // If one or more modules are found that are not in JAR we need to send entire
-        // zipfile of custom modules because ew don't have child dependencies with the
+        // zipfile of custom modules because we don't have child dependencies with the
         // way we have to load required filed for Nashorn.
         var modNotInJar = false;
         if (bindArgs) {
