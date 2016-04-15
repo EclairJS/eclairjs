@@ -43,12 +43,12 @@ function run(sc) {
     var linearRegressionModel = LinearRegressionWithSGD.train(parsedData, numIterations);
 
     var delta = 17;
-    var valuesAndPreds = parsedData.mapToPair(function (lp, linearRegressionModel, delta) {
+    var valuesAndPreds = parsedData.mapToPair(function (lp, linearRegressionModel, delta, Tuple) {
         var label = lp.getLabel();
         var f = lp.getFeatures();
         var prediction = linearRegressionModel.predict(f) + delta;
         return new Tuple(prediction, label);
-    }, [linearRegressionModel, delta]); // end MapToPair
+    }, [linearRegressionModel, delta, Tuple]); // end MapToPair
 
     return  valuesAndPreds.take(10);
 
