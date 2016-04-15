@@ -43,10 +43,10 @@ function run(sc) {
     model.clearThreshold();
 
 // Compute raw scores on the test set.
-    var scoreAndLabels = test.map(function (lp, model) {
+    var scoreAndLabels = test.map(function (lp, model, Tuple) {
         var score = model.predict(lp.getFeatures());
         return new Tuple(score, lp.getLabel());
-    }, [model]);
+    }, [model, Tuple]);
 
 
 // Get evaluation metrics.

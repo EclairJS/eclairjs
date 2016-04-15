@@ -68,7 +68,7 @@ function run(sc, file) {
     var Tuple = require('eclairjs/Tuple');
     var dataSet = file? sc.textFile(file) : sc.parallelize(exampleApacheLogs);
 
-    var extracted = dataSet.mapToPair(function (line) {
+    var extracted = dataSet.mapToPair(function (line, Tuple) {
 
 
         var apacheLogRegex =
@@ -105,7 +105,7 @@ function run(sc, file) {
         var key = extractKey(line);
         var stats = extractStats(line);
         return new Tuple(key, stats);
-    });
+    }, [Tuple]);
 
     var counts = extracted.reduceByKey(function (stats1, stats2) {
         return {

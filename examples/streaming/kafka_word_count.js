@@ -68,9 +68,9 @@ if ((typeof args == "undefined")||args.length<5)
         return x.split(/\s+/);
     });
 
-    var wordCounts = words.mapToPair(function( s) {
+    var wordCounts = words.mapToPair(function(s, Tuple) {
           return new Tuple(s, 1);
-      }).reduceByKey(function( i1,  i2) {
+      }, [Tuple]).reduceByKey(function( i1,  i2) {
           return i1 + i2;
       });
 

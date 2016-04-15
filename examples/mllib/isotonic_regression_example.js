@@ -29,10 +29,10 @@ function run(sc) {
     var data = sc.textFile(filename);
 
     // Create label, feature, weight tuples from input data with weight set to default value 1.0.
-    var parsedData = data.map(function (line) {
+    var parsedData = data.map(function (line, Tuple) {
         var parts = line.split(",");
         return new Tuple(parseFloat(parts[0]), parseFloat(parts[1]), 1.0);
-    });
+    }, [Tuple]);
 
     // Split data into training (60%) and test (40%) sets.
     var splits = parsedData.randomSplit([0.6, 0.4], 11);
@@ -44,11 +44,11 @@ function run(sc) {
     var model = new IsotonicRegression().setIsotonic(true).run(training);
 
     // Create tuples of predicted and real labels.
-    var predictionAndLabel = test.mapToPair(function (point, model) {
+    var predictionAndLabel = test.mapToPair(function (point, model, Tuple) {
         var predictedLabel = model.predict(point[1]);
         return new Tuple(predictedLabel, point[0]);
 
-    }, [model]);
+    }, [model, Tuple]);
 
     // Calculate mean squared error between predicted and real labels.
 

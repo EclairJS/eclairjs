@@ -31,42 +31,42 @@ function run(sc) {
 
     var data = data = sc.textFile(filename);
 
-    var ratings = data.map(function (line) {
+    var ratings = data.map(function (line, Rating) {
         var arr = line.split("::");
         var r = new Rating(parseInt(arr[0]),
             parseInt(arr[1]),
             parseFloat(arr[2]) - 2.5);
         return r;
-    }).cache();
+    }, [Rating]).cache();
 
     var model = ALS.train(ratings, 10, 10, 0.01);
     var userRecs = model.recommendProductsForUsers(10);
 
-    var userRecommendedScaled = userRecs.map(function (val) {
-        var newRatings = val[1].map(function (r) {
+    var userRecommendedScaled = userRecs.map(function (val, Rating) {
+        var newRatings = val[1].map(function (r, Rating) {
             var newRating = Math.max(Math.min(r.rating(), 1.0), 0.0);
             return new Rating(r.user(), r.product(), newRating);
-        });
+        }, [Rating]);
 
         return new Tuple(val[0], newRatings);
-    });
+    }, [Rating]);
 
     var userRecommended = PairRDD.fromRDD(userRecommendedScaled);
 
-    var binarizedRatings = ratings.map(function (r) {
+    var binarizedRatings = ratings.map(function (r, Rating) {
         var binaryRating = 0.0;
         if (r.rating() > 0.0) {
             binaryRating = 1.0;
         }
 
         return new Rating(r.user(), r.product(), binaryRating);
-    });
+    }, [Rating]);
 
     var userMovies = binarizedRatings.groupBy(function (r) {
         return r.user();
     });
 
-    var userMoviesList = userMovies.mapValues(function (docs) {
+    var userMoviesList = userMovies.mapValues(function (docs, List) {
         var products = new List();
         docs.forEach(function (r) {
             if (r.rating() > 0.0) {
@@ -74,7 +74,7 @@ function run(sc) {
             }
         });
         return products;
-    });
+    }, [List]);
 
     var userRecommendedList = userRecommended.mapValues(function (docs) {
         var products = new List();
@@ -96,9 +96,9 @@ function run(sc) {
 
     print("Mean average precision = " + metrics.meanAveragePrecision());
 
-    var userProducts = ratings.map(function (r) {
+    var userProducts = ratings.map(function (r, Tuple) {
         return new Tuple(r.user(), r.product());
-    });
+    }, Tuple);
 
 
     var predictions = PairRDD.fromRDD(model.predict(userProducts).map(function (r) {

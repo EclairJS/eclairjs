@@ -50,9 +50,9 @@ var port = ((typeof args !== "undefined") && (args.length > 2)) ? 0 + args[2] : 
     var words = lines.flatMap(function(x) {
         return x.split(/\s+/);
     });
-    var wordCounts = words.mapToPair( function(s) {
+    var wordCounts = words.mapToPair( function(s, Tuple) {
           return new Tuple(s, 1);
-      }).reduceByKey(function(i1,i2) {
+      }, [Tuple]).reduceByKey(function(i1,i2) {
           return i1 + i2;
       });
 

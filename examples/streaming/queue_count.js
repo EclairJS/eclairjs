@@ -40,9 +40,9 @@ for (var i = 0; i < 30; i++) {
 // Create the QueueInputDStream and use it do some processing
 var inputStream = ssc.queueStream(rddQueue);
 var mappedStream = inputStream.mapToPair(
-    function (i) {
+    function (i, Tuple) {
         return new Tuple(i % 10, 1);
-    });
+    }, [Tuple]);
 var reducedStream = mappedStream.reduceByKey(
     function (i1, i2) {
         return i1 + i2;

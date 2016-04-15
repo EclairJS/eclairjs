@@ -29,18 +29,18 @@ function run(sc) {
     // Load and parse the data
     var path = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/sample_lda_data.txt";
     var data = sc.textFile(path);
-    var parsedData = data.map(function (s) {
+    var parsedData = data.map(function (s, Vectors) {
        var sarray = s.trim().split(" ");
         var values = [];
         for (var i = 0; i < sarray.length; i++) {
             values[i] = parseFloat(sarray[i]);
         }
         return Vectors.dense(values);
-    });
+    }, [Vectors]);
 // Index documents with unique IDs
-    var data = parsedData.zipWithIndex().map(function (doc_id) {
+    var data = parsedData.zipWithIndex().map(function (doc_id, Tuple) {
         return new Tuple(doc_id[1], doc_id[0]); // swap
-    });
+    }, [Tuple]);
     var corpus = PairRDD.fromRDD(data).cache();
 
 // Cluster the documents into three topics using LDA

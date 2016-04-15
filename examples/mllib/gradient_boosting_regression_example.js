@@ -46,9 +46,9 @@ function run(sc) {
     var model = GradientBoostedTrees.train(trainingData, boostingStrategy);
 
 
-    var predictionAndLabel = testData.mapToPair(function (lp, model) {
+    var predictionAndLabel = testData.mapToPair(function (lp, model, Tuple) {
         return new Tuple(model.predict(lp.getFeatures()), lp.getLabel());
-    }, [model]);
+    }, [model, Tuple]);
 
 
     var testMSE = predictionAndLabel.map(function (tuple2) {

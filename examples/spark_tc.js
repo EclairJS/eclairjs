@@ -60,9 +60,9 @@ var tc = sc.parallelizePairs(generateGraph(), slices).cache();
 // the graph to obtain the path (x, z).
 
 // Because join() joins on keys, the edges are stored in reversed order.
-var edges = tc.mapToPair(function(tuple) {
+var edges = tc.mapToPair(function(tuple, Tuple) {
 	return new Tuple(tuple[1], tuple[0]);
-});
+}, [Tuple]);
 
 
 var oldCount;
@@ -71,9 +71,9 @@ do {
 	oldCount = nextCount;
 	// Perform the join, obtaining an RDD of (y, (z, x)) pairs,
 	// then project the result to obtain the new (x, z) paths.
-	tc = tc.union(tc.join(edges).mapToPair(function(triple){
+	tc = tc.union(tc.join(edges).mapToPair(function(triple, Tuple){
 		return new Tuple(triple[1][1],triple[1][0]);
-	})).distinct().cache();
+	}, [Tuple])).distinct().cache();
 	nextCount = tc.count();
 
 } while (nextCount != oldCount);

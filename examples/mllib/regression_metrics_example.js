@@ -15,6 +15,8 @@
  */
 
 var LabeledPoint = require("eclairjs/mllib/regression/LabeledPoint");
+var LinearRegressionWithSGD = require("eclairjs/mllib/regression/LinearRegressionWithSGD");
+var RegressionMetrics = require("eclairjs/mllib/evaluation/RegressionMetrics");
 var Vectors = require("eclairjs/mllib/linalg/Vectors");
 var SparkConf = require('eclairjs/SparkConf');
 var SparkContext = require('eclairjs/SparkContext');

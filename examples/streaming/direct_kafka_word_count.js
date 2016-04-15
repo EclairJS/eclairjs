@@ -66,9 +66,9 @@ if ((typeof args == "undefined")||args.length<3)
     var words = lines.flatMap( function( x) {
         return x.split(/\s+/);
     });
-    var wordCounts = words.mapToPair(function( s) {
+    var wordCounts = words.mapToPair(function(s, Tuple) {
           return new Tuple(s, 1);
-      }).reduceByKey(
+      }, [Tuple]).reduceByKey(
         function( i1,  i2) {
           return i1 + i2;
       });
