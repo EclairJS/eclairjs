@@ -13,8 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-{
+(function () {
+
     var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
+    var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
 
     /**
      *
@@ -178,4 +180,5 @@
     };
 
     module.exports = Metadata;
-}
+
+})();

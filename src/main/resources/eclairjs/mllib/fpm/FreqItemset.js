@@ -18,6 +18,7 @@
     var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
+    var List = require(EclairJS_Globals.NAMESPACE + '/List');
 
     /**
      * Frequent itemset. param: items items in this itemset. Java users should call javaItems() instead. param: freq frequency

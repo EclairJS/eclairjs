@@ -19,7 +19,7 @@
  * The SparkContext will load the rest of sparkJS files. So these are the oly two
  * the user has to explicitly load.
  */
-
+var SparkContext = require(EclairJS_Globals.NAMESPACE + '/SparkContext');
 var sparkContext = new SparkContext("local[*]", "core examples unit test");
 
 

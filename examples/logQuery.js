@@ -65,7 +65,7 @@ function extractKey(line) {
 }
 
 function run(sc, file) {
-
+    var Tuple = require('eclairjs/Tuple');
     var dataSet = file? sc.textFile(file) : sc.parallelize(exampleApacheLogs);
 
     var extracted = dataSet.mapToPair(function (line) {
@@ -125,6 +125,8 @@ function run(sc, file) {
 
 if (typeof sparkContext === 'undefined') {
     var dataSet = (args.length == 2) ? args[1] : null;
+    var SparkConf = require('eclairjs/SparkConf');
+    var SparkContext = require('eclairjs/SparkContext');
     var conf = new SparkConf().setAppName("JavaScript Log Query");
     var sc = new SparkContext(conf);
     var result = run(sc, dataSet);

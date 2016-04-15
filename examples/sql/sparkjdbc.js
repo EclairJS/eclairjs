@@ -23,7 +23,8 @@
  * Another option is to include the --driver-class-path option on the command line for example:
  * <path to EclairJS>/bin/eclairjs.sh  --jars <path to JDBC jar file> --driver-class-path <path to JDBC jar file> <path to EclairJS>/examples/sql/sparkjdbc.js
  */
-
+var SparkConf = require('eclairjs/SparkConf');
+var SparkContext = require('eclairjs/SparkContext');
 var sparkContext = new SparkContext("local[*]", "dataframe");
 var sqlContext = new SQLContext(sparkContext);
 var url="jdbc:mysql://localhost:3306/eclairjstesting";

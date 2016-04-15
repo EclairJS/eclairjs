@@ -1,5 +1,6 @@
 var Duration = require('eclairjs/streaming/Duration');
 var StreamingContext = require('eclairjs/streaming/StreamingContext');
+var SparkContext = require(EclairJS_Globals.NAMESPACE + '/SparkContext');
 
 var sparkContext = new SparkContext("local[*]", "dstream");
 var streamingContext = null;
@@ -43,15 +44,17 @@ var flatMapTest = function() {
 
 var flatMapToPairTest = function() {
     streamingContext = new StreamingContext(sparkContext, duration);
+    var List = require('eclairjs/List');
+    var Tuple = require('eclairjs/Tuple');
     var dstream = streamingContext.socketTextStream("localhost", 9999);
-    var ds1 = dstream.flatMapToPair(function(line) {
+    var ds1 = dstream.flatMapToPair(function(line, List, Tuple) {
         var ret = new List();
         var arr = line.split(",");
         arr.forEach(function(letter) {
             ret.add(new Tuple(letter,1));
         })
         return ret;
-    })
+    }, [List, Tuple])
 
     ds1.foreachRDD(function(rdd) {
         var d = rdd.collect();

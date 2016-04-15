@@ -69,27 +69,28 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/EclairJS_Globals.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/ModuleUtils.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/jvm-npm/jvm-npm.js") + "');");
+            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/Serialize.js") + "');");
 
             // core
-        	engine.eval("load('" + getResourceAsURLStirng("/eclairjs/JavaWrapper.js") + "');");
-        	engine.eval("load('" + getResourceAsURLStirng("/eclairjs/Logger.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/Utils.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/Serialize.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/DebugUtils.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/utils/List.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/utils/Tuple.js") + "');");
+        	//engine.eval("load('" + getResourceAsURLStirng("/eclairjs/JavaWrapper.js") + "');");
+        	//engine.eval("load('" + getResourceAsURLStirng("/eclairjs/Logger.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/Utils.js") + "');");
+
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/DebugUtils.js") + "');");
+           // engine.eval("load('" + getResourceAsURLStirng("/eclairjs/List.js") + "');");
+           // engine.eval("load('" + getResourceAsURLStirng("/eclairjs/Tuple.js") + "');");
 
         	//spark
 
-        	engine.eval("load('" + getResourceAsURLStirng("/eclairjs/SparkConf.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/SparkContext.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/RDD.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/FloatRDD.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/PairRDD.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/Partitioner.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/Accumulators.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/FutureAction.js") + "');");
-            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/SparkStatusTracker.js") + "');");
+//        	engine.eval("load('" + getResourceAsURLStirng("/eclairjs/SparkConf.js") + "');");
+//            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/SparkContext.js") + "');");
+//            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/RDD.js") + "');");
+//            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/FloatRDD.js") + "');");
+//            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/PairRDD.js") + "');");
+//            engine.eval("load('" + getResourceAsURLStirng("/eclairjs/Partitioner.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/Accumulators.js") + "');");
+           // engine.eval("load('" + getResourceAsURLStirng("/eclairjs/FutureAction.js") + "');");
+            //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/SparkStatusTracker.js") + "');");
 
             // storage
             //engine.eval("load('" + getResourceAsURLStirng("/eclairjs/storage/StorageLevel.js") + "');");

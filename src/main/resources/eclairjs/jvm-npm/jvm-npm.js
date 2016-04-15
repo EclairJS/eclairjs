@@ -201,7 +201,7 @@ module = (typeof module == 'undefined') ? {} :  module;
       if (ex instanceof java.lang.Exception) {
         throw new ModuleError("Cannot load module " + id, "LOAD_ERROR", ex);
       } else {
-        System.out.println("Cannot load module " + id + " LOAD_ERROR");
+        print("Cannot load module " + id + " LOAD_ERROR");
         throw ex;
       }
     }

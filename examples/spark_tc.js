@@ -20,6 +20,7 @@
  */
 var numEdges = 200;
 var numVertices = 50;
+var Tuple = require('eclairjs/Tuple');
 
 function random(max) {
 	return Math.floor(Math.random() * max);
@@ -88,7 +89,9 @@ return tc.count();
 
 if (typeof sparkContext === 'undefined') {
 	var slices =  2;
-	var conf = new SparkConf().setAppName("JavaScript transitive closure");
+    var SparkConf = require('eclairjs/SparkConf');
+    var SparkContext = require('eclairjs/SparkContext');
+    var conf = new SparkConf().setAppName("JavaScript transitive closure");
 	var sc = new SparkContext(conf);
 	var result = run(sc, slices);
 	print("TC has " + result + " edges.");

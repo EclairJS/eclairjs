@@ -22,6 +22,9 @@
 var ALS = require('eclairjs/mllib/recommendation/ALS');
 var MatrixFactorizationModel = require('eclairjs/mllib/recommendation/MatrixFactorizationModel');
 var Rating = require('eclairjs/mllib/recommendation/Rating');
+var Tuple = require('eclairjs/Tuple');
+var FloatRDD = require('eclairjs/FloatRDD');
+var PairRDD = require('eclairjs/PairRDD');
 
 function run(sc) {
 
@@ -71,7 +74,8 @@ function run(sc) {
  */
 
 if (typeof sparkContext === 'undefined') {
-
+    var SparkConf = require('eclairjs/SparkConf');
+    var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("Collaborative Filtering Example");
     var sc = new SparkContext(sparkConf);
     var results = run(sc);

@@ -20,7 +20,7 @@
  */
 
 function run(sparkContext) {
-
+    var Tuple = require('eclairjs/Tuple');
     var file = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "src/test/resources/dream.txt";
 
 //    var file = "src/test/resources/dream.txt"; // Should be some file on your system
@@ -36,17 +36,17 @@ function run(sparkContext) {
         return word.trim().length > 0;
     });
 
-    var rdd4 = rdd3.mapToPair(function (word) {
+    var rdd4 = rdd3.mapToPair(function (word, Tuple) {
         return new Tuple(word, 1);
-    });
+    }, [Tuple]);
 
     var rdd5 = rdd4.reduceByKey(function (a, b) {
         return a + b;
     });
 
-    var rdd6 = rdd5.mapToPair(function (tuple) {
+    var rdd6 = rdd5.mapToPair(function (tuple, Tuple) {
         return new Tuple(tuple[1] + 0.0, tuple[0]);
-    })
+    }, [Tuple])
 
     var rdd7 = rdd6.sortByKey(false);
     return JSON.stringify(rdd7.take(10));
@@ -59,6 +59,8 @@ function run(sparkContext) {
  */
 
 if (typeof sparkContext === 'undefined') {
+    var SparkConf = require('eclairjs/SparkConf');
+    var SparkContext = require('eclairjs/SparkContext');
     var conf = new SparkConf().setAppName("JavaScript word count");
     var sc = new SparkContext(conf);
     var result = run(sc);

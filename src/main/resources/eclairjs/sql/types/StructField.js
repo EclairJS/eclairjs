@@ -13,8 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-{
+(function () {
+
     var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
+    var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
+    var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
+
+    var DataType = require(EclairJS_Globals.NAMESPACE + '/sql/types/DataType');
+
     /**
      * @constructor
      * @classdesc A field inside a StructType.
@@ -94,6 +100,5 @@
     };
 
     module.exports = StructField;
-}
 
-
+})();

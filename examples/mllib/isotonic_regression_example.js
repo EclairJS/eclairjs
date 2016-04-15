@@ -20,8 +20,8 @@
  */
 var IsotonicRegression = require('eclairjs/mllib/regression/IsotonicRegression');
 var IsotonicRegressionModel = require('eclairjs/mllib/regression/IsotonicRegressionModel');
-
-var IsotonicRegression = require('eclairjs/mllib/regression/IsotonicRegression');
+var FloatRDD = require('eclairjs/FloatRDD');
+var Tuple = require('eclairjs/Tuple');
 
 function run(sc) {
 
@@ -69,6 +69,8 @@ function run(sc) {
  */
 
 if (typeof sparkContext === 'undefined') {
+    var SparkConf = require('eclairjs/SparkConf');
+    var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("Isotonic Regression Example");
     var sc = new SparkContext(sparkConf);
     var result = run(sc);

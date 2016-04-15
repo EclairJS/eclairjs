@@ -13,12 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+var SparkContext = require(EclairJS_Globals.NAMESPACE + '/SparkContext');
 
 var sparkContext = new SparkContext("local[*]", "spark context tests");
 
 var accum;
 
 var addInt = function() {
+    var IntAccumulatorParam = require('eclairjs/IntAccumulatorParam');
 	accum = sparkContext.accumulator(0, new IntAccumulatorParam());
 	sparkContext.parallelize([1, 2, 3, 4]).foreach(function(x, accum) {
 		accum.add(x);
@@ -37,6 +39,7 @@ var addFloat = function() {
 }
 
 var addFloatAccumulable = function() {
+	var FloatAccumulatorParam = require('eclairjs/FloatAccumulatorParam');
 	var f = 0;
 	var floatAccumParam = new FloatAccumulatorParam();
 	accum = sparkContext.accumulable(f, floatAccumParam);
@@ -48,6 +51,8 @@ var addFloatAccumulable = function() {
 }
 
 var intAccumulatorParam = function() {
+    var IntAccumulatorParam = require('eclairjs/IntAccumulatorParam');
+    var Accumulable = require('eclairjs/Accumulable');
 	var intAccumParam = new IntAccumulatorParam();
 	accum = new Accumulable(0, intAccumParam);
 	sparkContext.parallelize([1, 2, 3, 4]).foreach(function(x, accum) {
@@ -58,6 +63,8 @@ var intAccumulatorParam = function() {
 }
 
 var floatAccumulatorParam = function() {
+    var FloatAccumulatorParam = require('eclairjs/FloatAccumulatorParam');
+    var Accumulable = require('eclairjs/Accumulable');
 	var floatAccumParam = new FloatAccumulatorParam();
 	accum = new Accumulable(0.000, floatAccumParam);
 	sparkContext.parallelize([1.10, 2.20, 3.30, 4.40]).foreach(function(x, accum) {
@@ -68,6 +75,8 @@ var floatAccumulatorParam = function() {
 }
 
 var floatAccumulator = function() {
+    var FloatAccumulatorParam = require('eclairjs/FloatAccumulatorParam');
+    var Accumulator = require('eclairjs/Accumulator');
 	var floatAccumParam = new FloatAccumulatorParam();
 	accum = new Accumulator(0.000, floatAccumParam);
 	sparkContext.parallelize([1.10, 2.20, 3.30, 4.40]).foreach(function(x, accum) {

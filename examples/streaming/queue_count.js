@@ -16,6 +16,8 @@
 
 var Duration = require('eclairjs/streaming/Duration');
 var StreamingContext = require('eclairjs/streaming/StreamingContext');
+var Tuple = require('eclairjs/Tuple');
+var SparkConf = require(EclairJS_Globals.NAMESPACE + '/SparkConf');
 
 // Create the context with a 1 second batch size
 

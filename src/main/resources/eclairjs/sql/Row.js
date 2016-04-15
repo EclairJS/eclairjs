@@ -64,12 +64,6 @@
 
 //Set the "constructor" property to refer to Row
     Row.prototype.constructor = Row;
-    /*
-     * The java Class name seems to be GenericRowWithSchema, to to use the
-     * java Utils.javaToJs method to wrap that class in a java object
-     * we will set the JavaScript prototype to the same name.
-     */
-    var GenericRowWithSchema = Row;
 
     /**
      * Returns true if there are any NULL values in this row.
@@ -378,7 +372,7 @@
          StructType	schema()
          Schema for the row.
          */
-        return new StructType(this.getJavaObject().schema());
+        return  Utils.javaToJs(this.getJavaObject().schema());
 
     };
     /**

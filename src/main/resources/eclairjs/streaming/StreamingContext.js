@@ -58,7 +58,7 @@
      */
     StreamingContext.prototype.sparkContext = function () {
         var javaObject = this.getJavaObject().sparkContext();
-        return new SparkContext(javaObject);
+        return Utils.javaToJs(javaObject);
     };
 
     /**

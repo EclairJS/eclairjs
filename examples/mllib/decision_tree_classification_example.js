@@ -25,6 +25,7 @@ function run(sc) {
     var DecisionTree = require('eclairjs/mllib/tree/DecisionTree');
     var LabeledPoint = require('eclairjs/mllib/regression/LabeledPoint');
     var MLUtils = require("eclairjs/mllib/MLUtils");
+    var Tuple = require('eclairjs/Tuple');
 
     // Load and parse the data file.
     var datapath = ((typeof args !== "undefined") && (args.length > 1)) ?
@@ -51,9 +52,9 @@ function run(sc) {
 
 // Evaluate model on test instances and compute test error
 
-    var predictionAndLabel = testData.mapToPair(function (labeledPoint, model) {
+    var predictionAndLabel = testData.mapToPair(function (labeledPoint, model, Tuple) {
         return new Tuple(model.predict(labeledPoint.getFeatures()), labeledPoint.getLabel());
-    }, [model]);
+    }, [model, Tuple]);
 
 
     var result = predictionAndLabel.filter(function (tuple2) {
@@ -72,6 +73,8 @@ function run(sc) {
  */
 
 if (typeof sparkContext === 'undefined') {
+    var SparkConf = require('eclairjs/SparkConf');
+    var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("DecisionTreeClassificationExample");
     var sc = new SparkContext(sparkConf);
     var result = run(sc);

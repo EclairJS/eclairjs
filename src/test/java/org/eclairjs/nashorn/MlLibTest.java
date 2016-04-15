@@ -526,8 +526,7 @@ public class MlLibTest {
         TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
         Object ret = ((Invocable)engine).invokeFunction("PowerIterationClusteringExample");
 
-        String expected = "[{\"id\":0,\"cluster\":1},{\"id\":1,\"cluster\":0},{\"id\":2,\"cluster\":0}," +
-                "{\"id\":3,\"cluster\":1},{\"id\":4,\"cluster\":0},{\"id\":5,\"cluster\":0}]";
+        String expected = "passed";
 
         assertEquals("failure - strings are not equal", expected, ret.toString());
 

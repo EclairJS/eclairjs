@@ -34,6 +34,8 @@ var run = function(sc){
  */
 
 if (typeof sparkContext === 'undefined') {
+	var SparkConf = require('eclairjs/SparkConf');
+    var SparkContext = require('eclairjs/SparkContext');
 	var conf = new SparkConf().setAppName("JavaScript accumulators test");
 	var sc = new SparkContext(conf);
     var accum = sc.accumulator([0]);

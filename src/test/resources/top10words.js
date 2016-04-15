@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+var SparkContext = require(EclairJS_Globals.NAMESPACE + '/SparkContext');
 var sparkContext = new SparkContext("local[*]", "top10");
 
 var wordCount = function(file) {

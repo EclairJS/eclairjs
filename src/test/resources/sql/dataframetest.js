@@ -27,6 +27,8 @@ var functions = require(EclairJS_Globals.NAMESPACE + '/sql/functions');
 var SqlDate = require(EclairJS_Globals.NAMESPACE + '/sql/SqlDate');
 var SqlTimestamp = require(EclairJS_Globals.NAMESPACE + '/sql/SqlTimestamp');
 var StorageLevel = require(EclairJS_Globals.NAMESPACE + '/storage/StorageLevel');
+var SparkConf = require(EclairJS_Globals.NAMESPACE + '/SparkConf');
+var SparkContext = require(EclairJS_Globals.NAMESPACE + '/SparkContext');
 //var sql = require('sql');
 //require('sql');
 

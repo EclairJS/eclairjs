@@ -62,7 +62,7 @@
         var weightsOld_uw = Utils.unwrapObject(weightsOld);
         var gradient_uw = Utils.unwrapObject(gradient);
         var javaObject = this.getJavaObject().compute(weightsOld_uw,gradient_uw,stepSize,iter,regParam);
-
+        var Tuple = require('eclairjs/Tuple');
         return new Tuple(javaObject);
     };
 

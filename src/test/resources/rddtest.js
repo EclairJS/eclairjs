@@ -1,5 +1,5 @@
 var StorageLevel = require('eclairjs/storage/StorageLevel');
-
+var SparkContext = require(EclairJS_Globals.NAMESPACE + '/SparkContext');
 var sparkContext = new SparkContext();
 var rdd = sparkContext.parallelize([1, 2, 3]);
 
@@ -215,6 +215,7 @@ tests({
     },
 
     testMapToPair : function() {
+        var Tuple = require('eclairjs/Tuple');
         var rdd2 = rdd.mapToPair(function(num) {return new Tuple(num,num+1)});
         var ret = JSON.stringify(rdd2.collect());
         var expected = "[{\"0\":1,\"1\":2,\"length\":2},{\"0\":2,\"1\":3,\"length\":2},{\"0\":3,\"1\":4,\"length\":2}]";
@@ -310,7 +311,7 @@ tests({
 
 
     testHashPartitioner : function() {
-
+        var HashPartitioner = require(EclairJS_Globals.NAMESPACE + '/HashPartitioner');
         var p2 = new HashPartitioner(2)
         var p4 = new HashPartitioner(4)
         var anotherP4 = new HashPartitioner(4)
