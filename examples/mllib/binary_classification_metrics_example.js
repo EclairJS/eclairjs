@@ -39,9 +39,9 @@ function run(sc) {
         .setNumClasses(2)
         .run(training);
 
-    var predictionAndLabels = test.mapToPair(function (lp, model) {
+    var predictionAndLabels = test.mapToPair(function (lp, model, Tuple) {
         return new Tuple(model.predict(lp.getFeatures()), lp.getLabel());
-    }, [model]);
+    }, [model, Tuple]);
 
     return new BinaryClassificationMetrics(predictionAndLabels);
 

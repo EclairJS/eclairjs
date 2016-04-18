@@ -68,7 +68,7 @@ if ((typeof args == "undefined") || args.length < 5) {
         "\n" +
         "In local mode, <master> should be 'local[n]' with n > 1\n" +
         "Both <checkpoint-directory> and <output-file> must be absolute paths");
-    return;
+    exit(1);
 }
 var ip = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "localhost";
 var port = ((typeof args !== "undefined") && (args.length > 2)) ? 0 + args[2] : 9999;
@@ -97,9 +97,9 @@ function createContext(ip, port, checkpointDirectory, outputPath) {
         return x.split(/\s+/);
     });
     var wordCounts = words.mapToPair(
-        function (s) {
+        function (s, Tuple) {
             return new Tuple(s, 1);
-        }).reduceByKey(function (i1, i2) {
+        }, [Tuple]).reduceByKey(function (i1, i2) {
         return i1 + i2;
     });
 

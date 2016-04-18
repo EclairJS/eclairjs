@@ -32,9 +32,9 @@ function run(sc) {
     var test = tmp[1]; // test set
     var model = NaiveBayes.train(training, 1.0);
 
-    var predictionAndLabel = test.mapToPair(function (lp, model) {
+    var predictionAndLabel = test.mapToPair(function (lp, model, Tuple) {
         return new Tuple(model.predict(lp.getFeatures()), lp.getLabel());
-    }, [model]);
+    }, [model, Tuple]);
 
     var ret = {};
     ret.model = model;

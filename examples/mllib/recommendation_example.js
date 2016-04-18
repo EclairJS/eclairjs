@@ -31,10 +31,10 @@ function run(sc) {
 // Load and parse the data
     var path = "examples/data/mllib/als/test.data";
     var data = sc.textFile(path);
-    var ratings = data.map(function (s) {
+    var ratings = data.map(function (s, Rating) {
         var sarray = s.split(",");
         return new Rating(parseInt(sarray[0]), parseInt(sarray[1]), parseFloat(sarray[2]));
-    });
+    }, [Rating]);
 
 // Build the recommendation model using ALS
     var rank = 10;
@@ -42,18 +42,18 @@ function run(sc) {
     var model = ALS.train(ratings, rank, numIterations, 0.01);
 
 // Evaluate the model on rating data
-    var userProducts = ratings.map(function (r) {
+    var userProducts = ratings.map(function (r, Tuple) {
         return new Tuple(r.user(), r.product());
 
-    });
+    }, [Tuple]);
 
-    var predictions = PairRDD.fromRDD(model.predict(userProducts).map(function (r) {
+    var predictions = PairRDD.fromRDD(model.predict(userProducts).map(function (r, Tuple) {
         return new Tuple(new Tuple(r.user(), r.product()), r.rating());
-    }));
+    }, [Tuple]));
 
-    var ratesAndPreds =  PairRDD.fromRDD(ratings.map(function (r) {
+    var ratesAndPreds =  PairRDD.fromRDD(ratings.map(function (r, Tuple) {
         return new Tuple(new Tuple(r.user(), r.product()), r.rating());
-    })).join(predictions).values();
+    }, [Tuple])).join(predictions).values();
 
     var MSE = FloatRDD.fromRDD(ratesAndPreds.map(function (pair) {
         var err = pair[0] - pair[1];

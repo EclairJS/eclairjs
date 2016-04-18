@@ -42,13 +42,13 @@ function run(sc) {
     var test = data.subtract(trainingInit);
 
     // Append 1 into the training data as intercept.
-    var training = data.map(function (lp) {
+    var training = data.map(function (lp, Tuple, MLUtils) {
         /*
             NOTE: MLUtils must be defined in the Global scope,
             or in this LAMBDA function.
          */
         return new Tuple(lp.getLabel(), MLUtils.appendBias(lp.getFeatures()));
-    });
+    }, [Tuple, MLUtils]);
 
     training.cache();
 
@@ -93,9 +93,9 @@ function run(sc) {
 // Clear the default threshold.
     model.clearThreshold();
 
-    var scoreAndLabels = test.map(function (lp, model) {
+    var scoreAndLabels = test.map(function (lp, model, Tuple) {
         return new Tuple(model.predict(lp.getFeatures()), lp.getLabel());
-    }, [model]);
+    }, [model, Tuple]);
 
 // Get evaluation metrics.
     var metrics = new BinaryClassificationMetrics(scoreAndLabels);

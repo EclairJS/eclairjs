@@ -49,9 +49,9 @@ function run(sc) {
 
 // Evaluate model on test instances and compute test error
 
-    var predictionAndLabel = testData.mapToPair(function (labeledPoint, model) {
+    var predictionAndLabel = testData.mapToPair(function (labeledPoint, model, Tuple) {
         return new Tuple(model.predict(labeledPoint.getFeatures()), labeledPoint.getLabel());
-    }, [model]);
+    }, [model, Tuple]);
 
     var testMSE = predictionAndLabel.map(function (tuple2) {
             var diff = parseFloat(tuple2[0] - tuple2[1]);

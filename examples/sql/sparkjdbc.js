@@ -25,6 +25,7 @@
  */
 var SparkConf = require('eclairjs/SparkConf');
 var SparkContext = require('eclairjs/SparkContext');
+var SQLContext = require('eclairjs/sql/SQLContext');
 var sparkContext = new SparkContext("local[*]", "dataframe");
 var sqlContext = new SQLContext(sparkContext);
 var url="jdbc:mysql://localhost:3306/eclairjstesting";

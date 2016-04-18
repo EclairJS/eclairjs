@@ -42,9 +42,9 @@ var SparkConf = require('eclairjs/SparkConf');
 var SparkContext = require('eclairjs/SparkContext');
 var conf = new SparkConf().setAppName("Word2Vec");
 var sc = new SparkContext(conf);
-var inp = sc.textFile(file_path).map(function(s) {
+var inp = sc.textFile(file_path).map(function(s, List) {
     return new List(s.split(" "));
-});
+}, [List]);
 
 var word2vec = new Word2Vec();
 

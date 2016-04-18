@@ -58,9 +58,9 @@ function run(sc) {
     );
 
 // Evaluate model on test instances and compute test error
-    var predictionAndLabel = testData.mapToPair(function (p, model) {
+    var predictionAndLabel = testData.mapToPair(function (p, model, Tuple) {
         return new Tuple(model.predict(p.getFeatures()), p.getLabel());
-    }, [model]);
+    }, [model, Tuple]);
 
     var testErr = 1.0 * predictionAndLabel.filter(function (tup) {
             return (tup[0] !== tup[1]);
