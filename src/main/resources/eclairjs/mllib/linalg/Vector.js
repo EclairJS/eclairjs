@@ -24,6 +24,7 @@
      * Note: Users should not implement this interface.
      * @classdesc
      * @constructor
+     * @abstract
      * @memberof module:eclairjs/mllib/linalg
      */
 
