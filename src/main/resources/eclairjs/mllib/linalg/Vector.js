@@ -100,40 +100,22 @@
         return Utils.javaToJs(javaObject);
     };
 
-
-    /**
-     * Applies a function `f` to all the active elements of dense and sparse vector.
-     *
-     * @param {func} f  the function takes two parameters where the first parameter is the index of
-     *          the vector with type `Int`, and the second parameter is the corresponding value
-     *          with type `Double`.
-     */
-    Vector.prototype.foreachActive = function (f) {
-        throw "not implemented by ElairJS";
-        //   var sv = Utils.createJavaParams(f);
-        //   var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
-        //    this.getJavaObject().foreachActive(fn);
-    };
-
-
     /**
      * Number of active entries.  An "active entry" is an element which is explicitly stored,
      * regardless of its value.  Note that inactive entries have value 0.
-     * @returns {number}
+     * @returns {integer}
      */
     Vector.prototype.numActives = function () {
-        throw "not implemented by ElairJS";
-        //   return  this.getJavaObject().numActives();
+           return  this.getJavaObject().numActives();
     };
 
 
     /**
      * Number of nonzero elements. This scans all active values and count nonzeros.
-     * @returns {number}
+     * @returns {integer}
      */
     Vector.prototype.numNonzeros = function () {
-        throw "not implemented by ElairJS";
-        //   return  this.getJavaObject().numNonzeros();
+           return  this.getJavaObject().numNonzeros();
     };
 
 
