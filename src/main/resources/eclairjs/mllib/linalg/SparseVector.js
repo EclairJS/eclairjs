@@ -28,9 +28,9 @@
 
 
     /**
-     * @param {number} size
-     * @param {number[]} indices
-     * @param {number[]} values
+     * @param {integer} size
+     * @param {integer[]} indices
+     * @param {float[]} values
      * @class
      * @memberof module:eclairjs/mllib/linalg
      * @extends Vector
@@ -42,7 +42,7 @@
         if (arguments[0] instanceof org.apache.spark.mllib.linalg.SparseVector) {
             jvmObj = arguments[0];
         } else {
-            jvmObj = new org.apache.spark.mllib.linalg.SparseVector(arguments);
+            jvmObj = new org.apache.spark.mllib.linalg.SparseVector(arguments[0], arguments[1], arguments[2]);
 
         }
         Vector.call(this, jvmObj);
@@ -53,18 +53,22 @@
 
     SparseVector.prototype.constructor = SparseVector;
 
+    /**
+     * @returns {integer[]}
+     */
+    SparseVector.prototype.indices = function() {
+        return this.getJavaObject().indices();
+    };
 
     /**
      * @param {SparseVector} sv
      * @returns {Tuple3}
      */
     SparseVector.unapply = function (sv) {
-        throw "not implemented by ElairJS";
-        //   var sv_uw = Utils.unwrapObject(sv);
-        //   var javaObject =  org.apache.spark.mllib.linalg.SparseVector.unapply(sv_uw);
-        //   return new Tuple3(javaObject);
+           var sv_uw = Utils.unwrapObject(sv);
+           var javaObject =  org.apache.spark.mllib.linalg.SparseVector.unapply(sv_uw);
+           return new Tuple3(javaObject);
     };
-
 
     module.exports = SparseVector;
 
