@@ -42,14 +42,15 @@ function run(sc) {
     var model = ALS.train(ratings, 10, 10, 0.01);
     var userRecs = model.recommendProductsForUsers(10);
 
-    var userRecommendedScaled = userRecs.map(function (val, Rating) {
-        var newRatings = val[1].map(function (r, Rating) {
+    var userRecommendedScaled = userRecs.map(function (val, Rating, Tuple) {
+        var myRating = Rating; // FIXME: For now make a copy to pass to inner lambda
+        var newRatings = val[1].map(function (r, myRating) {
             var newRating = Math.max(Math.min(r.rating(), 1.0), 0.0);
             return new Rating(r.user(), r.product(), newRating);
-        }, [Rating]);
-
+        }, [myRating]);
+        
         return new Tuple(val[0], newRatings);
-    }, [Rating]);
+    }, [Rating, Tuple]);
 
     var userRecommended = PairRDD.fromRDD(userRecommendedScaled);
 
@@ -76,13 +77,13 @@ function run(sc) {
         return products;
     }, [List]);
 
-    var userRecommendedList = userRecommended.mapValues(function (docs) {
+    var userRecommendedList = userRecommended.mapValues(function (docs, List) {
         var products = new List();
         docs.forEach(function (r) {
             products.add(r.product());
         });
         return products;
-    });
+    }, [List]);
 
     var relevantDocs = userMoviesList.join(userRecommendedList).values();
 
@@ -98,17 +99,17 @@ function run(sc) {
 
     var userProducts = ratings.map(function (r, Tuple) {
         return new Tuple(r.user(), r.product());
-    }, Tuple);
+    }, [Tuple]);
 
 
-    var predictions = PairRDD.fromRDD(model.predict(userProducts).map(function (r) {
+    var predictions = PairRDD.fromRDD(model.predict(userProducts).map(function (r, Tuple) {
         return new Tuple(new Tuple(r.user(), r.product()), r.rating());
-    }));
+    }, [Tuple]));
 
 
-    var ratesAndPreds = PairRDD.fromRDD(ratings.map(function (r) {
+    var ratesAndPreds = PairRDD.fromRDD(ratings.map(function (r, Tuple) {
         return new Tuple(new Tuple(r.user(), r.product()), r.rating());
-    })).join(predictions).values();
+    }, [Tuple])).join(predictions).values();
 
 // Create regression metrics object
     var regressionMetrics = new RegressionMetrics(ratesAndPreds);
