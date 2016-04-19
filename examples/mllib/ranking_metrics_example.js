@@ -44,10 +44,10 @@ function run(sc) {
 
     var userRecommendedScaled = userRecs.map(function (val, Rating, Tuple) {
         var myRating = Rating; // FIXME: For now make a copy to pass to inner lambda
-        var newRatings = val[1].map(function (r, myRating) {
+        var newRatings = val[1].map(function (r) {
             var newRating = Math.max(Math.min(r.rating(), 1.0), 0.0);
             return new Rating(r.user(), r.product(), newRating);
-        }, [myRating]);
+        });
         
         return new Tuple(val[0], newRatings);
     }, [Rating, Tuple]);
