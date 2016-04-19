@@ -192,7 +192,6 @@
         var x = 0;
         while (list.hasNext()) {
             var o = list.next();
-            this.logger.debug("setJavaObject adding " + o.class);
             var r = Serialize.javaToJs(o);
             this[x] = r;
             x++
