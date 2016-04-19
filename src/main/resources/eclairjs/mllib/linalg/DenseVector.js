@@ -49,9 +49,8 @@
      * @returns {Array}
      */
     DenseVector.unapply = function (dv) {
-        throw "not implemented by ElairJS";
-        //   var dv_uw = Utils.unwrapObject(dv);
-        //   return  org.apache.spark.mllib.linalg.DenseVector.unapply(dv_uw);
+           var dv_uw = Utils.unwrapObject(dv);
+           return  org.apache.spark.mllib.linalg.DenseVector.unapply(dv_uw);
     };
 
     module.exports = DenseVector;

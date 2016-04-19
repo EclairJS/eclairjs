@@ -30,6 +30,7 @@
      * NOTE: Labels used in Logistic Regression should be {0, 1, ..., k - 1}
      * for k classes multi-label classification problem.
      * Using {@link LogisticRegressionWithLBFGS} is recommended over this.
+     *
      * @classdesc
      */
 

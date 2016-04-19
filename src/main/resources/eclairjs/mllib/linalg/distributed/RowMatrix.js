@@ -153,7 +153,8 @@
 
     /**
      * Computes column-wise summary statistics.
-     * @returns {MultivariateStatisticalSummary} 
+     * @returns {MultivariateStatisticalSummary}
+     * @ignore
      */
     RowMatrix.prototype.computeColumnSummaryStatistics = function() {
     throw "not implemented by ElairJS";

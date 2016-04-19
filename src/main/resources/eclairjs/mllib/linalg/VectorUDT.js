@@ -16,23 +16,28 @@
 (function () {
     var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
+    var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
 
     /**
      * :: AlphaComponent ::
+
+     * NOTE User defined types not implemented in EclairJS
      *
      * User-defined type for {@link Vector} which allows easy interaction with SQL
      * via {@link DataFrame}.
      * @classdesc
-     */
-
-    /**
-     * @returns {??}
      * @class
      * @memberof module:eclairjs/mllib/linalg
+     * @ignore
+     *
+     *
      */
     var VectorUDT = function (jvmObject) {
 
         this.logger = Logger.getLogger("VectorUDT_js");
+        if (!jvmObject) {
+            jvmObject = new org.apache.spark.mllib.linalg.VectorUDT();
+        }
         JavaWrapper.call(this, jvmObject);
 
     };
@@ -46,7 +51,6 @@
      * @returns {StructType}
      */
     VectorUDT.prototype.sqlType = function () {
-        throw "not implemented by ElairJS";
         //   var javaObject =  this.getJavaObject().sqlType();
         //   return new StructType(javaObject);
     };

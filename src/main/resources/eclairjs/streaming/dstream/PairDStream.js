@@ -37,6 +37,13 @@
 
     PairDStream.prototype.constructor = PairDStream;
 
+    PairDStream.HashMap = Java.type("java.util.HashMap");
+    PairDStream.UUID = Java.type("java.util.UUID");
+    PairDStream.foreachMap = new PairDStream.HashMap();
+    PairDStream.unrefRDD = function (refId) {
+        var javaObj = PairDStream.foreachMap.get(refId);
+        return Utils.javaToJs(javaObj);
+    };
 
     /**
      * @param {func} f
