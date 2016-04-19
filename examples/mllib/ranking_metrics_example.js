@@ -78,7 +78,6 @@ function run(sc) {
     }, [List]);
 
     var userRecommendedList = userRecommended.mapValues(function (docs, List) {
-        print("List: "+List.toString ? List.toString() : List);
         var products = new List();
         docs.forEach(function (r) {
             products.add(r.product());
