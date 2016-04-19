@@ -1,0 +1,31 @@
+version: "2"
+
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports: 
+     - "2181:2181"
+  kafka:
+    image: wurstmeister/kafka:0.8.2.2
+    ports:
+      - "9092:9092"
+    links: 
+      - zookeeper:zk
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: ${KAFKA_HOST}
+      KAFKA_ADVERTISED_PORT: 9092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_CREATE_TOPICS: "tlog:1:1"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - zookeeper
+  pump:
+    image: wurstmeister/kafka:0.8.2.2
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./dream.txt:/dream.txt
+      - ./run.sh:/run.sh
+    command: /run.sh
+    depends_on:
+      - kafka
