@@ -2355,6 +2355,7 @@
 
 
     /**
+     * NOTE: this seems overly complex for JavaScript environment so we are not implementing at this time
      * Defines a user-defined function of 0 arguments as user-defined function (UDF).
      * The data types are automatically inferred based on the function's signature.
      *
@@ -2362,6 +2363,7 @@
      * @since EclairJS 0.1 Spark  1.3.0
      * @returns {UserDefinedFunction}
      * @private
+     * @ignore
      */
     functions.udf = function (f, bindArgs) {
         throw "not implemented by ElairJS";
@@ -2373,7 +2375,7 @@
 
     /**
      * Call an user-defined function.
-     * NOTE: this seems overly complex for JavaScrip environment so we are not implementing at this time
+     * NOTE: this seems overly complex for JavaScript environment so we are not implementing at this time
      * Example:
      * @example
      *  import org.apache.spark.sql._
@@ -2386,6 +2388,7 @@
      *
      * @since EclairJS 0.1 Spark  1.5.0
      * @private
+     * @ignore
      * @returns {Column}
      */
     functions.callUDF = function (udfName, cols) {
