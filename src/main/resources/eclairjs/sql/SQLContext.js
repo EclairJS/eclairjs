@@ -157,7 +157,7 @@
 
     /**
      * Creates a {@link DataFrame} from {@link RDD} of Rows using the schema
-     * @param {RDD | object} rowRDD_or_values A RDD of [Rows]{@link Row} or array of arrays that contain values of valid {@link DataTypes}
+     * @param {RDD<Row> | Row[]} rowRDD_or_values A RDD of [Rows]{@link Row} or array of arrays that contain values of valid {@link DataTypes}
      * @param {StructType} schema -
      * @returns {DataFrame}
      * @example
