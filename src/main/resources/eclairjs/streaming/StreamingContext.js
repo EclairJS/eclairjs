@@ -164,7 +164,7 @@
      */
     StreamingContext.getOrCreate = function (checkpointPath, creatingFunc) {
         var bindArgs;
-        var fn = Utils.createLambdaFunction(creatingFunc, org.eclairjs.nashorn.JSFunction0, this.sc(), bindArgs);
+        var fn = Utils.createLambdaFunction(creatingFunc, org.eclairjs.nashorn.JSFunction0, this.sparkContext(), bindArgs);
         var javaObject = org.apache.spark.streaming.api.java.JavaStreamingContext.getOrCreate(checkpointPath, fn);
         return new Utils.javaToJs(javaObject);
     };
