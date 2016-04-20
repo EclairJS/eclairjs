@@ -24,7 +24,7 @@ services:
     image: wurstmeister/kafka:0.8.2.2
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./dream.txt:/dream.txt
+      - ./data/dream.txt:/dream.txt
       - ./run.sh:/run.sh
     command: /run.sh
     depends_on:

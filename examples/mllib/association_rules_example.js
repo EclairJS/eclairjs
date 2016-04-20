@@ -46,5 +46,6 @@ if (typeof sparkContext === 'undefined')  {
     var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("JavaScriptAssociationRulesExample");
     var sc = new SparkContext(sparkConf);
-    print(run(sc));
+    var result = run(sc);
+    print(result);
 }

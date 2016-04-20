@@ -50,8 +50,8 @@ if (typeof sparkContext === 'undefined') {
     var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("PowerIterationClusteringExample");
     var sc = new SparkContext(sparkConf);
-    var results = run(sc);
-    results.forEach(function(a){
+    var result = run(sc);
+    result.forEach(function(a){
         print(a.id() + " -> " + a.cluster());
     });
 

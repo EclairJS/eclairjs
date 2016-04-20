@@ -78,10 +78,10 @@ if (typeof sparkContext === 'undefined') {
     var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("Collaborative Filtering Example");
     var sc = new SparkContext(sparkConf);
-    var results = run(sc);
-    print("Mean Squared Error = " + results.MSE);
+    var result = run(sc);
+    print("Mean Squared Error = " + result.MSE);
     // Save and load model
-    results.model.save(sc, "target/tmp/myCollaborativeFilter");
+    result.model.save(sc, "target/tmp/myCollaborativeFilter");
     var sameModel = MatrixFactorizationModel.load(sc,
         "target/tmp/myCollaborativeFilter");
 

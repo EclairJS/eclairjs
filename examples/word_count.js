@@ -21,9 +21,9 @@
 
 function run(sparkContext) {
     var Tuple = require('eclairjs/Tuple');
-    var file = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "src/test/resources/dream.txt";
 
-//    var file = "src/test/resources/dream.txt"; // Should be some file on your system
+    var file = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "./examples/data/dream.txt";
+
 
     var rdd = sparkContext.textFile(file).cache();
 
