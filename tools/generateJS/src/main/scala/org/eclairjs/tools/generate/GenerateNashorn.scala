@@ -44,15 +44,6 @@ class GenerateNashorn  extends  GenerateJSBase {
 
   }
 
-  def parentClass(cls:Clazz):String =
-  {
-   cls.parentClass() match {
-      case Some(cls) => cls.name
-      case None => "JavaWrapper"
-    }
-
-  }
-
   override def generateObject(cls:Clazz, sb:StringBuilder): Unit= {
     val clsName=cls.name
 
@@ -183,7 +174,31 @@ class GenerateNashorn  extends  GenerateJSBase {
   }
 
 
-  override def generatePostlude(cls:Clazz, sb:StringBuilder): Unit= {}
 
+  override def getFileStart(): String =
+  {
+    var start = """(function () {
+                  |
+                  |    var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
+                  |    var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
+                  |    var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
+                  |
+                  |""".stripMargin
+    start
+  }
+
+  override def getFileEnd(): String =
+  {
+    "\n})();"
+  }
+
+  override def generatePostlude(cls:Clazz, sb:StringBuilder): Unit= {
+    val clsName=cls.name
+
+    val constr = getTemplate("nashorn_postlude",clsName)
+
+    sb++=constr
 
   }
+
+}

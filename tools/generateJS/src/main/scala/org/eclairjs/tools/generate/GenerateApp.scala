@@ -105,21 +105,8 @@ object Main extends App {
         {
           val generator= if (generateNode) new GenerateNode else new GenerateNashorn
 
-          val src= generator.generate(model)
+          val src= generator.generate(model,destDir:io.File)
 
-          if (isConsole) {
-            System.out.println("SOURCE: "+file.getAbsolutePath)
-            System.out.println("")
-            System.out.println(src)
-          }
-          else
-          {
-            if (!destDir.exists())
-              destDir.mkdirs();
-            val toFile=destDir.getAbsolutePath+"/"+file.getName.replace(".scala",".js")
-//            System.out.println("WRITING: "+toFile)
-                      scala.tools.nsc.io.File(toFile).writeAll(src)
-          }
 
         }
 
@@ -130,7 +117,14 @@ object Main extends App {
 
   def processDirectory(fromFile:io.File,destDir:io.File): Unit =
   {
-    System.out.println(fromFile.getAbsolutePath)
+//    System.out.println(fromFile.getAbsolutePath)
+        if (!pass1 && !statistics)
+          {
+            val generator= if (generateNode) new GenerateNode else new GenerateNashorn
+
+            generator.generateModuleFile(fromFile,destDir)
+          }
+
         val files=fromFile.listFiles()
         files foreach(file=>{
           if (file.getName.endsWith(".scala"))
