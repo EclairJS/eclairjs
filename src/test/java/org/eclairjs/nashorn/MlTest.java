@@ -45,4 +45,17 @@ public class MlTest {
 
     }
 
+    @Test
+    public void AFTSurvivalRegressionExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("AFTSurvivalRegressionExample");
+
+        String expected = "{\"coefficients\":[0],\"intercept\":0,\"scale\":1}";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
+
 }

@@ -19,27 +19,23 @@
  bin/eclairjs.sh examples/spark_lr.js"
  */
 
-function showWarning() {
-    var warning = "WARN: This is a naive implementation of Logistic Regression " +
-        "and is given as an example!\n" +
-        "Please use either org.apache.spark.mllib.classification.LogisticRegressionWithSGD " +
-        "or org.apache.spark.mllib.classification.LogisticRegressionWithLBFGS " +
-        "for more conventional use.";
-    print(warning);
-}
+/*  WARNING: This is a naive implementation of Logistic Regression
+         and is given as an example!
+         Please use either org.apache.spark.mllib.classification.LogisticRegressionWithSGD
+         or org.apache.spark.mllib.classification.LogisticRegressionWithLBFGS
+         for more conventional use.
+*/
 
 function printWeights(a) {
     print(a);
 }
 
 
-showWarning();
-
-
 var D = 10;   // Number of dimensions
 
-var file =  "./examples/data/lr_data.txt";
-var ITERATIONS = 10;
+var    file = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "./examples/data/lr_data.txt";
+var    ITERATIONS = ((typeof args !== "undefined") && (args.length > 2)) ? 0 + args[2] : 10;
+
 
 function run(sc) {
 
@@ -101,8 +97,6 @@ function run(sc) {
 
 if (typeof sparkContext === 'undefined') {
 
-    file = (args.length > 1) ? args[1] : file;
-    ITERATIONS = (args.length > 2) ? 0 + args[2] : ITERATIONS;
     var SparkConf = require('eclairjs/SparkConf');
     var SparkContext = require('eclairjs/SparkContext');
     var conf = new SparkConf().setAppName("JavaScript Logistic Regression");

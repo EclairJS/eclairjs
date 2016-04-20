@@ -211,10 +211,12 @@ case class Method(name:String,var comment:String,returnType:DataType,parms:List[
           val lastParm=thisList(otherList.length)  // first additional parm
           return name+"with"+lastParm.name.capitalize
         }
-        else {   //same length, use typename
+        else if (!thisList.isEmpty){   //same length, use typename
         val lastParmType=getParmJSType(thisList.last.name)
           return name+"with"+lastParmType
         }
+        else
+          return name;
 
       }
       // for now just number, should get more intelligent

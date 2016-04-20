@@ -67,11 +67,11 @@ protected scala.collection.Seq<org.apache.spark.sql.catalyst.expressions.Attribu
 
     /**
      * Creates a new StructType by adding a new nullable field with no metadata.
-     * @param {string | StructField} name
-     * @param {DataType | string} dataType
+     * @param {string | module:eclairjs/sql/types.StructField} name
+     * @param {module:eclairjs/sql/types.DataType | string} dataType
      * @param {boolean} [nullable]  defaults true, nullable field
-     * @param {Metadata} [metadata] defaults to null, specifying metadata
-     * @returns {StructType}
+     * @param {module:eclairjs/sql/types.Metadata} [metadata] defaults to null, specifying metadata
+     * @returns {module:eclairjs/sql/types.StructType}
      */
     StructType.prototype.add = function (name, dataType, nullable, metadata) {
         /*
@@ -101,7 +101,7 @@ protected scala.collection.Seq<org.apache.spark.sql.catalyst.expressions.Attribu
     /**
      * Extracts a StructField of the given name or index.
      * @param {integer | string} field - index or name
-     * @returns {StructField}
+     * @returns {module:eclairjs/sql/types.StructField}
      */
     StructType.prototype.apply = function (field) {
 
@@ -158,7 +158,7 @@ protected scala.collection.Seq<org.apache.spark.sql.catalyst.expressions.Attribu
     };
     /**
      *
-     * @returns {StructField[]}
+     * @returns {module:eclairjs/sql/types.StructField[]}
      */
     StructType.prototype.fields = function () {
 

@@ -18,7 +18,7 @@
     /**
      * ml feature module.
      * @example
-     * var mllib = require('eclairjs/ml/feature');
+     * var ml = require('eclairjs/ml/feature');
      * @module eclairjs/ml/feature
      */
     module.exports = {

@@ -49,20 +49,11 @@ function run(sc, useTake) {
  check if SparkContext is defined, if it is we are being run from Unit Test
  */
 var inputFile = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/sample_fpgrowth.txt";
-var minSupport = 0.3;
-var numPartition = -1;
+var minSupport = ((typeof args !== "undefined") && (args.length > 2)) ? parseFloat(args[2]) :0.3;
+var numPartition = ((typeof args !== "undefined") && (args.length > 3)) ? parseInt(args[3]) : -1;
 
 if (typeof sparkContext === 'undefined') {
-    if (args.length >= 2) {
-        inputFile = args[1];
-    }
 
-    if (args.length >= 3) {
-        minSupport = parseFloat(args[2]);
-    }
-    if (args.length >= 4) {
-        numPartition = parseInt(args[3]);
-    }
     var SparkConf = require('eclairjs/SparkConf');
     var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("FPGrowthExample");

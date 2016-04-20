@@ -49,8 +49,8 @@ if (typeof sparkContext === 'undefined') {
     var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("PrefixSpanExample");
     var sc = new SparkContext(sparkConf);
-    var results = run(sc);
-    results.forEach(function (freqSeq) {
+    var result = run(sc);
+    result.forEach(function (freqSeq) {
         print(JSON.stringify(freqSeq.sequence()) + ", " + freqSeq.freq());
     });
 

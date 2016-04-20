@@ -34,3 +34,13 @@ var Word2VecExample = function() {
     return JSON.stringify(rows);
 }
 
+var AFTSurvivalRegressionExample = function() {
+
+    load("examples/ml/aft_survival_regression_example.js");
+    var result = run(sparkContext);
+    var ret = {};
+    ret.coefficients = result.model.coefficients();
+    ret.intercept = result.model.intercept();
+    ret.scale = result.model.scale();
+    return JSON.stringify(ret);
+}

@@ -54,13 +54,13 @@ if (typeof sparkContext === 'undefined') {
     var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("SVD Example");
     var sc = new SparkContext(sparkConf);
-    var results = run(sc);
+    var result = run(sc);
     print("U factor is:");
-    results.collectPartitions.forEach(function (vector) {
+    result.collectPartitions.forEach(function (vector) {
         print("\t" + vector);
     });
-    print("Singular values are: " + results.s);
-    print("V factor is:\n" + results.V);
+    print("Singular values are: " + result.s);
+    print("V factor is:\n" + result.V);
 
     sc.stop();
 }
