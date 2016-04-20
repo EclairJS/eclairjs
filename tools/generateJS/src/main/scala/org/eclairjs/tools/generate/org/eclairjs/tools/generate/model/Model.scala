@@ -131,6 +131,15 @@ case class Clazz(name:String, comment:String, var members: List[Member],parents:
 
   }
 
+  def inModule():String = {
+    val sparkPrefix="org.apache.spark"
+
+    val module= parent.packageName.substring(sparkPrefix.length).replace('.','/')
+    "module:eclairjs"+ module
+  }
+  def module():String = {
+    inModule()+"/"+name
+  }
 }
 
 abstract class Member

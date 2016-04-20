@@ -214,10 +214,21 @@ abstract class GenerateJSBase {
   }
 
 
-def getJSDocType(method:Method, parmName:String) : String = {
+  def getModule(jsType:String):String =
+  {
+    val clsOpt=Main.allClasses.get(jsType)
+    clsOpt match {
+      case Some(cls) => cls.module()
+      case _ => jsType
+    }
+
+  }
+
+
+  def getJSDocType(method:Method, parmName:String) : String = {
   method.getParm(parmName) match {
     case Some(parm) =>{
-      var typeName=parm.typ.getJSType(parm.typ.name)
+      var typeName=getModule(parm.typ.getJSType(parm.typ.name))
       if (parm.isRepeated)
         typeName="..."+typeName
       typeName
@@ -251,11 +262,10 @@ def convertToJSDoc(comment:String, model:AnyRef):String = {
   def addClassInfo(cls:Clazz): Unit =
   {
 
-    val sparkPrefix="org.apache.spark"
+    val module= cls.inModule()
 
-    val module= cls.parent.packageName.substring(sparkPrefix.length).replace('.','/')
-
-    jsDoc.endLines += s" * @memberof module:eclairjs$module"
+    jsDoc.endLines+=" * @class"
+    jsDoc.endLines += s" * @memberof $module"
 
     val parent=parentClass(cls)
     if (parent!="JavaWrapper")
@@ -297,7 +307,6 @@ def convertToJSDoc(comment:String, model:AnyRef):String = {
         }
       if (method.isConstructor())
         {
-          jsDoc.endLines+=" * @class"
           jsDoc.endLines+=" * @constructor"
           if (method.parent.comment.length==0)  // no class comment
             addClassInfo(method.parent)
@@ -322,7 +331,7 @@ def convertToJSDoc(comment:String, model:AnyRef):String = {
 
 
 
-  def jsDocReturnType(method:Method):String = method.getReturnJSType()
+  def jsDocReturnType(method:Method):String = getModule(method.getReturnJSType())
 
   def addNewlines(count:Integer,sb:StringBuilder) : Unit = {
     val newLines="\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\n\n\n\n".toCharArray
