@@ -351,7 +351,7 @@
     /**
      * @param {number} timeout
      * @param {float} [confidence]
-     * @returns {PartialResult}
+     * @returns {module:eclairjs/partial.PartialResult}
      */
     FloatRDD.prototype.meanApprox = function (timeout, confidence) {
         throw "not implemented by ElairJS";
@@ -370,7 +370,7 @@
      * Approximate operation to return the sum within a timeout.
      * @param {number} timeout
      * @param {float} [confidence]
-     * @returns {PartialResult}
+     * @returns {module:eclairjs/partial.PartialResult}
      */
     FloatRDD.prototype.sumApprox = function (timeout, confidence) {
         throw "not implemented by ElairJS";

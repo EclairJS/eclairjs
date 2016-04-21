@@ -416,7 +416,7 @@
      * not finish within a timeout.
      * @param {number} timeout
      * @param {number} [confidence]
-     * @returns {PartialResult}
+     * @returns {module:eclairjs/partial.PartialResult}
      */
     PairRDD.prototype.countByKeyApprox = function (timeout, confidence) {
         throw "not implemented by ElairJS";

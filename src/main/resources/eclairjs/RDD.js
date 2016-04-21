@@ -160,7 +160,7 @@
      * within a timeout, even if not all tasks have finished.
      * @param timeout {number} - (undocumented)
      * @param confidence {number} - (undocumented)
-     * @returns {PartialResult}
+     * @returns {module:eclairjs/partial.PartialResult}
      */
     RDD.prototype.countApprox = function (timeout, confidence) {
         var javaObject = this.getJavaObject().countApprox(timeout, confidence);
@@ -225,7 +225,7 @@
      * Approximate version of countByValue().
      * @param timeout {number} - (undocumented)
      * @param confidence {number} - (undocumented)
-     * @returns {PartialResult}
+     * @returns {module:eclairjs/partial.PartialResult}
      */
     RDD.prototype.countByValueApprox = function (timeout, confidence) {
         var javaObject = this.getJavaObject().countByValueApprox(timeout, confidence);
