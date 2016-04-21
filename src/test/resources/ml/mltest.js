@@ -42,5 +42,16 @@ var AFTSurvivalRegressionExample = function() {
     ret.coefficients = result.model.coefficients();
     ret.intercept = result.model.intercept();
     ret.scale = result.model.scale();
-    return JSON.stringify(ret);
+    return JSON.stringify(ret.scale);
+}
+
+var ALSExample = function() {
+
+    load("examples/ml/als_example.js");
+    var result = run(sparkContext);
+    if (result > 0) {
+        return "passed"
+    } else {
+        return "failed";
+    }
 }

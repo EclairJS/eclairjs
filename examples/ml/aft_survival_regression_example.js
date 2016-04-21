@@ -73,6 +73,7 @@ if (typeof sparkContext === 'undefined')  {
     print("Coefficients: " + ret.model.coefficients() + " Intercept: "
         + ret.model.intercept() + " Scale: " + ret.model.scale());
     ret.dataframe.show(false);
+    sc.stop();
 }
 
 

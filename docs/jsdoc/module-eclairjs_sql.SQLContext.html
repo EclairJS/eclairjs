@@ -49,7 +49,7 @@ Allows the creation of DataFrame objects as well as the execution of SQL queries
     <h2>Constructor</h2>
     
 
-    <h4 class="name" id="SQLContext"><span class="type-signature"></span>new SQLContext<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="SQLContext"><span class="type-signature"></span>new SQLContext<span class="signature">(sparkContext)</span><span class="type-signature"></span></h4>
 
     
 
@@ -70,6 +70,8 @@ Allows the creation of DataFrame objects as well as the execution of SQL queries
     <thead>
     <tr>
         
+        <th>Name</th>
+        
 
         <th>Type</th>
 
@@ -86,11 +88,13 @@ Allows the creation of DataFrame objects as well as the execution of SQL queries
 
         <tr>
             
+                <td class="name"><code>sparkContext</code></td>
+            
 
             <td class="type">
             
                 
-<span class="param-type">SparkContext</span>
+<span class="param-type"><a href="module-eclairjs.SparkContext.html">module:eclairjs.SparkContext</a></span>
 
 
             
@@ -144,7 +148,7 @@ Allows the creation of DataFrame objects as well as the execution of SQL queries
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line33">line 33</a>
+        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line30">line 30</a>
     </li></ul></dd>
     
 
@@ -261,7 +265,7 @@ return the first created context instead of a thread-local override.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line599">line 599</a>
+        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line600">line 600</a>
     </li></ul></dd>
     
 
@@ -292,7 +296,7 @@ return the first created context instead of a thread-local override.
 
     
 
-    <h4 class="name" id=".getOrCreate"><span class="type-signature">(static) </span>getOrCreate<span class="signature">(sparkContext)</span><span class="type-signature"> &rarr; {SQLContext}</span></h4>
+    <h4 class="name" id=".getOrCreate"><span class="type-signature">(static) </span>getOrCreate<span class="signature">(sparkContext)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs_sql.SQLContext.html">module:eclairjs/sql.SQLContext</a>}</span></h4>
 
     
 
@@ -343,7 +347,7 @@ the JVM.
             <td class="type">
             
                 
-<span class="param-type">SparkContext</span>
+<span class="param-type"><a href="module-eclairjs.SparkContext.html">module:eclairjs.SparkContext</a></span>
 
 
             
@@ -394,7 +398,7 @@ the JVM.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line396">line 396</a>
+        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line397">line 397</a>
     </li></ul></dd>
     
 
@@ -428,7 +432,7 @@ the JVM.
     </dt>
     <dd>
         
-<span class="param-type">SQLContext</span>
+<span class="param-type"><a href="module-eclairjs_sql.SQLContext.html">module:eclairjs/sql.SQLContext</a></span>
 
 
     </dd>
@@ -494,7 +498,7 @@ the JVM.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line428">line 428</a>
+        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line429">line 429</a>
     </li></ul></dd>
     
 
@@ -572,7 +576,7 @@ the JVM.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line482">line 482</a>
+        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line483">line 483</a>
     </li></ul></dd>
     
 
@@ -668,7 +672,7 @@ the JVM.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line488">line 488</a>
+        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line489">line 489</a>
     </li></ul></dd>
     
 
@@ -768,7 +772,7 @@ a SQLContext with an isolated session, instead of the global (first created) con
             <td class="type">
             
                 
-<span class="param-type">SQLContext</span>
+<span class="param-type"><a href="module-eclairjs_sql.SQLContext.html">module:eclairjs/sql.SQLContext</a></span>
 
 
             
@@ -822,7 +826,7 @@ a SQLContext with an isolated session, instead of the global (first created) con
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line587">line 587</a>
+        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line588">line 588</a>
     </li></ul></dd>
     
 
@@ -900,7 +904,7 @@ a SQLContext with an isolated session, instead of the global (first created) con
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line522">line 522</a>
+        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line523">line 523</a>
     </li></ul></dd>
     
 
@@ -996,7 +1000,7 @@ a SQLContext with an isolated session, instead of the global (first created) con
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line534">line 534</a>
+        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line535">line 535</a>
     </li></ul></dd>
     
 
@@ -1092,7 +1096,7 @@ a SQLContext with an isolated session, instead of the global (first created) con
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line510">line 510</a>
+        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line511">line 511</a>
     </li></ul></dd>
     
 
@@ -1188,7 +1192,7 @@ a SQLContext with an isolated session, instead of the global (first created) con
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line516">line 516</a>
+        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line517">line 517</a>
     </li></ul></dd>
     
 
@@ -1284,7 +1288,7 @@ a SQLContext with an isolated session, instead of the global (first created) con
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line528">line 528</a>
+        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line529">line 529</a>
     </li></ul></dd>
     
 
@@ -1436,7 +1440,7 @@ a SQLContext with an isolated session, instead of the global (first created) con
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line134">line 134</a>
+        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line131">line 131</a>
     </li></ul></dd>
     
 
@@ -1521,7 +1525,7 @@ a SQLContext with an isolated session, instead of the global (first created) con
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line153">line 153</a>
+        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line150">line 150</a>
     </li></ul></dd>
     
 
@@ -1552,7 +1556,7 @@ a SQLContext with an isolated session, instead of the global (first created) con
 
     
 
-    <h4 class="name" id="createDataFrame"><span class="type-signature"></span>createDataFrame<span class="signature">(rowRDD_or_values, schema)</span><span class="type-signature"> &rarr; {DataFrame}</span></h4>
+    <h4 class="name" id="createDataFrame"><span class="type-signature"></span>createDataFrame<span class="signature">(rowRDD_or_values, schema)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs_sql.DataFrame.html">module:eclairjs/sql.DataFrame</a>}</span></h4>
 
     
 
@@ -1601,10 +1605,10 @@ a SQLContext with an isolated session, instead of the global (first created) con
             <td class="type">
             
                 
-<span class="param-type">RDD.&lt;Row></span>
+<span class="param-type"><a href="module-eclairjs.RDD.html">module:eclairjs.RDD</a>.&lt;<a href="module-eclairjs_sql.Row.html">module:eclairjs/sql.Row</a>></span>
 |
 
-<span class="param-type">Array.&lt;Row></span>
+<span class="param-type">Array.&lt;<a href="module-eclairjs_sql.Row.html">module:eclairjs/sql.Row</a>></span>
 
 
             
@@ -1627,7 +1631,7 @@ a SQLContext with an isolated session, instead of the global (first created) con
             <td class="type">
             
                 
-<span class="param-type">StructType</span>
+<span class="param-type"><a href="module-eclairjs_sql_types.StructType.html">module:eclairjs/sql/types.StructType</a></span>
 
 
             
@@ -1678,7 +1682,7 @@ a SQLContext with an isolated session, instead of the global (first created) con
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line167">line 167</a>
+        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line164">line 164</a>
     </li></ul></dd>
     
 
@@ -1712,7 +1716,7 @@ a SQLContext with an isolated session, instead of the global (first created) con
     </dt>
     <dd>
         
-<span class="param-type">DataFrame</span>
+<span class="param-type"><a href="module-eclairjs_sql.DataFrame.html">module:eclairjs/sql.DataFrame</a></span>
 
 
     </dd>
@@ -1732,7 +1736,7 @@ a SQLContext with an isolated session, instead of the global (first created) con
 
     
 
-    <h4 class="name" id="createExternalTable"><span class="type-signature"></span>createExternalTable<span class="signature">(tableName, path, source<span class="signature-attributes">opt</span>, map<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {DataFrame}</span></h4>
+    <h4 class="name" id="createExternalTable"><span class="type-signature"></span>createExternalTable<span class="signature">(tableName, path, source<span class="signature-attributes">opt</span>, map<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs_sql.DataFrame.html">module:eclairjs/sql.DataFrame</a>}</span></h4>
 
     
 
@@ -1944,7 +1948,7 @@ It will use the default data source configured by spark.sql.sources.default.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line238">line 238</a>
+        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line245">line 245</a>
     </li></ul></dd>
     
 
@@ -1978,7 +1982,7 @@ It will use the default data source configured by spark.sql.sources.default.
     </dt>
     <dd>
         
-<span class="param-type">DataFrame</span>
+<span class="param-type"><a href="module-eclairjs_sql.DataFrame.html">module:eclairjs/sql.DataFrame</a></span>
 
 
     </dd>
@@ -2097,7 +2101,7 @@ cached/persisted before, it's also unpersisted.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line265">line 265</a>
+        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line271">line 271</a>
     </li></ul></dd>
     
 
@@ -2183,7 +2187,7 @@ This creates a new copy of the config properties in the form of a map.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line100">line 100</a>
+        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line97">line 97</a>
     </li></ul></dd>
     
 
@@ -2383,7 +2387,7 @@ yet, return `defaultValue`.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line84">line 84</a>
+        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line81">line 81</a>
     </li></ul></dd>
     
 
@@ -2535,7 +2539,7 @@ yet, return `defaultValue`.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line124">line 124</a>
+        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line121">line 121</a>
     </li></ul></dd>
     
 
@@ -2584,7 +2588,7 @@ yet, return `defaultValue`.
 
     
 
-    <h4 class="name" id="newSession"><span class="type-signature"></span>newSession<span class="signature">()</span><span class="type-signature"> &rarr; {SQLContext}</span></h4>
+    <h4 class="name" id="newSession"><span class="type-signature"></span>newSession<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="module-eclairjs_sql.SQLContext.html">module:eclairjs/sql.SQLContext</a>}</span></h4>
 
     
 
@@ -2639,7 +2643,7 @@ registered functions, but sharing the same SparkContext, CacheManager, SQLListen
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line378">line 378</a>
+        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line379">line 379</a>
     </li></ul></dd>
     
 
@@ -2673,7 +2677,7 @@ registered functions, but sharing the same SparkContext, CacheManager, SQLListen
     </dt>
     <dd>
         
-<span class="param-type">SQLContext</span>
+<span class="param-type"><a href="module-eclairjs_sql.SQLContext.html">module:eclairjs/sql.SQLContext</a></span>
 
 
     </dd>
@@ -2688,7 +2692,7 @@ registered functions, but sharing the same SparkContext, CacheManager, SQLListen
 
     
 
-    <h4 class="name" id="range"><span class="type-signature"></span>range<span class="signature">(start, end, step<span class="signature-attributes">opt</span>, numPartitions<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {DataFrame}</span></h4>
+    <h4 class="name" id="range"><span class="type-signature"></span>range<span class="signature">(start, end, step<span class="signature-attributes">opt</span>, numPartitions<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs_sql.DataFrame.html">module:eclairjs/sql.DataFrame</a>}</span></h4>
 
     
 
@@ -2900,7 +2904,7 @@ in an range from 0 to `end` (exclusive) with step value 1.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line282">line 282</a>
+        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line288">line 288</a>
     </li></ul></dd>
     
 
@@ -2934,7 +2938,7 @@ in an range from 0 to `end` (exclusive) with step value 1.
     </dt>
     <dd>
         
-<span class="param-type">DataFrame</span>
+<span class="param-type"><a href="module-eclairjs_sql.DataFrame.html">module:eclairjs/sql.DataFrame</a></span>
 
 
     </dd>
@@ -2949,7 +2953,7 @@ in an range from 0 to `end` (exclusive) with step value 1.
 
     
 
-    <h4 class="name" id="read"><span class="type-signature"></span>read<span class="signature">()</span><span class="type-signature"> &rarr; {DataFrameReader}</span></h4>
+    <h4 class="name" id="read"><span class="type-signature"></span>read<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="module-eclairjs_sql.DataFrameReader.html">module:eclairjs/sql.DataFrameReader</a>}</span></h4>
 
     
 
@@ -3004,7 +3008,7 @@ Returns a [[DataFrameReader]] that can be used to read data in as a DataFrame.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line221">line 221</a>
+        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line228">line 228</a>
     </li></ul></dd>
     
 
@@ -3038,7 +3042,7 @@ Returns a [[DataFrameReader]] that can be used to read data in as a DataFrame.
     </dt>
     <dd>
         
-<span class="param-type">DataFrameReader</span>
+<span class="param-type"><a href="module-eclairjs_sql.DataFrameReader.html">module:eclairjs/sql.DataFrameReader</a></span>
 
 
     </dd>
@@ -3166,7 +3170,7 @@ If object properties are set using the object properties as the keys and the obj
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line61">line 61</a>
+        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line58">line 58</a>
     </li></ul></dd>
     
 
@@ -3204,7 +3208,7 @@ sqlContext.setConf(map);</code></pre>
 
     
 
-    <h4 class="name" id="sparkContext"><span class="type-signature"></span>sparkContext<span class="signature">()</span><span class="type-signature"> &rarr; {SparkContext}</span></h4>
+    <h4 class="name" id="sparkContext"><span class="type-signature"></span>sparkContext<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.SparkContext.html">module:eclairjs.SparkContext</a>}</span></h4>
 
     
 
@@ -3258,7 +3262,7 @@ sqlContext.setConf(map);</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line364">line 364</a>
+        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line365">line 365</a>
     </li></ul></dd>
     
 
@@ -3292,7 +3296,7 @@ sqlContext.setConf(map);</code></pre>
     </dt>
     <dd>
         
-<span class="param-type">SparkContext</span>
+<span class="param-type"><a href="module-eclairjs.SparkContext.html">module:eclairjs.SparkContext</a></span>
 
 
     </dd>
@@ -3307,7 +3311,7 @@ sqlContext.setConf(map);</code></pre>
 
     
 
-    <h4 class="name" id="sql"><span class="type-signature"></span>sql<span class="signature">(sqlText)</span><span class="type-signature"> &rarr; {DataFrame}</span></h4>
+    <h4 class="name" id="sql"><span class="type-signature"></span>sql<span class="signature">(sqlText)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs_sql.DataFrame.html">module:eclairjs/sql.DataFrame</a>}</span></h4>
 
     
 
@@ -3411,7 +3415,7 @@ used for SQL parsing can be configured with 'spark.sql.dialect'.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line302">line 302</a>
+        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line307">line 307</a>
     </li></ul></dd>
     
 
@@ -3445,7 +3449,7 @@ used for SQL parsing can be configured with 'spark.sql.dialect'.
     </dt>
     <dd>
         
-<span class="param-type">DataFrame</span>
+<span class="param-type"><a href="module-eclairjs_sql.DataFrame.html">module:eclairjs/sql.DataFrame</a></span>
 
 
     </dd>
@@ -3460,7 +3464,7 @@ used for SQL parsing can be configured with 'spark.sql.dialect'.
 
     
 
-    <h4 class="name" id="table"><span class="type-signature"></span>table<span class="signature">(tableName)</span><span class="type-signature"> &rarr; {DataFrame}</span></h4>
+    <h4 class="name" id="table"><span class="type-signature"></span>table<span class="signature">(tableName)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs_sql.DataFrame.html">module:eclairjs/sql.DataFrame</a>}</span></h4>
 
     
 
@@ -3563,7 +3567,7 @@ used for SQL parsing can be configured with 'spark.sql.dialect'.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line314">line 314</a>
+        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line318">line 318</a>
     </li></ul></dd>
     
 
@@ -3597,7 +3601,7 @@ used for SQL parsing can be configured with 'spark.sql.dialect'.
     </dt>
     <dd>
         
-<span class="param-type">DataFrame</span>
+<span class="param-type"><a href="module-eclairjs_sql.DataFrame.html">module:eclairjs/sql.DataFrame</a></span>
 
 
     </dd>
@@ -3612,7 +3616,7 @@ used for SQL parsing can be configured with 'spark.sql.dialect'.
 
     
 
-    <h4 class="name" id="tableNames"><span class="type-signature"></span>tableNames<span class="signature">(databaseName<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Array.&lt;string>}</span></h4>
+    <h4 class="name" id="tableNames"><span class="type-signature"></span>tableNames<span class="signature">(databaseName<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs_sql.DataFrame.html">module:eclairjs/sql.DataFrame</a>}</span></h4>
 
     
 
@@ -3727,7 +3731,7 @@ used for SQL parsing can be configured with 'spark.sql.dialect'.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line348">line 348</a>
+        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line350">line 350</a>
     </li></ul></dd>
     
 
@@ -3761,7 +3765,7 @@ used for SQL parsing can be configured with 'spark.sql.dialect'.
     </dt>
     <dd>
         
-<span class="param-type">Array.&lt;string></span>
+<span class="param-type"><a href="module-eclairjs_sql.DataFrame.html">module:eclairjs/sql.DataFrame</a></span>
 
 
     </dd>
@@ -3776,7 +3780,7 @@ used for SQL parsing can be configured with 'spark.sql.dialect'.
 
     
 
-    <h4 class="name" id="tables"><span class="type-signature"></span>tables<span class="signature">(databaseName<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {DataFrame}</span></h4>
+    <h4 class="name" id="tables"><span class="type-signature"></span>tables<span class="signature">(databaseName<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs_sql.DataFrame.html">module:eclairjs/sql.DataFrame</a>}</span></h4>
 
     
 
@@ -3893,7 +3897,7 @@ indicating if a table is a temporary one or not).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line329">line 329</a>
+        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line332">line 332</a>
     </li></ul></dd>
     
 
@@ -3927,7 +3931,7 @@ indicating if a table is a temporary one or not).
     </dt>
     <dd>
         
-<span class="param-type">DataFrame</span>
+<span class="param-type"><a href="module-eclairjs_sql.DataFrame.html">module:eclairjs/sql.DataFrame</a></span>
 
 
     </dd>
@@ -4045,7 +4049,7 @@ indicating if a table is a temporary one or not).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line144">line 144</a>
+        <a href="eclairjs_sql_SQLContext.js.html">eclairjs/sql/SQLContext.js</a>, <a href="eclairjs_sql_SQLContext.js.html#line141">line 141</a>
     </li></ul></dd>
     
 
@@ -4087,13 +4091,13 @@ indicating if a table is a temporary one or not).
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-eclairjs.html">eclairjs</a></li><li><a href="module-eclairjs_ml_feature.html">eclairjs/ml/feature</a></li><li><a href="module-eclairjs_ml_param.html">eclairjs/ml/param</a></li><li><a href="module-eclairjs_ml_regression.html">eclairjs/ml/regression</a></li><li><a href="module-eclairjs_mllib.html">eclairjs/mllib</a></li><li><a href="module-eclairjs_mllib_classification.html">eclairjs/mllib/classification</a></li><li><a href="module-eclairjs_mllib_clustering.html">eclairjs/mllib/clustering</a></li><li><a href="module-eclairjs_mllib_evaluation.html">eclairjs/mllib/evaluation</a></li><li><a href="module-eclairjs_mllib_feature.html">eclairjs/mllib/feature</a></li><li><a href="module-eclairjs_mllib_fpm.html">eclairjs/mllib/fpm</a></li><li><a href="module-eclairjs_mllib_linalg.html">eclairjs/mllib/linalg</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.html">eclairjs/mllib/linalg/distributed</a></li><li><a href="module-eclairjs_mllib_optimization.html">eclairjs/mllib/optimization</a></li><li><a href="module-eclairjs_mllib_random.html">eclairjs/mllib/random</a></li><li><a href="module-eclairjs_mllib_recommendation.html">eclairjs/mllib/recommendation</a></li><li><a href="module-eclairjs_mllib_regression.html">eclairjs/mllib/regression</a></li><li><a href="module-eclairjs_mllib_tree.html">eclairjs/mllib/tree</a></li><li><a href="module-eclairjs_mllib_tree_configuration.html">eclairjs/mllib/tree/configuration</a></li><li><a href="module-eclairjs_mllib_tree_loss.html">eclairjs/mllib/tree/loss</a></li><li><a href="module-eclairjs_mllib_tree_model.html">eclairjs/mllib/tree/model</a></li><li><a href="module-eclairjs_sql.html">eclairjs/sql</a></li><li><a href="module-eclairjs_sql_execution.html">eclairjs/sql/execution</a></li><li><a href="module-eclairjs_sql_types.html">eclairjs/sql/types</a></li><li><a href="module-eclairjs_storage.html">eclairjs/storage</a></li><li><a href="module-eclairjs_streaming.html">eclairjs/streaming</a></li><li><a href="module-eclairjs_streaming_dstream.html">eclairjs/streaming/dstream</a></li><li><a href="module-eclairjs_streaming_kafka.html">eclairjs/streaming/kafka</a></li><li><a href="module-eclairjs_streaming_twitter.html">eclairjs/streaming/twitter</a></li></ul><h3>Classes</h3><ul><li><a href="module-eclairjs.Accumulable.html">Accumulable</a></li><li><a href="module-eclairjs.AccumulableParam.html">AccumulableParam</a></li><li><a href="module-eclairjs.Accumulator.html">Accumulator</a></li><li><a href="module-eclairjs.FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="module-eclairjs.FloatRDD.html">FloatRDD</a></li><li><a href="module-eclairjs.FutureAction.html">FutureAction</a></li><li><a href="module-eclairjs.HashPartitioner.html">HashPartitioner</a></li><li><a href="module-eclairjs.IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="module-eclairjs.List.html">List</a></li><li><a href="module-eclairjs.Logger.html">Logger</a></li><li><a href="module-eclairjs.PairRDD.html">PairRDD</a></li><li><a href="module-eclairjs.Partitioner.html">Partitioner</a></li><li><a href="module-eclairjs.RangePartitioner.html">RangePartitioner</a></li><li><a href="module-eclairjs.RDD.html">RDD</a></li><li><a href="module-eclairjs.SparkConf.html">SparkConf</a></li><li><a href="module-eclairjs.SparkContext.html">SparkContext</a></li><li><a href="module-eclairjs.SparkFiles.html">SparkFiles</a></li><li><a href="module-eclairjs.SparkJobInfo.html">SparkJobInfo</a></li><li><a href="module-eclairjs.SparkStageInfo.html">SparkStageInfo</a></li><li><a href="module-eclairjs.SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="module-eclairjs.Tuple.html">Tuple</a></li><li><a href="module-eclairjs_ml_feature.Word2Vec.html">Word2Vec</a></li><li><a href="module-eclairjs_ml_feature.Word2VecModel.html">Word2VecModel</a></li><li><a href="module-eclairjs_ml_param.Param.html">Param</a></li><li><a href="module-eclairjs_ml_param.ParamMap.html">ParamMap</a></li><li><a href="module-eclairjs_ml_param.ParamPair.html">ParamPair</a></li><li><a href="module-eclairjs_ml_regression.AFTSurvivalRegression.html">AFTSurvivalRegression</a></li><li><a href="module-eclairjs_ml_regression.AFTSurvivalRegressionModel.html">AFTSurvivalRegressionModel</a></li><li><a href="module-eclairjs_mllib.MLUtils.html">MLUtils</a></li><li><a href="module-eclairjs_mllib_classification.ClassificationModel.html">ClassificationModel</a></li><li><a href="module-eclairjs_mllib_classification.LogisticRegressionModel.html">LogisticRegressionModel</a></li><li><a href="module-eclairjs_mllib_classification.LogisticRegressionWithLBFGS.html">LogisticRegressionWithLBFGS</a></li><li><a href="module-eclairjs_mllib_classification.LogisticRegressionWithSGD.html">LogisticRegressionWithSGD</a></li><li><a href="module-eclairjs_mllib_classification.NaiveBayes.html">NaiveBayes</a></li><li><a href="module-eclairjs_mllib_classification.NaiveBayesModel.html">NaiveBayesModel</a></li><li><a href="module-eclairjs_mllib_classification.SVMModel.html">SVMModel</a></li><li><a href="module-eclairjs_mllib_classification.SVMWithSGD.html">SVMWithSGD</a></li><li><a href="module-eclairjs_mllib_clustering.BisectingKMeans.html">BisectingKMeans</a></li><li><a href="module-eclairjs_mllib_clustering.BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="module-eclairjs_mllib_clustering.DistributedLDAModel.html">DistributedLDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.KMeans.html">KMeans</a></li><li><a href="module-eclairjs_mllib_clustering.KMeansModel.html">KMeansModel</a></li><li><a href="module-eclairjs_mllib_clustering.LDA.html">LDA</a></li><li><a href="module-eclairjs_mllib_clustering.LDAModel.html">LDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.LocalLDAModel.html">LocalLDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClustering.html">PowerIterationClustering</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClusteringAssignment.html">PowerIterationClusteringAssignment</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClusteringModel.html">PowerIterationClusteringModel</a></li><li><a href="module-eclairjs_mllib_evaluation.BinaryClassificationMetrics.html">BinaryClassificationMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.MulticlassMetrics.html">MulticlassMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.MultilabelMetrics.html">MultilabelMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.RankingMetrics.html">RankingMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.RegressionMetrics.html">RegressionMetrics</a></li><li><a href="module-eclairjs_mllib_feature.Word2Vec.html">Word2Vec</a></li><li><a href="module-eclairjs_mllib_feature.Word2VecModel.html">Word2VecModel</a></li><li><a href="module-eclairjs_mllib_fpm.AssociationRules.html">AssociationRules</a></li><li><a href="module-eclairjs_mllib_fpm.FPGrowth.html">FPGrowth</a></li><li><a href="module-eclairjs_mllib_fpm.FPGrowthModel.html">FPGrowthModel</a></li><li><a href="module-eclairjs_mllib_fpm.FreqItemset.html">FreqItemset</a></li><li><a href="module-eclairjs_mllib_fpm.PrefixSpan.html">PrefixSpan</a></li><li><a href="module-eclairjs_mllib_fpm.PrefixSpanFreqSequence.html">PrefixSpanFreqSequence</a></li><li><a href="module-eclairjs_mllib_fpm.PrefixSpanModel.html">PrefixSpanModel</a></li><li><a href="module-eclairjs_mllib_fpm.Rule.html">Rule</a></li><li><a href="module-eclairjs_mllib_linalg.DenseMatrix.html">DenseMatrix</a></li><li><a href="module-eclairjs_mllib_linalg.DenseVector.html">DenseVector</a></li><li><a href="module-eclairjs_mllib_linalg.Matrices.html">Matrices</a></li><li><a href="module-eclairjs_mllib_linalg.Matrix.html">Matrix</a></li><li><a href="module-eclairjs_mllib_linalg.QRDecomposition.html">QRDecomposition</a></li><li><a href="module-eclairjs_mllib_linalg.SingularValueDecomposition.html">SingularValueDecomposition</a></li><li><a href="module-eclairjs_mllib_linalg.SparseMatrix.html">SparseMatrix</a></li><li><a href="module-eclairjs_mllib_linalg.SparseVector.html">SparseVector</a></li><li><a href="module-eclairjs_mllib_linalg.Vector.html">Vector</a></li><li><a href="module-eclairjs_mllib_linalg.Vectors.html">Vectors</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.DistributedMatrix.html">DistributedMatrix</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.RowMatrix.html">RowMatrix</a></li><li><a href="module-eclairjs_mllib_optimization.Gradient.html">Gradient</a></li><li><a href="module-eclairjs_mllib_optimization.LBFGS.html">LBFGS</a></li><li><a href="module-eclairjs_mllib_optimization.LogisticGradient.html">LogisticGradient</a></li><li><a href="module-eclairjs_mllib_optimization.SquaredL2Updater.html">SquaredL2Updater</a></li><li><a href="module-eclairjs_mllib_optimization.Updater.html">Updater</a></li><li><a href="module-eclairjs_mllib_random.RandomRDDs.html">RandomRDDs</a></li><li><a href="module-eclairjs_mllib_recommendation.ALS.html">ALS</a></li><li><a href="module-eclairjs_mllib_recommendation.MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="module-eclairjs_mllib_recommendation.Rating.html">Rating</a></li><li><a href="module-eclairjs_mllib_regression.GeneralizedLinearModel.html">GeneralizedLinearModel</a></li><li><a href="module-eclairjs_mllib_regression.LabeledPoint.html">LabeledPoint</a></li><li><a href="module-eclairjs_mllib_regression.LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="module-eclairjs_mllib_regression.LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="module-eclairjs_mllib_tree.DecisionTree.html">DecisionTree</a></li><li><a href="module-eclairjs_mllib_tree.GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="module-eclairjs_mllib_tree.RandomForest.html">RandomForest</a></li><li><a href="module-eclairjs_mllib_tree_configuration.BoostingStrategy.html">BoostingStrategy</a></li><li><a href="module-eclairjs_mllib_tree_configuration.Strategy.html">Strategy</a></li><li><a href="module-eclairjs_mllib_tree_loss.Loss.html">Loss</a></li><li><a href="module-eclairjs_mllib_tree_model.DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="module-eclairjs_mllib_tree_model.GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="module-eclairjs_mllib_tree_model.RandomForestModel.html">RandomForestModel</a></li><li><a href="module-eclairjs_sql.Column.html">Column</a></li><li><a href="module-eclairjs_sql.DataFrame.html">DataFrame</a></li><li><a href="module-eclairjs_sql.DataFrameHolder.html">DataFrameHolder</a></li><li><a href="module-eclairjs_sql.DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="module-eclairjs_sql.DataFrameReader.html">DataFrameReader</a></li><li><a href="module-eclairjs_sql.DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="module-eclairjs_sql.DataFrameWriter.html">DataFrameWriter</a></li><li><a href="module-eclairjs_sql.functions.html">functions</a></li><li><a href="module-eclairjs_sql.GroupedData.html">GroupedData</a></li><li><a href="module-eclairjs_sql.Row.html">Row</a></li><li><a href="module-eclairjs_sql.RowFactory.html">RowFactory</a></li><li><a href="module-eclairjs_sql.SQLContext.html">SQLContext</a></li><li><a href="module-eclairjs_sql.SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="module-eclairjs_sql.SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="module-eclairjs_sql.SQLContext.SQLSession.html">SQLSession</a></li><li><a href="module-eclairjs_sql.SqlDate.html">SqlDate</a></li><li><a href="module-eclairjs_sql.SqlTimestamp.html">SqlTimestamp</a></li><li><a href="module-eclairjs_sql_execution.QueryExecution.html">QueryExecution</a></li><li><a href="module-eclairjs_sql_types.ArrayType.html">ArrayType</a></li><li><a href="module-eclairjs_sql_types.BinaryType.html">BinaryType</a></li><li><a href="module-eclairjs_sql_types.BooleanType.html">BooleanType</a></li><li><a href="module-eclairjs_sql_types.CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="module-eclairjs_sql_types.DataType.html">DataType</a></li><li><a href="module-eclairjs_sql_types.DataTypes.html">DataTypes</a></li><li><a href="module-eclairjs_sql_types.DateType.html">DateType</a></li><li><a href="module-eclairjs_sql_types.DoubleType.html">DoubleType</a></li><li><a href="module-eclairjs_sql_types.FloatType.html">FloatType</a></li><li><a href="module-eclairjs_sql_types.IntegerType.html">IntegerType</a></li><li><a href="module-eclairjs_sql_types.MapType.html">MapType</a></li><li><a href="module-eclairjs_sql_types.Metadata.html">Metadata</a></li><li><a href="module-eclairjs_sql_types.NullType.html">NullType</a></li><li><a href="module-eclairjs_sql_types.NumericType.html">NumericType</a></li><li><a href="module-eclairjs_sql_types.StringType.html">StringType</a></li><li><a href="module-eclairjs_sql_types.StructField.html">StructField</a></li><li><a href="module-eclairjs_sql_types.StructType.html">StructType</a></li><li><a href="module-eclairjs_sql_types.TimestampType.html">TimestampType</a></li><li><a href="module-eclairjs_storage.StorageLevel.html">StorageLevel</a></li><li><a href="module-eclairjs_streaming.Duration.html">Duration</a></li><li><a href="module-eclairjs_streaming.StreamingContext.html">StreamingContext</a></li><li><a href="module-eclairjs_streaming.Time.html">Time</a></li><li><a href="module-eclairjs_streaming_dstream.DStream.html">DStream</a></li><li><a href="module-eclairjs_streaming_dstream.PairDStream.html">PairDStream</a></li><li><a href="module-eclairjs_streaming_kafka.KafkaUtils.html">KafkaUtils</a></li><li><a href="module-eclairjs_streaming_twitter.TwitterAuthorization.html">TwitterAuthorization</a></li><li><a href="module-eclairjs_streaming_twitter.TwitterUtils.html">TwitterUtils</a></li><li><a href="PartialResult.html">PartialResult</a></li></ul><h3>Global</h3><ul><li><a href="global.html#module">module</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-eclairjs.html">eclairjs</a></li><li><a href="module-eclairjs_ml_evaluation.html">eclairjs/ml/evaluation</a></li><li><a href="module-eclairjs_ml_feature.html">eclairjs/ml/feature</a></li><li><a href="module-eclairjs_ml_param.html">eclairjs/ml/param</a></li><li><a href="module-eclairjs_ml_recommendation.html">eclairjs/ml/recommendation</a></li><li><a href="module-eclairjs_ml_regression.html">eclairjs/ml/regression</a></li><li><a href="module-eclairjs_mllib.html">eclairjs/mllib</a></li><li><a href="module-eclairjs_mllib_classification.html">eclairjs/mllib/classification</a></li><li><a href="module-eclairjs_mllib_clustering.html">eclairjs/mllib/clustering</a></li><li><a href="module-eclairjs_mllib_evaluation.html">eclairjs/mllib/evaluation</a></li><li><a href="module-eclairjs_mllib_feature.html">eclairjs/mllib/feature</a></li><li><a href="module-eclairjs_mllib_fpm.html">eclairjs/mllib/fpm</a></li><li><a href="module-eclairjs_mllib_linalg.html">eclairjs/mllib/linalg</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.html">eclairjs/mllib/linalg/distributed</a></li><li><a href="module-eclairjs_mllib_optimization.html">eclairjs/mllib/optimization</a></li><li><a href="module-eclairjs_mllib_random.html">eclairjs/mllib/random</a></li><li><a href="module-eclairjs_mllib_recommendation.html">eclairjs/mllib/recommendation</a></li><li><a href="module-eclairjs_mllib_regression.html">eclairjs/mllib/regression</a></li><li><a href="module-eclairjs_mllib_tree.html">eclairjs/mllib/tree</a></li><li><a href="module-eclairjs_mllib_tree_configuration.html">eclairjs/mllib/tree/configuration</a></li><li><a href="module-eclairjs_mllib_tree_loss.html">eclairjs/mllib/tree/loss</a></li><li><a href="module-eclairjs_mllib_tree_model.html">eclairjs/mllib/tree/model</a></li><li><a href="module-eclairjs_sql.html">eclairjs/sql</a></li><li><a href="module-eclairjs_sql_execution.html">eclairjs/sql/execution</a></li><li><a href="module-eclairjs_sql_types.html">eclairjs/sql/types</a></li><li><a href="module-eclairjs_storage.html">eclairjs/storage</a></li><li><a href="module-eclairjs_streaming.html">eclairjs/streaming</a></li><li><a href="module-eclairjs_streaming_dstream.html">eclairjs/streaming/dstream</a></li><li><a href="module-eclairjs_streaming_kafka.html">eclairjs/streaming/kafka</a></li><li><a href="module-eclairjs_streaming_twitter.html">eclairjs/streaming/twitter</a></li></ul><h3>Classes</h3><ul><li><a href="module-eclairjs.Accumulable.html">Accumulable</a></li><li><a href="module-eclairjs.AccumulableParam.html">AccumulableParam</a></li><li><a href="module-eclairjs.Accumulator.html">Accumulator</a></li><li><a href="module-eclairjs.FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="module-eclairjs.FloatRDD.html">FloatRDD</a></li><li><a href="module-eclairjs.FutureAction.html">FutureAction</a></li><li><a href="module-eclairjs.HashPartitioner.html">HashPartitioner</a></li><li><a href="module-eclairjs.IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="module-eclairjs.List.html">List</a></li><li><a href="module-eclairjs.Logger.html">Logger</a></li><li><a href="module-eclairjs.PairRDD.html">PairRDD</a></li><li><a href="module-eclairjs.Partitioner.html">Partitioner</a></li><li><a href="module-eclairjs.RangePartitioner.html">RangePartitioner</a></li><li><a href="module-eclairjs.RDD.html">RDD</a></li><li><a href="module-eclairjs.SparkConf.html">SparkConf</a></li><li><a href="module-eclairjs.SparkContext.html">SparkContext</a></li><li><a href="module-eclairjs.SparkFiles.html">SparkFiles</a></li><li><a href="module-eclairjs.SparkJobInfo.html">SparkJobInfo</a></li><li><a href="module-eclairjs.SparkStageInfo.html">SparkStageInfo</a></li><li><a href="module-eclairjs.SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="module-eclairjs.Tuple.html">Tuple</a></li><li><a href="module-eclairjs_ml_evaluation.RegressionEvaluator.html">RegressionEvaluator</a></li><li><a href="module-eclairjs_ml_feature.Word2Vec.html">Word2Vec</a></li><li><a href="module-eclairjs_ml_feature.Word2VecModel.html">Word2VecModel</a></li><li><a href="module-eclairjs_ml_param.Param.html">Param</a></li><li><a href="module-eclairjs_ml_param.ParamMap.html">ParamMap</a></li><li><a href="module-eclairjs_ml_param.ParamPair.html">ParamPair</a></li><li><a href="module-eclairjs_ml_recommendation.ALS.html">ALS</a></li><li><a href="module-eclairjs_ml_regression.AFTSurvivalRegression.html">AFTSurvivalRegression</a></li><li><a href="module-eclairjs_ml_regression.AFTSurvivalRegressionModel.html">AFTSurvivalRegressionModel</a></li><li><a href="module-eclairjs_mllib.MLUtils.html">MLUtils</a></li><li><a href="module-eclairjs_mllib_classification.ClassificationModel.html">ClassificationModel</a></li><li><a href="module-eclairjs_mllib_classification.LogisticRegressionModel.html">LogisticRegressionModel</a></li><li><a href="module-eclairjs_mllib_classification.LogisticRegressionWithLBFGS.html">LogisticRegressionWithLBFGS</a></li><li><a href="module-eclairjs_mllib_classification.LogisticRegressionWithSGD.html">LogisticRegressionWithSGD</a></li><li><a href="module-eclairjs_mllib_classification.NaiveBayes.html">NaiveBayes</a></li><li><a href="module-eclairjs_mllib_classification.NaiveBayesModel.html">NaiveBayesModel</a></li><li><a href="module-eclairjs_mllib_classification.SVMModel.html">SVMModel</a></li><li><a href="module-eclairjs_mllib_classification.SVMWithSGD.html">SVMWithSGD</a></li><li><a href="module-eclairjs_mllib_clustering.BisectingKMeans.html">BisectingKMeans</a></li><li><a href="module-eclairjs_mllib_clustering.BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="module-eclairjs_mllib_clustering.DistributedLDAModel.html">DistributedLDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.KMeans.html">KMeans</a></li><li><a href="module-eclairjs_mllib_clustering.KMeansModel.html">KMeansModel</a></li><li><a href="module-eclairjs_mllib_clustering.LDA.html">LDA</a></li><li><a href="module-eclairjs_mllib_clustering.LDAModel.html">LDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.LocalLDAModel.html">LocalLDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClustering.html">PowerIterationClustering</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClusteringAssignment.html">PowerIterationClusteringAssignment</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClusteringModel.html">PowerIterationClusteringModel</a></li><li><a href="module-eclairjs_mllib_evaluation.BinaryClassificationMetrics.html">BinaryClassificationMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.MulticlassMetrics.html">MulticlassMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.MultilabelMetrics.html">MultilabelMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.RankingMetrics.html">RankingMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.RegressionMetrics.html">RegressionMetrics</a></li><li><a href="module-eclairjs_mllib_feature.Word2Vec.html">Word2Vec</a></li><li><a href="module-eclairjs_mllib_feature.Word2VecModel.html">Word2VecModel</a></li><li><a href="module-eclairjs_mllib_fpm.AssociationRules.html">AssociationRules</a></li><li><a href="module-eclairjs_mllib_fpm.FPGrowth.html">FPGrowth</a></li><li><a href="module-eclairjs_mllib_fpm.FPGrowthModel.html">FPGrowthModel</a></li><li><a href="module-eclairjs_mllib_fpm.FreqItemset.html">FreqItemset</a></li><li><a href="module-eclairjs_mllib_fpm.PrefixSpan.html">PrefixSpan</a></li><li><a href="module-eclairjs_mllib_fpm.PrefixSpanFreqSequence.html">PrefixSpanFreqSequence</a></li><li><a href="module-eclairjs_mllib_fpm.PrefixSpanModel.html">PrefixSpanModel</a></li><li><a href="module-eclairjs_mllib_fpm.Rule.html">Rule</a></li><li><a href="module-eclairjs_mllib_linalg.DenseMatrix.html">DenseMatrix</a></li><li><a href="module-eclairjs_mllib_linalg.DenseVector.html">DenseVector</a></li><li><a href="module-eclairjs_mllib_linalg.Matrices.html">Matrices</a></li><li><a href="module-eclairjs_mllib_linalg.Matrix.html">Matrix</a></li><li><a href="module-eclairjs_mllib_linalg.QRDecomposition.html">QRDecomposition</a></li><li><a href="module-eclairjs_mllib_linalg.SingularValueDecomposition.html">SingularValueDecomposition</a></li><li><a href="module-eclairjs_mllib_linalg.SparseMatrix.html">SparseMatrix</a></li><li><a href="module-eclairjs_mllib_linalg.SparseVector.html">SparseVector</a></li><li><a href="module-eclairjs_mllib_linalg.Vector.html">Vector</a></li><li><a href="module-eclairjs_mllib_linalg.Vectors.html">Vectors</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.DistributedMatrix.html">DistributedMatrix</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.RowMatrix.html">RowMatrix</a></li><li><a href="module-eclairjs_mllib_optimization.Gradient.html">Gradient</a></li><li><a href="module-eclairjs_mllib_optimization.LBFGS.html">LBFGS</a></li><li><a href="module-eclairjs_mllib_optimization.LogisticGradient.html">LogisticGradient</a></li><li><a href="module-eclairjs_mllib_optimization.SquaredL2Updater.html">SquaredL2Updater</a></li><li><a href="module-eclairjs_mllib_optimization.Updater.html">Updater</a></li><li><a href="module-eclairjs_mllib_random.RandomRDDs.html">RandomRDDs</a></li><li><a href="module-eclairjs_mllib_recommendation.ALS.html">ALS</a></li><li><a href="module-eclairjs_mllib_recommendation.MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="module-eclairjs_mllib_recommendation.Rating.html">Rating</a></li><li><a href="module-eclairjs_mllib_regression.GeneralizedLinearModel.html">GeneralizedLinearModel</a></li><li><a href="module-eclairjs_mllib_regression.LabeledPoint.html">LabeledPoint</a></li><li><a href="module-eclairjs_mllib_regression.LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="module-eclairjs_mllib_regression.LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="module-eclairjs_mllib_tree.DecisionTree.html">DecisionTree</a></li><li><a href="module-eclairjs_mllib_tree.GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="module-eclairjs_mllib_tree.RandomForest.html">RandomForest</a></li><li><a href="module-eclairjs_mllib_tree_configuration.BoostingStrategy.html">BoostingStrategy</a></li><li><a href="module-eclairjs_mllib_tree_configuration.Strategy.html">Strategy</a></li><li><a href="module-eclairjs_mllib_tree_loss.Loss.html">Loss</a></li><li><a href="module-eclairjs_mllib_tree_model.DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="module-eclairjs_mllib_tree_model.GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="module-eclairjs_mllib_tree_model.RandomForestModel.html">RandomForestModel</a></li><li><a href="module-eclairjs_sql.Column.html">Column</a></li><li><a href="module-eclairjs_sql.DataFrame.html">DataFrame</a></li><li><a href="module-eclairjs_sql.DataFrameHolder.html">DataFrameHolder</a></li><li><a href="module-eclairjs_sql.DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="module-eclairjs_sql.DataFrameReader.html">DataFrameReader</a></li><li><a href="module-eclairjs_sql.DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="module-eclairjs_sql.DataFrameWriter.html">DataFrameWriter</a></li><li><a href="module-eclairjs_sql.functions.html">functions</a></li><li><a href="module-eclairjs_sql.GroupedData.html">GroupedData</a></li><li><a href="module-eclairjs_sql.Row.html">Row</a></li><li><a href="module-eclairjs_sql.RowFactory.html">RowFactory</a></li><li><a href="module-eclairjs_sql.SQLContext.html">SQLContext</a></li><li><a href="module-eclairjs_sql.SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="module-eclairjs_sql.SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="module-eclairjs_sql.SQLContext.SQLSession.html">SQLSession</a></li><li><a href="module-eclairjs_sql.SqlDate.html">SqlDate</a></li><li><a href="module-eclairjs_sql.SqlTimestamp.html">SqlTimestamp</a></li><li><a href="module-eclairjs_sql_execution.QueryExecution.html">QueryExecution</a></li><li><a href="module-eclairjs_sql_types.ArrayType.html">ArrayType</a></li><li><a href="module-eclairjs_sql_types.BinaryType.html">BinaryType</a></li><li><a href="module-eclairjs_sql_types.BooleanType.html">BooleanType</a></li><li><a href="module-eclairjs_sql_types.CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="module-eclairjs_sql_types.DataType.html">DataType</a></li><li><a href="module-eclairjs_sql_types.DataTypes.html">DataTypes</a></li><li><a href="module-eclairjs_sql_types.DateType.html">DateType</a></li><li><a href="module-eclairjs_sql_types.DoubleType.html">DoubleType</a></li><li><a href="module-eclairjs_sql_types.FloatType.html">FloatType</a></li><li><a href="module-eclairjs_sql_types.IntegerType.html">IntegerType</a></li><li><a href="module-eclairjs_sql_types.MapType.html">MapType</a></li><li><a href="module-eclairjs_sql_types.Metadata.html">Metadata</a></li><li><a href="module-eclairjs_sql_types.NullType.html">NullType</a></li><li><a href="module-eclairjs_sql_types.NumericType.html">NumericType</a></li><li><a href="module-eclairjs_sql_types.StringType.html">StringType</a></li><li><a href="module-eclairjs_sql_types.StructField.html">StructField</a></li><li><a href="module-eclairjs_sql_types.StructType.html">StructType</a></li><li><a href="module-eclairjs_sql_types.TimestampType.html">TimestampType</a></li><li><a href="module-eclairjs_storage.StorageLevel.html">StorageLevel</a></li><li><a href="module-eclairjs_streaming.Duration.html">Duration</a></li><li><a href="module-eclairjs_streaming.StreamingContext.html">StreamingContext</a></li><li><a href="module-eclairjs_streaming.Time.html">Time</a></li><li><a href="module-eclairjs_streaming_dstream.DStream.html">DStream</a></li><li><a href="module-eclairjs_streaming_dstream.PairDStream.html">PairDStream</a></li><li><a href="module-eclairjs_streaming_kafka.KafkaUtils.html">KafkaUtils</a></li><li><a href="module-eclairjs_streaming_twitter.TwitterAuthorization.html">TwitterAuthorization</a></li><li><a href="module-eclairjs_streaming_twitter.TwitterUtils.html">TwitterUtils</a></li><li><a href="PartialResult.html">PartialResult</a></li></ul><h3>Global</h3><ul><li><a href="global.html#module">module</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Wed Apr 20 2016 10:40:55 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Thu Apr 21 2016 11:45:30 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>

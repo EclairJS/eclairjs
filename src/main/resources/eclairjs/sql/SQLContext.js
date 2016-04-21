@@ -18,24 +18,21 @@
     var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
-   // var DataFrame = require(EclairJS_Globals.NAMESPACE + '/sql/DataFrame');
-    var DataFrameReader = require(EclairJS_Globals.NAMESPACE + '/sql/DataFrameReader');
-    var SparkContext = require(EclairJS_Globals.NAMESPACE + '/SparkContext');
 
     /**
      * @constructor
      * @memberof module:eclairjs/sql
      * @classdesc  The entry point for working with structured data (rows and columns) in Spark.
      * Allows the creation of DataFrame objects as well as the execution of SQL queries.
-     * @param {SparkContext}
+     * @param {module:eclairjs.SparkContext} sparkContext
      * @since EclairJS 0.1 Spark  1.0.0
      */
-    var SQLContext = function (jsc) {
+    var SQLContext = function (sc) {
         this.logger = Logger.getLogger("sql.SQLContext_js");
 
-        this.logger.debug("jsc type = " + jsc);
+        this.logger.debug("jsc type = " + sc);
         var JavaSQLContext = Java.type("org.apache.spark.sql.SQLContext");
-        var jvmObj = new JavaSQLContext(Utils.unwrapObject(jsc));
+        var jvmObj = new JavaSQLContext(Utils.unwrapObject(sc));
         JavaWrapper.call(this, jvmObj);
     }
 
@@ -157,15 +154,16 @@
 
     /**
      * Creates a {@link DataFrame} from {@link RDD} of Rows using the schema
-     * @param {RDD<Row> | Row[]} rowRDD_or_values A RDD of [Rows]{@link Row} or array of arrays that contain values of valid {@link DataTypes}
-     * @param {StructType} schema -
-     * @returns {DataFrame}
+     * @param {module:eclairjs.RDD<module:eclairjs/sql.Row> | module:eclairjs/sql.Row[]} rowRDD_or_values A RDD of [Rows]{@link Row} or array of arrays that contain values of valid {@link DataTypes}
+     * @param {module:eclairjs/sql/types.StructType} schema -
+     * @returns {module:eclairjs/sql.DataFrame}
      * @example
      * var df = sqlContext.createDataFrame([[1,1], [1,2], [2,1], [2,1], [2,3], [3,2], [3,3]], schema);
      *
      */
     SQLContext.prototype.createDataFrame = function (rowRDD_or_values, schema) {
         var rowRDD_uw;
+        var schema_uw = Utils.unwrapObject(schema);
         if (Array.isArray(rowRDD_or_values)) {
             //var rows = [];
             var rows = new java.util.ArrayList();
@@ -183,12 +181,20 @@
             });
             rowRDD_uw = rows;
         } else {
-            rowRDD_uw = Utils.unwrapObject(rowRDD_or_values)
+            rowRDD_uw = Utils.unwrapObject(rowRDD_or_values);
+            /*
+            Nashorn interprets numbers as java.lang.Double, java.lang.Long, or java.lang.Integer objects, depending on the computation performed.
+            JavaScript numbers are not always converted to the correct Java type. So we will use the Java function with
+            RDD.map to force them to the correct java type based on the schema provided.
+            NOTE: so far this seems to have only been an issue with number in RDD<Row> not when passed and Array. If we start seeing
+            the same issue when passed an Array we may need to do something similar in the if clause.
+             */
+            var rdd_mapped = rowRDD_uw.map(new org.eclairjs.nashorn.sql.SqlContextCreateDataFrameFunction(schema_uw));
+            rowRDD_uw = rdd_mapped;
         }
-        //  var x = this.getJavaObject().createDataFrame(rowRDD_uw, Utils.unwrapObject(schema));
+
         var x = this.getJavaObject().createDataFrame(Utils.unwrapObject(rowRDD_uw), Utils.unwrapObject(schema));
-        var DataFrame = require(EclairJS_Globals.NAMESPACE + '/sql/DataFrame');
-        return new DataFrame(x);
+        return Utils.javaToJs(x);
     };
 
 
@@ -196,8 +202,9 @@
      * Convert a [[BaseRelation]] created for external data sources into a {@link DataFrame}.
      *
      * @since EclairJS 0.1 Spark  1.3.0
-     * @returns {DataFrame}
+     * @returns {module:eclairjs/sql.DataFrame}
      * @private
+     * @ignore
      */
     SQLContext.prototype.baseRelationToDataFrame = function (baseRelation) {
         throw "not implemented by ElairJS";
@@ -216,10 +223,10 @@
      *
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @returns {DataFrameReader}
+     * @returns {module:eclairjs/sql.DataFrameReader}
      */
     SQLContext.prototype.read = function () {
-        return new DataFrameReader(this.getJavaObject().read());
+        return Utils.javaToJs(this.getJavaObject().read());
     };
 
 
@@ -233,7 +240,7 @@
      * @param {string} path
      * @param {string} [source] Creates an external table from the given path based on a data source
      * @param {object} [map] of options (key, value), if specified path is ignored.
-     * @returns {DataFrame}
+     * @returns {module:eclairjs/sql.DataFrame}
      */
     SQLContext.prototype.createExternalTable = function (tableName, path, source, options, schema) {
         var javaObject;
@@ -249,8 +256,7 @@
             var schema_uw = Utils.unwrapObject(schema);
             javaObject = this.getJavaObject().createExternalTable(tableName, source, schema_uw, options_uw);
         }
-        var DataFrame = require(EclairJS_Globals.NAMESPACE + '/sql/DataFrame');
-        return new DataFrame(javaObject);
+        return Utils.javaToJs(javaObject);
     };
 
 
@@ -277,7 +283,7 @@
      * @param {integer} end
      * @param {integer} [step] defaults to 1
      * @param {integer} [numPartitions]
-     * @returns {DataFrame}
+     * @returns {module:eclairjs/sql.DataFrame}
      */
     SQLContext.prototype.range = function (start, end, step, numPartitions) {
         var javaObject;
@@ -286,8 +292,7 @@
         } else {
             javaObject = this.getJavaObject().range(start, end);
         }
-        var DataFrame = require(EclairJS_Globals.NAMESPACE + '/sql/DataFrame');
-        return new DataFrame(javaObject);
+        return Utils.javaToJs(javaObject);
     }
 
 
@@ -297,11 +302,10 @@
      *
      * @since EclairJS 0.1 Spark  1.3.0
      * @param {string} sqlText
-     * @returns {DataFrame}
+     * @returns {module:eclairjs/sql.DataFrame}
      */
     SQLContext.prototype.sql = function (sqlText) {
-        var DataFrame = require(EclairJS_Globals.NAMESPACE + '/sql/DataFrame');
-        return new DataFrame(this.getJavaObject().sql(sqlText));
+        return Utils.javaToJs(this.getJavaObject().sql(sqlText));
     };
 
     /**
@@ -309,11 +313,10 @@
      *
      * @since EclairJS 0.1 Spark  1.3.0
      * @param {string} tableName
-     * @returns {DataFrame}
+     * @returns {module:eclairjs/sql.DataFrame}
      */
     SQLContext.prototype.table = function (tableName) {
-        var DataFrame = require(EclairJS_Globals.NAMESPACE + '/sql/DataFrame');
-        return new DataFrame(this.getJavaObject().table(tableName));
+        return Utils.javaToJs(this.getJavaObject().table(tableName));
     };
 
 
@@ -324,7 +327,7 @@
      *
      * @since EclairJS 0.1 Spark  1.3.0
      * @param {string} [databaseName] if not specified the current database is used.
-     * @returns {DataFrame}
+     * @returns {module:eclairjs/sql.DataFrame}
      */
     SQLContext.prototype.tables = function (databaseName) {
         var javaObject;
@@ -333,8 +336,7 @@
         } else {
             javaObject = this.getJavaObject().tables();
         }
-        var DataFrame = require(EclairJS_Globals.NAMESPACE + '/sql/DataFrame');
-        return new DataFrame(javaObject);
+        return Utils.javaToJs(javaObject);
     };
 
 
@@ -343,7 +345,7 @@
      *
      * @since EclairJS 0.1 Spark  1.3.0
      * @param {string} [databaseName] if not specified the current database is used.
-     * @returns {string[]}
+     * @returns {module:eclairjs/sql.DataFrame}
      */
     SQLContext.prototype.tableNames = function (databaseName) {
         var javaObject;
@@ -352,14 +354,13 @@
         } else {
             javaObject = this.getJavaObject().tableNames();
         }
-        var DataFrame = require(EclairJS_Globals.NAMESPACE + '/sql/DataFrame');
-        return new DataFrame(javaObject);
+        return Utils.javaToJs(javaObject);
     };
     /**
      * Returns the SparkContext
      *
      * @since EclairJS 0.1
-     * @returns {SparkContext}
+     * @returns {module:eclairjs.SparkContext}
      */
     SQLContext.prototype.sparkContext = function () {
         var javaObject;
@@ -373,7 +374,7 @@
      * registered functions, but sharing the same SparkContext, CacheManager, SQLListener and SQLTab.
      *
      * @since EclairJS 0.1 Spark  1.6.0
-     * @returns {SQLContext}
+     * @returns {module:eclairjs/sql.SQLContext}
      */
     SQLContext.prototype.newSession = function () {
         var javaObject = this.getJavaObject().newSession();
@@ -390,8 +391,8 @@
      * Get the singleton SQLContext if it exists or create a new one using the given SparkContext.
      * This function can be used to create a singleton SQLContext object that can be shared across
      * the JVM.
-     * @param {SparkContext}
-     * @returns {SQLContext}
+     * @param {module:eclairjs.SparkContext}
+     * @returns {module:eclairjs/sql.SQLContext}
      */
     SQLContext.getOrCreate = function (sparkContext) {
         var sparkContext_uw = Utils.unwrapObject(sparkContext);
@@ -582,7 +583,7 @@
      * a SQLContext with an isolated session, instead of the global (first created) context.
      *
      * @since EclairJS 0.1 Spark  1.6.0
-     * @param {SQLContext} sqlContext
+     * @param {module:eclairjs/sql.SQLContext} sqlContext
      */
     SQLContext.setActive = function (sqlContext) {
         var sqlContext_uw = Utils.unwrapObject(sqlContext);
