@@ -68,9 +68,9 @@
 
     /**
      * Computes the association rules with confidence above {@link minConfidence}.
-     * @param {RDD} freqItemsets  frequent itemset model obtained from {@link FPGrowth}
+     * @param {module:eclairjs.RDD} freqItemsets  frequent itemset model obtained from {@link FPGrowth}
      *
-     * @returns {RDD}  a [[Set[Rule[Item]]] containing the assocation rules.
+     * @returns {module:eclairjs.RDD}  a [[Set[Rule[Item]]] containing the assocation rules.
      */
     AssociationRules.prototype.run = function(freqItemsets) {
        var freqItemsets_uw = Utils.unwrapObject(freqItemsets);

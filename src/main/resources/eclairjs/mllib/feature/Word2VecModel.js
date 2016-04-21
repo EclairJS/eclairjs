@@ -51,7 +51,7 @@
 
 
     /**
-     * @param {SparkContext} sc
+     * @param {module:eclairjs.SparkContext} sc
      * @param {string} path
      */
     Word2VecModel.prototype.save = function(sc,path) {
@@ -64,7 +64,7 @@
     /**
      * Transforms a word to its vector representation
      * @param {string} word  a word
-     * @returns {Vector}  vector representation of word
+     * @returns {module:eclairjs/mllib/linalg.Vector}  vector representation of word
      */
     Word2VecModel.prototype.transform = function(word) {
     throw "not implemented by ElairJS";
@@ -87,7 +87,7 @@
 
     /**
      * Find synonyms of the vector representation of a word
-     * @param {Vector} vector  vector representation of a word
+     * @param {module:eclairjs/mllib/linalg.Vector} vector  vector representation of a word
      * @param {number} num  number of synonyms to find
      * @returns {Tuple2[]}  array of (word, cosineSimilarity)
      */
@@ -114,9 +114,9 @@
     //
 
     /**
-     * @param {SparkContext} sc
+     * @param {module:eclairjs.SparkContext} sc
      * @param {string} path
-     * @returns {Word2VecModel} 
+     * @returns {module:eclairjs/mllib/feature.Word2VecModel}
      */
     Word2VecModel.load = function(sc,path) {
     throw "not implemented by ElairJS";

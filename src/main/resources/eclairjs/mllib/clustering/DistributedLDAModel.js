@@ -86,7 +86,7 @@
      * For each document in the training set, return the distribution over topics for that document
      * ("theta_doc").
      *
-     * @returns {RDD}   RDD of (document ID, topic distribution) pairs
+     * @returns {module:eclairjs.RDD}   RDD of (document ID, topic distribution) pairs
      */
     DistributedLDAModel.prototype.topicDistributions = function () {
         throw "not implemented by ElairJS";
@@ -109,7 +109,7 @@
     /**
      * For each document, return the top k weighted topics for that document and their weights.
      * @param {number} k
-     * @returns {RDD}  RDD of (doc ID, topic indices, topic weights)
+     * @returns {module:eclairjs.RDD}  RDD of (doc ID, topic indices, topic weights)
      */
     DistributedLDAModel.prototype.topTopicsPerDocument = function (k) {
         throw "not implemented by ElairJS";
@@ -132,7 +132,7 @@
 
     /**
      * Java-friendly version of {@link topicDistributions}
-     * @param {SparkContext} sc
+     * @param {module:eclairjs.SparkContext} sc
      * @param {string} path
      */
     DistributedLDAModel.prototype.save = function (sc, path) {
@@ -146,7 +146,7 @@
     //
 
     /**
-     * @param {SparkContext} sc
+     * @param {module:eclairjs.SparkContext} sc
      * @param {string} path
      * @returns {DistributedLDAModel}
      */

@@ -25,7 +25,7 @@
      * both are non-null Arrays, each with unique elements.
      * @memberof module:eclairjs/mllib/evaluation
      * @classdesc
-     * @param {RDD} predictionAndLabels
+     * @param {module:eclairjs.RDD} predictionAndLabels
      * @class
      */
     var MultilabelMetrics = function(predictionAndLabels) {

@@ -88,7 +88,7 @@
      * distributions over topics ("theta").
      *
      * This is the parameter to a Dirichlet distribution.
-     * @returns {Vector}
+     * @returns {module:eclairjs/mllib/linalg.Vector}
      */
     LDA.prototype.getAsymmetricDocConcentration = function () {
         throw "not implemented by ElairJS";
@@ -134,7 +134,7 @@
      *     - Values should be >= 0
      *     - default = uniformly (1.0 / k), following the implementation from
      *       [[https://github.com/Blei-Lab/onlineldavb]].
-     * @param {Vector} docConcentration
+     * @param {module:eclairjs/mllib/linalg.Vector} docConcentration
      * @returns {}
      */
     LDA.prototype.setDocConcentrationwithVector = function (docConcentration) {
@@ -159,7 +159,7 @@
 
     /**
      * Alias for {@link getAsymmetricDocConcentration}
-     * @returns {Vector}
+     * @returns {module:eclairjs/mllib/linalg.Vector}
      */
     LDA.prototype.getAsymmetricAlpha = function () {
         throw "not implemented by ElairJS";
@@ -180,7 +180,7 @@
 
     /**
      * Alias for [[setDocConcentration()]]
-     * @param {Vector} alpha
+     * @param {module:eclairjs/mllib/linalg.Vector} alpha
      * @returns {}
      */
     LDA.prototype.setAlphawithVector = function (alpha) {

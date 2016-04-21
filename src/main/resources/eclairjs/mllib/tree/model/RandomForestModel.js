@@ -56,7 +56,7 @@
 
     /**
      *
-     * @param {SparkContext} sc   Spark context used to save model data.
+     * @param {module:eclairjs.SparkContext} sc   Spark context used to save model data.
      * @param {string} path   Path specifying the directory in which to save this model.
      *              If the directory already exists, this method throws an exception.
      */
@@ -92,7 +92,7 @@
 
     /**
      *
-     * @param {SparkContext} sc   Spark context used for loading model files.
+     * @param {module:eclairjs.SparkContext} sc   Spark context used for loading model files.
      * @param {string} path   Path specifying the directory to which the model was saved.
      * @returns {RandomForestModel}   Model instance
      */

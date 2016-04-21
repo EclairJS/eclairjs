@@ -42,7 +42,7 @@
      * Each iteration uses miniBatchFraction fraction of the data to calculate a stochastic gradient.
      * The weights used in gradient descent are initialized using the initial weights provided.
      *
-     * @param {RDD} rdd of LabeledPoints
+     * @param {module:eclairjs.RDD} rdd of LabeledPoints
      * @param {integer} numIterations
      * @param {float} [stepSize] - step size to be used for each iteration of gradient descent, defaults to 1.0
      * @param {floar} [miniBatchFraction] - fraction of data to be used per iteration, defaults to 1.0

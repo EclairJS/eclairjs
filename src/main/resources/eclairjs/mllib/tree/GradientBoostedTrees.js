@@ -66,7 +66,7 @@
 
     /**
      * Method to train a gradient boosting model
-     * @param {RDD} input  Training dataset: RDD of {@link LabeledPoint}.
+     * @param {module:eclairjs.RDD} input  Training dataset: RDD of {@link LabeledPoint}.
      * @returns {GradientBoostedTreesModel}  a gradient boosted trees model that can be used for prediction
      */
     GradientBoostedTrees.prototype.run = function (input) {
@@ -78,8 +78,8 @@
 
     /**
      * Method to validate a gradient boosting model
-     * @param {RDD} input  Training dataset: RDD of {@link LabeledPoint}.
-     * @param {RDD} validationInput  Validation dataset.
+     * @param {module:eclairjs.RDD} input  Training dataset: RDD of {@link LabeledPoint}.
+     * @param {module:eclairjs.RDD} validationInput  Validation dataset.
      *                        This dataset should be different from the training dataset,
      *                        but it should follow the same distribution.
      *                        E.g., these two datasets could be created from an original dataset
@@ -102,7 +102,7 @@
     /**
      * Method to train a gradient boosting model.
      *
-     * @param {RDD} input  Training dataset: RDD of {@link LabeledPoint}.
+     * @param {module:eclairjs.RDD} input  Training dataset: RDD of {@link LabeledPoint}.
      *              For classification, labels should take values {0, 1, ..., numClasses-1}.
      *              For regression, labels are real numbers.
      * @param {BoostingStrategy} boostingStrategy  Configuration options for the boosting algorithm.

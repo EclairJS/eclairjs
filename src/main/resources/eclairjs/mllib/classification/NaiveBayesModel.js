@@ -28,7 +28,7 @@
      * @classdesc
      *
      * @constructor
-     * @implements {ClassificationModel}
+     * @implements {module:eclairjs/mllib/classification.ClassificationModel}
      */
     var NaiveBayesModel = function(jvmObject) {
          
@@ -50,7 +50,7 @@
 
 
     /**
-     * @param {SparkContext} sc
+     * @param {module:eclairjs.SparkContext} sc
      * @param {string} path
      */
     NaiveBayesModel.prototype.save = function(sc,path) {
@@ -65,9 +65,9 @@
 
 
     /**
-     * @param {SparkContext} sc
+     * @param {module:eclairjs.SparkContext} sc
      * @param {string} path
-     * @returns {NaiveBayesModel} 
+     * @returns {module:eclairjs/mllib/classification.NaiveBayesModel}
      */
     NaiveBayesModel.load = function(sc,path) {
        var sc_uw = Utils.unwrapObject(sc);

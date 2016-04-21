@@ -172,7 +172,7 @@
 
     /**
      * Generate a diagonal matrix in `Matrix` format from the supplied values.
-     * @param {Vector} vector  a `Vector` that will form the values on the diagonal of the matrix
+     * @param {module:eclairjs/mllib/linalg.Vector} vector  a `Vector` that will form the values on the diagonal of the matrix
      *         on the diagonal
      * @returns {Matrix}  Square `Matrix` with size `values.length` x `values.length` and `values`
      */

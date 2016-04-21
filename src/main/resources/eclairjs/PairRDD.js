@@ -21,7 +21,7 @@
     var RDD = require(EclairJS_Globals.NAMESPACE + '/RDD');
 
     /**
-     * @param {RDD} rdd of [Tuple(value, value)]{@link Tuple}.
+     * @param {module:eclairjs.RDD} rdd of [Tuple(value, value)]{@link Tuple}.
      *  @class
      *  @memberof module:eclairjs
      *  @extends RDD
@@ -47,7 +47,7 @@
     };
 
     /**
-     * @param {RDD} rdd
+     * @param {module:eclairjs.RDD} rdd
      * @returns {PairRDD}
      */
     PairRDD.prototype.wrapRDD = function (rdd) {
@@ -124,7 +124,7 @@
 
     /**
      * Persist this RDD with the default storage level (`MEMORY_ONLY`).
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     PairRDD.prototype.cache = function () {
         return new PairRDD(this.getJavaObject().cache());
@@ -1472,7 +1472,7 @@
 
     /**
      * Return an RDD with the values of each tuple.
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     PairRDD.prototype.values = function () {
         var javaObject = this.getJavaObject().values();
@@ -1548,7 +1548,7 @@
     };
 
     /**
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     PairRDD.prototype.rdd = function () {
         var javaObject = this.getJavaObject().rdd();
@@ -1561,7 +1561,7 @@
 
 
     /**
-     * @param {RDD} rdd
+     * @param {module:eclairjs.RDD} rdd
      * @returns {PairRDD}
      */
     PairRDD.fromRDD = function (rdd) {
@@ -1575,7 +1575,7 @@
 
     /**
      * @param {PairRDD} rdd
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     PairRDD.toRDD = function (rdd) {
         var rdd_uw = Utils.unwrapObject(rdd);

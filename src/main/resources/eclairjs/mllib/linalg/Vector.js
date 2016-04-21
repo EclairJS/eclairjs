@@ -94,7 +94,7 @@
 
     /**
      * Makes a deep copy of this vector.
-     * @returns {Vector}
+     * @returns {module:eclairjs/mllib/linalg.Vector}
      */
     Vector.prototype.copy = function () {
         var javaObject =  this.getJavaObject().copy();
@@ -142,7 +142,7 @@
 
     /**
      * Returns a vector in either dense or sparse format, whichever uses less storage.
-     * @returns {Vector}
+     * @returns {module:eclairjs/mllib/linalg.Vector}
      */
     Vector.prototype.compressed = function () {
         var javaObject =  this.getJavaObject().compressed();

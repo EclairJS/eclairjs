@@ -79,7 +79,7 @@
 
     /**
      * @param {integer} value
-     * @returns {ALS}
+     * @returns {module:eclairjs/ml/recommendation.ALS}
      */
     ALS.prototype.setRank = function (value) {
            var javaObject =  this.getJavaObject().setRank(value);
@@ -89,7 +89,7 @@
 
     /**
      * @param {integer} value
-     * @returns {ALS}
+     * @returns {module:eclairjs/ml/recommendation.ALS}
      */
     ALS.prototype.setNumUserBlocks = function (value) {
            var javaObject =  this.getJavaObject().setNumUserBlocks(value);
@@ -99,7 +99,7 @@
 
     /**
      * @param {integer} value
-     * @returns {ALS}
+     * @returns {module:eclairjs/ml/recommendation.ALS}
      */
     ALS.prototype.setNumItemBlocks = function (value) {
            var javaObject =  this.getJavaObject().setNumItemBlocks(value);
@@ -109,7 +109,7 @@
 
     /**
      * @param {boolean} value
-     * @returns {ALS}
+     * @returns {module:eclairjs/ml/recommendation.ALS}
      */
     ALS.prototype.setImplicitPrefs = function (value) {
            var javaObject =  this.getJavaObject().setImplicitPrefs(value);
@@ -119,7 +119,7 @@
 
     /**
      * @param {float} value
-     * @returns {ALS}
+     * @returns {module:eclairjs/ml/recommendation.ALS}
      */
     ALS.prototype.setAlpha = function (value) {
            var javaObject =  this.getJavaObject().setAlpha(value);
@@ -129,7 +129,7 @@
 
     /**
      * @param {string} value
-     * @returns {ALS}
+     * @returns {module:eclairjs/ml/recommendation.ALS}
      */
     ALS.prototype.setUserCol = function (value) {
            var javaObject =  this.getJavaObject().setUserCol(value);
@@ -139,7 +139,7 @@
 
     /**
      * @param {string} value
-     * @returns {ALS}
+     * @returns {module:eclairjs/ml/recommendation.ALS}
      */
     ALS.prototype.setItemCol = function (value) {
            var javaObject =  this.getJavaObject().setItemCol(value);
@@ -149,7 +149,7 @@
 
     /**
      * @param {string} value
-     * @returns {ALS}
+     * @returns {module:eclairjs/ml/recommendation.ALS}
      */
     ALS.prototype.setRatingCol = function (value) {
            var javaObject =  this.getJavaObject().setRatingCol(value);
@@ -159,7 +159,7 @@
 
     /**
      * @param {string} value
-     * @returns {ALS}
+     * @returns {module:eclairjs/ml/recommendation.ALS}
      */
     ALS.prototype.setPredictionCol = function (value) {
            var javaObject =  this.getJavaObject().setPredictionCol(value);
@@ -169,7 +169,7 @@
 
     /**
      * @param {integer} value
-     * @returns {ALS}
+     * @returns {module:eclairjs/ml/recommendation.ALS}
      */
     ALS.prototype.setMaxIter = function (value) {
            var javaObject =  this.getJavaObject().setMaxIter(value);
@@ -179,7 +179,7 @@
 
     /**
      * @param {float} value
-     * @returns {ALS}
+     * @returns {module:eclairjs/ml/recommendation.ALS}
      */
     ALS.prototype.setRegParam = function (value) {
            var javaObject =  this.getJavaObject().setRegParam(value);
@@ -189,7 +189,7 @@
 
     /**
      * @param {boolean} value
-     * @returns {ALS}
+     * @returns {module:eclairjs/ml/recommendation.ALS}
      */
     ALS.prototype.setNonnegative = function (value) {
            var javaObject =  this.getJavaObject().setNonnegative(value);
@@ -199,7 +199,7 @@
 
     /**
      * @param {integer} value
-     * @returns {ALS}
+     * @returns {module:eclairjs/ml/recommendation.ALS}
      */
     ALS.prototype.setCheckpointInterval = function (value) {
            var javaObject =  this.getJavaObject().setCheckpointInterval(value);
@@ -209,7 +209,7 @@
 
     /**
      * @param {integer} value
-     * @returns {ALS}
+     * @returns {module:eclairjs/ml/recommendation.ALS}
      */
     ALS.prototype.setSeed = function (value) {
            var javaObject =  this.getJavaObject().setSeed(value);
@@ -220,7 +220,7 @@
     /**
      * Sets both numUserBlocks and numItemBlocks to the specific value.
      * @param {integer} value
-     * @returns {ALS}
+     * @returns {module:eclairjs/ml/recommendation.ALS}
      */
     ALS.prototype.setNumBlocks = function (value) {
            var javaObject =  this.getJavaObject().setNumBlocks(value);
@@ -229,8 +229,8 @@
 
 
     /**
-     * @param {DataFrame} dataset
-     * @returns {ALSModel}
+     * @param {module:eclairjs/sql.DataFrame} dataset
+     * @returns {module:eclairjs/ml/recommendation.ALSModel}
      */
     ALS.prototype.fit = function (dataset) {
            var dataset_uw = Utils.unwrapObject(dataset);
@@ -240,8 +240,8 @@
 
 
     /**
-     * @param {StructType} schema
-     * @returns {StructType}
+     * @param {module:eclairjs/sql/types.StructType} schema
+     * @returns {module:eclairjs/sql/types.StructType}
      */
     ALS.prototype.transformSchema = function (schema) {
            var schema_uw = Utils.unwrapObject(schema);
@@ -251,8 +251,8 @@
 
 
     /**
-     * @param {ParamMap} extra
-     * @returns {ALS}
+     * @param {module:eclairjs/ml/param.ParamMap} extra
+     * @returns {module:eclairjs/ml/recommendation.ALS}
      */
     ALS.prototype.copy = function (extra) {
            var extra_uw = Utils.unwrapObject(extra);

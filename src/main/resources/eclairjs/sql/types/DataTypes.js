@@ -139,7 +139,7 @@
     /**
      * Creates a StructType with the given StructField array (fields).
      * @param {Array} fields
-     * @returns {StructType}
+     * @returns {module:eclairjs/sql/types.StructType}
      */
     DataTypes.createStructType = function (fields) {
         //public static StructType createStructType(java.util.List<StructField> fields)

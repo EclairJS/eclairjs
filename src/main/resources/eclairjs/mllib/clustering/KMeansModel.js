@@ -62,7 +62,7 @@
 
     /**
      * Returns the cluster index that a given point belongs to.
-     * @param {Vector} point
+     * @param {module:eclairjs/mllib/linalg.Vector} point
      * @returns {number}
      */
     KMeansModel.prototype.predict0 = function (point) {
@@ -74,8 +74,8 @@
 
     /**
      * Maps given points to their cluster indices.
-     * @param {RDD} points
-     * @returns {RDD}
+     * @param {module:eclairjs.RDD} points
+     * @returns {module:eclairjs.RDD}
      */
     KMeansModel.prototype.predict1 = function (points) {
         throw "not implemented by ElairJS";
@@ -101,7 +101,7 @@
     /**
      * Return the K-means cost (sum of squared distances of points to their nearest center) for this
      * model on the given data.
-     * @param {RDD} data
+     * @param {module:eclairjs.RDD} data
      * @returns {number}
      */
     KMeansModel.prototype.computeCost = function (data) {
@@ -111,7 +111,7 @@
 
 
     /**
-     * @param {SparkContext} sc
+     * @param {module:eclairjs.SparkContext} sc
      * @param {string} path
      */
     KMeansModel.prototype.save = function (sc, path) {
@@ -138,7 +138,7 @@
 
 
     /**
-     * @param {SparkContext} sc
+     * @param {module:eclairjs.SparkContext} sc
      * @param {string} path
      * @returns {KMeansModel}
      */

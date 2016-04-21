@@ -30,7 +30,7 @@
      */
 
     /**
-     * @param {RDD} predictionAndLabels
+     * @param {module:eclairjs.RDD} predictionAndLabels
      * @class
      * @memberof module:eclairjs/mllib/evaluation
      */
@@ -114,7 +114,7 @@
 
     /**
      * Creates a {@link RankingMetrics} instance
-     * @param {RDD} predictionAndLabels  a JavaRDD of (predicted ranking, ground truth set) pairs
+     * @param {module:eclairjs.RDD} predictionAndLabels  a JavaRDD of (predicted ranking, ground truth set) pairs
      * @returns {RankingMetrics} 
      */
     RankingMetrics.of = function(predictionAndLabels) {

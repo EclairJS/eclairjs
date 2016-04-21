@@ -42,7 +42,7 @@
      * and one operation for merging two U's, as in scala.TraversableOnce. Both of these functions are
      * allowed to modify and return their first argument instead of creating a new U to avoid memory
      * allocation.
-     * @param {RDD} zeroValue - (undocumented)
+     * @param {module:eclairjs.RDD} zeroValue - (undocumented)
      * @param {function} func1 seqOp - (undocumented) Function with two parameters
      * @param {function} func2 combOp - (undocumented) Function with two parameters
      * @param {Object[]} [bindArgs1] - array whose values will be added to func1's argument list.
@@ -59,7 +59,7 @@
 
     /**
      * Persist this RDD with the default storage level (`MEMORY_ONLY`).
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     RDD.prototype.cache = function () {
         return Utils.javaToJs(this.getJavaObject().cache());
@@ -68,8 +68,8 @@
     /**
      * Return the Cartesian product of this RDD and another one, that is, the RDD of all pairs of
      * elements (a, b) where a is in `this` and b is in `other`.
-     * @param {RDD} other - (undocumented)
-     * @returns {RDD}
+     * @param {module:eclairjs.RDD} other - (undocumented)
+     * @returns {module:eclairjs.RDD}
      */
     RDD.prototype.cartesian = function (other) {
         var other_uw = Utils.unwrapObject(other);
@@ -109,7 +109,7 @@
      * data distributed using a hash partitioner.
      * @param {int} numPartitions
      * @param {boolean} shuffle
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     RDD.prototype.coalesce = function (numPartitions, shuffle) {
         return Utils.javaToJs(this.getJavaObject().coalesce(numPartitions, shuffle));
@@ -138,7 +138,7 @@
 
     /**
      * Return the SparkContext that this RDD was created on.
-     * @returns {SparkContext}
+     * @returns {module:eclairjs.SparkContext}
      */
     RDD.prototype.context = function () {
         var javaObject = this.getJavaObject().context();
@@ -247,7 +247,7 @@
     /**
      * Return a new RDD containing the distinct elements in this RDD.
      * @param {int} [numPartitions]
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     RDD.prototype.distinct = function (numPartitions) {
         var javaObject = numPartitions ? this.getJavaObject(numPartitions).distinct() :
@@ -259,7 +259,7 @@
      * Return a new RDD containing only the elements that satisfy a predicate.
      * @param {function} func - (undocumented) Function with one parameter
      * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     RDD.prototype.filter = function (func, bindArgs) {
         var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
@@ -274,7 +274,7 @@
      * Note: Doesn't make sense for JavaScript.
      * @param constructA
      * @param {Object[]} [bindArgs] - array whose values will be added to constructA's argument list.
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      * @private
      */
     RDD.prototype.filterWith = function (constructA, bindArgs) {
@@ -298,7 +298,7 @@
      * Return a new RDD by first applying a function to all elements of this RDD, and then flattening the results.
      * @param {function} func - (undocumented) - Function with one parameter
      * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     RDD.prototype.flatMap = function (func, bindArgs) {
         var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFlatMapFunction, this.context(), bindArgs);
@@ -311,7 +311,7 @@
      * additional parameter is produced by constructA, which is called in each
      * partition with the index of that partition.
      * Note: Doesn't make sense for JavaScript.
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      * @private
      */
     RDD.prototype.flatMapWith = function (constructA, preservesPartitioning) {
@@ -348,7 +348,7 @@
      * apply the fold to each element sequentially in some defined ordering. For functions
      * that are not commutative, the result may differ from that of a fold applied to a
      * non-distributed collection.
-     * @param {RDD} zeroValue - (undocumented)
+     * @param {module:eclairjs.RDD} zeroValue - (undocumented)
      * @param {function} func - (undocumented) Function with two parameters
      * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
      * @returns {object}
@@ -432,7 +432,7 @@
 
     /**
      * Return an RDD created by coalescing all elements within each partition into an array.
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     RDD.prototype.glom = function () {
         var javaObject = this.getJavaObject().glom();
@@ -451,7 +451,7 @@
      * @param {number} [numPartitions] -  How many partitions to use in the resulting RDD (if non-zero partitioner is ignored)
      * @param {Partitioner} [partitioner] -  Partitioner to use for the resulting RDD
      * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     RDD.prototype.groupBy = function (func, numPartitions, partitioner, bindArgs) {
         var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
@@ -474,10 +474,10 @@
      * elements, even if the input RDDs did.
      *
      * Note that this method performs a shuffle internally.
-     * @param {RDD} other - the other RDD
+     * @param {module:eclairjs.RDD} other - the other RDD
      * @param {number} numPartitions  How many partitions to use in the resulting RDD (if non-zero partitioner is ignored)
      * @param {Partitioner} partitioner  Partitioner to use for the resulting RDD
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     RDD.prototype.intersection = function (other, numPartitions, partitioner) {
         var other_uw = Utils.unwrapObject(other);
@@ -512,7 +512,7 @@
      * Creates tuples of the elements in this RDD by applying `f`.
      * @param {function} func - (undocumented)
      * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     RDD.prototype.keyBy = function (func, bindArgs) {
         var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
@@ -537,7 +537,7 @@
      * `spark.dynamicAllocation.cachedExecutorIdleTimeout` to a high value.
      *
      * The checkpoint directory set through `SparkContext#setCheckpointDir` is not used.
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     RDD.prototype.localCheckpoint = function () {
         var javaObject = this.getJavaObject().localCheckpoint();
@@ -548,7 +548,7 @@
      * Return a new RDD by applying a function to all elements of this RDD.
      * @param {function} func - (undocumented) Function with one parameter
      * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     RDD.prototype.map = function (func, bindArgs) {
         var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
@@ -563,7 +563,7 @@
      * @param {function} func - (undocumented) Function with one parameter
      * @param {boolean} [preservesPartitioning]
      * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     RDD.prototype.mapPartitions = function (func, preservesPartitioning, bindArgs) {
         var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFlatMapFunction, this.context(), bindArgs);
@@ -580,7 +580,7 @@
      * @param {function} func - (undocumented) Function with one parameter
      * @param {boolean} [preservesPartitioning]
      * @param {Object[]} [bindArgs] array whose values will be added to func's argument list.
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     RDD.prototype.mapPartitionsWithIndex = function (func, preservesPartitioning, bindArgs) {
         var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
@@ -594,7 +594,7 @@
      * @param {function} func - (undocumented) Function with one parameter
      * @param {boolean} [preservesPartitioning]
      * @param {Object[]} [bindArgs]  array whose values will be added to func's argument list.
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     RDD.prototype.mapPartitionsWithSplit = function (func, preservesPartitioning, bindArgs) {
         var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
@@ -610,7 +610,7 @@
      * @param {function}
      * @param {boolean}
      * @param {Object[]} [bindArgs] array whose values will be added to func's argument list.
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      * @private
      */
     RDD.prototype.mapWith = function (constructA, preservesPartitioning, bindArgs) {
@@ -664,7 +664,7 @@
 
     /**
      * This does not make sense for JavaScript as everything in JS is handled as a double.
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      * @private
      */
     RDD.prototype.numericRDDToDoubleRDDFunctions = function (rdd) {
@@ -676,7 +676,7 @@
 
     /**
      * @param {StorageLevel} newLevel
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     RDD.prototype.persist = function (newLevel) {
         var newLevel_uw = newLevel ? Utils.unwrapObject(newLevel) : null;
@@ -703,7 +703,7 @@
      * @param {boolean} [separateWorkingDir] - Use separate working directories for each task.
      * @param {Object[]} [bindArgs] - array whose values will be added to printPipeContext's argument list.
      * @param {Object[]} [bindArgs] - array whose values will be added to printRDDElement's argument list.
-     * @returns {RDD}  the result RDD
+     * @returns {module:eclairjs.RDD}  the result RDD
      */
     RDD.prototype.pipe = function (command, env, printPipeContext, printRDDElement, separateWorkingDir, bindArgs1, bindArgs2) {
         var command_uw = typeof command === 'object' ? Utils.unwrapObject(command) : command;
@@ -808,7 +808,7 @@
      * If you are decreasing the number of partitions in this RDD, consider using `coalesce`,
      * which can avoid performing a shuffle.
      * @param {int} numPartitions - (undocumented)
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     RDD.prototype.repartition = function (numPartitions) {
         var javaObject = this.getJavaObject().repartition(numPartitions);
@@ -823,7 +823,7 @@
      *  without replacement: probability that each element is chosen; fraction must be [0, 1]
      *  with replacement: expected number of times each element is chosen; fraction must be >= 0
      * @param {number} seed  seed for the random number generator
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     RDD.prototype.sample = function (withReplacement, fraction, seed) {
         var javaObject = this.getJavaObject().sample(withReplacement, fraction, seed);
@@ -863,7 +863,7 @@
 
     /**
      * Assign a name to this RDD.
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     RDD.prototype.setName = function (_name) {
         var javaObject = this.getJavaObject().setName(_name);
@@ -876,7 +876,7 @@
      * @param {boolean} ascending
      * @param {int} numPartitions
      * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     RDD.prototype.sortBy = function (func, ascending, numPartitions, bindArgs) {
         var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
@@ -887,7 +887,7 @@
     /**
      * Return this RDD sorted by the given key function.
      * @param {boolean} ascending
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      * @deprecated Use sortBy instead
      */
     RDD.prototype.sortByKey = function (ascending) {
@@ -897,7 +897,7 @@
 
     /**
      * The SparkContext that created this RDD.
-     * @returns {SparkContext}
+     * @returns {module:eclairjs.SparkContext}
      */
     RDD.prototype.sparkContext = function () {
         var javaObject = this.getJavaObject().sparkContext();
@@ -906,10 +906,10 @@
 
     /**
      * Return an RDD with the elements from `this` that are not in `other`.
-     * @param other {RDD}
+     * @param other {module:eclairjs.RDD}
      * @param  {int} [numPartitions]
      * @param  {Partition} [p] - ignored if numPartitions is non-zero)
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     RDD.prototype.subtract = function (other, numPartitions, p) {
         var other_uw = Utils.unwrapObject(other);
@@ -1091,8 +1091,8 @@
     /**
      * Return the union of this RDD and another one. Any identical elements will appear multiple
      * times (use `.distinct()` to eliminate them).
-     * @param {RDD} other - (undocumented)
-     * @returns {RDD}
+     * @param {module:eclairjs.RDD} other - (undocumented)
+     * @returns {module:eclairjs.RDD}
      */
     RDD.prototype.union = function (other) {
         var other_uw = Utils.unwrapObject(other);
@@ -1104,7 +1104,7 @@
      * Mark the RDD as non-persistent, and remove all blocks for it from memory and disk.
      *
      * @param {boolean} blocking -  Whether to block until all blocks are deleted.
-     * @returns {RDD}  This RDD.
+     * @returns {module:eclairjs.RDD}  This RDD.
      */
     RDD.prototype.unpersist = function (blocking) {
         var javaObject = this.getJavaObject().unpersist(blocking);
@@ -1116,8 +1116,8 @@
      * second element in each RDD, etc. Assumes that the two RDDs have the *same number of
      * partitions* and the *same number of elements in each partition* (e.g. one was made through
      * a map on the other).
-     * @param {RDD} other - (undocumented)
-     * @returns {RDD}
+     * @param {module:eclairjs.RDD} other - (undocumented)
+     * @returns {module:eclairjs.RDD}
      */
     RDD.prototype.zip = function (other) {
         var other_uw = Utils.unwrapObject(other);
@@ -1131,11 +1131,11 @@
      * same number of partitions, but does not require them to have the same number
      * of elements in each partition.
      *
-     * @param {RDD} rdd2
+     * @param {module:eclairjs.RDD} rdd2
      * @param {function} func - Function with two parameters
      * @param {boolean} [preservesPartitioning]
      * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     RDD.prototype.zipPartitions = function (rdd2, func, preservesPartitioning, bindArgs) {
         var rdd2_uw = Utils.unwrapObject(rdd2);
@@ -1153,11 +1153,11 @@
      * Note: To support params rdd3, rdd4 we need to implement JSFunction3 and JSFunction4
      * Renaming this version and making this private for now.
      *
-     * @param {RDD} rdd2
-     * @param {RDD} [rdd3]
-     * @param {RDD} [rdd4]
+     * @param {module:eclairjs.RDD} rdd2
+     * @param {module:eclairjs.RDD} [rdd3]
+     * @param {module:eclairjs.RDD} [rdd4]
      * @param {boolean} [preservesPartitioning]
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      * @private
      */
     RDD.prototype.zipPartitionsMulti = function (rdd2, rdd3, rdd4, preservesPartitioning) {
@@ -1183,7 +1183,7 @@
      * elements in a partition. The index assigned to each element is therefore not guaranteed,
      * and may even change if the RDD is reevaluated. If a fixed ordering is required to guarantee
      * the same index assignments, you should sort the RDD with sortByKey() or save it to a file.
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     RDD.prototype.zipWithIndex = function () {
         var javaObject = this.getJavaObject().zipWithIndex();
@@ -1199,7 +1199,7 @@
      * elements in a partition. The unique ID assigned to each element is therefore not guaranteed,
      * and may even change if the RDD is reevaluated. If a fixed ordering is required to guarantee
      * the same index assignments, you should sort the RDD with sortByKey() or save it to a file.
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     RDD.prototype.zipWithUniqueId = function () {
         return Utils.javaToJs(this.getJavaObject().zipWithUniqueId());

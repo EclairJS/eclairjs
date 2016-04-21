@@ -54,7 +54,7 @@
 
     /**
      * The underlying SparkContext
-     * @returns {SparkContext}
+     * @returns {module:eclairjs.SparkContext}
      */
     StreamingContext.prototype.sparkContext = function () {
         var javaObject = this.getJavaObject().sparkContext();
@@ -119,7 +119,7 @@
      *
      * @param {RDD[] } queue       Queue of RDDs
      * @param {boolean}  [oneAtATime=true]   Whether only one RDD should be consumed from the queue in every interval
-     * @param {RDD} [defaultRDD]  Default RDD is returned by the DStream when the queue is empty
+     * @param {module:eclairjs.RDD} [defaultRDD]  Default RDD is returned by the DStream when the queue is empty
      * @returns {DStream}
      */
     StreamingContext.prototype.queueStream = function (queue) {

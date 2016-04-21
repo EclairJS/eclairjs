@@ -43,7 +43,7 @@
     /**
      * Creates a dense vector from a double array.
      * @param {float[]} values
-     * @returns {Vector}
+     * @returns {module:eclairjs/mllib/linalg.Vector}
      */
     Vectors.dense = function (values) {
         var javaObject = org.apache.spark.mllib.linalg.Vectors.dense(values);
@@ -57,7 +57,7 @@
      * @param {integer} size  vector size.
      * @param {integer[]} indices  index array, must be strictly increasing.
      * @param {float[]} values  value array, must have the same length as indices.
-     * @returns {Vector}
+     * @returns {module:eclairjs/mllib/linalg.Vector}
      */
     Vectors.sparse = function (size, indices, values) {
        var javaObject =  org.apache.spark.mllib.linalg.Vectors.sparse(size,indices,values);
@@ -68,7 +68,7 @@
      * Creates a vector of all zeros.
      *
      * @param {integer} size  vector size
-     * @returns {Vector}  a zero vector
+     * @returns {module:eclairjs/mllib/linalg.Vector}  a zero vector
      */
     Vectors.zeros = function (size) {
        var javaObject =  org.apache.spark.mllib.linalg.Vectors.zeros(size);
@@ -79,7 +79,7 @@
     /**
      * Parses a string resulted from [[Vector.toString]] into a {@link Vector}.
      * @param {string} s
-     * @returns {Vector}
+     * @returns {module:eclairjs/mllib/linalg.Vector}
      */
     Vectors.parse = function (s) {
        var javaObject =  org.apache.spark.mllib.linalg.Vectors.parse(s);
@@ -90,7 +90,7 @@
     /**
      * Parses the JSON representation of a vector into a {@link Vector}.
      * @param {string} json
-     * @returns {Vector}
+     * @returns {module:eclairjs/mllib/linalg.Vector}
      */
     Vectors.fromJson = function (json) {
        var javaObject =  org.apache.spark.mllib.linalg.Vectors.fromJson(json);
@@ -100,7 +100,7 @@
 
     /**
      * Returns the p-norm of this vector.
-     * @param {Vector} vector  input vector.
+     * @param {module:eclairjs/mllib/linalg.Vector} vector  input vector.
      * @param {float} p  norm.
      * @returns {float}  norm in L^p^ space.
      */
@@ -112,8 +112,8 @@
 
     /**
      * Returns the squared distance between two Vectors.
-     * @param {Vector} v1  first Vector.
-     * @param {Vector} v2  second Vector.
+     * @param {module:eclairjs/mllib/linalg.Vector} v1  first Vector.
+     * @param {module:eclairjs/mllib/linalg.Vector} v2  second Vector.
      * @returns {float}  squared distance between two Vectors.
      */
     Vectors.sqdist = function (v1, v2) {

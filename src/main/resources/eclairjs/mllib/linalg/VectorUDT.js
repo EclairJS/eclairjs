@@ -48,7 +48,7 @@
 
 
     /**
-     * @returns {StructType}
+     * @returns {module:eclairjs/sql/types.StructType}
      */
     VectorUDT.prototype.sqlType = function () {
         //   var javaObject =  this.getJavaObject().sqlType();
@@ -69,7 +69,7 @@
 
     /**
      * @param {object} datum
-     * @returns {Vector}
+     * @returns {module:eclairjs/mllib/linalg.Vector}
      */
     VectorUDT.prototype.deserialize = function (datum) {
         throw "not implemented by ElairJS";

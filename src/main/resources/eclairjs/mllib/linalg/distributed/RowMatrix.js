@@ -24,7 +24,7 @@
      * Represents a row-oriented distributed Matrix with no meaningful row indices.
      * @memberof module:eclairjs/mllib/linalg/distributed
      * @classdesc
-     * @param {RDD} rows stored as an RDD[Vector]
+     * @param {module:eclairjs.RDD} rows stored as an RDD[Vector]
      * @param {number} [nRows] number of rows. A non-positive value means unknown, and then the number of rows will
      *              be determined by the number of records in the RDD `rows`.
      * @param {number} [nCols] number of columns. A non-positive value means unknown, and then the number of
@@ -247,7 +247,7 @@
 
     /**
      * Gets RDD of Vectors
-     * @returns {RDD} RDD of Vectors
+     * @returns {module:eclairjs.RDD} RDD of Vectors
      */
     RowMatrix.prototype.rows = function() {
        var javaObject =  this.getJavaObject().rows();

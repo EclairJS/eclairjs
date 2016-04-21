@@ -78,7 +78,7 @@
     /**
      * Run IsotonicRegression algorithm to obtain isotonic regression model.
      *
-     * @param {RDD} input  RDD of tuples (label, feature, weight) where label is dependent variable
+     * @param {module:eclairjs.RDD} input  RDD of tuples (label, feature, weight) where label is dependent variable
      *              for which we calculate isotonic regression, feature is independent variable
      *              and weight represents number of measures with default 1.
      *              If multiple labels share the same feature value then they are ordered before

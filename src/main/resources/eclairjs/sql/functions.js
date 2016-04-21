@@ -483,8 +483,8 @@
      *
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {DataFrame} df
-     * @returns {DataFrame}
+     * @param {module:eclairjs/sql.DataFrame} df
+     * @returns {module:eclairjs/sql.DataFrame}
      */
     functions.broadcast = function (df) {
         var df_uw = Utils.unwrapObject(df);

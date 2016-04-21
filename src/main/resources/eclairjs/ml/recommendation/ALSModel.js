@@ -31,7 +31,6 @@
      * @param userFactors a DataFrame that stores user factors in two columns: `id` and `features`
      * @param itemFactors a DataFrame that stores item factors in two columns: `id` and `features`
      * @memberof module:eclairjs/ml/recommendation
-     * @extends MLWritable
      */
     
     
@@ -51,7 +50,7 @@
     
     /**
      * @param {string} value
-     * @returns {ALSModel}
+     * @returns {module:eclairjs/ml/recommendation.ALSModel}
      */
     ALSModel.prototype.setUserCol = function(value) {
        var javaObject =  this.getJavaObject().setUserCol(value);
@@ -61,7 +60,7 @@
     
     /**
      * @param {string} value
-     * @returns {ALSModel}
+     * @returns {module:eclairjs/ml/recommendation.ALSModel}
      */
     ALSModel.prototype.setItemCol = function(value) {
        var javaObject =  this.getJavaObject().setItemCol(value);
@@ -71,7 +70,7 @@
     
     /**
      * @param {string} value
-     * @returns {ALSModel}
+     * @returns {module:eclairjs/ml/recommendation.ALSModel}
      */
     ALSModel.prototype.setPredictionCol = function(value) {
        var javaObject =  this.getJavaObject().setPredictionCol(value);
@@ -80,8 +79,8 @@
     
     
     /**
-     * @param {DataFrame} dataset
-     * @returns {DataFrame} 
+     * @param {module:eclairjs/sql.DataFrame} dataset
+     * @returns {module:eclairjs/sql.DataFrame}
      */
     ALSModel.prototype.transform = function(dataset) {
        var dataset_uw = Utils.unwrapObject(dataset);
@@ -91,8 +90,8 @@
     
     
     /**
-     * @param {StructType} schema
-     * @returns {StructType} 
+     * @param {module:eclairjs/sql/types.StructType} schema
+     * @returns {module:eclairjs/sql/types.StructType}
      */
     ALSModel.prototype.transformSchema = function(schema) {
        var schema_uw = Utils.unwrapObject(schema);
@@ -102,8 +101,8 @@
     
     
     /**
-     * @param {ParamMap} extra
-     * @returns {ALSModel} 
+     * @param {module:eclairjs/ml/param.ParamMap} extra
+     * @returns {module:eclairjs/ml/recommendation.ALSModel}
      */
     ALSModel.prototype.copy = function(extra) {
        var extra_uw = Utils.unwrapObject(extra);
@@ -136,7 +135,7 @@
     
     /**
      * @param {string} path
-     * @returns {ALSModel} 
+     * @returns {module:eclairjs/ml/recommendation.ALSModel}
      */
     ALSModel.load = function(path) {
        var javaObject =  org.apache.spark.ml.recommendation.ALSModel.load(path);

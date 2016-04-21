@@ -52,7 +52,7 @@
 
     /**
      * @param {string}
-     * @returns {Word2Vec}
+     * @returns {module:eclairjs/ml/feature.Word2Vec}
      */
     Word2Vec.prototype.setInputCol = function (value) {
         return new Word2Vec(this.getJavaObject().setInputCol(value));
@@ -61,7 +61,7 @@
 
     /**
      * @param {string}
-     * @returns {Word2Vec}
+     * @returns {module:eclairjs/ml/feature.Word2Vec}
      */
     Word2Vec.prototype.setOutputCol = function (value) {
         return new Word2Vec(this.getJavaObject().setOutputCol(value));
@@ -70,7 +70,7 @@
 
     /**
      * @param {integer}
-     * @returns {Word2Vec}
+     * @returns {module:eclairjs/ml/feature.Word2Vec}
      */
     Word2Vec.prototype.setVectorSize = function (value) {
         return new Word2Vec(this.getJavaObject().setVectorSize(value));
@@ -79,7 +79,7 @@
 
     /**
      * @param {integer} value
-     * @returns {Word2Vec}
+     * @returns {module:eclairjs/ml/feature.Word2Vec}
      */
     Word2Vec.prototype.setWindowSize = function (value) {
         return new Word2Vec(this.getJavaObject().setWindowSize(value));
@@ -88,7 +88,7 @@
 
     /**
      * @param {float} value
-     * @returns {Word2Vec}
+     * @returns {module:eclairjs/ml/feature.Word2Vec}
      */
     Word2Vec.prototype.setStepSize = function (value) {
         return new Word2Vec(this.getJavaObject().setStepSize(value));
@@ -97,7 +97,7 @@
 
     /**
      * @param {integer} value
-     * @returns {Word2Vec}
+     * @returns {module:eclairjs/ml/feature.Word2Vec}
      */
     Word2Vec.prototype.setNumPartitions = function (value) {
         return new Word2Vec(this.getJavaObject().setNumPartitions(value));
@@ -106,7 +106,7 @@
 
     /**
      * @param {integer} value
-     * @returns {Word2Vec}
+     * @returns {module:eclairjs/ml/feature.Word2Vec}
      */
     Word2Vec.prototype.setMaxIter = function (value) {
         return new Word2Vec(this.getJavaObject().setMaxIter(value));
@@ -115,7 +115,7 @@
 
     /**
      * @param {integer} value
-     * @returns {Word2Vec}
+     * @returns {module:eclairjs/ml/feature.Word2Vec}
      */
     Word2Vec.prototype.setSeed = function (value) {
         return new Word2Vec(this.getJavaObject().setSeed(value));
@@ -124,7 +124,7 @@
 
     /**
      * @param {integer} value
-     * @returns {Word2Vec}
+     * @returns {module:eclairjs/ml/feature.Word2Vec}
      */
     Word2Vec.prototype.setMinCount = function (value) {
         return new Word2Vec(this.getJavaObject().setMinCount(value));
@@ -132,8 +132,8 @@
 
 
     /**
-     * @param {DataFrame} dataset
-     * @returns {Word2VecModel}
+     * @param {module:eclairjs/sql.DataFrame} dataset
+     * @returns {module:eclairjs/ml/feature.Word2VecModel}
      */
     Word2Vec.prototype.fit = function (dataset) {
         var dataset_uw = Utils.unwrapObject(dataset);
@@ -142,8 +142,8 @@
 
 
     /**
-     * @param {StructType} schema
-     * @returns {StructType}
+     * @param {module:eclairjs/sql/types.StructType} schema
+     * @returns {module:eclairjs/sql/types.StructType}
      */
     Word2Vec.prototype.transformSchema = function (schema) {
         var schema_uw = Utils.unwrapObject(schema);
@@ -152,8 +152,8 @@
 
 
     /**
-     * @param {ParamMap}
-     * @returns {Word2Vec}
+     * @param {module:eclairjs/ml.param.ParamMap}
+     * @returns {module:eclairjs/ml/feature.Word2Vec}
      * @private
      */
     Word2Vec.prototype.copy = function (extra) {

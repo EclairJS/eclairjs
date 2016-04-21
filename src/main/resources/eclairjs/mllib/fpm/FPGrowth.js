@@ -91,7 +91,7 @@
 
     /**
      * Computes an FP-Growth model that contains frequent itemsets.
-     * @param {RDD} data  input data set, each element contains a transaction
+     * @param {module:eclairjs.RDD} data  input data set, each element contains a transaction
      *
      * @returns {FPGrowthModel}  an [[FPGrowthModel]]
      */

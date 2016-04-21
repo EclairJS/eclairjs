@@ -49,7 +49,7 @@
     /**
      * Run Limited-memory BFGS (L-BFGS) in parallel. Averaging the subgradients over different partitions is performed
      * using one standard spark map-reduce in each iteration.
-     * @param {RDD} data - - Input data for L-BFGS. RDD of the set of data examples, each of the form (label, [feature values]).
+     * @param {module:eclairjs.RDD} data - - Input data for L-BFGS. RDD of the set of data examples, each of the form (label, [feature values]).
      * @param {Gradient} gradient - - Gradient object (used to compute the gradient of the loss function of one single data example)
      * @param {Updater} updater - - Updater function to actually perform a gradient step in a given direction.
      * @param {integer} numCorrections - - The number of corrections used in the L-BFGS update.
@@ -57,7 +57,7 @@
      * Lower values are less tolerant and therefore generally cause more iterations to be run.
      * @param {integer} maxNumIterations - - Maximal number of iterations that L-BFGS can be run.
      * @param {float} regParam - - Regularization parameter
-     * @param {Vector} initialWeights - (undocumented)
+     * @param {module:eclairjs/mllib/linalg.Vector} initialWeights - (undocumented)
      * @returns {Tuple} A tuple containing two elements. The first element is a column matrix containing weights for every feature,
      * and the second element is an array containing the loss computed for every iteration.
      * @param testData
@@ -77,9 +77,9 @@
     /**
      * Description copied from interface: {@link Optimizer}
      * Solve the provided convex optimization problem.
-     * @param {RDD} data
-     * @param {Vector} initialWeights
-     * @returns {Vector}
+     * @param {module:eclairjs.RDD} data
+     * @param {module:eclairjs/mllib/linalg.Vector} initialWeights
+     * @returns {module:eclairjs/mllib/linalg.Vector}
      */
     LBFGS.prototype.optimize = function (data,initialWeights) {
         var data_uw = Utils.unwrapObject(data);

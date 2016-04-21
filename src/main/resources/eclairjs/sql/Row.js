@@ -364,7 +364,7 @@
     };
     /**
      * Schema for the row.
-     * @returns {StructType}
+     * @returns {module:eclairjs/sql/types.StructType}
      */
     Row.prototype.schema = function () {
 
@@ -401,7 +401,7 @@
          * Row
          *  | values
          *    | [value, ...]
-         *  | schema {StructType}
+         *  | schema {module:eclairjs/sql/types.StructType}
          *    | fields {StructField}
          */
         var jsonObj = {};

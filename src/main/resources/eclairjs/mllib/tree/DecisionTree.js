@@ -54,7 +54,7 @@
 
     /**
      * Method to train a decision tree model over an RDD
-     * @param {RDD} input  Training data: RDD of {@link LabeledPoint}
+     * @param {module:eclairjs.RDD} input  Training data: RDD of {@link LabeledPoint}
      * @returns {DecisionTreeModel}  DecisionTreeModel that can be used for prediction
      */
     DecisionTree.prototype.run = function (input) {
@@ -76,7 +76,7 @@
      *       and [[org.apache.spark.mllib.tree.DecisionTree$#trainRegressor]]
      *       is recommended to clearly separate classification and regression.
      *
-     * @param {RDD} input  Training dataset: RDD of {@link LabeledPoint}.
+     * @param {module:eclairjs.RDD} input  Training dataset: RDD of {@link LabeledPoint}.
      *              For classification, labels should take values {0, 1, ..., numClasses-1}.
      *              For regression, labels are real numbers.
      * @param {Strategy} strategy  The configuration parameters for the tree algorithm which specify the type
@@ -101,7 +101,7 @@
      *       and [[org.apache.spark.mllib.tree.DecisionTree$#trainRegressor]]
      *       is recommended to clearly separate classification and regression.
      *
-     * @param {RDD} input  Training dataset: RDD of {@link LabeledPoint}.
+     * @param {module:eclairjs.RDD} input  Training dataset: RDD of {@link LabeledPoint}.
      *              For classification, labels should take values {0, 1, ..., numClasses-1}.
      *              For regression, labels are real numbers.
      * @param {Algo} algo  algorithm, classification or regression
@@ -128,7 +128,7 @@
      *       and [[org.apache.spark.mllib.tree.DecisionTree$#trainRegressor]]
      *       is recommended to clearly separate classification and regression.
      *
-     * @param {RDD} input  Training dataset: RDD of {@link LabeledPoint}.
+     * @param {module:eclairjs.RDD} input  Training dataset: RDD of {@link LabeledPoint}.
      *              For classification, labels should take values {0, 1, ..., numClasses-1}.
      *              For regression, labels are real numbers.
      * @param {Algo} algo  algorithm, classification or regression
@@ -156,7 +156,7 @@
      *       and [[org.apache.spark.mllib.tree.DecisionTree$#trainRegressor]]
      *       is recommended to clearly separate classification and regression.
      *
-     * @param {RDD} input  Training dataset: RDD of {@link LabeledPoint}.
+     * @param {module:eclairjs.RDD} input  Training dataset: RDD of {@link LabeledPoint}.
      *              For classification, labels should take values {0, 1, ..., numClasses-1}.
      *              For regression, labels are real numbers.
      * @param {Algo} algo  classification or regression
@@ -186,7 +186,7 @@
     /**
      * Method to train a decision tree model for binary or multiclass classification.
      *
-     * @param {RDD} input  Training dataset: RDD of {@link LabeledPoint}.
+     * @param {module:eclairjs.RDD} input  Training dataset: RDD of {@link LabeledPoint}.
      *              Labels should take values {0, 1, ..., numClasses-1}.
      * @param {number} numClasses  number of classes for classification.
      * @param {object} categoricalFeaturesInfo  object name key pair map storing arity of categorical features.
@@ -212,7 +212,7 @@
     /**
      * Method to train a decision tree model for regression.
      *
-     * @param {RDD} input  Training dataset: RDD of {@link LabeledPoint}.
+     * @param {module:eclairjs.RDD} input  Training dataset: RDD of {@link LabeledPoint}.
      *              Labels are real numbers.
      * @param {object} categoricalFeaturesInfo  key value  storing arity of categorical features.
      *                                E.g., an entry (n -> k) indicates that feature n is categorical

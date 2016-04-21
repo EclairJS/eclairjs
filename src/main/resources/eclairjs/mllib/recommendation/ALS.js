@@ -190,7 +190,7 @@
     /**
      * Run ALS with the configured parameters on an input RDD of (user, product, rating) triples.
      * Returns a MatrixFactorizationModel with feature vectors for each user and product.
-     * @param {RDD} ratings
+     * @param {module:eclairjs.RDD} ratings
      * @returns {MatrixFactorizationModel}
      */
     ALS.prototype.runwithRDD = function (ratings) {
@@ -224,7 +224,7 @@
      * features, we run a given number of iterations of ALS. This is done using a level of
      * parallelism given by `blocks`.
      *
-     * @param {RDD} ratings     RDD of (userID, productID, rating) pairs
+     * @param {module:eclairjs.RDD} ratings     RDD of (userID, productID, rating) pairs
      * @param {number} rank        number of features to use
      * @param {number} iterations  number of iterations of ALS (recommended: 10-20)
      * @param {number} [lambda]  regularization factor (recommended: 0.01)
@@ -262,7 +262,7 @@
      * To solve for these features, we run a given number of iterations of ALS. This is done using
      * a level of parallelism given by `blocks`.
      *
-     * @param {RDD} ratings     RDD of (userID, productID, rating) pairs
+     * @param {module:eclairjs.RDD} ratings     RDD of (userID, productID, rating) pairs
      * @param {number} rank        number of features to use
      * @param {number} iterations  number of iterations of ALS (recommended: 10-20)
      * @param {number} lambda      regularization factor (recommended: 0.01)
@@ -286,7 +286,7 @@
      * To solve for these features, we run a given number of iterations of ALS. This is done using
      * a level of parallelism given by `blocks`.
      *
-     * @param {RDD} ratings     RDD of (userID, productID, rating) pairs
+     * @param {module:eclairjs.RDD} ratings     RDD of (userID, productID, rating) pairs
      * @param {number} rank        number of features to use
      * @param {number} iterations  number of iterations of ALS (recommended: 10-20)
      * @param {number} lambda      regularization factor (recommended: 0.01)
@@ -309,7 +309,7 @@
      * To solve for these features, we run a given number of iterations of ALS. The level of
      * parallelism is determined automatically based on the number of partitions in `ratings`.
      *
-     * @param {RDD} ratings     RDD of (userID, productID, rating) pairs
+     * @param {module:eclairjs.RDD} ratings     RDD of (userID, productID, rating) pairs
      * @param {number} rank        number of features to use
      * @param {number} iterations  number of iterations of ALS (recommended: 10-20)
      * @param {number} lambda      regularization factor (recommended: 0.01)
@@ -332,7 +332,7 @@
      * parallelism is determined automatically based on the number of partitions in `ratings`.
      * Model parameters `alpha` and `lambda` are set to reasonable default values
      *
-     * @param {RDD} ratings     RDD of (userID, productID, rating) pairs
+     * @param {module:eclairjs.RDD} ratings     RDD of (userID, productID, rating) pairs
      * @param {number} rank        number of features to use
      * @param {number} iterations  number of iterations of ALS (recommended: 10-20)
      * @returns {MatrixFactorizationModel}

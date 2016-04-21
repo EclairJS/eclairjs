@@ -18,10 +18,9 @@
     var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
-    //var RDD = require(EclairJS_Globals.NAMESPACE + '/RDD');
 
     var LogisticRegressionModel = require(EclairJS_Globals.NAMESPACE + '/mllib/classification/LogisticRegressionModel');
-    //var Vector = require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Vector');
+
 
     /**
      * Train a classification model for Multinomial/Binary Logistic Regression using
@@ -53,7 +52,7 @@
      * Multinomial Logistic Regression.
      * By default, it is binary logistic regression so k will be set to 2.
      * @param {integer} numClasses
-     * @returns {LogisticRegressionWithLBFGS}
+     * @returns {module:eclairjs/mllib/classification.LogisticRegressionWithLBFGS}
      */
     LogisticRegressionWithLBFGS.prototype.setNumClasses = function(n) {
         return new LogisticRegressionWithLBFGS(this.getJavaObject().setNumClasses(n));
@@ -61,9 +60,9 @@
 
     /**
      *
-     * @param {RDD} input
-     * @param {Vector} [initialWeights]
-     * @returns {LogisticRegressionModel}
+     * @param {module:eclairjs.RDD} input
+     * @param {module:eclairjs/mllib/linalg.Vector} [initialWeights]
+     * @returns {module:eclairjs/mllib/classification.LogisticRegressionModel}
      */
     LogisticRegressionWithLBFGS.prototype.run = function(input, initialWeights) {
         var jvmObj;

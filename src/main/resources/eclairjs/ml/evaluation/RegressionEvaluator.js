@@ -67,7 +67,7 @@
     
     /**
      * @param {string} value
-     * @returns {RegressionEvaluator}
+     * @returns {module:eclairjs/ml/evaluation.RegressionEvaluator}
      */
     RegressionEvaluator.prototype.setMetricName = function(value) {
        var javaObject =  this.getJavaObject().setMetricName(value);
@@ -77,7 +77,7 @@
     
     /**
      * @param {string} value
-     * @returns {RegressionEvaluator}
+     * @returns {module:eclairjs/ml/evaluation.RegressionEvaluator}
      */
     RegressionEvaluator.prototype.setPredictionCol = function(value) {
        var javaObject =  this.getJavaObject().setPredictionCol(value);
@@ -87,7 +87,7 @@
     
     /**
      * @param {string} value
-     * @returns {RegressionEvaluator}
+     * @returns {module:eclairjs/ml/evaluation.RegressionEvaluator}
      */
     RegressionEvaluator.prototype.setLabelCol = function(value) {
        var javaObject =  this.getJavaObject().setLabelCol(value);
@@ -96,7 +96,7 @@
     
     
     /**
-     * @param {DataFrame} dataset
+     * @param {modue:eclairjs/sql.DataFrame} dataset
      * @returns {number} 
      */
     RegressionEvaluator.prototype.evaluate = function(dataset) {
@@ -114,8 +114,8 @@
     
     
     /**
-     * @param {ParamMap} extra
-     * @returns {RegressionEvaluator} 
+     * @param {module:eclairjs/ml/param.ParamMap} extra
+     * @returns {module:eclairjs/ml/evaluation.RegressionEvaluator}
      */
     RegressionEvaluator.prototype.copy = function(extra) {
        var extra_uw = Utils.unwrapObject(extra);
@@ -130,7 +130,7 @@
     
     /**
      * @param {string} path
-     * @returns {RegressionEvaluator} 
+     * @returns {module:eclairjs/ml/evaluation.RegressionEvaluator}
      */
     RegressionEvaluator.load = function(path) {
        var javaObject =  org.apache.spark.ml.evaluation.RegressionEvaluator.load(path);

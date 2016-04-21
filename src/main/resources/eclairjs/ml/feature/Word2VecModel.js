@@ -21,7 +21,7 @@
 
     /**
      * :: Experimental ::
-     * Model fitted by {@link Word2Vec}.
+     * Model fitted by {@link module:eclairjs/ml/feature.Word2Vec}.
      * @classdesc
      * @constructor
      * @memberof module:eclairjs/ml/feature
@@ -46,7 +46,7 @@
      * synonyms and the given word.
      * @param {string}
      * @param {number}
-     * @returns {DataFrame}
+     * @returns {module:eclairjs/sql.DataFrame}
      * @private
      *
      */
@@ -60,9 +60,9 @@
      * Find "num" number of words closest to similarity to the given vector representation
      * of the word. Returns a dataframe with the words and the cosine similarities between the
      * synonyms and the given word vector.
-     * @param {Vector}
+     * @param {module:eclairjs/mllib/linalg.Vector}
      * @param {number}
-     * @returns {DataFrame}
+     * @returns {module:eclairjs/sql.DataFrame}
      * @private
      *
      */
@@ -100,8 +100,8 @@
     /**
      * Transform a sentence column to a vector column to represent the whole sentence. The transform
      * is performed by averaging all word vectors it contains.
-     * @param {DataFrame}
-     * @returns {DataFrame}
+     * @param {module:eclairjs/sql.DataFrame}
+     * @returns {module:eclairjs/sql.DataFrame}
      *  @private
      *
      */
@@ -112,8 +112,8 @@
 
 
     /**
-     * @param {StructType}
-     * @returns {StructType}
+     * @param {module:eclairjs/sql/types.StructType}
+     * @returns {module:eclairjs/sql/types.StructType}
      *  @private
      *
      */
@@ -125,8 +125,8 @@
 
 
     /**
-     * @param {ParamMap}
-     * @returns {Word2VecModel}
+     * @param {module:eclairjs/ml/param.ParamMap}
+     * @returns {module:eclairjs/ml/feature.Word2VecModel}
      *  @private
      *
      */
@@ -153,7 +153,7 @@
 
     /**
      * @param {string}
-     * @returns {Word2Vec}
+     * @returns {module:eclairjs/ml/feature.Word2Vec}
      *  @private
      *
      */
@@ -176,7 +176,7 @@
 
     /**
      * @param {string}
-     * @returns {Word2VecModel}
+     * @returns {module:eclairjs/ml/feature.Word2VecModel}
      *  @private
      *
      */

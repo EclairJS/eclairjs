@@ -229,7 +229,7 @@
     /**
      * Train a K-means model on the given set of points; `data` should be cached for high
      * performance, because this is an iterative algorithm.
-     * @param {RDD} data
+     * @param {module:eclairjs.RDD} data
      * @returns {KMeansModel}
      */
     KMeans.prototype.run = function (data) {
@@ -247,7 +247,7 @@
     /**
      * Trains a k-means model using the given set of parameters.
      *
-     * @param {RDD} data  training points stored as `RDD[Vector]`
+     * @param {module:eclairjs.RDD} data  training points stored as `RDD[Vector]`
      * @param {number} k  number of clusters
      * @param {number} maxIterations  max number of iterations
      * @param {number} [runs] number of parallel runs, defaults to 1. The best model is returned.

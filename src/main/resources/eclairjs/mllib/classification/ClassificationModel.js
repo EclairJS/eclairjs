@@ -44,8 +44,8 @@
     /**
      * Predict values for the given data set using the model trained.
      *
-     * @param {RDD | Vector} testData  RDD representing data points to be predicted or Vector array representing a single data point
-     * @returns {RDD | float}  an RDD[Double] where each entry contains the corresponding prediction or float predicted category from the trained model
+     * @param {module:eclairjs.RDD | module:eclairjs/mllib/linalg.Vector} testData  RDD representing data points to be predicted or Vector array representing a single data point
+     * @returns {module:eclairjs.RDD | float}  an RDD[float] where each entry contains the corresponding prediction or float predicted category from the trained model
      */
     ClassificationModel.prototype.predict = function(testData) {
        var testData_uw = Utils.unwrapObject(testData);

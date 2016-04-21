@@ -117,7 +117,7 @@
 
     /**
      * Finds the complete set of frequent sequential patterns in the input sequences of itemsets.
-     * @param {RDD} data  sequences of itemsets.
+     * @param {module:eclairjs.RDD} data  sequences of itemsets.
      * @returns {PrefixSpanModel}  a [[PrefixSpanModel]] that contains the frequent patterns
      */
     PrefixSpan.prototype.run = function(data) {

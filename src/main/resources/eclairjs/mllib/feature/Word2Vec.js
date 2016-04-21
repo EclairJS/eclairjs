@@ -145,8 +145,8 @@
 
     /**
      * Computes the vector representation of each word in vocabulary.
-     * @param {RDD} dataset  an RDD of words
-     * @returns {Word2VecModel}  a Word2VecModel
+     * @param {module:eclairjs.RDD} dataset  an RDD of words
+     * @returns {module:eclairjs/mllib/feature.Word2VecModel}  a Word2VecModel
      */
     Word2Vec.prototype.fit = function(dataset) {
        var dataset_uw = Utils.unwrapObject(dataset);

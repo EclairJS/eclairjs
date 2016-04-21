@@ -35,7 +35,7 @@
     LinearRegressionModel.prototype.constructor = LinearRegressionModel;
     /**
      * Predict label for the given features.
-     * @param {Vector} features
+     * @param {module:eclairjs/mllib/linalg.Vector} features
      * @returns {float}
      */
     LinearRegressionModel.prototype.predict = function (features) {

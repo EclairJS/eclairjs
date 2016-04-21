@@ -24,7 +24,7 @@
      * @memberof module:eclairjs/mllib/regression
      * @classdesc Class that represents the features and labels of a data point.
      * @param {double} label
-     * @param {Vector} features
+     * @param {module:eclairjs/mllib/linalg.Vector} features
      */
     var LabeledPoint = function (label, features) {
         this.logger = Logger.getLogger("mllib.regression.LabeledPoint_js");
@@ -44,7 +44,7 @@
     LabeledPoint.prototype.constructor = LabeledPoint;
     /**
      * Returns features
-     * @returns {Vector}
+     * @returns {module:eclairjs/mllib/linalg.Vector}
      */
     LabeledPoint.prototype.getFeatures = function () {
         return Serialize.javaToJs(this.getJavaObject().features());
