@@ -22,6 +22,9 @@ services:
       - zookeeper
   pump:
     image: wurstmeister/kafka:0.8.2.2
+    environment:
+      ZK: ${KAFKA_HOST}:2181
+      HOST_IP: ${KAFKA_HOST}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./data/dream.txt:/dream.txt
