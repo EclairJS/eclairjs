@@ -18,10 +18,9 @@
     var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
-    //var RDD = require(EclairJS_Globals.NAMESPACE + '/RDD');
 
     var LogisticRegressionModel = require(EclairJS_Globals.NAMESPACE + '/mllib/classification/LogisticRegressionModel');
-    //var Vector = require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Vector');
+
 
     /**
      * Train a classification model for Binary Logistic Regression
@@ -29,7 +28,7 @@
      * which can be changed via {@link optimizer}.
      * NOTE: Labels used in Logistic Regression should be {0, 1, ..., k - 1}
      * for k classes multi-label classification problem.
-     * Using {@link LogisticRegressionWithLBFGS} is recommended over this.
+     * Using {@link module:eclairjs/mllib/regression.LogisticRegressionWithLBFGS} is recommended over this.
      *
      * @classdesc
      */
@@ -37,7 +36,6 @@
     /**
      * Construct a LogisticRegression object with default parameters: {stepSize: 1.0,
      * numIterations: 100, regParm: 0.01, miniBatchFraction: 1.0}.
-     * @returns {??}
      * @class
      * @memberof module:eclairjs/mllib/classification
      */
@@ -60,13 +58,13 @@
      * gradient descent are initialized using the initial weights provided.
      * NOTE: Labels used in Logistic Regression should be {0, 1}
      *
-     * @param {RDD} input  RDD of (label, array of features) pairs.
+     * @param {module:eclairjs.RDD} input  RDD of (label, array of features) pairs.
      * @param {number} numIterations  Number of iterations of gradient descent to run.
      * @param {number} [stepSize]  step size to be used for each iteration of gradient descent, defaults to 1.0.
      * @param {number} [miniBatchFraction]  fraction of data to be used per iteration.
-     * @param {Vector} [initialWeights] initial set of weights to be used. Array should be equal in size to
+     * @param {module:eclairjs/mllib/linalg.Vector} [initialWeights] initial set of weights to be used. Array should be equal in size to
      *        the number of features in the data.
-     * @returns {LogisticRegressionModel}
+     * @returns {module:eclairjs/mllib/classification.LogisticRegressionModel}
      */
     LogisticRegressionWithSGD.train = function (input, numIterations, stepSize, miniBatchFraction, initialWeights) {
         var lrdd = input.getJavaObject().rdd();

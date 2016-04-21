@@ -151,7 +151,7 @@
 
     /**
      * Runs the bisecting k-means algorithm.
-     * @param {RDD} input  RDD of vectors
+     * @param {module:eclairjs.RDD} input  RDD of vectors
      * @returns {BisectingKMeansModel}  model for the bisecting kmeans
      */
     BisectingKMeans.prototype.run = function(input) {

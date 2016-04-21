@@ -36,8 +36,8 @@
 
     /**
      * @param {number} rank
-     * @param {RDD} userFeatures
-     * @param {RDD} productFeatures
+     * @param {module:eclairjs.RDD} userFeatures
+     * @param {module:eclairjs.RDD} productFeatures
      *  @class
      *  @memberof module:eclairjs/mllib/recommendation
      */
@@ -121,7 +121,7 @@
      *
      * The model may be loaded using {@link load}.
      *
-     * @param {SparkContext} sc   Spark context used to save model data.
+     * @param {module:eclairjs.SparkContext} sc   Spark context used to save model data.
      * @param {string} path   Path specifying the directory in which to save this model.
      *              If the directory already exists, this method throws an exception.
      */
@@ -137,7 +137,7 @@
      * @param {number} num  how many products to return for every user.
      * rating objects which contains the same userId, recommended productID and a "score" in the
      * rating field. Semantics of score is same as recommendProducts API
-     * @returns {RDD}  [(Int, Array[Rating])] objects, where every tuple contains a userID and an array of
+     * @returns {module:eclairjs.RDD}  [(Int, Array[Rating])] objects, where every tuple contains a userID and an array of
      */
     MatrixFactorizationModel.prototype.recommendProductsForUsers = function (num) {
         var javaObject = this.getJavaObject().recommendProductsForUsers(num);
@@ -151,7 +151,7 @@
      * @param {number} num  how many users to return for every product.
      * of rating objects which contains the recommended userId, same productID and a "score" in the
      * rating field. Semantics of score is same as recommendUsers API
-     * @returns {RDD}  [(Int, Array[Rating])] objects, where every tuple contains a productID and an array
+     * @returns {module:eclairjs.RDD}  [(Int, Array[Rating])] objects, where every tuple contains a productID and an array
      */
     MatrixFactorizationModel.prototype.recommendUsersForProducts = function (num) {
         throw "not implemented by ElairJS";
@@ -160,7 +160,7 @@
     };
     /**
      *
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     MatrixFactorizationModel.prototype.userFeatures = function () {
         var javaObject = this.getJavaObject().userFeatures();
@@ -168,7 +168,7 @@
     };
     /**
      *
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     MatrixFactorizationModel.prototype.productFeatures = function () {
         var javaObject = this.getJavaObject().productFeatures();
@@ -186,7 +186,7 @@
      *
      * The model should have been saved by {@link save}.
      *
-     * @param {SparkContext} sc   Spark context used for loading model files.
+     * @param {module:eclairjs.SparkContext} sc   Spark context used for loading model files.
      * @param {string} path   Path specifying the directory to which the model was saved.
      * @returns {MatrixFactorizationModel}   Model instance
      */

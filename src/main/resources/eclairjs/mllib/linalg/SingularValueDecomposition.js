@@ -23,7 +23,7 @@
      * Represents singular value decomposition (SVD) factors.
      * @classdesc
      * @param {UType} U
-     * @param {Vector} s
+     * @param {module:eclairjs/mllib/linalg.Vector} s
      * @param {VType} V
      * @class
      * @memberof module:eclairjs/mllib/linalg
@@ -50,7 +50,7 @@
     SingularValueDecomposition.prototype.constructor = SingularValueDecomposition;
 
     /**
-     * @returns {Vector}
+     * @returns {module:eclairjs/mllib/linalg.Vector}
      */
     SingularValueDecomposition.prototype.s = function() {
         return Utils.javaToJs(this.getJavaObject().s());

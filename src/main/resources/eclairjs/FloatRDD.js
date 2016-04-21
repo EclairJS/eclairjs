@@ -30,7 +30,7 @@
 
     /**
      * @classdesc
-     * @param {RDD} srdd
+     * @param {module:eclairjs.RDD} srdd
      * @class
      * @memberof module:eclairjs
      * @extends RDD
@@ -58,7 +58,7 @@
 
 
     /**
-     * @param {RDD} rdd
+     * @param {module:eclairjs.RDD} rdd
      * @returns {FloatRDD}
      */
     FloatRDD.prototype.wrapRDD = function (rdd) {
@@ -452,7 +452,7 @@
 
 
     /**
-     * @param {RDD} rdd
+     * @param {module:eclairjs.RDD} rdd
      * @returns {FloatRDD}
      */
     FloatRDD.fromRDD = function (rdd) {
@@ -463,7 +463,7 @@
 
     /**
      * @param {FloatRDD} rdd
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     FloatRDD.toRDD = function (rdd) {
         throw "not implemented by ElairJS";

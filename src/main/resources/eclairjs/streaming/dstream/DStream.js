@@ -55,7 +55,7 @@
     /**
      * Generate an RDD for the given duration
      * @param {Time} validTime
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     DStream.prototype.compute = function (validTime) {
         return Utils.javaToJs(this.getJavaObject().compute(validTime.getJavaObject()));

@@ -25,7 +25,7 @@
      * @memberof module:eclairjs/mllib/regression
      * @classdesc GeneralizedLinearModel (GLM) represents a model trained using GeneralizedLinearAlgorithm.
      * GLMs consist of a weight vector and an intercept.
-     * @param {Vector} weights
+     * @param {module:eclairjs/mllib/linalg.Vector} weights
      * @param {float} intercept
      */
     var GeneralizedLinearModel = function(jvmObj) {
@@ -39,7 +39,7 @@
     GeneralizedLinearModel.prototype.constructor = GeneralizedLinearModel;
     /**
      * Predict values for a single data point using the model trained.
-     * @param {Vector} testData
+     * @param {module:eclairjs/mllib/linalg.Vector} testData
      * @returns {float}
      */
     GeneralizedLinearModel.prototype.predict = function(testData) {

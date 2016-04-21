@@ -49,7 +49,7 @@
      * df.groupBy("department").agg(max("age"), sum("expense"));
      * @since EclairJS 0.1 Spark  1.3.0
      * @param {Column | string} columnExpr,...columnExpr or columnName, ...columnName
-     * @returns {DataFrame}
+     * @returns {module:eclairjs/sql.DataFrame}
      */
     GroupedData.prototype.agg = function () {
         /*
@@ -73,7 +73,7 @@
     /**
      * Compute the avg value for each numeric columns for each group.
      * @param {string[]} cols
-     * @returns {DataFrame}
+     * @returns {module:eclairjs/sql.DataFrame}
      */
     GroupedData.prototype.avg = function (cols) {
         return Utils.javaToJs(this.getJavaObject().avg(cols));
@@ -84,7 +84,7 @@
     };
     /**
      * Count the number of rows for each group.
-     * @returns {DataFrame}
+     * @returns {module:eclairjs/sql.DataFrame}
      */
     GroupedData.prototype.count = function () {
         this.logger.debug("count");
@@ -97,7 +97,7 @@
     /**
      * Compute the max value for each numeric columns for each group.
      * @param {string[]} cols
-     * @returns {DataFrame}
+     * @returns {module:eclairjs/sql.DataFrame}
      */
     GroupedData.prototype.max = function (cols) {
         return Utils.javaToJs(this.getJavaObject().max(cols));
@@ -105,7 +105,7 @@
     /**
      * Compute the mean value for each numeric columns for each group.
      * @param {string[]} cols
-     * @returns {DataFrame}
+     * @returns {module:eclairjs/sql.DataFrame}
      */
     GroupedData.prototype.mean = function (cols) {
         return Utils.javaToJs(this.getJavaObject().mean(cols));
@@ -113,7 +113,7 @@
     /**
      * Compute the min value for each numeric columns for each group.
      * @param {string[]} cols
-     * @returns {DataFrame}
+     * @returns {module:eclairjs/sql.DataFrame}
      */
     GroupedData.prototype.min = function (cols) {
         return Utils.javaToJs(this.getJavaObject().min(cols));
@@ -121,7 +121,7 @@
     /**
      * Compute the sum value for each numeric columns for each group.
      * @param {string[]} cols
-     * @returns {DataFrame}
+     * @returns {module:eclairjs/sql.DataFrame}
      */
     GroupedData.prototype.sum = function (cols) {
         return Utils.javaToJs(this.getJavaObject().sum(cols));

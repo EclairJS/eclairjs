@@ -36,7 +36,7 @@
     DataFrameHolder.prototype.constructor = DataFrameHolder;
 
     /**
-     * @returns {DataFrame}
+     * @returns {module:eclairjs/sql.DataFrame}
      */
     DataFrameHolder.prototype.toDF = function () {
         return Utils.javaToJs(this.getJavaObject().toDF());

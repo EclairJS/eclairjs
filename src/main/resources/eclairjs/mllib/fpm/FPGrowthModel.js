@@ -28,7 +28,7 @@
      */
 
     /**
-     * @param {RDD} freqItemsets
+     * @param {module:eclairjs.RDD} freqItemsets
      * @class
      * @memberof module:eclairjs/mllib/fpm
      */
@@ -54,7 +54,7 @@
     /**
      * Generates association rules for the [[Item]]s in {@link freqItemsets}.
      * @param {float} confidence  minimal confidence of the rules produced
-     * @returns {RDD} 
+     * @returns {module:eclairjs.RDD}
      */
     FPGrowthModel.prototype.generateAssociationRules = function(confidence) {
        var javaObject =  this.getJavaObject().generateAssociationRules(confidence);
@@ -63,7 +63,7 @@
 
     /**
      * Returns RDD of RDD FreqItemset
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     FPGrowthModel.prototype.freqItemsets = function() {
         var javaObject =  this.getJavaObject().freqItemsets();

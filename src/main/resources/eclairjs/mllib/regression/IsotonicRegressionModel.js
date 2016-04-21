@@ -82,7 +82,7 @@
 
 
     /**
-     * @param {SparkContext} sc
+     * @param {module:eclairjs.SparkContext} sc
      * @param {string} path
      */
     IsotonicRegressionModel.prototype.save = function (sc, path) {
@@ -97,7 +97,7 @@
 
 
     /**
-     * @param {SparkContext} sc
+     * @param {module:eclairjs.SparkContext} sc
      * @param {string} path
      * @returns {IsotonicRegressionModel}
      */

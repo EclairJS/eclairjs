@@ -358,7 +358,7 @@
      * Distribute a local Scala collection to form an RDD.
      * @param {array} list
      * @param {integer} [numSlices]
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     SparkContext.prototype.parallelize = function (list, numSlices) {
         //public <T> JavaRDD<T> parallelize(java.util.List<T> list, int numSlices)
@@ -405,7 +405,7 @@
      * @param {number} end  the end value.
      * @param {number} step  the incremental step
      * @param {number} numSlices  the partition number of the new RDD.
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     SparkContext.prototype.range = function (start, end, step, numSlices) {
         var javaObject = this.getJavaObject().range(start, end, step, numSlices);
@@ -418,7 +418,7 @@
      * and return it as an RDD of Strings.
      * @param {string} path - path to file
      * @param {int} [minPartitions]
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     SparkContext.prototype.textFile = function (path, minPartitions) {
         if (minPartitions) {
@@ -460,7 +460,7 @@
      * @param {string} path  Directory to the input data files, the path can be comma separated paths as the
      *             list of inputs.
      * @param {number} minPartitions  A suggestion value of the minimal splitting number for input data.
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     SparkContext.prototype.wholeTextFiles = function (path, minPartitions) {
         var javaObject = this.getJavaObject().wholeTextFiles(path, minPartitions);

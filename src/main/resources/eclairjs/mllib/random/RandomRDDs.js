@@ -44,11 +44,11 @@
      * To transform the distribution in the generated RDD from `U(0.0, 1.0)` to `U(a, b)`, use
      * `RandomRDDs.uniformRDD(sc, n, p, seed).map(v => a + (b - a) * v)`.
      *
-     * @param {SparkContext} sc  SparkContext used to create the RDD.
+     * @param {module:eclairjs.SparkContext} sc  SparkContext used to create the RDD.
      * @param {number} size  Size of the RDD.
      * @param {number} numPartitions  Number of partitions in the RDD (default: `sc.defaultParallelism`).
      * @param {number} seed  Random seed (default: a random long integer).
-     * @returns {RDD}  RDD[Double] comprised of `i.i.d.` samples ~ `U(0.0, 1.0)`.
+     * @returns {module:eclairjs.RDD}  RDD[Double] comprised of `i.i.d.` samples ~ `U(0.0, 1.0)`.
      */
     RandomRDDs.uniformRDD = function (sc, size, numPartitions, seed) {
         throw "not implemented by ElairJS";
@@ -106,11 +106,11 @@
      * To transform the distribution in the generated RDD from standard normal to some other normal
      * `N(mean, sigma^2^)`, use `RandomRDDs.normalRDD(sc, n, p, seed).map(v => mean + sigma * v)`.
      *
-     * @param {SparkContext} sc  SparkContext used to create the RDD.
+     * @param {module:eclairjs.SparkContext} sc  SparkContext used to create the RDD.
      * @param {number} size  Size of the RDD.
      * @param {number} [numPartitions] Number of partitions in the RDD (default: `sc.defaultParallelism`).
      * @param {number} [seed] Random seed (default: a random long integer).
-     * @returns {RDD}  RDD[Double] Optional comprised of `i.i.d.` samples ~ N(0.0, 1.0).
+     * @returns {module:eclairjs.RDD}  RDD[Double] Optional comprised of `i.i.d.` samples ~ N(0.0, 1.0).
      */
     RandomRDDs.normalRDD = function (sc, size, numPartitions, seed) {
         var sc_uw = Utils.unwrapObject(sc);
@@ -133,12 +133,12 @@
      * Generates an RDD comprised of `i.i.d.` samples from the Poisson distribution with the input
      * mean.
      *
-     * @param {SparkContext} sc  SparkContext used to create the RDD.
+     * @param {module:eclairjs.SparkContext} sc  SparkContext used to create the RDD.
      * @param {number} mean  Mean, or lambda, for the Poisson distribution.
      * @param {number} size  Size of the RDD.
      * @param {number} numPartitions  Number of partitions in the RDD (default: `sc.defaultParallelism`).
      * @param {number} seed  Random seed (default: a random long integer).
-     * @returns {RDD}  RDD[Double] comprised of `i.i.d.` samples ~ Pois(mean).
+     * @returns {module:eclairjs.RDD}  RDD[Double] comprised of `i.i.d.` samples ~ Pois(mean).
      */
     RandomRDDs.poissonRDD = function (sc, mean, size, numPartitions, seed) {
         throw "not implemented by ElairJS";
@@ -197,12 +197,12 @@
      * Generates an RDD comprised of `i.i.d.` samples from the exponential distribution with
      * the input mean.
      *
-     * @param {SparkContext} sc  SparkContext used to create the RDD.
+     * @param {module:eclairjs.SparkContext} sc  SparkContext used to create the RDD.
      * @param {number} mean  Mean, or 1 / lambda, for the exponential distribution.
      * @param {number} size  Size of the RDD.
      * @param {number} numPartitions  Number of partitions in the RDD (default: `sc.defaultParallelism`).
      * @param {number} seed  Random seed (default: a random long integer).
-     * @returns {RDD}  RDD[Double] comprised of `i.i.d.` samples ~ Pois(mean).
+     * @returns {module:eclairjs.RDD}  RDD[Double] comprised of `i.i.d.` samples ~ Pois(mean).
      */
     RandomRDDs.exponentialRDD = function (sc, mean, size, numPartitions, seed) {
         throw "not implemented by ElairJS";
@@ -261,13 +261,13 @@
      * Generates an RDD comprised of `i.i.d.` samples from the gamma distribution with the input
      *  shape and scale.
      *
-     * @param {SparkContext} sc  SparkContext used to create the RDD.
+     * @param {module:eclairjs.SparkContext} sc  SparkContext used to create the RDD.
      * @param {number} shape  shape parameter (> 0) for the gamma distribution
      * @param {number} scale  scale parameter (> 0) for the gamma distribution
      * @param {number} size  Size of the RDD.
      * @param {number} numPartitions  Number of partitions in the RDD (default: `sc.defaultParallelism`).
      * @param {number} seed  Random seed (default: a random long integer).
-     * @returns {RDD}  RDD[Double] comprised of `i.i.d.` samples ~ Pois(mean).
+     * @returns {module:eclairjs.RDD}  RDD[Double] comprised of `i.i.d.` samples ~ Pois(mean).
      */
     RandomRDDs.gammaRDD = function (sc, shape, scale, size, numPartitions, seed) {
         throw "not implemented by ElairJS";
@@ -329,13 +329,13 @@
      * Generates an RDD comprised of `i.i.d.` samples from the log normal distribution with the input
      *  mean and standard deviation
      *
-     * @param {SparkContext} sc  SparkContext used to create the RDD.
+     * @param {module:eclairjs.SparkContext} sc  SparkContext used to create the RDD.
      * @param {number} mean  mean for the log normal distribution
      * @param {number} std  standard deviation for the log normal distribution
      * @param {number} size  Size of the RDD.
      * @param {number} numPartitions  Number of partitions in the RDD (default: `sc.defaultParallelism`).
      * @param {number} seed  Random seed (default: a random long integer).
-     * @returns {RDD}  RDD[Double] comprised of `i.i.d.` samples ~ Pois(mean).
+     * @returns {module:eclairjs.RDD}  RDD[Double] comprised of `i.i.d.` samples ~ Pois(mean).
      */
     RandomRDDs.logNormalRDD = function (sc, mean, std, size, numPartitions, seed) {
         throw "not implemented by ElairJS";
@@ -397,12 +397,12 @@
      * Generates an RDD[Vector] with vectors containing `i.i.d.` samples drawn from the
      * uniform distribution on `U(0.0, 1.0)`.
      *
-     * @param {SparkContext} sc  SparkContext used to create the RDD.
+     * @param {module:eclairjs.SparkContext} sc  SparkContext used to create the RDD.
      * @param {number} numRows  Number of Vectors in the RDD.
      * @param {number} numCols  Number of elements in each Vector.
      * @param {number} numPartitions  Number of partitions in the RDD.
      * @param {number} seed  Seed for the RNG that generates the seed for the generator in each partition.
-     * @returns {RDD}  RDD[Vector] with vectors containing i.i.d samples ~ `U(0.0, 1.0)`.
+     * @returns {module:eclairjs.RDD}  RDD[Vector] with vectors containing i.i.d samples ~ `U(0.0, 1.0)`.
      */
     RandomRDDs.uniformVectorRDD = function (sc, numRows, numCols, numPartitions, seed) {
         throw "not implemented by ElairJS";
@@ -464,12 +464,12 @@
      * Generates an RDD[Vector] with vectors containing `i.i.d.` samples drawn from the
      * standard normal distribution.
      *
-     * @param {SparkContext} sc  SparkContext used to create the RDD.
+     * @param {module:eclairjs.SparkContext} sc  SparkContext used to create the RDD.
      * @param {number} numRows  Number of Vectors in the RDD.
      * @param {number} numCols  Number of elements in each Vector.
      * @param {number} [numPartitions] Number of partitions in the RDD (default: `sc.defaultParallelism`).
      * @param {number} [seed] Random seed (default: a random long integer).
-     * @returns {RDD}  RDD[Vector] with vectors containing `i.i.d.` samples ~ `N(0.0, 1.0)`.
+     * @returns {module:eclairjs.RDD}  RDD[Vector] with vectors containing `i.i.d.` samples ~ `N(0.0, 1.0)`.
      */
     RandomRDDs.normalVectorRDD = function (sc, numRows, numCols, numPartitions, seed) {
         var sc_uw = Utils.unwrapObject(sc);
@@ -492,14 +492,14 @@
      * Generates an RDD[Vector] with vectors containing `i.i.d.` samples drawn from a
      * log normal distribution.
      *
-     * @param {SparkContext} sc  SparkContext used to create the RDD.
+     * @param {module:eclairjs.SparkContext} sc  SparkContext used to create the RDD.
      * @param {number} mean  Mean of the log normal distribution.
      * @param {number} std  Standard deviation of the log normal distribution.
      * @param {number} numRows  Number of Vectors in the RDD.
      * @param {number} numCols  Number of elements in each Vector.
      * @param {number} numPartitions  Number of partitions in the RDD (default: `sc.defaultParallelism`).
      * @param {number} seed  Random seed (default: a random long integer).
-     * @returns {RDD}  RDD[Vector] with vectors containing `i.i.d.` samples.
+     * @returns {module:eclairjs.RDD}  RDD[Vector] with vectors containing `i.i.d.` samples.
      */
     RandomRDDs.logNormalVectorRDD = function (sc, mean, std, numRows, numCols, numPartitions, seed) {
         throw "not implemented by ElairJS";
@@ -568,13 +568,13 @@
      * Generates an RDD[Vector] with vectors containing `i.i.d.` samples drawn from the
      * Poisson distribution with the input mean.
      *
-     * @param {SparkContext} sc  SparkContext used to create the RDD.
+     * @param {module:eclairjs.SparkContext} sc  SparkContext used to create the RDD.
      * @param {number} mean  Mean, or lambda, for the Poisson distribution.
      * @param {number} numRows  Number of Vectors in the RDD.
      * @param {number} numCols  Number of elements in each Vector.
      * @param {number} numPartitions  Number of partitions in the RDD (default: `sc.defaultParallelism`)
      * @param {number} seed  Random seed (default: a random long integer).
-     * @returns {RDD}  RDD[Vector] with vectors containing `i.i.d.` samples ~ Pois(mean).
+     * @returns {module:eclairjs.RDD}  RDD[Vector] with vectors containing `i.i.d.` samples ~ Pois(mean).
      */
     RandomRDDs.poissonVectorRDD = function (sc, mean, numRows, numCols, numPartitions, seed) {
         throw "not implemented by ElairJS";
@@ -639,13 +639,13 @@
      * Generates an RDD[Vector] with vectors containing `i.i.d.` samples drawn from the
      * exponential distribution with the input mean.
      *
-     * @param {SparkContext} sc  SparkContext used to create the RDD.
+     * @param {module:eclairjs.SparkContext} sc  SparkContext used to create the RDD.
      * @param {number} mean  Mean, or 1 / lambda, for the Exponential distribution.
      * @param {number} numRows  Number of Vectors in the RDD.
      * @param {number} numCols  Number of elements in each Vector.
      * @param {number} numPartitions  Number of partitions in the RDD (default: `sc.defaultParallelism`)
      * @param {number} seed  Random seed (default: a random long integer).
-     * @returns {RDD}  RDD[Vector] with vectors containing `i.i.d.` samples ~ Exp(mean).
+     * @returns {module:eclairjs.RDD}  RDD[Vector] with vectors containing `i.i.d.` samples ~ Exp(mean).
      */
     RandomRDDs.exponentialVectorRDD = function (sc, mean, numRows, numCols, numPartitions, seed) {
         throw "not implemented by ElairJS";
@@ -711,14 +711,14 @@
      * Generates an RDD[Vector] with vectors containing `i.i.d.` samples drawn from the
      * gamma distribution with the input shape and scale.
      *
-     * @param {SparkContext} sc  SparkContext used to create the RDD.
+     * @param {module:eclairjs.SparkContext} sc  SparkContext used to create the RDD.
      * @param {number} shape  shape parameter (> 0) for the gamma distribution.
      * @param {number} scale  scale parameter (> 0) for the gamma distribution.
      * @param {number} numRows  Number of Vectors in the RDD.
      * @param {number} numCols  Number of elements in each Vector.
      * @param {number} numPartitions  Number of partitions in the RDD (default: `sc.defaultParallelism`)
      * @param {number} seed  Random seed (default: a random long integer).
-     * @returns {RDD}  RDD[Vector] with vectors containing `i.i.d.` samples ~ Exp(mean).
+     * @returns {module:eclairjs.RDD}  RDD[Vector] with vectors containing `i.i.d.` samples ~ Exp(mean).
      */
     RandomRDDs.gammaVectorRDD = function (sc, shape, scale, numRows, numCols, numPartitions, seed) {
         throw "not implemented by ElairJS";

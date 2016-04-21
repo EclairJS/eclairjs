@@ -56,7 +56,7 @@
      * skip the schema inference step, and thus speed up data loading.
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @param {StructType} schema
+     * @param {module:eclairjs/sql/types.StructType} schema
      * @returns {DataFrameReader}
      */
     DataFrameReader.prototype.schema = function (schema) {
@@ -106,7 +106,7 @@
      * @param {string} [path] Loads data sources that require a path (e.g. data backed by
      * a local or distributed file system). If not specified loads data sources that don't require a path (e.g. external
      * key-value stores).
-     * @returns {DataFrame}
+     * @returns {module:eclairjs/sql.DataFrame}
      */
     DataFrameReader.prototype.load = function (path) {
         var javaObject;
@@ -164,7 +164,7 @@
      *                             tag/value. Normally at least a "user" and "password" property
      *                             should be included.
 
-     * @returns {DataFrame}
+     * @returns {module:eclairjs/sql.DataFrame}
      */
     DataFrameReader.prototype.jdbc = function () {
         var javaObject;
@@ -194,7 +194,7 @@
      * If RDD  unless the schema is specified using {@link schema} function, this function goes through the
      * input once to determine the input schema.
      * @param {string | RDD} path or RDD
-     * @returns {DataFrame}
+     * @returns {module:eclairjs/sql.DataFrame}
      * @since EclairJS 0.1 Spark  1.4.0
      */
     DataFrameReader.prototype.json = function () {
@@ -212,7 +212,7 @@
      *
      * @since EclairJS 0.1 Spark  1.4.0
      * @param {string} path
-     * @returns {DataFrame}
+     * @returns {module:eclairjs/sql.DataFrame}
      */
     DataFrameReader.prototype.parquet = function (paths) {
         var javaObject = this.getJavaObject().parquet(paths);
@@ -226,7 +226,7 @@
      * @param {string} path  input path
      * @since EclairJS 0.1 Spark  1.5.0
      * @note Currently, this method can only be used together with `HiveContext`.
-     * @returns {DataFrame}
+     * @returns {module:eclairjs/sql.DataFrame}
      */
     DataFrameReader.prototype.orc = function (path) {
         var javaObject = this.getJavaObject().orc(path);
@@ -240,7 +240,7 @@
      *
      * @since EclairJS 0.1 Spark  1.4.0
      * @param {string} tableName
-     * @returns {DataFrame}
+     * @returns {module:eclairjs/sql.DataFrame}
      */
     DataFrameReader.prototype.table = function (tableName) {
         var javaObject = this.getJavaObject().table(tableName);
@@ -257,7 +257,7 @@
      *
      * @param {...string} paths  input path
      * @since EclairJS 0.1 Spark  1.6.0
-     * @returns {DataFrame}
+     * @returns {module:eclairjs/sql.DataFrame}
      */
     DataFrameReader.prototype.text = function (paths) {
         var javaObject = this.getJavaObject().text(paths);

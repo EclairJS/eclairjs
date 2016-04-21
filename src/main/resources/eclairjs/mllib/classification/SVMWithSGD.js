@@ -60,12 +60,12 @@
      *
      * NOTE: Labels used in SVM should be {0, 1}.
      *
-     * @param {RDD} input  RDD of (label, array of features) pairs.
+     * @param {module:eclairjs.RDD} input  RDD of (label, array of features) pairs.
      * @param {number} numIterations  Number of iterations of gradient descent to run.
      * @param {number} [stepSize]  Step size to be used for each iteration of gradient descent.
      * @param {number} [regParam]  Regularization parameter.
      * @param {number} [miniBatchFraction]  Fraction of data to be used per iteration.
-     * @param {Vector} [initialWeights]  Initial set of weights to be used. Array should be equal in size to
+     * @param {module:eclairjs/mllib/linalg.Vector} [initialWeights]  Initial set of weights to be used. Array should be equal in size to
      *        the number of features in the data.
      * @returns {SVMModel}
      */

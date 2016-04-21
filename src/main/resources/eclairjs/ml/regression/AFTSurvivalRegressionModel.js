@@ -45,7 +45,7 @@
 
     /**
      * @param {string} value
-     * @returns {AFTSurvivalRegressionModel}
+     * @returns {module:eclairjs/ml/regression.AFTSurvivalRegressionModel}
      */
     AFTSurvivalRegressionModel.prototype.setFeaturesCol = function (value) {
        var javaObject =  this.getJavaObject().setFeaturesCol(value);
@@ -55,7 +55,7 @@
 
     /**
      * @param {string} value
-     * @returns {AFTSurvivalRegressionModel}
+     * @returns {module:eclairjs/ml/regression.AFTSurvivalRegressionModel}
      */
     AFTSurvivalRegressionModel.prototype.setPredictionCol = function (value) {
        var javaObject =  this.getJavaObject().setPredictionCol(value);
@@ -65,7 +65,7 @@
 
     /**
      * @param {float[]} value
-     * @returns {AFTSurvivalRegressionModel}
+     * @returns {module:eclairjs/ml/regression.AFTSurvivalRegressionModel}
      */
     AFTSurvivalRegressionModel.prototype.setQuantileProbabilities = function (value) {
        var javaObject =  this.getJavaObject().setQuantileProbabilities(value);
@@ -75,7 +75,7 @@
 
     /**
      * @param {string} value
-     * @returns {AFTSurvivalRegressionModel}
+     * @returns {module:eclairjs/ml/regression.AFTSurvivalRegressionModel}
      */
     AFTSurvivalRegressionModel.prototype.setQuantilesCol = function (value) {
        var javaObject =  this.getJavaObject().setQuantilesCol(value);
@@ -84,8 +84,8 @@
 
 
     /**
-     * @param {Vector} features
-     * @returns {Vector}
+     * @param {module:eclairjs/mllib/linalg.Vector} features
+     * @returns {module:eclairjs/mllib/linalg.Vector}
      */
     AFTSurvivalRegressionModel.prototype.predictQuantiles = function (features) {
        var features_uw = Utils.unwrapObject(features);
@@ -95,7 +95,7 @@
 
 
     /**
-     * @param {Vector} features
+     * @param {module:eclairjs/mllib/linalg.Vector} features
      * @returns {float}
      */
     AFTSurvivalRegressionModel.prototype.predict = function (features) {
@@ -105,8 +105,8 @@
 
 
     /**
-     * @param {DataFrame} dataset
-     * @returns {DataFrame}
+     * @param {module:eclairjs/sql.DataFrame} dataset
+     * @returns {module:eclairjs/sql.DataFrame}
      */
     AFTSurvivalRegressionModel.prototype.transform = function (dataset) {
        var dataset_uw = Utils.unwrapObject(dataset);
@@ -116,8 +116,8 @@
 
 
     /**
-     * @param {StructType} schema
-     * @returns {StructType}
+     * @param {module:eclairjs/sql/types.StructType} schema
+     * @returns {module:eclairjs/sql/types.StructType}
      */
     AFTSurvivalRegressionModel.prototype.transformSchema = function (schema) {
        var schema_uw = Utils.unwrapObject(schema);
@@ -127,8 +127,8 @@
 
 
     /**
-     * @param {ParamMap} extra
-     * @returns {AFTSurvivalRegressionModel}
+     * @param {module:eclairjs/ml/param.ParamMap} extra
+     * @returns {module:eclairjs/ml/regression.AFTSurvivalRegressionModel}
      */
     AFTSurvivalRegressionModel.prototype.copy = function (extra) {
        var extra_uw = Utils.unwrapObject(extra);
@@ -155,7 +155,7 @@
 
     /**
      *
-     * @returns {Vector}
+     * @returns {module:eclairjs/mllib/linalg.Vector}
      */
     AFTSurvivalRegressionModel.prototype.coefficients = function () {
         var javaObject = this.getJavaObject().coefficients();
@@ -182,7 +182,7 @@
     /**
      * Param for censor column name. The value of this column could be 0 or 1.
      * If the value is 1, it means the event has occurred i.e. uncensored; otherwise censored.
-     * @returns {Param}
+     * @returns {module:eclairjs/ml/param.Param}
      */
     AFTSurvivalRegressionModel.prototype.censorCol = function () {
         var javaObject =  this.getJavaObject().censorCol();
@@ -214,7 +214,7 @@
 
     /**
      * Param for quantiles column name. This column will output quantiles of corresponding quantileProbabilities if it is set.
-     * @returns {Param}
+     * @returns {module:eclairjs/ml/param.Param}
      */
     AFTSurvivalRegressionModel.prototype.quantilesCol = function () {
         var javaObject = this.getJavaObject().quantilesCol();
@@ -238,9 +238,9 @@
 
     /**
      * Validates and transforms the input schema with the provided param map.
-     * @param {StructType} schema  input schema
+     * @param {module:eclairjs/sql/types.StructType} schema  input schema
      * @param {boolean} fitting whether this is in fitting or prediction
-     * @returns {StructType}
+     * @returns {module:eclairjs/sql/types.StructType}
      */
     AFTSurvivalRegressionModel.prototype.validateAndTransformSchema = function (schema, fitting) {
         var schema_uw = Utils.unwrapObject(schema);
@@ -264,7 +264,7 @@
 
     /**
      * @param {string} path
-     * @returns {AFTSurvivalRegressionModel}
+     * @returns {module:eclairjs/ml/regression.AFTSurvivalRegressionModel}
      */
     AFTSurvivalRegressionModel.load = function (path) {
        var javaObject =  org.apache.spark.ml.regression.AFTSurvivalRegressionModel.load(path);

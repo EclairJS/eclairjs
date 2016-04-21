@@ -54,7 +54,7 @@
 
     /**
      * @param {string} value
-     * @returns {AFTSurvivalRegression}
+     * @returns {module:eclairjs/ml/regression.AFTSurvivalRegression}
      */
     AFTSurvivalRegression.prototype.setFeaturesCol = function (value) {
         var javaObject = this.getJavaObject().setFeaturesCol(value);
@@ -64,7 +64,7 @@
 
     /**
      * @param {string} value
-     * @returns {AFTSurvivalRegression}
+     * @returns {module:eclairjs/ml/regression.AFTSurvivalRegression}
      */
     AFTSurvivalRegression.prototype.setLabelCol = function (value) {
         var javaObject = this.getJavaObject().setLabelCol(value);
@@ -74,7 +74,7 @@
 
     /**
      * @param {string} value
-     * @returns {AFTSurvivalRegression}
+     * @returns {module:eclairjs/ml/regression.AFTSurvivalRegression}
      */
     AFTSurvivalRegression.prototype.setCensorCol = function (value) {
         var javaObject = this.getJavaObject().setCensorCol(value);
@@ -84,7 +84,7 @@
 
     /**
      * @param {string} value
-     * @returns {AFTSurvivalRegression}
+     * @returns {module:eclairjs/ml/regression.AFTSurvivalRegression}
      */
     AFTSurvivalRegression.prototype.setPredictionCol = function (value) {
        var javaObject =  this.getJavaObject().setPredictionCol(value);
@@ -94,7 +94,7 @@
 
     /**
      * @param {float[]} value
-     * @returns {AFTSurvivalRegression}
+     * @returns {module:eclairjs/ml/regression.AFTSurvivalRegression}
      */
     AFTSurvivalRegression.prototype.setQuantileProbabilities = function (value) {
        var javaObject =  this.getJavaObject().setQuantileProbabilities(value);
@@ -104,7 +104,7 @@
 
     /**
      * @param {string} value
-     * @returns {AFTSurvivalRegression}
+     * @returns {module:eclairjs/ml/regression.AFTSurvivalRegression}
      */
     AFTSurvivalRegression.prototype.setQuantilesCol = function (value) {
        var javaObject =  this.getJavaObject().setQuantilesCol(value);
@@ -116,7 +116,7 @@
      * Set if we should fit the intercept
      * Default is true.
      * @param {boolean} value
-     * @returns {AFTSurvivalRegression}
+     * @returns {module:eclairjs/ml/regression.AFTSurvivalRegression}
      */
     AFTSurvivalRegression.prototype.setFitIntercept = function (value) {
        var javaObject =  this.getJavaObject().setFitIntercept(value);
@@ -128,7 +128,7 @@
      * Set the maximum number of iterations.
      * Default is 100.
      * @param {integer} value
-     * @returns {AFTSurvivalRegression}
+     * @returns {module:eclairjs/ml/regression.AFTSurvivalRegression}
      */
     AFTSurvivalRegression.prototype.setMaxIter = function (value) {
        var javaObject =  this.getJavaObject().setMaxIter(value);
@@ -141,7 +141,7 @@
      * Smaller value will lead to higher accuracy with the cost of more iterations.
      * Default is 1E-6.
      * @param {float} value
-     * @returns {AFTSurvivalRegression}
+     * @returns {module:eclairjs/ml/regression.AFTSurvivalRegression}
      */
     AFTSurvivalRegression.prototype.setTol = function (value) {
        var javaObject =  this.getJavaObject().setTol(value);
@@ -150,8 +150,8 @@
 
 
     /**
-     * @param {DataFrame} dataset
-     * @returns {AFTSurvivalRegressionModel}
+     * @param {module:eclairjs/sql.DataFrame} dataset
+     * @returns {module:eclairjs/ml/regression.AFTSurvivalRegressionModel}
      */
     AFTSurvivalRegression.prototype.fit = function (dataset) {
        var dataset_uw = Utils.unwrapObject(dataset);
@@ -161,8 +161,8 @@
 
 
     /**
-     * @param {StructType} schema
-     * @returns {StructType}
+     * @param {module:eclairjs/sql/types.StructType} schema
+     * @returns {module:eclairjs/sql/types.StructType}
      */
     AFTSurvivalRegression.prototype.transformSchema = function (schema) {
        var schema_uw = Utils.unwrapObject(schema);
@@ -172,8 +172,8 @@
 
 
     /**
-     * @param {ParamMap} extra
-     * @returns {AFTSurvivalRegression}
+     * @param {module:eclairjs/ml/param.ParamMap} extra
+     * @returns {module:eclairjs/ml/regression.AFTSurvivalRegression}
      */
     AFTSurvivalRegression.prototype.copy = function (extra) {
        var extra_uw = Utils.unwrapObject(extra);
@@ -193,7 +193,7 @@
     /**
      * Param for censor column name. The value of this column could be 0 or 1.
      * If the value is 1, it means the event has occurred i.e. uncensored; otherwise censored.
-     * @returns {Param}
+     * @returns {module:eclairjs/ml/param.Param}
      */
     AFTSurvivalRegression.prototype.censorCol = function () {
         var javaObject =  this.getJavaObject().censorCol();
@@ -209,7 +209,7 @@
 
     /**
      * Param for quantile probabilities array. Values of the quantile probabilities array should be in the range (0, 1) and the array should be non-empty.
-     * @returns {DoubleArrayParam}
+     * @returns {module:eclairjs/ml/param.DoubleArrayParam}
      */
     AFTSurvivalRegression.prototype.quantileProbabilities = function () {
         var javaObject =  this.getJavaObject().quantileProbabilities();
@@ -225,7 +225,7 @@
 
     /**
      * Param for quantiles column name. This column will output quantiles of corresponding quantileProbabilities if it is set.
-     * @returns {Param}
+     * @returns {module:eclairjs/ml/param.Param}
      */
     AFTSurvivalRegression.prototype.quantilesCol = function () {
         var javaObject = this.getJavaObject().quantilesCol();
@@ -249,9 +249,9 @@
 
     /**
      * Validates and transforms the input schema with the provided param map.
-     * @param {StructType} schema  input schema
+     * @param {module:eclairjs/sql/types.StructType} schema  input schema
      * @param {boolean} fitting whether this is in fitting or prediction
-     * @returns {StructType}
+     * @returns {module:eclairjs/sql/types.StructType}
      */
     AFTSurvivalRegression.prototype.validateAndTransformSchema = function (schema, fitting) {
         var schema_uw = Utils.unwrapObject(schema);
@@ -265,7 +265,7 @@
 
     /**
      * @param {string} path
-     * @returns {AFTSurvivalRegression}
+     * @returns {module:eclairjs/ml/regression.AFTSurvivalRegression}
      */
     AFTSurvivalRegression.load = function (path) {
         var javaObject =  this.getJavaObject().load(path);

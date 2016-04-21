@@ -54,7 +54,7 @@
     /**
      * Method to train a decision tree model for regression.
      *
-     * @param {RDD} input Training dataset: RDD of [[org.apache.spark.mllib.regression.LabeledPoint]].
+     * @param {module:eclairjs.RDD} input Training dataset: RDD of [[org.apache.spark.mllib.regression.LabeledPoint]].
      *              Labels are real numbers.
      * @param {Object} categoricalFeaturesInfo Map storing arity of categorical features.
      *                                E.g., an entry (n -> k) indicates that feature n is categorical
@@ -102,7 +102,7 @@
     /**
      * Method to train a decision tree model for binary or multiclass classification.
      *
-     * @param {RDD} input Training dataset: RDD of [[org.apache.spark.mllib.regression.LabeledPoint]].
+     * @param {module:eclairjs.RDD} input Training dataset: RDD of [[org.apache.spark.mllib.regression.LabeledPoint]].
      *              Labels should take values {0, 1, ..., numClasses-1}.
      * @param {Int} numClasses number of classes for classification.
      * @param {Object} categoricalFeaturesInfo Map storing arity of categorical features.

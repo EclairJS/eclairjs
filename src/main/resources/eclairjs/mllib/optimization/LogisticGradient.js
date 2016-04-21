@@ -97,10 +97,10 @@
 
     /**
      * Compute the gradient and loss given the features of a single data point.
-     * @param {Vector} data
+     * @param {module:eclairjs/mllib/linalg.Vector} data
      * @param {float} label
-     * @param {Vector} weights
-     * @param {Vector} [cumGradient] add the gradient to a provided vector to avoid creating new objects, and return loss.
+     * @param {module:eclairjs/mllib/linalg.Vector} weights
+     * @param {module:eclairjs/mllib/linalg.Vector} [cumGradient] add the gradient to a provided vector to avoid creating new objects, and return loss.
      * @returns {float} loss
      */
     LogisticGradient.prototype.compute = function (data,label,weights, cumGradient) {

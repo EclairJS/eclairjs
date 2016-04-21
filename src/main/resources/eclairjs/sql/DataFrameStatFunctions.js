@@ -112,7 +112,7 @@
      *
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @returns {DataFrame}  A DataFrame containing for the contingency table.
+     * @returns {module:eclairjs/sql.DataFrame}  A DataFrame containing for the contingency table.
      */
     DataFrameStatFunctions.prototype.crosstab = function (col1, col2) {
         var javaObject = this.getJavaObject().crosstab(col1, col2);
@@ -147,7 +147,7 @@
      *
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @returns {DataFrame}  A Local DataFrame with the Array of frequent items for each column.
+     * @returns {module:eclairjs/sql.DataFrame}  A Local DataFrame with the Array of frequent items for each column.
      */
     DataFrameStatFunctions.prototype.freqItems = function (cols, support) {
         var javaObject;
@@ -182,7 +182,7 @@
  *  
  *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @returns {DataFrame}  a new [[DataFrame]] that represents the stratified sample
+     * @returns {module:eclairjs/sql.DataFrame}  a new [[DataFrame]] that represents the stratified sample
      */
     DataFrameStatFunctions.prototype.sampleBy = function (col, fractions, seed) {
         var fractions_uw = Utils.createJavaHashMap(fractions);

@@ -28,7 +28,7 @@
      * @memberof module:eclairjs/mllib/classification
      * @classdesc
      *
-     * @param {Vector} weights Weights computed for every feature.
+     * @param {module:eclairjs/mllib/linalg.Vector} weights Weights computed for every feature.
      * @param {float} intercept Intercept computed for this model. (Only used in Binary Logistic Regression.
      * In Multinomial Logistic Regression, the intercepts will not be a single value,
      * so the intercepts will be part of the weights.)
@@ -92,7 +92,7 @@
     /**
      * Clears the threshold so that `predict` will output raw prediction scores.
      * It is only used for binary classification.
-     * @returns {LogisticRegressionModel}
+     * @returns {module:eclairjs/mllib/classification.LogisticRegressionModel}
      */
     LogisticRegressionModel.prototype.clearThreshold = function () {
        var javaObject =  this.getJavaObject().clearThreshold();
@@ -101,7 +101,7 @@
 
 
     /**
-     * @param {SparkContext} sc
+     * @param {module:eclairjs.SparkContext} sc
      * @param {string} path
      */
     LogisticRegressionModel.prototype.save = function (sc, path) {
@@ -119,7 +119,7 @@
     };
     */
     /**
-     * @returns {Vector}
+     * @returns {module:eclairjs/mllib/linalg.Vector}
      */
     LogisticRegressionModel.prototype.weights = function () {
        return  Serialize.javaToJs(this.getJavaObject().weights());
@@ -131,9 +131,9 @@
     //
 
     /**
-     * @param {SparkContext} sc
+     * @param {module:eclairjs.SparkContext} sc
      * @param {string} path
-     * @returns {LogisticRegressionModel}
+     * @returns {module:eclairjs/mllib/classification.LogisticRegressionModel}
      */
     LogisticRegressionModel.load = function (sc, path) {
        var sc_uw = Utils.unwrapObject(sc);

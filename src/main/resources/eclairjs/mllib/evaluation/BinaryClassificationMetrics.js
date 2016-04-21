@@ -42,7 +42,7 @@
      */
 
     /**
-     * @param {RDD} scoreAndLabels
+     * @param {module:eclairjs.RDD} scoreAndLabels
      * @param {number} numBins
      * @class
      * @memberof module:eclairjs/mllib/evaluation
@@ -76,7 +76,7 @@
 
     /**
      * Returns thresholds in descending order.
-     * @returns {RDD} 
+     * @returns {module:eclairjs.RDD}
      */
     BinaryClassificationMetrics.prototype.thresholds = function() {
        var javaObject =  this.getJavaObject().thresholds().toJavaRDD();
@@ -89,7 +89,7 @@
      * which is an RDD of (false positive rate, true positive rate)
      * with (0.0, 0.0) prepended and (1.0, 1.0) appended to it.
      * @see http://en.wikipedia.org/wiki/Receiver_operating_characteristic
-     * @returns {RDD} 
+     * @returns {module:eclairjs.RDD}
      */
     BinaryClassificationMetrics.prototype.roc = function() {
     throw "not implemented by ElairJS";
@@ -111,7 +111,7 @@
      * Returns the precision-recall curve, which is an RDD of (recall, precision),
      * NOT (precision, recall), with (0.0, 1.0) prepended to it.
      * @see http://en.wikipedia.org/wiki/Precision_and_recall
-     * @returns {RDD} 
+     * @returns {module:eclairjs.RDD}
      */
     BinaryClassificationMetrics.prototype.pr = function() {
         return new RDD(this.getJavaObject().pr().toJavaRDD());
@@ -131,7 +131,7 @@
      * Returns the (threshold, F-Measure) curve.
      * @param {number} [beta]  the beta factor in F-Measure computation.
      * @see http://en.wikipedia.org/wiki/F1_score
-     * @returns {RDD}  an RDD of (threshold, F-Measure) pairs.
+     * @returns {module:eclairjs.RDD}  an RDD of (threshold, F-Measure) pairs.
      */
     BinaryClassificationMetrics.prototype.fMeasureByThreshold = function(beta) {
         if(beta) {
@@ -144,7 +144,7 @@
 
     /**
      * Returns the (threshold, precision) curve.
-     * @returns {RDD} 
+     * @returns {module:eclairjs.RDD}
      */
     BinaryClassificationMetrics.prototype.precisionByThreshold = function() {
         return new RDD(this.getJavaObject().precisionByThreshold().toJavaRDD());
@@ -153,7 +153,7 @@
 
     /**
      * Returns the (threshold, recall) curve.
-     * @returns {RDD} 
+     * @returns {module:eclairjs.RDD}
      */
     BinaryClassificationMetrics.prototype.recallByThreshold = function() {
         return new RDD(this.getJavaObject().recallByThreshold().toJavaRDD());

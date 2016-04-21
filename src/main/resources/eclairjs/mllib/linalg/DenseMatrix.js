@@ -224,7 +224,7 @@
 
     /**
      * Generate a diagonal matrix in `DenseMatrix` format from the supplied values.
-     * @param {Vector} vector  a `Vector` that will form the values on the diagonal of the matrix
+     * @param {module:eclairjs/mllib/linalg.Vector} vector  a `Vector` that will form the values on the diagonal of the matrix
      *         on the diagonal
      * @returns {DenseMatrix}  Square `DenseMatrix` with size `values.length` x `values.length` and `values`
      */

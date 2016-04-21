@@ -36,7 +36,7 @@
 
     /**
      * Returns a new vector with 1.0 (bias) appended to the input vector.
-     * @param {Vector} vector
+     * @param {module:eclairjs/mllib/linalg.Vector} vector
      */
     MLUtils.appendBias = function (vector) {
         return new Utils.javaToJs(org.apache.spark.mllib.util.MLUtils.appendBias(Utils.unwrapObject(vector)));

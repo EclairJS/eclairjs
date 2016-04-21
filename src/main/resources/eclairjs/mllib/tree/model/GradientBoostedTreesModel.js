@@ -58,7 +58,7 @@
 
 
     /**
-     * @param {SparkContext} sc   Spark context used to save model data.
+     * @param {module:eclairjs.SparkContext} sc   Spark context used to save model data.
      * @param {string} path   Path specifying the directory in which to save this model.
      *              If the directory already exists, this method throws an exception.
      */
@@ -70,7 +70,7 @@
 
     /**
      * Method to compute error or loss for every iteration of gradient boosting.
-     * @param {RDD} data  RDD of {@link LabeledPoint}
+     * @param {module:eclairjs.RDD} data  RDD of {@link LabeledPoint}
      * @param {Loss} loss  evaluation metric.
      *         containing the first i+1 trees
      * @returns {number[]}  an array with index i having the losses or errors for the ensemble
@@ -108,7 +108,7 @@
 //
 
     /**
-     * @param {SparkContext} sc   Spark context used for loading model files.
+     * @param {module:eclairjs.SparkContext} sc   Spark context used for loading model files.
      * @param {string} path   Path specifying the directory to which the model was saved.
      * @returns {GradientBoostedTreesModel}   Model instance
      */

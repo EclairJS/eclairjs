@@ -65,7 +65,7 @@
      * distributions over topics ("theta").
      *
      * This is the parameter to a Dirichlet distribution.
-     * @returns {Vector}
+     * @returns {module:eclairjs/mllib/linalg.Vector}
      */
     LDAModel.prototype.docConcentration = function () {
         throw "not implemented by ElairJS";

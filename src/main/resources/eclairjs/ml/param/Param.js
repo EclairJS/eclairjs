@@ -64,7 +64,7 @@
     /**
      * Creates a param pair with the given value
      * @param {object} value
-     * @returns {ParamPair}
+     * @returns {module:eclairjs/ml/param.ParamPair}
      */
     Param.prototype.w = function(value) {
         return Utils.javaToJs(this.getJavaObject().w(Utils.unwrapObject(value)));
@@ -103,7 +103,7 @@
     }
 
     /**
-     * @param {Param} obj
+     * @param {module:eclairjs/ml/param.Param} obj
      * @returns {boolean}
      */
     Param.prototype.equals = function(obj) {

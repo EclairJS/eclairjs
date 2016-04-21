@@ -85,7 +85,7 @@
 
 
     /**
-     * @param {SparkContext} sc
+     * @param {module:eclairjs.SparkContext} sc
      * @param {string} path
      */
     LocalLDAModel.prototype.save = function (sc, path) {
@@ -100,7 +100,7 @@
      *
      * See Equation (16) in original Online LDA paper.
      *
-     * @param {RDD} documents  test corpus to use for calculating log likelihood
+     * @param {module:eclairjs.RDD} documents  test corpus to use for calculating log likelihood
      * @returns {number}  variational lower bound on the log likelihood of the entire corpus
      */
     LocalLDAModel.prototype.logLikelihoodwithRDD = function (documents) {
@@ -127,7 +127,7 @@
      * Calculate an upper bound bound on perplexity.  (Lower is better.)
      * See Equation (16) in original Online LDA paper.
      *
-     * @param {RDD} documents  test corpus to use for calculating perplexity
+     * @param {module:eclairjs.RDD} documents  test corpus to use for calculating perplexity
      * @returns {number}  Variational upper bound on log perplexity per token.
      */
     LocalLDAModel.prototype.logPerplexitywithRDD = function (documents) {
@@ -156,8 +156,8 @@
      * This uses a variational approximation following Hoffman et al. (2010), where the approximate
      * distribution is called "gamma."  Technically, this method returns this approximation "gamma"
      * for each document.
-     * @param {RDD} documents  documents to predict topic mixture distributions for
-     * @returns {RDD}  An RDD of (document ID, topic mixture distribution for document)
+     * @param {module:eclairjs.RDD} documents  documents to predict topic mixture distributions for
+     * @returns {module:eclairjs.RDD}  An RDD of (document ID, topic mixture distribution for document)
      */
     LocalLDAModel.prototype.topicDistributionswithRDD = function (documents) {
         throw "not implemented by ElairJS";
@@ -187,7 +187,7 @@
 
 
     /**
-     * @param {SparkContext} sc
+     * @param {module:eclairjs.SparkContext} sc
      * @param {string} path
      * @returns {LocalLDAModel}
      */

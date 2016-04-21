@@ -24,7 +24,7 @@
      * :: Experimental ::
      * A param and its value.
      * @classdesc
-     * @param {Param} param
+     * @param {module:eclairjs/ml/param.Param} param
      * @param {object} value
      *  @class
      *  @memberof module:eclairjs/ml/param

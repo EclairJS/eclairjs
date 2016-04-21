@@ -50,8 +50,8 @@
      * Compute an updated value for weights given the gradient, stepSize, iteration number and regularization parameter.
      * Also returns the regularization value regParam * R(w) computed using the *updated* weights.
      * @abstract
-     * @param {Vector} weightsOld - - Column matrix of size dx1 where d is the number of features.
-     * @param {Vector} gradient - - Column matrix of size dx1 where d is the number of features.
+     * @param {module:eclairjs/mllib/linalg.Vector} weightsOld - - Column matrix of size dx1 where d is the number of features.
+     * @param {module:eclairjs/mllib/linalg.Vector} gradient - - Column matrix of size dx1 where d is the number of features.
      * @param {float} stepSize - - step size across iterations
      * @param {integer} iter - - Iteration number
      * @param {float} regParam - - Regularization parameter

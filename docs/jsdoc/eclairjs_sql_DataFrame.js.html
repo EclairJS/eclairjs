@@ -85,7 +85,7 @@
 	 * df.agg(map)
 	 * df.groupBy().agg(map)
 	 * @param {hashMap} - hashMap&lt;String,String> exprs
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.agg = function (hashMap) {
 
@@ -95,7 +95,7 @@
 	/**
 	 * Returns a new DataFrame with an alias set.
 	 * @param {string} alias
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.as = function (alias) {
 		return Utils.javaToJs(this.getJavaObject().as(alias));
@@ -111,7 +111,7 @@
 	};
 	/**
 	 * Persist this DataFrame with the default storage level (`MEMORY_ONLY`).
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.cache = function () {
 		return Utils.javaToJs(this.getJavaObject().cache());
@@ -122,7 +122,7 @@
 	 * e.g. if you go from 1000 partitions to 100 partitions, there will not be a shuffle,
 	 * instead each of the 100 new partitions will claim 10 of the current partitions.
 	 * @param {integer} numPartitions
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.coalesce = function (numPartitions) {
 		return Utils.javaToJs(this.getJavaObject().coalesce());
@@ -196,7 +196,7 @@
 	 * @param {string} cols....
 	 * @example
 	 * var df = peopleDataFrame.describe("age", "expense");
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.describe = function () {
 		var args = Array.prototype.slice.call(arguments);
@@ -211,7 +211,7 @@
 	/**
 	 * Returns a new DataFrame with a column dropped.
 	 * @param {string | Column} col
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.drop = function (col) {
 		return new DataFrame(this.getJavaObject().drop(Utils.unwrapObject(col)));
@@ -219,7 +219,7 @@
 	/**
 	 * Returns a new DataFrame that contains only the unique rows from this DataFrame, if colNames then considering only the subset of columns.
 	 * @param {string[]} colNames
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.dropDuplicates = function (colNames) {
 		if (!colNames) {
@@ -246,8 +246,8 @@
 	};
 	/**
 	 * Returns a new DataFrame containing rows in this frame but not in another frame. This is equivalent to EXCEPT in SQL.
-	 * @param {DataFrame} otherDataFrame to compare to this DataFrame
-	 * @returns {DataFrame}
+	 * @param {module:eclairjs/sql.DataFrame} otherDataFrame to compare to this DataFrame
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.except = function (otherDataFrame) {
 		return Utils.javaToJs(this.getJavaObject().except(Utils.unwrapObject(otherDataFrame)));
@@ -263,7 +263,7 @@
 	/**
 	 * Filters rows using the given SQL expression string or Filters rows using the given Column..
 	 * @param {string | Column}
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.filter = function (arg) {
 		if (typeof arg === 'object')
@@ -274,7 +274,7 @@
 	/**
 	 * Filters rows using the given Column
 	 * @param {Column} col
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 * @private
 	 */
 	DataFrame.prototype.filterWithColumn = function (col) {
@@ -283,7 +283,7 @@
 	/**
 	 * Filters rows using the given SQL expression string
 	 * @param {string} columnExpr
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 * @private
 	 */
 	DataFrame.prototype.filterWithString = function (columnExpr) {
@@ -300,7 +300,7 @@
 	 * Returns a new RDD by first applying a function to all rows of this DataFrame, and then flattening the results.
 	 * @param {function} func
 	 * @param {Object[]} [bindArgs] array whose values will be added to func's argument list.
-	 * @returns {RDD}
+	 * @returns {module:eclairjs.RDD}
 	 */
 	DataFrame.prototype.flatMap = function (func, bindArgs) {
 		return this.toRDD().flatMap(func, bindArgs);
@@ -406,8 +406,8 @@
 	};
 	/**
 	 * Returns a new DataFrame containing rows only in both this frame and another frame. This is equivalent to INTERSECT in SQL
-	 * @param {DataFrame} other
-	 * @returns {DataFrame}
+	 * @param {module:eclairjs/sql.DataFrame} other
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.intersect = function (other) {
 		return Utils.javaToJs(this.getJavaObject().intersect(Utils.unwrapObject(other)));
@@ -421,12 +421,12 @@
 	};
 	/**
 	 * Cartesian join with another DataFrame. Note that cartesian joins are very expensive without an extra filter that can be pushed down.
-	 * @param {DataFrame} Right side of the join operation.
+	 * @param {module:eclairjs/sql.DataFrame} Right side of the join operation.
 	 * @param {string | string[] | Column} [columnNamesOrJoinExpr] If string or array of strings column names, inner equi-join with another DataFrame using the given columns.
 	 * Different from other join functions, the join columns will only appear once in the output, i.e. similar to SQL's JOIN USING syntax.
 	 * If Column object, joinExprs inner join with another DataFrame, using the given join expression.
 	 * @param {string} [joinType] only valid if using Column joinExprs.
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 * @example
 	 * var joinedDf = df1.join(df2);
 	 * // or
@@ -461,7 +461,7 @@
 	 * Returns a new DataFrame by taking the first n rows. The difference between this function and head is that head
 	 * returns an array while limit returns a new DataFrame.
 	 * @param {integer} number
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.limit = function (number) {
 
@@ -471,7 +471,7 @@
 	 * Returns a new RDD by applying a function to all rows of this DataFrame.
 	 * @param {function} func
 	 * @param {Object[]} [bindArgs] array whose values will be added to func's argument list.
-	 * @returns {RDD}
+	 * @returns {module:eclairjs.RDD}
 	 */
 	DataFrame.prototype.map = function (func, bindArgs) {
 		return this.toRDD().map(func, bindArgs);
@@ -482,7 +482,7 @@
 	 * func should return a array rather than a single item.
 	 * @param {function}
 	 * @param {Object[]} [bindArgs] array whose values will be added to func's argument list.
-	 * @returns {RDD}
+	 * @returns {module:eclairjs.RDD}
 	 */
 	DataFrame.prototype.mapPartitions = function (func, bindArgs) {
 		return this.toRDD().mapPartitions(func, bindArgs);
@@ -499,14 +499,14 @@
 	 * Returns a new DataFrame sorted by the specified columns, if columnName is used sorted in ascending order.
 	 * This is an alias of the sort function.
 	 * @param {string | Column} columnName,...columnName or sortExprs,... sortExprs
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.orderBy = function () {
 		return this.sort.apply(this, arguments);
 	};
 	/**
 	 * @param {StorageLevel} newLevel
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.persist = function (newLevel) {
 		var arg = newLevel ? Utils.unwrapObject(newLevel) : null;
@@ -540,7 +540,7 @@
 	};
 	/**
 	 * Represents the content of the DataFrame as an RDD of Rows.
-	 * @returns {RDD}
+	 * @returns {module:eclairjs.RDD}
 	 */
 	DataFrame.prototype.rdd = function () {
 		return this.toRDD();
@@ -555,7 +555,7 @@
 	/**
 	 * Returns a new DataFrame that has exactly numPartitions partitions.
 	 * @param {integer} numPartitions
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.repartition = function (numPartitions) {
 		return Utils.javaToJs(this.getJavaObject().repartition(numPartitions));
@@ -589,14 +589,14 @@
 	 * @param {boolean} withReplacement
 	 * @param {float} fraction
 	 * @param {integer} [seed]
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.sample = function (withReplacement, fraction, seed) {
 		return Utils.javaToJs(this.getJavaObject().sample(withReplacement, fraction, seed));
 	};
 	/**
 	 * Returns the schema of this DataFrame.
-	 * @returns {StructType}
+	 * @returns {module:eclairjs/sql/types.StructType}
 	 */
 	DataFrame.prototype.schema = function () {
 		return Utils.javaToJs(this.getJavaObject().schema());
@@ -604,7 +604,7 @@
 	/**
 	 * Selects a set of column based expressions.
 	 * @param {Column[] | string[]}
-	 * @returns  {DataFrame}
+	 * @returns  {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.select = function () {
 		var args = Array.prototype.slice.call(arguments);
@@ -617,7 +617,7 @@
 	/**
 	 * Selects a set of SQL expressions. This is a variant of select that accepts SQL expressions.
 	 * @param {string} exprs,...exprs
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 * @example
 	 * var result = peopleDataFrame.selectExpr("name", "age > 19");
 	 */
@@ -629,7 +629,7 @@
 	/**
 	 * Selects a set of column based expressions.
 	 * @param {Column[]}
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 * @private
 	 */
 	DataFrame.prototype.selectWithColumns = function (args) {
@@ -643,7 +643,7 @@
 	/**
 	 * Selects a set of column based expressions.
 	 * @param {string[]}
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 * @private
 	 */
 	DataFrame.prototype.selectWithStrings = function (args) {
@@ -668,7 +668,7 @@
 	/**
 	 * Returns a new DataFrame sorted by the specified columns, if columnName is used sorted in ascending order.
 	 * @param {string | Column} columnName,...columnName or sortExprs,... sortExprs
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 * @example
 	 *  var result = peopleDataFrame.sort("age", "name");
 	 *  // or
@@ -723,7 +723,7 @@
 	 * Returns a new DataFrame with columns renamed. This can be quite convenient in conversion from a
 	 * RDD of tuples into a DataFrame with meaningful names. For example:
 	 * @param {string} colNames,...colNames
-	 * @return {DataFrame}
+	 * @return {module:eclairjs/sql.DataFrame}
 	 * @example
 	 * var result = nameAgeDF.toDF("newName", "newAge");
 	 */
@@ -733,22 +733,22 @@
 	};
 	/**
 	 * Returns the content of the DataFrame as a RDD of JSON strings.
-	 * @returns {RDD}
+	 * @returns {module:eclairjs.RDD}
 	 */
 	DataFrame.prototype.toJSON = function () {
 		return Utils.javaToJs(this.getJavaObject().toJSON());
 	};
 	/**
 	 * Represents the content of the DataFrame as an RDD of Rows.
-	 * @returns {RDD}
+	 * @returns {module:eclairjs.RDD}
 	 */
 	DataFrame.prototype.toRDD = function () {
 		return Utils.javaToJs(this.getJavaObject().javaRDD());
 	};
 	/**
 	 * Returns a new DataFrame containing union of rows in this frame and another frame. This is equivalent to UNION ALL in SQL.
-	 * @param {DataFrame} other
-	 * @returns {DataFrame}
+	 * @param {module:eclairjs/sql.DataFrame} other
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.unionAll = function (other) {
 		return Utils.javaToJs(this.getJavaObject().unionAll(Utils.unwrapObject(other)));
@@ -762,7 +762,7 @@
 	/**
 	 * Filters rows using the given Column or SQL expression.
 	 * @param {Column | string} condition - .
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.where = function (condition) {
 		return this.filter(condition);
@@ -771,7 +771,7 @@
 	 * Returns a new DataFrame by adding a column or replacing the existing column that has the same name.
 	 * @param {string} name
 	 * @param {Column} col
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 * @example
 	 *  var col = peopleDataFrame.col("age");
 	 *  var df1 = peopleDataFrame.withColumn("newCol", col);
@@ -783,7 +783,7 @@
 	 * Returns a new DataFrame with a column renamed. This is a no-op if schema doesn't contain existingName.
 	 * @param {string} existingName
 	 * @param {string} newName
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.withColumnRenamed = function (existingName, newName) {
 		return Utils.javaToJs(this.getJavaObject().withColumnRenamed(existingName, newName));
@@ -809,13 +809,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-eclairjs.html">eclairjs</a></li><li><a href="module-eclairjs_ml_evaluation.html">eclairjs/ml/evaluation</a></li><li><a href="module-eclairjs_ml_feature.html">eclairjs/ml/feature</a></li><li><a href="module-eclairjs_ml_param.html">eclairjs/ml/param</a></li><li><a href="module-eclairjs_ml_recommendation.html">eclairjs/ml/recommendation</a></li><li><a href="module-eclairjs_ml_regression.html">eclairjs/ml/regression</a></li><li><a href="module-eclairjs_mllib.html">eclairjs/mllib</a></li><li><a href="module-eclairjs_mllib_classification.html">eclairjs/mllib/classification</a></li><li><a href="module-eclairjs_mllib_clustering.html">eclairjs/mllib/clustering</a></li><li><a href="module-eclairjs_mllib_evaluation.html">eclairjs/mllib/evaluation</a></li><li><a href="module-eclairjs_mllib_feature.html">eclairjs/mllib/feature</a></li><li><a href="module-eclairjs_mllib_fpm.html">eclairjs/mllib/fpm</a></li><li><a href="module-eclairjs_mllib_linalg.html">eclairjs/mllib/linalg</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.html">eclairjs/mllib/linalg/distributed</a></li><li><a href="module-eclairjs_mllib_optimization.html">eclairjs/mllib/optimization</a></li><li><a href="module-eclairjs_mllib_random.html">eclairjs/mllib/random</a></li><li><a href="module-eclairjs_mllib_recommendation.html">eclairjs/mllib/recommendation</a></li><li><a href="module-eclairjs_mllib_regression.html">eclairjs/mllib/regression</a></li><li><a href="module-eclairjs_mllib_tree.html">eclairjs/mllib/tree</a></li><li><a href="module-eclairjs_mllib_tree_configuration.html">eclairjs/mllib/tree/configuration</a></li><li><a href="module-eclairjs_mllib_tree_loss.html">eclairjs/mllib/tree/loss</a></li><li><a href="module-eclairjs_mllib_tree_model.html">eclairjs/mllib/tree/model</a></li><li><a href="module-eclairjs_sql.html">eclairjs/sql</a></li><li><a href="module-eclairjs_sql_execution.html">eclairjs/sql/execution</a></li><li><a href="module-eclairjs_sql_types.html">eclairjs/sql/types</a></li><li><a href="module-eclairjs_storage.html">eclairjs/storage</a></li><li><a href="module-eclairjs_streaming.html">eclairjs/streaming</a></li><li><a href="module-eclairjs_streaming_dstream.html">eclairjs/streaming/dstream</a></li><li><a href="module-eclairjs_streaming_kafka.html">eclairjs/streaming/kafka</a></li><li><a href="module-eclairjs_streaming_twitter.html">eclairjs/streaming/twitter</a></li></ul><h3>Classes</h3><ul><li><a href="module-eclairjs.Accumulable.html">Accumulable</a></li><li><a href="module-eclairjs.AccumulableParam.html">AccumulableParam</a></li><li><a href="module-eclairjs.Accumulator.html">Accumulator</a></li><li><a href="module-eclairjs.FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="module-eclairjs.FloatRDD.html">FloatRDD</a></li><li><a href="module-eclairjs.FutureAction.html">FutureAction</a></li><li><a href="module-eclairjs.HashPartitioner.html">HashPartitioner</a></li><li><a href="module-eclairjs.IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="module-eclairjs.List.html">List</a></li><li><a href="module-eclairjs.Logger.html">Logger</a></li><li><a href="module-eclairjs.PairRDD.html">PairRDD</a></li><li><a href="module-eclairjs.Partitioner.html">Partitioner</a></li><li><a href="module-eclairjs.RangePartitioner.html">RangePartitioner</a></li><li><a href="module-eclairjs.RDD.html">RDD</a></li><li><a href="module-eclairjs.SparkConf.html">SparkConf</a></li><li><a href="module-eclairjs.SparkContext.html">SparkContext</a></li><li><a href="module-eclairjs.SparkFiles.html">SparkFiles</a></li><li><a href="module-eclairjs.SparkJobInfo.html">SparkJobInfo</a></li><li><a href="module-eclairjs.SparkStageInfo.html">SparkStageInfo</a></li><li><a href="module-eclairjs.SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="module-eclairjs.Tuple.html">Tuple</a></li><li><a href="module-eclairjs_ml_evaluation.RegressionEvaluator.html">RegressionEvaluator</a></li><li><a href="module-eclairjs_ml_feature.Word2Vec.html">Word2Vec</a></li><li><a href="module-eclairjs_ml_feature.Word2VecModel.html">Word2VecModel</a></li><li><a href="module-eclairjs_ml_param.Param.html">Param</a></li><li><a href="module-eclairjs_ml_param.ParamMap.html">ParamMap</a></li><li><a href="module-eclairjs_ml_param.ParamPair.html">ParamPair</a></li><li><a href="module-eclairjs_ml_recommendation.ALS.html">ALS</a></li><li><a href="module-eclairjs_ml_regression.AFTSurvivalRegression.html">AFTSurvivalRegression</a></li><li><a href="module-eclairjs_ml_regression.AFTSurvivalRegressionModel.html">AFTSurvivalRegressionModel</a></li><li><a href="module-eclairjs_mllib.MLUtils.html">MLUtils</a></li><li><a href="module-eclairjs_mllib_classification.ClassificationModel.html">ClassificationModel</a></li><li><a href="module-eclairjs_mllib_classification.LogisticRegressionModel.html">LogisticRegressionModel</a></li><li><a href="module-eclairjs_mllib_classification.LogisticRegressionWithLBFGS.html">LogisticRegressionWithLBFGS</a></li><li><a href="module-eclairjs_mllib_classification.LogisticRegressionWithSGD.html">LogisticRegressionWithSGD</a></li><li><a href="module-eclairjs_mllib_classification.NaiveBayes.html">NaiveBayes</a></li><li><a href="module-eclairjs_mllib_classification.NaiveBayesModel.html">NaiveBayesModel</a></li><li><a href="module-eclairjs_mllib_classification.SVMModel.html">SVMModel</a></li><li><a href="module-eclairjs_mllib_classification.SVMWithSGD.html">SVMWithSGD</a></li><li><a href="module-eclairjs_mllib_clustering.BisectingKMeans.html">BisectingKMeans</a></li><li><a href="module-eclairjs_mllib_clustering.BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="module-eclairjs_mllib_clustering.DistributedLDAModel.html">DistributedLDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.KMeans.html">KMeans</a></li><li><a href="module-eclairjs_mllib_clustering.KMeansModel.html">KMeansModel</a></li><li><a href="module-eclairjs_mllib_clustering.LDA.html">LDA</a></li><li><a href="module-eclairjs_mllib_clustering.LDAModel.html">LDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.LocalLDAModel.html">LocalLDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClustering.html">PowerIterationClustering</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClusteringAssignment.html">PowerIterationClusteringAssignment</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClusteringModel.html">PowerIterationClusteringModel</a></li><li><a href="module-eclairjs_mllib_evaluation.BinaryClassificationMetrics.html">BinaryClassificationMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.MulticlassMetrics.html">MulticlassMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.MultilabelMetrics.html">MultilabelMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.RankingMetrics.html">RankingMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.RegressionMetrics.html">RegressionMetrics</a></li><li><a href="module-eclairjs_mllib_feature.Word2Vec.html">Word2Vec</a></li><li><a href="module-eclairjs_mllib_feature.Word2VecModel.html">Word2VecModel</a></li><li><a href="module-eclairjs_mllib_fpm.AssociationRules.html">AssociationRules</a></li><li><a href="module-eclairjs_mllib_fpm.FPGrowth.html">FPGrowth</a></li><li><a href="module-eclairjs_mllib_fpm.FPGrowthModel.html">FPGrowthModel</a></li><li><a href="module-eclairjs_mllib_fpm.FreqItemset.html">FreqItemset</a></li><li><a href="module-eclairjs_mllib_fpm.PrefixSpan.html">PrefixSpan</a></li><li><a href="module-eclairjs_mllib_fpm.PrefixSpanFreqSequence.html">PrefixSpanFreqSequence</a></li><li><a href="module-eclairjs_mllib_fpm.PrefixSpanModel.html">PrefixSpanModel</a></li><li><a href="module-eclairjs_mllib_fpm.Rule.html">Rule</a></li><li><a href="module-eclairjs_mllib_linalg.DenseMatrix.html">DenseMatrix</a></li><li><a href="module-eclairjs_mllib_linalg.DenseVector.html">DenseVector</a></li><li><a href="module-eclairjs_mllib_linalg.Matrices.html">Matrices</a></li><li><a href="module-eclairjs_mllib_linalg.Matrix.html">Matrix</a></li><li><a href="module-eclairjs_mllib_linalg.QRDecomposition.html">QRDecomposition</a></li><li><a href="module-eclairjs_mllib_linalg.SingularValueDecomposition.html">SingularValueDecomposition</a></li><li><a href="module-eclairjs_mllib_linalg.SparseMatrix.html">SparseMatrix</a></li><li><a href="module-eclairjs_mllib_linalg.SparseVector.html">SparseVector</a></li><li><a href="module-eclairjs_mllib_linalg.Vector.html">Vector</a></li><li><a href="module-eclairjs_mllib_linalg.Vectors.html">Vectors</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.DistributedMatrix.html">DistributedMatrix</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.RowMatrix.html">RowMatrix</a></li><li><a href="module-eclairjs_mllib_optimization.Gradient.html">Gradient</a></li><li><a href="module-eclairjs_mllib_optimization.LBFGS.html">LBFGS</a></li><li><a href="module-eclairjs_mllib_optimization.LogisticGradient.html">LogisticGradient</a></li><li><a href="module-eclairjs_mllib_optimization.SquaredL2Updater.html">SquaredL2Updater</a></li><li><a href="module-eclairjs_mllib_optimization.Updater.html">Updater</a></li><li><a href="module-eclairjs_mllib_random.RandomRDDs.html">RandomRDDs</a></li><li><a href="module-eclairjs_mllib_recommendation.ALS.html">ALS</a></li><li><a href="module-eclairjs_mllib_recommendation.MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="module-eclairjs_mllib_recommendation.Rating.html">Rating</a></li><li><a href="module-eclairjs_mllib_regression.GeneralizedLinearModel.html">GeneralizedLinearModel</a></li><li><a href="module-eclairjs_mllib_regression.LabeledPoint.html">LabeledPoint</a></li><li><a href="module-eclairjs_mllib_regression.LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="module-eclairjs_mllib_regression.LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="module-eclairjs_mllib_tree.DecisionTree.html">DecisionTree</a></li><li><a href="module-eclairjs_mllib_tree.GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="module-eclairjs_mllib_tree.RandomForest.html">RandomForest</a></li><li><a href="module-eclairjs_mllib_tree_configuration.BoostingStrategy.html">BoostingStrategy</a></li><li><a href="module-eclairjs_mllib_tree_configuration.Strategy.html">Strategy</a></li><li><a href="module-eclairjs_mllib_tree_loss.Loss.html">Loss</a></li><li><a href="module-eclairjs_mllib_tree_model.DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="module-eclairjs_mllib_tree_model.GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="module-eclairjs_mllib_tree_model.RandomForestModel.html">RandomForestModel</a></li><li><a href="module-eclairjs_sql.Column.html">Column</a></li><li><a href="module-eclairjs_sql.DataFrame.html">DataFrame</a></li><li><a href="module-eclairjs_sql.DataFrameHolder.html">DataFrameHolder</a></li><li><a href="module-eclairjs_sql.DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="module-eclairjs_sql.DataFrameReader.html">DataFrameReader</a></li><li><a href="module-eclairjs_sql.DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="module-eclairjs_sql.DataFrameWriter.html">DataFrameWriter</a></li><li><a href="module-eclairjs_sql.functions.html">functions</a></li><li><a href="module-eclairjs_sql.GroupedData.html">GroupedData</a></li><li><a href="module-eclairjs_sql.Row.html">Row</a></li><li><a href="module-eclairjs_sql.RowFactory.html">RowFactory</a></li><li><a href="module-eclairjs_sql.SQLContext.html">SQLContext</a></li><li><a href="module-eclairjs_sql.SQLContext.QueryExecution.html">QueryExecution</a></li><li><a href="module-eclairjs_sql.SQLContext.SparkPlanner.html">SparkPlanner</a></li><li><a href="module-eclairjs_sql.SQLContext.SQLSession.html">SQLSession</a></li><li><a href="module-eclairjs_sql.SqlDate.html">SqlDate</a></li><li><a href="module-eclairjs_sql.SqlTimestamp.html">SqlTimestamp</a></li><li><a href="module-eclairjs_sql_execution.QueryExecution.html">QueryExecution</a></li><li><a href="module-eclairjs_sql_types.ArrayType.html">ArrayType</a></li><li><a href="module-eclairjs_sql_types.BinaryType.html">BinaryType</a></li><li><a href="module-eclairjs_sql_types.BooleanType.html">BooleanType</a></li><li><a href="module-eclairjs_sql_types.CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="module-eclairjs_sql_types.DataType.html">DataType</a></li><li><a href="module-eclairjs_sql_types.DataTypes.html">DataTypes</a></li><li><a href="module-eclairjs_sql_types.DateType.html">DateType</a></li><li><a href="module-eclairjs_sql_types.DoubleType.html">DoubleType</a></li><li><a href="module-eclairjs_sql_types.FloatType.html">FloatType</a></li><li><a href="module-eclairjs_sql_types.IntegerType.html">IntegerType</a></li><li><a href="module-eclairjs_sql_types.MapType.html">MapType</a></li><li><a href="module-eclairjs_sql_types.Metadata.html">Metadata</a></li><li><a href="module-eclairjs_sql_types.NullType.html">NullType</a></li><li><a href="module-eclairjs_sql_types.NumericType.html">NumericType</a></li><li><a href="module-eclairjs_sql_types.StringType.html">StringType</a></li><li><a href="module-eclairjs_sql_types.StructField.html">StructField</a></li><li><a href="module-eclairjs_sql_types.StructType.html">StructType</a></li><li><a href="module-eclairjs_sql_types.TimestampType.html">TimestampType</a></li><li><a href="module-eclairjs_storage.StorageLevel.html">StorageLevel</a></li><li><a href="module-eclairjs_streaming.Duration.html">Duration</a></li><li><a href="module-eclairjs_streaming.StreamingContext.html">StreamingContext</a></li><li><a href="module-eclairjs_streaming.Time.html">Time</a></li><li><a href="module-eclairjs_streaming_dstream.DStream.html">DStream</a></li><li><a href="module-eclairjs_streaming_dstream.PairDStream.html">PairDStream</a></li><li><a href="module-eclairjs_streaming_kafka.KafkaUtils.html">KafkaUtils</a></li><li><a href="module-eclairjs_streaming_twitter.TwitterAuthorization.html">TwitterAuthorization</a></li><li><a href="module-eclairjs_streaming_twitter.TwitterUtils.html">TwitterUtils</a></li><li><a href="PartialResult.html">PartialResult</a></li></ul><h3>Global</h3><ul><li><a href="global.html#module">module</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-eclairjs.html">eclairjs</a></li><li><a href="module-eclairjs_ml_evaluation.html">eclairjs/ml/evaluation</a></li><li><a href="module-eclairjs_ml_feature.html">eclairjs/ml/feature</a></li><li><a href="module-eclairjs_ml_param.html">eclairjs/ml/param</a></li><li><a href="module-eclairjs_ml_recommendation.html">eclairjs/ml/recommendation</a></li><li><a href="module-eclairjs_ml_regression.html">eclairjs/ml/regression</a></li><li><a href="module-eclairjs_mllib.html">eclairjs/mllib</a></li><li><a href="module-eclairjs_mllib_classification.html">eclairjs/mllib/classification</a></li><li><a href="module-eclairjs_mllib_clustering.html">eclairjs/mllib/clustering</a></li><li><a href="module-eclairjs_mllib_evaluation.html">eclairjs/mllib/evaluation</a></li><li><a href="module-eclairjs_mllib_feature.html">eclairjs/mllib/feature</a></li><li><a href="module-eclairjs_mllib_fpm.html">eclairjs/mllib/fpm</a></li><li><a href="module-eclairjs_mllib_linalg.html">eclairjs/mllib/linalg</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.html">eclairjs/mllib/linalg/distributed</a></li><li><a href="module-eclairjs_mllib_optimization.html">eclairjs/mllib/optimization</a></li><li><a href="module-eclairjs_mllib_random.html">eclairjs/mllib/random</a></li><li><a href="module-eclairjs_mllib_recommendation.html">eclairjs/mllib/recommendation</a></li><li><a href="module-eclairjs_mllib_regression.html">eclairjs/mllib/regression</a></li><li><a href="module-eclairjs_mllib_tree.html">eclairjs/mllib/tree</a></li><li><a href="module-eclairjs_mllib_tree_configuration.html">eclairjs/mllib/tree/configuration</a></li><li><a href="module-eclairjs_mllib_tree_loss.html">eclairjs/mllib/tree/loss</a></li><li><a href="module-eclairjs_mllib_tree_model.html">eclairjs/mllib/tree/model</a></li><li><a href="module-eclairjs_sql.html">eclairjs/sql</a></li><li><a href="module-eclairjs_sql_execution.html">eclairjs/sql/execution</a></li><li><a href="module-eclairjs_sql_types.html">eclairjs/sql/types</a></li><li><a href="module-eclairjs_storage.html">eclairjs/storage</a></li><li><a href="module-eclairjs_streaming.html">eclairjs/streaming</a></li><li><a href="module-eclairjs_streaming_dstream.html">eclairjs/streaming/dstream</a></li><li><a href="module-eclairjs_streaming_kafka.html">eclairjs/streaming/kafka</a></li><li><a href="module-eclairjs_streaming_twitter.html">eclairjs/streaming/twitter</a></li></ul><h3>Classes</h3><ul><li><a href="module-eclairjs.Accumulable.html">Accumulable</a></li><li><a href="module-eclairjs.AccumulableParam.html">AccumulableParam</a></li><li><a href="module-eclairjs.Accumulator.html">Accumulator</a></li><li><a href="module-eclairjs.FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="module-eclairjs.FloatRDD.html">FloatRDD</a></li><li><a href="module-eclairjs.FutureAction.html">FutureAction</a></li><li><a href="module-eclairjs.HashPartitioner.html">HashPartitioner</a></li><li><a href="module-eclairjs.IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="module-eclairjs.List.html">List</a></li><li><a href="module-eclairjs.Logger.html">Logger</a></li><li><a href="module-eclairjs.PairRDD.html">PairRDD</a></li><li><a href="module-eclairjs.Partitioner.html">Partitioner</a></li><li><a href="module-eclairjs.RangePartitioner.html">RangePartitioner</a></li><li><a href="module-eclairjs.RDD.html">RDD</a></li><li><a href="module-eclairjs.SparkConf.html">SparkConf</a></li><li><a href="module-eclairjs.SparkContext.html">SparkContext</a></li><li><a href="module-eclairjs.SparkFiles.html">SparkFiles</a></li><li><a href="module-eclairjs.SparkJobInfo.html">SparkJobInfo</a></li><li><a href="module-eclairjs.SparkStageInfo.html">SparkStageInfo</a></li><li><a href="module-eclairjs.SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="module-eclairjs.Tuple.html">Tuple</a></li><li><a href="module-eclairjs_ml_evaluation.RegressionEvaluator.html">RegressionEvaluator</a></li><li><a href="module-eclairjs_ml_feature.Word2Vec.html">Word2Vec</a></li><li><a href="module-eclairjs_ml_feature.Word2VecModel.html">Word2VecModel</a></li><li><a href="module-eclairjs_ml_param.Param.html">Param</a></li><li><a href="module-eclairjs_ml_param.ParamMap.html">ParamMap</a></li><li><a href="module-eclairjs_ml_param.ParamPair.html">ParamPair</a></li><li><a href="module-eclairjs_ml_recommendation.ALS.html">ALS</a></li><li><a href="module-eclairjs_ml_regression.AFTSurvivalRegression.html">AFTSurvivalRegression</a></li><li><a href="module-eclairjs_ml_regression.AFTSurvivalRegressionModel.html">AFTSurvivalRegressionModel</a></li><li><a href="module-eclairjs_mllib.MLUtils.html">MLUtils</a></li><li><a href="module-eclairjs_mllib_classification.ClassificationModel.html">ClassificationModel</a></li><li><a href="module-eclairjs_mllib_classification.LogisticRegressionModel.html">LogisticRegressionModel</a></li><li><a href="module-eclairjs_mllib_classification.LogisticRegressionWithLBFGS.html">LogisticRegressionWithLBFGS</a></li><li><a href="module-eclairjs_mllib_classification.LogisticRegressionWithSGD.html">LogisticRegressionWithSGD</a></li><li><a href="module-eclairjs_mllib_classification.NaiveBayes.html">NaiveBayes</a></li><li><a href="module-eclairjs_mllib_classification.NaiveBayesModel.html">NaiveBayesModel</a></li><li><a href="module-eclairjs_mllib_classification.SVMModel.html">SVMModel</a></li><li><a href="module-eclairjs_mllib_classification.SVMWithSGD.html">SVMWithSGD</a></li><li><a href="module-eclairjs_mllib_clustering.BisectingKMeans.html">BisectingKMeans</a></li><li><a href="module-eclairjs_mllib_clustering.BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="module-eclairjs_mllib_clustering.DistributedLDAModel.html">DistributedLDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.KMeans.html">KMeans</a></li><li><a href="module-eclairjs_mllib_clustering.KMeansModel.html">KMeansModel</a></li><li><a href="module-eclairjs_mllib_clustering.LDA.html">LDA</a></li><li><a href="module-eclairjs_mllib_clustering.LDAModel.html">LDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.LocalLDAModel.html">LocalLDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClustering.html">PowerIterationClustering</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClusteringAssignment.html">PowerIterationClusteringAssignment</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClusteringModel.html">PowerIterationClusteringModel</a></li><li><a href="module-eclairjs_mllib_evaluation.BinaryClassificationMetrics.html">BinaryClassificationMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.MulticlassMetrics.html">MulticlassMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.MultilabelMetrics.html">MultilabelMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.RankingMetrics.html">RankingMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.RegressionMetrics.html">RegressionMetrics</a></li><li><a href="module-eclairjs_mllib_feature.Word2Vec.html">Word2Vec</a></li><li><a href="module-eclairjs_mllib_feature.Word2VecModel.html">Word2VecModel</a></li><li><a href="module-eclairjs_mllib_fpm.AssociationRules.html">AssociationRules</a></li><li><a href="module-eclairjs_mllib_fpm.FPGrowth.html">FPGrowth</a></li><li><a href="module-eclairjs_mllib_fpm.FPGrowthModel.html">FPGrowthModel</a></li><li><a href="module-eclairjs_mllib_fpm.FreqItemset.html">FreqItemset</a></li><li><a href="module-eclairjs_mllib_fpm.PrefixSpan.html">PrefixSpan</a></li><li><a href="module-eclairjs_mllib_fpm.PrefixSpanFreqSequence.html">PrefixSpanFreqSequence</a></li><li><a href="module-eclairjs_mllib_fpm.PrefixSpanModel.html">PrefixSpanModel</a></li><li><a href="module-eclairjs_mllib_fpm.Rule.html">Rule</a></li><li><a href="module-eclairjs_mllib_linalg.DenseMatrix.html">DenseMatrix</a></li><li><a href="module-eclairjs_mllib_linalg.DenseVector.html">DenseVector</a></li><li><a href="module-eclairjs_mllib_linalg.Matrices.html">Matrices</a></li><li><a href="module-eclairjs_mllib_linalg.Matrix.html">Matrix</a></li><li><a href="module-eclairjs_mllib_linalg.QRDecomposition.html">QRDecomposition</a></li><li><a href="module-eclairjs_mllib_linalg.SingularValueDecomposition.html">SingularValueDecomposition</a></li><li><a href="module-eclairjs_mllib_linalg.SparseMatrix.html">SparseMatrix</a></li><li><a href="module-eclairjs_mllib_linalg.SparseVector.html">SparseVector</a></li><li><a href="module-eclairjs_mllib_linalg.Vector.html">Vector</a></li><li><a href="module-eclairjs_mllib_linalg.Vectors.html">Vectors</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.DistributedMatrix.html">DistributedMatrix</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.RowMatrix.html">RowMatrix</a></li><li><a href="module-eclairjs_mllib_optimization.Gradient.html">Gradient</a></li><li><a href="module-eclairjs_mllib_optimization.LBFGS.html">LBFGS</a></li><li><a href="module-eclairjs_mllib_optimization.LogisticGradient.html">LogisticGradient</a></li><li><a href="module-eclairjs_mllib_optimization.SquaredL2Updater.html">SquaredL2Updater</a></li><li><a href="module-eclairjs_mllib_optimization.Updater.html">Updater</a></li><li><a href="module-eclairjs_mllib_random.RandomRDDs.html">RandomRDDs</a></li><li><a href="module-eclairjs_mllib_recommendation.ALS.html">ALS</a></li><li><a href="module-eclairjs_mllib_recommendation.MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="module-eclairjs_mllib_recommendation.Rating.html">Rating</a></li><li><a href="module-eclairjs_mllib_regression.GeneralizedLinearModel.html">GeneralizedLinearModel</a></li><li><a href="module-eclairjs_mllib_regression.LabeledPoint.html">LabeledPoint</a></li><li><a href="module-eclairjs_mllib_regression.LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="module-eclairjs_mllib_regression.LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="module-eclairjs_mllib_tree.DecisionTree.html">DecisionTree</a></li><li><a href="module-eclairjs_mllib_tree.GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="module-eclairjs_mllib_tree.RandomForest.html">RandomForest</a></li><li><a href="module-eclairjs_mllib_tree_configuration.BoostingStrategy.html">BoostingStrategy</a></li><li><a href="module-eclairjs_mllib_tree_configuration.Strategy.html">Strategy</a></li><li><a href="module-eclairjs_mllib_tree_loss.Loss.html">Loss</a></li><li><a href="module-eclairjs_mllib_tree_model.DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="module-eclairjs_mllib_tree_model.GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="module-eclairjs_mllib_tree_model.RandomForestModel.html">RandomForestModel</a></li><li><a href="module-eclairjs_sql.Column.html">Column</a></li><li><a href="module-eclairjs_sql.DataFrame.html">DataFrame</a></li><li><a href="module-eclairjs_sql.DataFrameHolder.html">DataFrameHolder</a></li><li><a href="module-eclairjs_sql.DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="module-eclairjs_sql.DataFrameReader.html">DataFrameReader</a></li><li><a href="module-eclairjs_sql.DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="module-eclairjs_sql.DataFrameWriter.html">DataFrameWriter</a></li><li><a href="module-eclairjs_sql.functions.html">functions</a></li><li><a href="module-eclairjs_sql.GroupedData.html">GroupedData</a></li><li><a href="module-eclairjs_sql.Row.html">Row</a></li><li><a href="module-eclairjs_sql.RowFactory.html">RowFactory</a></li><li><a href="module-eclairjs_sql.SQLContext.html">SQLContext</a></li><li><a href="module-eclairjs_sql.SqlDate.html">SqlDate</a></li><li><a href="module-eclairjs_sql.SqlTimestamp.html">SqlTimestamp</a></li><li><a href="module-eclairjs_sql_execution.QueryExecution.html">QueryExecution</a></li><li><a href="module-eclairjs_sql_types.ArrayType.html">ArrayType</a></li><li><a href="module-eclairjs_sql_types.BinaryType.html">BinaryType</a></li><li><a href="module-eclairjs_sql_types.BooleanType.html">BooleanType</a></li><li><a href="module-eclairjs_sql_types.CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="module-eclairjs_sql_types.DataType.html">DataType</a></li><li><a href="module-eclairjs_sql_types.DataTypes.html">DataTypes</a></li><li><a href="module-eclairjs_sql_types.DateType.html">DateType</a></li><li><a href="module-eclairjs_sql_types.DoubleType.html">DoubleType</a></li><li><a href="module-eclairjs_sql_types.FloatType.html">FloatType</a></li><li><a href="module-eclairjs_sql_types.IntegerType.html">IntegerType</a></li><li><a href="module-eclairjs_sql_types.MapType.html">MapType</a></li><li><a href="module-eclairjs_sql_types.Metadata.html">Metadata</a></li><li><a href="module-eclairjs_sql_types.NullType.html">NullType</a></li><li><a href="module-eclairjs_sql_types.NumericType.html">NumericType</a></li><li><a href="module-eclairjs_sql_types.StringType.html">StringType</a></li><li><a href="module-eclairjs_sql_types.StructField.html">StructField</a></li><li><a href="module-eclairjs_sql_types.StructType.html">StructType</a></li><li><a href="module-eclairjs_sql_types.TimestampType.html">TimestampType</a></li><li><a href="module-eclairjs_storage.StorageLevel.html">StorageLevel</a></li><li><a href="module-eclairjs_streaming.Duration.html">Duration</a></li><li><a href="module-eclairjs_streaming.StreamingContext.html">StreamingContext</a></li><li><a href="module-eclairjs_streaming.Time.html">Time</a></li><li><a href="module-eclairjs_streaming_dstream.DStream.html">DStream</a></li><li><a href="module-eclairjs_streaming_dstream.PairDStream.html">PairDStream</a></li><li><a href="module-eclairjs_streaming_kafka.KafkaUtils.html">KafkaUtils</a></li><li><a href="module-eclairjs_streaming_twitter.TwitterAuthorization.html">TwitterAuthorization</a></li><li><a href="module-eclairjs_streaming_twitter.TwitterUtils.html">TwitterUtils</a></li><li><a href="PartialResult.html">PartialResult</a></li></ul><h3>Global</h3><ul><li><a href="global.html#module">module</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Thu Apr 21 2016 11:45:18 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Thu Apr 21 2016 15:19:41 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -24,7 +24,7 @@
      * Model fitted by {@link PrefixSpan}
      * @memberof module:eclairjs/mllib/fpm
      * @classdesc
-     * @param {RDD} freqSequences
+     * @param {module:eclairjs.RDD} freqSequences
      * @returns {??} 
      * @class
      */

@@ -57,7 +57,7 @@
 	 * df.agg(map)
 	 * df.groupBy().agg(map)
 	 * @param {hashMap} - hashMap<String,String> exprs
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.agg = function (hashMap) {
 
@@ -67,7 +67,7 @@
 	/**
 	 * Returns a new DataFrame with an alias set.
 	 * @param {string} alias
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.as = function (alias) {
 		return Utils.javaToJs(this.getJavaObject().as(alias));
@@ -83,7 +83,7 @@
 	};
 	/**
 	 * Persist this DataFrame with the default storage level (`MEMORY_ONLY`).
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.cache = function () {
 		return Utils.javaToJs(this.getJavaObject().cache());
@@ -94,7 +94,7 @@
 	 * e.g. if you go from 1000 partitions to 100 partitions, there will not be a shuffle,
 	 * instead each of the 100 new partitions will claim 10 of the current partitions.
 	 * @param {integer} numPartitions
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.coalesce = function (numPartitions) {
 		return Utils.javaToJs(this.getJavaObject().coalesce());
@@ -168,7 +168,7 @@
 	 * @param {string} cols....
 	 * @example
 	 * var df = peopleDataFrame.describe("age", "expense");
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.describe = function () {
 		var args = Array.prototype.slice.call(arguments);
@@ -183,7 +183,7 @@
 	/**
 	 * Returns a new DataFrame with a column dropped.
 	 * @param {string | Column} col
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.drop = function (col) {
 		return new DataFrame(this.getJavaObject().drop(Utils.unwrapObject(col)));
@@ -191,7 +191,7 @@
 	/**
 	 * Returns a new DataFrame that contains only the unique rows from this DataFrame, if colNames then considering only the subset of columns.
 	 * @param {string[]} colNames
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.dropDuplicates = function (colNames) {
 		if (!colNames) {
@@ -218,8 +218,8 @@
 	};
 	/**
 	 * Returns a new DataFrame containing rows in this frame but not in another frame. This is equivalent to EXCEPT in SQL.
-	 * @param {DataFrame} otherDataFrame to compare to this DataFrame
-	 * @returns {DataFrame}
+	 * @param {module:eclairjs/sql.DataFrame} otherDataFrame to compare to this DataFrame
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.except = function (otherDataFrame) {
 		return Utils.javaToJs(this.getJavaObject().except(Utils.unwrapObject(otherDataFrame)));
@@ -235,7 +235,7 @@
 	/**
 	 * Filters rows using the given SQL expression string or Filters rows using the given Column..
 	 * @param {string | Column}
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.filter = function (arg) {
 		if (typeof arg === 'object')
@@ -246,7 +246,7 @@
 	/**
 	 * Filters rows using the given Column
 	 * @param {Column} col
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 * @private
 	 */
 	DataFrame.prototype.filterWithColumn = function (col) {
@@ -255,7 +255,7 @@
 	/**
 	 * Filters rows using the given SQL expression string
 	 * @param {string} columnExpr
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 * @private
 	 */
 	DataFrame.prototype.filterWithString = function (columnExpr) {
@@ -272,7 +272,7 @@
 	 * Returns a new RDD by first applying a function to all rows of this DataFrame, and then flattening the results.
 	 * @param {function} func
 	 * @param {Object[]} [bindArgs] array whose values will be added to func's argument list.
-	 * @returns {RDD}
+	 * @returns {module:eclairjs.RDD}
 	 */
 	DataFrame.prototype.flatMap = function (func, bindArgs) {
 		return this.toRDD().flatMap(func, bindArgs);
@@ -378,8 +378,8 @@
 	};
 	/**
 	 * Returns a new DataFrame containing rows only in both this frame and another frame. This is equivalent to INTERSECT in SQL
-	 * @param {DataFrame} other
-	 * @returns {DataFrame}
+	 * @param {module:eclairjs/sql.DataFrame} other
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.intersect = function (other) {
 		return Utils.javaToJs(this.getJavaObject().intersect(Utils.unwrapObject(other)));
@@ -393,12 +393,12 @@
 	};
 	/**
 	 * Cartesian join with another DataFrame. Note that cartesian joins are very expensive without an extra filter that can be pushed down.
-	 * @param {DataFrame} Right side of the join operation.
+	 * @param {module:eclairjs/sql.DataFrame} Right side of the join operation.
 	 * @param {string | string[] | Column} [columnNamesOrJoinExpr] If string or array of strings column names, inner equi-join with another DataFrame using the given columns.
 	 * Different from other join functions, the join columns will only appear once in the output, i.e. similar to SQL's JOIN USING syntax.
 	 * If Column object, joinExprs inner join with another DataFrame, using the given join expression.
 	 * @param {string} [joinType] only valid if using Column joinExprs.
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 * @example
 	 * var joinedDf = df1.join(df2);
 	 * // or
@@ -433,7 +433,7 @@
 	 * Returns a new DataFrame by taking the first n rows. The difference between this function and head is that head
 	 * returns an array while limit returns a new DataFrame.
 	 * @param {integer} number
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.limit = function (number) {
 
@@ -443,7 +443,7 @@
 	 * Returns a new RDD by applying a function to all rows of this DataFrame.
 	 * @param {function} func
 	 * @param {Object[]} [bindArgs] array whose values will be added to func's argument list.
-	 * @returns {RDD}
+	 * @returns {module:eclairjs.RDD}
 	 */
 	DataFrame.prototype.map = function (func, bindArgs) {
 		return this.toRDD().map(func, bindArgs);
@@ -454,7 +454,7 @@
 	 * func should return a array rather than a single item.
 	 * @param {function}
 	 * @param {Object[]} [bindArgs] array whose values will be added to func's argument list.
-	 * @returns {RDD}
+	 * @returns {module:eclairjs.RDD}
 	 */
 	DataFrame.prototype.mapPartitions = function (func, bindArgs) {
 		return this.toRDD().mapPartitions(func, bindArgs);
@@ -471,14 +471,14 @@
 	 * Returns a new DataFrame sorted by the specified columns, if columnName is used sorted in ascending order.
 	 * This is an alias of the sort function.
 	 * @param {string | Column} columnName,...columnName or sortExprs,... sortExprs
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.orderBy = function () {
 		return this.sort.apply(this, arguments);
 	};
 	/**
 	 * @param {StorageLevel} newLevel
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.persist = function (newLevel) {
 		var arg = newLevel ? Utils.unwrapObject(newLevel) : null;
@@ -512,7 +512,7 @@
 	};
 	/**
 	 * Represents the content of the DataFrame as an RDD of Rows.
-	 * @returns {RDD}
+	 * @returns {module:eclairjs.RDD}
 	 */
 	DataFrame.prototype.rdd = function () {
 		return this.toRDD();
@@ -527,7 +527,7 @@
 	/**
 	 * Returns a new DataFrame that has exactly numPartitions partitions.
 	 * @param {integer} numPartitions
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.repartition = function (numPartitions) {
 		return Utils.javaToJs(this.getJavaObject().repartition(numPartitions));
@@ -561,14 +561,14 @@
 	 * @param {boolean} withReplacement
 	 * @param {float} fraction
 	 * @param {integer} [seed]
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.sample = function (withReplacement, fraction, seed) {
 		return Utils.javaToJs(this.getJavaObject().sample(withReplacement, fraction, seed));
 	};
 	/**
 	 * Returns the schema of this DataFrame.
-	 * @returns {StructType}
+	 * @returns {module:eclairjs/sql/types.StructType}
 	 */
 	DataFrame.prototype.schema = function () {
 		return Utils.javaToJs(this.getJavaObject().schema());
@@ -576,7 +576,7 @@
 	/**
 	 * Selects a set of column based expressions.
 	 * @param {Column[] | string[]}
-	 * @returns  {DataFrame}
+	 * @returns  {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.select = function () {
 		var args = Array.prototype.slice.call(arguments);
@@ -589,7 +589,7 @@
 	/**
 	 * Selects a set of SQL expressions. This is a variant of select that accepts SQL expressions.
 	 * @param {string} exprs,...exprs
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 * @example
 	 * var result = peopleDataFrame.selectExpr("name", "age > 19");
 	 */
@@ -601,7 +601,7 @@
 	/**
 	 * Selects a set of column based expressions.
 	 * @param {Column[]}
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 * @private
 	 */
 	DataFrame.prototype.selectWithColumns = function (args) {
@@ -615,7 +615,7 @@
 	/**
 	 * Selects a set of column based expressions.
 	 * @param {string[]}
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 * @private
 	 */
 	DataFrame.prototype.selectWithStrings = function (args) {
@@ -640,7 +640,7 @@
 	/**
 	 * Returns a new DataFrame sorted by the specified columns, if columnName is used sorted in ascending order.
 	 * @param {string | Column} columnName,...columnName or sortExprs,... sortExprs
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 * @example
 	 *  var result = peopleDataFrame.sort("age", "name");
 	 *  // or
@@ -695,7 +695,7 @@
 	 * Returns a new DataFrame with columns renamed. This can be quite convenient in conversion from a
 	 * RDD of tuples into a DataFrame with meaningful names. For example:
 	 * @param {string} colNames,...colNames
-	 * @return {DataFrame}
+	 * @return {module:eclairjs/sql.DataFrame}
 	 * @example
 	 * var result = nameAgeDF.toDF("newName", "newAge");
 	 */
@@ -705,22 +705,22 @@
 	};
 	/**
 	 * Returns the content of the DataFrame as a RDD of JSON strings.
-	 * @returns {RDD}
+	 * @returns {module:eclairjs.RDD}
 	 */
 	DataFrame.prototype.toJSON = function () {
 		return Utils.javaToJs(this.getJavaObject().toJSON());
 	};
 	/**
 	 * Represents the content of the DataFrame as an RDD of Rows.
-	 * @returns {RDD}
+	 * @returns {module:eclairjs.RDD}
 	 */
 	DataFrame.prototype.toRDD = function () {
 		return Utils.javaToJs(this.getJavaObject().javaRDD());
 	};
 	/**
 	 * Returns a new DataFrame containing union of rows in this frame and another frame. This is equivalent to UNION ALL in SQL.
-	 * @param {DataFrame} other
-	 * @returns {DataFrame}
+	 * @param {module:eclairjs/sql.DataFrame} other
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.unionAll = function (other) {
 		return Utils.javaToJs(this.getJavaObject().unionAll(Utils.unwrapObject(other)));
@@ -734,7 +734,7 @@
 	/**
 	 * Filters rows using the given Column or SQL expression.
 	 * @param {Column | string} condition - .
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.where = function (condition) {
 		return this.filter(condition);
@@ -743,7 +743,7 @@
 	 * Returns a new DataFrame by adding a column or replacing the existing column that has the same name.
 	 * @param {string} name
 	 * @param {Column} col
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 * @example
 	 *  var col = peopleDataFrame.col("age");
 	 *  var df1 = peopleDataFrame.withColumn("newCol", col);
@@ -755,7 +755,7 @@
 	 * Returns a new DataFrame with a column renamed. This is a no-op if schema doesn't contain existingName.
 	 * @param {string} existingName
 	 * @param {string} newName
-	 * @returns {DataFrame}
+	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.withColumnRenamed = function (existingName, newName) {
 		return Utils.javaToJs(this.getJavaObject().withColumnRenamed(existingName, newName));

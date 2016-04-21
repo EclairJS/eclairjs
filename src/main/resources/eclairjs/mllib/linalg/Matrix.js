@@ -138,7 +138,7 @@
 
 
     /**
-     * @param {Vector} y
+     * @param {module:eclairjs/mllib/linalg.Vector} y
      * @returns {DenseVector}
      */
     Matrix.prototype.multiply2 = function (y) {

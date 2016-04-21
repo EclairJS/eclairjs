@@ -25,7 +25,7 @@
      * @memberof module:eclairjs/mllib/clustering
      * @classdesc
      * @param {number} k number of clusters
-     * @param {RDD} assignments  an RDD of clustering [[PowerIterationClustering#Assignment]]s
+     * @param {module:eclairjs.RDD} assignments  an RDD of clustering [[PowerIterationClustering#Assignment]]s
      * @class
      */
     var PowerIterationClusteringModel = function(k,assignments) {
@@ -48,7 +48,7 @@
 
 
     /**
-     * @param {SparkContext} sc
+     * @param {module:eclairjs.SparkContext} sc
      * @param {string} path
      */
     PowerIterationClusteringModel.prototype.save = function(sc,path) {
@@ -57,7 +57,7 @@
     };
 
     /**
-     * @returns {RDD}
+     * @returns {module:eclairjs.RDD}
      */
     PowerIterationClusteringModel.prototype.assignments = function() {
         return Utils.javaToJs(this.getJavaObject().assignments().toJavaRDD());
@@ -76,7 +76,7 @@
 
 
     /**
-     * @param {SparkContext} sc
+     * @param {module:eclairjs.SparkContext} sc
      * @param {string} path
      * @returns {PowerIterationClusteringModel}
      */

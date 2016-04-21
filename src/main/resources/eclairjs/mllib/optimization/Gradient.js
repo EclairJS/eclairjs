@@ -44,9 +44,9 @@
 
     /**
      * Compute the gradient and loss given the features of a single data point.
-     * @param {Vector} data
+     * @param {module:eclairjs/mllib/linalg.Vector} data
      * @param {float} label
-     * @param {Vector} weights
+     * @param {module:eclairjs/mllib/linalg.Vector} weights
      * @returns {Tuple}
      */
     Gradient.prototype.compute = function (data,label,weights) {

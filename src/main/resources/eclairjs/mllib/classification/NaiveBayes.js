@@ -18,7 +18,6 @@
     var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
-    //var RDD = require(EclairJS_Globals.NAMESPACE + '/RDD');
 
     var NaiveBayesModel = require(EclairJS_Globals.NAMESPACE + '/mllib/classification/NaiveBayesModel');
 
@@ -58,7 +57,7 @@
 
     /**
      * @param {float} lambda
-     * @returns {NaiveBayes} 
+     * @returns {module:eclairjs/mllib/classification.NaiveBayes}
      */
     NaiveBayes.prototype.setLambda = function(lambda) {
        var javaObject =  this.getJavaObject().setLambda(lambda);
@@ -78,7 +77,7 @@
      * Set the model type using a string (case-sensitive).
      * Supported options: "multinomial" (default) and "bernoulli".
      * @param {string} modelType
-     * @returns {NaiveBayes} 
+     * @returns {module:eclairjs/mllib/classification.NaiveBayes}
      */
     NaiveBayes.prototype.setModelType = function(modelType) {
        var javaObject =  this.getJavaObject().setModelType(modelType);
@@ -97,8 +96,8 @@
     /**
      * Run the algorithm with the configured parameters on an input RDD of LabeledPoint entries.
      *
-     * @param {RDD} data  RDD of {@link LabeledPoint}.
-     * @returns {NaiveBayesModel} 
+     * @param {module:eclairjs.RDD} data  RDD of {@link LabeledPoint}.
+     * @returns {module:eclairjs/mllib/classification.NaiveBayesModel}
      */
     NaiveBayes.prototype.run = function(data) {
        var data_uw = Utils.unwrapObject(data).rdd();
@@ -122,13 +121,13 @@
      * 0-1 vector and setting the model type to "bernoulli", the  fits and predicts as
      * Bernoulli NB.
      *
-     * @param {RDD} input  RDD of `(label, array of features)` pairs.  Every vector should be a frequency
+     * @param {module:eclairjs.RDD} input  RDD of `(label, array of features)` pairs.  Every vector should be a frequency
      *              vector or a count vector.
      * @param {float} [lambda]  The smoothing parameter
      *
      * @param {string} [modelType]  The type of NB model to fit from the enumeration NaiveBayesModels, can be
      *              multinomial or bernoulli
-     * @returns {NaiveBayesModel} 
+     * @returns {module:eclairjs/mllib/classification.NaiveBayesModel}
      */
     NaiveBayes.train = function(input,lambda,modelType) {
         var javaObject;

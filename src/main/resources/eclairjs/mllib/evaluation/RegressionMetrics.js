@@ -25,7 +25,7 @@
      * @param predictionAndObservations an RDD of (prediction, observation) pairs.
      * @memberof module:eclairjs/mllib/evaluation
      * @classdesc
-     * @param {RDD} predictionAndObservations
+     * @param {module:eclairjs.RDD} predictionAndObservations
      * @class
      */
     var RegressionMetrics = function (predictionAndObservations) {

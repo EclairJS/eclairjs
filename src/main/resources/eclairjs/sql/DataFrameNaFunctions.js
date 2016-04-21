@@ -47,7 +47,7 @@
      * If integer Returns a new {@link DataFrame} that drops rows containing less than arg1 non-null and non-NaN values.
      * If array of column names
      * @param {string | string[]} [arg2] array of column names, only valid if arg1 is string or integer value
-     * @returns {DataFrame}
+     * @returns {module:eclairjs/sql.DataFrame}
      */
     DataFrameNaFunctions.prototype.drop = function (arg1, arg2) {
         var jvmObject;
@@ -79,7 +79,7 @@
      * @example
      * var hash = {"name": "missing", "age": "99"};
      * var result = naFunc.fill(hash);
-     * @returns {DataFrame}
+     * @returns {module:eclairjs/sql.DataFrame}
      */
     DataFrameNaFunctions.prototype.fill = function (value, cols) {
         var javaObject;
@@ -117,7 +117,7 @@
      * @param {object} replacement  value replacement map, as explained above
      *
      * @since EclairJS 0.1 Spark  1.3.1
-     * @returns {DataFrame}
+     * @returns {module:eclairjs/sql.DataFrame}
      */
     DataFrameNaFunctions.prototype.replace = function (col, replacement) {
         var replacement_uw = Utils.createJavaHashMap(replacement);

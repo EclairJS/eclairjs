@@ -20,7 +20,7 @@
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
 
     var ClassificationModel = require(EclairJS_Globals.NAMESPACE + '/mllib/classification/ClassificationModel');
-    //var Vector = require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Vector');
+
 
     /**
      * Model for Support Vector Machines (SVMs).
@@ -29,7 +29,7 @@
      * @param intercept Intercept computed for this model.
      * @memberof module:eclairjs/mllib/classification
      * @classdesc
-     * @param {Vector} weights
+     * @param {module:eclairjs/mllib/linalg.Vector} weights
      * @param {float} intercept
      * @class
      */
@@ -83,7 +83,7 @@
     };
 
     /**
-     * @returns {Vector}
+     * @returns {module:eclairjs/mllib/linalg.Vector}
      */
     SVMModel.prototype.weights = function () {
         var javaObject =  this.getJavaObject().weights();
@@ -98,7 +98,7 @@
     };
 
     /**
-     * @param {SparkContext} sc
+     * @param {module:eclairjs.SparkContext} sc
      * @param {string} path
      */
     SVMModel.prototype.save = function (sc, path) {
@@ -120,7 +120,7 @@
     //
 
     /**
-     * @param {SparkContext} sc
+     * @param {module:eclairjs.SparkContext} sc
      * @param {string} path
      * @returns {SVMModel}
      */

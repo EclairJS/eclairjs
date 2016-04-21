@@ -28,7 +28,6 @@
 
     /**
      * Creates an empty param map.
-     * @returns {??}
      *  @class
      *  @memberof module:eclairjs/ml/param
      */
@@ -46,7 +45,7 @@
 
     /**
      * Puts a (param, value) pair (overwrites if the input param exists).
-     * @param {Param} param
+     * @param {module:eclairjs/ml/param.Param} param
      * @param {object} value
      * @returns {}
      */
@@ -75,7 +74,7 @@
 
     /**
      * Optionally returns the value associated with a param.
-     * @param {Param} param
+     * @param {module:eclairjs/ml/param.Param} param
      * @returns {object}
      */
     ParamMap.prototype.get = function (param) {
@@ -88,7 +87,7 @@
 
     /**
      * Returns the value associated with a param or a default value.
-     * @param {Param} param
+     * @param {module:eclairjs/ml/param.Param} param
      * @param {object} d
      * @returns {object}
      */
@@ -107,7 +106,7 @@
     /**
      * Gets the value of the input param or its default value if it does not exist.
      * Raises a NoSuchElementException if there is no value associated with the input param.
-     * @param {Param} param
+     * @param {module:eclairjs/ml/param.Param} param
      * @returns {object}
      */
     ParamMap.prototype.apply = function (param) {
@@ -120,7 +119,7 @@
 
     /**
      * Checks whether a parameter is explicitly specified.
-     * @param {Param} param
+     * @param {module:eclairjs/ml/param.Param} param
      * @returns {boolean}
      */
     ParamMap.prototype.contains = function (param) {
@@ -132,7 +131,7 @@
 
     /**
      * Removes a key from this map and returns its value associated previously as an option.
-     * @param {Param} param
+     * @param {module:eclairjs/ml/param.Param} param
      * @returns {object}
      */
     ParamMap.prototype.remove = function (param) {
@@ -146,7 +145,7 @@
     /**
      * Filters this param map for the given parent.
      * @param {Params} parent
-     * @returns {ParamMap}
+     * @returns {module:eclairjs/ml/param.ParamMap}
      */
     ParamMap.prototype.filter = function (parent) {
         throw "not implemented by ElairJS";
@@ -158,7 +157,7 @@
 
     /**
      * Creates a copy of this param map.
-     * @returns {ParamMap}
+     * @returns {module:eclairjs/ml/param.ParamMap}
      */
     ParamMap.prototype.copy = function () {
         throw "not implemented by ElairJS";
@@ -179,8 +178,8 @@
     /**
      * Returns a new param map that contains parameters in this map and the given map,
      * where the latter overwrites this if there exist conflicts.
-     * @param {ParamMap} other
-     * @returns {ParamMap}
+     * @param {module:eclairjs/ml/param.ParamMap} other
+     * @returns {module:eclairjs/ml/param.ParamMap}
      */
     ParamMap.prototype.$plus$plus = function (other) {
         throw "not implemented by ElairJS";
@@ -192,7 +191,7 @@
 
     /**
      * Adds all parameters from the input param map into this param map.
-     * @param {ParamMap} other
+     * @param {module:eclairjs/ml/param.ParamMap} other
      * @returns {}
      */
     ParamMap.prototype.$plus$plus$eq = function (other) {
@@ -205,7 +204,7 @@
 
     /**
      * Converts this param map to a sequence of param pairs.
-     * @returns {ParamPair[]}
+     * @returns {module:eclairjs/ml/param.ParamMap[]}
      */
     ParamMap.prototype.toSeq = function () {
         throw "not implemented by ElairJS";
@@ -229,7 +228,7 @@
 
     /**
      * Returns an empty param map.
-     * @returns {ParamMap}
+     * @returns {module:eclairjs/ml/param.ParamMap}
      */
     ParamMap.empty = function () {
         throw "not implemented by ElairJS";
@@ -240,8 +239,8 @@
 
     /**
      * Constructs a param map by specifying its entries.
-     * @param {...ParamPair} paramPairs
-     * @returns {ParamMap}
+     * @param {...module:eclairjs/ml/param.ParamMap} paramPairs
+     * @returns {module:eclairjs/ml/param.ParamMap}
      */
     ParamMap.apply = function (paramPairs) {
         throw "not implemented by ElairJS";
