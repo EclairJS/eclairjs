@@ -52,7 +52,7 @@ public class MlTest {
         TestUtils.evalJSResource(engine, "/ml/mltest.js");
         Object ret = ((Invocable)engine).invokeFunction("AFTSurvivalRegressionExample");
 
-        String expected = "1";
+        String expected = "passed";
 
         assertEquals("failure - strings are not equal", expected, ret);
 
