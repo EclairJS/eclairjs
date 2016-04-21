@@ -19,7 +19,7 @@
 
     /**
      * @constructor
-     * @extends DataType
+     * @extends module:eclairjs/sql/types.DataType
      * @classdesc The data type representing calendar time intervals.
      * The calendar time interval is stored internally in two components: number of months the number of microseconds.
      * Note that calendar intervals are not comparable.

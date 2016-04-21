@@ -19,7 +19,7 @@
 
     /**
      * @constructor
-     * @extends DataType
+     * @extends module:eclairjs/sql/types.DataType
      * @classdesc The data type representing Boolean values. Please use the singleton DataTypes.BooleanType.
      * @memberof module:eclairjs/sql/types
      */

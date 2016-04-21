@@ -19,6 +19,7 @@
 
     /**
      * @constructor
+     * @extends module:eclairjs/sql/types.NumericType
      * @classdesc The data type representing Long values. Please use the singleton DataTypes.LongType. not a valid primitive type for JavaScript
      * @memberof module:eclairjs/sql/types
      * @ignore

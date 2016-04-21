@@ -49,7 +49,7 @@
     /**
      * Returns an empty Metadata.
      * @static
-     * @returns {Metadata}
+     * @returns {module:eclairjs/sql/types.Metadata}
      */
     Metadata.empty = function () {
         return new Metadata(org.apache.spark.sql.types.Metadata.empty());
@@ -66,7 +66,7 @@
      * Creates a Metadata instance from JSON
      * @static
      * @param {string} json
-     * @returns {Metadata}
+     * @returns {module:eclairjs/sql/types.Metadata}
      */
     Metadata.fromJson = function (json) {
         return new Metadata(org.apache.spark.sql.types.Metadata.fromJson(json));
@@ -122,7 +122,7 @@
     /**
      * Gets a Metadata.
      * @param {string} key
-     * @returns {Metadata}
+     * @returns {module:eclairjs/sql/types.Metadata}
      */
     Metadata.prototype.getMetadata = function (key) {
         return this.getJavaObject().getMetadata(key);
@@ -130,7 +130,7 @@
     /**
      * Gets a Metadata array.
      * @param {string} key
-     * @returns {Metadata[]}
+     * @returns {module:eclairjs/sql/types.Metadata[]}
      */
     Metadata.prototype.getMetadataArray = function (key) {
         return this.getJavaObject().getMetadataArray(key);

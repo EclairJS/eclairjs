@@ -121,9 +121,9 @@
     /**
      * Creates a StructField with empty metadata.
      * @param {String} fieldName
-     * @param {DataType} dataType
+     * @param {module:eclairjs/sql/types.DataType} dataType
      * @param {boolean} nullable
-     * @returns {StructField}
+     * @returns {module:eclairjs/sql/types.StructField}
      */
     DataTypes.createStructField = function (fieldName, dataType, nullable) {
         /*	public static StructField createStructField(java.lang.String name,

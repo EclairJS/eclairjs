@@ -23,10 +23,10 @@
      * @constructor
      * @memberof module:eclairjs/sql/types
      * @protected
-     * @param {DataType} elementType
+     * @param {module:eclairjs/sql/types.DataType} elementType
      * @param {boolean} containsNull
      * @classdesc The Array type of all Spark SQL data types.
-     * @extends DataType
+     * @extends module:eclairjs/sql/types.DataType
      * @example
      * var ArrayType = require('eclairjs/sql/types/ArrayType');
      * var IntegerType = require('eclair/sql/types/IntegerType');
@@ -53,14 +53,14 @@
 
     /**
      * Construct a ArrayType object with the given element type. The `containsNull` is true.
-     * @param {DataType}
-     * @returns {ArrayType}
+     * @param {module:eclairjs/sql/types.DataType}
+     * @returns {module:eclairjs/sql/types.ArrayType}
      */
     ArrayType.apply = function (elementType) {
         return new ArrayType(org.apache.spark.sql.types.ArrayType.apply(Utils.unwrapObject(elementType)));
     };
     /**
-     * @returns {DataType}
+     * @returns {module:eclairjs/sql/types.DataType}
      */
     ArrayType.prototype.elementType = function () {
         // FIXME this should be wrappered with the correct sub-class

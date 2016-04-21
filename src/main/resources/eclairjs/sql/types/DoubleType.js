@@ -19,7 +19,7 @@
 
     /**
      * @constructor
-     * @extends NumericType
+     * @extends module:eclairjs/sql/types.NumericType
      * @classdesc The data type representing Double values. Please use the singleton DataTypes.DoubleType.
      * @memberof module:eclairjs/sql/types
      */

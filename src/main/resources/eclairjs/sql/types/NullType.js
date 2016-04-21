@@ -19,7 +19,7 @@
 
 	/**
 	 * @constructor
-	 * @extends DataType
+	 * @extends module:eclairjs/sql/types.DataType
 	 * @classdesc The data type representing NULL values. Please use the singleton DataTypes.NullType.
      * @memberof module:eclairjs/sql/types
 	 */

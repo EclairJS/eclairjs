@@ -35,7 +35,7 @@ protected scala.collection.Seq<org.apache.spark.sql.catalyst.expressions.Attribu
      * @classdesc For a StructType object, one or multiple StructFields can be extracted by names.
      * If multiple StructFields are extracted, a StructType object will be returned.
      * If a provided name does not have a matching field, it will be ignored.
-     * @param {StructField[]} fields - The name of this field.
+     * @param {module:eclairjs/sql/types.StructField[]} fields - The name of this field.
      */
     var StructType = function(fields) {
 

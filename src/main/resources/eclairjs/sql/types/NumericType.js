@@ -19,7 +19,7 @@
 
     /**
      * @constructor
-     * @extends DataType
+     * @extends module:eclairjs/sql/types.DataType
      * @classdesc The base type of all Spark SQL Numeric data types.
      * @memberof module:eclairjs/sql/types
      */

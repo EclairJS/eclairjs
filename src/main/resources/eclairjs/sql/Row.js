@@ -402,7 +402,7 @@
          *  | values
          *    | [value, ...]
          *  | schema {module:eclairjs/sql/types.StructType}
-         *    | fields {StructField}
+         *    | fields {module:eclairjs/sql/types.StructField}
          */
         var jsonObj = {};
         jsonObj.values = [];

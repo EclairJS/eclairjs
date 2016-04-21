@@ -19,7 +19,7 @@
 
     /**
      * @constructor
-     * @extends DataType
+     * @extends module:eclairjs/sql/types.DataType
      * @classdesc The data type representing String values. Please use the singleton DataTypes.StringType.
      * @memberof module:eclairjs/sql/types
      */

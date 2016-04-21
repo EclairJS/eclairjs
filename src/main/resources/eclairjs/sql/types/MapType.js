@@ -19,11 +19,11 @@
 
     /**
      * @constructor
-     * @extends DataType
+     * @extends module:eclairjs/sql/types.DataType
      * @classdesc The data type for Maps. Keys in a map are not allowed to have null values.
      * Please use DataTypes.createMapType() to create a specific instance.
-     * @param {DataType} keyType The data type of map keys.
-     * @param {DataType} valueType The data type of map values.
+     * @param {module:eclairjs/sql/types.DataType} keyType The data type of map keys.
+     * @param {module:eclairjs/sql/types.DataType} valueType The data type of map values.
      * @param {boolean} valueContainsNull Indicates if map values have null values.
      * @memberof module:eclairjs/sql/types
      */
@@ -48,9 +48,9 @@
     /**
      * Construct a MapType object with the given key type and value type.
      * @static
-     * @param {DataType} keyType
-     * @param {DataType} valueType
-     * @returns {MapType}
+     * @param {module:eclairjs/sql/types.DataType} keyType
+     * @param {module:eclairjs/sql/types.DataType} valueType
+     * @returns {module:eclairjs/sql/types.MapType}
      */
     MapType.apply = function (keyType, valueType) {
         return new MapType(org.apache.spark.sql.types.MapType.apply(keyType, valueType));
@@ -63,13 +63,13 @@
         return this.getJavaObject().defaultSize();
     };
     /**
-     * @returns {DataType}
+     * @returns {module:eclairjs/sql/types.DataType}
      */
     MapType.prototype.keyType = function () {
         return Utis.javaToJs(this.getJavaObject().keyType());
     };
     /**
-     * @returns {DataType}
+     * @returns {module:eclairjs/sql/types.DataType}
      */
     MapType.prototype.valueType = function () {
         return Utis.javaToJs(this.getJavaObject().valueType());

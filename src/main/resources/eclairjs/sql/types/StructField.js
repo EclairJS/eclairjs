@@ -26,9 +26,9 @@
      * @classdesc A field inside a StructType.
      * @memberof module:eclairjs/sql/types
      * @param {string} name - The name of this field.
-     * @param {DataType} dataType - The data type of this field.
+     * @param {module:eclairjs/sql/types.DataType} dataType - The data type of this field.
      * @param {boolean}  nullable -  Indicates if values of this field can be null values.
-     * @param {Metadata} metadata - The metadata of this field. The metadata should be preserved during transformation if the content of the column is not modified, e.g, in selection.
+     * @param {module:eclairjs/sql/types.Metadata} metadata - The metadata of this field. The metadata should be preserved during transformation if the content of the column is not modified, e.g, in selection.
      */
     var StructField = function(name, dataType, nullable, metadata) {
         // StructField(java.lang.String name, DataType dataType, boolean nullable, Metadata metadata)
@@ -56,14 +56,14 @@
 //Set the "constructor" property to refer to StructField
     StructField.prototype.constructor = StructField;
     /**
-     * @returns {DataType}
+     * @returns {module:eclairjs/sql/types.DataType}
      */
     StructField.prototype.dataType = function () {
         //DataType	dataType()
         return new DataType(this.getJavaObject().dataType());
     };
     /**
-     * @returns {Metadata}
+     * @returns {module:eclairjs/sql/types.Metadata}
      */
     StructField.prototype.metadata = function () {
         //Metadata	metadata()

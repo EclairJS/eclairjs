@@ -83,7 +83,7 @@
 	/**
 	 * Gives the column an alias.
 	 * @param {string | string[]} aliases, if array of strings assigns the given aliases to the results of a table generating function.
-	 * @param {Metadata} [metadata] not valid with string array
+	 * @param {module:eclairjs/sql/types.Metadata} metadata not valid with string array
 	 * @returns {Column}
 	 */
 	Column.prototype.as = function (aliases, metadata) {
@@ -167,7 +167,7 @@
 	 *   df.select(df.col("colA").cast("int"))
 	 *
 	 * @since EclairJS 0.1 Spark  1.3.0
-	 * @param {DataType | string} to If string supported types are: `string`, `boolean`, `int`,
+	 * @param {module:eclairjs/sql/types.DataType | string} to If string supported types are: `string`, `boolean`, `int`,
 	 * `float`, `double`, `date`, `timestamp`.
 	 * @returns {Column}
 	 */

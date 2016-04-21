@@ -45,7 +45,7 @@
     };
     /**
      * @param {string} json
-     * @returns {DataType}
+     * @returns {module:eclairjs/sql/types.DataType}
      */
     DataType.fromJson = function (json) {
         return new DataType(new org.apache.spark.sql.types.DataType.fromJson(json));
