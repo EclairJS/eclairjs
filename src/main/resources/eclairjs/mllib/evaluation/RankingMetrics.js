@@ -113,9 +113,9 @@
 
 
     /**
-     * Creates a {@link RankingMetrics} instance
+     * Creates a {@link module:eclairjs/mllib/evaluation.RankingMetrics} instance
      * @param {module:eclairjs.RDD} predictionAndLabels  a JavaRDD of (predicted ranking, ground truth set) pairs
-     * @returns {RankingMetrics} 
+     * @returns {module:eclairjs/mllib/evaluation.RankingMetrics}
      */
     RankingMetrics.of = function(predictionAndLabels) {
         var rm = org.apache.spark.mllib.evaluation.RankingMetrics.of(Utils.unwrapObject(predictionAndLabels));

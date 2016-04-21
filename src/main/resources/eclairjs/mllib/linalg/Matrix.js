@@ -94,7 +94,7 @@
 
 
     /**
-     * @returns {Matrix}
+     * @returns {module:eclairjs/mllib/linalg.Matrix}
      */
     Matrix.prototype.copy = function () {
         throw "not implemented by ElairJS";
@@ -104,7 +104,7 @@
 
 
     /**
-     * @returns {Matrix}
+     * @returns {module:eclairjs/mllib/linalg.Matrix}
      */
     Matrix.prototype.transpose = function () {
         throw "not implemented by ElairJS";

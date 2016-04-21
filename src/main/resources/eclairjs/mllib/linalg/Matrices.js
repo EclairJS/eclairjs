@@ -32,7 +32,7 @@
      * @param {number} numRows  number of rows
      * @param {number} numCols  number of columns
      * @param {number[]} values  matrix entries in column major
-     * @returns {Matrix}
+     * @returns {module:eclairjs/mllib/linalg.Matrix}
      */
     Matrices.dense = function (numRows, numCols, values) {
         throw "not implemented by ElairJS";
@@ -49,7 +49,7 @@
      * @param {number[]} colPtrs  the index corresponding to the start of a new column
      * @param {number[]} rowIndices  the row index of the entry
      * @param {number[]} values  non-zero matrix entries in column major
-     * @returns {Matrix}
+     * @returns {module:eclairjs/mllib/linalg.Matrix}
      */
     Matrices.sparse = function (numRows, numCols, colPtrs, rowIndices, values) {
         throw "not implemented by ElairJS";
@@ -62,7 +62,7 @@
      * Generate a `Matrix` consisting of zeros.
      * @param {number} numRows  number of rows of the matrix
      * @param {number} numCols  number of columns of the matrix
-     * @returns {Matrix}  `Matrix` with size `numRows` x `numCols` and values of zeros
+     * @returns {module:eclairjs/mllib/linalg.Matrix}  `Matrix` with size `numRows` x `numCols` and values of zeros
      */
     Matrices.zeros = function (numRows, numCols) {
         throw "not implemented by ElairJS";
@@ -75,7 +75,7 @@
      * Generate a `DenseMatrix` consisting of ones.
      * @param {number} numRows  number of rows of the matrix
      * @param {number} numCols  number of columns of the matrix
-     * @returns {Matrix}  `Matrix` with size `numRows` x `numCols` and values of ones
+     * @returns {module:eclairjs/mllib/linalg.Matrix}  `Matrix` with size `numRows` x `numCols` and values of ones
      */
     Matrices.ones = function (numRows, numCols) {
         throw "not implemented by ElairJS";
@@ -87,7 +87,7 @@
     /**
      * Generate a dense Identity Matrix in `Matrix` format.
      * @param {number} n  number of rows and columns of the matrix
-     * @returns {Matrix}  `Matrix` with size `n` x `n` and values of ones on the diagonal
+     * @returns {module:eclairjs/mllib/linalg.Matrix}  `Matrix` with size `n` x `n` and values of ones on the diagonal
      */
     Matrices.eye = function (n) {
         throw "not implemented by ElairJS";
@@ -99,7 +99,7 @@
     /**
      * Generate a sparse Identity Matrix in `Matrix` format.
      * @param {number} n  number of rows and columns of the matrix
-     * @returns {Matrix}  `Matrix` with size `n` x `n` and values of ones on the diagonal
+     * @returns {module:eclairjs/mllib/linalg.Matrix}  `Matrix` with size `n` x `n` and values of ones on the diagonal
      */
     Matrices.speye = function (n) {
         throw "not implemented by ElairJS";
@@ -113,7 +113,7 @@
      * @param {number} numRows  number of rows of the matrix
      * @param {number} numCols  number of columns of the matrix
      * @param {Random} rng  a random number generator
-     * @returns {Matrix}  `Matrix` with size `numRows` x `numCols` and values in U(0, 1)
+     * @returns {module:eclairjs/mllib/linalg.Matrix}  `Matrix` with size `numRows` x `numCols` and values in U(0, 1)
      */
     Matrices.rand = function (numRows, numCols, rng) {
         throw "not implemented by ElairJS";
@@ -129,7 +129,7 @@
      * @param {number} numCols  number of columns of the matrix
      * @param {number} density  the desired density for the matrix
      * @param {Random} rng  a random number generator
-     * @returns {Matrix}  `Matrix` with size `numRows` x `numCols` and values in U(0, 1)
+     * @returns {module:eclairjs/mllib/linalg.Matrix}  `Matrix` with size `numRows` x `numCols` and values in U(0, 1)
      */
     Matrices.sprand = function (numRows, numCols, density, rng) {
         throw "not implemented by ElairJS";
@@ -144,7 +144,7 @@
      * @param {number} numRows  number of rows of the matrix
      * @param {number} numCols  number of columns of the matrix
      * @param {Random} rng  a random number generator
-     * @returns {Matrix}  `Matrix` with size `numRows` x `numCols` and values in N(0, 1)
+     * @returns {module:eclairjs/mllib/linalg.Matrix}  `Matrix` with size `numRows` x `numCols` and values in N(0, 1)
      */
     Matrices.randn = function (numRows, numCols, rng) {
         throw "not implemented by ElairJS";
@@ -160,7 +160,7 @@
      * @param {number} numCols  number of columns of the matrix
      * @param {number} density  the desired density for the matrix
      * @param {Random} rng  a random number generator
-     * @returns {Matrix}  `Matrix` with size `numRows` x `numCols` and values in N(0, 1)
+     * @returns {module:eclairjs/mllib/linalg.Matrix}  `Matrix` with size `numRows` x `numCols` and values in N(0, 1)
      */
     Matrices.sprandn = function (numRows, numCols, density, rng) {
         throw "not implemented by ElairJS";
@@ -174,7 +174,7 @@
      * Generate a diagonal matrix in `Matrix` format from the supplied values.
      * @param {module:eclairjs/mllib/linalg.Vector} vector  a `Vector` that will form the values on the diagonal of the matrix
      *         on the diagonal
-     * @returns {Matrix}  Square `Matrix` with size `values.length` x `values.length` and `values`
+     * @returns {module:eclairjs/mllib/linalg.Matrix}  Square `Matrix` with size `values.length` x `values.length` and `values`
      */
     Matrices.diag = function (vector) {
         throw "not implemented by ElairJS";
@@ -189,7 +189,7 @@
      * the matrices are supplied in. Supplying a mix of dense and sparse matrices will result in
      * a sparse matrix. If the Array is empty, an empty `DenseMatrix` will be returned.
      * @param {Matrix[]} matrices  array of matrices
-     * @returns {Matrix}  a single `Matrix` composed of the matrices that were horizontally concatenated
+     * @returns {module:eclairjs/mllib/linalg.Matrix}  a single `Matrix` composed of the matrices that were horizontally concatenated
      */
     Matrices.horzcat = function (matrices) {
         throw "not implemented by ElairJS";
@@ -204,7 +204,7 @@
      * the matrices are supplied in. Supplying a mix of dense and sparse matrices will result in
      * a sparse matrix. If the Array is empty, an empty `DenseMatrix` will be returned.
      * @param {Matrix[]} matrices  array of matrices
-     * @returns {Matrix}  a single `Matrix` composed of the matrices that were vertically concatenated
+     * @returns {module:eclairjs/mllib/linalg.Matrix}  a single `Matrix` composed of the matrices that were vertically concatenated
      */
     Matrices.vertcat = function (matrices) {
         throw "not implemented by ElairJS";

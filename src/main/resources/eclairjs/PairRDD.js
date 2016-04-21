@@ -48,7 +48,7 @@
 
     /**
      * @param {module:eclairjs.RDD} rdd
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.wrapRDD = function (rdd) {
         throw "not implemented by ElairJS";
@@ -63,7 +63,7 @@
      * Set this RDD's storage level to persist its values across operations after the first time
      * it is computed. Can only be called once on each RDD.
      * @param {StorageLevel} newLevel
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.persist = function (newLevel) {
         throw "not implemented by ElairJS";
@@ -77,7 +77,7 @@
      * Mark the RDD as non-persistent, and remove all blocks for it from memory and disk.
      *
      * @param {boolean} [blocking]  Whether to block until all blocks are deleted.
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.unpersist = function (blocking) {
         throw "not implemented by ElairJS";
@@ -95,7 +95,7 @@
     /**
      * Return a new RDD containing the distinct elements in this RDD.
      * @param {number} [numPartitions]
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.distinct = function (numPartitions) {
         var javaObject
@@ -114,7 +114,7 @@
      * Return a new PairRDD containing only the elements that satisfy a predicate.
      * @param {function} func
      * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.filter = function (func, bindArgs) {
         var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
@@ -134,7 +134,7 @@
      * Return a new RDD that is reduced into `numPartitions` partitions.
      * @param {number} numPartitions
      * @param {boolean} [shuffle]
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.coalesce = function (numPartitions, shuffle) {
         throw "not implemented by ElairJS";
@@ -158,7 +158,7 @@
      * If you are decreasing the number of partitions in this RDD, consider using `coalesce`,
      * which can avoid performing a shuffle.
      * @param {number} numPartitions
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.repartition = function (numPartitions) {
         throw "not implemented by ElairJS";
@@ -172,7 +172,7 @@
      * @param {boolean} withReplacement
      * @param {number} fraction
      * @param {number} [seed]
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.sample = function (withReplacement, fraction, seed) {
         throw "not implemented by ElairJS";
@@ -197,7 +197,7 @@
      * @param {boolean} withReplacement
      * @param {JMap} fractions
      * @param {number} [seed]
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.sampleByKey = function (withReplacement, fractions, seed) {
         throw "not implemented by ElairJS";
@@ -225,7 +225,7 @@
      * @param {boolean} withReplacement
      * @param {JMap} fractions
      * @param {number} [seed]
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.sampleByKeyExact = function (withReplacement, fractions, seed) {
         throw "not implemented by ElairJS";
@@ -244,8 +244,8 @@
     /**
      * Return the union of this RDD and another one. Any identical elements will appear multiple
      * times (use `.distinct()` to eliminate them).
-     * @param {PairRDD} other
-     * @returns {PairRDD}
+     * @param {module:eclairjs.PairRDD} other
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.union = function (other) {
         var other_uw = Utils.unwrapObject(other);
@@ -258,8 +258,8 @@
      * elements, even if the input RDDs did.
      *
      * Note that this method performs a shuffle internally.
-     * @param {PairRDD} other
-     * @returns {PairRDD}
+     * @param {module:eclairjs.PairRDD} other
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.intersection = function (other) {
         throw "not implemented by ElairJS";
@@ -299,7 +299,7 @@
      * @param {Partitioner} partitioner
      * @param {boolean} mapSideCombine
      * @param {Serializer} serializer
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.combineByKey0 = function (createCombiner, mergeValue, mergeCombiners, partitioner, mapSideCombine, serializer) {
         throw "not implemented by ElairJS";
@@ -333,7 +333,7 @@
      * @param {func} mergeValue
      * @param {func} mergeCombiners
      * @param {Partitioner} partitioner
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.combineByKey1 = function (createCombiner, mergeValue, mergeCombiners, partitioner) {
         throw "not implemented by ElairJS";
@@ -356,7 +356,7 @@
      * @param {func} mergeValue
      * @param {func} mergeCombiners
      * @param {number} numPartitions
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.combineByKey2 = function (createCombiner, mergeValue, mergeCombiners, numPartitions) {
         throw "not implemented by ElairJS";
@@ -377,7 +377,7 @@
      * "combiner" in MapReduce.
      * @param {func} func
      * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.reduceByKey = function (func, bindArgs) {
         var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
@@ -443,7 +443,7 @@
      * @param {Partitioner} partitioner
      * @param {func} seqFunc
      * @param {func} combFunc
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.aggregateByKey0 = function (zeroValue, partitioner, seqFunc, combFunc) {
         throw "not implemented by ElairJS";
@@ -470,7 +470,7 @@
      * @param {number} numPartitions
      * @param {func} seqFunc
      * @param {func} combFunc
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.aggregateByKey1 = function (zeroValue, numPartitions, seqFunc, combFunc) {
         throw "not implemented by ElairJS";
@@ -494,7 +494,7 @@
      * @param {object} zeroValue
      * @param {func} seqFunc
      * @param {func} combFunc
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.aggregateByKey2 = function (zeroValue, seqFunc, combFunc) {
         throw "not implemented by ElairJS";
@@ -515,7 +515,7 @@
      * @param {object} zeroValue
      * @param {Partitioner} partitioner
      * @param {func} func
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.foldByKey0 = function (zeroValue, partitioner, func) {
         throw "not implemented by ElairJS";
@@ -535,7 +535,7 @@
      * @param {object} zeroValue
      * @param {number} numPartitions
      * @param {func} func
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.foldByKey1 = function (zeroValue, numPartitions, func) {
         throw "not implemented by ElairJS";
@@ -553,7 +553,7 @@
      * (e.g., Nil for list concatenation, 0 for addition, or 1 for multiplication.).
      * @param {object} zeroValue
      * @param {func} func
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.foldByKey2 = function (zeroValue, func) {
         throw "not implemented by ElairJS";
@@ -571,7 +571,7 @@
      * "combiner" in MapReduce. Output will be hash-partitioned with numPartitions partitions.
      * @param {func} func
      * @param {number} numPartitions
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.reduceByKey1 = function (func, numPartitions) {
         throw "not implemented by ElairJS";
@@ -590,7 +590,7 @@
      * each key, using [[PairRDD.reduceByKey]] or {@link combineByKey}
      * will provide much better performance.
      * @param {Partitioner | number} partitioner or number of partitions
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.groupByKey = function (partitioner) {
         var javaObject;
@@ -610,8 +610,8 @@
      *
      * Uses `this` partitioner/partition size, because even if `other` is huge, the resulting
      * RDD will be &lt;= us.
-     * @param {PairRDD} other
-     * @returns {PairRDD}
+     * @param {module:eclairjs.PairRDD} other
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.subtract0 = function (other) {
         throw "not implemented by ElairJS";
@@ -623,9 +623,9 @@
 
     /**
      * Return an RDD with the elements from `this` that are not in `other`.
-     * @param {PairRDD} other
+     * @param {module:eclairjs.PairRDD} other
      * @param {number} numPartitions
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.subtract1 = function (other, numPartitions) {
         throw "not implemented by ElairJS";
@@ -637,9 +637,9 @@
 
     /**
      * Return an RDD with the elements from `this` that are not in `other`.
-     * @param {PairRDD} other
+     * @param {module:eclairjs.PairRDD} other
      * @param {Partitioner} p
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.subtract2 = function (other, p) {
         throw "not implemented by ElairJS";
@@ -655,8 +655,8 @@
      *
      * Uses `this` partitioner/partition size, because even if `other` is huge, the resulting
      * RDD will be &lt;= us.
-     * @param {PairRDD} other
-     * @returns {PairRDD}
+     * @param {module:eclairjs.PairRDD} other
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.subtractByKey0 = function (other) {
         throw "not implemented by ElairJS";
@@ -667,9 +667,9 @@
 
 
     /**
-     * @param {PairRDD} other
+     * @param {module:eclairjs.PairRDD} other
      * @param {number} numPartitions
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.subtractByKey1 = function (other, numPartitions) {
         throw "not implemented by ElairJS";
@@ -680,9 +680,9 @@
 
 
     /**
-     * @param {PairRDD} other
+     * @param {module:eclairjs.PairRDD} other
      * @param {Partitioner} p
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.subtractByKey2 = function (other, p) {
         throw "not implemented by ElairJS";
@@ -696,7 +696,7 @@
     /**
      * Return a copy of the RDD partitioned using the specified partitioner.
      * @param {Partitioner} partitioner
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.partitionBy = function (partitioner) {
         throw "not implemented by ElairJS";
@@ -710,9 +710,9 @@
      * Merge the values for each key using an associative reduce function. This will also perform
      * the merging locally on each mapper before sending results to a reducer, similarly to a
      * "combiner" in MapReduce.
-     * @param {PairRDD} other
+     * @param {module:eclairjs.PairRDD} other
      * @param {Partitioner} partitioner
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.join = function (other, numPartitions) {
         var other_uw = Utils.unwrapObject(other);
@@ -727,9 +727,9 @@
      * resulting RDD will either contain all pairs (k, (v, Some(w))) for w in `other`, or the
      * pair (k, (v, None)) if no elements in `other` have key k. Uses the given Partitioner to
      * partition the output RDD.
-     * @param {PairRDD} other
+     * @param {module:eclairjs.PairRDD} other
      * @param {Partitioner} partitioner
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.leftOuterJoin0 = function (other, partitioner) {
         throw "not implemented by ElairJS";
@@ -745,9 +745,9 @@
      * resulting RDD will either contain all pairs (k, (Some(v), w)) for v in `this`, or the
      * pair (k, (None, w)) if no elements in `this` have key k. Uses the given Partitioner to
      * partition the output RDD.
-     * @param {PairRDD} other
+     * @param {module:eclairjs.PairRDD} other
      * @param {Partitioner} partitioner
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.rightOuterJoin0 = function (other, partitioner) {
         throw "not implemented by ElairJS";
@@ -765,9 +765,9 @@
      * element (k, w) in `other`, the resulting RDD will either contain all pairs
      * (k, (Some(v), Some(w))) for v in `this`, or the pair (k, (None, Some(w))) if no elements
      * in `this` have key k. Uses the given Partitioner to partition the output RDD.
-     * @param {PairRDD} other
+     * @param {module:eclairjs.PairRDD} other
      * @param {Partitioner} partitioner
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.fullOuterJoin0 = function (other, partitioner) {
         throw "not implemented by ElairJS";
@@ -784,7 +784,7 @@
      * @param {func} createCombiner
      * @param {func} mergeValue
      * @param {func} mergeCombiners
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.combineByKey3 = function (createCombiner, mergeValue, mergeCombiners) {
         throw "not implemented by ElairJS";
@@ -805,7 +805,7 @@
      * "combiner" in MapReduce. Output will be hash-partitioned with the existing partitioner/
      * parallelism level.
      * @param {func} func
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.reduceByKey2 = function (func) {
         throw "not implemented by ElairJS";
@@ -823,7 +823,7 @@
      * Note: If you are grouping in order to perform an aggregation (such as a sum or average) over
      * each key, using [[PairRDD.reduceByKey]] or {@link combineByKey}
      * will provide much better performance.
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.groupByKey2 = function () {
         throw "not implemented by ElairJS";
@@ -836,8 +836,8 @@
      * Return an RDD containing all pairs of elements with matching keys in `this` and `other`. Each
      * pair of elements will be returned as a (k, (v1, v2)) tuple, where (k, v1) is in `this` and
      * (k, v2) is in `other`. Performs a hash join across the cluster.
-     * @param {PairRDD} other
-     * @returns {PairRDD}
+     * @param {module:eclairjs.PairRDD} other
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.join1 = function (other) {
         throw "not implemented by ElairJS";
@@ -851,9 +851,9 @@
      * Return an RDD containing all pairs of elements with matching keys in `this` and `other`. Each
      * pair of elements will be returned as a (k, (v1, v2)) tuple, where (k, v1) is in `this` and
      * (k, v2) is in `other`. Performs a hash join across the cluster.
-     * @param {PairRDD} other
+     * @param {module:eclairjs.PairRDD} other
      * @param {number} numPartitions
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.join2 = function (other, numPartitions) {
         throw "not implemented by ElairJS";
@@ -868,8 +868,8 @@
      * resulting RDD will either contain all pairs (k, (v, Some(w))) for w in `other`, or the
      * pair (k, (v, None)) if no elements in `other` have key k. Hash-partitions the output
      * using the existing partitioner/parallelism level.
-     * @param {PairRDD} other
-     * @returns {PairRDD}
+     * @param {module:eclairjs.PairRDD} other
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.leftOuterJoin1 = function (other) {
         throw "not implemented by ElairJS";
@@ -884,9 +884,9 @@
      * resulting RDD will either contain all pairs (k, (v, Some(w))) for w in `other`, or the
      * pair (k, (v, None)) if no elements in `other` have key k. Hash-partitions the output
      * into `numPartitions` partitions.
-     * @param {PairRDD} other
+     * @param {module:eclairjs.PairRDD} other
      * @param {number} numPartitions
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.leftOuterJoin2 = function (other, numPartitions) {
         throw "not implemented by ElairJS";
@@ -901,8 +901,8 @@
      * resulting RDD will either contain all pairs (k, (Some(v), w)) for v in `this`, or the
      * pair (k, (None, w)) if no elements in `this` have key k. Hash-partitions the resulting
      * RDD using the existing partitioner/parallelism level.
-     * @param {PairRDD} other
-     * @returns {PairRDD}
+     * @param {module:eclairjs.PairRDD} other
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.rightOuterJoin1 = function (other) {
         throw "not implemented by ElairJS";
@@ -917,9 +917,9 @@
      * resulting RDD will either contain all pairs (k, (Some(v), w)) for v in `this`, or the
      * pair (k, (None, w)) if no elements in `this` have key k. Hash-partitions the resulting
      * RDD into the given number of partitions.
-     * @param {PairRDD} other
+     * @param {module:eclairjs.PairRDD} other
      * @param {number} numPartitions
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.rightOuterJoin2 = function (other, numPartitions) {
         throw "not implemented by ElairJS";
@@ -937,8 +937,8 @@
      * (k, (Some(v), Some(w))) for v in `this`, or the pair (k, (None, Some(w))) if no elements
      * in `this` have key k. Hash-partitions the resulting RDD using the existing partitioner/
      * parallelism level.
-     * @param {PairRDD} other
-     * @returns {PairRDD}
+     * @param {module:eclairjs.PairRDD} other
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.fullOuterJoin1 = function (other) {
         throw "not implemented by ElairJS";
@@ -955,9 +955,9 @@
      * element (k, w) in `other`, the resulting RDD will either contain all pairs
      * (k, (Some(v), Some(w))) for v in `this`, or the pair (k, (None, Some(w))) if no elements
      * in `this` have key k. Hash-partitions the resulting RDD into the given number of partitions.
-     * @param {PairRDD} other
+     * @param {module:eclairjs.PairRDD} other
      * @param {number} numPartitions
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.fullOuterJoin2 = function (other, numPartitions) {
         throw "not implemented by ElairJS";
@@ -982,7 +982,7 @@
      * Pass each value in the key-value pair RDD through a map function without changing the keys;
      * this also retains the original RDD's partitioning.
      * @param {func} f
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.mapValues = function (f, bindArgs) {
         var fn = Utils.createLambdaFunction(f, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
@@ -995,7 +995,7 @@
      * Pass each value in the key-value pair RDD through a flatMap function without changing the
      * keys; this also retains the original RDD's partitioning.
      * @param {func} f
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.flatMapValues = function (f) {
         throw "not implemented by ElairJS";
@@ -1009,9 +1009,9 @@
     /**
      * For each key k in `this` or `other`, return a resulting RDD that contains a tuple with the
      * list of values for that key in `this` as well as `other`.
-     * @param {PairRDD} other
+     * @param {module:eclairjs.PairRDD} other
      * @param {Partitioner} partitioner
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.cogroup0 = function (other, partitioner) {
         throw "not implemented by ElairJS";
@@ -1025,10 +1025,10 @@
     /**
      * For each key k in `this` or `other1` or `other2`, return a resulting RDD that contains a
      * tuple with the list of values for that key in `this`, `other1` and `other2`.
-     * @param {PairRDD} other1
-     * @param {PairRDD} other2
+     * @param {module:eclairjs.PairRDD} other1
+     * @param {module:eclairjs.PairRDD} other2
      * @param {Partitioner} partitioner
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.cogroup1 = function (other1, other2, partitioner) {
         throw "not implemented by ElairJS";
@@ -1044,11 +1044,11 @@
      * For each key k in `this` or `other1` or `other2` or `other3`,
      * return a resulting RDD that contains a tuple with the list of values
      * for that key in `this`, `other1`, `other2` and `other3`.
-     * @param {PairRDD} other1
-     * @param {PairRDD} other2
-     * @param {PairRDD} other3
+     * @param {module:eclairjs.PairRDD} other1
+     * @param {module:eclairjs.PairRDD} other2
+     * @param {module:eclairjs.PairRDD} other3
      * @param {Partitioner} partitioner
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.cogroup2 = function (other1, other2, other3, partitioner) {
         throw "not implemented by ElairJS";
@@ -1064,8 +1064,8 @@
     /**
      * For each key k in `this` or `other`, return a resulting RDD that contains a tuple with the
      * list of values for that key in `this` as well as `other`.
-     * @param {PairRDD} other
-     * @returns {PairRDD}
+     * @param {module:eclairjs.PairRDD} other
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.cogroup3 = function (other) {
         throw "not implemented by ElairJS";
@@ -1078,9 +1078,9 @@
     /**
      * For each key k in `this` or `other1` or `other2`, return a resulting RDD that contains a
      * tuple with the list of values for that key in `this`, `other1` and `other2`.
-     * @param {PairRDD} other1
-     * @param {PairRDD} other2
-     * @returns {PairRDD}
+     * @param {module:eclairjs.PairRDD} other1
+     * @param {module:eclairjs.PairRDD} other2
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.cogroup4 = function (other1, other2) {
         throw "not implemented by ElairJS";
@@ -1095,10 +1095,10 @@
      * For each key k in `this` or `other1` or `other2` or `other3`,
      * return a resulting RDD that contains a tuple with the list of values
      * for that key in `this`, `other1`, `other2` and `other3`.
-     * @param {PairRDD} other1
-     * @param {PairRDD} other2
-     * @param {PairRDD} other3
-     * @returns {PairRDD}
+     * @param {module:eclairjs.PairRDD} other1
+     * @param {module:eclairjs.PairRDD} other2
+     * @param {module:eclairjs.PairRDD} other3
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.cogroup5 = function (other1, other2, other3) {
         throw "not implemented by ElairJS";
@@ -1113,9 +1113,9 @@
     /**
      * For each key k in `this` or `other`, return a resulting RDD that contains a tuple with the
      * list of values for that key in `this` as well as `other`.
-     * @param {PairRDD} other
+     * @param {module:eclairjs.PairRDD} other
      * @param {number} numPartitions
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.cogroup6 = function (other, numPartitions) {
         throw "not implemented by ElairJS";
@@ -1128,10 +1128,10 @@
     /**
      * For each key k in `this` or `other1` or `other2`, return a resulting RDD that contains a
      * tuple with the list of values for that key in `this`, `other1` and `other2`.
-     * @param {PairRDD} other1
-     * @param {PairRDD} other2
+     * @param {module:eclairjs.PairRDD} other1
+     * @param {module:eclairjs.PairRDD} other2
      * @param {number} numPartitions
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.cogroup7 = function (other1, other2, numPartitions) {
         throw "not implemented by ElairJS";
@@ -1146,11 +1146,11 @@
      * For each key k in `this` or `other1` or `other2` or `other3`,
      * return a resulting RDD that contains a tuple with the list of values
      * for that key in `this`, `other1`, `other2` and `other3`.
-     * @param {PairRDD} other1
-     * @param {PairRDD} other2
-     * @param {PairRDD} other3
+     * @param {module:eclairjs.PairRDD} other1
+     * @param {module:eclairjs.PairRDD} other2
+     * @param {module:eclairjs.PairRDD} other3
      * @param {number} numPartitions
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.cogroup8 = function (other1, other2, other3, numPartitions) {
         throw "not implemented by ElairJS";
@@ -1163,8 +1163,8 @@
 
 
     /**
-     * @param {PairRDD} other
-     * @returns {PairRDD}
+     * @param {module:eclairjs.PairRDD} other
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.groupWith0 = function (other) {
         throw "not implemented by ElairJS";
@@ -1175,9 +1175,9 @@
 
 
     /**
-     * @param {PairRDD} other1
-     * @param {PairRDD} other2
-     * @returns {PairRDD}
+     * @param {module:eclairjs.PairRDD} other1
+     * @param {module:eclairjs.PairRDD} other2
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.groupWith1 = function (other1, other2) {
         throw "not implemented by ElairJS";
@@ -1189,10 +1189,10 @@
 
 
     /**
-     * @param {PairRDD} other1
-     * @param {PairRDD} other2
-     * @param {PairRDD} other3
-     * @returns {PairRDD}
+     * @param {module:eclairjs.PairRDD} other1
+     * @param {module:eclairjs.PairRDD} other2
+     * @param {module:eclairjs.PairRDD} other3
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.groupWith2 = function (other1, other2, other3) {
         throw "not implemented by ElairJS";
@@ -1332,7 +1332,7 @@
      * because it can push the sorting down into the shuffle machinery.
      * @param {Partitioner} partitioner
      * @param {Comparator} [comp]
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.repartitionAndSortWithinPartitions = function (partitioner, comp) {
         throw "not implemented by ElairJS";
@@ -1354,7 +1354,7 @@
      * ascending order. Calling `collect` or `save` on the resulting RDD will return or output an
      * ordered list of records (in the `save` case, they will be written to multiple `part-X` files
      * in the filesystem, in order of the keys).
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.sortByKey0 = function () {
         throw "not implemented by ElairJS";
@@ -1369,7 +1369,7 @@
      * (in the `save` case, they will be written to multiple `part-X` files in the filesystem, in
      * order of the keys).
      * @param {boolean} ascending
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.sortByKey1 = function (ascending) {
         throw "not implemented by ElairJS";
@@ -1384,7 +1384,7 @@
      * (in the `save` case, they will be written to multiple `part-X` files in the filesystem, in
      * order of the keys).
      * @param {boolean} ascending
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     RDD.prototype.sortByKey = function (ascending) {
         var result = new PairRDD(this.getJavaObject().sortByKey(ascending));
@@ -1399,7 +1399,7 @@
      * order of the keys).
      * @param {boolean} ascending
      * @param {number} numPartitions
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.sortByKey2 = function (ascending, numPartitions) {
         throw "not implemented by ElairJS";
@@ -1414,7 +1414,7 @@
      * (in the `save` case, they will be written to multiple `part-X` files in the filesystem, in
      * order of the keys).
      * @param {Comparator} comp
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.sortByKey3 = function (comp) {
         throw "not implemented by ElairJS";
@@ -1431,7 +1431,7 @@
      * order of the keys).
      * @param {Comparator} comp
      * @param {boolean} ascending
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.sortByKey4 = function (comp, ascending) {
         throw "not implemented by ElairJS";
@@ -1449,7 +1449,7 @@
      * @param {Comparator} comp
      * @param {boolean} ascending
      * @param {number} numPartitions
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.sortByKey5 = function (comp, ascending, numPartitions) {
         throw "not implemented by ElairJS";
@@ -1461,7 +1461,7 @@
 
     /**
      * Return an RDD with the keys of each tuple.
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.keys = function () {
         throw "not implemented by ElairJS";
@@ -1490,7 +1490,7 @@
      * @param {number} relativeSD  Relative accuracy. Smaller values create counters that require more space.
      *                   It must be greater than 0.000017.
      * @param {Partitioner} partitioner  partitioner of the resulting RDD.
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.countApproxDistinctByKey0 = function (relativeSD, partitioner) {
         throw "not implemented by ElairJS";
@@ -1510,7 +1510,7 @@
      * @param {number} relativeSD  Relative accuracy. Smaller values create counters that require more space.
      *                   It must be greater than 0.000017.
      * @param {number} numPartitions  number of partitions of the resulting RDD.
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.countApproxDistinctByKey1 = function (relativeSD, numPartitions) {
         throw "not implemented by ElairJS";
@@ -1528,7 +1528,7 @@
      *
      * @param {number} relativeSD  Relative accuracy. Smaller values create counters that require more space.
      *                   It must be greater than 0.000017.
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.countApproxDistinctByKey2 = function (relativeSD) {
         throw "not implemented by ElairJS";
@@ -1539,7 +1539,7 @@
 
     /**
      * @param {string} name
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.setName = function (name) {
         throw "not implemented by ElairJS";
@@ -1562,7 +1562,7 @@
 
     /**
      * @param {module:eclairjs.RDD} rdd
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.fromRDD = function (rdd) {
         throw "not implemented by ElairJS";
@@ -1574,7 +1574,7 @@
 
 
     /**
-     * @param {PairRDD} rdd
+     * @param {module:eclairjs.PairRDD} rdd
      * @returns {module:eclairjs.RDD}
      */
     PairRDD.toRDD = function (rdd) {
@@ -1586,7 +1586,7 @@
 
     /**
      * @param {JavaRDD} rdd
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.fromRDD = function (rdd) {
 // // TODO: handle Tuple conversion for 'rdd'

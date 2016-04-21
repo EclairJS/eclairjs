@@ -52,7 +52,7 @@
      * predicted classes are in columns,
      * they are ordered by class label ascending,
      * as in "labels"
-     * @returns {Matrix}
+     * @returns {module:eclairjs/mllib/linalg.Matrix}
      */
     MulticlassMetrics.prototype.confusionMatrix = function () {
        var javaObject =  this.getJavaObject().confusionMatrix();

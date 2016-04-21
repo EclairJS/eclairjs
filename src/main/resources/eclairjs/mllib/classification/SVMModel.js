@@ -75,7 +75,7 @@
 
     /**
      * Clears the threshold so that `predict` will output raw prediction scores.
-     * @returns {SVMModel}
+     * @returns {module:eclairjs/mllib/classification.SVMModel}
      */
     SVMModel.prototype.clearThreshold = function () {
        var javaObject =  this.getJavaObject().clearThreshold();
@@ -122,7 +122,7 @@
     /**
      * @param {module:eclairjs.SparkContext} sc
      * @param {string} path
-     * @returns {SVMModel}
+     * @returns {module:eclairjs/mllib/classification.SVMModel}
      */
     SVMModel.load = function (sc, path) {
        var sc_uw = Utils.unwrapObject(sc);

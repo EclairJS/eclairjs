@@ -18,10 +18,8 @@
     var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
-    //var RDD = require(EclairJS_Globals.NAMESPACE + '/RDD');
 
     var SVMModel = require(EclairJS_Globals.NAMESPACE + '/mllib/classification/SVMModel');
-    //var Vector = require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Vector');
 
     /**
      * Train a Support Vector Machine (SVM) using Stochastic Gradient Descent. By default L2
@@ -67,7 +65,7 @@
      * @param {number} [miniBatchFraction]  Fraction of data to be used per iteration.
      * @param {module:eclairjs/mllib/linalg.Vector} [initialWeights]  Initial set of weights to be used. Array should be equal in size to
      *        the number of features in the data.
-     * @returns {SVMModel}
+     * @returns {module:eclairjs/mllib/classification.SVMModel}
      */
     SVMWithSGD.train = function (input, numIterations, stepSize, regParam, miniBatchFraction, initialWeights) {
         var javaObject;

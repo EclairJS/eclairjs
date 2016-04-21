@@ -27,7 +27,7 @@
      * @memberof module:eclairjs/mllib/clustering
      * @classdesc
      * @class
-     * @extends LDAModel
+     * @extends module:eclairjs/mllib/clustering.LDAModel
      */
 
 
@@ -47,7 +47,7 @@
      * Convert model to a local model.
      * The local model stores the inferred topics but not the topic distributions for training
      * documents.
-     * @returns {LocalLDAModel}
+     * @returns {module:eclairjs/mllib/clustering.LocalLDAModel}
      */
     DistributedLDAModel.prototype.toLocal = function () {
         throw "not implemented by ElairJS";
@@ -58,7 +58,7 @@
 
     /**
      * @param {number} maxTermsPerTopic
-     * @returns {Tuple2[]}
+     * @returns {module:eclairjs.Tuple[]}
      */
     DistributedLDAModel.prototype.describeTopics = function (maxTermsPerTopic) {
         throw "not implemented by ElairJS";
@@ -73,7 +73,7 @@
      * @param {number} maxDocumentsPerTopic   Maximum number of documents to collect for each topic.
      *          (IDs for the documents, weights of the topic in these documents).
      *          For each topic, documents are sorted in order of decreasing topic weights.
-     * @returns {Tuple2[]}   Array over topics.  Each element represent as a pair of matching arrays:
+     * @returns {module:eclairjs.Tuple[]}   Array over topics.  Each element represent as a pair of matching arrays:
      */
     DistributedLDAModel.prototype.topDocumentsPerTopic = function (maxDocumentsPerTopic) {
         throw "not implemented by ElairJS";
@@ -97,7 +97,7 @@
 
     /**
      * Java-friendly version of {@link topicDistributions}
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     DistributedLDAModel.prototype.javaTopicDistributions = function () {
         throw "not implemented by ElairJS";
@@ -148,7 +148,7 @@
     /**
      * @param {module:eclairjs.SparkContext} sc
      * @param {string} path
-     * @returns {DistributedLDAModel}
+     * @returns {module:eclairjs/mllib/clustering.DistributedLDAModell}
      */
     DistributedLDAModel.load = function (sc, path) {
         throw "not implemented by ElairJS";
