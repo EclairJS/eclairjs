@@ -72,7 +72,7 @@
     };
     /**
      * Persist RDDs of this DStream with the storage level
-     * @param {StorageLevel} [level] (MEMORY_ONLY_SER) by default
+     * @param {module:eclairjs/storage.StorageLevel} [level] (MEMORY_ONLY_SER) by default
      * @return {DStream}
      */
     DStream.prototype.persist = function () {

@@ -37,84 +37,84 @@
 
     /**
      * @static
-     * @returns {StorageLevel}
+     * @returns {module:eclairjs/storage.StorageLevel}
      */
     StorageLevel.NONE = function() {
         return new StorageLevel(org.apache.spark.storage.StorageLevel.NONE());
     };
     /**
      * @static
-     * @returns {StorageLevel}
+     * @returns {module:eclairjs/storage.StorageLevel}
      */
     StorageLevel.MEMORY_ONLY = function() {
         return new StorageLevel(org.apache.spark.storage.StorageLevel.MEMORY_ONLY());
     };
     /**
      * @static
-     * @returns {StorageLevel}
+     * @returns {module:eclairjs/storage.StorageLevel}
      */
     StorageLevel.MEMORY_ONLY_2 = function() {
         return new StorageLevel(org.apache.spark.storage.StorageLevel.MEMORY_ONLY_2());
     };
     /**
      * @static
-     * @returns {StorageLevel}
+     * @returns {module:eclairjs/storage.StorageLevel}
      */
     StorageLevel.MEMORY_ONLY_SER = function() {
         return new StorageLevel(org.apache.spark.storage.StorageLevel.MEMORY_ONLY_SER());
     };
     /**
      * @static
-     * @returns {StorageLevel}
+     * @returns {module:eclairjs/storage.StorageLevel}
      */
     StorageLevel.MEMORY_ONLY_SER_2 = function() {
         return new StorageLevel(org.apache.spark.storage.StorageLevel.MEMORY_ONLY_SER_2());
     };
     /**
      * @static
-     * @returns {StorageLevel}
+     * @returns {module:eclairjs/storage.StorageLevel}
      */
     StorageLevel.DISK_ONLY = function() {
         return new StorageLevel(org.apache.spark.storage.StorageLevel.DISK_ONLY());
     };
     /**
      * @static
-     * @returns {StorageLevel}
+     * @returns {module:eclairjs/storage.StorageLevel}
      */
     StorageLevel.DISK_ONLY_2 = function() {
         return new StorageLevel(org.apache.spark.storage.StorageLevel.DISK_ONLY_2());
     };
     /**
      * @static
-     * @returns {StorageLevel}
+     * @returns {module:eclairjs/storage.StorageLevel}
      */
     StorageLevel.MEMORY_AND_DISK = function() {
         return new StorageLevel(org.apache.spark.storage.StorageLevel.MEMORY_AND_DISK());
     };
     /**
      * @static
-     * @returns {StorageLevel}
+     * @returns {module:eclairjs/storage.StorageLevel}
      */
     StorageLevel.MEMORY_AND_DISK_2 = function() {
         return new StorageLevel(org.apache.spark.storage.StorageLevel.MEMORY_AND_DISK_2());
     };
     /**
      * @static
-     * @returns {StorageLevel}
+     * @returns {module:eclairjs/storage.StorageLevel}
      */
     StorageLevel.MEMORY_AND_DISK_SER = function() {
         return new StorageLevel(org.apache.spark.storage.StorageLevel.MEMORY_AND_DISK_SER());
     };
     /**
      * @static
-     * @returns {StorageLevel}
+     * @returns {module:eclairjs/storage.StorageLevel}
      */
     StorageLevel.MEMORY_AND_DISK_SER_2 = function() {
         return new StorageLevel(org.apache.spark.storage.StorageLevel.MEMORY_AND_DISK_SER_2());
     };
     /**
      * @static
-     * @returns {StorageLevel}
+     * @returns {module:eclairjs/storage.StorageLevel}
      */
     StorageLevel.OFF_HEAP = function() {
         return new StorageLevel(org.apache.spark.storage.StorageLevel.OFF_HEAP());
@@ -156,14 +156,14 @@
     };
 
     /**
-     * @returns {StorageLevel}
+     * @returns {module:eclairjs/storage.StorageLevel}
      */
     StorageLevel.prototype.clone = function() {
         return Utils.javaToJs(this.getJavaObject().clone());
     };
 
     /**
-     * @param {StorageLevel} other
+     * @param {module:eclairjs/storage.StorageLevel} other
      * @returns {boolean}
      */
     StorageLevel.prototype.equals = function(other) {

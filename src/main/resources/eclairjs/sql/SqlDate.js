@@ -54,7 +54,7 @@
 
     /**
      * Tests if this date is after the specified date.
-     * @param {SqlDate} when
+     * @param {module:eclairjs/sql.SqlDate} when
      * @returns {boolean}
      */
     SqlDate.prototype.after = function (when) {
@@ -62,7 +62,7 @@
     };
     /**
      * Tests if this date is before the specified date.
-     * @param {SqlDate} when
+     * @param {module:eclairjs/sql.SqlDate} when
      * @returns {boolean}
      */
     SqlDate.prototype.before = function (when) {
@@ -70,14 +70,14 @@
     };
     /**
      * Return a copy of this object.
-     * @returns {SqlDate}
+     * @returns {module:eclairjs/sql.SqlDate}
      */
     SqlDate.prototype.clone = function () {
         return new SqlDate(this.getJavaObject().clone());
     };
     /**
      * Compares two Dates for ordering
-     * @param {SqlDate} anotherDate
+     * @param {module:eclairjs/sql.SqlDate} anotherDate
      * @returns {integer}
      */
     SqlDate.prototype.compareTo = function (anotherDate) {
@@ -85,7 +85,7 @@
     };
     /**
      * Compares two dates for equality.
-     * @param {SqlDate} when
+     * @param {module:eclairjs/sql.SqlDate} when
      * @returns {boolean}
      */
     SqlDate.prototype.equals = function (when) {

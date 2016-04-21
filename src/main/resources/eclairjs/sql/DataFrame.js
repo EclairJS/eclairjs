@@ -76,7 +76,7 @@
 	 * Selects column based on the column name and return it as a Column.
 	 * Note that the column name can also reference to a nested column like a.b.
 	 * @param {string} colName
-	 * @returns {Column}
+	 * @returns {module:eclairjs/sql.Column}
 	 */
 	DataFrame.prototype.apply = function (colName) {
 		return Utils.javaToJs(this.getJavaObject().apply(colName));
@@ -102,14 +102,14 @@
 	/**
 	 * Selects column based on the column name and return it as a Column.
 	 * @param {string} name
-	 * @returns {Column}
+	 * @returns {module:eclairjs/sql.Column}
 	 */
 	DataFrame.prototype.col = function (name) {
 		return Utils.javaToJs(this.getJavaObject().col(name));
 	};
 	/**
 	 * Returns an array that contains all of Rows in this DataFrame.
-	 * @returns {Row[]}
+	 * @returns {module:eclairjs/sql.Row[]}
 	 */
 	DataFrame.prototype.collect = function () {
 		var jRows = this.getJavaObject().collect();
@@ -143,7 +143,7 @@
 	 * @param {string| Column} cols...
 	 * @example
 	 * var df = peopleDataFrame.cube("age", "expense");
-	 * @returns {GroupedData}
+	 * @returns {module:eclairjs/sql.GroupedData}
 	 */
 	DataFrame.prototype.cube = function () {
 
@@ -245,7 +245,7 @@
 	};
 	/**
 	 * Filters rows using the given Column
-	 * @param {Column} col
+	 * @param {module:eclairjs/sql.Column} col
 	 * @returns {module:eclairjs/sql.DataFrame}
 	 * @private
 	 */
@@ -263,7 +263,7 @@
 	};
 	/**
 	 * Returns the first row. Alias for head().
-	 * returns {Row}
+	 * returns {module:eclairjs/sql.Row}
 	 */
 	DataFrame.prototype.first = function () {
 		return this.head();
@@ -315,7 +315,7 @@
 	/**
 	 * Groups the DataFrame using the specified columns, so we can run aggregation on them
 	 * @param {string[] | Column[]} - Array of Column objects of column name strings
-	 * @returns {GroupedData}
+	 * @returns {module:eclairjs/sql.GroupedData}
 	 */
 	DataFrame.prototype.groupBy = function () {
 		var args = Array.prototype.slice.call(arguments);
@@ -327,8 +327,8 @@
 	};
 	/**
 	 * Groups the DataFrame using the specified columns, so we can run aggregation on them
-	 * @param {Columns[]}
-	 * @returns {GroupedData}
+	 * @param {module:eclairjs/sql.Columns[]}
+	 * @returns {module:eclairjs/sql.GroupedData}
 	 * @private
 	 */
 	DataFrame.prototype.groupByWithColumns = function (args) {
@@ -344,7 +344,7 @@
 	/**
 	 * Groups the DataFrame using the specified columns, so we can run aggregation on them
 	 * @param {string[]} columnNames
-	 * @returns {GroupedData}
+	 * @returns {module:eclairjs/sql.GroupedData}
 	 * @private
 	 */
 	DataFrame.prototype.groupByWithStrings = function (args) {
@@ -357,7 +357,7 @@
 	};
 	/**
 	 * Returns the first row.
-	 * @returns {Row}
+	 * @returns {module:eclairjs/sql.Row}
 	 */
 	DataFrame.prototype.head = function () {
 		return Utils.javaToJs(this.getJavaObject().head());
@@ -461,7 +461,7 @@
 	};
 	/**
 	 * Returns a DataFrameNaFunctions for working with missing data.
-	 * @returns {DataFrameNaFunctions}
+	 * @returns {module:eclairjs/sql.DataFrameNaFunctions}
 
 	 */
 	DataFrame.prototype.na = function () {
@@ -477,7 +477,7 @@
 		return this.sort.apply(this, arguments);
 	};
 	/**
-	 * @param {StorageLevel} newLevel
+	 * @param {module:eclairjs/storage.StorageLevel} newLevel
 	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.persist = function (newLevel) {
@@ -500,7 +500,7 @@
 	 * Randomly splits this DataFrame with the provided weights.
 	 * @param {float[]} weights - weights for splits, will be normalized if they don't sum to 1.
 	 * @param {int} seed - Seed for sampling.
-	 * @returns {DataFrame[]}
+	 * @returns {module:eclairjs/sql.DataFrame[]}
 	 */
 	DataFrame.prototype.randomSplit = function (weights, seed) {
 		var dfs = this.getJavaObject().randomSplit(weights, seed);
@@ -536,7 +536,7 @@
 	 * Create a multi-dimensional rollup for the current DataFrame using the specified columns,
 	 * so we can run aggregation on them. See GroupedData for all the available aggregate functions.
 	 * @param {string | Column} columnName, .....columnName or sortExprs,... sortExprs
-	 * @returns {GroupedData}
+	 * @returns {module:eclairjs/sql.GroupedData}
 	 * @example
 	 *  var result = peopleDataFrame.rollup("age", "networth").count();
 	 *  // or
@@ -575,7 +575,7 @@
 	};
 	/**
 	 * Selects a set of column based expressions.
-	 * @param {Column[] | string[]}
+	 * @param {module:eclairjs/sql.Column[] | string[]}
 	 * @returns  {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.select = function () {
@@ -600,7 +600,7 @@
 
 	/**
 	 * Selects a set of column based expressions.
-	 * @param {Column[]}
+	 * @param {module:eclairjs/sql.Column[]}
 	 * @returns {module:eclairjs/sql.DataFrame}
 	 * @private
 	 */
@@ -663,7 +663,7 @@
 	};
 	/**
 	 * Returns SQLContext
-	 * @returns {SQLContext}
+	 * @returns {module:eclairjs/sql.SQLContext}
 	 */
 	DataFrame.prototype.sqlContext = function () {
 		return Utils.javaToJs(this.getJavaObject().sqlContext());
@@ -673,7 +673,7 @@
 	 * @example
 	 * var stat = peopleDataFrame.stat().cov("income", "networth");
 	 *
-	 * @returns {DataFrameStatFunctions}
+	 * @returns {module:eclairjs/sql.DataFrameStatFunctions}
 	 */
 	DataFrame.prototype.stat = function () {
 		return Utils.javaToJs(this.getJavaObject().stat());
@@ -681,7 +681,7 @@
 	/**
 	 * Returns the first n rows in the DataFrame.
 	 * @param {integer} num
-	 * @returns {Row[]}
+	 * @returns {module:eclairjs/sql.Row[]}
 	 */
 	DataFrame.prototype.take = function (num) {
 		var rows = this.getJavaObject().take(num);
@@ -733,7 +733,7 @@
 	};
 	/**
 	 * Filters rows using the given Column or SQL expression.
-	 * @param {Column | string} condition - .
+	 * @param {module:eclairjs/sql.Column | string} condition - .
 	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.where = function (condition) {
@@ -742,7 +742,7 @@
 	/**
 	 * Returns a new DataFrame by adding a column or replacing the existing column that has the same name.
 	 * @param {string} name
-	 * @param {Column} col
+	 * @param {module:eclairjs/sql.Column} col
 	 * @returns {module:eclairjs/sql.DataFrame}
 	 * @example
 	 *  var col = peopleDataFrame.col("age");
@@ -762,7 +762,7 @@
 	};
 	/**
 	 * Interface for saving the content of the DataFrame out into external storage.
-	 * @returns {DataFrameWriter}
+	 * @returns {module:eclairjs/sql.DataFrameWriter}
 	 */
 	DataFrame.prototype.write = function () {
 		return Utils.javaToJs(this.getJavaObject().write());

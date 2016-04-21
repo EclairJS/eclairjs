@@ -423,7 +423,7 @@
     };
 
     /**
-     * @returns {StorageLevel}
+     * @returns {module:eclairjs/storage.StorageLevel}
      */
     RDD.prototype.getStorageLevel = function () {
         var javaObject = this.getJavaObject().getStorageLevel();
@@ -675,7 +675,7 @@
     };
 
     /**
-     * @param {StorageLevel} newLevel
+     * @param {module:eclairjs/storage.StorageLevel} newLevel
      * @returns {module:eclairjs.RDD}
      */
     RDD.prototype.persist = function (newLevel) {

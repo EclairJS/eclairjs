@@ -70,7 +70,7 @@
     };
     /**
      * Compares this Timestamp object to the given Date or Timestamp object.
-     * @param {SqlDate | SqlTimestamp} when
+     * @param {module:eclairjs/sql.SqlDate | module:eclairjs/sql.SqlTimestamp} when
      * @returns {integer}
      */
     SqlTimestamp.prototype.compareTo = function (when) {
@@ -78,7 +78,7 @@
     };
     /**
      * Tests to see if this Timestamp object is equal to the given Timestamp object.
-     * @param {SqlTimestamp} when
+     * @param {module:eclairjs/sql.SqlTimestamp} when
      * @returns {boolean}
      */
     SqlTimestamp.prototype.equals = function (when) {

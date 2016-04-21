@@ -59,7 +59,7 @@
      *        twitter4j.oauth.consumerSecret, twitter4j.oauth.accessToken and
      *        twitter4j.oauth.accessTokenSecret
      * @param {string[]} filters  Set of filter strings to get only those tweets that match them
-     * @param {StorageLevel} storageLevel  Storage level to use for storing the received objects
+     * @param {module:eclairjs/storage.StorageLevel} storageLevel  Storage level to use for storing the received objects
      * @returns {ReceiverInputDStream}
      */
     TwitterUtils.createStream0 = function (ssc, twitterAuth, filters, storageLevel) {
@@ -114,7 +114,7 @@
      * twitter4j.oauth.accessTokenSecret.
      * @param {JavaStreamingContext} jssc          JavaStreamingContext object
      * @param {string[]} filters       Set of filter strings to get only those tweets that match them
-     * @param {StorageLevel} storageLevel  Storage level to use for storing the received objects
+     * @param {module:eclairjs/storage.StorageLevel} storageLevel  Storage level to use for storing the received objects
      * @returns {JavaReceiverInputDStream}
      */
     TwitterUtils.createStream3 = function (jssc, filters, storageLevel) {
@@ -147,7 +147,7 @@
      * @param {JavaStreamingContext} jssc          JavaStreamingContext object
      * @param {Authorization} twitterAuth   Twitter4J Authorization object
      * @param {string[]} filters       Set of filter strings to get only those tweets that match them
-     * @param {StorageLevel} storageLevel  Storage level to use for storing the received objects
+     * @param {module:eclairjs/storage.StorageLevel} storageLevel  Storage level to use for storing the received objects
      * @returns {JavaReceiverInputDStream}
      */
     TwitterUtils.createStream6 = function (jssc, twitterAuth, filters, storageLevel) {

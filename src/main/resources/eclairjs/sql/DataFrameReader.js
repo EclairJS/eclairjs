@@ -42,7 +42,7 @@
      *
      * @since EclairJS 0.1 Spark  1.4.0
      * @param {string} source
-     * @returns {DataFrameReader}
+     * @returns {module:eclairjs/sql.DataFrameReader}
      */
     DataFrameReader.prototype.format = function (source) {
         var javaObject = this.getJavaObject().format(source);
@@ -57,7 +57,7 @@
      *
      * @since EclairJS 0.1 Spark  1.4.0
      * @param {module:eclairjs/sql/types.StructType} schema
-     * @returns {DataFrameReader}
+     * @returns {module:eclairjs/sql.DataFrameReader}
      */
     DataFrameReader.prototype.schema = function (schema) {
         var schema_uw = Utils.unwrapObject(schema);
@@ -73,7 +73,7 @@
      * @param {string | object} keyOrMap
      * If object, the object is expected to be a HashMap, the key of the map is type: 'String'
      * The value must be of the following type: `String`.
-     * @returns {DataFrameReader}
+     * @returns {module:eclairjs/sql.DataFrameReader}
      */
     DataFrameReader.prototype.option = function (keyOrMap, value) {
         var javaObject;
@@ -91,7 +91,7 @@
      *
      * @since EclairJS 0.1 Spark  1.4.0
      * @param {Map} map
-     * @returns {DataFrameReader}
+     * @returns {module:eclairjs/sql.DataFrameReader}
      */
     DataFrameReader.prototype.options = function (map) {
         var jmap = Utils.createJavaHashMap(map);

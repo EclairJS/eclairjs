@@ -48,7 +48,7 @@
      * // Java:
      * df.groupBy("department").agg(max("age"), sum("expense"));
      * @since EclairJS 0.1 Spark  1.3.0
-     * @param {Column | string} columnExpr,...columnExpr or columnName, ...columnName
+     * @param {module:eclairjs/sql.Column | string} columnExpr,...columnExpr or columnName, ...columnName
      * @returns {module:eclairjs/sql.DataFrame}
      */
     GroupedData.prototype.agg = function () {
@@ -145,7 +145,7 @@
      * @param {string} pivotColumn  Name of the column to pivot.
      * @param {module:eclairjs.List} [values]  List of values that will be translated to columns in the output DataFrame.
      * @since EclairJS 0.1 Spark  1.6.0
-     * @returns {GroupedData}
+     * @returns {module:eclairjs/sql.GroupedData}
      */
     GroupedData.prototype.pivot = function (pivotColumn, values) {
         var javaObject;

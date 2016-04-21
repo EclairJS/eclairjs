@@ -40,7 +40,7 @@
      *
      * @since EclairJS 0.1 Spark  1.3.0
      * @param {string} colName
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.col = function (colName) {
         var javaObject = org.apache.spark.sql.functions.col(colName);
@@ -53,7 +53,7 @@
      *
      * @since EclairJS 0.1 Spark  1.3.0
      * @param {string} colName
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.column = function (colName) {
         var javaObject = org.apache.spark.sql.functions.column(colName);
@@ -69,7 +69,7 @@
      *
      * @since EclairJS 0.1 Spark  1.3.0
      * @param {object} literal
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.lit = function (literal) {
         var javaObject = org.apache.spark.sql.functions.lit(Utils.unwrapObject(literal));
@@ -86,7 +86,7 @@
      *
      * @since EclairJS 0.1 Spark  1.3.0
      * @param {string} columnName
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.asc = function (columnName) {
         var javaObject = org.apache.spark.sql.functions.asc(columnName);
@@ -103,7 +103,7 @@
      *
      * @since EclairJS 0.1 Spark  1.3.0
      * @param {string} columnName
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.desc = function (columnName) {
         var javaObject = org.apache.spark.sql.functions.desc(columnName);
@@ -115,9 +115,9 @@
      * Aggregate function: returns the approximate number of distinct items in a group.
      *
      * @since EclairJS 0.1 Spark  1.3.0
-     * @param {Column | string} column object or column name as a string
+     * @param {module:eclairjs/sql.Column | string} column object or column name as a string
      * @param {float} [rsd]
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.approxCountDistinct = function (column, rsd) {
         var e_uw = Utils.unwrapObject(column);
@@ -136,8 +136,8 @@
      * Aggregate function: returns the average of the values in a group.
      *
      * @since EclairJS 0.1 Spark  1.3.0
-     * @param {Column | string} column object or column name as a string
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} column object or column name as a string
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.avg = function (column) {
         var e_uw = Utils.unwrapObject(column);
@@ -150,8 +150,8 @@
      * Aggregate function: returns the number of items in a group.
      *
      * @since EclairJS 0.1 Spark  1.3.0
-     * @param {Column | string} column object or column name as a string
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} column object or column name as a string
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.count = function (column) {
         var e_uw = Utils.unwrapObject(column);
@@ -164,8 +164,8 @@
      * Aggregate function: returns the number of distinct items in a group.
      *
      * @since EclairJS 0.1 Spark  1.3.0
-     * @param {Column | string} columnExpr, ...columnExpr or columnName, ...columnName
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} columnExpr, ...columnExpr or columnName, ...columnName
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.countDistinct = function () {
         /*
@@ -189,8 +189,8 @@
      * Aggregate function: returns the first value in a group.
      *
      * @since EclairJS 0.1 Spark  1.3.0
-     * @param {Column | string} column object or column name as a string
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} column object or column name as a string
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.first = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -203,8 +203,8 @@
      * Aggregate function: returns the last value in a group.
      *
      * @since EclairJS 0.1 Spark  1.3.0
-     * @param {Column | string} column object or column name as a string
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} column object or column name as a string
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.last = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -216,8 +216,8 @@
      * Aggregate function: returns the maximum value of the expression in a group.
      *
      * @since EclairJS 0.1 Spark  1.3.0
-     * @param {Column | string} column object or column name as a string
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} column object or column name as a string
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.max = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -230,8 +230,8 @@
      * Alias for avg.
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @param {Column | string} column object or column name as a string
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} column object or column name as a string
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.mean = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -243,8 +243,8 @@
      * Aggregate function: returns the minimum value of the expression in a group.
      *
      * @since EclairJS 0.1 Spark  1.3.0
-     * @param {Column | string} column object or column name as a string
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} column object or column name as a string
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.min = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -257,8 +257,8 @@
      * Aggregate function: returns the sum of all values in the expression.
      *
      * @since EclairJS 0.1 Spark  1.3.0
-     * @param {Column | string} column object or column name as a string
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} column object or column name as a string
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.sum = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -271,8 +271,8 @@
      * Aggregate function: returns the sum of distinct values in the expression.
      *
      * @since EclairJS 0.1 Spark  1.3.0
-     * @param {Column | string} column object or column name as a string
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} column object or column name as a string
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.sumDistinct = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -293,7 +293,7 @@
      * This is equivalent to the CUME_DIST function in SQL.
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.cumeDist = function () {
         var javaObject = org.apache.spark.sql.functions.cumeDist();
@@ -312,7 +312,7 @@
      * This is equivalent to the DENSE_RANK function in SQL.
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.denseRank = function () {
         var javaObject = org.apache.spark.sql.functions.denseRank();
@@ -328,10 +328,10 @@
      * This is equivalent to the LAG function in SQL.
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @param {Column | string} column
+     * @param {module:eclairjs/sql.Column | string} column
      * @param {integer} offset
      * @param {object} defaultValue
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.lag = function (column, offset, defaultValue) {
         var e_uw = Utils.unwrapObject(column);
@@ -354,10 +354,10 @@
      * This is equivalent to the LEAD function in SQL.
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @param {Column | string} column
+     * @param {module:eclairjs/sql.Column | string} column
      * @param {integer} offset
      * @param {object} defaultValue
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.lead = function (e, offset, defaultValue) {
         var e_uw = Utils.unwrapObject(e);
@@ -381,7 +381,7 @@
      *
      * @since EclairJS 0.1 Spark  1.4.0
      * @param {integer} n
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.ntile = function (n) {
         var javaObject = org.apache.spark.sql.functions.ntile(n);
@@ -400,7 +400,7 @@
      * This is equivalent to the PERCENT_RANK function in SQL.
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.percentRank = function () {
         var javaObject = org.apache.spark.sql.functions.percentRank();
@@ -419,7 +419,7 @@
      * This is equivalent to the RANK function in SQL.
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.rank = function () {
         var javaObject = org.apache.spark.sql.functions.rank();
@@ -433,7 +433,7 @@
      * This is equivalent to the ROW_NUMBER function in SQL.
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.rowNumber = function () {
         var javaObject = org.apache.spark.sql.functions.rowNumber();
@@ -445,8 +445,8 @@
      * Computes the absolute value.
      *
      * @since EclairJS 0.1 Spark  1.3.0
-     * @param {Column} column
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} column
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.abs = function (column) {
         var e_uw = Utils.unwrapObject(column);
@@ -459,8 +459,8 @@
      * Creates a new array column. The input columns must all have the same data type.
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @param {Column | string} columnExpr, ...columnExpr or columnName, ...columnName
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} columnExpr, ...columnExpr or columnName, ...columnName
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.array = function () {
         /*
@@ -501,8 +501,8 @@
      * or b if a is null and b is not null, or c if both a and b are null but c is not null.
      *
      * @since EclairJS 0.1 Spark  1.3.0
-     * @param {Column} column, ...column
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} column, ...column
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.coalesce = function () {
         var args = Array.prototype.slice.call(arguments);
@@ -518,7 +518,7 @@
     /**
      * Creates a string column for the file name of the current Spark task.
      *
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.inputFileName = function () {
         var javaObject = org.apache.spark.sql.functions.inputFileName();
@@ -530,8 +530,8 @@
      * Return true iff the column is NaN.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} column
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} column
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.isNaN = function (column) {
         var e_uw = Utils.unwrapObject(column);
@@ -553,7 +553,7 @@
      * 0, 1, 2, 8589934592 (1L << 33), 8589934593, 8589934594.
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.monotonicallyIncreasingId = function () {
         var javaObject = org.apache.spark.sql.functions.monotonicallyIncreasingId();
@@ -567,9 +567,9 @@
      * Both inputs should be floating point columns (DoubleType or FloatType).
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} col1
-     * @param {Column} col2
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} col1
+     * @param {module:eclairjs/sql.Column} col2
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.nanvl = function (col1, col2) {
         var col1_uw = Utils.unwrapObject(col1);
@@ -586,8 +586,8 @@
      *
      *
      * @since EclairJS 0.1 Spark  1.3.0
-     * @param {Column} e
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} e
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.negate = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -603,8 +603,8 @@
      *
      *
      * @since EclairJS 0.1 Spark  1.3.0
-     * @param {Column} e
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} e
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.not = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -618,7 +618,7 @@
      *
      * @since EclairJS 0.1 Spark  1.4.0
      * @param {integer} [seed]
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.rand = function (seed) {
         var javaObject;
@@ -637,7 +637,7 @@
      *
      * @since EclairJS 0.1 Spark  1.4.0
      * @param {integer} [seed]
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.randn = function (seed) {
         var javaObject;
@@ -657,7 +657,7 @@
      * Note that this is indeterministic because it depends on data partitioning and task scheduling.
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.sparkPartitionId = function () {
         var javaObject = org.apache.spark.sql.functions.sparkPartitionId();
@@ -669,8 +669,8 @@
      * Computes the square root of the specified float value.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column | string} col
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} col
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.sqrt = function (col) {
         var e_uw = Utils.unwrapObject(col);
@@ -687,8 +687,8 @@
      * i.e. col1, col2, col3, ...
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @param {Column | string} columnExpr, ...columnExpr or columnName, ...columnName
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} columnExpr, ...columnExpr or columnName, ...columnName
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.struct = function () {
         /*
@@ -712,7 +712,7 @@
      *
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.when = function (condition, value) {
         var condition_uw = Utils.unwrapObject(condition);
@@ -725,8 +725,8 @@
      * Computes bitwise NOT.
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @param {Column} e
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} e
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.bitwiseNOT = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -743,7 +743,7 @@
      *   df.groupBy(functions.expr("length(word)")).count()
      *
      * @param {string} expr
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.expr = function (expr) {
         var javaObject = org.apache.spark.sql.functions.expr(expr);
@@ -756,8 +756,8 @@
      * 0.0 through pi.
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @param {Column | string} col
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} col
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.acos = function (col) {
         var e_uw = Utils.unwrapObject(col);
@@ -771,8 +771,8 @@
      * -pi/2 through pi/2.
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @param {Column | string} col
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} col
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.asin = function (col) {
         var e_uw = Utils.unwrapObject(col);
@@ -785,8 +785,8 @@
      * Computes the tangent inverse of the given value.
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @param {Column | string} col
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} col
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.atan = function (col) {
         var e_uw = Utils.unwrapObject(col);
@@ -819,9 +819,9 @@
      *  result = functions.atan2(2.0, "expense");
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @param {Column | string | float} left
-     * @param {Column | string | float} right
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string | float} left
+     * @param {module:eclairjs/sql.Column | string | float} right
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.atan2 = function (left, right) {
         var l_uw = Utils.unwrapObject(left);
@@ -836,8 +836,8 @@
      * column. For example, bin("12") returns "1100".
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column | string} col
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} col
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.bin = function (col) {
         var e_uw = Utils.unwrapObject(col);
@@ -850,8 +850,8 @@
      * Computes the cube-root of the given value.
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @param {Column | string} col
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} col
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.cbrt = function (col) {
         var e_uw = Utils.unwrapObject(col);
@@ -864,8 +864,8 @@
      * Computes the ceiling of the given value.
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @param {Column | string} col
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} col
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.ceil = function (col) {
         var e_uw = Utils.unwrapObject(col);
@@ -878,10 +878,10 @@
      * Convert a number in a string column from one base to another.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} num
+     * @param {module:eclairjs/sql.Column} num
      * @param {integer} fromBase
      * * @param {integer} toBase
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.conv = function (num, fromBase, toBase) {
         var num_uw = Utils.unwrapObject(num);
@@ -894,8 +894,8 @@
      * Computes the cosine of the given value.
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @param {Column | string} col
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} col
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.cos = function (col) {
         var e_uw = Utils.unwrapObject(col);
@@ -908,8 +908,8 @@
      * Computes the hyperbolic cosine of the given value.
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @param {Column | string} col
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} col
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.cosh = function (col) {
         var e_uw = Utils.unwrapObject(col);
@@ -922,8 +922,8 @@
      * Computes the exponential of the given value.
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @param {Column | string} col
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} col
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.exp = function (col) {
         var e_uw = Utils.unwrapObject(col);
@@ -936,8 +936,8 @@
      * Computes the exponential of the given value minus one.
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @param {Column | string} col
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} col
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.expm1 = function (col) {
         var e_uw = Utils.unwrapObject(col);
@@ -950,8 +950,8 @@
      * Computes the factorial of the given value.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} e
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} e
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.factorial = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -964,8 +964,8 @@
      * Computes the floor of the given value.
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @param {Column | string} col
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} col
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.floor = function (col) {
         var e_uw = Utils.unwrapObject(col);
@@ -979,8 +979,8 @@
      * This function takes at least 2 parameters. It will return null if all parameters are null.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column | string} columnExpr, ...columnExpr or columnName, ...columnName
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} columnExpr, ...columnExpr or columnName, ...columnName
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.greatest = function () {
         /*
@@ -996,8 +996,8 @@
      * Computes hex value of the given column.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} column
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} column
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.hex = function (column) {
         var column_uw = Utils.unwrapObject(column);
@@ -1011,8 +1011,8 @@
      * and converts to the byte representation of number.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} column
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} column
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.unhex = function (column) {
         var column_uw = Utils.unwrapObject(column);
@@ -1044,9 +1044,9 @@
      *  result = functions.hypot(2.0, "expense");
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @param {Column | string | float} left
-     * @param {Column | string | float} right
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string | float} left
+     * @param {module:eclairjs/sql.Column | string | float} right
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.hypot = function (left, right) {
         var l_uw = Utils.unwrapObject(left);
@@ -1061,8 +1061,8 @@
      * This function takes at least 2 parameters. It will return null iff all parameters are null.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column | string} columnExpr, ...columnExpr or columnName, ...columnName
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} columnExpr, ...columnExpr or columnName, ...columnName
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.least = function () {
         /*
@@ -1078,9 +1078,9 @@
      * Computes the natural logarithm of the given column.
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @param {Column | string}
+     * @param {module:eclairjs/sql.Column | string}
      * @param {float} [base] Returns the first argument-base logarithm for the column
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.log = function (col, base) {
         var e_uw = Utils.unwrapObject(col);
@@ -1098,8 +1098,8 @@
      * Computes the logarithm of the given value in base 10.
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @param {Column | string} col
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} col
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.log10 = function (col) {
         var e_uw = Utils.unwrapObject(col);
@@ -1112,8 +1112,8 @@
      * Computes the natural logarithm of the given value plus one.
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @param {Column | string} col
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} col
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.log1p = function (col) {
         var e_uw = Utils.unwrapObject(col);
@@ -1126,8 +1126,8 @@
      * Computes the logarithm of the given column in base 2.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column | string} col
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} col
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.log2 = function (col) {
         var expr_uw = Utils.unwrapObject(col);
@@ -1159,9 +1159,9 @@
      *  result = functions.pow(2.0, "expense");
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @param {Column | string | float} left
-     * @param {Column | string | float} right
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string | float} left
+     * @param {module:eclairjs/sql.Column | string | float} right
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.pow = function (l, r) {
         var l_uw = Utils.unwrapObject(l);
@@ -1175,9 +1175,9 @@
      * Returns the positive value of dividend mod divisor.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} dividend
-     * @param {Column} divisor
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} dividend
+     * @param {module:eclairjs/sql.Column} divisor
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.pmod = function (dividend, divisor) {
         var dividend_uw = Utils.unwrapObject(dividend);
@@ -1192,8 +1192,8 @@
      * is equal to a mathematical integer.
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @param {Column | string} col
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} col
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.rint = function (col) {
         var e_uw = Utils.unwrapObject(col);
@@ -1206,8 +1206,8 @@
      * Returns the value of the column `e` rounded to 0 decimal places.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} e
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} e
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.round = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -1221,9 +1221,9 @@
      * will return a long value else it will return an integer value.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} e
+     * @param {module:eclairjs/sql.Column} e
      * @param {integer} numBits
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.shiftLeft = function (e, numBits) {
         var e_uw = Utils.unwrapObject(e);
@@ -1237,9 +1237,9 @@
      * a long value else it will return an integer value.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} e
+     * @param {module:eclairjs/sql.Column} e
      * @param {integer} numBits
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.shiftRight = function (e, numBits) {
         var e_uw = Utils.unwrapObject(e);
@@ -1253,9 +1253,9 @@
      * it will return a long value else it will return an integer value.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} e
+     * @param {module:eclairjs/sql.Column} e
      * @param {integer} numBits
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.shiftRightUnsigned = function (e, numBits) {
         var e_uw = Utils.unwrapObject(e);
@@ -1268,8 +1268,8 @@
      * Computes the signum of the given value.
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @param {Column | string} col
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} col
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.signum = function (col) {
         var e_uw = Utils.unwrapObject(col);
@@ -1282,8 +1282,8 @@
      * Computes the sine of the given value.
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @param {Column | string} col
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} col
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.sin = function (col) {
         var e_uw = Utils.unwrapObject(col);
@@ -1296,8 +1296,8 @@
      * Computes the hyperbolic sine of the given value.
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @param {Column | string} col
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} col
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.sinh = function (col) {
         var e_uw = Utils.unwrapObject(col);
@@ -1310,8 +1310,8 @@
      * Computes the tangent of the given value.
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @param {Column | string} col
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} col
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.tan = function (col) {
         var e_uw = Utils.unwrapObject(col);
@@ -1324,8 +1324,8 @@
      * Computes the hyperbolic tangent of the given value.
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @param {Column | string} col
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} col
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.tanh = function (col) {
         var e_uw = Utils.unwrapObject(col);
@@ -1338,8 +1338,8 @@
      * Converts an angle measured in radians to an approximately equivalent angle measured in degrees.
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @param {Column | string} col
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} col
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.toDegrees = function (col) {
         var e_uw = Utils.unwrapObject(col);
@@ -1352,8 +1352,8 @@
      * Converts an angle measured in degrees to an approximately equivalent angle measured in radians.
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @param {Column | string} col
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} col
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.toRadians = function (col) {
         var e_uw = Utils.unwrapObject(col);
@@ -1367,8 +1367,8 @@
      * as a 32 character hex string.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} e
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} e
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.md5 = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -1382,8 +1382,8 @@
      * as a 40 character hex string.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} e
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} e
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.sha1 = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -1396,11 +1396,11 @@
      * Calculates the SHA-2 family of hash functions of a binary column and
      * returns the value as a hex string.
      *
-     * @param {Column} e  column to compute SHA-2 on.
+     * @param {module:eclairjs/sql.Column} e  column to compute SHA-2 on.
      * @param {number} numBits  one of 224, 256, 384, or 512.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.sha2 = function (e, numBits) {
         var e_uw = Utils.unwrapObject(e);
@@ -1414,8 +1414,8 @@
      * returns the value as a bigint.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} e
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} e
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.crc32 = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -1429,8 +1429,8 @@
      * result as a int column.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} e
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} e
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.ascii = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -1444,8 +1444,8 @@
      * This is the reverse of unbase64.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} e
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} e
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.base64 = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -1458,8 +1458,8 @@
      * Concatenates multiple input string columns together into a single string column.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column | string} columnExpr, ...columnExpr or columnName, ...columnName
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} columnExpr, ...columnExpr or columnName, ...columnName
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.concat = function (exprs) {
         /*
@@ -1477,8 +1477,8 @@
      *
      * @since EclairJS 0.1 Spark  1.5.0
      * @param {string} sep
-     * @param {Column | string} columnExpr, ...columnExpr or columnName, ...columnName
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} columnExpr, ...columnExpr or columnName, ...columnName
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.concat_ws = function (sep, exprs) {
         /*
@@ -1496,9 +1496,9 @@
      * If either argument is null, the result will also be null.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} value
+     * @param {module:eclairjs/sql.Column} value
      * @param {string} charset one of 'US-ASCII', 'ISO-8859-1', 'UTF-8', 'UTF-16BE', 'UTF-16LE', 'UTF-16'
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.decode = function (value, charset) {
         var value_uw = Utils.unwrapObject(value);
@@ -1513,9 +1513,9 @@
      * If either argument is null, the result will also be null.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} value
+     * @param {module:eclairjs/sql.Column} value
      * @param {string} charset one of 'US-ASCII', 'ISO-8859-1', 'UTF-8', 'UTF-16BE', 'UTF-16LE', 'UTF-16'
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.encode = function (value, charset) {
         var value_uw = Utils.unwrapObject(value);
@@ -1532,9 +1532,9 @@
      * If d < 0, the result will be null.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} x
+     * @param {module:eclairjs/sql.Column} x
      * @param {integer} d rounded to d decimal places
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.format_number = function (x, d) {
         var x_uw = Utils.unwrapObject(x);
@@ -1548,8 +1548,8 @@
      *
      * @since EclairJS 0.1 Spark  1.5.0
      * @param {string} format, printf-style
-     * @param {Column | string} columnExpr, ...columnExpr or columnName, ...columnName
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column | string} columnExpr, ...columnExpr or columnName, ...columnName
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.format_string = function (format, columnExpr) {
         /*
@@ -1568,8 +1568,8 @@
      * For example, "hello world" will become "Hello World".
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} e
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} e
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.initcap = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -1586,9 +1586,9 @@
      * could not be found in str.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} str
+     * @param {module:eclairjs/sql.Column} str
      * @param {string} substring
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.instr = function (str, substring) {
         var str_uw = Utils.unwrapObject(str);
@@ -1601,8 +1601,8 @@
      * Computes the length of a given string or binary column.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} e
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} e
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.getLength = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -1615,8 +1615,8 @@
      * Converts a string column to lower case.
      *
      * @since EclairJS 0.1 Spark  1.3.0
-     * @param {Column} e
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} e
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.lower = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -1628,9 +1628,9 @@
     /**
      * Computes the Levenshtein distance of the two given string columns.
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} l
-     * @param {Column} r
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} l
+     * @param {module:eclairjs/sql.Column} r
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.levenshtein = function (l, r) {
         var l_uw = Utils.unwrapObject(l);
@@ -1647,9 +1647,9 @@
      *
      * @since EclairJS 0.1 Spark  1.5.0
      * @param {string} substr
-     * @param {Column} str
+     * @param {module:eclairjs/sql.Column} str
      * @param {integer} [pos]
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.locate = function (substr, str, pos) {
         var str_uw = Utils.unwrapObject(str);
@@ -1666,10 +1666,10 @@
      * Left-pad the string column with
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} str
+     * @param {module:eclairjs/sql.Column} str
      * @param {integer} len
      * @param {string} pad
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.lpad = function (str, len, pad) {
         var str_uw = Utils.unwrapObject(str);
@@ -1682,8 +1682,8 @@
      * Trim the spaces from left end for the specified string value.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} e
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} e
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.ltrim = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -1696,10 +1696,10 @@
      * Extract a specific(idx) group identified by a regex, from the specified string column.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} e
+     * @param {module:eclairjs/sql.Column} e
      * @param {string} regex
      * @param {integer} groupIdx
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.regexp_extract = function (e, regex, groupIdx) {
         var e_uw = Utils.unwrapObject(e);
@@ -1712,10 +1712,10 @@
      * Replace all substrings of the specified string value that match regexp with rep.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} e
+     * @param {module:eclairjs/sql.Column} e
      * @param {string} pattern
      * @param {string} replacement
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.regexp_replace = function (e, pattern, replacement) {
         var e_uw = Utils.unwrapObject(e);
@@ -1729,8 +1729,8 @@
      * This is the reverse of base64.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} e
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} e
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.unbase64 = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -1743,10 +1743,10 @@
      * Right-padded with pad to a length of len.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} e
+     * @param {module:eclairjs/sql.Column} e
      * @param {integer} len
      * @param {string} pad
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.rpad = function (str, len, pad) {
         var str_uw = Utils.unwrapObject(str);
@@ -1759,9 +1759,9 @@
      * Repeats a string column n times, and returns it as a new string column.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} str
+     * @param {module:eclairjs/sql.Column} str
      * @param {integer} n
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.repeat = function (str, n) {
         var str_uw = Utils.unwrapObject(str);
@@ -1774,8 +1774,8 @@
      * Reverses the string column and returns it as a new string column.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} str
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} str
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.reverse = function (str) {
         var str_uw = Utils.unwrapObject(str);
@@ -1788,8 +1788,8 @@
      * Trim the spaces from right end for the specified string value.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} e
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} e
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.rtrim = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -1802,8 +1802,8 @@
      * * Return the soundex code for the specified expression.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} e
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} e
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.soundex = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -1817,9 +1817,9 @@
      * NOTE: pattern is a string represent the regular expression.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} str
+     * @param {module:eclairjs/sql.Column} str
      * @param {string} pattern
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.split = function (str, pattern) {
         var str_uw = Utils.unwrapObject(str);
@@ -1834,10 +1834,10 @@
      * when str is Binary type
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} str
+     * @param {module:eclairjs/sql.Column} str
      * @param {integer} pos
      * @param {integer} len
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.substring = function (str, pos, len) {
         var str_uw = Utils.unwrapObject(str);
@@ -1852,10 +1852,10 @@
      * returned. If count is negative, every to the right of the final delimiter (counting from the
      * right) is returned. substring_index performs a case-sensitive match when searching for delim.
      *
-     * @param {Column} str
+     * @param {module:eclairjs/sql.Column} str
      * @param {string} delim
      * @param {integer} count
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.substring_index = function (str, delim, count) {
         var str_uw = Utils.unwrapObject(str);
@@ -1871,10 +1871,10 @@
      * in the matchingString.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} src
+     * @param {module:eclairjs/sql.Column} src
      * @param {string} matchingString
      * @param {string} replaceString
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.translate = function (src, matchingString, replaceString) {
         var src_uw = Utils.unwrapObject(src);
@@ -1887,8 +1887,8 @@
      * Trim the spaces from both ends for the specified string column.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} e
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} e
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.trim = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -1901,8 +1901,8 @@
      * Converts a string column to upper case.
      *
      * @since EclairJS 0.1 Spark  1.3.0
-     * @param {Column} e
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} e
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.upper = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -1915,9 +1915,9 @@
      * Returns the date that is numMonths after startDate.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} startDate
+     * @param {module:eclairjs/sql.Column} startDate
      * @param {integer} numMonths
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.add_months = function (startDate, numMonths) {
         var startDate_uw = Utils.unwrapObject(startDate);
@@ -1930,7 +1930,7 @@
      * Returns the current date as a date column.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.current_date = function () {
         var javaObject = org.apache.spark.sql.functions.current_date();
@@ -1942,7 +1942,7 @@
      * Returns the current timestamp as a timestamp column.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.current_timestamp = function () {
         var javaObject = org.apache.spark.sql.functions.current_timestamp();
@@ -1961,9 +1961,9 @@
      * specialized implementation.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} dateExpr
+     * @param {module:eclairjs/sql.Column} dateExpr
      * @param {string} format
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.date_format = function (dateExpr, format) {
         var dateExpr_uw = Utils.unwrapObject(dateExpr);
@@ -1975,9 +1975,9 @@
     /**
      * Returns the date that is `days` days after `start`
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} start
+     * @param {module:eclairjs/sql.Column} start
      * @param {integer} days
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.date_add = function (start, days) {
         var start_uw = Utils.unwrapObject(start);
@@ -1989,9 +1989,9 @@
     /**
      * Returns the date that is `days` days before `start`
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} start
+     * @param {module:eclairjs/sql.Column} start
      * @param {integer} days
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.date_sub = function (start, days) {
         var start_uw = Utils.unwrapObject(start);
@@ -2003,9 +2003,9 @@
     /**
      * Returns the number of days from `start` to `end`.
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} end
-     * @param {Column} start
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} end
+     * @param {module:eclairjs/sql.Column} start
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.datediff = function (end, start) {
         var end_uw = Utils.unwrapObject(end);
@@ -2018,8 +2018,8 @@
     /**
      * Extracts the year as an integer from a given date/timestamp/string.
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} e
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} e
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.year = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -2031,8 +2031,8 @@
     /**
      * Extracts the quarter as an integer from a given date/timestamp/string.
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} e
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} e
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.quarter = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -2044,8 +2044,8 @@
     /**
      * Extracts the month as an integer from a given date/timestamp/string.
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} e
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} e
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.month = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -2057,8 +2057,8 @@
     /**
      * Extracts the day of the month as an integer from a given date/timestamp/string.
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} e
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} e
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.dayofmonth = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -2070,8 +2070,8 @@
     /**
      * Extracts the day of the year as an integer from a given date/timestamp/string.
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} e
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} e
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.dayofyear = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -2083,8 +2083,8 @@
     /**
      * Extracts the hours as an integer from a given date/timestamp/string.
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} e
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} e
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.hour = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -2099,8 +2099,8 @@
      * month in July 2015.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} e
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} e
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.last_day = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -2112,8 +2112,8 @@
     /**
      * Extracts the minutes as an integer from a given date/timestamp/string.
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} e
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} e
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.minute = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -2124,9 +2124,9 @@
 
     /**
      * Extracts the months between date1 and date2
-     * @param {Column} date1
-     * @param {Column} date2
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} date1
+     * @param {module:eclairjs/sql.Column} date2
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.months_between = function (date1, date2) {
         var date1_uw = Utils.unwrapObject(date1);
@@ -2147,9 +2147,9 @@
      * "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun".
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} date
+     * @param {module:eclairjs/sql.Column} date
      * @param {string} dayOfWeek, Day of the week parameter is case insensitive, and accepts: "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun".
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.next_day = function (date, dayOfWeek) {
         var date_uw = Utils.unwrapObject(date);
@@ -2161,8 +2161,8 @@
     /**
      * Extracts the seconds as an integer from a given date/timestamp/string.
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} e
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} e
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.second = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -2174,8 +2174,8 @@
     /**
      * Extracts the week number as an integer from a given date/timestamp/string.
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} e
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} e
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.weekofyear = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -2189,9 +2189,9 @@
      * representing the timestamp of that moment in the current system time zone in the given
      * format.
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} ut
+     * @param {module:eclairjs/sql.Column} ut
      * @param {string} [f] data format example: "yyyy-MM-dd"
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.from_unixtime = function (ut, f) {
         var ut_uw = Utils.unwrapObject(ut);
@@ -2212,11 +2212,11 @@
      * (see [http://docs.oracle.com/javase/tutorial/i18n/format/simpleDateFormat.html])
      * to Unix time stamp (in seconds), return null if fail.
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} [s] converts time string in format yyyy-MM-dd HH:mm:ss to Unix timestamp (in seconds),
+     * @param {module:eclairjs/sql.Column} [s] converts time string in format yyyy-MM-dd HH:mm:ss to Unix timestamp (in seconds),
      * using the default timezone and the default locale, return null if fail.
      * @param {string} [p] convert time string with given pattern
      * (see [http://docs.oracle.com/javase/tutorial/i18n/format/simpleDateFormat.html]) to Unix time stamp (in seconds), return null if fail.
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.unix_timestamp = function (s, p) {
         var javaObject;
@@ -2238,8 +2238,8 @@
      * Converts the column into DateType.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} e
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} e
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.to_date = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -2251,12 +2251,12 @@
     /**
      * Returns date truncated to the unit specified by the format.
      *
-     * @param {Column} date
+     * @param {module:eclairjs/sql.Column} date
      * @param {string} format : 'year', 'yyyy', 'yy' for truncate by year,
      *               or 'month', 'mon', 'mm' for truncate by month
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.trunc = function (date, format) {
         var date_uw = Utils.unwrapObject(date);
@@ -2268,9 +2268,9 @@
     /**
      * Assumes given timestamp is UTC and converts to given timezone.
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} ts
+     * @param {module:eclairjs/sql.Column} ts
      * @param {string} tz
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.from_utc_timestamp = function (ts, tz) {
         var ts_uw = Utils.unwrapObject(ts);
@@ -2283,9 +2283,9 @@
      * Assumes given timestamp is in given timezone and converts to UTC.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} ts
+     * @param {module:eclairjs/sql.Column} ts
      * @param {string} tz
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.to_utc_timestamp = function (ts, tz) {
         var ts_uw = Utils.unwrapObject(ts);
@@ -2298,9 +2298,9 @@
      * Returns true if the array contain the value
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} column
+     * @param {module:eclairjs/sql.Column} column
      * @param {string | number} value
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.array_contains = function (column, value) {
         var column_uw = Utils.unwrapObject(column);
@@ -2313,8 +2313,8 @@
      * Creates a new row for each element in the given array or map column.
      *
      * @since EclairJS 0.1 Spark  1.3.0
-     * @param {Column} e
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} e
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.explode = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -2327,8 +2327,8 @@
      * Returns length of array or map.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} e
-     * @returns {Column}
+     * @param {module:eclairjs/sql.Column} e
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.size = function (e) {
         var e_uw = Utils.unwrapObject(e);
@@ -2342,9 +2342,9 @@
      * according to the natural ordering of the array elements.
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @param {Column} e
+     * @param {module:eclairjs/sql.Column} e
      * @param {boolean} [asc] defaults to true
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.sort_array = function (e, asc) {
         var sort_asc = (asc === false) ? false : true;
@@ -2389,7 +2389,7 @@
      * @since EclairJS 0.1 Spark  1.5.0
      * @private
      * @ignore
-     * @returns {Column}
+     * @returns {module:eclairjs/sql.Column}
      */
     functions.callUDF = function (udfName, cols) {
         throw "not implemented by ElairJS";

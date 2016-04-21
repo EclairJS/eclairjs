@@ -46,7 +46,7 @@
 	/**
 	 * Gives the column an alias. Same as as.
 	 * @param {string} alias
-	 * @returns {Column}
+	 * @returns {module:eclairjs/sql.Column}
 	 * @example
 	 * // Renames colA to colB in select output.
 	 * df.select(df.col("colA").alias("colB"))
@@ -56,8 +56,8 @@
 	}
 	/**
 	 * Boolean AND.
-	 * @param {Column} other
-	 * @returns {Column}
+	 * @param {module:eclairjs/sql.Column} other
+	 * @returns {module:eclairjs/sql.Column}
 	 * @example
 	 * people.select( people.col("inSchool").and(people.col("isEmployed")));
 	 */
@@ -73,7 +73,7 @@
 	 * - Given an Array of Structs, a string fieldName can be used to extract filed
 	 *   of every struct in that array, and return an Array of fields
 	 * @param {string}
-	 * @returns {Column}
+	 * @returns {module:eclairjs/sql.Column}
 	 * @private
 	 */
 	Column.prototype.apply = function (extraction) {
@@ -84,7 +84,7 @@
 	 * Gives the column an alias.
 	 * @param {string | string[]} aliases, if array of strings assigns the given aliases to the results of a table generating function.
 	 * @param {module:eclairjs/sql/types.Metadata} metadata not valid with string array
-	 * @returns {Column}
+	 * @returns {module:eclairjs/sql.Column}
 	 */
 	Column.prototype.as = function (aliases, metadata) {
 		var c;
@@ -97,7 +97,7 @@
 	}
 	/**
 	 * Returns an ordering used in sorting.
-	 * @returns {Column}
+	 * @returns {module:eclairjs/sql.Column}
 	 * @example
 	 * df.sort(df.col("age").asc());
 	 */
@@ -108,7 +108,7 @@
 	 * True if the current column is between the lower bound and upper bound, inclusive.
 	 * @param {object} lowerBound
 	 * @param {object} upperBound
-	 * @returns {Column}
+	 * @returns {module:eclairjs/sql.Column}
 	 * @example
 	 * var col = new Column("age");
 	 * var testCol = col.between(10, 29);
@@ -124,8 +124,8 @@
 	 *   df.select(df.col("colA").bitwiseAND(df.col("colB")));
 	 *
 	 * @since EclairJS 0.1 Spark  1.4.0
-	 * @param {Column} other
-	 * @returns {Column}
+	 * @param {module:eclairjs/sql.Column} other
+	 * @returns {module:eclairjs/sql.Column}
 	 */
 	Column.prototype.bitwiseAND = function (other) {
 		var javaObject = this.getJavaObject().bitwiseAND(Utils.unwrapObject(other));
@@ -137,8 +137,8 @@
 	 *   df.select(df.col("colA").bitwiseOR(df.col("colB")));
 	 *
 	 * @since EclairJS 0.1 Spark  1.4.0
-	 * @param {Column} other
-	 * @returns {Column}
+	 * @param {module:eclairjs/sql.Column} other
+	 * @returns {module:eclairjs/sql.Column}
 	 */
 	Column.prototype.bitwiseOR = function (other) {
 		var javaObject = this.getJavaObject().bitwiseOR(Utils.unwrapObject(other));
@@ -150,8 +150,8 @@
 	 *   df.select(df.col("colA").bitwiseXOR(df.col("colB")));
 	 *
 	 * @since EclairJS 0.1 Spark  1.4.0
-	 * @param {Column} other
-	 * @returns {Column}
+	 * @param {module:eclairjs/sql.Column} other
+	 * @returns {module:eclairjs/sql.Column}
 	 */
 	Column.prototype.bitwiseXOR = function (other) {
 		var javaObject = this.getJavaObject().bitwiseXOR(Utils.unwrapObject(other));
@@ -169,7 +169,7 @@
 	 * @since EclairJS 0.1 Spark  1.3.0
 	 * @param {module:eclairjs/sql/types.DataType | string} to If string supported types are: `string`, `boolean`, `int`,
 	 * `float`, `double`, `date`, `timestamp`.
-	 * @returns {Column}
+	 * @returns {module:eclairjs/sql.Column}
 	 */
 	Column.prototype.cast = function (to) {
 		var javaObject = this.getJavaObject().cast(Utils.unwrapObject(to));
@@ -180,7 +180,7 @@
 	 *
 	 * @since EclairJS 0.1 Spark  1.3.0
 	 * @param {object}
-	 * @returns {Column}
+	 * @returns {module:eclairjs/sql.Column}
 	 */
 	Column.prototype.contains = function (other) {
 		var javaObject = this.getJavaObject().contains(other);
@@ -188,7 +188,7 @@
 	}
 	/**
 	 * Returns an ordering used in sorting.
-	 * @returns {Column}
+	 * @returns {module:eclairjs/sql.Column}
 	 * @example
 	 * df.sort(df.col("age").desc());
 	 */
@@ -201,8 +201,8 @@
 	 *   people.select( people.col("height").divide(people.col("weight")) );
 	 *
 	 * @since EclairJS 0.1 Spark  1.3.0
-	 * @param {Column} other
-	 * @returns {Column}
+	 * @param {module:eclairjs/sql.Column} other
+	 * @returns {module:eclairjs/sql.Column}
 	 */
 	Column.prototype.divide = function (other) {
 		var javaObject = this.getJavaObject().divide(Utils.unwrapObject(other));
@@ -213,7 +213,7 @@
 	 * with another string literal
 	 * @since EclairJS 0.1 Spark  1.3.0
 	 * @param {string | Column} other, if string ends with another string literal.
-	 * @returns {Column}
+	 * @returns {module:eclairjs/sql.Column}
 	 */
 	Column.prototype.endsWith = function (other) {
 		var javaObject = this.getJavaObject().endsWith(Utils.unwrapObject(other));
@@ -224,7 +224,7 @@
 	 *
 	 * @since EclairJS 0.1 Spark  1.3.0
 	 * @param {object} other
-	 * @returns {Column}
+	 * @returns {module:eclairjs/sql.Column}
 	 */
 	Column.prototype.eqNullSafe = function (other) {
 		var javaObject = this.getJavaObject().eqNullSafe(Utils.unwrapObject(other));
@@ -241,7 +241,7 @@
 	/**
 	 * Equality test
 	 * @param {object}
-	 * @returns {Column}
+	 * @returns {module:eclairjs/sql.Column}
 	 */
 	Column.prototype.equalTo = function (obj) {
 		return new Column(this.getJavaObject().equalTo(Utils.unwrapObject(obj)));
@@ -260,7 +260,7 @@
 	 * @example
 	 * people.select( people.col("age").geq(21) )
 	 * @param {object}
-	 * @returns {Column}
+	 * @returns {module:eclairjs/sql.Column}
 	 */
 	Column.prototype.geq = function (obj) {
 		return new Column(this.getJavaObject().geq(Utils.unwrapObject(obj)));
@@ -270,7 +270,7 @@
 	 *
 	 * @since EclairJS 0.1 Spark  1.3.0
 	 * @param {string} fieldName
-	 * @returns {Column}
+	 * @returns {module:eclairjs/sql.Column}
 	 */
 	Column.prototype.getField = function (fieldName) {
 		var javaObject = this.getJavaObject().getField(fieldName);
@@ -282,7 +282,7 @@
 	 *
 	 * @since EclairJS 0.1 Spark  1.3.0
 	 * @param {object} key
-	 * @returns {Column}
+	 * @returns {module:eclairjs/sql.Column}
 	 */
 	Column.prototype.getItem = function (key) {
 		var javaObject = this.getJavaObject().getItem(Utils.unwrapObject(key));
@@ -293,7 +293,7 @@
 	 * @example
 	 *   people.select( people.col("age").gt(21) );
 	 * @param {object}
-	 * @returns {Column}
+	 * @returns {module:eclairjs/sql.Column}
 	 */
 	Column.prototype.gt = function (obj) {
 		return new Column(this.getJavaObject().gt(Utils.unwrapObject(obj)));
@@ -314,7 +314,7 @@
 	 *
 	 * @since EclairJS 0.1 Spark  1.3.0
 	 * @param {array}
-	 * @returns {Column}
+	 * @returns {module:eclairjs/sql.Column}
 	 */
 	Column.prototype.in = function (list) {
 		var javaObject = this.getJavaObject().in(list);
@@ -326,7 +326,7 @@
 	 *
 	 * @since EclairJS 0.1 Spark  1.3.0
 	 * @param {array}
-	 * @returns {Column}
+	 * @returns {module:eclairjs/sql.Column}
 	 */
 	Column.prototype.isin = function (list) {
 		var javaObject = this.getJavaObject().isin(list);
@@ -336,7 +336,7 @@
 	 * True if the current expression is NaN.
 	 *
 	 * @since EclairJS 0.1 Spark  1.5.0
-	 * @returns {Column}
+	 * @returns {module:eclairjs/sql.Column}
 	 */
 	Column.prototype.isNaN = function () {
 		var javaObject = this.getJavaObject().isNaN();
@@ -346,7 +346,7 @@
 	 * True if the current expression is null.
 	 *
 	 * @since EclairJS 0.1 Spark  1.3.0
-	 * @returns {Column}
+	 * @returns {module:eclairjs/sql.Column}
 	 */
 	Column.prototype.isNull = function () {
 		var javaObject = this.getJavaObject().isNull();
@@ -356,7 +356,7 @@
 	 * True if the current expression is NOT null.
 	 *
 	 * @since EclairJS 0.1 Spark  1.3.0
-	 * @returns {Column}
+	 * @returns {module:eclairjs/sql.Column}
 	 */
 	Column.prototype.isNotNull = function () {
 		var javaObject = this.getJavaObject().isNotNull();
@@ -369,7 +369,7 @@
 	 *
 	 * @since EclairJS 0.1 Spark  1.3.0
 	 * @param {object} other
-	 * @returns {Column}
+	 * @returns {module:eclairjs/sql.Column}
 	 */
 	Column.prototype.leq = function (other) {
 		var javaObject = this.getJavaObject().leq(Utils.unwrapObject(other));
@@ -380,7 +380,7 @@
 	 *
 	 * @since EclairJS 0.1 Spark  1.3.0
 	 * @param {string} literal
-	 * @returns {Column}
+	 * @returns {module:eclairjs/sql.Column}
 	 */
 	Column.prototype.like = function (literal) {
 		var javaObject = this.getJavaObject().like(literal);
@@ -393,7 +393,7 @@
 	 *
 	 * @since EclairJS 0.1 Spark  1.3.0
 	 * @param {object} other
-	 * @returns {Column}
+	 * @returns {module:eclairjs/sql.Column}
 	 */
 	Column.prototype.lt = function (other) {
 		var javaObject = this.getJavaObject().lt(Utils.unwrapObject(other));
@@ -405,8 +405,8 @@
 	 *   people.select( people.col("height").minus(people.col("weight")) );
 	 *
 	 * @since EclairJS 0.1 Spark  1.3.0
-	 * @param {Column} other
-	 * @returns {Column}
+	 * @param {module:eclairjs/sql.Column} other
+	 * @returns {module:eclairjs/sql.Column}
 	 */
 	Column.prototype.minus = function (other) {
 		var javaObject = this.getJavaObject().minus(Utils.unwrapObject(other));
@@ -417,7 +417,7 @@
 	 *
 	 * @since EclairJS 0.1 Spark  1.3.0
 	 * @param {object} other
-	 * @returns {Column}
+	 * @returns {module:eclairjs/sql.Column}
 	 */
 	Column.prototype.mod = function (other) {
 		var javaObject = this.getJavaObject().mod(Utils.unwrapObject(other));
@@ -429,8 +429,8 @@
 	 *   people.select( people.col("height").multiply(people.col("weight")) );
 	 *
 	 * @since EclairJS 0.1 Spark  1.3.0
-	 * @param {Column} other
-	 * @returns {Column}
+	 * @param {module:eclairjs/sql.Column} other
+	 * @returns {module:eclairjs/sql.Column}
 	 */
 	Column.prototype.multiply = function (other) {
 		var javaObject = this.getJavaObject().multiply(Utils.unwrapObject(other));
@@ -442,8 +442,8 @@
 	 *   df.filter( df.col("colA").notEqual(df.col("colB")) );
 	 *
 	 * @since EclairJS 0.1 Spark  1.3.0
-	 * @param {Column} other
-	 * @returns {Column}
+	 * @param {module:eclairjs/sql.Column} other
+	 * @returns {module:eclairjs/sql.Column}
 	 */
 	Column.prototype.notEqual = function (other) {
 		var javaObject = this.getJavaObject().notEqual(Utils.unwrapObject(other));
@@ -455,8 +455,8 @@
 	 *   people.filter( people.col("inSchool").or(people.col("isEmployed")) );
 	 *
 	 * @since EclairJS 0.1 Spark  1.3.0
-	 * @param {Column} other
-	 * @returns {Column}
+	 * @param {module:eclairjs/sql.Column} other
+	 * @returns {module:eclairjs/sql.Column}
 	 */
 	Column.prototype.or = function (other) {
 		var other_uw = Utils.unwrapObject(other);
@@ -474,7 +474,7 @@
 	 *
 	 * @since EclairJS 0.1 Spark  1.4.0
 	 * @param {object} value
-	 * @returns {Column}
+	 * @returns {module:eclairjs/sql.Column}
 	 */
 	Column.prototype.otherwise = function (value) {
 		var javaObject = this.getJavaObject().otherwise(value);
@@ -490,7 +490,7 @@
 	 *     .otherwise(2))
 	 *
 	 * @since EclairJS 0.1 Spark  1.4.0
-	 * @returns {Column}
+	 * @returns {module:eclairjs/sql.Column}
 	 */
 	Column.prototype.when = function (condition, value) {
 		var condition_uw = Utils.unwrapObject(condition);

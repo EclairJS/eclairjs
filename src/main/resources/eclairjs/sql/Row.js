@@ -90,7 +90,7 @@
     };
     /**
      * Make a copy of the current Row object
-     * @returns {Row}
+     * @returns {module:eclairjs/sql.Row}
      */
     Row.prototype.copy = function () {
         /*
@@ -168,7 +168,7 @@
     /**
      * Returns the value at position index of type as Date.
      * @param {integer} index
-     * @returns {SqlDate}
+     * @returns {module:eclairjs/sql.SqlDate}
      */
     Row.prototype.getDate = function (index) {
         /*
@@ -291,7 +291,7 @@
     /**
      * Returns the value at position index of Timestamp type as Date.
      * @param {integer} index
-     * @returns {SqlTimestamp}
+     * @returns {module:eclairjs/sql.SqlTimestamp}
      */
     Row.prototype.getTimestamp = function (index) {
         /*

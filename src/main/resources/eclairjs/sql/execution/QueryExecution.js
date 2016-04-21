@@ -30,7 +30,7 @@
      */
 
     /**
-     * @param {SQLContext} sqlContext
+     * @param {module:eclairjs/sql.SQLContext} sqlContext
      * @param {LogicalPlan} logical
      *
      *  @class

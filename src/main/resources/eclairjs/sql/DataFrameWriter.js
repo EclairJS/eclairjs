@@ -50,7 +50,7 @@
      *
      * @since EclairJS 0.1 Spark  1.4.0
      * @param {string}
-     * @returns {DataFrameWriter}
+     * @returns {module:eclairjs/sql.DataFrameWriter}
      */
     DataFrameWriter.prototype.mode = function (saveMode) {
         var javaObject = this.getJavaObject().mode(saveMode);
@@ -63,7 +63,7 @@
      *
      * @since EclairJS 0.1 Spark  1.4.0
      * @param {string} source
-     * @returns {DataFrameWriter}
+     * @returns {module:eclairjs/sql.DataFrameWriter}
      */
     DataFrameWriter.prototype.format = function (source) {
         var javaObject = this.getJavaObject().format(source);
@@ -79,7 +79,7 @@
      * If object, the object is expected to be a HashMap, the key of the map is type: 'String'
      * The value must be of the following type: `String`.
      * @param {string}
-     * @returns {DataFrameWriter}
+     * @returns {module:eclairjs/sql.DataFrameWriter}
      */
     DataFrameWriter.prototype.option = function (keyOrMap, value) {
         var javaObject;
@@ -101,7 +101,7 @@
      *
      * @since EclairJS 0.1 Spark  1.4.0
      * @param {string} colName,...colName
-     * @returns {DataFrameWriter}
+     * @returns {module:eclairjs/sql.DataFrameWriter}
      */
     DataFrameWriter.prototype.partitionBy = function () {
         /*

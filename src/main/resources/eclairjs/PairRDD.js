@@ -62,7 +62,7 @@
     /**
      * Set this RDD's storage level to persist its values across operations after the first time
      * it is computed. Can only be called once on each RDD.
-     * @param {StorageLevel} newLevel
+     * @param {module:eclairjs/storage.StorageLevel} newLevel
      * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.persist = function (newLevel) {

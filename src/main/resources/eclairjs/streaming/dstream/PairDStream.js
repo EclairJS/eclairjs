@@ -66,7 +66,7 @@
 
 
     /**
-     * @param {StorageLevel} [storageLevel]
+     * @param {module:eclairjs/storage.StorageLevel} [storageLevel]
      * @returns {PairDStream}
      */
     PairDStream.prototype.persist = function (storageLevel) {
