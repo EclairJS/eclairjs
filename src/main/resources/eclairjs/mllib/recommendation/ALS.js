@@ -191,7 +191,7 @@
      * Run ALS with the configured parameters on an input RDD of (user, product, rating) triples.
      * Returns a MatrixFactorizationModel with feature vectors for each user and product.
      * @param {module:eclairjs.RDD} ratings
-     * @returns {MatrixFactorizationModel}
+     * @returns {module:eclairjs/mllib/recommendation.MatrixFactorizationModel}
      */
     ALS.prototype.runwithRDD = function (ratings) {
         throw "not implemented by ElairJS";
@@ -204,7 +204,7 @@
     /**
      * Java-friendly version of {@link run}.
      * @param {JavaRDD} ratings
-     * @returns {MatrixFactorizationModel}
+     * @returns {module:eclairjs/mllib/recommendation.MatrixFactorizationModel}
      */
     ALS.prototype.runwithJavaRDD = function (ratings) {
         throw "not implemented by ElairJS";
@@ -230,7 +230,7 @@
      * @param {number} [lambda]  regularization factor (recommended: 0.01)
      * @param {number} [blocks]  level of parallelism to split computation into
      * @param {number} [seed]  random seed
-     * @returns {MatrixFactorizationModel}
+     * @returns {module:eclairjs/mllib/recommendation.MatrixFactorizationModel}
      */
     ALS.train = function (ratings, rank, iterations, lambda, blocks, seed) {
         /*
@@ -269,7 +269,7 @@
      * @param {number} blocks      level of parallelism to split computation into
      * @param {number} alpha       confidence parameter
      * @param {number} seed        random seed
-     * @returns {MatrixFactorizationModel}
+     * @returns {module:eclairjs/mllib/recommendation.MatrixFactorizationModel}
      */
     ALS.trainImplicit0 = function (ratings, rank, iterations, lambda, blocks, alpha, seed) {
         throw "not implemented by ElairJS";
@@ -292,7 +292,7 @@
      * @param {number} lambda      regularization factor (recommended: 0.01)
      * @param {number} blocks      level of parallelism to split computation into
      * @param {number} alpha       confidence parameter
-     * @returns {MatrixFactorizationModel}
+     * @returns {module:eclairjs/mllib/recommendation.MatrixFactorizationModel}
      */
     ALS.trainImplicit1 = function (ratings, rank, iterations, lambda, blocks, alpha) {
         throw "not implemented by ElairJS";
@@ -314,7 +314,7 @@
      * @param {number} iterations  number of iterations of ALS (recommended: 10-20)
      * @param {number} lambda      regularization factor (recommended: 0.01)
      * @param {number} alpha       confidence parameter
-     * @returns {MatrixFactorizationModel}
+     * @returns {module:eclairjs/mllib/recommendation.MatrixFactorizationModel}
      */
     ALS.trainImplicit2 = function (ratings, rank, iterations, lambda, alpha) {
         throw "not implemented by ElairJS";
@@ -335,7 +335,7 @@
      * @param {module:eclairjs.RDD} ratings     RDD of (userID, productID, rating) pairs
      * @param {number} rank        number of features to use
      * @param {number} iterations  number of iterations of ALS (recommended: 10-20)
-     * @returns {MatrixFactorizationModel}
+     * @returns {module:eclairjs/mllib/recommendation.MatrixFactorizationModel}
      */
     ALS.trainImplicit3 = function (ratings, rank, iterations) {
         throw "not implemented by ElairJS";

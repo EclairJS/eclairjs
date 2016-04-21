@@ -69,7 +69,7 @@
      * Sets the minimal support level (default: `0.3`).
      *
      * @param {float} minSupport
-     * @returns {FPGrowth}
+     * @returns {module:eclairjs/mllib/fpm.FPGrowth}
      */
     FPGrowth.prototype.setMinSupport = function(minSupport) {
        var javaObject =  this.getJavaObject().setMinSupport(minSupport);
@@ -81,7 +81,7 @@
      * Sets the number of partitions used by parallel FP-growth (default: same as input data).
      *
      * @param {integer} numPartitions
-     * @returns {FPGrowth}
+     * @returns {module:eclairjs/mllib/fpm.FPGrowth}
      */
     FPGrowth.prototype.setNumPartitions = function(numPartitions) {
        var javaObject =  this.getJavaObject().setNumPartitions(numPartitions);
@@ -93,7 +93,7 @@
      * Computes an FP-Growth model that contains frequent itemsets.
      * @param {module:eclairjs.RDD} data  input data set, each element contains a transaction
      *
-     * @returns {FPGrowthModel}  an [[FPGrowthModel]]
+     * @returns {module:eclairjs/mllib/fpm.FPGrowthModel}  an [[module:eclairjs/mllib/fpm.FPGrowthModel]]
      */
     FPGrowth.prototype.run = function(data) {
        var data_uw = Utils.unwrapObject(data);

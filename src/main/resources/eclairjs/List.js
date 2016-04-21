@@ -69,7 +69,7 @@
      * Inserts all of the elements in the specified collection into this list at the specified position (optional operation).
      * @param {List | array} obj
      * @param {integer} [position]
-     * @returns {List}
+     * @returns {module:eclairjs.List}
      */
     List.prototype.addAll = function (obj, position) {
         var obj_uw = Utils.unwrapObject(obj);
@@ -259,7 +259,7 @@
      * Returns a view of the portion of this list between the specified fromIndex, inclusive, and toIndex, exclusive.
      * @param {integer} fromIndex
      * @param {integer} toIndex
-     * @returns {List}
+     * @returns {module:eclairjs.List}
      */
     List.prototype.subList = function (fromIndex, toIndex) {
 

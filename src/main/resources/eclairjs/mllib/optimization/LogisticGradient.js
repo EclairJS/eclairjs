@@ -70,7 +70,7 @@
      * @class
      * @memberof module:eclairjs/mllib/optimization
      * @constructor
-     * @extends Gradient
+     * @extends module:eclairjs/mllib/optimization.Gradient
      * @parm {integer} numClasses the number of possible outcomes for k classes classification problem in Multinomial
      * Logistic Regression. By default, it is binary logistic regression so numClasses will be set to 2.
      */

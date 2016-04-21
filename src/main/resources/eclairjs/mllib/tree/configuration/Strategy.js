@@ -147,7 +147,7 @@
 
     /**
      * Returns a shallow copy of this instance.
-     * @returns {Strategy}
+     * @returns {module:eclairjs/mllib/tree/configuration.Strategy}
      */
     Strategy.prototype.copy = function () {
         throw "not implemented by ElairJS";
@@ -162,7 +162,7 @@
     /**
      * Construct a default set of parameters for {@link DecisionTree}
      * @param {string} algo   "Classification" or "Regression"
-     * @returns {Strategy}
+     * @returns {module:eclairjs/mllib/tree/configuration.Strategy}
      */
     Strategy.defaultStrategywithstring = function (algo) {
         throw "not implemented by ElairJS";
@@ -174,7 +174,7 @@
     /**
      * Construct a default set of parameters for {@link DecisionTree}
      * @param {Algo} algo  Algo.Classification or Algo.Regression
-     * @returns {Strategy}
+     * @returns {module:eclairjs/mllib/tree/configuration.Strategy}
      */
     Strategy.defaultStrategywithAlgo = function (algo) {
         throw "not implemented by ElairJS";
@@ -186,7 +186,7 @@
 
     /**
      * @param {Algo} algo
-     * @returns {Strategy}
+     * @returns {module:eclairjs/mllib/tree/configuration.Strategy}
      */
     Strategy.defaultStategy = function (algo) {
         throw "not implemented by ElairJS";

@@ -30,7 +30,6 @@
     /**
      * @param {Node} topNode
      * @param {Algo} algo
-     * @returns {??}
      *  @class
      *  @memberof module:eclairjs/mllib/tree/model
      */
@@ -122,7 +121,7 @@
      *
      * @param {module:eclairjs.SparkContext} sc   Spark context used for loading model files.
      * @param {string} path   Path specifying the directory to which the model was saved.
-     * @returns {DecisionTreeModel}   Model instance
+     * @returns {module:eclairjs/mllib/tree/model.DecisionTreeModel}   Model instance
      */
     DecisionTreeModel.load = function (sc, path) {
         var sc_uw = Utils.unwrapObject(sc);

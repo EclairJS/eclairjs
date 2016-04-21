@@ -24,7 +24,7 @@
      * NOTE User defined types not implemented in EclairJS
      *
      * User-defined type for {@link Vector} which allows easy interaction with SQL
-     * via {@link DataFrame}.
+     * via {@link module:eclairjs/sql.DataFrame}.
      * @classdesc
      * @class
      * @memberof module:eclairjs/mllib/linalg

@@ -122,7 +122,7 @@
 
     /**
      * Converts this vector to a sparse vector with all explicit zeros removed.
-     * @returns {SparseVector}
+     * @returns {module:eclairjs/mllib/linalg.SparseVector}
      */
     Vector.prototype.toSparse = function () {
         var javaObject =  this.getJavaObject().toSparse();
@@ -132,7 +132,7 @@
 
     /**
      * Converts this vector to a dense vector.
-     * @returns {DenseVector}
+     * @returns {module:eclairjs/mllib/linalg.DenseVector}
      */
     Vector.prototype.toDense = function () {
         var javaObject =  this.getJavaObject().toDense();

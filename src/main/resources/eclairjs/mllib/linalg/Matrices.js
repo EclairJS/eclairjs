@@ -188,7 +188,7 @@
      * Horizontally concatenate a sequence of matrices. The returned matrix will be in the format
      * the matrices are supplied in. Supplying a mix of dense and sparse matrices will result in
      * a sparse matrix. If the Array is empty, an empty `DenseMatrix` will be returned.
-     * @param {Matrix[]} matrices  array of matrices
+     * @param {module:eclairjs/mllib/linalg.Matrix[]} matrices  array of matrices
      * @returns {module:eclairjs/mllib/linalg.Matrix}  a single `Matrix` composed of the matrices that were horizontally concatenated
      */
     Matrices.horzcat = function (matrices) {
@@ -203,7 +203,7 @@
      * Vertically concatenate a sequence of matrices. The returned matrix will be in the format
      * the matrices are supplied in. Supplying a mix of dense and sparse matrices will result in
      * a sparse matrix. If the Array is empty, an empty `DenseMatrix` will be returned.
-     * @param {Matrix[]} matrices  array of matrices
+     * @param {module:eclairjs/mllib/linalg.Matrix[]} matrices  array of matrices
      * @returns {module:eclairjs/mllib/linalg.Matrix}  a single `Matrix` composed of the matrices that were vertically concatenated
      */
     Matrices.vertcat = function (matrices) {

@@ -53,7 +53,7 @@
 
     /**
      * Returns items in a List.
-     * @returns {List}
+     * @returns {module:eclairjs.List}
      */
     FreqItemset.prototype.items = function() {
 

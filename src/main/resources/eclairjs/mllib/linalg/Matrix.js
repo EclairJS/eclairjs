@@ -114,8 +114,8 @@
 
 
     /**
-     * @param {DenseMatrix} y
-     * @returns {DenseMatrix}
+     * @param {module:eclairjs/mllib/linalg.DenseMatrix} y
+     * @returns {module:eclairjs/mllib/linalg.DenseMatrix}
      */
     Matrix.prototype.multiply0 = function (y) {
         throw "not implemented by ElairJS";
@@ -126,8 +126,8 @@
 
 
     /**
-     * @param {DenseVector} y
-     * @returns {DenseVector}
+     * @param {module:eclairjs/mllib/linalg.DenseVector} y
+     * @returns {module:eclairjs/mllib/linalg.DenseVector}
      */
     Matrix.prototype.multiply1 = function (y) {
         throw "not implemented by ElairJS";
@@ -139,7 +139,7 @@
 
     /**
      * @param {module:eclairjs/mllib/linalg.Vector} y
-     * @returns {DenseVector}
+     * @returns {module:eclairjs/mllib/linalg.DenseVector}
      */
     Matrix.prototype.multiply2 = function (y) {
         throw "not implemented by ElairJS";

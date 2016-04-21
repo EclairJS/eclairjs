@@ -45,7 +45,7 @@
      * @param {number[]} values
      * @param {boolean} isTransposed
      * @class
-     * @extends Matrix
+     * @extends module:eclairjs/mllib/linalg.Matrix
      * @memberof module:eclairjs/mllib/linalg
      */
     var DenseMatrix = function (numRows, numCols, values, isTransposed) {
@@ -101,7 +101,7 @@
 
 
     /**
-     * @returns {DenseMatrix}
+     * @returns {module:eclairjs/mllib/linalg.DenseMatrix}
      */
     DenseMatrix.prototype.copy = function () {
         throw "not implemented by ElairJS";
@@ -111,7 +111,7 @@
 
 
     /**
-     * @returns {DenseMatrix}
+     * @returns {module:eclairjs/mllib/linalg.DenseMatrix}
      */
     DenseMatrix.prototype.transpose = function () {
         throw "not implemented by ElairJS";
@@ -141,7 +141,7 @@
     /**
      * Generate a `SparseMatrix` from the given `DenseMatrix`. The new matrix will have isTransposed
      * set to false.
-     * @returns {SparseMatrix}
+     * @returns {module:eclairjs/mllib/linalg.SparseMatrix}
      */
     DenseMatrix.prototype.toSparse = function () {
         throw "not implemented by ElairJS";
@@ -158,7 +158,7 @@
      * Generate a `DenseMatrix` consisting of zeros.
      * @param {number} numRows  number of rows of the matrix
      * @param {number} numCols  number of columns of the matrix
-     * @returns {DenseMatrix}  `DenseMatrix` with size `numRows` x `numCols` and values of zeros
+     * @returns {module:eclairjs/mllib/linalg.DenseMatrix}  `DenseMatrix` with size `numRows` x `numCols` and values of zeros
      */
     DenseMatrix.zeros = function (numRows, numCols) {
         throw "not implemented by ElairJS";
@@ -171,7 +171,7 @@
      * Generate a `DenseMatrix` consisting of ones.
      * @param {number} numRows  number of rows of the matrix
      * @param {number} numCols  number of columns of the matrix
-     * @returns {DenseMatrix}  `DenseMatrix` with size `numRows` x `numCols` and values of ones
+     * @returns {module:eclairjs/mllib/linalg.DenseMatrix}  `DenseMatrix` with size `numRows` x `numCols` and values of ones
      */
     DenseMatrix.ones = function (numRows, numCols) {
         throw "not implemented by ElairJS";
@@ -183,7 +183,7 @@
     /**
      * Generate an Identity Matrix in `DenseMatrix` format.
      * @param {number} n  number of rows and columns of the matrix
-     * @returns {DenseMatrix}  `DenseMatrix` with size `n` x `n` and values of ones on the diagonal
+     * @returns {module:eclairjs/mllib/linalg.DenseMatrix}  `DenseMatrix` with size `n` x `n` and values of ones on the diagonal
      */
     DenseMatrix.eye = function (n) {
         throw "not implemented by ElairJS";
@@ -197,7 +197,7 @@
      * @param {number} numRows  number of rows of the matrix
      * @param {number} numCols  number of columns of the matrix
      * @param {Random} rng  a random number generator
-     * @returns {DenseMatrix}  `DenseMatrix` with size `numRows` x `numCols` and values in U(0, 1)
+     * @returns {module:eclairjs/mllib/linalg.DenseMatrix}  `DenseMatrix` with size `numRows` x `numCols` and values in U(0, 1)
      */
     DenseMatrix.rand = function (numRows, numCols, rng) {
         throw "not implemented by ElairJS";
@@ -212,7 +212,7 @@
      * @param {number} numRows  number of rows of the matrix
      * @param {number} numCols  number of columns of the matrix
      * @param {Random} rng  a random number generator
-     * @returns {DenseMatrix}  `DenseMatrix` with size `numRows` x `numCols` and values in N(0, 1)
+     * @returns {module:eclairjs/mllib/linalg.DenseMatrix}  `DenseMatrix` with size `numRows` x `numCols` and values in N(0, 1)
      */
     DenseMatrix.randn = function (numRows, numCols, rng) {
         throw "not implemented by ElairJS";
@@ -226,7 +226,7 @@
      * Generate a diagonal matrix in `DenseMatrix` format from the supplied values.
      * @param {module:eclairjs/mllib/linalg.Vector} vector  a `Vector` that will form the values on the diagonal of the matrix
      *         on the diagonal
-     * @returns {DenseMatrix}  Square `DenseMatrix` with size `values.length` x `values.length` and `values`
+     * @returns {module:eclairjs/mllib/linalg.DenseMatrix}  Square `DenseMatrix` with size `values.length` x `values.length` and `values`
      */
     DenseMatrix.diag = function (vector) {
         throw "not implemented by ElairJS";

@@ -59,7 +59,7 @@
     /**
      * Parses a string resulted from LabeledPoint#toString into an LabeledPoint.
      * @param string
-     * @returns {LabeledPoint}
+     * @returns {module:eclairjs/mllib/regression.LabeledPoint}
      */
     LabeledPoint.prototype.parse = function (string) {
         var lp = org.apache.spark.mllib.regression.LabeledPoint.parse(s);

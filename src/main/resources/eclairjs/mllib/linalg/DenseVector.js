@@ -26,7 +26,7 @@
      * @param {number[]} values
      * @class
      * @memberof module:eclairjs/mllib/linalg
-     * @extends Vector
+     * @extends module:eclairjs/mllib/linalg.Vector
      */
     var DenseVector = function (arg) {
         this.logger = Logger.getLogger("DenseVector_js");
@@ -45,8 +45,8 @@
     DenseVector.prototype.constructor = DenseVector;
 
     /**
-     * @param {DenseVector} dv
-     * @returns {Array}
+     * @param {module:eclairjs/mllib/linalg.DenseVector} dv
+     * @returns {number[]}
      */
     DenseVector.unapply = function (dv) {
            var dv_uw = Utils.unwrapObject(dv);

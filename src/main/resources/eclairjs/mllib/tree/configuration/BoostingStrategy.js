@@ -45,8 +45,8 @@
      */
 
     /**
-     * @param {Strategy} treeStrategy
-     * @param {Loss} loss
+     * @param {module:eclairjs/mllib/tree/configuration.Strategy} treeStrategy
+     * @param {module:eclairjs/mllib/tree/loss.Loss} loss
      * @param {number} numIterations
      * @param {number} learningRate
      * @param {number} validationTol
@@ -76,7 +76,7 @@
     BoostingStrategy.prototype.constructor = BoostingStrategy;
     /**
      *
-     * @returns {Strategy}
+     * @returns {module:eclairjs/mllib/tree/configuration.Strategy}
      */
     BoostingStrategy.prototype.getTreeStrategy = function () {
         return new Strategy(this.getJavaObject().getTreeStrategy());
@@ -84,7 +84,7 @@
 
     /**
      *
-     * @param {Strategy} strategy
+     * @param {module:eclairjs/mllib/tree/configuration.Strategy} strategy
      */
     BoostingStrategy.prototype.setTreeStrategy = function (strategy) {
         this.getJavaObject().setTreeStrategy(Utils.unwrapObject(strategy));
@@ -92,7 +92,7 @@
 
     /**
      *
-     * @returns {Loss}
+     * @returns {module:eclairjs/mllib/tree/loss.Loss}
      */
     BoostingStrategy.prototype.getLoss = function () {
         return new Loss(this.getJavaObject().getLoss());
@@ -100,7 +100,7 @@
 
     /**
      *
-     * @param {Loss} loss
+     * @param {module:eclairjs/mllib/tree/loss.Loss} loss
      */
     BoostingStrategy.prototype.setLoss = function (loss) {
         this.getJavaObject().setLoss(Utils.unwrapObject(loss));
@@ -154,7 +154,7 @@
     /**
      * Returns default configuration for the boosting algorithm
      * @param {string} algo  Learning goal.  Supported: "Classification" or "Regression"
-     * @returns {BoostingStrategy}  Configuration for boosting algorithm
+     * @returns {module:eclairjs/mllib/tree/configuration.BoostingStrategy}  Configuration for boosting algorithm
      */
     BoostingStrategy.defaultParams = function (algo) {
         var javaObject = org.apache.spark.mllib.tree.configuration.BoostingStrategy.defaultParams(algo);

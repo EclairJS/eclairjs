@@ -46,8 +46,8 @@
      * @param {integer} numIterations
      * @param {float} [stepSize] - step size to be used for each iteration of gradient descent, defaults to 1.0
      * @param {floar} [miniBatchFraction] - fraction of data to be used per iteration, defaults to 1.0
-     * @param {Vactor} [initialWeights] - initial set of weights to be used. Array should be equal in size to the number of features in the data.
-     * @returns {LinearRegressionModel}
+     * @param {module:eclairjs/mllib/linalg.Vector} [initialWeights] - initial set of weights to be used. Array should be equal in size to the number of features in the data.
+     * @returns {module:eclairjs/mllib/regression.LinearRegressionModel}
      */
     LinearRegressionWithSGD.train = function (rdd, numIterations, stepSize, miniBatchFraction, initialWeights) {
         this.logger.debug("JavaRDD " + rdd);

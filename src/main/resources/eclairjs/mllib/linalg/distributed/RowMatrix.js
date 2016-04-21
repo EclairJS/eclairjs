@@ -112,7 +112,7 @@
      * @param {boolean} computeU  whether to compute U
      * @param {float} rCond  the reciprocal condition number. All singular values smaller than rCond * sigma(0)
      *              are treated as zero, where sigma(0) is the largest singular value.
-     * @returns {SingularValueDecomposition}  SingularValueDecomposition(U, s, V). U = null if computeU = false.
+     * @returns {module:eclairjs/mllib/linalg.SingularValueDecomposition}  SingularValueDecomposition(U, s, V). U = null if computeU = false.
      */
     RowMatrix.prototype.computeSVD = function(k,computeU,rCond) {
        var javaObject =  this.getJavaObject().computeSVD(k,computeU,rCond);
@@ -168,7 +168,7 @@
      *
      * @param {module:eclairjs/mllib/linalg.Matrix} B  a local matrix whose number of rows must match the number of columns of this matrix
      *         which preserves partitioning
-     * @returns {RowMatrix}  a [[org.apache.spark.mllib.linalg.distributed.RowMatrix]] representing the product,
+     * @returns {module:eclairjs/mllib/linalg/distributed.RowMatrix}  a [[org.apache.spark.mllib.linalg.distributed.RowMatrix]] representing the product,
      */
     RowMatrix.prototype.multiply = function(B) {
        var B_uw = Utils.unwrapObject(B);
@@ -237,7 +237,7 @@
      *  architectures"  ([[http://dx.doi.org/10.1145/1996092.1996103]])
      *
      * @param {boolean} computeQ  whether to computeQ
-     * @returns {QRDecomposition}  QRDecomposition(Q, R), Q = null if computeQ = false.
+     * @returns {module:eclairjs/mllib/linalg.QRDecomposotion}  QRDecomposition(Q, R), Q = null if computeQ = false.
      */
     RowMatrix.prototype.tallSkinnyQR = function(computeQ) {
     throw "not implemented by ElairJS";

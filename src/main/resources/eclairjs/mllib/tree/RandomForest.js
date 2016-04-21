@@ -35,7 +35,7 @@
      * [[http://www.stat.berkeley.edu/~breiman/Using_random_forests_V3.1.pdf  Breiman manual for
      *     random forests]]
      *
-     * @param {Strategy} strategy The configuration parameters for the random forest algorithm which specify
+     * @param {module:eclairjs/mllib/tree/configuration.Strategy} strategy The configuration parameters for the random forest algorithm which specify
      *                 the type of algorithm (classification, regression, etc.), feature type
      *                 (continuous, categorical), depth of the tree, quantile calculation strategy,
      *                 etc.
@@ -73,7 +73,7 @@
      * @param {Int} maxBins maximum number of bins used for splitting features
      *                 (suggested value: 100)
      * @param {Number} seed  Random seed for bootstrapping and choosing feature subsets.
-     * @return {RandomForestModel} a random forest model that can be used for prediction
+     * @return {module:eclairjs/mllib/tree/model.RandomForestModel} a random forest model that can be used for prediction
      */
     RandomForest.trainRegressor = function (input,
                                             categoricalFeaturesInfo,

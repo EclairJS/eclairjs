@@ -47,7 +47,7 @@
      * @param {module:eclairjs/mllib/linalg.Vector} data
      * @param {float} label
      * @param {module:eclairjs/mllib/linalg.Vector} weights
-     * @returns {Tuple}
+     * @returns {module:eclairjs.Tuple}
      */
     Gradient.prototype.compute = function (data,label,weights) {
         var data_uw = Utils.unwrapObject(data);

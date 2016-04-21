@@ -66,7 +66,7 @@
     /**
      * Sets the minimal support level (default: `0.1`).
      * @param {float} minSupport
-     * @returns {PrefixSpan}
+     * @returns {module:eclairjs/mllib/fpm.PrefixSpan}
      */
     PrefixSpan.prototype.setMinSupport = function(minSupport) {
        var javaObject =  this.getJavaObject().setMinSupport(minSupport);
@@ -86,7 +86,7 @@
     /**
      * Sets maximal pattern length (default: `10`).
      * @param {integer} maxPatternLength
-     * @returns {PrefixSpan}
+     * @returns {module:eclairjs/mllib/fpm.PrefixSpan}
      */
     PrefixSpan.prototype.setMaxPatternLength = function(maxPatternLength) {
        var javaObject =  this.getJavaObject().setMaxPatternLength(maxPatternLength);
@@ -107,7 +107,7 @@
      * Sets the maximum number of items (including delimiters used in the internal storage format)
      * allowed in a projected database before local processing (default: `32000000L`).
      * @param {integer} maxLocalProjDBSize
-     * @returns {PrefixSpan}
+     * @returns {module:eclairjs/mllib/fpm.PrefixSpan}
      */
     PrefixSpan.prototype.setMaxLocalProjDBSize = function(maxLocalProjDBSize) {
        var javaObject =  this.getJavaObject().setMaxLocalProjDBSize(maxLocalProjDBSize);
@@ -118,7 +118,7 @@
     /**
      * Finds the complete set of frequent sequential patterns in the input sequences of itemsets.
      * @param {module:eclairjs.RDD} data  sequences of itemsets.
-     * @returns {PrefixSpanModel}  a [[PrefixSpanModel]] that contains the frequent patterns
+     * @returns {module:eclairjs/mllib/fpm.PrefixSpanModel}  a [[module:eclairjs/mllib/fpm.PrefixSpanModel]] that contains the frequent patterns
      */
     PrefixSpan.prototype.run = function(data) {
        var data_uw = Utils.unwrapObject(data);

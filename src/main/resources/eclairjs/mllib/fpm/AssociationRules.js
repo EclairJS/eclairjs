@@ -58,7 +58,7 @@
     /**
      * Sets the minimal confidence (default: `0.8`).
      * @param {float} minConfidence
-     * @returns {AssociationRules}
+     * @returns {module:eclairjs/mllib/fpm.AssociationRules}
      */
     AssociationRules.prototype.setMinConfidence = function(minConfidence) {
        var javaObject =  this.getJavaObject().setMinConfidence(minConfidence);

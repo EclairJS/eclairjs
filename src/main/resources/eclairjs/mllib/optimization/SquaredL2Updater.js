@@ -30,7 +30,7 @@
      * @class
      * @memberof module:eclairjs/mllib/optimization
      * @constructor
-     * @extends Updater
+     * @extends module:eclairjs/mllib/optimization.Updater
      */
     var SquaredL2Updater = function () {
         this.logger = Logger.getLogger("SquaredL2Updater_js");
@@ -57,7 +57,7 @@
      * @param {float} stepSize - - step size across iterations
      * @param {integer} iter - - Iteration number
      * @param {float} regParam - - Regularization parameter
-     * @returns {Tuple} A tuple of 2 elements. The first element is a column matrix containing updated weights,
+     * @returns {module:eclairjs.Tuple} A tuple of 2 elements. The first element is a column matrix containing updated weights,
      * and the second element is the regularization value computed using updated weights.
      */
     SquaredL2Updater.prototype.compute = function (weightsOld,gradient,stepSize,iter,regParam) {

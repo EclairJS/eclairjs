@@ -29,7 +29,7 @@
 
     /**
      * @param {Algo} algo
-     * @param {DecisionTreeModel[]} trees
+     * @param {module:eclairjs/mllib/tree/model.DecisionTreeModel[]} trees
      * @returns {??}
      * @class
      * @memberof module:eclairjs/mllib/tree/model
@@ -94,7 +94,7 @@
      *
      * @param {module:eclairjs.SparkContext} sc   Spark context used for loading model files.
      * @param {string} path   Path specifying the directory to which the model was saved.
-     * @returns {RandomForestModel}   Model instance
+     * @returns {module:eclairjs/mllib/tree/model.RandomForestModel}   Model instance
      */
     RandomForestModel.load = function (sc, path) {
         var sc_uw = Utils.unwrapObject(sc);

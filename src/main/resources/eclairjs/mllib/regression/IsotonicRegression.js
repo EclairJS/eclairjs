@@ -44,7 +44,6 @@
     /**
      * Constructs IsotonicRegression instance with default parameter isotonic = true.
      *
-     * @returns {??}  New instance of IsotonicRegression.
      *  @class
      */
     var IsotonicRegression = function (jvmObject) {
@@ -67,7 +66,7 @@
      * Sets the isotonic parameter.
      *
      * @param {boolean} isotonic  Isotonic (increasing) or antitonic (decreasing) sequence.
-     * @returns {IsotonicRegression}  This instance of IsotonicRegression.
+     * @returns {module:eclairjs/mllib/regression.IsotonicRegression}  This instance of IsotonicRegression.
      */
     IsotonicRegression.prototype.setIsotonic = function (isotonic) {
         var javaObject = this.getJavaObject().setIsotonic(isotonic);
@@ -83,7 +82,7 @@
      *              and weight represents number of measures with default 1.
      *              If multiple labels share the same feature value then they are ordered before
      *              the algorithm is executed.
-     * @returns {IsotonicRegressionModel}  Isotonic regression model.
+     * @returns {module:eclairjs/mllib/regression.IsotonicRegressionModel}  Isotonic regression model.
      */
     IsotonicRegression.prototype.run = function (input) {
     // // TODO: handle Tuple conversion for 'input'

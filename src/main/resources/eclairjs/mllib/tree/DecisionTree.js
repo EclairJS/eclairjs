@@ -28,7 +28,7 @@
      */
 
     /**
-     * @param {Strategy} strategy
+     * @param {module:eclairjs/mllib/tree/configuration.Strategy} strategy
      * @class
      * @memberof module:eclairjs/mllib/tree
      */
@@ -55,7 +55,7 @@
     /**
      * Method to train a decision tree model over an RDD
      * @param {module:eclairjs.RDD} input  Training data: RDD of {@link LabeledPoint}
-     * @returns {DecisionTreeModel}  DecisionTreeModel that can be used for prediction
+     * @returns {module:eclairjs/mllib/tree/model.DecisionTreeModel}  DecisionTreeModel that can be used for prediction
      */
     DecisionTree.prototype.run = function (input) {
         throw "not implemented by ElairJS";
@@ -79,10 +79,10 @@
      * @param {module:eclairjs.RDD} input  Training dataset: RDD of {@link LabeledPoint}.
      *              For classification, labels should take values {0, 1, ..., numClasses-1}.
      *              For regression, labels are real numbers.
-     * @param {Strategy} strategy  The configuration parameters for the tree algorithm which specify the type
+     * @param {module:eclairjs/mllib/tree/configuration.Strategy} strategy  The configuration parameters for the tree algorithm which specify the type
      *                 of algorithm (classification, regression, etc.), feature type (continuous,
      *                 categorical), depth of the tree, quantile calculation strategy, etc.
-     * @returns {DecisionTreeModel}  DecisionTreeModel that can be used for prediction
+     * @returns {module:eclairjs/mllib/tree/model.DecisionTreeModel}  DecisionTreeModel that can be used for prediction
      */
     DecisionTree.train0 = function (input, strategy) {
         throw "not implemented by ElairJS";
@@ -108,7 +108,7 @@
      * @param {Impurity} impurity  impurity criterion used for information gain calculation
      * @param {number} maxDepth  Maximum depth of the tree.
      *                 E.g., depth 0 means 1 leaf node; depth 1 means 1 internal node + 2 leaf nodes.
-     * @returns {DecisionTreeModel}  DecisionTreeModel that can be used for prediction
+     * @returns {module:eclairjs/mllib/tree/model.DecisionTreeModel}  DecisionTreeModel that can be used for prediction
      */
     DecisionTree.train1 = function (input, algo, impurity, maxDepth) {
         throw "not implemented by ElairJS";
@@ -136,7 +136,7 @@
      * @param {number} maxDepth  Maximum depth of the tree.
      *                 E.g., depth 0 means 1 leaf node; depth 1 means 1 internal node + 2 leaf nodes.
      * @param {number} numClasses  number of classes for classification. Default value of 2.
-     * @returns {DecisionTreeModel}  DecisionTreeModel that can be used for prediction
+     * @returns {module:eclairjs/mllib/tree/model.DecisionTreeModel}  DecisionTreeModel that can be used for prediction
      */
     DecisionTree.train2 = function (input, algo, impurity, maxDepth, numClasses) {
         throw "not implemented by ElairJS";
@@ -169,7 +169,7 @@
      * @param {Map} categoricalFeaturesInfo  Map storing arity of categorical features.
      *                                E.g., an entry (n -> k) indicates that feature n is categorical
      *                                with k categories indexed from 0: {0, 1, ..., k-1}.
-     * @returns {DecisionTreeModel}  DecisionTreeModel that can be used for prediction
+     * @returns {module:eclairjs/mllib/tree/model.DecisionTreeModel}  DecisionTreeModel that can be used for prediction
      */
     DecisionTree.train3 = function (input, algo, impurity, maxDepth, numClasses, maxBins, quantileCalculationStrategy, categoricalFeaturesInfo) {
         throw "not implemented by ElairJS";
@@ -199,7 +199,7 @@
      *                  (suggested value: 5)
      * @param {number} maxBins  maximum number of bins used for splitting features
      *                 (suggested value: 32)
-     * @returns {DecisionTreeModel}  DecisionTreeModel that can be used for prediction
+     * @returns {module:eclairjs/mllib/tree/model.DecisionTreeModel}  DecisionTreeModel that can be used for prediction
      */
     DecisionTree.trainClassifier = function (input, numClasses, categoricalFeaturesInfo, impurity, maxDepth, maxBins) {
         var input_uw = Utils.unwrapObject(input);
@@ -224,7 +224,7 @@
      *                  (suggested value: 5)
      * @param {number} maxBins  maximum number of bins used for splitting features
      *                 (suggested value: 32)
-     * @returns {DecisionTreeModel}  DecisionTreeModel that can be used for prediction
+     * @returns {module:eclairjs/mllib/tree/model.DecisionTreeModel}  DecisionTreeModel that can be used for prediction
      */
     DecisionTree.trainRegressor = function (input, categoricalFeaturesInfo, impurity, maxDepth, maxBins) {
         var input_uw = Utils.unwrapObject(input);

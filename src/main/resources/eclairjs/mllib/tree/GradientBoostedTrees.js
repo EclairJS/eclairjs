@@ -40,7 +40,7 @@
      */
 
     /**
-     * @param {BoostingStrategy} boostingStrategy
+     * @param {module:eclairjs/mllib/tree/configuration.BoostingStrategy} boostingStrategy
      *  @class
      *  @memberof module:eclairjs/mllib/tree
      */
@@ -67,7 +67,7 @@
     /**
      * Method to train a gradient boosting model
      * @param {module:eclairjs.RDD} input  Training dataset: RDD of {@link LabeledPoint}.
-     * @returns {GradientBoostedTreesModel}  a gradient boosted trees model that can be used for prediction
+     * @returns {module:eclairjs/mllib/tree/model.GradientBoostedTreesModel}  a gradient boosted trees model that can be used for prediction
      */
     GradientBoostedTrees.prototype.run = function (input) {
         var input_uw = Utils.unwrapObject(input);
@@ -84,7 +84,7 @@
      *                        but it should follow the same distribution.
      *                        E.g., these two datasets could be created from an original dataset
      *                        by using [[org.apache.spark.rdd.RDD.randomSplit()]]
-     * @returns {GradientBoostedTreesModel}  a gradient boosted trees model that can be used for prediction
+     * @returns {module:eclairjs/mllib/tree/model.GradientBoostedTreesModel}  a gradient boosted trees model that can be used for prediction
      */
     GradientBoostedTrees.prototype.runWithValidation = function (input, validationInput) {
         var input_uw = Utils.unwrapObject(input);
@@ -105,8 +105,8 @@
      * @param {module:eclairjs.RDD} input  Training dataset: RDD of {@link LabeledPoint}.
      *              For classification, labels should take values {0, 1, ..., numClasses-1}.
      *              For regression, labels are real numbers.
-     * @param {BoostingStrategy} boostingStrategy  Configuration options for the boosting algorithm.
-     * @returns {GradientBoostedTreesModel}  a gradient boosted trees model that can be used for prediction
+     * @param {module:eclairjs/mllib/tree/configuration.BoostingStrategy} boostingStrategy  Configuration options for the boosting algorithm.
+     * @returns {module:eclairjs/mllib/tree/model.GradientBoostedTreesModel}  a gradient boosted trees model that can be used for prediction
      */
     GradientBoostedTrees.train = function (input, boostingStrategy) {
         var input_uw = Utils.unwrapObject(input);

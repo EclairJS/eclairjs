@@ -100,7 +100,7 @@
 
 
     /**
-     * @returns {SparseMatrix}
+     * @returns {module:eclairjs/mllib/linalg.SparseMatrix}
      */
     SparseMatrix.prototype.copy = function () {
         throw "not implemented by ElairJS";
@@ -110,7 +110,7 @@
 
 
     /**
-     * @returns {SparseMatrix}
+     * @returns {module:eclairjs/mllib/linalg.SparseMatrix}
      */
     SparseMatrix.prototype.transpose = function () {
         throw "not implemented by ElairJS";
@@ -122,7 +122,7 @@
     /**
      * Generate a `DenseMatrix` from the given `SparseMatrix`. The new matrix will have isTransposed
      * set to false.
-     * @returns {DenseMatrix}
+     * @returns {module:eclairjs/mllib/linalg.DenseMatrix}
      */
     SparseMatrix.prototype.toDense = function () {
         throw "not implemented by ElairJS";
@@ -157,7 +157,7 @@
      * @param {number} numRows  number of rows of the matrix
      * @param {number} numCols  number of columns of the matrix
      * @param {Iterable} entries  Array of (i, j, value) tuples
-     * @returns {SparseMatrix}  The corresponding `SparseMatrix`
+     * @returns {module:eclairjs/mllib/linalg.SparseMatrix}  The corresponding `SparseMatrix`
      */
     SparseMatrix.fromCOO = function (numRows, numCols, entries) {
         throw "not implemented by ElairJS";
@@ -171,7 +171,7 @@
     /**
      * Generate an Identity Matrix in `SparseMatrix` format.
      * @param {number} n  number of rows and columns of the matrix
-     * @returns {SparseMatrix}  `SparseMatrix` with size `n` x `n` and values of ones on the diagonal
+     * @returns {module:eclairjs/mllib/linalg.SparseMatrix}  `SparseMatrix` with size `n` x `n` and values of ones on the diagonal
      */
     SparseMatrix.speye = function (n) {
         throw "not implemented by ElairJS";
@@ -188,7 +188,7 @@
      * @param {number} numCols  number of columns of the matrix
      * @param {number} density  the desired density for the matrix
      * @param {Random} rng  a random number generator
-     * @returns {SparseMatrix}  `SparseMatrix` with size `numRows` x `numCols` and values in U(0, 1)
+     * @returns {module:eclairjs/mllib/linalg.SparseMatrix}  `SparseMatrix` with size `numRows` x `numCols` and values in U(0, 1)
      */
     SparseMatrix.sprand = function (numRows, numCols, density, rng) {
         throw "not implemented by ElairJS";
@@ -204,7 +204,7 @@
      * @param {number} numCols  number of columns of the matrix
      * @param {number} density  the desired density for the matrix
      * @param {Random} rng  a random number generator
-     * @returns {SparseMatrix}  `SparseMatrix` with size `numRows` x `numCols` and values in N(0, 1)
+     * @returns {module:eclairjs/mllib/linalg.SparseMatrix}  `SparseMatrix` with size `numRows` x `numCols` and values in N(0, 1)
      */
     SparseMatrix.sprandn = function (numRows, numCols, density, rng) {
         throw "not implemented by ElairJS";
@@ -218,7 +218,7 @@
      * Generate a diagonal matrix in `SparseMatrix` format from the supplied values.
      * @param {module:eclairjs/mllib/linalg.Vector} vector  a `Vector` that will form the values on the diagonal of the matrix
      *         `values` on the diagonal
-     * @returns {SparseMatrix}  Square `SparseMatrix` with size `values.length` x `values.length` and non-zero
+     * @returns {module:eclairjs/mllib/linalg.SparseMatrix}  Square `SparseMatrix` with size `values.length` x `values.length` and non-zero
      */
     SparseMatrix.spdiag = function (vector) {
         throw "not implemented by ElairJS";

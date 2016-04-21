@@ -21,11 +21,10 @@
     //var RDD = require(EclairJS_Globals.NAMESPACE + '/RDD');
 
     /**
-     * Model fitted by {@link PrefixSpan}
+     * Model fitted by {@link module:eclairjs/mllib/fpm.PrefixSpan}
      * @memberof module:eclairjs/mllib/fpm
      * @classdesc
      * @param {module:eclairjs.RDD} freqSequences
-     * @returns {??} 
      * @class
      */
     var PrefixSpanModel = function(freqSequences) {

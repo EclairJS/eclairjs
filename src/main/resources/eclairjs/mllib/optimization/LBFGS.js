@@ -26,8 +26,8 @@
      * @class
      * @memberof module:eclairjs/mllib/optimization
      * @constructor
-     * @param {Gradient} gradient
-     * @param {Updater} updater
+     * @param {module:eclairjs/mllib/optimization.Gradient} gradient
+     * @param {module:eclairjs/mllib/optimization.Updater} updater
      */
 
     var LBFGS = function (gradient, updater) {
@@ -50,15 +50,15 @@
      * Run Limited-memory BFGS (L-BFGS) in parallel. Averaging the subgradients over different partitions is performed
      * using one standard spark map-reduce in each iteration.
      * @param {module:eclairjs.RDD} data - - Input data for L-BFGS. RDD of the set of data examples, each of the form (label, [feature values]).
-     * @param {Gradient} gradient - - Gradient object (used to compute the gradient of the loss function of one single data example)
-     * @param {Updater} updater - - Updater function to actually perform a gradient step in a given direction.
+     * @param {module:eclairjs/mllib/optimization.Gradient} gradient - - Gradient object (used to compute the gradient of the loss function of one single data example)
+     * @param {module:eclairjs/mllib/optimization.Updater} updater - - Updater function to actually perform a gradient step in a given direction.
      * @param {integer} numCorrections - - The number of corrections used in the L-BFGS update.
      * @param {float} convergenceTol - - The convergence tolerance of iterations for L-BFGS which is must be nonnegative.
      * Lower values are less tolerant and therefore generally cause more iterations to be run.
      * @param {integer} maxNumIterations - - Maximal number of iterations that L-BFGS can be run.
      * @param {float} regParam - - Regularization parameter
      * @param {module:eclairjs/mllib/linalg.Vector} initialWeights - (undocumented)
-     * @returns {Tuple} A tuple containing two elements. The first element is a column matrix containing weights for every feature,
+     * @returns {module:eclairjs.Tuple} A tuple containing two elements. The first element is a column matrix containing weights for every feature,
      * and the second element is an array containing the loss computed for every iteration.
      * @param testData
      */
@@ -137,7 +137,7 @@
 
     /**
      * Set the gradient function (of the loss function of one single data example) to be used for L-BFGS.
-     * @param {Gradient} gradient
+     * @param {module:eclairjs/mllib/optimization.Gradient} gradient
      * @returns {LBFGS}
      */
     LBFGS.prototype.setGradient = function (gradient) {
@@ -150,7 +150,7 @@
      * Set the updater function to actually perform a gradient step in a given direction.
      * The updater is responsible to perform the update from the regularization term as well,
      * and therefore determines what kind or regularization is used, if any.
-     * @param {Updater} updater
+     * @param {module:eclairjs/mllib/optimization.Updater} updater
      * @returns {LBFGS}
      */
     LBFGS.prototype.setUpdater = function (updater) {

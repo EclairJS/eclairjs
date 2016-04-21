@@ -61,8 +61,8 @@
     };
 
     /**
-     * @param {SparseVector} sv
-     * @returns {Tuple3}
+     * @param {module:eclairjs/mllib/linalg.SparseVector} sv
+     * @returns {module:eclairjs.Tuple}
      */
     SparseVector.unapply = function (sv) {
            var sv_uw = Utils.unwrapObject(sv);

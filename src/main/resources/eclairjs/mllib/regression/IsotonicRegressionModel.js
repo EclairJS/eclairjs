@@ -99,7 +99,7 @@
     /**
      * @param {module:eclairjs.SparkContext} sc
      * @param {string} path
-     * @returns {IsotonicRegressionModel}
+     * @returns {module:eclairjs/mllib/regression.IsotonicRegressionModel}
      */
     IsotonicRegressionModel.load = function (sc, path) {
         var sc_uw = Utils.unwrapObject(sc);

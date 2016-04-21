@@ -143,7 +143,7 @@
      *
      *
      * @param {string} pivotColumn  Name of the column to pivot.
-     * @param {List} [values]  List of values that will be translated to columns in the output DataFrame.
+     * @param {module:eclairjs.List} [values]  List of values that will be translated to columns in the output DataFrame.
      * @since EclairJS 0.1 Spark  1.6.0
      * @returns {GroupedData}
      */

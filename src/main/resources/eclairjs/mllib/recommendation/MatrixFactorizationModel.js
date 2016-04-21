@@ -84,7 +84,7 @@
      *  by score, decreasing. The first returned is the one predicted to be most strongly
      *  recommended to the user. The score is an opaque value that indicates how strongly
      *  recommended the product is.
-     * @returns {Rating[]}  [[Rating]] objects, each of which contains the given user ID, a product ID, and a
+     * @returns {module:eclairjs/mllib/recommendation.Rating[]}  [[module:eclairjs/mllib/recommendation.Rating]] objects, each of which contains the given user ID, a product ID, and a
      */
     MatrixFactorizationModel.prototype.recommendProducts = function (user, num) {
         throw "not implemented by ElairJS";
@@ -103,7 +103,7 @@
      *  by score, decreasing. The first returned is the one predicted to be most strongly
      *  recommended to the product. The score is an opaque value that indicates how strongly
      *  recommended the user is.
-     * @returns {Rating[]}  [[Rating]] objects, each of which contains a user ID, the given product ID, and a
+     * @returns {module:eclairjs/mllib/recommendation.Rating[]}  [[module:eclairjs/mllib/recommendation.Rating]] objects, each of which contains a user ID, the given product ID, and a
      */
     MatrixFactorizationModel.prototype.recommendUsers = function (product, num) {
         throw "not implemented by ElairJS";
@@ -188,7 +188,7 @@
      *
      * @param {module:eclairjs.SparkContext} sc   Spark context used for loading model files.
      * @param {string} path   Path specifying the directory to which the model was saved.
-     * @returns {MatrixFactorizationModel}   Model instance
+     * @returns {module:eclairjs/mllib/recommendation.MatrixFactorizationModel}   Model instance
      */
     MatrixFactorizationModel.load = function (sc, path) {
         var sc_uw = Utils.unwrapObject(sc);

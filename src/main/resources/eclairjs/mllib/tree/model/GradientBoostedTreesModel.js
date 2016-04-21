@@ -31,7 +31,7 @@
 
     /**
      * @param {Algo} algo
-     * @param {DecisionTreeModel[]} trees
+     * @param {module:eclairjs/mllib/tree/model.DecisionTreeModel[]} trees
      * @param {number[]} treeWeights
      * @returns {??}
      *  @class
@@ -71,7 +71,7 @@
     /**
      * Method to compute error or loss for every iteration of gradient boosting.
      * @param {module:eclairjs.RDD} data  RDD of {@link LabeledPoint}
-     * @param {Loss} loss  evaluation metric.
+     * @param {module:eclairjs/mllib/tree/loss.Loss} loss  evaluation metric.
      *         containing the first i+1 trees
      * @returns {number[]}  an array with index i having the losses or errors for the ensemble
      */
@@ -110,7 +110,7 @@
     /**
      * @param {module:eclairjs.SparkContext} sc   Spark context used for loading model files.
      * @param {string} path   Path specifying the directory to which the model was saved.
-     * @returns {GradientBoostedTreesModel}   Model instance
+     * @returns {module:eclairjs/mllib/tree/model.GradientBoostedTreesModel}   Model instance
      */
     GradientBoostedTreesModel.load = function (sc, path) {
         var sc_uw = Utils.unwrapObject(sc);
