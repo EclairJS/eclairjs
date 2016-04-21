@@ -29,6 +29,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./data/dream.txt:/dream.txt
       - ./run.sh:/run.sh
-    command: /bin/bash -c 'cat /dream.txt | while read x ; do sleep 1 ; echo $x ; done | /opt/kafka_2.10-0.8.2.2/bin/kafka-console-producer.sh --topic=tlog --broker-list=`broker-list.sh`'
+    command: /run.sh
     depends_on:
       - kafka
