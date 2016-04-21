@@ -64,7 +64,7 @@
 
 
     /**
-     * @returns {Matrix}
+     * @returns {module:eclairjs/mllib/linalg.Matrix}
      */
     LocalLDAModel.prototype.topicsMatrix = function () {
         throw "not implemented by ElairJS";
@@ -189,7 +189,7 @@
     /**
      * @param {module:eclairjs.SparkContext} sc
      * @param {string} path
-     * @returns {LocalLDAModel}
+     * @returns {module:eclairjs/mllib/clustering.LocalLDAModel}
      */
     LocalLDAModel.load = function (sc, path) {
         throw "not implemented by ElairJS";

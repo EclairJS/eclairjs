@@ -50,7 +50,7 @@
     /**
      * Set the number of clusters.
      * @param {integer} k
-     * @returns {PowerIterationClustering}
+     * @returns {module:eclairjs/mllib/clustering.PowerIterationClustering}
      */
     PowerIterationClustering.prototype.setK = function(k) {
        var javaObject =  this.getJavaObject().setK(k);
@@ -61,7 +61,7 @@
     /**
      * Set maximum number of iterations of the power iteration loop
      * @param {integer} maxIterations
-     * @returns {PowerIterationClustering}
+     * @returns {module:eclairjs/mllib/clustering.PowerIterationClustering}
      */
     PowerIterationClustering.prototype.setMaxIterations = function(maxIterations) {
        var javaObject =  this.getJavaObject().setMaxIterations(maxIterations);
@@ -73,7 +73,7 @@
      * Set the initialization mode. This can be either "random" to use a random vector
      * as vertex properties, or "degree" to use normalized sum similarities. Default: random.
      * @param {string} mode
-     * @returns {PowerIterationClustering}
+     * @returns {module:eclairjs/mllib/clustering.PowerIterationClustering}
      */
     PowerIterationClustering.prototype.setInitializationMode = function(mode) {
        var javaObject =  this.getJavaObject().setInitializationMode(mode);
@@ -84,7 +84,7 @@
     /**
      * Run the PIC algorithm on Graph.
      *
-     * @param {RDD | Graph} similaritiesOrGraph  an RDD of (i, j, s,,ij,,) tuples representing the affinity matrix, which is
+     * @param {module:eclairjs.RDD | Graph} similaritiesOrGraph  an RDD of (i, j, s,,ij,,) tuples representing the affinity matrix, which is
      *                     the matrix A in the PIC paper. The similarity s,,ij,, must be nonnegative.
      *                     This is a symmetric matrix and hence s,,ij,, = s,,ji,,. For any (i, j) with
      *                     nonzero similarity, there should be either (i, j, s,,ij,,) or
@@ -96,7 +96,7 @@
      *              or (j, i, s,,ji,,) in the input. Tuples with i = j are ignored, because we
      *              assume s,,ij,, = 0.0.
      *
-     * @returns {PowerIterationClusteringModel}  a [[PowerIterationClusteringModel]] that contains the clustering result
+     * @returns {module:eclairjs/mllib/clustering.PowerIterationClusteringModel}  a [[PowerIterationClusteringModel]] that contains the clustering result
      */
     PowerIterationClustering.prototype.run = function(similaritiesOrGraph) {
        var graph_uw = Utils.unwrapObject(similaritiesOrGraph);

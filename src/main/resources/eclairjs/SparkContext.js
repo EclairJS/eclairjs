@@ -380,7 +380,7 @@
      * Distribute a local collection to form an RDD.
      * @param {array} list array of Tuple 2
      * @param {integer} numSlices
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     SparkContext.prototype.parallelizePairs = function (list, numSlices) {
         //public <T> JavaRDD<T> parallelize(java.util.List<T> list, int numSlices)

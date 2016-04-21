@@ -328,7 +328,7 @@
      *  RDD, and then flattening the results.
      * @param {function}
      * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     RDD.prototype.flatMapToPair = function (func, bindArgs) {
         var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSPairFlatMapFunction, this.context(), bindArgs);
@@ -624,7 +624,7 @@
      * Return a new RDD by applying a function to all elements of this RDD.
      * @param (function) func - (undocumented) Function with one parameter that returns tuple
      * @param {Object[]} [bindArgs] array whose values will be added to func's argument list.
-     * @returns {PairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     RDD.prototype.mapToPair = function (func, bindArgs) {
         var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSPairFunction, this.context(), bindArgs);

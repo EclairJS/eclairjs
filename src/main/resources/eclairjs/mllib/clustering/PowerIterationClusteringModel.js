@@ -78,7 +78,7 @@
     /**
      * @param {module:eclairjs.SparkContext} sc
      * @param {string} path
-     * @returns {PowerIterationClusteringModel}
+     * @returns {module:eclairjs/mllib/clustering.PowerIterationClusteringModel}
      */
     PowerIterationClusteringModel.load = function(sc,path) {
        var sc_uw = Utils.unwrapObject(sc).sc();

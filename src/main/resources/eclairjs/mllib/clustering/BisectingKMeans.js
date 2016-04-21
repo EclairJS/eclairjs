@@ -69,7 +69,7 @@
      * Sets the desired number of leaf clusters (default: 4).
      * The actual number could be smaller if there are no divisible leaf clusters.
      * @param {integer} k
-     * @returns {BisectingKMeans}
+     * @returns {module:eclairjs/mllib/clustering.BisectingKMeans}
      */
     BisectingKMeans.prototype.setK = function(k) {
        var javaObject =  this.getJavaObject().setK(k);
@@ -89,7 +89,7 @@
     /**
      * Sets the max number of k-means iterations to split clusters (default: 20).
      * @param {number} maxIterations
-     * @returns {BisectingKMeans}
+     * @returns {module:eclairjs/mllib/clustering.BisectingKMeans}
      */
     BisectingKMeans.prototype.setMaxIterations = function(maxIterations) {
         var inter = maxIterations ? maxIterations : null;
@@ -111,7 +111,7 @@
      * Sets the minimum number of points (if >= `1.0`) or the minimum proportion of points
      * (if < `1.0`) of a divisible cluster (default: 1).
      * @param {float} minDivisibleClusterSize
-     * @returns {BisectingKMeans}
+     * @returns {module:eclairjs/mllib/clustering.BisectingKMeans}
      */
     BisectingKMeans.prototype.setMinDivisibleClusterSize = function(minDivisibleClusterSize) {
        var javaObject =  this.getJavaObject().setMinDivisibleClusterSize(minDivisibleClusterSize);
@@ -132,7 +132,7 @@
     /**
      * Sets the random seed (default: hash value of the class name).
      * @param {integer} seed
-     * @returns {BisectingKMeans}
+     * @returns {module:eclairjs/mllib/clustering.BisectingKMeans}
      */
     BisectingKMeans.prototype.setSeed = function(seed) {
        var javaObject =  this.getJavaObject().setSeed(seed);

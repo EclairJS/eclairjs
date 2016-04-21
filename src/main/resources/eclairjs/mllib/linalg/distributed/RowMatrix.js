@@ -62,7 +62,7 @@
     /**
      * Computes the Gramian matrix `A^T A`. Note that this cannot be computed on matrices with
      * more than 65535 columns.
-     * @returns {Matrix} 
+     * @returns {module:eclairjs/mllib/linalg.Matrix}
      */
     RowMatrix.prototype.computeGramianMatrix = function() {
        var javaObject =  this.getJavaObject().computeGramianMatrix();
@@ -123,7 +123,7 @@
     /**
      * Computes the covariance matrix, treating each row as an observation. Note that this cannot
      * be computed on matrices with more than 65535 columns.
-     * @returns {Matrix}  a local dense matrix of size n x n
+     * @returns {module:eclairjs/mllib/linalg.Matrix}  a local dense matrix of size n x n
      */
     RowMatrix.prototype.computeCovariance = function() {
        var javaObject =  this.getJavaObject().computeCovariance();
@@ -143,7 +143,7 @@
      * Note that this cannot be computed on matrices with more than 65535 columns.
      *
      * @param {integer} k  number of top principal components.
-     * @returns {Matrix}  a matrix of size n-by-k, whose columns are principal components
+     * @returns {module:eclairjs/mllib/linalg.Matrix}  a matrix of size n-by-k, whose columns are principal components
      */
     RowMatrix.prototype.computePrincipalComponents = function(k) {
        var javaObject =  this.getJavaObject().computePrincipalComponents(k);
@@ -166,7 +166,7 @@
     /**
      * Multiply this matrix by a local matrix on the right.
      *
-     * @param {Matrix} B  a local matrix whose number of rows must match the number of columns of this matrix
+     * @param {module:eclairjs/mllib/linalg.Matrix} B  a local matrix whose number of rows must match the number of columns of this matrix
      *         which preserves partitioning
      * @returns {RowMatrix}  a [[org.apache.spark.mllib.linalg.distributed.RowMatrix]] representing the product,
      */

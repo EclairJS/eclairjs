@@ -94,7 +94,7 @@
      * Inferred topics, where each topic is represented by a distribution over terms.
      * This is a matrix of size vocabSize x k, where each column is a topic.
      * No guarantees are given about the ordering of the topics.
-     * @returns {Matrix}
+     * @returns {module:eclairjs/mllib/linalg.Matrix}
      */
     LDAModel.prototype.topicsMatrix = function () {
        var javaObject =  this.getJavaObject().topicsMatrix();
