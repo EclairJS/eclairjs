@@ -360,7 +360,7 @@
     /**
      * Learn an LDA model using the given dataset.
      *
-     * @param {RDD | PairRDD} documents   RDD of documents, which are term (word) count vectors paired with IDs.
+     * @param {module:eclairjs.RDD | PairRDD} documents   RDD of documents, which are term (word) count vectors paired with IDs.
      *                   The term count vectors are "bags of words" with a fixed-size vocabulary
      *                   (where the vocabulary size is the length of the vector).
      *                   Document IDs must be unique and >= 0.

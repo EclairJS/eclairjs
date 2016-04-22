@@ -67,7 +67,7 @@
 
     /**
      * Inserts all of the elements in the specified collection into this list at the specified position (optional operation).
-     * @param {List | array} obj
+     * @param {module:eclairjs.List | array} obj
      * @param {integer} [position]
      * @returns {module:eclairjs.List}
      */
@@ -109,7 +109,7 @@
 
     /**
      * Returns true if this list contains all of the elements of the specified list or array.
-     * @param {List | array} obj
+     * @param {module:eclairjs.List | array} obj
      * @returns {boolean}
      */
     List.prototype.containsAll = function (obj) {
@@ -124,7 +124,7 @@
 
     /**
      * Compares the specified list or array with this list for equality.
-     * @param {List | array} obj
+     * @param {module:eclairjs.List | array} obj
      * @returns {boolean}
      */
     List.prototype.equals = function (obj) {
@@ -204,7 +204,7 @@
 
     /**
      * Removes from this list all of its elements that are contained in the specified collection (optional operation).
-     * @param {List | array} listOrArray
+     * @param {module:eclairjs.List | array} listOrArray
      * @returns {boolean}
      */
     List.prototype.removeAll = function (listOrArray) {
@@ -219,7 +219,7 @@
 
     /**
      * Retains only the elements in this list that are contained in the specified collection (optional operation).
-     * @param {List | array} listOrArray
+     * @param {module:eclairjs.List | array} listOrArray
      * @returns {boolean}
      */
     List.prototype.retainAll = function (listOrArray) {

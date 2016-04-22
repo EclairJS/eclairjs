@@ -449,7 +449,7 @@
      * or {@link reduceByKey} will provide much better performance.
      * @param {function} func - (undocumented) Function with one parameter
      * @param {number} [numPartitions] -  How many partitions to use in the resulting RDD (if non-zero partitioner is ignored)
-     * @param {Partitioner} [partitioner] -  Partitioner to use for the resulting RDD
+     * @param {module:eclairjs.Partitioner} [partitioner] -  Partitioner to use for the resulting RDD
      * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
      * @returns {module:eclairjs.RDD}
      */
@@ -476,7 +476,7 @@
      * Note that this method performs a shuffle internally.
      * @param {module:eclairjs.RDD} other - the other RDD
      * @param {number} numPartitions  How many partitions to use in the resulting RDD (if non-zero partitioner is ignored)
-     * @param {Partitioner} partitioner  Partitioner to use for the resulting RDD
+     * @param {module:eclairjs.Partitioner} partitioner  Partitioner to use for the resulting RDD
      * @returns {module:eclairjs.RDD}
      */
     RDD.prototype.intersection = function (other, numPartitions, partitioner) {
@@ -734,7 +734,7 @@
      *
      * @param {number[]} weights - weights for splits, will be normalized if they don't sum to 1
      * @param {number} seed - random seed
-     * @returns {RDD[]}  split RDDs in an array
+     * @returns {module:eclairjs.RDD[]}  split RDDs in an array
      * @private
      */
     RDD.prototype.randomSplit = function (weights, seed) {
@@ -1213,7 +1213,7 @@
     /**
      * The asynchronous version of `collect`, which returns a future for
      * retrieving an array containing all of the elements in this RDD.
-     * @returns {FutureAction}
+     * @returns {module:eclairjs.FutureAction}
      */
     RDD.prototype.collectAsync = function () {
         var javaObject = this.getJavaObject().collectAsync();

@@ -91,7 +91,7 @@
     /**
      * Returns job information, or `None` if the job info could not be found or was garbage collected.
      * @param {number}
-     * @returns {SparkJobInfo}
+     * @returns {module:eclairjs.SparkJobInfo}
      */
     SparkStatusTracker.prototype.getJobInfo = function (jobId) {
         var javaObject = this.getJavaObject().getJobInfo(jobId);
@@ -103,7 +103,7 @@
      * Returns stage information, or `None` if the stage info could not be found or was
      * garbage collected.
      * @param {number}
-     * @returns {SparkStageInfo}
+     * @returns {module:eclairjs.SparkStageInfo}
      */
     SparkStatusTracker.prototype.getStageInfo = function (stageId) {
         var javaObject = this.getJavaObject().getStageInfo(stageId);

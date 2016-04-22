@@ -203,7 +203,7 @@
 
     /**
      * Java-friendly version of {@link run}.
-     * @param {JavaRDD} ratings
+     * @param {module:eclairjs.RDD} ratings
      * @returns {module:eclairjs/mllib/recommendation.MatrixFactorizationModel}
      */
     ALS.prototype.runwithJavaRDD = function (ratings) {

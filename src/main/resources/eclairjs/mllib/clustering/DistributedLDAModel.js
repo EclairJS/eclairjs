@@ -121,7 +121,7 @@
     /**
      * Java-friendly version of {@link topTopicsPerDocument}
      * @param {number} k
-     * @returns {JavaRDD}
+     * @returns {module:eclairjs.RDD}
      */
     DistributedLDAModel.prototype.javaTopTopicsPerDocument = function (k) {
         throw "not implemented by ElairJS";

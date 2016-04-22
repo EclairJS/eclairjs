@@ -108,7 +108,7 @@
      * @param {number} [maxTermsPerTopic]   Maximum number of terms to collect for each topic.
      *          (term indices, term weights in topic).
      *          Each topic's terms are sorted in order of decreasing weight.
-     * @returns {Tuple2[]}   Array over topics.  Each topic is represented as a pair of matching arrays:
+     * @returns {module:eclairjs.Tuple[]}   Array over topics.  Each topic is represented as a pair of matching arrays:
      */
     LDAModel.prototype.describeTopics = function (maxTermsPerTopic) {
         throw "not implemented by ElairJS";

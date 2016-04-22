@@ -60,7 +60,7 @@
      * Predict labels for provided features, or single label..
      * Using a piecewise linear function.
      *
-     * @param {RDD | DoubleRDD | float} testData  Features to be labeled, if float.
+     * @param {module:eclairjs.RDD | module:eclairjs.FloatRDD | float} testData  Features to be labeled, if float.
      *          1) If testData exactly matches a boundary then associated prediction is returned.
      *           In case there are multiple predictions with the same boundary then one of them
      *           is returned. Which one is undefined (same as java.util.Arrays.binarySearch).
@@ -71,7 +71,7 @@
      *           as piecewise linear function and interpolated value is returned. In case there are
      *           multiple values with the same boundary then the same rules as in 2) are used.
      *
-     * @returns {RDD | number}  Predicted labels or label.
+     * @returns {module:eclairjs.RDD | number}  Predicted labels or label.
      */
     IsotonicRegressionModel.prototype.predict = function (testData) {
         var testData_uw = Utils.unwrapObject(testData);

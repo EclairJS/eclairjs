@@ -62,7 +62,7 @@
     /**
      * @param {number | RDD} user
      * @param {number} product
-     * @returns {RDD | number}
+     * @returns {module:eclairjs.RDD | number}
      */
     MatrixFactorizationModel.prototype.predict = function (user, product) {
         //  TODO: handle Tuple conversion for 'usersProducts'

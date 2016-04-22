@@ -58,7 +58,7 @@
      * Method to calculate loss when the predictions are already known.
      * Note: This method is used in the method evaluateEachIteration to avoid recomputing the predicted values from previously fit trees.
      * @param {TreeEnsembleModel | float} modelOrPrediction Model of the weak learner or predicted label (predict only valid with label param).
-     * @param {RDD | float} dataOrLabel Training dataset: RDD of LabeledPoint or true label (use of label only valid with prediction param).
+     * @param {module:eclairjs.RDD | float} dataOrLabel Training dataset: RDD of LabeledPoint or true label (use of label only valid with prediction param).
      * @returns {float}
      */
     Loss.prototype.computeError = function (modelOrPrediction, dataOrLabel) {

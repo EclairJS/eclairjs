@@ -87,8 +87,8 @@
 
     /**
      * Maps given points to their cluster indices.
-     * @param {JavaRDD} points
-     * @returns {JavaRDD}
+     * @param {module:eclairjs.RDD} points
+     * @returns {module:eclairjs.RDD}
      */
     KMeansModel.prototype.predict2 = function (points) {
         throw "not implemented by ElairJS";

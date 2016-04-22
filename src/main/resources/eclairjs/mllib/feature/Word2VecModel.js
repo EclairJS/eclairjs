@@ -77,7 +77,7 @@
      * Find synonyms of a word
      * @param {string} word  a word
      * @param {number} num  number of synonyms to find
-     * @returns {Tuple2[]}  array of (word, cosineSimilarity)
+     * @returns {module:eclairjs.Tuple[]}  array of (word, cosineSimilarity)
      */
     Word2VecModel.prototype.findSynonyms = function(word,num) {
         var javaObject =  this.getJavaObject().findSynonyms(word,num);
@@ -89,7 +89,7 @@
      * Find synonyms of the vector representation of a word
      * @param {module:eclairjs/mllib/linalg.Vector} vector  vector representation of a word
      * @param {number} num  number of synonyms to find
-     * @returns {Tuple2[]}  array of (word, cosineSimilarity)
+     * @returns {module:eclairjs.Tuple[]}  array of (word, cosineSimilarity)
      */
     Word2VecModel.prototype.findSynonymswithnumber = function(vector,num) {
     throw "not implemented by ElairJS";

@@ -33,7 +33,7 @@
      * @param {module:eclairjs.RDD} srdd
      * @class
      * @memberof module:eclairjs
-     * @extends RDD
+     * @extends module:eclairjs.RDD
      */
     var FloatRDD = function (srdd) {
         this.logger = Logger.getLogger("FloatRDD_js");
@@ -59,7 +59,7 @@
 
     /**
      * @param {module:eclairjs.RDD} rdd
-     * @returns {FloatRDD}
+     * @returns {module:eclairjs.FloatRDD}
      */
     FloatRDD.prototype.wrapRDD = function (rdd) {
         var rdd_uw = Utils.unwrapObject(rdd);
@@ -68,7 +68,7 @@
 
 
     /**
-     * @returns {FloatRDD}
+     * @returns {module:eclairjs.FloatRDD}
      */
     FloatRDD.prototype.cache = function () {
         return new FloatRDD(this.getJavaObject().cache());
@@ -79,7 +79,7 @@
      * Set this RDD's storage level to persist its values across operations after the first time
      * it is computed. Can only be called once on each RDD.
      * @param {module:eclairjs/storage.StorageLevel} newLevel
-     * @returns {FloatRDD}
+     * @returns {module:eclairjs.FloatRDD}
      */
     FloatRDD.prototype.persist = function (newLevel) {
         var newLevel_uw = Utils.unwrapObject(newLevel);
@@ -91,7 +91,7 @@
      * Mark the RDD as non-persistent, and remove all blocks for it from memory and disk.
      *
      * @param {boolean} [blocking]  Whether to block until all blocks are deleted.
-     * @returns {FloatRDD}
+     * @returns {module:eclairjs.FloatRDD}
      */
     FloatRDD.prototype.unpersist = function (blocking) {
         var obj;
@@ -115,7 +115,7 @@
     /**
      * Return a new RDD containing the distinct elements in this RDD.
      * @param {number} [numPartitions]
-     * @returns {FloatRDD}
+     * @returns {module:eclairjs.FloatRDD}
      */
     FloatRDD.prototype.distinct = function (numPartitions) {
         var obj;
@@ -131,7 +131,7 @@
     /**
      * Return a new RDD containing only the elements that satisfy a predicate.
      * @param {function} func
-     * @returns {FloatRDD}
+     * @returns {module:eclairjs.FloatRDD}
      */
     FloatRDD.prototype.filter = function (func, bindArgs) {
         var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, this.context, bindArgs);
@@ -145,7 +145,7 @@
      * Return a new RDD that is reduced into `numPartitions` partitions.
      * @param {number} numPartitions
      * @param {boolean} [shuffle]
-     * @returns {FloatRDD}
+     * @returns {module:eclairjs.FloatRDD}
      */
     FloatRDD.prototype.coalesce = function (numPartitions, shuffle) {
         throw "not implemented by ElairJS";
@@ -167,7 +167,7 @@
      * If you are decreasing the number of partitions in this RDD, consider using `coalesce`,
      * which can avoid performing a shuffle.
      * @param {number} numPartitions
-     * @returns {FloatRDD}
+     * @returns {module:eclairjs.FloatRDD}
      */
     FloatRDD.prototype.repartition = function (numPartitions) {
         throw "not implemented by ElairJS";
@@ -180,8 +180,8 @@
      *
      * Uses `this` partitioner/partition size, because even if `other` is huge, the resulting
      * RDD will be &lt;= us.
-     * @param {FloatRDD} other
-     * @returns {FloatRDD}
+     * @param {module:eclairjs.FloatRDD} other
+     * @returns {module:eclairjs.FloatRDD}
      */
     FloatRDD.prototype.subtract0 = function (other) {
         throw "not implemented by ElairJS";
@@ -191,9 +191,9 @@
 
     /**
      * Return an RDD with the elements from `this` that are not in `other`.
-     * @param {FloatRDD} other
+     * @param {module:eclairjs.FloatRDD} other
      * @param {number} numPartitions
-     * @returns {FloatRDD}
+     * @returns {module:eclairjs.FloatRDD}
      */
     FloatRDD.prototype.subtract1 = function (other, numPartitions) {
         throw "not implemented by ElairJS";
@@ -203,9 +203,9 @@
 
     /**
      * Return an RDD with the elements from `this` that are not in `other`.
-     * @param {FloatRDD} other
-     * @param {Partitioner} p
-     * @returns {FloatRDD}
+     * @param {module:eclairjs.FloatRDD} other
+     * @param {module:eclairjs.Partitioner} p
+     * @returns {module:eclairjs.FloatRDD}
      */
     FloatRDD.prototype.subtract2 = function (other, p) {
         throw "not implemented by ElairJS";
@@ -219,7 +219,7 @@
      * @param {boolean} withReplacement
      * @param {float} fraction
      * @param {number} [seed]
-     * @returns {FloatRDD}
+     * @returns {module:eclairjs.FloatRDD}
      */
     FloatRDD.prototype.sample = function (withReplacement, fraction, seed) {
         throw "not implemented by ElairJS";
@@ -235,8 +235,8 @@
     /**
      * Return the union of this RDD and another one. Any identical elements will appear multiple
      * times (use `.distinct()` to eliminate them).
-     * @param {FloatRDD} other
-     * @returns {FloatRDD}
+     * @param {module:eclairjs.FloatRDD} other
+     * @returns {module:eclairjs.FloatRDD}
      */
     FloatRDD.prototype.union = function (other) {
         throw "not implemented by ElairJS";
@@ -249,8 +249,8 @@
      * elements, even if the input RDDs did.
      *
      * Note that this method performs a shuffle internally.
-     * @param {FloatRDD} other
-     * @returns {FloatRDD}
+     * @param {module:eclairjs.FloatRDD} other
+     * @returns {module:eclairjs.FloatRDD}
      */
     FloatRDD.prototype.intersection = function (other) {
         throw "not implemented by ElairJS";
@@ -440,7 +440,7 @@
 
     /**
      * @param {string} name
-     * @returns {FloatRDD}
+     * @returns {module:eclairjs.FloatRDD}
      */
     FloatRDD.prototype.setName = function (name) {
         throw "not implemented by ElairJS";
@@ -453,7 +453,7 @@
 
     /**
      * @param {module:eclairjs.RDD} rdd
-     * @returns {FloatRDD}
+     * @returns {module:eclairjs.FloatRDD}
      */
     FloatRDD.fromRDD = function (rdd) {
         var rdd_uw = Utils.unwrapObject(rdd);
@@ -462,7 +462,7 @@
 
 
     /**
-     * @param {FloatRDD} rdd
+     * @param {module:eclairjs.FloatRDD} rdd
      * @returns {module:eclairjs.RDD}
      */
     FloatRDD.toRDD = function (rdd) {

@@ -64,7 +64,7 @@
      * @param {number} size
      * @param {number} numPartitions
      * @param {number} seed
-     * @returns {JavaDoubleRDD}
+     * @returns {module:eclairjs.FloatRDD}
      */
     RandomRDDs.uniformJavaRDD0 = function (jsc, size, numPartitions, seed) {
         throw "not implemented by ElairJS";
@@ -78,7 +78,7 @@
      * @param {JavaSparkContext} jsc
      * @param {number} size
      * @param {number} numPartitions
-     * @returns {JavaDoubleRDD}
+     * @returns {module:eclairjs.FloatRDD}
      */
     RandomRDDs.uniformJavaRDD1 = function (jsc, size, numPartitions) {
         throw "not implemented by ElairJS";
@@ -91,7 +91,7 @@
      * [[RandomRDDs#uniformJavaRDD]] with the default number of partitions and the default seed.
      * @param {JavaSparkContext} jsc
      * @param {number} size
-     * @returns {JavaDoubleRDD}
+     * @returns {module:eclairjs.FloatRDD}
      */
     RandomRDDs.uniformJavaRDD2 = function (jsc, size) {
         throw "not implemented by ElairJS";
@@ -155,7 +155,7 @@
      * @param {number} size
      * @param {number} numPartitions
      * @param {number} seed
-     * @returns {JavaDoubleRDD}
+     * @returns {module:eclairjs.FloatRDD}
      */
     RandomRDDs.poissonJavaRDD0 = function (jsc, mean, size, numPartitions, seed) {
         throw "not implemented by ElairJS";
@@ -170,7 +170,7 @@
      * @param {number} mean
      * @param {number} size
      * @param {number} numPartitions
-     * @returns {JavaDoubleRDD}
+     * @returns {module:eclairjs.FloatRDD}
      */
     RandomRDDs.poissonJavaRDD1 = function (jsc, mean, size, numPartitions) {
         throw "not implemented by ElairJS";
@@ -184,7 +184,7 @@
      * @param {JavaSparkContext} jsc
      * @param {number} mean
      * @param {number} size
-     * @returns {JavaDoubleRDD}
+     * @returns {module:eclairjs.FloatRDD}
      */
     RandomRDDs.poissonJavaRDD2 = function (jsc, mean, size) {
         throw "not implemented by ElairJS";
@@ -219,7 +219,7 @@
      * @param {number} size
      * @param {number} numPartitions
      * @param {number} seed
-     * @returns {JavaDoubleRDD}
+     * @returns {module:eclairjs.FloatRDD}
      */
     RandomRDDs.exponentialJavaRDD0 = function (jsc, mean, size, numPartitions, seed) {
         throw "not implemented by ElairJS";
@@ -234,7 +234,7 @@
      * @param {number} mean
      * @param {number} size
      * @param {number} numPartitions
-     * @returns {JavaDoubleRDD}
+     * @returns {module:eclairjs.FloatRDD}
      */
     RandomRDDs.exponentialJavaRDD1 = function (jsc, mean, size, numPartitions) {
         throw "not implemented by ElairJS";
@@ -248,7 +248,7 @@
      * @param {JavaSparkContext} jsc
      * @param {number} mean
      * @param {number} size
-     * @returns {JavaDoubleRDD}
+     * @returns {module:eclairjs.FloatRDD}
      */
     RandomRDDs.exponentialJavaRDD2 = function (jsc, mean, size) {
         throw "not implemented by ElairJS";
@@ -285,7 +285,7 @@
      * @param {number} size
      * @param {number} numPartitions
      * @param {number} seed
-     * @returns {JavaDoubleRDD}
+     * @returns {module:eclairjs.FloatRDD}
      */
     RandomRDDs.gammaJavaRDD0 = function (jsc, shape, scale, size, numPartitions, seed) {
         throw "not implemented by ElairJS";
@@ -301,7 +301,7 @@
      * @param {number} scale
      * @param {number} size
      * @param {number} numPartitions
-     * @returns {JavaDoubleRDD}
+     * @returns {module:eclairjs.FloatRDD}
      */
     RandomRDDs.gammaJavaRDD1 = function (jsc, shape, scale, size, numPartitions) {
         throw "not implemented by ElairJS";
@@ -316,7 +316,7 @@
      * @param {number} shape
      * @param {number} scale
      * @param {number} size
-     * @returns {JavaDoubleRDD}
+     * @returns {module:eclairjs.FloatRDD}
      */
     RandomRDDs.gammaJavaRDD2 = function (jsc, shape, scale, size) {
         throw "not implemented by ElairJS";
@@ -353,7 +353,7 @@
      * @param {number} size
      * @param {number} numPartitions
      * @param {number} seed
-     * @returns {JavaDoubleRDD}
+     * @returns {module:eclairjs.FloatRDD}
      */
     RandomRDDs.logNormalJavaRDD0 = function (jsc, mean, std, size, numPartitions, seed) {
         throw "not implemented by ElairJS";
@@ -369,7 +369,7 @@
      * @param {number} std
      * @param {number} size
      * @param {number} numPartitions
-     * @returns {JavaDoubleRDD}
+     * @returns {module:eclairjs.FloatRDD}
      */
     RandomRDDs.logNormalJavaRDD1 = function (jsc, mean, std, size, numPartitions) {
         throw "not implemented by ElairJS";
@@ -384,7 +384,7 @@
      * @param {number} mean
      * @param {number} std
      * @param {number} size
-     * @returns {JavaDoubleRDD}
+     * @returns {module:eclairjs.FloatRDD}
      */
     RandomRDDs.logNormalJavaRDD2 = function (jsc, mean, std, size) {
         throw "not implemented by ElairJS";
@@ -419,7 +419,7 @@
      * @param {number} numCols
      * @param {number} numPartitions
      * @param {number} seed
-     * @returns {JavaRDD}
+     * @returns {module:eclairjs.RDD}
      */
     RandomRDDs.uniformJavaVectorRDD0 = function (jsc, numRows, numCols, numPartitions, seed) {
         throw "not implemented by ElairJS";
@@ -435,7 +435,7 @@
      * @param {number} numRows
      * @param {number} numCols
      * @param {number} numPartitions
-     * @returns {JavaRDD}
+     * @returns {module:eclairjs.RDD}
      */
     RandomRDDs.uniformJavaVectorRDD1 = function (jsc, numRows, numCols, numPartitions) {
         throw "not implemented by ElairJS";
@@ -450,7 +450,7 @@
      * @param {JavaSparkContext} jsc
      * @param {number} numRows
      * @param {number} numCols
-     * @returns {JavaRDD}
+     * @returns {module:eclairjs.RDD}
      */
     RandomRDDs.uniformJavaVectorRDD2 = function (jsc, numRows, numCols) {
         throw "not implemented by ElairJS";
@@ -518,7 +518,7 @@
      * @param {number} numCols
      * @param {number} numPartitions
      * @param {number} seed
-     * @returns {JavaRDD}
+     * @returns {module:eclairjs.RDD}
      */
     RandomRDDs.logNormalJavaVectorRDD0 = function (jsc, mean, std, numRows, numCols, numPartitions, seed) {
         throw "not implemented by ElairJS";
@@ -536,7 +536,7 @@
      * @param {number} numRows
      * @param {number} numCols
      * @param {number} numPartitions
-     * @returns {JavaRDD}
+     * @returns {module:eclairjs.RDD}
      */
     RandomRDDs.logNormalJavaVectorRDD1 = function (jsc, mean, std, numRows, numCols, numPartitions) {
         throw "not implemented by ElairJS";
@@ -554,7 +554,7 @@
      * @param {number} std
      * @param {number} numRows
      * @param {number} numCols
-     * @returns {JavaRDD}
+     * @returns {module:eclairjs.RDD}
      */
     RandomRDDs.logNormalJavaVectorRDD2 = function (jsc, mean, std, numRows, numCols) {
         throw "not implemented by ElairJS";
@@ -592,7 +592,7 @@
      * @param {number} numCols
      * @param {number} numPartitions
      * @param {number} seed
-     * @returns {JavaRDD}
+     * @returns {module:eclairjs.RDD}
      */
     RandomRDDs.poissonJavaVectorRDD0 = function (jsc, mean, numRows, numCols, numPartitions, seed) {
         throw "not implemented by ElairJS";
@@ -609,7 +609,7 @@
      * @param {number} numRows
      * @param {number} numCols
      * @param {number} numPartitions
-     * @returns {JavaRDD}
+     * @returns {module:eclairjs.RDD}
      */
     RandomRDDs.poissonJavaVectorRDD1 = function (jsc, mean, numRows, numCols, numPartitions) {
         throw "not implemented by ElairJS";
@@ -625,7 +625,7 @@
      * @param {number} mean
      * @param {number} numRows
      * @param {number} numCols
-     * @returns {JavaRDD}
+     * @returns {module:eclairjs.RDD}
      */
     RandomRDDs.poissonJavaVectorRDD2 = function (jsc, mean, numRows, numCols) {
         throw "not implemented by ElairJS";
@@ -663,7 +663,7 @@
      * @param {number} numCols
      * @param {number} numPartitions
      * @param {number} seed
-     * @returns {JavaRDD}
+     * @returns {module:eclairjs.RDD}
      */
     RandomRDDs.exponentialJavaVectorRDD0 = function (jsc, mean, numRows, numCols, numPartitions, seed) {
         throw "not implemented by ElairJS";
@@ -680,7 +680,7 @@
      * @param {number} numRows
      * @param {number} numCols
      * @param {number} numPartitions
-     * @returns {JavaRDD}
+     * @returns {module:eclairjs.RDD}
      */
     RandomRDDs.exponentialJavaVectorRDD1 = function (jsc, mean, numRows, numCols, numPartitions) {
         throw "not implemented by ElairJS";
@@ -697,7 +697,7 @@
      * @param {number} mean
      * @param {number} numRows
      * @param {number} numCols
-     * @returns {JavaRDD}
+     * @returns {module:eclairjs.RDD}
      */
     RandomRDDs.exponentialJavaVectorRDD2 = function (jsc, mean, numRows, numCols) {
         throw "not implemented by ElairJS";
@@ -737,7 +737,7 @@
      * @param {number} numCols
      * @param {number} numPartitions
      * @param {number} seed
-     * @returns {JavaRDD}
+     * @returns {module:eclairjs.RDD}
      */
     RandomRDDs.gammaJavaVectorRDD0 = function (jsc, shape, scale, numRows, numCols, numPartitions, seed) {
         throw "not implemented by ElairJS";
@@ -755,7 +755,7 @@
      * @param {number} numRows
      * @param {number} numCols
      * @param {number} numPartitions
-     * @returns {JavaRDD}
+     * @returns {module:eclairjs.RDD}
      */
     RandomRDDs.gammaJavaVectorRDD1 = function (jsc, shape, scale, numRows, numCols, numPartitions) {
         throw "not implemented by ElairJS";
@@ -772,7 +772,7 @@
      * @param {number} scale
      * @param {number} numRows
      * @param {number} numCols
-     * @returns {JavaRDD}
+     * @returns {module:eclairjs.RDD}
      */
     RandomRDDs.gammaJavaVectorRDD2 = function (jsc, shape, scale, numRows, numCols) {
         throw "not implemented by ElairJS";

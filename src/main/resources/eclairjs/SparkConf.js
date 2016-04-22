@@ -42,7 +42,7 @@
     /**
      * Set a name for your application.
      * @param {string} appName
-     * @returns {SparkConf}
+     * @returns {module:eclairjs.SparkConf}
      */
     SparkConf.prototype.setAppName = function (appName) {
         this.getJavaObject().setAppName(appName);
@@ -52,7 +52,7 @@
      * The master URL to connect to, such as "local" to run locally with one thread,
      * "local[4]" to run locally with 4 cores, or "spark://master:7077" to run on a Spark standalone cluster.
      * @param {string} master
-     * @returns {SparkConf}
+     * @returns {module:eclairjs.SparkConf}
      */
     SparkConf.prototype.setMaster = function (master) {
         this.getJavaObject().setMaster(master);

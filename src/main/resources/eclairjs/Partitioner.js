@@ -67,7 +67,7 @@
      * be least likely to cause out-of-memory errors.
      *
      * We use two method parameters (rdd, others) to enforce callers passing at least 1 RDD.
-     * @returns {Partitioner}
+     * @returns {module:eclairjs.Partitioner}
      */
     Partitioner.defaultPartitioner = function (rdd, others) {
         var rdd_uw = Utils.unwrapObject(rdd);

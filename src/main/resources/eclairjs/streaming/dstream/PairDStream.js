@@ -96,7 +96,7 @@
 
     /**
      * @param {module:eclairjs/streaming.Time} validTime
-     * @returns {JavaPairRDD}
+     * @returns {module:eclairjs.PairRDD}
      */
     PairDStream.prototype.compute = function (validTime) {
         var validTime_uw = Utils.unwrapObject(validTime);
@@ -158,7 +158,7 @@
      * @param {func} createCombiner
      * @param {func} mergeValue
      * @param {func} mergeCombiners
-     * @param {Partitioner} partitioner
+     * @param {module:eclairjs.Partitioner} partitioner
      * @param {boolean} [mapSideCombine]
      * @returns {module:eclairjs/streaming/dstream.PairDStream}
      */

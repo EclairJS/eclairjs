@@ -45,11 +45,11 @@
      *
      * @classdesc
      * @param {number} initialValue
-     * @param {AccumulableParam} param
+     * @param {module:eclairjs.AccumulableParam} param
      * @param {string} name human-readable name for use in Spark's web UI
      * @constructor
      * @memberof module:eclairjs
-     * @augments Accumulable
+     * @augments module:eclairjs.Accumulable
      */
     var Accumulator = function (initialValue, param, name) {
         this.logger = Logger.getLogger("Accumulator_js");

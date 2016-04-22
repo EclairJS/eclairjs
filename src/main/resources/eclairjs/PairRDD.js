@@ -24,7 +24,7 @@
      * @param {module:eclairjs.RDD} rdd of [Tuple(value, value)]{@link Tuple}.
      *  @class
      *  @memberof module:eclairjs
-     *  @extends RDD
+     *  @extends module:eclairjs.RDD
      */
     var PairRDD = function (rdd, kClassTag, vClassTag) {
         //var jvmObject = new org.apache.spark.api.java.JavaPairRDD(rdd,kClassTag,vClassTag);
@@ -270,7 +270,7 @@
 
 
     /**
-     * @returns {Tuple2}
+     * @returns {module:eclairjs.Tuple}
      */
     PairRDD.prototype.first = function () {
         throw "not implemented by ElairJS";
@@ -296,7 +296,7 @@
      * @param {func} createCombiner
      * @param {func} mergeValue
      * @param {func} mergeCombiners
-     * @param {Partitioner} partitioner
+     * @param {module:eclairjs.Partitioner} partitioner
      * @param {boolean} mapSideCombine
      * @param {Serializer} serializer
      * @returns {module:eclairjs.PairRDD}
@@ -332,7 +332,7 @@
      * @param {func} createCombiner
      * @param {func} mergeValue
      * @param {func} mergeCombiners
-     * @param {Partitioner} partitioner
+     * @param {module:eclairjs.Partitioner} partitioner
      * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.combineByKey1 = function (createCombiner, mergeValue, mergeCombiners, partitioner) {
@@ -440,7 +440,7 @@
      * allocation, both of these functions are allowed to modify and return their first argument
      * instead of creating a new U.
      * @param {object} zeroValue
-     * @param {Partitioner} partitioner
+     * @param {module:eclairjs.Partitioner} partitioner
      * @param {func} seqFunc
      * @param {func} combFunc
      * @returns {module:eclairjs.PairRDD}
@@ -513,7 +513,7 @@
      * may be added to the result an arbitrary number of times, and must not change the result
      * (e.g ., Nil for list concatenation, 0 for addition, or 1 for multiplication.).
      * @param {object} zeroValue
-     * @param {Partitioner} partitioner
+     * @param {module:eclairjs.Partitioner} partitioner
      * @param {func} func
      * @returns {module:eclairjs.PairRDD}
      */
@@ -589,7 +589,7 @@
      * Note: If you are grouping in order to perform an aggregation (such as a sum or average) over
      * each key, using [[PairRDD.reduceByKey]] or {@link combineByKey}
      * will provide much better performance.
-     * @param {Partitioner | number} partitioner or number of partitions
+     * @param {module:eclairjs.Partitioner | number} partitioner or number of partitions
      * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.groupByKey = function (partitioner) {
@@ -638,7 +638,7 @@
     /**
      * Return an RDD with the elements from `this` that are not in `other`.
      * @param {module:eclairjs.PairRDD} other
-     * @param {Partitioner} p
+     * @param {module:eclairjs.Partitioner} p
      * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.subtract2 = function (other, p) {
@@ -681,7 +681,7 @@
 
     /**
      * @param {module:eclairjs.PairRDD} other
-     * @param {Partitioner} p
+     * @param {module:eclairjs.Partitioner} p
      * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.subtractByKey2 = function (other, p) {
@@ -695,7 +695,7 @@
 
     /**
      * Return a copy of the RDD partitioned using the specified partitioner.
-     * @param {Partitioner} partitioner
+     * @param {module:eclairjs.Partitioner} partitioner
      * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.partitionBy = function (partitioner) {
@@ -711,7 +711,7 @@
      * the merging locally on each mapper before sending results to a reducer, similarly to a
      * "combiner" in MapReduce.
      * @param {module:eclairjs.PairRDD} other
-     * @param {Partitioner} partitioner
+     * @param {module:eclairjs.Partitioner} partitioner
      * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.join = function (other, numPartitions) {
@@ -728,7 +728,7 @@
      * pair (k, (v, None)) if no elements in `other` have key k. Uses the given Partitioner to
      * partition the output RDD.
      * @param {module:eclairjs.PairRDD} other
-     * @param {Partitioner} partitioner
+     * @param {module:eclairjs.Partitioner} partitioner
      * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.leftOuterJoin0 = function (other, partitioner) {
@@ -746,7 +746,7 @@
      * pair (k, (None, w)) if no elements in `this` have key k. Uses the given Partitioner to
      * partition the output RDD.
      * @param {module:eclairjs.PairRDD} other
-     * @param {Partitioner} partitioner
+     * @param {module:eclairjs.Partitioner} partitioner
      * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.rightOuterJoin0 = function (other, partitioner) {
@@ -766,7 +766,7 @@
      * (k, (Some(v), Some(w))) for v in `this`, or the pair (k, (None, Some(w))) if no elements
      * in `this` have key k. Uses the given Partitioner to partition the output RDD.
      * @param {module:eclairjs.PairRDD} other
-     * @param {Partitioner} partitioner
+     * @param {module:eclairjs.Partitioner} partitioner
      * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.fullOuterJoin0 = function (other, partitioner) {
@@ -1010,7 +1010,7 @@
      * For each key k in `this` or `other`, return a resulting RDD that contains a tuple with the
      * list of values for that key in `this` as well as `other`.
      * @param {module:eclairjs.PairRDD} other
-     * @param {Partitioner} partitioner
+     * @param {module:eclairjs.Partitioner} partitioner
      * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.cogroup0 = function (other, partitioner) {
@@ -1027,7 +1027,7 @@
      * tuple with the list of values for that key in `this`, `other1` and `other2`.
      * @param {module:eclairjs.PairRDD} other1
      * @param {module:eclairjs.PairRDD} other2
-     * @param {Partitioner} partitioner
+     * @param {module:eclairjs.Partitioner} partitioner
      * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.cogroup1 = function (other1, other2, partitioner) {
@@ -1047,7 +1047,7 @@
      * @param {module:eclairjs.PairRDD} other1
      * @param {module:eclairjs.PairRDD} other2
      * @param {module:eclairjs.PairRDD} other3
-     * @param {Partitioner} partitioner
+     * @param {module:eclairjs.Partitioner} partitioner
      * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.cogroup2 = function (other1, other2, other3, partitioner) {
@@ -1330,7 +1330,7 @@
      *
      * This is more efficient than calling `repartition` and then sorting within each partition
      * because it can push the sorting down into the shuffle machinery.
-     * @param {Partitioner} partitioner
+     * @param {module:eclairjs.Partitioner} partitioner
      * @param {Comparator} [comp]
      * @returns {module:eclairjs.PairRDD}
      */
@@ -1489,7 +1489,7 @@
      *
      * @param {number} relativeSD  Relative accuracy. Smaller values create counters that require more space.
      *                   It must be greater than 0.000017.
-     * @param {Partitioner} partitioner  partitioner of the resulting RDD.
+     * @param {module:eclairjs.Partitioner} partitioner  partitioner of the resulting RDD.
      * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.countApproxDistinctByKey0 = function (relativeSD, partitioner) {
@@ -1585,7 +1585,7 @@
 
 
     /**
-     * @param {JavaRDD} rdd
+     * @param {module:eclairjs.RDD} rdd
      * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.fromRDD = function (rdd) {

@@ -24,7 +24,7 @@
     /**
      * @constructor
      * @memberof module:eclairjs
-     * @augments AccumulableParam
+     * @augments module:eclairjs.AccumulableParam
      */
     var FloatAccumulatorParam = function () {
         this.logger = Logger.getLogger("FloatAccumulatorParam_js");

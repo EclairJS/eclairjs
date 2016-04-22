@@ -29,7 +29,7 @@
     /**
      * Gets a logger for the specified string.
      * @param {string} str
-     * @returns {Logger}
+     * @returns {module:eclairjs.Logger}
      */
     Logger.getLogger = function (str) {
         var logger = org.apache.log4j.Logger.getLogger("org.eclairjs.nashorn.resource." + str);

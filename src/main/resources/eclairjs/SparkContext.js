@@ -67,7 +67,7 @@
      * @classdesc A JavaScript-friendly version of SparkContext that returns RDDs
      * Only one SparkContext may be active per JVM. You must stop() the active SparkContext before creating a new one.
      * This limitation may eventually be removed; see SPARK-2243 for more details.
-     * @param {SparkConf} conf - a object specifying Spark parameters
+     * @param {module:eclairjs.SparkConf} conf - a object specifying Spark parameters
      */
     var SparkContext = function () {
         var jvmObj;
@@ -96,7 +96,7 @@
     /**
      * Return a copy of this SparkContext's configuration. The configuration ''cannot'' be
      * changed at runtime.
-     * @returns {SparkConf}
+     * @returns {module:eclairjs.SparkConf}
      */
     SparkContext.prototype.getConf = function () {
         var javaObject = this.getJavaObject().getConf();
@@ -260,9 +260,9 @@
      * Only the master can access the accumuable's value.
      *
      * @param {object} initialValue
-     * @param {AccumulableParam} param
+     * @param {module:eclairjs.AccumulableParam} param
      * @param {string} name of  the accumulator for display in Spark's web UI.
-     * @returns {Accumulable}
+     * @returns {module:eclairjs.Accumulable}
      */
     SparkContext.prototype.accumulable = function (initialValue, param, name) {
         var Accumulable = require(EclairJS_Globals.NAMESPACE + '/Accumulable');
@@ -275,8 +275,8 @@
      *
      * @param {int | float} initialValue
      * @param {string | AccumulableParam} [name] of  the accumulator for display in Spark's web UI. or param.  defaults to FloatAccumulatorParam
-     * @param {AccumulableParam} [param]  defaults to FloatAccumulatorParam, use only if also specifying name
-     * @returns {Accumulator}
+     * @param {module:eclairjs.AccumulableParam} [param]  defaults to FloatAccumulatorParam, use only if also specifying name
+     * @returns {module:eclairjs.Accumulator}
      */
     SparkContext.prototype.accumulator = function () {
         var Accumulator = require(EclairJS_Globals.NAMESPACE + '/Accumulator');
@@ -305,7 +305,7 @@
      * Only the master can access the accumulator's value.
      * @param {int} initialValue
      * @param {string} name of  the accumulator for display in Spark's web UI.
-     * @returns {Accumulator}
+     * @returns {module:eclairjs.Accumulator}
      */
     SparkContext.prototype.intAccumulator = function (initialValue, name) {
         var Accumulator = require(EclairJS_Globals.NAMESPACE + '/Accumulator');
@@ -319,7 +319,7 @@
      * Only the master can access the accumulator's value.
      * @param {float} initialValue
      * @param {string} name of  the accumulator for display in Spark's web UI.
-     * @returns {Accumulator}
+     * @returns {module:eclairjs.Accumulator}
      */
     SparkContext.prototype.floatAccumulator = function (initialValue, name) {
         var Accumulator = require(EclairJS_Globals.NAMESPACE + '/Accumulator');

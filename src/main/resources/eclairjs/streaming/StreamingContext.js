@@ -117,7 +117,7 @@
      * 2. Arbitrary RDDs can be added to `queueStream`, there is no way to recover data of
      * those RDDs, so `queueStream` doesn't support checkpointing.
      *
-     * @param {RDD[] } queue       Queue of RDDs
+     * @param {module:eclairjs.RDD[] } queue       Queue of RDDs
      * @param {boolean}  [oneAtATime=true]   Whether only one RDD should be consumed from the queue in every interval
      * @param {module:eclairjs.RDD} [defaultRDD]  Default RDD is returned by the DStream when the queue is empty
      * @returns {module:eclairjs/streaming/dstream.DStream}

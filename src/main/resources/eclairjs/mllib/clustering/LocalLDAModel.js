@@ -75,7 +75,7 @@
 
     /**
      * @param {number} maxTermsPerTopic
-     * @returns {Tuple2[]}
+     * @returns {module:eclairjs.Tuple[]}
      */
     LocalLDAModel.prototype.describeTopics = function (maxTermsPerTopic) {
         throw "not implemented by ElairJS";
@@ -113,7 +113,7 @@
 
     /**
      * Java-friendly version of {@link logLikelihood}
-     * @param {JavaPairRDD} documents
+     * @param {module:eclairjs.PairRDD} documents
      * @returns {number}
      */
     LocalLDAModel.prototype.logLikelihoodwithJavaPairRDD = function (documents) {
@@ -139,7 +139,7 @@
 
 
     /**
-     * @param {JavaPairRDD} documents
+     * @param {module:eclairjs.PairRDD} documents
      * @returns {number}
      */
     LocalLDAModel.prototype.logPerplexitywithJavaPairRDD = function (documents) {
@@ -170,8 +170,8 @@
 
     /**
      * Java-friendly version of {@link topicDistributions}
-     * @param {JavaPairRDD} documents
-     * @returns {JavaPairRDD}
+     * @param {module:eclairjs.PairRDD} documents
+     * @returns {module:eclairjs.PairRDD}
      */
     LocalLDAModel.prototype.topicDistributionswithJavaPairRDD = function (documents) {
         throw "not implemented by ElairJS";
