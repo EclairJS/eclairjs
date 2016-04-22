@@ -55,18 +55,23 @@
      */
 
     /**
-     * @param {string} uid
+     * @param {string} [uid]
      * @class
      * @memberof module:eclairjs/ml/recommendation
      */
     var ALS = function (uid) {
         var jvmObject;
         this.logger = Logger.getLogger("ALS_js");
-        if (uid instanceof org.apache.spark.ml.recommendation.ALS) {
-            jvmObject = uid;
+        if (uid) {
+            if (uid instanceof org.apache.spark.ml.recommendation.ALS) {
+                jvmObject = uid;
+            } else {
+                jvmObject = new org.apache.spark.ml.recommendation.ALS(uid);
+            }
         } else {
-            jvmObject = new org.apache.spark.ml.recommendation.ALS(uid);
+            jvmObject = new org.apache.spark.ml.recommendation.ALS();
         }
+
 
         JavaWrapper.call(this, jvmObject);
 

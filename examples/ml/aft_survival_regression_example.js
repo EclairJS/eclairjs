@@ -50,8 +50,6 @@ function run(sc) {
         .setQuantilesCol("quantiles");
 
     var model = aft.fit(training);
-    var p = model.censorCol();
-    print(p)
     var ret = {};
     ret.model = model;
     ret.dataframe = model.transform(training);

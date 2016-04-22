@@ -26,10 +26,7 @@
      * @classdesc
      * :: Experimental ::
      * Model fitted by ALS.
-     *
-     * @param rank rank of the matrix factorization model
-     * @param userFactors a DataFrame that stores user factors in two columns: `id` and `features`
-     * @param itemFactors a DataFrame that stores item factors in two columns: `id` and `features`
+     * @class
      * @memberof module:eclairjs/ml/recommendation
      */
     

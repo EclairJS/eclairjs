@@ -59,7 +59,7 @@ function run(sc) {
 if (typeof sparkContext === 'undefined')  {
     var SparkConf = require('eclairjs/SparkConf');
     var SparkContext = require('eclairjs/SparkContext');
-    var sparkConf = new SparkConf().setAppName("JavaScript AFTSurvivalRegressionExample");
+    var sparkConf = new SparkConf().setAppName("JavaScript Binarizer Example");
     var sc = new SparkContext(sparkConf);
     var rows = run(sc);
     rows.forEach(function (row) {

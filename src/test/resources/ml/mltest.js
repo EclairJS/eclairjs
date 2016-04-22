@@ -28,9 +28,6 @@ var Word2VecExample = function() {
 
     load("examples/ml/word2vec_example.js");
     var rows = run(sparkContext);
-    rows.forEach(function (r) {
-        print(r);
-    })
     return JSON.stringify(rows);
 }
 
@@ -62,5 +59,12 @@ var BinarizerExample = function() {
 
     load("examples/ml/binarizer_example.js");
     var rows = run(sparkContext);
+    return JSON.stringify(rows);
+}
+
+var BucketizerExample = function() {
+
+    load("examples/ml/bucketizer_example.js");
+    var rows = run(sparkContext).collect();
     return JSON.stringify(rows);
 }

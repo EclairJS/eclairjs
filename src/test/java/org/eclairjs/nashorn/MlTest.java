@@ -25,6 +25,16 @@ import static org.junit.Assert.assertEquals;
 
 public class MlTest {
 
+    /*
+        tests
+        Word2Vec()
+        Word2Vec.setInputCol("text")
+        Word2Vec.setOutputCol("result")
+        Word2Vec.setVectorSize(3)
+        Word2Vec.setMinCount(0)
+        Word2Vec.fit(documentDF)
+        Word2VecModel.transform()
+     */
 	@Test
     public void Word2VecExample() throws Exception {
         ScriptEngine engine = TestUtils.getEngine();
@@ -45,6 +55,15 @@ public class MlTest {
 
     }
 
+    /*
+        tests
+        AFTSurvivalRegression()
+        AFTSurvivalRegression.setQuantileProbabilities(quantileProbabilities)
+        AFTSurvivalRegression.setQuantilesCol("quantiles");
+        AFTSurvivalRegression.fit(training);
+        AFTSurvivalRegressionModel.censorCol();
+        AFTSurvivalRegressionModel.transform(training);
+     */
     @Test
     public void AFTSurvivalRegressionExample() throws Exception {
         ScriptEngine engine = TestUtils.getEngine();
@@ -58,6 +77,22 @@ public class MlTest {
 
     }
 
+    /*
+        tests
+        ALS()
+        ALS.setMaxIter(5)
+        ALS.setRegParam(0.01)
+        ALS.setUserCol("userId")
+        ALS.setItemCol("movieId")
+        ALS.setRatingCol("rating");
+        ALS.fit(training);
+        ALSModel.transform(test)
+        RegressionEvaluator()
+        RegressionEvaluator.setMetricName("rmse")
+        RegressionEvaluator.setLabelCol("rating")
+        RegressionEvaluator.setPredictionCol("prediction");
+        RegressionEvaluator.evaluate(DataFrame);
+     */
     @Test
     public void ALSExample() throws Exception {
         ScriptEngine engine = TestUtils.getEngine();
@@ -71,6 +106,14 @@ public class MlTest {
 
     }
 
+    /*
+        tests
+        Binarizer()
+        Binarizer.setInputCol("feature")
+        Binarizer.setOutputCol("binarized_feature")
+        Binarizer.setThreshold(0.5);
+        Binarizer.transform(DataFrame)
+     */
     @Test
     public void BinarizerExample() throws Exception {
         ScriptEngine engine = TestUtils.getEngine();
@@ -78,7 +121,11 @@ public class MlTest {
         TestUtils.evalJSResource(engine, "/ml/mltest.js");
         Object ret = ((Invocable)engine).invokeFunction("BinarizerExample");
 
-        String schema = "{\"fields\":[{\"name\":\"binarized_feature\",\"dataType\":\"double\",\"nullable\":true}]}";
+        String schema = "{" +
+                            "\"fields\":[" +
+                                "{\"name\":\"binarized_feature\",\"dataType\":\"double\",\"nullable\":true}" +
+                            "]" +
+                        "}";
         String expected = "[" +
                 "{\"values\":[0]," +
                 "\"schema\":"+schema+"}," +
@@ -86,6 +133,38 @@ public class MlTest {
                 "\"schema\":"+schema+"}," +
                 "{\"values\":[0]," +
                 "\"schema\":"+schema+"}" +
+                "]";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
+
+    /*
+        tests
+        Bucketizer()
+        Bucketizer.setInputCol("features")
+        Bucketizer.setOutputCol("bucketedFeatures")
+        Bucketizer.setSplits(splits);
+        Bucketizer.transform(dataFrame);
+     */
+    @Test
+    public void BucketizerExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("BucketizerExample");
+
+        String schema = "{" +
+                            "\"fields\":[" +
+                                "{\"name\":\"features\",\"dataType\":\"double\",\"nullable\":false}," +
+                                "{\"name\":\"bucketedFeatures\",\"dataType\":\"double\",\"nullable\":true}" +
+                            "]" +
+                        "}";
+        String expected = "[" +
+                "{\"values\":[-0.5,1],\"schema\":"+schema+"}," +
+                "{\"values\":[-0.3,1],\"schema\":"+schema+"}," +
+                "{\"values\":[0,2],\"schema\":"+schema+"}," +
+                "{\"values\":[0.2,2],\"schema\":"+schema+"}" +
                 "]";
 
         assertEquals("failure - strings are not equal", expected, ret);

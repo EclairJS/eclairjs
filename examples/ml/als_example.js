@@ -26,10 +26,10 @@ function run(sc) {
         if (fields.length != 4) {
             throw("Each line must contain 4 fields");
         }
-        var userId = java.lang.Integer.parseInt(fields[0]);
-        var movieId = java.lang.Integer.parseInt(fields[1]);
-        var rating = java.lang.Float.parseFloat(fields[2]);
-        var timestamp = java.lang.Integer.parseInt(fields[3]);
+        var userId = parseInt(fields[0]);
+        var movieId = parseInt(fields[1]);
+        var rating = parseFloat(fields[2]);
+        var timestamp = parseInt(fields[3]);
 
         return RowFactory.create([userId, movieId, rating, timestamp]);
     }

@@ -26,7 +26,7 @@
      * based on the Weibull distribution of the survival time.
      * @classdesc
      *
-     * @param {string} uid An immutable unique ID for the object and its derivatives.
+     * @param {string} [uid] An immutable unique ID for the object and its derivatives.
      *  @class
      *  @memberof module:eclairjs/ml/regression
      */
