@@ -55,8 +55,8 @@
     /**
      * Predict values for a single data point using the model trained.
      *
-     * @param {Vector | RDD} features  Vector or RDD representing a single data point
-     * @returns {float | RDD}  float or RDD prediction from the trained model
+     * @param {@module:eclairjs/mllib/linalg.Vector | module:eclairjs.RDD} features  Vector or RDD representing a single data point
+     * @returns {float | module:eclairjs.RDD}  float or RDD prediction from the trained model
      */
     DecisionTreeModel.prototype.predict = function (features) {
 

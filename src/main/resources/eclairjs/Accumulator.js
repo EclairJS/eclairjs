@@ -49,7 +49,7 @@
      * @param {string} name human-readable name for use in Spark's web UI
      * @constructor
      * @memberof module:eclairjs
-     * @augments module:eclairjs.Accumulable
+     * @extends module:eclairjs.Accumulable
      */
     var Accumulator = function (initialValue, param, name) {
         this.logger = Logger.getLogger("Accumulator_js");

@@ -24,7 +24,7 @@
     /**
      * @constructor
      * @memberof module:eclairjs
-     * @augments module:eclairjs.AccumulableParam
+     * @extends module:eclairjs.AccumulableParam
      */
     var IntAccumulatorParam = function () {
         this.logger = Logger.getLogger("IntAccumulatorParam_js");

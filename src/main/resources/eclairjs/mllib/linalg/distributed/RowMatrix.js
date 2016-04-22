@@ -30,7 +30,7 @@
      * @param {number} [nCols] number of columns. A non-positive value means unknown, and then the number of
      *              columns will be determined by the size of the first row.
      * @class
-     * @extends {DistributedMatrix}
+     * @extends module:eclairjs/mllib/linalg/distributed.DistributedMatrix
      * @example
      * var RowMatrix = require('eclairjs/mllib/linalg/distributed/RowMatrix');
      * var Vectors = require("'eclairjs/mllib/linalg/Vectors");;

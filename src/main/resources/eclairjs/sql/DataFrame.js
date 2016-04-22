@@ -182,7 +182,7 @@
 	};
 	/**
 	 * Returns a new DataFrame with a column dropped.
-	 * @param {string | Column} col
+	 * @param {string | module:eclairjs/sql.Column} col
 	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.drop = function (col) {
@@ -234,7 +234,7 @@
 	};
 	/**
 	 * Filters rows using the given SQL expression string or Filters rows using the given Column..
-	 * @param {string | Column}
+	 * @param {string | module:eclairjs/sql.Column}
 	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.filter = function (arg) {
@@ -314,7 +314,7 @@
 
 	/**
 	 * Groups the DataFrame using the specified columns, so we can run aggregation on them
-	 * @param {string[] | Column[]} - Array of Column objects of column name strings
+	 * @param {string[] | module:eclairjs/sql.Column[]} - Array of Column objects of column name strings
 	 * @returns {module:eclairjs/sql.GroupedData}
 	 */
 	DataFrame.prototype.groupBy = function () {
@@ -394,7 +394,7 @@
 	/**
 	 * Cartesian join with another DataFrame. Note that cartesian joins are very expensive without an extra filter that can be pushed down.
 	 * @param {module:eclairjs/sql.DataFrame} Right side of the join operation.
-	 * @param {string | string[] | Column} [columnNamesOrJoinExpr] If string or array of strings column names, inner equi-join with another DataFrame using the given columns.
+	 * @param {string | string[] | module:eclairjs/sql.Column} [columnNamesOrJoinExpr] If string or array of strings column names, inner equi-join with another DataFrame using the given columns.
 	 * Different from other join functions, the join columns will only appear once in the output, i.e. similar to SQL's JOIN USING syntax.
 	 * If Column object, joinExprs inner join with another DataFrame, using the given join expression.
 	 * @param {string} [joinType] only valid if using Column joinExprs.
@@ -470,7 +470,7 @@
 	/**
 	 * Returns a new DataFrame sorted by the specified columns, if columnName is used sorted in ascending order.
 	 * This is an alias of the sort function.
-	 * @param {string | Column} columnName,...columnName or sortExprs,... sortExprs
+	 * @param {string | module:eclairjs/sql.Column} columnName,...columnName or sortExprs,... sortExprs
 	 * @returns {module:eclairjs/sql.DataFrame}
 	 */
 	DataFrame.prototype.orderBy = function () {
@@ -535,7 +535,7 @@
 	/**
 	 * Create a multi-dimensional rollup for the current DataFrame using the specified columns,
 	 * so we can run aggregation on them. See GroupedData for all the available aggregate functions.
-	 * @param {string | Column} columnName, .....columnName or sortExprs,... sortExprs
+	 * @param {string | module:eclairjs/sql.Column} columnName, .....columnName or sortExprs,... sortExprs
 	 * @returns {module:eclairjs/sql.GroupedData}
 	 * @example
 	 *  var result = peopleDataFrame.rollup("age", "networth").count();
@@ -639,7 +639,7 @@
 	};
 	/**
 	 * Returns a new DataFrame sorted by the specified columns, if columnName is used sorted in ascending order.
-	 * @param {string | Column} columnName,...columnName or sortExprs,... sortExprs
+	 * @param {string | module:eclairjs/sql.Column} columnName,...columnName or sortExprs,... sortExprs
 	 * @returns {module:eclairjs/sql.DataFrame}
 	 * @example
 	 *  var result = peopleDataFrame.sort("age", "name");

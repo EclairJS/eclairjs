@@ -33,7 +33,7 @@
      * @param {float[]} values
      * @class
      * @memberof module:eclairjs/mllib/linalg
-     * @extends Vector
+     * @extends module:eclairjs/mllib/linalg.Vector
      */
     var SparseVector = function () {
 

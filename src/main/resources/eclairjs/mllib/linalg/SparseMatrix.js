@@ -53,7 +53,7 @@
      * @param {number[]} values
      * @param {boolean} isTransposed
      * @class
-     * @extends Matrix
+     * @extends module:eclairjs/mllib/linalg.Matrix
      * @memberof module:eclairjs/mllib/linalg
      */
     var SparseMatrix = function (numRows, numCols, colPtrs, rowIndices, values, isTransposed) {

@@ -193,7 +193,7 @@
      * schema in advance, use the version that specifies the schema to avoid the extra scan.
      * If RDD  unless the schema is specified using {@link schema} function, this function goes through the
      * input once to determine the input schema.
-     * @param {string | RDD} path or RDD
+     * @param {string | module:eclairjs.RDD} path or RDD
      * @returns {module:eclairjs/sql.DataFrame}
      * @since EclairJS 0.1 Spark  1.4.0
      */

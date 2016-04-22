@@ -60,7 +60,7 @@
 
 
     /**
-     * @param {number | RDD} user
+     * @param {number | module:eclairjs.RDD} user
      * @param {number} product
      * @returns {module:eclairjs.RDD | number}
      */

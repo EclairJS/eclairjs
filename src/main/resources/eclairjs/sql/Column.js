@@ -212,7 +212,7 @@
 	 * String ends with.
 	 * with another string literal
 	 * @since EclairJS 0.1 Spark  1.3.0
-	 * @param {string | Column} other, if string ends with another string literal.
+	 * @param {string |  module:eclairjs/sql.Column} other, if string ends with another string literal.
 	 * @returns {module:eclairjs/sql.Column}
 	 */
 	Column.prototype.endsWith = function (other) {

@@ -46,7 +46,7 @@
 
     /**
      * Leaf cluster centers.
-     * @returns {Vector[]} 
+     * @returns {@module:eclairjs/mllib/linalg.Vector[]}
      */
     BisectingKMeansModel.prototype.clusterCenters = function() {
        var javaObject =  this.getJavaObject().clusterCenters();
@@ -56,7 +56,7 @@
 
     /**
      * Predicts the index of the cluster that the input point belongs to.
-     * @param {Vector | RDD} point
+     * @param {@module:eclairjs/mllib/linalg.Vector | module:eclairjs.RDD} point
      * @returns {float}
      */
     BisectingKMeansModel.prototype.predict = function(point) {
@@ -67,7 +67,7 @@
 
     /**
      * Computes the sum of squared distances between the input points and their corresponding cluster centers.
-     * @param {Vector | RDD} data
+     * @param {@module:eclairjs/mllib/linalg.Vector | module:eclairjs.RDD} data
      * @returns {float}
      */
     BisectingKMeansModel.prototype.computeCost = function(data) {

@@ -29,7 +29,7 @@
      * @memberof module:eclairjs/mllib/clustering
      * @classdesc
      * @class
-     * @extends LDAModel
+     * @extends module:eclairjs/mllib/clustering.LDAModel
      */
 
 

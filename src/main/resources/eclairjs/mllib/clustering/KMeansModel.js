@@ -27,7 +27,7 @@
 
     /**
      * A Java-friendly constructor that takes an Iterable of Vectors.
-     * @param {Vector[]} clusterCenters
+     * @param {@module:eclairjs/mllib/linalg.Vector[]} clusterCenters
      * @returns {??}
      * @memberof module:eclairjs/mllib/clustering
      * @class
@@ -121,7 +121,7 @@
     };
 
     /**
-     * @returns {Vector[]}
+     * @returns {@module:eclairjs/mllib/linalg.Vector[]}
      */
     KMeansModel.prototype.clusterCenters = function () {
         var centers = this.getJavaObject().clusterCenters();
