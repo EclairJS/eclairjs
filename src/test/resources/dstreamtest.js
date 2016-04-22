@@ -11,8 +11,8 @@ var foreachRDDTest = function() {
     streamingContext = new StreamingContext(sparkContext, duration);
     var dstream = streamingContext.socketTextStream("localhost", 9999);
     dstream.foreachRDD(function(rdd) {
-        var d = rdd.collect();
-        if(!d.isEmpty()) {
+        var d = rdd.collect(); // returns JavaScript Array
+        if(d && d.length > 0) {
             var letters = d.get(0).split(",");
             letters.forEach(function(l) {
                 data.push(l);
@@ -97,5 +97,4 @@ var stop = function() {
 var getData = function() {
     return data.join(",");
 };
-
 

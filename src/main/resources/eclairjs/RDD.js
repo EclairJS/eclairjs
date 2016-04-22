@@ -120,21 +120,8 @@
      * @returns {Array}
      */
     RDD.prototype.collect = function () {
-        var func = null; // See note below collectwithF - eventually want to pass func as param to this func
-        var fn = func ? Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, bindArgs) : null;
-        var res = func ? this.getJavaObject().collect(fn, "") : this.getJavaObject().collect();
-        var results = [];
-        for (var i = 0; i < res.size(); i++) {
-            var value = res.get(i);
-            this.logger.debug("take value: " + value.getClass().getName());
-            var o = Utils.javaToJs(value);
-            this.logger.debug("take o:" + o.toString());
-            results.push(o);
-        }
-        this.logger.debug("results " + results);
-        return results;
+        return Utils.javaToJs(this.getJavaObject().collect());
     };
-
 
     /**
      * Return the SparkContext that this RDD was created on.
@@ -1220,7 +1207,7 @@
         return Utils.javaToJs(javaObject);
     }
     RDD.prototype.joinx = function (other, numPartitions) {
-        print("rdd join")
+        //print("rdd join")
         var other_uw = Utils.unwrapObject(other);
         var javaObject = numPartitions ? this.getJavaObject(other_uw, numPartitions).join() :
             this.getJavaObject().join(other_uw);

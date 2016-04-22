@@ -58,7 +58,7 @@ Serialize.scalaProductClass = Java.type("scala.Product");
 Serialize.scalaTuple = function (javaObj) {
     var ret = false;
     if ((javaObj instanceof Serialize.scalaProductClass) && (javaObj.getClass().getName().indexOf("scala.Tuple") > -1)) {
-        Serialize.logger.debug("Tuple - " + javaObj.toString());
+        Serialize.logger.debug("Tuple - " + javaObj);
         var Tuple = require('eclairjs/Tuple');
         ret = new Tuple(javaObj);
     }
@@ -181,7 +181,6 @@ var completedModules = { // FIXME temporary until all Class are require compatib
     "eclairjs/ml/feature": true,
     "eclairjs/streaming/dstream": true
 };
-var subModuleMap = {}; // Leaving for now but probably can remove.
 Serialize.javaSparkObject = function (javaObj) {
     if (javaObj == null) {
         return false;
@@ -220,9 +219,11 @@ Serialize.javaSparkObject = function (javaObj) {
     var req = "";
     packageName = packageName.replace(/org.apache.spark/i, EclairJS_Globals.NAMESPACE );
     packageName = packageName.replace(/\./g, "/");
+
     Serialize.logger.debug("javaSparkObject we have a packageName = " + packageName);
 
     packageName = (javaPackageMap[packageName]) ? javaPackageMap[packageName] : packageName;
+
     if (className === "DStream" || className === "PairDStream") {
         /*
         Java dstream objects are not in the dstream package so we have to force the correct
@@ -232,12 +233,7 @@ Serialize.javaSparkObject = function (javaObj) {
     }
     //if (completedModules[packageName] ) { // FIXME temporary util all Class are require compatible
         var tmp = packageName+'/'+className;
-        if (subModuleMap[tmp]) {
-            // In this case className is a submoduleName
-            req = 'var ' + className + ' = require("' + subModuleMap[tmp] + '").'+className+';'
-        } else {
-            req = 'var ' + className + ' = require("'+packageName+'/'+className+'");'
-        }
+        req = 'var ' + className + ' = require("'+packageName+'/'+className+'");'
     //}
 
     var ret = false;
@@ -245,20 +241,12 @@ Serialize.javaSparkObject = function (javaObj) {
         // If TypeError exception is thrown catch it and try loading
         // module before giving up - this could be on worker node
         var cmd = req + " return new " + className + "(javaObj)";
-        Serialize.logger.debug(cmd)
-       // ret = eval(req + " new " + className + "(javaObj)");
+        Serialize.logger.debug(cmd);
         var wrapperObjectFunction = new Function("javaObj", cmd); // better closer, keep require our of the global space
-
         ret = wrapperObjectFunction(javaObj);
     } catch(se) {
         Serialize.logger.error("Exception in trying to create javaSparkObject. Going to try and load required module");
         Serialize.logger.error(se);
-       // var mod = ModuleUtils.getModuleFromJavaPackageAndClass(packageName, className);
-        // Should probably raise exception if module has not been required 
-       /* if (mod) {
-            load(ModuleUtils.getResourcePath(mod.id));
-            ret = eval("new " + className + "(javaObj)");
-        }*/
     }
 
     return ret;
@@ -268,7 +256,7 @@ Serialize.JSModule = function(obj) {
   if (ModuleUtils.isModule(obj)) {
     var mod = ModuleUtils.getRequiredFile(obj);
 
-    Serialize.logger.debug("###Serialize.JSModule found a lambda required module: "+mod);
+    Serialize.logger.debug("Serialize.JSModule found a lambda required module: "+mod);
 
     return (mod && mod.exportname) ? mod.exports[mod.exportname] : (mod ? mod.exports : false);
   }
@@ -346,6 +334,12 @@ Serialize.handlers = [
 ];
 
 Serialize.javaToJs = function (javaObj) {
+    if (javaObj == null) {
+        Serialize.logger.debug("Serialize.javaToJs - NOT going to serialize a null java object!!");
+        // Don't throw the exception - some methods may actually return null - let caller decide what to do.
+        //throw("Serialize.javaToJs - CANNOT serialize a null java object!!");
+    }
+
     var t = (typeof javaObj);
     if (t == 'number' || t == 'string') {
         return javaObj;
@@ -360,7 +354,6 @@ Serialize.javaToJs = function (javaObj) {
             break;
         }
     }
-
     return res ? res : javaObj;
 };
 
@@ -424,6 +417,9 @@ Serialize.jsToJava = function (obj) {
             var j = org.json.simple.JSONValue.toJSONString(o);
             return org.json.simple.JSONValue.parse(j);
         }
+    } else {
+        Serialize.logger.debug("Serialize.jsToJava - JS object is null or undefined obj: "+obj);
+        //throw("Serialize.jsToJava - JS object is null or undefined");
     }
 
     return obj;
