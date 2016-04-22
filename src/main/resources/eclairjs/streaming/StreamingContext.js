@@ -33,7 +33,7 @@
      *  context.start() and context.stop(), respectively. context.awaitTermination() allows the current thread to wait for the termination
      *  of the context by stop() or by an exception.
      *  @param {SparkContex} sparkContext
-     *  @param {Duration} duration
+     *  @param {module:eclairjs/streaming.Duration} duration
      */
     var StreamingContext = function (sparkContext, duration) {
         var jvmObj;
@@ -100,7 +100,7 @@
      * Create a input stream from TCP source hostname:port.
      * @param {string} host
      * @param {string} port
-     * @returns {DStream}
+     * @returns {module:eclairjs/streaming/dstream.DStream}
      */
     StreamingContext.prototype.socketTextStream = function (host, port) {
         var jDStream = this.getJavaObject().socketTextStream(host, port);
@@ -120,7 +120,7 @@
      * @param {RDD[] } queue       Queue of RDDs
      * @param {boolean}  [oneAtATime=true]   Whether only one RDD should be consumed from the queue in every interval
      * @param {module:eclairjs.RDD} [defaultRDD]  Default RDD is returned by the DStream when the queue is empty
-     * @returns {DStream}
+     * @returns {module:eclairjs/streaming/dstream.DStream}
      */
     StreamingContext.prototype.queueStream = function (queue) {
         var jQueue = new JLinkedList();

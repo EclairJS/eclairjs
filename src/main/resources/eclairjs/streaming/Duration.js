@@ -38,7 +38,7 @@
     Duration.prototype.constructor = Duration;
     /**
      *
-     * @param {Duration} that
+     * @param {module:eclairjs/streaming.Duration} that
      * @returns {double}
      */
     Duration.prototype.div = function (that) {
@@ -46,7 +46,7 @@
     };
     /**
      *
-     * @param {Duration} that
+     * @param {module:eclairjs/streaming.Duration} that
      * @returns {boolean}
      */
     Duration.prototype.greater = function (that) {
@@ -54,7 +54,7 @@
     };
     /**
      *
-     * @param {Duration} that
+     * @param {module:eclairjs/streaming.Duration} that
      * @returns {boolean}
      */
     Duration.prototype.greaterEq = function (that) {
@@ -62,7 +62,7 @@
     };
     /**
      *
-     * @param {Duration} that
+     * @param {module:eclairjs/streaming.Duration} that
      * @returns {boolean}
      */
     Duration.prototype.isMultipleOf = function (that) {
@@ -76,7 +76,7 @@
     };
     /**
      *
-     * @param {Duration} that
+     * @param {module:eclairjs/streaming.Duration} that
      * @returns {boolean}
      */
     Duration.prototype.less = function (that) {
@@ -84,7 +84,7 @@
     };
     /**
      *
-     * @param {Duration} that
+     * @param {module:eclairjs/streaming.Duration} that
      * @returns {boolean}
      */
     Duration.prototype.lessEq = function (that) {
@@ -92,8 +92,8 @@
     };
     /**
      *
-     * @param {Duration} that
-     * @returns {Duration}
+     * @param {module:eclairjs/streaming.Duration} that
+     * @returns {module:eclairjs/streaming.Duration}
      */
     Duration.prototype.max = function (that) {
         var d = this.getJavaObject().max(Utils.unwrapObject(that));
@@ -107,8 +107,8 @@
         return this.getJavaObject().milliseconds();
     };
     /**
-     * @param {Duration} that
-     * @returns {Duration}
+     * @param {module:eclairjs/streaming.Duration} that
+     * @returns {module:eclairjs/streaming.Duration}
      */
     Duration.prototype.min = function (that) {
         var d = this.getJavaObject().min(Utils.unwrapObject(that));
@@ -116,8 +116,8 @@
     };
     /**
      *
-     * @param {Duration} that
-     * @returns {Duration}
+     * @param {module:eclairjs/streaming.Duration} that
+     * @returns {module:eclairjs/streaming.Duration}
      */
     Duration.prototype.minus = function (that) {
         var d = this.getJavaObject().minus(Utils.unwrapObject(that));
@@ -125,8 +125,8 @@
     };
     /**
      *
-     * @param {Duration} that
-     * @returns {Duration}
+     * @param {module:eclairjs/streaming.Duration} that
+     * @returns {module:eclairjs/streaming.Duration}
      */
     Duration.prototype.plus = function (that) {
         var d = this.getJavaObject().plus(Utils.unwrapObject(that));
@@ -135,7 +135,7 @@
     /**
      *
      * @param {integer} times
-     * @returns {Duration}
+     * @returns {module:eclairjs/streaming.Duration}
      */
     Duration.prototype.times = function (times) {
         var d = this.getJavaObject().times();

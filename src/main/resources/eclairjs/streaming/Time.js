@@ -37,9 +37,9 @@
     Time.prototype.constructor = Time;
     /**
      *
-     * @param {Duration} that
-     * @param {Duration} [zeroTime]
-     * @returns {Time}
+     * @param {module:eclairjs/streaming.Duration} that
+     * @param {module:eclairjs/streaming.Duration} [zeroTime]
+     * @returns {module:eclairjs/streaming.Time}
      */
     Time.prototype.floor = function (that, zeroTime) {
         if (arguments.length == 2) {
@@ -51,7 +51,7 @@
     };
     /**
      *
-     * @param {Time} that
+     * @param {module:eclairjs/streaming.Time} that
      * @returns {boolean}
      */
     Time.prototype.greater = function (that) {
@@ -59,7 +59,7 @@
     };
     /**
      *
-     * @param {Time} that
+     * @param {module:eclairjs/streaming.Time} that
      * @returns {boolean}
      */
     Time.prototype.greaterEq = function (that) {
@@ -67,7 +67,7 @@
     };
     /**
      *
-     * @param {Duration} that
+     * @param {module:eclairjs/streaming.Duration} that
      * @returns {boolean}
      */
     Time.prototype.isMultipleOf = function (that) {
@@ -75,7 +75,7 @@
     };
     /**
      *
-     * @param {Time} that
+     * @param {module:eclairjs/streaming.Time} that
      * @returns {boolean}
      */
     Time.prototype.less = function (that) {
@@ -83,7 +83,7 @@
     };
     /**
      *
-     * @param {Time} that
+     * @param {module:eclairjs/streaming.Time} that
      * @returns {boolean}
      */
     Time.prototype.lessEq = function (that) {
@@ -91,8 +91,8 @@
     };
     /**
      *
-     * @param {Time} that
-     * @returns {Time}
+     * @param {module:eclairjs/streaming.Time} that
+     * @returns {module:eclairjs/streaming.Time}
      */
     Time.prototype.max = function (that) {
         var d = this.getJavaObject().max(Utils.unwrapObject(that));
@@ -106,8 +106,8 @@
         return this.getJavaObject().milliseconds();
     };
     /**
-     * @param {Time} that
-     * @returns {Time}
+     * @param {module:eclairjs/streaming.Time} that
+     * @returns {module:eclairjs/streaming.Time}
      */
     Time.prototype.min = function (that) {
         var d = this.getJavaObject().min(Utils.unwrapObject(that));
@@ -115,8 +115,8 @@
     };
     /**
      *
-     * @param {Duration | Time} that
-     * @returns {Time}
+     * @param {module:eclairjs/streaming.Duration | Time} that
+     * @returns {module:eclairjs/streaming.Time}
      */
     Time.prototype.minus = function (that) {
         if (that instanceof Time) {
@@ -135,8 +135,8 @@
     }
     /**
      *
-     * @param {Duration} that
-     * @returns {Time}
+     * @param {module:eclairjs/streaming.Duration} that
+     * @returns {module:eclairjs/streaming.Time}
      */
     Time.prototype.plus = function (that) {
         var d = this.getJavaObject().plus(Utils.unwrapObject(that));
@@ -144,8 +144,8 @@
     };
     /**
      *
-     * @param {Time} that
-     * @param {Duration} interval
+     * @param {module:eclairjs/streaming.Time} that
+     * @param {module:eclairjs/streaming.Duration} interval
      * @returns {scala.collection.seq<Time>}
      */
     Time.prototype.to = function (that, interval) {
@@ -161,8 +161,8 @@
     };
     /**
      *
-     * @param {Time} that
-     * @param {Duration} interval
+     * @param {module:eclairjs/streaming.Time} that
+     * @param {module:eclairjs/streaming.Duration} interval
      * @returns {scala.collection.Seq<Time>}
      */
     Time.prototype.until = function (that, interval) {

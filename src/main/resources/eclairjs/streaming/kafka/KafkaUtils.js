@@ -40,7 +40,7 @@
      * @param {string} groupId    The group id for this consumer
      * @param {object} topics     Map of (topic_name -> numPartitions) to consume. Each partition is consumed
      *                  in its own thread
-     * @returns {DStream}  DStream of (Kafka message key, Kafka message value)
+     * @returns {module:eclairjs/streaming/dstream.DStream}  DStream of (Kafka message key, Kafka message value)
      */
     KafkaUtils.createStream = function (ssc, zkQuorum, group, topics) {
         var m = Utils.createJavaHashMap(topics, undefined, function (key, value) {
@@ -77,7 +77,7 @@
      *    that the output operation is idempotent, or use transactions to output records atomically.
      *    See the programming guide for more details.
      *
-     * @param {StreamingContext} ssc  StreamingContext object
+     * @param {module:eclairjs/streaming.StreamingContext} ssc  StreamingContext object
      * @param {object} kafkaParams  map of Kafka options (key, value). Kafka <a href="http://kafka.apache.org/documentation.html#configuration">
      *   configuration parameters</a>. Requires "metadata.broker.list" or "bootstrap.servers"
      *   to be set with Kafka broker(s) (NOT zookeeper servers), specified in
@@ -85,7 +85,7 @@
      *   If not starting from a checkpoint, "auto.offset.reset" may be set to "largest" or "smallest"
      *   to determine where the stream starts (defaults to "largest")
      * @param {string[]} topics  Names of the topics to consume
-     * @returns {DStream}  DStream of (Kafka message key, Kafka message value)
+     * @returns {module:eclairjs/streaming/dstream.DStream}  DStream of (Kafka message key, Kafka message value)
      */
     KafkaUtils.createDirectStream = function (ssc, kafkaParams, topics) {
         var ssc_uw = Utils.unwrapObject(ssc);
