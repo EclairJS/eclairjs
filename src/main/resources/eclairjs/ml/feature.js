@@ -22,6 +22,7 @@
      * @module eclairjs/ml/feature
      */
     module.exports = {
+        Binarizer: require(EclairJS_Globals.NAMESPACE + '/ml/feature/Binarizer'),
         Word2VecModel: require(EclairJS_Globals.NAMESPACE + '/ml/feature/Word2VecModel'),
         Word2Vec: require(EclairJS_Globals.NAMESPACE + '/ml/feature/Word2Vec')
     }

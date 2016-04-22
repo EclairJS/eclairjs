@@ -56,3 +56,11 @@ var ALSExample = function() {
         return "failed";
     }
 }
+
+
+var BinarizerExample = function() {
+
+    load("examples/ml/binarizer_example.js");
+    var rows = run(sparkContext);
+    return JSON.stringify(rows);
+}

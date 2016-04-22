@@ -71,4 +71,25 @@ public class MlTest {
 
     }
 
+    @Test
+    public void BinarizerExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("BinarizerExample");
+
+        String schema = "{\"fields\":[{\"name\":\"binarized_feature\",\"dataType\":\"double\",\"nullable\":true}]}";
+        String expected = "[" +
+                "{\"values\":[0]," +
+                "\"schema\":"+schema+"}," +
+                "{\"values\":[1]," +
+                "\"schema\":"+schema+"}," +
+                "{\"values\":[0]," +
+                "\"schema\":"+schema+"}" +
+                "]";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
+
 }
