@@ -24,6 +24,8 @@
     module.exports = {
         Binarizer: require(EclairJS_Globals.NAMESPACE + '/ml/feature/Binarizer'),
         Bucketizer: require(EclairJS_Globals.NAMESPACE + '/ml/feature/Bucketizer'),
+        ChiSqSelector: require(EclairJS_Globals.NAMESPACE + '/ml/feature/ChiSqSelector'),
+        ChiSqSelectorModel: require(EclairJS_Globals.NAMESPACE + '/ml/feature/ChiSqSelectorModel'),
         Word2VecModel: require(EclairJS_Globals.NAMESPACE + '/ml/feature/Word2VecModel'),
         Word2Vec: require(EclairJS_Globals.NAMESPACE + '/ml/feature/Word2Vec')
     }

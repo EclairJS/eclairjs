@@ -171,4 +171,38 @@ public class MlTest {
 
     }
 
+    /*
+        tests
+        ChiSqSelector()
+        ChiSqSelector.setNumTopFeatures(1)
+        ChiSqSelector.setFeaturesCol("features")
+        ChiSqSelector.setLabelCol("clicked")
+        ChiSqSelector.setOutputCol("selectedFeatures");
+        ChiSqSelector.fit(dataFrame)
+        ChiSqSelectorModel.transform(dataFrame);
+     */
+    @Test
+    public void ChiSqSelectorExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("ChiSqSelectorExample");
+
+        String schema = "{" +
+                            "\"fields\":[" +
+                                "{\"name\":\"id\",\"dataType\":\"integer\",\"nullable\":false}," +
+                                "{\"name\":\"features\",\"dataType\":\"vector\",\"nullable\":false}," +
+                                "{\"name\":\"clicked\",\"dataType\":\"double\",\"nullable\":false}," +
+                                "{\"name\":\"selectedFeatures\",\"dataType\":\"vector\",\"nullable\":true}" +
+                            "]" +
+                         "}";
+        String expected = "[" +
+                "{\"values\":[7,[0],1,[0]],\"schema\":"+schema+"}," +
+                "{\"values\":[8,[0],0,[0]],\"schema\":"+schema+"}," +
+                "{\"values\":[9,[1],0,[1]],\"schema\":"+schema+"}" +
+                "]";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
 }

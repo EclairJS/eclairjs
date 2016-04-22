@@ -51,8 +51,14 @@
     Bucketizer.prototype = Object.create(JavaWrapper.prototype);
     
     Bucketizer.prototype.constructor = Bucketizer;
-    
-    
+
+    /**
+     * An immutable unique ID for the object and its derivatives.
+     * @returns {string}
+     */
+    Bucketizer.prototype.uid = function() {
+        return  this.getJavaObject().uid();
+    };
     
     /**
      * @returns {float[]}

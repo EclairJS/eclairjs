@@ -68,3 +68,10 @@ var BucketizerExample = function() {
     var rows = run(sparkContext).collect();
     return JSON.stringify(rows);
 }
+
+var ChiSqSelectorExample = function() {
+
+    load("examples/ml/chi_sq_selector_example.js");
+    var rows = run(sparkContext).collect();
+    return JSON.stringify(rows);
+}
