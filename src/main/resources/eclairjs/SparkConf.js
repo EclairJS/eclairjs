@@ -40,7 +40,7 @@
     SparkConf.prototype.constructor = SparkConf;
 
     /**
-     * Set a name for your ap<plication.
+     * Set a name for your application.
      * @param {string} appName
      * @returns {module:eclairjs.SparkConf}
      */
