@@ -40,7 +40,7 @@
     SparkConf.prototype.constructor = SparkConf;
 
     /**
-     * Set a name for your application.
+     * Set a name for your ap<plication.
      * @param {string} appName
      * @returns {module:eclairjs.SparkConf}
      */
@@ -56,6 +56,16 @@
      */
     SparkConf.prototype.setMaster = function (master) {
         this.getJavaObject().setMaster(master);
+        return this;
+    };
+    /**
+     * Wrapper of SparkConf.set method
+     * @param {string} key
+     * @param {string} value
+     * @returns {module:eclairjs.SparkConf}
+     */
+    SparkConf.prototype.set = function (key, value) {
+        this.getJavaObject().set(key, value);
         return this;
     };
 
