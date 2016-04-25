@@ -28,7 +28,6 @@ public class SqlContextCreateDataFrameFunction implements Function {
         ArrayList a = new ArrayList();
         Row row = (Row) o;
         StructField[] fields = this.scheam.fields();
-        Object s = row.get(0);
         for (int i = 0; i < row.length(); i++) {
             Object f = row.get(i);
             DataType dt = fields[i].dataType();

@@ -205,4 +205,26 @@ public class MlTest {
         assertEquals("failure - strings are not equal", expected, ret);
 
     }
+
+    @Test
+    public void CountVectorizerExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("CountVectorizerExample");
+
+        String schema = "{" +
+                            "\"fields\":[" +
+                                "{\"name\":\"text\",\"dataType\":\"array\",\"nullable\":false}," +
+                                "{\"name\":\"feature\",\"dataType\":\"vector\",\"nullable\":true}" +
+                            "]" +
+                        "}";
+        String expected = "[" +
+                            "{\"values\":[null,[1,1,1]],\"schema\":"+schema+"}," +
+                            "{\"values\":[null,[2,2,1]],\"schema\":"+schema+"}" +
+                        "]";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
 }

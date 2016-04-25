@@ -75,3 +75,10 @@ var ChiSqSelectorExample = function() {
     var rows = run(sparkContext).collect();
     return JSON.stringify(rows);
 }
+
+var CountVectorizerExample = function() {
+
+    load("examples/ml/count_vectorizer_example.js");
+    var rows = run(sparkContext).collect();
+    return JSON.stringify(rows);
+}
