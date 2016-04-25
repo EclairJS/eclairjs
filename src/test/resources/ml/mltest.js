@@ -82,3 +82,10 @@ var CountVectorizerExample = function() {
     var rows = run(sparkContext).collect();
     return JSON.stringify(rows);
 }
+
+var DCTExample = function() {
+
+    load("examples/ml/dct_example.js");
+    var rows = run(sparkContext).collect();
+    return JSON.stringify(rows);
+}

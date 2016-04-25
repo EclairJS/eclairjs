@@ -24,6 +24,9 @@
      */
     module.exports = {
         Param: require(EclairJS_Globals.NAMESPACE + '/ml/param/Param'),
+        BooleanParam: require(EclairJS_Globals.NAMESPACE + '/ml/param/BooleanParam'),
+        DoubleParam: require(EclairJS_Globals.NAMESPACE + '/ml/param/DoubleParam'),
+        IntParam: require(EclairJS_Globals.NAMESPACE + '/ml/param/IntParam'),
         ParamPair: require(EclairJS_Globals.NAMESPACE + '/ml/param/ParamPair'),
         ParamMap: require(EclairJS_Globals.NAMESPACE + '/ml/param/ParamMap')
     }

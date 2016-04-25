@@ -206,6 +206,19 @@ public class MlTest {
 
     }
 
+    /*
+        tests
+        CountVectorizer()
+        CountVectorizer.setInputCol("text")
+        CountVectorizer.setOutputCol("feature")
+        CountVectorizer.setVocabSize(3)
+        CountVectorizer.setMinDF(2)
+        CountVectorizer.fit(df)
+        CountVectorizerModel(["a", "b", "c"])
+        CountVectorizerModel.setInputCol("text")
+        CountVectorizerModel.setOutputCol("feature")
+        CountVectorizerModel.transform(df);
+     */
     @Test
     public void CountVectorizerExample() throws Exception {
         ScriptEngine engine = TestUtils.getEngine();
@@ -223,6 +236,32 @@ public class MlTest {
                             "{\"values\":[null,[1,1,1]],\"schema\":"+schema+"}," +
                             "{\"values\":[null,[2,2,1]],\"schema\":"+schema+"}" +
                         "]";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
+
+    /*
+        tests
+        DCT()
+        DCT.setInputCol("features")
+        DCT.setOutputCol("featuresDCT")
+        DCT.setInverse(false);
+        DCT.transform(df)
+     */
+    @Test
+    public void DCTExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("DCTExample");
+
+        String schema = "{\"fields\":[{\"name\":\"featuresDCT\",\"dataType\":\"vector\",\"nullable\":true}]}";
+        String expected = "[" +
+                "{\"values\":[[1,-1.1480502970952693,2.0000000000000004,-2.7716385975338604]],\"schema\":"+schema+"}," +
+                "{\"values\":[[-1,3.378492794482933,-7.000000000000001,2.9301512653149677]],\"schema\":"+schema+"}," +
+                "{\"values\":[[4,9.304453421915744,11.000000000000002,1.5579302036357163]],\"schema\":"+schema+"}" +
+                "]";
 
         assertEquals("failure - strings are not equal", expected, ret);
 

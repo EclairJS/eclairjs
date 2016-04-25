@@ -27,7 +27,8 @@
         ChiSqSelector: require(EclairJS_Globals.NAMESPACE + '/ml/feature/ChiSqSelector'),
         ChiSqSelectorModel: require(EclairJS_Globals.NAMESPACE + '/ml/feature/ChiSqSelectorModel'),
         CountVectorizer: require(EclairJS_Globals.NAMESPACE + '/ml/feature/CountVectorizer'),
-        CountVectorizerModel: require(EclairJS_Globals.NAMESPACE + '/ml/feature/CountVectorizerModel'),
+        CountVectorizerModel: require(EclairJS_Globals.NAMESPACE + '/ml/feature/DCT'),
+        DCT: require(EclairJS_Globals.NAMESPACE + '/ml/feature/CountVectorizerModel'),
         Word2VecModel: require(EclairJS_Globals.NAMESPACE + '/ml/feature/Word2VecModel'),
         Word2Vec: require(EclairJS_Globals.NAMESPACE + '/ml/feature/Word2Vec')
     }
