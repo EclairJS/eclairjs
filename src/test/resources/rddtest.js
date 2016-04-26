@@ -9,7 +9,7 @@ tests({
 
     version : function() {
         var ver= sparkContext.version();
-        assertEquals("failure - strings are not equal", "EclairJS-nashorn 0.1 Spark 1.6.0", ver);
+        assertEquals("failure - strings are not equal", "EclairJS-nashorn 0.4 Spark 1.6.0", ver);
 
     },
 
@@ -216,7 +216,7 @@ tests({
 
     testMapToPair : function() {
         var Tuple = require('eclairjs/Tuple');
-        var rdd2 = rdd.mapToPair(function(num) {return new Tuple(num,num+1)});
+        var rdd2 = rdd.mapToPair(function(num, Tuple) {return new Tuple(num,num+1)},[Tuple]);
         var ret = JSON.stringify(rdd2.collect());
         var expected = "[{\"0\":1,\"1\":2,\"length\":2},{\"0\":2,\"1\":3,\"length\":2},{\"0\":3,\"1\":4,\"length\":2}]";
         assertEquals("failure mapToPair - arrays are not equal", expected, ret);

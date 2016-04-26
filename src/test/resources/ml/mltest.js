@@ -89,3 +89,14 @@ var DCTExample = function() {
     var rows = run(sparkContext).collect();
     return JSON.stringify(rows);
 }
+
+var DecisionTreeClassificationExamplle = function() {
+
+    load("examples/ml/decision_tree_classification_example.js");
+    var result = run(sparkContext);
+    if (result) {
+        return "passed";
+    } else {
+        return "failed";
+    }
+}

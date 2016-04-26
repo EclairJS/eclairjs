@@ -35,13 +35,17 @@ protected scala.collection.Seq<org.apache.spark.sql.catalyst.expressions.Attribu
      * @classdesc For a StructType object, one or multiple StructFields can be extracted by names.
      * If multiple StructFields are extracted, a StructType object will be returned.
      * If a provided name does not have a matching field, it will be ignored.
-     * @param {module:eclairjs/sql/types.StructField[]} fields - The name of this field.
+     * @param {module:eclairjs/sql/types.StructField[]} [fields] - The name of this field.
      */
     var StructType = function(fields) {
 
         var jvmObj = null;
         this.logger = Logger.getLogger("sql.StructField_js");
-        if (!Array.isArray(fields)) {
+        if (!fields)
+        {
+           jvmObj = new org.apache.spark.sql.types.StructType();
+        }
+        else if (!Array.isArray(fields)) {
             this.logger.debug("Java object ");
             jvmObj = fields; // the name is really a jvmObject created by one of our wrappers.
         } else {
@@ -96,7 +100,10 @@ protected scala.collection.Seq<org.apache.spark.sql.catalyst.expressions.Attribu
          StructType	add(StructField field)
          Creates a new StructType by adding a new field.
          */
-        return new StructType(this.getJavaObject().add(Utils.unwrapObject(name), Utils.unwrapObject(dataType)), nullable, Utils.unwrapObject(metadata));
+         if (arguments.length==1)
+            return new StructType(this.getJavaObject().add(Utils.unwrapObject(arguments[0])));
+        else
+            return new StructType(this.getJavaObject().add(Utils.unwrapObject(name), Utils.unwrapObject(dataType)), nullable, Utils.unwrapObject(metadata));
     };
     /**
      * Extracts a StructField of the given name or index.

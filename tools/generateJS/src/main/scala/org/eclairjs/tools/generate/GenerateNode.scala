@@ -196,7 +196,7 @@ class GenerateNode  extends  GenerateJSBase {
       if (isPromise(returnType))
         sb++="    resolver: _resolve,\n"
 
-      val returnTypeStr= getReturnTypeStr(returnType)
+      val returnTypeStr= getReturnTypeStr(method)
       sb ++=s"    returnType: $returnTypeStr\n"
       sb ++="\n  };\n\n  return Utils.generate(args);\n"
     }
@@ -220,9 +220,10 @@ class GenerateNode  extends  GenerateJSBase {
     sb.toString()
   }
 
-  def getReturnTypeStr(returnType:DataType):String =
+  def getReturnTypeStr(method:Method):String =
   {
-    val name=returnType.getJSType(returnType.name)
+    val returnType=method.returnType
+    val name=method.getReturnJSType()
     if (returnType.isArray())
       {
         s"[${returnType.refName()}]"
