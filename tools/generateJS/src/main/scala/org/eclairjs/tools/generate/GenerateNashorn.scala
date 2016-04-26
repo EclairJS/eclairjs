@@ -136,7 +136,7 @@ class GenerateNashorn  extends  GenerateJSBase {
      sb ++= s"  $returnsStr $onObject.${method.name}(${parmNames.mkString(",")});"
      if (needsWrapper(method.returnType))
      {
-       var returnType=method.returnType.getJSType()
+       var returnType=method.getReturnJSType()
        if (returnType!="object" && !method.returnType.isAbstract() && !method.returnType.isArray())
          sb ++= s"\n  return new ${returnType}(javaObject);"
        else

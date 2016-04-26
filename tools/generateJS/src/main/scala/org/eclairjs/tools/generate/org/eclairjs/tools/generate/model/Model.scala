@@ -134,11 +134,13 @@ case class Clazz(name:String, comment:String, var members: List[Member],parents:
   def inModule():String = {
     val sparkPrefix="org.apache.spark"
 
-    val module= parent.packageName.substring(sparkPrefix.length).replace('.','/')
+    val module= if (parent.packageName.length>0 && parent.packageName!="<empty>")
+      parent.packageName.substring(sparkPrefix.length).replace('.','/')
+      else ""
     "module:eclairjs"+ module
   }
   def module():String = {
-    inModule()+"/"+name
+    inModule()+"."+name
   }
 }
 
@@ -191,7 +193,17 @@ case class Method(name:String,var comment:String,returnType:DataType,parms:List[
   }
 
   def getReturnJSType():String = {
+    if (returnType.name=="this.type")
+      parent.name
+    else
      returnType.getJSType(returnType.name)
+  }
+
+  def getReturnType():String = {
+    if (returnType.name=="this.type")
+      parent.name
+    else
+      returnType.getJSType(returnType.name)
   }
 
 
@@ -338,6 +350,8 @@ case class Parm(name:String,typ:DataType, var isOptional:Boolean, isRepeated:Boo
 
   def isSparkClass(scalaName:String=name): Boolean =
   {
+    if (scalaName=="this.type")
+      return true
     val simpleName=scalaName.split("\\.").last
     var rx="Long|Int|Double|Float|Byte|List|Unit|Any|AnyRef|String|Boolean|Array|Seq".r
     rx.findFirstMatchIn(simpleName).isEmpty

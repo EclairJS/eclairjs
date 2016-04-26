@@ -245,7 +245,10 @@ import Compiler.syntaxAnalyzer.global._
       case  ExistentialTypeTree(tpt , whereClauses ) => getType(tpt)
       case  SingletonTypeTree(ref) => {
         val fullName=tpt.toString()
-        val name=fullName.split("\\.").dropRight(2).mkString(".")
+        val name= if (fullName=="this.type")
+          "this.type"
+        else
+          fullName.split("\\.").dropRight(2).mkString(".")
         SimpleType(name)
       }
       case  CompoundTypeTree(templ)  => SimpleType("??")

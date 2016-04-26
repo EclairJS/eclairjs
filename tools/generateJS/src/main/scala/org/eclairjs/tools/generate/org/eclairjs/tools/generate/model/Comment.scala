@@ -9,7 +9,13 @@ class Comment(comment:String) {
 
   var lines= comment.split("\n")
 
-  lines= lines.slice(1,lines.length-1)
+  if (lines.length>1)
+    lines= lines.slice(1,lines.length-1)
+  else
+  {
+    val trimmedComment=comment.replace("/**"," * ").replace("*/","")
+     lines.update(0, trimmedComment)
+  }
 
   val newLines= scala.collection.mutable.ListBuffer.empty[String]
   val endLines= scala.collection.mutable.ListBuffer.empty[String]
