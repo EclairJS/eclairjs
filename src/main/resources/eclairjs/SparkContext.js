@@ -540,7 +540,7 @@
         } else {
             // versions is 2.0 or greater
         }
-        return "EclairJS-nashorn 0.1 Spark " + sparkVersion;
+        return "EclairJS-nashorn 0.5-SNAPSHOT Spark " + sparkVersion;
     };
 
     /**
