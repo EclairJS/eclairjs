@@ -37,26 +37,6 @@
          *
          */
         var jvmSC = new org.apache.spark.api.java.JavaSparkContext(Utils.unwrapObject(conf));
-        /*
-         * add the jar for the cluster
-         */
-        var decodedPath = org.eclairjs.nashorn.Utils.jarLoc();
-        var devEnvPath = "/target/classes/";
-        var jarEnvPath = ".jar";
-        logger.info("jar decodedPath = " + decodedPath);
-        if (decodedPath.indexOf(devEnvPath,
-                decodedPath.length - devEnvPath.length) !== -1) {
-            /*
-             * we are in the dev environment I hope...
-             */
-            jvmSC.addJar(decodedPath + "../eclairjs-nashorn-0.1.jar");
-        } else if (decodedPath.indexOf(jarEnvPath,
-                decodedPath.length - jarEnvPath.length) !== -1) {
-            /*
-             * We are running from a jar
-             */
-            jvmSC.addJar(decodedPath);
-        }
 
         return jvmSC
     };
