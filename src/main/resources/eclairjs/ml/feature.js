@@ -29,6 +29,11 @@
         CountVectorizer: require(EclairJS_Globals.NAMESPACE + '/ml/feature/CountVectorizer'),
         CountVectorizerModel: require(EclairJS_Globals.NAMESPACE + '/ml/feature/CountVectorizerModel'),
         DCT: require(EclairJS_Globals.NAMESPACE + '/ml/feature/DCT'),
+        IndexToString: require(EclairJS_Globals.NAMESPACE + '/ml/feature/IndexToString'),
+        StringIndexer: require(EclairJS_Globals.NAMESPACE + '/ml/feature/StringIndexer'),
+        StringIndexerModel: require(EclairJS_Globals.NAMESPACE + '/ml/feature/StringIndexerModel'),
+        VectorIndexer: require(EclairJS_Globals.NAMESPACE + '/ml/feature/VectorIndexer'),
+        VectorIndexerModel: require(EclairJS_Globals.NAMESPACE + '/ml/feature/VectorIndexerModel'),
         Word2VecModel: require(EclairJS_Globals.NAMESPACE + '/ml/feature/Word2VecModel'),
         Word2Vec: require(EclairJS_Globals.NAMESPACE + '/ml/feature/Word2Vec'),
         VectorSlicer: require(EclairJS_Globals.NAMESPACE + '/ml/feature/VectorSlicer')

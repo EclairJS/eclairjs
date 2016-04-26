@@ -266,4 +266,46 @@ public class MlTest {
         assertEquals("failure - strings are not equal", expected, ret);
 
     }
+
+    /*
+        tests
+        StringIndexer()
+        StringIndexer.setInputCol("label")
+        StringIndexer.setOutputCol("indexedLabel")
+        StringIndexer.fit(data);
+        VectorIndexer()
+        VectorIndexer.setInputCol("features")
+        VectorIndexer.setOutputCol("indexedFeatures")
+        VectorIndexer.setMaxCategories(4)
+        VectorIndexer.fit(data);
+        DecisionTreeClassifier()
+        DecisionTreeClassifier.setLabelCol("indexedLabel")
+        DecisionTreeClassifier.setFeaturesCol("indexedFeatures");
+        IndexToString()
+        IndexToString.setInputCol("prediction")
+        IndexToString.setOutputCol("predictedLabel")
+        IndexToString.setLabels(labelIndexer.labels());
+        Pipeline()
+        Pipeline.setStages([labelIndexer, featureIndexer, dt, labelConverter]);
+        Pipeline.fit(trainingData);
+        PipelineModel.transform(testData);
+        PipelineModel..stages()
+        MulticlassClassificationEvaluator()
+        MulticlassClassificationEvaluator.setLabelCol("indexedLabel")
+        MulticlassClassificationEvaluator.setPredictionCol("prediction")
+        MulticlassClassificationEvaluator.setMetricName("precision");
+        MulticlassClassificationEvaluator.evaluate(predictions);
+     */
+    @Test
+    public void DecisionTreeClassificationExamplle() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("DecisionTreeClassificationExamplle");
+
+        String expected = "passed";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
 }
