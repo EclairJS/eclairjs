@@ -30,7 +30,8 @@
         CountVectorizerModel: require(EclairJS_Globals.NAMESPACE + '/ml/feature/CountVectorizerModel'),
         DCT: require(EclairJS_Globals.NAMESPACE + '/ml/feature/DCT'),
         Word2VecModel: require(EclairJS_Globals.NAMESPACE + '/ml/feature/Word2VecModel'),
-        Word2Vec: require(EclairJS_Globals.NAMESPACE + '/ml/feature/Word2Vec')
+        Word2Vec: require(EclairJS_Globals.NAMESPACE + '/ml/feature/Word2Vec'),
+        VectorSlicer: require(EclairJS_Globals.NAMESPACE + '/ml/feature/VectorSlicer')
     }
 
 })();

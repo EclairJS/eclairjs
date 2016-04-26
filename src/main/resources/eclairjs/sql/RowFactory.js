@@ -39,6 +39,9 @@
      */
     RowFactory.create = function (values) {
         var javaValues = [];
+        Logger.getLogger("sql.RowFactory_js").debug("RowFactory.create input= " + values);
+        if (!Array.isArray(values))
+           values=[values]
         values.forEach(function (o) {
             var uw_o = Utils.unwrapObject(o);
             if (Array.isArray(uw_o)) {
