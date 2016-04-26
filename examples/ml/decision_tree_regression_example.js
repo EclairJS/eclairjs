@@ -17,7 +17,7 @@
 
 /*
  Usage:
- bin/eclairjs.sh examples/ml/decision_tree_classification_example.js"
+ bin/eclairjs.sh examples/ml/decision_tree_regression_example.js"
  */
 
 
@@ -84,7 +84,7 @@ function run(sc) {
 if (typeof sparkContext === 'undefined') {
     var SparkConf = require('eclairjs/SparkConf');
     var SparkContext = require('eclairjs/SparkContext');
-    var sparkConf = new SparkConf().setAppName("JavaScript DCT Example");
+    var sparkConf = new SparkConf().setAppName("JavaScript Decision Tree Regression Example");
     var sc = new SparkContext(sparkConf);
     var ret = run(sc);
 
