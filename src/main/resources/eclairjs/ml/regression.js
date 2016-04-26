@@ -23,8 +23,10 @@
      * @module eclairjs/ml/regression
      */
     module.exports = {
-        Word2VecModel: require(EclairJS_Globals.NAMESPACE + '/ml/regression/AFTSurvivalRegression'),
-        Word2Vec: require(EclairJS_Globals.NAMESPACE + '/ml/regression/AFTSurvivalRegressionModel')
+        DecisionTreeRegressor: require(EclairJS_Globals.NAMESPACE + '/ml/regression/DecisionTreeRegressor'),
+        DecisionTreeRegressionModel: require(EclairJS_Globals.NAMESPACE + '/ml/regression/DecisionTreeRegressionModel'),
+        AFTSurvivalRegression: require(EclairJS_Globals.NAMESPACE + '/ml/regression/AFTSurvivalRegression'),
+        AFTSurvivalRegressionModel: require(EclairJS_Globals.NAMESPACE + '/ml/regression/AFTSurvivalRegressionModel')
     }
 
 })();

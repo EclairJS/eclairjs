@@ -23,19 +23,11 @@
 function run(sc) {
 
     var SQLContext = require('eclairjs/sql/SQLContext');
-    var DataTypes = require('eclairjs/sql/types/DataTypes');
-    var ArrayType = require('eclairjs/sql/types/ArrayType');
-    var StructField = require('eclairjs/sql/types/StructField');
-    var StructType = require('eclairjs/sql/types/StructType');
-    var RowFactory = require('eclairjs/sql/RowFactory');
-    var Metadata = require('eclairjs/sql/types/Metadata');
     var StringIndexer = require('eclairjs/ml/feature/StringIndexer');
     var IndexToString = require('eclairjs/ml/feature/IndexToString');
     var VectorIndexer = require('eclairjs/ml/feature/VectorIndexer');
     var DecisionTreeClassifier = require('eclairjs/ml/classification/DecisionTreeClassifier');
     var MulticlassClassificationEvaluator = require('eclairjs/ml/evaluation/MulticlassClassificationEvaluator');
-    var Vectors = require('eclairjs/mllib/linalg/Vectors');
-    var VectorUDT = require('eclairjs/mllib/linalg/VectorUDT');
     var Pipeline = require('eclairjs/ml/Pipeline');
 
     var sqlContext = new SQLContext(sc);

@@ -295,6 +295,7 @@ public class MlTest {
         MulticlassClassificationEvaluator.setPredictionCol("prediction")
         MulticlassClassificationEvaluator.setMetricName("precision");
         MulticlassClassificationEvaluator.evaluate(predictions);
+        DecisionTreeClassifierModel.toDebugString()
      */
     @Test
     public void DecisionTreeClassificationExamplle() throws Exception {
@@ -302,6 +303,40 @@ public class MlTest {
 
         TestUtils.evalJSResource(engine, "/ml/mltest.js");
         Object ret = ((Invocable)engine).invokeFunction("DecisionTreeClassificationExamplle");
+
+        String expected = "passed";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
+
+    /*
+        tests
+        VectorIndexer()
+        VectorIndexer.setInputCol("features")
+        VectorIndexer.setOutputCol("indexedFeatures")
+        VectorIndexer.setMaxCategories(4)
+        VectorIndexer.fit(data);
+        DecisionTreeRegressor()
+        DecisionTreeRegressor.setFeaturesCol("indexedFeatures");
+        Pipeline()
+        Pipeline.setStages([featureIndexer, dt]);
+        Pipeline.fit(trainingData);
+        PipelineModel.transform(testData);
+        RegressionEvaluator()
+        RegressionEvaluator.setLabelCol("label")
+        RegressionEvaluator.setPredictionCol("prediction")
+        RegressionEvaluator.setMetricName("rmse");
+        RegressionEvaluator.evaluate(predictions);
+        PipelineModel.stages()
+        DecisionTreeRegressorModel.toDebugString()
+     */
+    @Test
+    public void DecisionTreeRegressionExamplle() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("DecisionTreeRegressionExamplle");
 
         String expected = "passed";
 

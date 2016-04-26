@@ -100,3 +100,14 @@ var DecisionTreeClassificationExamplle = function() {
         return "failed";
     }
 }
+
+var DecisionTreeRegressionExamplle = function() {
+
+    load("examples/ml/decision_tree_regression_example.js");
+    var result = run(sparkContext);
+    if (result) {
+        return "passed";
+    } else {
+        return "failed";
+    }
+}
