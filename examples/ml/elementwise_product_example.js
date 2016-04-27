@@ -27,10 +27,7 @@ function run(sc) {
     var DataTypes = require('eclairjs/sql/types/DataTypes');
     var Vectors = require('eclairjs/mllib/linalg/Vectors');
     var VectorUDT = require('eclairjs/mllib/linalg/VectorUDT');
-    //var VectorIndexer = require('eclairjs/ml/feature/VectorIndexer');
     var ElementwiseProduct = require('eclairjs/ml/feature/ElementwiseProduct');
-    //var RegressionEvaluator = require('eclairjs/ml/evaluation/RegressionEvaluator');
-    //var Pipeline = require('eclairjs/ml/Pipeline');
 
     var sqlContext = new SQLContext(sc);
     // Create some vector data; also works for sparse vectors
