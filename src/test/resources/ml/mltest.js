@@ -111,3 +111,10 @@ var DecisionTreeRegressionExamplle = function() {
         return "failed";
     }
 }
+
+var ElementwiseProductExamplle = function() {
+
+    load("examples/ml/elementwise_product_example.js");
+    var result = run(sparkContext);
+    return JSON.stringify(result.collect());
+}

@@ -343,4 +343,35 @@ public class MlTest {
         assertEquals("failure - strings are not equal", expected, ret);
 
     }
+
+    /*
+        tests
+        ElementwiseProduct()
+        ElementwiseProduct.setScalingVec(transformingVector)
+        ElementwiseProduct.setInputCol("vector")
+        ElementwiseProduct.setOutputCol("transformedVector");
+        ElementwiseProduct.transform(dataFrame);
+     */
+    @Test
+    public void ElementwiseProductExamplle() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("ElementwiseProductExamplle");
+
+        String schema = "{" +
+                            "\"fields\":[" +
+                                "{\"name\":\"id\",\"dataType\":\"string\",\"nullable\":false}," +
+                                "{\"name\":\"vector\",\"dataType\":\"vector\",\"nullable\":false}," +
+                                "{\"name\":\"transformedVector\",\"dataType\":\"vector\",\"nullable\":true}" +
+                            "]" +
+                        "}";
+        String expected = "[" +
+                            "{\"values\":[\"a\",[1,2,3],[0,2,6]],\"schema\":"+schema+"}" +
+                            ",{\"values\":[\"b\",[4,5,6],[0,5,12]],\"schema\":"+schema+"}" +
+                        "]";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
 }
