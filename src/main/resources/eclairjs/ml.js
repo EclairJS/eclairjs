@@ -26,7 +26,10 @@
         Estimator: require(EclairJS_Globals.NAMESPACE + '/ml/Estimator'),
         Pipeline: require(EclairJS_Globals.NAMESPACE + '/ml/Pipeline'),
         PipelineModel: require(EclairJS_Globals.NAMESPACE + '/ml/PipelineModel'),
-        PipelineStage: require(EclairJS_Globals.NAMESPACE + '/ml/PipelineStage')
+        PipelineStage: require(EclairJS_Globals.NAMESPACE + '/ml/PipelineStage'),
+        Predictor: require(EclairJS_Globals.NAMESPACE + '/ml/Predictor'),
+        PredictionModel: require(EclairJS_Globals.NAMESPACE + '/ml/PredictionModel'),
+        UnaryTransformer: require(EclairJS_Globals.NAMESPACE + '/ml/UnaryTransformer')
     }
 
 })();

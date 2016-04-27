@@ -16,7 +16,7 @@
 
 (function () {
 
-    var PipelineStage = require(EclairJS_Globals.NAMESPACE + '/PipelineStage');
+    var PipelineStage = require(EclairJS_Globals.NAMESPACE + '/ml/PipelineStage');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
 
@@ -30,7 +30,7 @@
      * @extends module:eclairjs/ml.PipelineStage
      */
     var Estimator = function(jvmObject) {
-    	 this.logger = Logger.getLogger("Estimator_js");
+    	 this.logger = Logger.getLogger("ml.Estimator_js");
      	 PipelineStage.call(this, jvmObject);
     
     };

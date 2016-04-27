@@ -295,6 +295,7 @@ public class MlTest {
         MulticlassClassificationEvaluator.setPredictionCol("prediction")
         MulticlassClassificationEvaluator.setMetricName("precision");
         MulticlassClassificationEvaluator.evaluate(predictions);
+        DecisionTreeClassifierModel.toDebugString()
      */
     @Test
     public void DecisionTreeClassificationExamplle() throws Exception {
@@ -304,6 +305,71 @@ public class MlTest {
         Object ret = ((Invocable)engine).invokeFunction("DecisionTreeClassificationExamplle");
 
         String expected = "passed";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
+
+    /*
+        tests
+        VectorIndexer()
+        VectorIndexer.setInputCol("features")
+        VectorIndexer.setOutputCol("indexedFeatures")
+        VectorIndexer.setMaxCategories(4)
+        VectorIndexer.fit(data);
+        DecisionTreeRegressor()
+        DecisionTreeRegressor.setFeaturesCol("indexedFeatures");
+        Pipeline()
+        Pipeline.setStages([featureIndexer, dt]);
+        Pipeline.fit(trainingData);
+        PipelineModel.transform(testData);
+        RegressionEvaluator()
+        RegressionEvaluator.setLabelCol("label")
+        RegressionEvaluator.setPredictionCol("prediction")
+        RegressionEvaluator.setMetricName("rmse");
+        RegressionEvaluator.evaluate(predictions);
+        PipelineModel.stages()
+        DecisionTreeRegressorModel.toDebugString()
+     */
+    @Test
+    public void DecisionTreeRegressionExamplle() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("DecisionTreeRegressionExamplle");
+
+        String expected = "passed";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
+
+    /*
+        tests
+        ElementwiseProduct()
+        ElementwiseProduct.setScalingVec(transformingVector)
+        ElementwiseProduct.setInputCol("vector")
+        ElementwiseProduct.setOutputCol("transformedVector");
+        ElementwiseProduct.transform(dataFrame);
+     */
+    @Test
+    public void ElementwiseProductExamplle() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("ElementwiseProductExamplle");
+
+        String schema = "{" +
+                            "\"fields\":[" +
+                                "{\"name\":\"id\",\"dataType\":\"string\",\"nullable\":false}," +
+                                "{\"name\":\"vector\",\"dataType\":\"vector\",\"nullable\":false}," +
+                                "{\"name\":\"transformedVector\",\"dataType\":\"vector\",\"nullable\":true}" +
+                            "]" +
+                        "}";
+        String expected = "[" +
+                            "{\"values\":[\"a\",[1,2,3],[0,2,6]],\"schema\":"+schema+"}" +
+                            ",{\"values\":[\"b\",[4,5,6],[0,5,12]],\"schema\":"+schema+"}" +
+                        "]";
 
         assertEquals("failure - strings are not equal", expected, ret);
 
