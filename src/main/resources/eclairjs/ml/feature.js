@@ -34,6 +34,7 @@
         StringIndexer: require(EclairJS_Globals.NAMESPACE + '/ml/feature/StringIndexer'),
         StringIndexerModel: require(EclairJS_Globals.NAMESPACE + '/ml/feature/StringIndexerModel'),
         VectorIndexer: require(EclairJS_Globals.NAMESPACE + '/ml/feature/VectorIndexer'),
+        VectorIndexer: require(EclairJS_Globals.NAMESPACE + '/ml/feature/VectorAssembler'),
         VectorIndexerModel: require(EclairJS_Globals.NAMESPACE + '/ml/feature/VectorIndexerModel'),
         Word2VecModel: require(EclairJS_Globals.NAMESPACE + '/ml/feature/Word2VecModel'),
         Word2Vec: require(EclairJS_Globals.NAMESPACE + '/ml/feature/Word2Vec'),
