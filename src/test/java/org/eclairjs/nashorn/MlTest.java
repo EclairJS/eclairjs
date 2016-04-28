@@ -374,4 +374,36 @@ public class MlTest {
         assertEquals("failure - strings are not equal", expected, ret);
 
     }
+
+    /*
+        tests
+        PCA()
+        PCA.setInputCol("features");
+        PCA.setOutputCol("pcaFeatures");
+        PCA.setK(3);
+        PCA.fit(dataFrame)
+        PCAModel.transform(dataFrame);
+     */
+    @Test
+    public void PCAExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("PCAExample");
+
+        String schema = "{" +
+                            "\"fields\":[" +
+                                "{\"name\":\"pcaFeatures\",\"dataType\":\"vector\",\"nullable\":true}" +
+                            "]" +
+                         "}";
+        String expected = "[" +
+                "{\"values\":[[1.6485728230883807,-4.013282700516296,-5.524543751369388]],\"schema\":"+schema+"}," +
+                "{\"values\":[[-4.645104331781534,-1.1167972663619026,-5.524543751369387]],\"schema\":"+schema+"}," +
+                "{\"values\":[[-6.428880535676489,-5.337951427775355,-5.524543751369389]],\"schema\":"+schema+"}" +
+                "]";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
+
 }

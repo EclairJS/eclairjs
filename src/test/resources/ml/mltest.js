@@ -118,3 +118,10 @@ var ElementwiseProductExamplle = function() {
     var result = run(sparkContext);
     return JSON.stringify(result.collect());
 }
+
+var PCAExample = function() {
+
+    load("examples/ml/pca_example.js");
+    var rows = run(sparkContext).collect();
+    return JSON.stringify(rows);
+}

@@ -32,7 +32,7 @@
      * @param {string} [uid]
      */
     var ChiSqSelector = function(uid) {
-        this.logger = Logger.getLogger("park.ml.feature.ChiSqSelector_js");
+        this.logger = Logger.getLogger("spark.ml.feature.ChiSqSelector_js");
         var jvmObject;
         if (uid) {
             if (uid instanceof org.apache.spark.ml.feature.ChiSqSelector) {
