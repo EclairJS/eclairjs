@@ -21,7 +21,6 @@
 
 
     /**
-     * :: Experimental ::
      * A param and its value.
      * @classdesc
      * @param {module:eclairjs/ml/param.Param} param
@@ -30,7 +29,12 @@
      *  @memberof module:eclairjs/ml/param
      */
     var ParamPair = function (param, value) {
-        var jvmObject = new org.apache.spark.ml.param.ParamPair(param, value);
+        var jvmObject;
+        if (arguments[0] instanceof org.apache.spark.ml.param.ParamPair) {
+            jvmObject = arguments[0];
+        } else {
+            jvmObject = new org.apache.spark.ml.param.ParamPair(param, value);
+        }
         this.logger = Logger.getLogger("ParamPair_js");
         JavaWrapper.call(this, jvmObject);
 
@@ -40,6 +44,6 @@
 
     ParamPair.prototype.constructor = ParamPair;
 
-    module.exports = ParamMap;
+    module.exports = ParamPair;
 
 })();

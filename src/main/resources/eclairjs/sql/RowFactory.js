@@ -34,14 +34,17 @@
 
     /**
      * Create a Row from the given arguments. Position i in the argument list becomes position i in the created Row object.
-     * @param {object} values
+     * @param {...object} values Array of objects or object1,..., objectN
      * @returns {module:eclairjs/sql.Row}
      */
-    RowFactory.create = function (values) {
+    RowFactory.create = function () {
         var javaValues = [];
+
+        var values = arguments[0];
+        if (!(Array.isArray(values))) {
+            values = Array.prototype.slice.call(arguments);
+        }
         Logger.getLogger("sql.RowFactory_js").debug("RowFactory.create input= " + values);
-        if (!Array.isArray(values))
-           values=[values]
         values.forEach(function (o) {
             var uw_o = Utils.unwrapObject(o);
             if (Array.isArray(uw_o)) {

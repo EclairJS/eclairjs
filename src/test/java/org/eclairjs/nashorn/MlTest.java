@@ -197,9 +197,9 @@ public class MlTest {
                             "]" +
                          "}";
         String expected = "[" +
-                "{\"values\":[7,[0],1,[0]],\"schema\":"+schema+"}," +
-                "{\"values\":[8,[0],0,[0]],\"schema\":"+schema+"}," +
-                "{\"values\":[9,[1],0,[1]],\"schema\":"+schema+"}" +
+                "{\"values\":[7,[0,0,18,1],1,[1]],\"schema\":"+schema+"}," +
+                "{\"values\":[8,[0,1,12,0],0,[0]],\"schema\":"+schema+"}," +
+                "{\"values\":[9,[1,0,15,0.1],0,[0.1]],\"schema\":"+schema+"}" +
                 "]";
 
         assertEquals("failure - strings are not equal", expected, ret);
@@ -298,11 +298,11 @@ public class MlTest {
         DecisionTreeClassifierModel.toDebugString()
      */
     @Test
-    public void DecisionTreeClassificationExamplle() throws Exception {
+    public void DecisionTreeClassificationExample() throws Exception {
         ScriptEngine engine = TestUtils.getEngine();
 
         TestUtils.evalJSResource(engine, "/ml/mltest.js");
-        Object ret = ((Invocable)engine).invokeFunction("DecisionTreeClassificationExamplle");
+        Object ret = ((Invocable)engine).invokeFunction("DecisionTreeClassificationExample");
 
         String expected = "passed";
 
@@ -332,11 +332,11 @@ public class MlTest {
         DecisionTreeRegressorModel.toDebugString()
      */
     @Test
-    public void DecisionTreeRegressionExamplle() throws Exception {
+    public void DecisionTreeRegressionExample() throws Exception {
         ScriptEngine engine = TestUtils.getEngine();
 
         TestUtils.evalJSResource(engine, "/ml/mltest.js");
-        Object ret = ((Invocable)engine).invokeFunction("DecisionTreeRegressionExamplle");
+        Object ret = ((Invocable)engine).invokeFunction("DecisionTreeRegressionExample");
 
         String expected = "passed";
 
@@ -353,11 +353,11 @@ public class MlTest {
         ElementwiseProduct.transform(dataFrame);
      */
     @Test
-    public void ElementwiseProductExamplle() throws Exception {
+    public void ElementwiseProductExample() throws Exception {
         ScriptEngine engine = TestUtils.getEngine();
 
         TestUtils.evalJSResource(engine, "/ml/mltest.js");
-        Object ret = ((Invocable)engine).invokeFunction("ElementwiseProductExamplle");
+        Object ret = ((Invocable)engine).invokeFunction("ElementwiseProductExample");
 
         String schema = "{" +
                             "\"fields\":[" +
@@ -370,6 +370,31 @@ public class MlTest {
                             "{\"values\":[\"a\",[1,2,3],[0,2,6]],\"schema\":"+schema+"}" +
                             ",{\"values\":[\"b\",[4,5,6],[0,5,12]],\"schema\":"+schema+"}" +
                         "]";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
+
+    @Test
+    public void EstimatorTransformerParamExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("EstimatorTransformerParamExample");
+
+        String schema = "{" +
+                            "\"fields\":[" +
+                                "{\"name\":\"features\",\"dataType\":\"vector\",\"nullable\":true}," +
+                                "{\"name\":\"label\",\"dataType\":\"double\",\"nullable\":false}," +
+                                "{\"name\":\"myProbability\",\"dataType\":\"vector\",\"nullable\":true}," +
+                                "{\"name\":\"prediction\",\"dataType\":\"double\",\"nullable\":true}" +
+                            "]" +
+                        "}";
+        String expected = "[" +
+                "{\"values\":[[-1,1.5,1.3],1,[0.12057154405357727,0.8794284559464228],1],\"schema\":"+schema+"}," +
+                "{\"values\":[[3,2,-0.1],0,[0.9923178731504477,0.007682126849552308],0],\"schema\":"+schema+"}," +
+                "{\"values\":[[0,2.2,-1.5],1,[0.7486054956351224,0.2513945043648776],0],\"schema\":"+schema+"}" +
+                "]";
 
         assertEquals("failure - strings are not equal", expected, ret);
 
@@ -403,7 +428,6 @@ public class MlTest {
                 "]";
 
         assertEquals("failure - strings are not equal", expected, ret);
-
     }
 
 }

@@ -78,21 +78,27 @@
     //   var javaObject =  this.getJavaObject().fit(dataset_uw,paramMap_uw);
     //   return Utils.javaToJs(javaObject);
     };
-    
-    
+
+
     /**
      * Fits a model to the input data.
      * @param {module:eclairjs/sql.DataFrame} dataset
-     * @returns {object}
-     * @abstract
+     * @param {module:eclairjs/ml/param.ParamMap} [paramMap]  Parameter map.
+     *                 These values override any specified in this Estimator's embedded ParamMap.
+     * @returns {module:eclairjs/ml.Estimator} fitted model
      */
-    Estimator.prototype.fit = function(dataset) {
-        throw "Abstract class must be implemented in extending class";
-    //   var dataset_uw = Utils.unwrapObject(dataset);
-    //   var javaObject =  this.getJavaObject().fit(dataset_uw);
-    //   return Utils.javaToJs(javaObject);
+    Estimator.prototype.fit = function(dataset, paramMap) {
+        var dataset_uw = Utils.unwrapObject(dataset);
+        var javaObject;
+        if (paramMap) {
+            var paramMap_uw = Utils.unwrapObject(paramMap);
+            javaObject =  this.getJavaObject().fit(dataset_uw, paramMap_uw);
+        } else {
+            javaObject =  this.getJavaObject().fit(dataset_uw);
+        }
+
+        return Utils.javaToJs(javaObject);
     };
-    
     
     /**
      * Fits multiple models to the input data with multiple sets of parameters.
@@ -124,6 +130,15 @@
     //   var extra_uw = Utils.unwrapObject(extra);
     //   var javaObject =  this.getJavaObject().copy(extra_uw);
     //   return Utils.javaToJs(javaObject);
+    };
+
+    /**
+     *
+     * @returns {module:eclairjs/ml/param.ParamMap}
+     */
+    Estimator.prototype.extractParamMap = function() {
+        var javaObject = this.getJavaObject().extractParamMap();
+        return Utils.javaToJs(javaObject);
     };
     
     module.exports = Estimator;

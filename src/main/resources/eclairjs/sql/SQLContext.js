@@ -162,8 +162,10 @@
      *
      */
     SQLContext.prototype.createDataFrame = function (rowRDD_or_values, schema) {
+        var DoubleType = require(EclairJS_Globals.NAMESPACE + '/sql/types/DoubleType');
         var rowRDD_uw;
         var schema_uw = Utils.unwrapObject(schema);
+        var fields = schema.fields();
         if (Array.isArray(rowRDD_or_values)) {
             //var rows = [];
             var rows = new java.util.ArrayList();
@@ -176,7 +178,27 @@
                     })
                     rows.add(org.apache.spark.sql.RowFactory.create(rowValues));
                 } else {
-                    rows.add(Utils.unwrapObject(row)); // should be a Row
+                   /*
+                    should be a Row, but Nashorn interprets numbers as java.lang.Double, java.lang.Long, or java.lang.Integer objects,
+                    depending on the computation performed.
+                    JavaScript numbers are not always converted to the correct Java type. So we need to force all the number types in the
+                    row to be matched to the type specified in the schema
+                    */
+                    var v = [];
+                    for (var i = 0; i < row.length(); i++) {
+                        var x = row.get(i);
+                        var dt = fields[i].dataType();
+                        if ((x instanceof java.lang.Integer) &&  (dt.getJavaObject() instanceof org.apache.spark.sql.types.DoubleType)) {
+                            v.push(x.doubleValue())
+                        } else if ((x instanceof java.lang.Integer) &&  (dt.getJavaObject() instanceof org.apache.spark.sql.types.FloatType)) {
+                            v.push(x.floatValue())
+                        } else if ((x instanceof java.lang.Double) &&  (dt.getJavaObject() instanceof org.apache.spark.sql.types.IntegerType)) {
+                            v.push(x.intValue())
+                        } else {
+                            v.push(Utils.unwrapObject(x));
+                        }
+                    }
+                    rows.add(org.apache.spark.sql.RowFactory.create(v));
                 }
             });
             rowRDD_uw = rows;
