@@ -77,14 +77,16 @@
     
     
     /**
+     * NOTE: we are inhering this from ml.Estimator
      * @param {module:eclairjs/sql.DataFrame} dataset
      * @returns {module:eclairjs/ml.PredictionModel}
+     * @ignore
      */
-    Predictor.prototype.fit = function(dataset) {
+  /*  Predictor.prototype.fit = function(dataset) {
        var dataset_uw = Utils.unwrapObject(dataset);
        var javaObject =  this.getJavaObject().fit(dataset_uw);
        return Utils.javaToJs(javaObject);
-    };
+    };*/
     
     
     /**

@@ -88,9 +88,7 @@ public class MlLibTest {
         TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
         Object ret = ((Invocable)engine).invokeFunction("BisectingKMeansExample");
 
-        String expected = "{\"Compute_Cost\":0.07999999999994545," +
-                "\"Cluster_Center_0\":\"[0.2]\",\"Cluster_Center_1\":\"[10.2]\"," +
-                "\"Cluster_Center_2\":\"[20.200000000000003]\",\"Cluster_Center_3\":\"[30.200000000000003]\"}";
+        String expected = "passed";
 
         assertEquals("failure - strings are not equal", expected, ret.toString());
 

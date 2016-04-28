@@ -42,11 +42,15 @@
 
     /**
      * Creates a dense vector from a double array.
-     * @param {float[]} values
+     * @param {...float} values Array of floats or float1, ....., floatN
      * @returns {module:eclairjs/mllib/linalg.Vector}
      */
-    Vectors.dense = function (values) {
-        var javaObject = org.apache.spark.mllib.linalg.Vectors.dense(values);
+    Vectors.dense = function () {
+        var args = arguments[0];
+        if (!(Array.isArray(args))) {
+            args = Array.prototype.slice.call(arguments);
+        }
+        var javaObject = org.apache.spark.mllib.linalg.Vectors.dense(args);
         return Utils.javaToJs(javaObject);
     };
 
