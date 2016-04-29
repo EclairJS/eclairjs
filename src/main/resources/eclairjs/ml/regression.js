@@ -27,6 +27,8 @@
         DecisionTreeRegressionModel: require(EclairJS_Globals.NAMESPACE + '/ml/regression/DecisionTreeRegressionModel'),
         AFTSurvivalRegression: require(EclairJS_Globals.NAMESPACE + '/ml/regression/AFTSurvivalRegression'),
         AFTSurvivalRegressionModel: require(EclairJS_Globals.NAMESPACE + '/ml/regression/AFTSurvivalRegressionModel'),
+        GBTRegressor: require(EclairJS_Globals.NAMESPACE + '/ml/regression/GBTRegressor'),
+        GBTRegressionModel: require(EclairJS_Globals.NAMESPACE + '/ml/regression/GBTRegressionModel'),
         LinearRegression: require(EclairJS_Globals.NAMESPACE + '/ml/regression/LinearRegression')
     }
 

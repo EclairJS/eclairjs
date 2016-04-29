@@ -375,6 +375,25 @@ public class MlTest {
 
     }
 
+    /*
+        tests
+        LogisticRegression()
+        LogisticRegression.explainParams()
+        LogisticRegression.setMaxIter(10)
+        LogisticRegression.setRegParam(0.01);
+        LogisticRegression.fit(training);
+        LogisticRegression.fit(training, paramMapCombined)
+        LogisticRegression.maxIter()
+        LogisticRegression.regParam()
+        LogisticRegression.w()
+        LogisticRegression.threshold()
+        LogisticRegressionModel()
+        LogisticRegressionModel.transform(test)
+        Estimator.parent()
+        Estimator.extractParamMap()
+        ParamMap()
+        ParamMap.put()
+     */
     @Test
     public void EstimatorTransformerParamExample() throws Exception {
         ScriptEngine engine = TestUtils.getEngine();
@@ -395,6 +414,83 @@ public class MlTest {
                 "{\"values\":[[3,2,-0.1],0,[0.9923178731504477,0.007682126849552308],0],\"schema\":"+schema+"}," +
                 "{\"values\":[[0,2.2,-1.5],1,[0.7486054956351224,0.2513945043648776],0],\"schema\":"+schema+"}" +
                 "]";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
+
+    /*
+        tests
+        StringIndexer()
+        StringIndexer.setInputCol("label")
+        StringIndexer.setOutputCol("indexedLabel")
+        StringIndexer.fit(dataframe);
+        StringIndexer.labels()
+        VectorIndexer()
+        VectorIndexer.setInputCol("features")
+        VectorIndexer.setOutputCol("indexedFeatures")
+        VectorIndexer.setMaxCategories(4)
+        VectorIndexer.fit(dataframe);
+        GBTClassifier()
+        GBTClassifier.setLabelCol("indexedLabel")
+        GBTClassifier.setFeaturesCol("indexedFeatures")
+        GBTClassifier.setMaxIter(10);
+        IndexToString()
+        IndexToString.setInputCol("prediction")
+        IndexToString.setOutputCol("predictedLabel")
+        IndexToString.setLabels(StringIndexer.labels());
+        Pipeline()
+        Pipeline.setStages([labelIndexer, featureIndexer, gbt, labelConverter]);
+        Pipeline.fit(trainingData);
+        GBTClassifierModel.transform(testData);
+        MulticlassClassificationEvaluator()
+        MulticlassClassificationEvaluator.setLabelCol("indexedLabel")
+        MulticlassClassificationEvaluator.setPredictionCol("prediction")
+        MulticlassClassificationEvaluator.setMetricName("precision");
+        MulticlassClassificationEvaluator.evaluate(predictions);
+     */
+    @Test
+    public void GradientBoostedTreeClassifierExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("GradientBoostedTreeClassifierExample");
+
+        String expected = "passed";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
+
+    /*
+        tests
+        VectorIndexer()
+        VectorIndexer.setInputCol("features")
+        VectorIndexer.setOutputCol("indexedFeatures")
+        VectorIndexer.setMaxCategories(4)
+        VectorIndexer.fit(data);
+        GBTRegressor()
+        GBTRegressor.setLabelCol("label")
+        GBTRegressor.setFeaturesCol("indexedFeatures")
+        GBTRegressor.setMaxIter(10);
+        Pipeline().setStages([featureIndexer, gbt]);
+        Pipeline.fit(trainingData);
+        GBTRegressorModel.transform(testData);
+        RegressionEvaluator()
+        RegressionEvaluator.setLabelCol("label")
+        RegressionEvaluator.setPredictionCol("prediction")
+        RegressionEvaluator.setMetricName("rmse");
+        RegressionEvaluator.evaluate(predictions);
+        GBTRegressorModel.stages();
+     */
+    @Test
+    public void GradientBoostedTreeRegressorExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("GradientBoostedTreeRegressorExample");
+
+        String expected = "passed";
 
         assertEquals("failure - strings are not equal", expected, ret);
 
