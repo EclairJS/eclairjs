@@ -29,14 +29,6 @@ function run(sc) {
     var Pipeline = require('eclairjs/ml/Pipeline');
     var MulticlassClassificationEvaluator = require('eclairjs/ml/evaluation/MulticlassClassificationEvaluator');
 
-    /* var RowFactory = require('eclairjs/sql/RowFactory');
-     var DataTypes = require('eclairjs/sql/types/DataTypes');
-     var Vectors = require('eclairjs/mllib/linalg/Vectors');
-     var VectorUDT = require('eclairjs/mllib/linalg/VectorUDT');
-     var LabeledPoint = require('eclairjs/mllib/regression/LabeledPoint');
-     var ParamMap = require('eclairjs/ml/param/ParamMap');
-     var LogisticRegression = require('eclairjs/ml/classification/LogisticRegression');*/
-
     var result = {};
     var sqlContext = new SQLContext(sc);
 
