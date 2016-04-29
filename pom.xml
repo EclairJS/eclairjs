@@ -206,7 +206,7 @@
   </build>
   <properties>
     <spark.version>1.6.0</spark.version>
-    <toree.version>0.1.0.dev5-incubating-SNAPSHOT</toree.version>
+    <toree.version>0.1.0.dev6-incubating-SNAPSHOT</toree.version>
   </properties>
   <dependencies>
     <dependency>
@@ -333,7 +333,6 @@
     <profile>
       <id>notebook</id>
       <dependencies>
-        <!--
         <dependency>
           <groupId>org.apache.toree</groupId>
           <artifactId>toree-kernel-api_2.10</artifactId>
@@ -345,14 +344,14 @@
           <artifactId>toree-kernel_2.10</artifactId>
           <version>${toree.version}</version>
           <scope>provided</scope>
-        </dependency-->
-        <dependency>
+        </dependency>
+        <!--dependency>
           <groupId>org.apache.toree</groupId>
           <artifactId>toree</artifactId>
           <version>${toree.version}</version>
           <scope>system</scope>
-          <systemPath>/Users/bburns/anaconda/lib/python3.4/site-packages/toree/lib/toree-kernel-assembly-0.1.0.dev4-SNAPSHOT.jar</systemPath>
-        </dependency>
+          <systemPath>/Users/bburns/dev/incubator-toree/dist/toree/lib/toree-assembly-0.1.0.dev6-incubating-SNAPSHOT.jar</systemPath>
+        </dependency-->
 
       </dependencies>
       <build>
