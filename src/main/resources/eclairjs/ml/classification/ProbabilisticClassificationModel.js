@@ -29,7 +29,7 @@
      *
      * @class
      * @memberof module:eclairjs/ml/classification
-     * @extends module:eclairjs/mllib/classification.ClassificationModel
+     * @extends module:eclairjs/ml/classification.ClassificationModel
      */
 
     var ProbabilisticClassificationModel = function (jvmObject) {

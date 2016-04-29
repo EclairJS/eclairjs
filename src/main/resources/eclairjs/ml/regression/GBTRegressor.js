@@ -24,109 +24,108 @@
     /**
      * @classdesc
      * [Gradient-Boosted Trees (GBTs)]{@link http://en.wikipedia.org/wiki/Gradient_boosting}
-     * learning algorithm for classification.
-     * It supports binary labels, as well as both continuous and categorical features.
-     * Note: Multiclass labels are not currently supported.
+     * learning algorithm for regression.
+     * It supports both continuous and categorical features.
      * @class
      * @extends module:eclairjs/ml.Predictor
-     * @memberof module:eclairjs/ml/classification
+     * @memberof module:eclairjs/ml/regression
      * @param {string} [uid]
      */
-    var GBTClassifier = function (uid) {
-        this.logger = Logger.getLogger("ml_classification_GBTClassifier_js");
+    var GBTRegressor = function (uid) {
+        this.logger = Logger.getLogger("ml_regression_GBTRegressor_js");
         var jvmObject;
         if (uid) {
-            if (uid instanceof org.apache.spark.ml.classification.GBTClassifier) {
+            if (uid instanceof org.apache.spark.ml.regression.GBTRegressor) {
                 jvmObject = uid;
             } else {
-                jvmObject = new org.apache.spark.ml.classification.GBTClassifier(uid);
+                jvmObject = new org.apache.spark.ml.regression.GBTRegressor(uid);
             }
         } else {
-            jvmObject = new org.apache.spark.ml.classification.GBTClassifier();
+            jvmObject = new org.apache.spark.ml.regression.GBTRegressor();
         }
         Predictor.call(this, jvmObject);
 
     };
 
-    GBTClassifier.prototype = Object.create(Predictor.prototype);
+    GBTRegressor.prototype = Object.create(Predictor.prototype);
 
-    GBTClassifier.prototype.constructor = GBTClassifier;
+    GBTRegressor.prototype.constructor = GBTRegressor;
 
     /**
      * An immutable unique ID for the object and its derivatives.
      * @returns {string}
      */
-    GBTClassifier.prototype.uid = function () {
+    GBTRegressor.prototype.uid = function () {
         return this.getJavaObject().uid();
     };
 
     /**
      * @param {integer} value
-     * @returns {module:eclairjs/ml/classification.GBTClassifier}
+     * @returns {module:eclairjs/ml/regression.GBTRegressor}
      */
-    GBTClassifier.prototype.setMaxDepth = function (value) {
+    GBTRegressor.prototype.setMaxDepth = function (value) {
         var javaObject = this.getJavaObject().setMaxDepth(value);
-        return new GBTClassifier(javaObject);
+        return new GBTRegressor(javaObject);
     };
 
 
     /**
      * @param {integer} value
-     * @returns {module:eclairjs/ml/classification.GBTClassifier}
+     * @returns {module:eclairjs/ml/regression.GBTRegressor}
      */
-    GBTClassifier.prototype.setMaxBins = function (value) {
+    GBTRegressor.prototype.setMaxBins = function (value) {
         var javaObject = this.getJavaObject().setMaxBins(value);
-        return new GBTClassifier(javaObject);
+        return new GBTRegressor(javaObject);
     };
 
 
     /**
      * @param {integer} value
-     * @returns {module:eclairjs/ml/classification.GBTClassifier}
+     * @returns {module:eclairjs/ml/regression.GBTRegressor}
      */
-    GBTClassifier.prototype.setMinInstancesPerNode = function (value) {
+    GBTRegressor.prototype.setMinInstancesPerNode = function (value) {
         var javaObject = this.getJavaObject().setMinInstancesPerNode(value);
-        return new GBTClassifier(javaObject);
+        return new GBTRegressor(javaObject);
     };
 
 
     /**
      * @param {float} value
-     * @returns {module:eclairjs/ml/classification.GBTClassifier}
+     * @returns {module:eclairjs/ml/regression.GBTRegressor}
      */
-    GBTClassifier.prototype.setMinInfoGain = function (value) {
+    GBTRegressor.prototype.setMinInfoGain = function (value) {
         var javaObject = this.getJavaObject().setMinInfoGain(value);
-        return new GBTClassifier(javaObject);
+        return new GBTRegressor(javaObject);
     };
 
 
     /**
      * @param {integer} value
-     * @returns {module:eclairjs/ml/classification.GBTClassifier}
+     * @returns {module:eclairjs/ml/regression.GBTRegressor}
      */
-    GBTClassifier.prototype.setMaxMemoryInMB = function (value) {
+    GBTRegressor.prototype.setMaxMemoryInMB = function (value) {
         var javaObject = this.getJavaObject().setMaxMemoryInMB(value);
-        return new GBTClassifier(javaObject);
+        return new GBTRegressor(javaObject);
     };
 
 
     /**
      * @param {boolean} value
-     * @returns {module:eclairjs/ml/classification.GBTClassifier}
+     * @returns {module:eclairjs/ml/regression.GBTRegressor}
      */
-    GBTClassifier.prototype.setCacheNodeIds = function (value) {
+    GBTRegressor.prototype.setCacheNodeIds = function (value) {
         var javaObject = this.getJavaObject().setCacheNodeIds(value);
-        return new GBTClassifier(javaObject);
+        return new GBTRegressor(javaObject);
     };
 
 
     /**
      * @param {integer} value
-     * @returns {module:eclairjs/ml/classification.GBTClassifier}
+     * @returns {module:eclairjs/ml/regression.GBTRegressor}
      */
-    GBTClassifier.prototype.setCheckpointInterval = function (value) {
+    GBTRegressor.prototype.setCheckpointInterval = function (value) {
         var javaObject = this.getJavaObject().setCheckpointInterval(value);
-        return new GBTClassifier(javaObject);
+        return new GBTRegressor(javaObject);
     };
 
 
@@ -134,80 +133,80 @@
      * The impurity setting is ignored for GBT models.
      * Individual trees are built using impurity "Variance."
      * @param {string} value
-     * @returns {module:eclairjs/ml/classification.GBTClassifier}
+     * @returns {module:eclairjs/ml/regression.GBTRegressor}
      */
-    GBTClassifier.prototype.setImpurity = function (value) {
+    GBTRegressor.prototype.setImpurity = function (value) {
         var javaObject = this.getJavaObject().setImpurity(value);
-        return new GBTClassifier(javaObject);
+        return new GBTRegressor(javaObject);
     };
 
 
     /**
      * @param {float} value
-     * @returns {module:eclairjs/ml/classification.GBTClassifier}
+     * @returns {module:eclairjs/ml/regression.GBTRegressor}
      */
-    GBTClassifier.prototype.setSubsamplingRate = function (value) {
+    GBTRegressor.prototype.setSubsamplingRate = function (value) {
         var javaObject = this.getJavaObject().setSubsamplingRate(value);
-        return new GBTClassifier(javaObject);
+        return new GBTRegressor(javaObject);
     };
 
 
     /**
      * @param {integer} value
-     * @returns {module:eclairjs/ml/classification.GBTClassifier}
+     * @returns {module:eclairjs/ml/regression.GBTRegressor}
      */
-    GBTClassifier.prototype.setSeed = function (value) {
+    GBTRegressor.prototype.setSeed = function (value) {
         var javaObject = this.getJavaObject().setSeed(value);
-        return new GBTClassifier(javaObject);
+        return new GBTRegressor(javaObject);
     };
 
 
     /**
      * @param {integer} value
-     * @returns {module:eclairjs/ml/classification.GBTClassifier}
+     * @returns {module:eclairjs/ml/regression.GBTRegressor}
      */
-    GBTClassifier.prototype.setMaxIter = function (value) {
+    GBTRegressor.prototype.setMaxIter = function (value) {
         var javaObject = this.getJavaObject().setMaxIter(value);
-        return new GBTClassifier(javaObject);
+        return new GBTRegressor(javaObject);
     };
 
 
     /**
      * @param {float} value
-     * @returns {module:eclairjs/ml/classification.GBTClassifier}
+     * @returns {module:eclairjs/ml/regression.GBTRegressor}
      */
-    GBTClassifier.prototype.setStepSize = function (value) {
+    GBTRegressor.prototype.setStepSize = function (value) {
         var javaObject = this.getJavaObject().setStepSize(value);
-        return new GBTClassifier(javaObject);
+        return new GBTRegressor(javaObject);
     };
 
 
     /**
      * @param {string} value
-     * @returns {module:eclairjs/ml/classification.GBTClassifier}
+     * @returns {module:eclairjs/ml/regression.GBTRegressor}
      */
-    GBTClassifier.prototype.setLossType = function (value) {
+    GBTRegressor.prototype.setLossType = function (value) {
         var javaObject = this.getJavaObject().setLossType(value);
-        return new GBTClassifier(javaObject);
+        return new GBTRegressor(javaObject);
     };
 
 
     /**
      * @returns {string}
      */
-    GBTClassifier.prototype.getLossType = function () {
+    GBTRegressor.prototype.getLossType = function () {
         return this.getJavaObject().getLossType();
     };
 
 
     /**
      * @param {module:eclairjs/ml/param.ParamMap} extra
-     * @returns {module:eclairjs/ml/classification.GBTClassifier}
+     * @returns {module:eclairjs/ml/regression.GBTRegressor}
      */
-    GBTClassifier.prototype.copy = function (extra) {
+    GBTRegressor.prototype.copy = function (extra) {
         var extra_uw = Utils.unwrapObject(extra);
         var javaObject = this.getJavaObject().copy(extra_uw);
-        return new GBTClassifier(javaObject);
+        return new GBTRegressor(javaObject);
     };
 
     /*
@@ -215,12 +214,12 @@
      */
 
     /**
-     * Accessor for supported loss settings: logistic
+     * Accessor for supported loss settings: squared (L2), absolute (L1)
      * @returns {string[]}
      */
-    GBTClassifier.supportedLossTypes = function () {
-        return org.apache.spark.ml.classification.GBTClassifier.supportedLossTypes();
+    GBTRegressor.supportedLossTypes = function () {
+        return org.apache.spark.ml.regression.GBTRegressor.supportedLossTypes();
     };
 
-    module.exports = GBTClassifier;
+    module.exports = GBTRegressor;
 })();

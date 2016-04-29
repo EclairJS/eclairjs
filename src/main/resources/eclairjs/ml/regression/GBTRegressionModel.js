@@ -23,48 +23,48 @@
 
     /**
      * @classdesc
+     *
      * [Gradient-Boosted Trees (GBTs)]{@link http://en.wikipedia.org/wiki/Gradient_boosting}
-     * model for classification.
-     * It supports binary labels, as well as both continuous and categorical features.
-     * Note: Multiclass labels are not currently supported.
+     * model for regression.
+     * It supports both continuous and categorical features.
      * @class
      * @extends module:eclairjs/ml.PredictionModel
-     * @memberof module:eclairjs/ml/classification
-     * @param {string} uid
+     * @memberof module:eclairjs/ml/regression
+     * @oaram {string} uid
      * @param {DecisionTreeRegressionModel[]} trees   Decision trees in the ensemble.
      * @param {float[]} treeWeights   Weights for the decision trees in the ensemble.
+
      */
-    var GBTClassificationModel = function (uid, trees, treeWeights) {
-        this.logger = Logger.getLogger("ml_classification_GBTClassificationModel_js");
+    var GBTRegressionModel = function (uid, trees, treeWeights) {
+        this.logger = Logger.getLogger("ml_regression_GBTRegressionModel_js");
         var jvmObject;
-        if (uid instanceof org.apache.spark.ml.classification.GBTClassificationModel) {
+        if (uid instanceof org.apache.spark.ml.regression.GBTRegressionModel) {
             jvmObject = uid;
         } else {
             var tress_uw = Utils.unwrapObject(trees);
-            jvmObject = new org.apache.spark.ml.classification.GBTClassificationModel(uid, tress_uw, treeWeights);
+            jvmObject = new org.apache.spark.ml.regression.GBTRegressionModel(uid, tress_uw, treeWeights);
         }
-
         PredictionModel.call(this, jvmObject);
 
     };
 
-    GBTClassificationModel.prototype = Object.create(PredictionModel.prototype);
+    GBTRegressionModel.prototype = Object.create(PredictionModel.prototype);
 
-    GBTClassificationModel.prototype.constructor = GBTClassificationModel;
+    GBTRegressionModel.prototype.constructor = GBTRegressionModel;
+
 
     /**
      * An immutable unique ID for the object and its derivatives.
      * @returns {string}
      */
-    GBTClassificationModel.prototype.uid = function () {
+    GBTRegressionModel.prototype.uid = function () {
         return this.getJavaObject().uid();
     };
-
 
     /**
      * @returns {DecisionTreeModel[]}
      */
-    GBTClassificationModel.prototype.trees = function () {
+    GBTRegressionModel.prototype.trees = function () {
         var javaObject = this.getJavaObject().trees();
         return Utils.javaToJs(javaObject);
     };
@@ -73,35 +73,35 @@
     /**
      * @returns {float[]}
      */
-    GBTClassificationModel.prototype.treeWeights = function () {
+    GBTRegressionModel.prototype.treeWeights = function () {
         return this.getJavaObject().treeWeights();
     };
 
 
     /**
      * @param {module:eclairjs/ml/param.ParamMap} extra
-     * @returns {module:eclairjs/ml/classification.GBTClassificationModel}
+     * @returns {module:eclairjs/ml/regression.GBTRegressionModel}
      */
-    GBTClassificationModel.prototype.copy = function (extra) {
+    GBTRegressionModel.prototype.copy = function (extra) {
         var extra_uw = Utils.unwrapObject(extra);
         var javaObject = this.getJavaObject().copy(extra_uw);
-        return new GBTClassificationModel(javaObject);
+        return new GBTRegressionModel(javaObject);
     };
 
 
     /**
      * @returns {string}
      */
-    GBTClassificationModel.prototype.toString = function () {
+    GBTRegressionModel.prototype.toString = function () {
         return this.getJavaObject().toString();
     };
 
     /**
      * @returns {string}
      */
-    GBTClassificationModel.prototype.toDebugString = function () {
+    GBTRegressionModel.prototype.toDebugString = function () {
         return this.getJavaObject().toDebugString();
     };
 
-    module.exports = GBTClassificationModel;
+    module.exports = GBTRegressionModel;
 })();

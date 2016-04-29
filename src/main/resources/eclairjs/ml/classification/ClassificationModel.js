@@ -28,8 +28,9 @@
      * Classes are indexed {0, 1, ..., numClasses - 1}.
      *
      * @class
-     * @memberof module:eclairjs/ml/classification
      * @extends module:eclairjs/ml.PredictionModel
+     * @memberof module:eclairjs/ml/classification
+     *
      */
 
     var ClassificationModel = function (jvmObject) {
