@@ -90,7 +90,7 @@ var DCTExample = function() {
     return JSON.stringify(rows);
 }
 
-var DecisionTreeClassificationExamplle = function() {
+var DecisionTreeClassificationExample = function() {
 
     load("examples/ml/decision_tree_classification_example.js");
     var result = run(sparkContext);
@@ -101,7 +101,7 @@ var DecisionTreeClassificationExamplle = function() {
     }
 }
 
-var DecisionTreeRegressionExamplle = function() {
+var DecisionTreeRegressionExample = function() {
 
     load("examples/ml/decision_tree_regression_example.js");
     var result = run(sparkContext);
@@ -112,9 +112,24 @@ var DecisionTreeRegressionExamplle = function() {
     }
 }
 
-var ElementwiseProductExamplle = function() {
+var ElementwiseProductExample = function() {
 
     load("examples/ml/elementwise_product_example.js");
     var result = run(sparkContext);
     return JSON.stringify(result.collect());
+}
+
+var EstimatorTransformerParamExample = function() {
+
+    load("examples/ml/estimator_transformer_param_example.js");
+    var result = run(sparkContext);
+
+    return JSON.stringify(result.rows);
+}
+
+var PCAExample = function() {
+
+    load("examples/ml/pca_example.js");
+    var rows = run(sparkContext).collect();
+    return JSON.stringify(rows);
 }

@@ -19,21 +19,21 @@
     var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
+    var Param = require(EclairJS_Globals.NAMESPACE + '/ml/param/Param');
 
     /**
-     * :: Experimental ::
      * A param to value map.
      * @classdesc
-     */
-
-    /**
      * Creates an empty param map.
      *  @class
      *  @memberof module:eclairjs/ml/param
      */
     var ParamMap = function (jvmObject) {
 
-        this.logger = Logger.getLogger("ParamMap_js");
+        this.logger = Logger.getLogger("ml_param_ParamMap_js");
+        if (!jvmObject) {
+            jvmObject = new org.apache.spark.ml.param.ParamMap();
+        }
         JavaWrapper.call(this, jvmObject);
 
     };
@@ -60,15 +60,23 @@
 
     /**
      * Puts a list of param pairs (overwrites if the input params exists).
-     * @param {...ParamPair} paramPairs
+     * @param {...module:eclairjs/ml/param.ParamPair | module:eclairjs/ml/param.Param} paramPairs
+     * @param {object} value
      * @returns {}
      */
-    ParamMap.prototype.put = function (paramPairs) {
-        throw "not implemented by ElairJS";
-// // TODO: handle repeated parm 'paramPairs'
-//   var paramPairs_uw = Utils.unwrapObject(paramPairs);
-//   var javaObject =  this.getJavaObject().put(paramPairs_uw);
-//   return new (javaObject);
+    ParamMap.prototype.put = function () {
+        // TODO: handle repeated parm 'paramPairs'
+        var javaObject;
+        if (arguments[0] instanceof Param) {
+            var param_uw = Utils.unwrapObject(arguments[0]);
+            var value_uw = Utils.unwrapObject(arguments[1]);
+            javaObject = this.getJavaObject().put(param_uw, value_uw);
+        } else {
+            var args = Array.prototype.slice.call(arguments);
+            var paramPairs_uw = Utils.unwrapObject(args);
+            javaObject = this.getJavaObject().put(paramPairs_uw);
+        }
+        return new ParamMap(javaObject);
     };
 
 
@@ -78,27 +86,23 @@
      * @returns {object}
      */
     ParamMap.prototype.get = function (param) {
-        throw "not implemented by ElairJS";
-//   var param_uw = Utils.unwrapObject(param);
-//   var javaObject =  this.getJavaObject().get(param_uw);
-//   return Utils.javaToJs(javaObject);
+        var param_uw = Utils.unwrapObject(param);
+        var javaObject = this.getJavaObject().get(param_uw);
+        return Utils.javaToJs(javaObject);
     };
 
 
     /**
      * Returns the value associated with a param or a default value.
      * @param {module:eclairjs/ml/param.Param} param
-     * @param {object} d
+     * @param {object} defaultValue
      * @returns {object}
      */
-    ParamMap.prototype.getOrElse = function (param,
-    d)
-    {
-        throw "not implemented by ElairJS";
-//   var param_uw = Utils.unwrapObject(param);
-//   var default_uw = Utils.unwrapObject(default);
-//   var javaObject =  this.getJavaObject().getOrElse(param_uw,default_uw);
-//   return Utils.javaToJs(javaObject);
+    ParamMap.prototype.getOrElse = function (param, defaultValue) {
+        var param_uw = Utils.unwrapObject(param);
+        var default_uw = Utils.unwrapObject(defaultValue);
+        var javaObject = this.getJavaObject().getOrElse(param_uw, default_uw);
+        return Utils.javaToJs(javaObject);
     }
     ;
 
@@ -110,10 +114,9 @@
      * @returns {object}
      */
     ParamMap.prototype.apply = function (param) {
-        throw "not implemented by ElairJS";
-//   var param_uw = Utils.unwrapObject(param);
-//   var javaObject =  this.getJavaObject().apply(param_uw);
-//   return Utils.javaToJs(javaObject);
+        var param_uw = Utils.unwrapObject(param);
+        var javaObject = this.getJavaObject().apply(param_uw);
+        return Utils.javaToJs(javaObject);
     };
 
 
@@ -123,9 +126,8 @@
      * @returns {boolean}
      */
     ParamMap.prototype.contains = function (param) {
-        throw "not implemented by ElairJS";
-//   var param_uw = Utils.unwrapObject(param);
-//   return  this.getJavaObject().contains(param_uw);
+        var param_uw = Utils.unwrapObject(param);
+        return this.getJavaObject().contains(param_uw);
     };
 
 
@@ -135,10 +137,9 @@
      * @returns {object}
      */
     ParamMap.prototype.remove = function (param) {
-        throw "not implemented by ElairJS";
-//   var param_uw = Utils.unwrapObject(param);
-//   var javaObject =  this.getJavaObject().remove(param_uw);
-//   return Utils.javaToJs(javaObject);
+        var param_uw = Utils.unwrapObject(param);
+        var javaObject = this.getJavaObject().remove(param_uw);
+        return Utils.javaToJs(javaObject);
     };
 
 
@@ -148,10 +149,9 @@
      * @returns {module:eclairjs/ml/param.ParamMap}
      */
     ParamMap.prototype.filter = function (parent) {
-        throw "not implemented by ElairJS";
-//   var parent_uw = Utils.unwrapObject(parent);
-//   var javaObject =  this.getJavaObject().filter(parent_uw);
-//   return new ParamMap(javaObject);
+        var parent_uw = Utils.unwrapObject(parent);
+        var javaObject = this.getJavaObject().filter(parent_uw);
+        return new ParamMap(javaObject);
     };
 
 
@@ -160,9 +160,8 @@
      * @returns {module:eclairjs/ml/param.ParamMap}
      */
     ParamMap.prototype.copy = function () {
-        throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().copy();
-//   return new ParamMap(javaObject);
+        var javaObject = this.getJavaObject().copy();
+        return new ParamMap(javaObject);
     };
 
 
@@ -170,8 +169,7 @@
      * @returns {string}
      */
     ParamMap.prototype.toString = function () {
-        throw "not implemented by ElairJS";
-//   return  this.getJavaObject().toString();
+        return this.getJavaObject().toString();
     };
 
 
@@ -182,44 +180,40 @@
      * @returns {module:eclairjs/ml/param.ParamMap}
      */
     ParamMap.prototype.$plus$plus = function (other) {
-        throw "not implemented by ElairJS";
-//   var other_uw = Utils.unwrapObject(other);
-//   var javaObject =  this.getJavaObject().$plus$plus(other_uw);
-//   return new ParamMap(javaObject);
+        var other_uw = Utils.unwrapObject(other);
+        var javaObject = this.getJavaObject().$plus$plus(other_uw);
+        return new ParamMap(javaObject);
     };
 
 
     /**
      * Adds all parameters from the input param map into this param map.
      * @param {module:eclairjs/ml/param.ParamMap} other
-     * @returns {}
+     * @returns {module:eclairjs/ml/param.ParamMap}
      */
     ParamMap.prototype.$plus$plus$eq = function (other) {
-        throw "not implemented by ElairJS";
-//   var other_uw = Utils.unwrapObject(other);
-//   var javaObject =  this.getJavaObject().$plus$plus$eq(other_uw);
-//   return new (javaObject);
+        var other_uw = Utils.unwrapObject(other);
+        var javaObject = this.getJavaObject().$plus$plus$eq(other_uw);
+        return new ParamMap(javaObject);
     };
 
 
     /**
-     * Converts this param map to a sequence of param pairs.
+     * Converts this param map to a array of param pairs.
      * @returns {module:eclairjs/ml/param.ParamMap[]}
      */
-    ParamMap.prototype.toSeq = function () {
-        throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().toSeq();
-//   return Utils.javaToJs(javaObject);
+    ParamMap.prototype.toArray = function () {
+        var javaObject = this.getJavaObject().toSeq();
+        return Utils.javaToJs(javaObject);
     };
 
 
     /**
      * Number of param pairs in this map.
-     * @returns {number}
+     * @returns {integer}
      */
     ParamMap.prototype.size = function () {
-        throw "not implemented by ElairJS";
-//   return  this.getJavaObject().size();
+        return this.getJavaObject().size();
     };
 //
 // static methods
@@ -231,9 +225,8 @@
      * @returns {module:eclairjs/ml/param.ParamMap}
      */
     ParamMap.empty = function () {
-        throw "not implemented by ElairJS";
-//   var javaObject =  org.apache.spark.ml.param.ParamMap.empty();
-//   return new ParamMap(javaObject);
+        var javaObject = org.apache.spark.ml.param.ParamMap.empty();
+        return new ParamMap(javaObject);
     };
 
 
@@ -243,11 +236,11 @@
      * @returns {module:eclairjs/ml/param.ParamMap}
      */
     ParamMap.apply = function (paramPairs) {
-        throw "not implemented by ElairJS";
-// // TODO: handle repeated parm 'paramPairs'
-//   var paramPairs_uw = Utils.unwrapObject(paramPairs);
-//   var javaObject =  org.apache.spark.ml.param.ParamMap.apply(paramPairs_uw);
-//   return new ParamMap(javaObject);
+
+        // TODO: handle repeated parm 'paramPairs'
+        var paramPairs_uw = Utils.unwrapObject(paramPairs);
+        var javaObject = org.apache.spark.ml.param.ParamMap.apply(paramPairs_uw);
+        return new ParamMap(javaObject);
     };
 
     module.exports = ParamMap;

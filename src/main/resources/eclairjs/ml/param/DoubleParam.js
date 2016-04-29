@@ -17,7 +17,7 @@
 
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
-    var Param = require(EclairJS_Globals.NAMESPACE + 'ml/param/Param');
+    var Param = require(EclairJS_Globals.NAMESPACE + '/ml/param/Param');
 
 
     /**
