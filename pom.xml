@@ -333,6 +333,7 @@
     <profile>
       <id>notebook</id>
       <dependencies>
+        <!--
         <dependency>
           <groupId>org.apache.toree</groupId>
           <artifactId>toree-kernel-api_2.10</artifactId>
@@ -344,30 +345,18 @@
           <artifactId>toree-kernel_2.10</artifactId>
           <version>${toree.version}</version>
           <scope>provided</scope>
+        </dependency-->
+        <dependency>
+          <groupId>org.apache.toree</groupId>
+          <artifactId>toree</artifactId>
+          <version>${toree.version}</version>
+          <scope>system</scope>
+          <systemPath>/Users/bburns/anaconda/lib/python3.4/site-packages/toree/lib/toree-kernel-assembly-0.1.0.dev4-SNAPSHOT.jar</systemPath>
         </dependency>
+
       </dependencies>
       <build>
         <plugins>
-          <!--
-          <plugin>
-            <groupId>com.googlecode.maven-download-plugin</groupId>
-            <artifactId>download-maven-plugin</artifactId>
-            <version>1.3.0</version>
-            <executions>
-              <execution>
-                <phase>clean</phase>
-                <goals>
-                  <goal>wget</goal>
-                </goals>
-                <configuration>
-                  <url>https://pypi.python.org/packages/source/t/toree/toree-${toree.version}.tar.gz</url>
-                  <outputDirectory>${project.build.directory}/toree</outputDirectory>
-                  <unpack>true</unpack>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        -->
           <plugin>
             <groupId>net.alchim31.maven</groupId>
             <artifactId>scala-maven-plugin</artifactId>
