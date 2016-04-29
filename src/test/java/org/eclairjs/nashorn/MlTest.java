@@ -400,6 +400,19 @@ public class MlTest {
 
     }
 
+    @Test
+    public void GradientBoostedTreeClassifierExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("GradientBoostedTreeClassifierExample");
+
+        String expected = "passed";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
+
     /*
         tests
         PCA()

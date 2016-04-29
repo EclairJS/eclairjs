@@ -17,13 +17,21 @@
 (function () {
     /**
      * ml feature module.
-     * @example
-     * var ml = require('eclairjs/ml/classification');
      * @module eclairjs/ml/classification
      */
     module.exports = {
+        Classifier: require(EclairJS_Globals.NAMESPACE + '/ml/classification/Classifier'),
+        ClassificationModel: require(EclairJS_Globals.NAMESPACE + '/ml/classification/ClassificationModel'),
+        ProbabilisticClassifier: require(EclairJS_Globals.NAMESPACE + '/ml/classification/ProbabilisticClassifier'),
+        ProbabilisticClassifierModel: require(EclairJS_Globals.NAMESPACE + '/ml/classification/ProbabilisticClassifierModel'),
         DecisionTreeClassifier: require(EclairJS_Globals.NAMESPACE + '/ml/classification/DecisionTreeClassifier'),
-        DecisionTreeClassificationModel: require(EclairJS_Globals.NAMESPACE + '/ml/classification/DecisionTreeClassificationModel')
+        DecisionTreeClassificationModel: require(EclairJS_Globals.NAMESPACE + '/ml/classification/DecisionTreeClassificationModel'),
+        GBTClassification: require(EclairJS_Globals.NAMESPACE + '/ml/classification/GBTClassification'),
+        GBTClassificationModel: require(EclairJS_Globals.NAMESPACE + '/ml/classification/GBTClassificationModel'),
+        LogisticRegression: require(EclairJS_Globals.NAMESPACE + '/ml/classification/LogisticRegression'),
+        LogisticRegressionModel: require(EclairJS_Globals.NAMESPACE + '/ml/classification/LogisticRegressionModel'),
+        LogisticRegressionSummary: require(EclairJS_Globals.NAMESPACE + '/ml/classification/LogisticRegressionSummary'),
+        LogisticRegressionTrainingSummary: require(EclairJS_Globals.NAMESPACE + '/ml/classification/LogisticRegressionTrainingSummary')
     }
 
 })();
