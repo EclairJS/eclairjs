@@ -163,6 +163,17 @@ var KMeansExample = function() {
     return JSON.stringify(result);
 }
 
+var LDAExample = function() {
+
+    load("examples/ml/LDA_example.js");
+    var result = run(sparkContext);
+    if (result) {
+        return "passed";
+    } else {
+        return "failed";
+    }
+}
+
 var PCAExample = function() {
 
     load("examples/ml/pca_example.js");

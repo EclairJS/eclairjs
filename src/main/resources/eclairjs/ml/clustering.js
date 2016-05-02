@@ -20,6 +20,10 @@
      * @module eclairjs/ml/clustering
      */
     module.exports = {
+        LDA: require(EclairJS_Globals.NAMESPACE + '/ml/clustering/LDA'),
+        LDAModel: require(EclairJS_Globals.NAMESPACE + '/ml/clustering/LDAModel'),
+        LocalLDAModel: require(EclairJS_Globals.NAMESPACE + '/ml/clustering/LocalLDAModel'),
+        DistributedLDAModel: require(EclairJS_Globals.NAMESPACE + '/ml/clustering/DistributedLDAModel'),
         KMeans: require(EclairJS_Globals.NAMESPACE + '/ml/clustering/KMeans'),
         KMeansModel: require(EclairJS_Globals.NAMESPACE + '/ml/clustering/KMeansModel')
 

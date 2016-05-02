@@ -533,6 +533,14 @@ public class MlTest {
         assertEquals("failure - strings are not equal", expected, ret);
 
     }
+
+    /*
+        tests
+        KMeans()
+        KMeans.setK(k);
+        KMeans.fit(dataframe);
+        KMeansModel.clusterCenters();
+     */
     @Test
     public void KMeansExample() throws Exception {
         ScriptEngine engine = TestUtils.getEngine();
@@ -545,6 +553,31 @@ public class MlTest {
         assertEquals("failure - strings are not equal", expected, ret);
 
     }
+
+    /*
+        tests
+        LDA()
+        LDA.setK(10)
+        LDA.setMaxIter(10);
+        LDA.fit(DataFrame);
+        LDAModel.logLikelihood(DataFrame);
+        LDAModel.logPerplexity(DataFrame);
+        LDAModel.describeTopics(3);
+        LDAModel.transform(DataFrame);
+     */
+    @Test
+    public void LDAExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("LDAExample");
+
+        String expected = "passed";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
+
     /*
         tests
         PCA()
