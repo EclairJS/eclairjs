@@ -162,8 +162,8 @@
 
 
     /**
-     * @param {StructType} schema
-     * @returns {StructType}
+     * @param {module:eclairjs/sql/types.StructType} schema
+     * @returns {module:eclairjs/sql/types.StructType}
      */
     KMeans.prototype.transformSchema = function (schema) {
         var schema_uw = Utils.unwrapObject(schema);

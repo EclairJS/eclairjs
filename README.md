@@ -32,6 +32,9 @@ list.count();
 ## Examples
 ```javascript
 
+    var SparkConf = require('eclairjs/SparkConf');
+    var SparkContext = require('eclairjs/SparkContext');
+    
     var file = "src/test/resources/dream.txt"; // Should be some file on your system
     var conf = new SparkConf().setAppName("JavaScript word count")
                           .setMaster("local[*]");
@@ -90,8 +93,9 @@ Instructions:
 
 9. Enter the following code in notebook cell and run
  ```javascript
- var jsc = new SparkContext("local[*]", "myapp");
- var rdd = jsc.parallelize([10, 4, 2, 12, 3]);
+ var SparkContext = require('eclairjs/SparkContext');
+ var sc = new SparkContext("local[*]", "myapp");
+ var rdd = sc.parallelize([10, 4, 2, 12, 3]);
  eval("count = " + rdd.count());
  ```
 
