@@ -22,10 +22,8 @@
 function run(sc) {
 
     var SQLContext = require('eclairjs/sql/SQLContext');
-    //var StringIndexer = require('eclairjs/ml/feature/StringIndexer');
     var VectorIndexer = require('eclairjs/ml/feature/VectorIndexer');
     var GBTRegressor = require('eclairjs/ml/regression/GBTRegressor');
-    //var IndexToString = require('eclairjs/ml/feature/IndexToString');
     var Pipeline = require('eclairjs/ml/Pipeline');
     var RegressionEvaluator = require('eclairjs/ml/evaluation/RegressionEvaluator');
 
