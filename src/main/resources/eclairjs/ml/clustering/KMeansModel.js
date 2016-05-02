@@ -73,8 +73,8 @@
 
 
     /**
-     * @param {StructType} schema
-     * @returns {StructType}
+     * @param {module:eclairjs/sql/types.StructType} schema
+     * @returns {module:eclairjs/sql/types.StructType}
      */
     KMeansModel.prototype.transformSchema = function (schema) {
         var schema_uw = Utils.unwrapObject(schema);
@@ -84,7 +84,7 @@
 
 
     /**
-     * @returns {Vector[]}
+     * @returns {module:eclairjs/mllib/linalg.Vector[]}
      */
     KMeansModel.prototype.clusterCenters = function () {
         var javaObject = this.getJavaObject().clusterCenters();
