@@ -41,7 +41,7 @@ var SparkTC = function() {
 }
 
 var SparkPI = function() {
-    load("examples/spark_PI.js");
+    load("examples/spark_pi.js");
     var result = run(sparkContext);
     if (result > 3.1) {
         return "all is good";

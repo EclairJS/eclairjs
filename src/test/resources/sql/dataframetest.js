@@ -36,6 +36,7 @@ var sparkContext = new SparkContext("local[*]", "dataframe");
 var sqlContext = new SQLContext(sparkContext);
 var useDateType = false;
 
+load("https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.9.0/lodash.min.js");
 
 
 var buildPeopleTable = function(file, date) {
@@ -355,7 +356,9 @@ var dataframeJoinTest = function(file, usingColumn) {
 	var df1 = buildPeopleTable(file).as("df1");
 	var df2 = buildPeopleTable(file).as("df2");
 	var joinedDf = df1.join(df2, usingColumn);
-	return joinedDf.sort("df1.age").head().toString();
+	var expected = ['Justin',19,3,'1992-03-07 00:00:00.0',1600,true,100000,'Justin',19,3,'1992-03-07 00:00:00.0',1600,true,100000];
+	var ret = joinedDf.sort("df1.age").head();
+	return _.difference(ret, expected).length === 0;
 	
 }
 

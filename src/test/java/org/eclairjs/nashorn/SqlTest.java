@@ -473,7 +473,7 @@ public class SqlTest {
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable) engine).invokeFunction("dataframeJoinTest", file);
 
-        assertEquals("should be same", "[Justin,19,3,1992-03-07 00:00:00.0,1600,true,100000,Justin,19,3,1992-03-07 00:00:00.0,1600,true,100000]", ret);
+        assertEquals("should be same", true, ret);
     }
 
     @Test
@@ -488,7 +488,7 @@ public class SqlTest {
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable) engine).invokeFunction("dataframeJoinTest", file, "age");
 
-        assertEquals("should be same", "[19,Justin,3,1992-03-07 00:00:00.0,1600,true,100000,Justin,3,1992-03-07 00:00:00.0,1600,true,100000]", ret);
+        assertEquals("should be same", true, ret);
     }
 
     @Test

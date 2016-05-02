@@ -42,14 +42,7 @@ public class MlTest {
         TestUtils.evalJSResource(engine, "/ml/mltest.js");
         Object ret = ((Invocable)engine).invokeFunction("Word2VecExample");
         
-        String expected = "[" +
-                "{\"values\":[[-0.006959987431764603,-0.002663574367761612,0.030144984275102617]]," +
-                "\"schema\":{\"fields\":[{\"name\":\"result\",\"dataType\":\"vector\",\"nullable\":true}]}}," +
-                "{\"values\":[[0.03422858566045761,0.026469426163073094,-0.02045729543481554]]," +
-                "\"schema\":{\"fields\":[{\"name\":\"result\",\"dataType\":\"vector\",\"nullable\":true}]}}," +
-                "{\"values\":[[0.04996728524565697,0.0027822263538837435,0.04833737155422568]]," +
-                "\"schema\":{\"fields\":[{\"name\":\"result\",\"dataType\":\"vector\",\"nullable\":true}]}}" +
-                "]";
+        String expected = "passed";
 
         assertEquals("failure - strings are not equal", expected, ret);
 
@@ -382,19 +375,7 @@ public class MlTest {
         TestUtils.evalJSResource(engine, "/ml/mltest.js");
         Object ret = ((Invocable)engine).invokeFunction("EstimatorTransformerParamExample");
 
-        String schema = "{" +
-                            "\"fields\":[" +
-                                "{\"name\":\"features\",\"dataType\":\"vector\",\"nullable\":true}," +
-                                "{\"name\":\"label\",\"dataType\":\"double\",\"nullable\":false}," +
-                                "{\"name\":\"myProbability\",\"dataType\":\"vector\",\"nullable\":true}," +
-                                "{\"name\":\"prediction\",\"dataType\":\"double\",\"nullable\":true}" +
-                            "]" +
-                        "}";
-        String expected = "[" +
-                "{\"values\":[[-1,1.5,1.3],1,[0.12057154405357727,0.8794284559464228],1],\"schema\":"+schema+"}," +
-                "{\"values\":[[3,2,-0.1],0,[0.9923178731504477,0.007682126849552308],0],\"schema\":"+schema+"}," +
-                "{\"values\":[[0,2.2,-1.5],1,[0.7486054956351224,0.2513945043648776],0],\"schema\":"+schema+"}" +
-                "]";
+        String expected = "passed";
 
         assertEquals("failure - strings are not equal", expected, ret);
 
