@@ -16,7 +16,7 @@
  */
 (function () {
     /**
-     * ml feature module.
+     * ml classification module.
      * @module eclairjs/ml/classification
      */
     module.exports = {

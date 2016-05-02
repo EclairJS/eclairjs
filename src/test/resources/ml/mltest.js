@@ -156,6 +156,13 @@ var IndexToStringExample = function() {
     return JSON.stringify(result.collect());
 }
 
+var KMeansExample = function() {
+
+    load("examples/ml/kmeans_example.js");
+    var result = run(sparkContext);
+    return JSON.stringify(result);
+}
+
 var PCAExample = function() {
 
     load("examples/ml/pca_example.js");

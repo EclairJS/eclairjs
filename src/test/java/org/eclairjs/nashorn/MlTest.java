@@ -533,7 +533,18 @@ public class MlTest {
         assertEquals("failure - strings are not equal", expected, ret);
 
     }
+    @Test
+    public void KMeansExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
 
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("KMeansExample");
+
+        String expected = "[[0.1,0.1,0.1],[9.05,9.05,9.05],[9.2,9.2,9.2]]";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
     /*
         tests
         PCA()

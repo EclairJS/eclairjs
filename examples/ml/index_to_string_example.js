@@ -32,7 +32,7 @@ function run(sc) {
 
     var sqlContext = new SQLContext(sc);
 
-    var jrdd = sc.parallelize([
+    var rdd = sc.parallelize([
         RowFactory.create(0, "a"),
         RowFactory.create(1, "b"),
         RowFactory.create(2, "c"),
@@ -44,7 +44,7 @@ function run(sc) {
         new StructField("id", DataTypes.IntegerType, false, Metadata.empty()),
             new StructField("category", DataTypes.StringType, false, Metadata.empty())
     ]);
-    var df = sqlContext.createDataFrame(jrdd, schema);
+    var df = sqlContext.createDataFrame(rdd, schema);
 
     var indexer = new StringIndexer()
         .setInputCol("category")
