@@ -149,6 +149,13 @@ var GradientBoostedTreeRegressorExample = function() {
     }
 }
 
+var IndexToStringExample = function() {
+
+    load("examples/ml/index_to_string_example.js");
+    var result = run(sparkContext);
+    return JSON.stringify(result.collect());
+}
+
 var PCAExample = function() {
 
     load("examples/ml/pca_example.js");

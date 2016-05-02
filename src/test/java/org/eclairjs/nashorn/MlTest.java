@@ -498,6 +498,44 @@ public class MlTest {
 
     /*
         tests
+        StringIndexer()
+        StringIndexer.setInputCol("category")
+        StringIndexer.setOutputCol("categoryIndex")
+        StringIndexer.fit(df);
+        StringIndexer.transform(df);
+        IndexToString()
+        IndexToString.setInputCol("categoryIndex")
+        IndexToString.setOutputCol("originalCategory");
+        IndexToString.transform(indexed);
+     */
+    @Test
+    public void IndexToStringExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("IndexToStringExample");
+
+        String schema = "{" +
+                "\"fields\":[" +
+                    "{\"name\":\"id\",\"dataType\":\"integer\",\"nullable\":false}," +
+                    "{\"name\":\"originalCategory\",\"dataType\":\"string\",\"nullable\":true}" +
+                "]" +
+            "}";
+        String expected = "[" +
+                    "{\"values\":[0,\"a\"],\"schema\":"+schema+"}," +
+                    "{\"values\":[1,\"b\"],\"schema\":"+schema+"}," +
+                    "{\"values\":[2,\"c\"],\"schema\":"+schema+"}," +
+                    "{\"values\":[3,\"a\"],\"schema\":"+schema+"}," +
+                    "{\"values\":[4,\"a\"],\"schema\":"+schema+"}," +
+                    "{\"values\":[5,\"c\"],\"schema\":"+schema+"}" +
+                "]";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
+
+    /*
+        tests
         PCA()
         PCA.setInputCol("features");
         PCA.setOutputCol("pcaFeatures");
