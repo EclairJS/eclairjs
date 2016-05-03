@@ -633,6 +633,28 @@ public class MlTest {
         assertEquals("failure - strings are not equal", expected, ret);
 
     }
+    /*
+        tests
+        LogisticRegression()
+        LogisticRegression.setMaxIter(10)
+        LogisticRegression.setRegParam(0.3)
+        LogisticRegression.setElasticNetParam(0.8);
+        LogisticRegression.fit(training);
+        LogisticRegressionModel.coefficients();
+        LogisticRegressionModel.intercept();
+     */
+    @Test
+    public void LogisticRegressionWithElasticNetExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("LogisticRegressionWithElasticNetExample");
+
+        String expected = "passed";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
 
     /*
         tests

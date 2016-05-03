@@ -49,7 +49,23 @@
     LogisticRegressionModel.prototype.uid = function () {
         return this.getJavaObject().uid();
     };
-    
+
+    /**
+     * @returns {module:eclairjs/mllib/linalg.Vector}
+     */
+    LogisticRegressionModel.prototype.coefficients = function() {
+        var javaObject =  this.getJavaObject().coefficients();
+        return Utils.javaToJs(javaObject);
+    };
+
+    /**
+     *
+     * @returns {float}
+     */
+    LogisticRegressionModel.prototype.intercept = function() {
+        return this.getJavaObject().intercept();
+    };
+
     /**
      * @returns {module:eclairjs/mllib/linalg.Vector} 
      */
