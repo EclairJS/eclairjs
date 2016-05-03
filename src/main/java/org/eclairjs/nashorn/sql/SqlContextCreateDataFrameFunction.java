@@ -4,11 +4,7 @@ package org.eclairjs.nashorn.sql;
 import org.apache.spark.api.java.function.Function;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.RowFactory;
-import org.apache.spark.sql.types.IntegerType;
-import org.apache.spark.sql.types.FloatType;
-import org.apache.spark.sql.types.StructType;
-import org.apache.spark.sql.types.StructField;
-import org.apache.spark.sql.types.DataType;
+import org.apache.spark.sql.types.*;
 
 import java.util.ArrayList;
 /*
@@ -40,6 +36,10 @@ public class SqlContextCreateDataFrameFunction implements Function {
                 f = ((Double) f).intValue();
             } else if ((f instanceof Double) && (dt instanceof FloatType)) {
                 f = ((Double) f).floatValue();
+            } else if ((f instanceof Integer) && (dt instanceof DoubleType)) {
+                f = ((Integer) f).doubleValue();
+            } else if ((f instanceof Integer) && (dt instanceof FloatType)) {
+                f = ((Integer) f).floatValue();
             }
             a.add(f);
         }
