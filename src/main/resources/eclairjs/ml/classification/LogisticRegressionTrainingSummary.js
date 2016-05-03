@@ -51,7 +51,7 @@
      * @returns {float[]}
      */
     LogisticRegressionTrainingSummary.prototype.objectiveHistory = function() {
-       return  this.getJavaObject().objectiveHistory();
+       return  Utils.javaToJs(this.getJavaObject().objectiveHistory());
     };
     
     

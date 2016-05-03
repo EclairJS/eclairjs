@@ -578,12 +578,55 @@ public class MlTest {
 
     }
 
+    /*
+        tests
+        LinearRegression()
+        LinearRegression.setMaxIter(10)
+        LinearRegression.setRegParam(0.3)
+        LinearRegression.setElasticNetParam(0.8);
+        LinearRegression.fit(training);
+        LinearRegressionModel.summary();
+        LinearRegressionModel.coefficients();
+        LinearRegressionModel.intercept();
+        LinearRegressionTrainingSummary.totalIterations();
+        LinearRegressionTrainingSummary.objectiveHistory()
+        LinearRegressionTrainingSummary.residuals();
+        LinearRegressionTrainingSummary.rootMeanSquaredError();
+        LinearRegressionTrainingSummary.r2();
+     */
     @Test
     public void LinearRegressionWithElasticNetExample() throws Exception {
         ScriptEngine engine = TestUtils.getEngine();
 
         TestUtils.evalJSResource(engine, "/ml/mltest.js");
         Object ret = ((Invocable)engine).invokeFunction("LinearRegressionWithElasticNetExample");
+
+        String expected = "passed";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
+
+    /*
+        tests
+        LogisticRegression()
+        LogisticRegression.setMaxIter(10)
+        LogisticRegression.setRegParam(0.3)
+        LogisticRegression.setElasticNetParam(0.8);
+        LogisticRegression.fit(training);
+        LogisticRegressionModel.summary();
+        LogisticRegressionModel.setThreshold(bestThreshold);
+        BinaryLogisticRegressionSummary.objectiveHistory();
+        BinaryLogisticRegressionSummary.roc();
+        BinaryLogisticRegressionSummary.areaUnderROC();
+        BinaryLogisticRegressionSummary.fMeasureByThreshold();
+     */
+    @Test
+    public void LogisticRegressionSummaryExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("LogisticRegressionSummaryExample");
 
         String expected = "passed";
 
