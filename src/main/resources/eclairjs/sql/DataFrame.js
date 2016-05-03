@@ -704,11 +704,11 @@
 		return Utils.javaToJs(this.getJavaObject().toDF(args));
 	};
 	/**
-	 * Returns the content of the DataFrame as a RDD of JSON strings.
-	 * @returns {module:eclairjs.RDD}
+	 * Returns the content of the DataFrame as JSON.
+	 * @returns {object}
 	 */
 	DataFrame.prototype.toJSON = function () {
-		return Utils.javaToJs(this.getJavaObject().toJSON());
+        return this.collect();
 	};
 	/**
 	 * Represents the content of the DataFrame as an RDD of Rows.

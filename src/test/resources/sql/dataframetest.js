@@ -184,7 +184,7 @@ var dataframeDescribeTest = function(file) {
 	var peopleDataFrame = buildPeopleTable(file);
 	var df = peopleDataFrame.describe("age", "expense");
 	
-	return df.toJSON().toArray().toString();
+	return JSON.stringify(df);
 }
 
 var dataframeDistinctTest = function(file) {
@@ -211,7 +211,7 @@ var dataframeExceptTest = function(file) {
 	var resultDf = peopleDataFrame.except(df2);
 	resultDf.explain(true);
 	resultDf.printSchema();
-	return resultDf.toJSON().toArray().toString();
+	return JSON.stringify(resultDf);
 }
 var dataframeFilterTest = function(file) {
 

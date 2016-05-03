@@ -189,7 +189,35 @@ public class SqlTest {
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable) engine).invokeFunction("dataframeDescribeTest", file);
-        String expected = "{\"summary\":\"count\",\"age\":\"3\",\"expense\":\"3\"},{\"summary\":\"mean\",\"age\":\"26.0\",\"expense\":\"2.0\"},{\"summary\":\"stddev\",\"age\":\"6.082762530298219\",\"expense\":\"1.0\"},{\"summary\":\"min\",\"age\":\"19\",\"expense\":\"1\"},{\"summary\":\"max\",\"age\":\"30\",\"expense\":\"3\"}";
+        String schema = "{" +
+                            "\"fields\":[" +
+                                "{\"name\":\"summary\",\"dataType\":\"string\",\"nullable\":true}," +
+                                "{\"name\":\"age\",\"dataType\":\"string\",\"nullable\":true}," +
+                                "{\"name\":\"expense\",\"dataType\":\"string\",\"nullable\":true}" +
+                            "]" +
+                        "}";
+        String expected = "[" +
+                                "{" +
+                                    "\"values\":[\"count\",\"3\",\"3\"]," +
+                                    "\"schema\":" +schema+
+                                "}," +
+                                "{" +
+                                    "\"values\":[\"mean\",\"26.0\",\"2.0\"]," +
+                                    "\"schema\":" +schema+
+                                "}," +
+                                "{" +
+                                    "\"values\":[\"stddev\",\"6.082762530298219\",\"1.0\"]," +
+                                    "\"schema\":" +schema+
+                                "}," +
+                                "{" +
+                                    "\"values\":[\"min\",\"19\",\"1\"]," +
+                                    "\"schema\":" +schema+
+                                "}," +
+                                "{" +
+                                    "\"values\":[\"max\",\"30\",\"3\"]," +
+                                    "\"schema\":" +schema+
+                                "}" +
+                            "]";
         assertEquals("should be same", expected, ret);
     }
 
@@ -254,7 +282,22 @@ public class SqlTest {
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable) engine).invokeFunction("dataframeExceptTest", file);
-        String expect = "{\"name\":\"Justin\",\"age\":19,\"expense\":3,\"DOB\":\"1992-03-07 00:00:00.0\",\"income\":1600.0,\"married\":true,\"networth\":100000.0}";
+        String expect = "[" +
+                            "{" +
+                                "\"values\":[\"Justin\",19,3,\"1992-03-07 00:00:00.0\",1600,true,100000]," +
+                                "\"schema\":{" +
+                                    "\"fields\":[" +
+                                        "{\"name\":\"name\",\"dataType\":\"string\",\"nullable\":true}," +
+                                        "{\"name\":\"age\",\"dataType\":\"integer\",\"nullable\":true}," +
+                                        "{\"name\":\"expense\",\"dataType\":\"integer\",\"nullable\":true}," +
+                                        "{\"name\":\"DOB\",\"dataType\":\"timestamp\",\"nullable\":true}," +
+                                        "{\"name\":\"income\",\"dataType\":\"double\",\"nullable\":true}," +
+                                        "{\"name\":\"married\",\"dataType\":\"boolean\",\"nullable\":true}," +
+                                        "{\"name\":\"networth\",\"dataType\":\"double\",\"nullable\":true}" +
+                                    "]" +
+                                "}" +
+                            "}" +
+                        "]";
         assertEquals("should be same", expect, ret);
     }
 

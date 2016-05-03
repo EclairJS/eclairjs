@@ -16,7 +16,7 @@
 
 (function () {
 
-    var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
+    var Predictor = require(EclairJS_Globals.NAMESPACE + '/ml/Predictor');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
 
@@ -24,7 +24,6 @@
     
     /**
      * @classdesc
-     * :: Experimental ::
      * Linear regression.
      *
      * The learning objective is to minimize the squared error, with regularization.
@@ -37,15 +36,12 @@
      *  - L1 (Lasso)
      *  - L2 + L1 (elastic net)
      * @class
+     * @extends module:eclairjs/ml.Predictor
      * @memberof module:eclairjs/ml/regression
-     */
-    
-    /**
      * @param {string} [uid]
-     * @constructor
      */
     var LinearRegression = function(uid) {
-    	 this.logger = Logger.getLogger("LinearRegression_js");
+    	 this.logger = Logger.getLogger("ml_regression_LinearRegression_js");
         var jvmObject;
         if (uid) {
             if (uid instanceof org.apache.spark.ml.feature.VectorIndexer) {
@@ -57,11 +53,11 @@
             jvmObject =  new org.apache.spark.ml.regression.LinearRegression();
         }
 
-    	 JavaWrapper.call(this, jvmObject);
+        Predictor.call(this, jvmObject);
     
     };
     
-    LinearRegression.prototype = Object.create(JavaWrapper.prototype);
+    LinearRegression.prototype = Object.create(Predictor.prototype);
     
     LinearRegression.prototype.constructor = LinearRegression;
     
