@@ -37,6 +37,7 @@
         MinMaxScaler: require(EclairJS_Globals.NAMESPACE + '/ml/feature/MinMaxScaler'),
         MinMaxScalerModel: require(EclairJS_Globals.NAMESPACE + '/ml/feature/MinMaxScalerModel'),
         RegexTokenizer: require(EclairJS_Globals.NAMESPACE + '/ml/feature/RegexTokenizer'),
+        SQLTransformer: require(EclairJS_Globals.NAMESPACE + '/ml/feature/SQLTransformer'),
         StandardScaler: require(EclairJS_Globals.NAMESPACE + '/ml/feature/StandardScaler'),
         StandardScalerModel: require(EclairJS_Globals.NAMESPACE + '/ml/feature/StandardScalerModel'),
         StopWordsRemover: require(EclairJS_Globals.NAMESPACE + '/ml/feature/StopWordsRemover'),
