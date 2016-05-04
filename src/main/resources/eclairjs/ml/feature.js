@@ -34,6 +34,8 @@
         IDF: require(EclairJS_Globals.NAMESPACE + '/ml/feature/IDF'),
         IDFModel: require(EclairJS_Globals.NAMESPACE + '/ml/feature/IDFModel'),
         IndexToString: require(EclairJS_Globals.NAMESPACE + '/ml/feature/IndexToString'),
+        MinMaxScaler: require(EclairJS_Globals.NAMESPACE + '/ml/feature/MinMaxScaler'),
+        MinMaxScalerModel: require(EclairJS_Globals.NAMESPACE + '/ml/feature/MinMaxScalerModel'),
         RegexTokenizer: require(EclairJS_Globals.NAMESPACE + '/ml/feature/RegexTokenizer'),
         StringIndexer: require(EclairJS_Globals.NAMESPACE + '/ml/feature/StringIndexer'),
         Tokenizer: require(EclairJS_Globals.NAMESPACE + '/ml/feature/Tokenizer'),
