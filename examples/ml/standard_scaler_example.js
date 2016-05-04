@@ -22,32 +22,26 @@ function run(sc) {
 
 
     var SQLContext = require('eclairjs/sql/SQLContext');
-    var StopWordsRemover = require('eclairjs/ml/feature/StopWordsRemover');
-    var StructType = require('eclairjs/sql/types/StructType');
-    var StructField = require('eclairjs/sql/types/StructField');
-    var DataTypes = require('eclairjs/sql/types').DataTypes;
-    var Metadata = require('eclairjs/sql/types/Metadata');
-    var RowFactory = require('eclairjs/sql/RowFactory');
+    var StandardScaler = require('eclairjs/ml/feature/StandardScaler');
+
 
     var sqlContext = new SQLContext(sc);
 
-    var remover = new StopWordsRemover()
-      .setInputCol("raw")
-      .setOutputCol("filtered");
+    var dataFrame = sqlContext.read().format("libsvm").load("examples/data/mllib/sample_libsvm_data.txt");
 
-    var rdd = sc.parallelize([
-      RowFactory.create([["I", "saw", "the", "red", "baloon"]]),
-      RowFactory.create([["Mary", "had", "a", "little", "lamb"]])
-    ]);
+    var scaler = new StandardScaler()
+      .setInputCol("features")
+      .setOutputCol("scaledFeatures")
+      .setWithStd(true)
+      .setWithMean(false);
 
-    var schema = new StructType([
-      new StructField(
-        "raw", DataTypes.createArrayType(DataTypes.StringType), false, Metadata.empty())
-    ]);
+    // Compute summary statistics by fitting the StandardScaler
+    var scalerModel = scaler.fit(dataFrame);
 
-    var dataset = sqlContext.createDataFrame(rdd, schema);
-    remover.transform(dataset).show();
+    // Normalize each feature to have unit standard deviation.
+    var scaledData = scalerModel.transform(dataFrame);
 
+    return scaledData;
 
 
 }
@@ -59,9 +53,11 @@ function run(sc) {
 if (typeof sparkContext === 'undefined')  {
     var SparkConf = require('eclairjs/SparkConf');
     var SparkContext = require('eclairjs/SparkContext');
-    var sparkConf = new SparkConf().setAppName("JavaScript StopWordsRemoverExample");
+    var sparkConf = new SparkConf().setAppName("JavaScript StandardScalerExample");
     var sc = new SparkContext(sparkConf);
     var output = run(sc);
+
+    output.show(20,true);
 
     // $example off$
     sc.stop();
