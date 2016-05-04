@@ -639,6 +639,27 @@ public class MlTest {
 
     /*
         tests
+        MinMaxScaler()
+        MinMaxScaler.setInputCol("features")
+        MinMaxScaler.setOutputCol("scaledFeatures");
+        MinMaxScaler.fit(dataFrame);
+        MinMaxScalerModel.transform(dataFrame);
+     */
+    @Test
+    public void MinMaxScalerExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("MinMaxScalerExample");
+
+        String expected = "passed";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
+
+    /*
+        tests
         PCA()
         PCA.setInputCol("features");
         PCA.setOutputCol("pcaFeatures");

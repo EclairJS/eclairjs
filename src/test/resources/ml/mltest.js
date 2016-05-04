@@ -217,6 +217,17 @@ var LogisticRegressionWithElasticNetExample = function() {
     }
 }
 
+var MinMaxScalerExample = function() {
+
+    load("examples/ml/min_max_scaler_example.js");
+    var result = run(sparkContext);
+    var str = JSON.stringify(result);
+    if (str) {
+        return "passed";
+    } else {
+        return "failed";
+    }
+}
 var PCAExample = function() {
 
     load("examples/ml/pca_example.js");
