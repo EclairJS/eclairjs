@@ -28,7 +28,11 @@ var Word2VecExample = function() {
 
     load("examples/ml/word2vec_example.js");
     var rows = run(sparkContext);
-    return JSON.stringify(rows);
+    if (rows && rows.length === 3) {
+        return "passed";
+    } else {
+        return "failed";
+    }
 }
 
 var AFTSurvivalRegressionExample = function() {
@@ -123,8 +127,11 @@ var EstimatorTransformerParamExample = function() {
 
     load("examples/ml/estimator_transformer_param_example.js");
     var result = run(sparkContext);
-
-    return JSON.stringify(result.rows);
+    if (result) {
+        return "passed";
+    } else {
+        return "failed";
+    }
 }
 
 var GradientBoostedTreeClassifierExample = function() {
