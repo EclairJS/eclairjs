@@ -35,6 +35,7 @@
         IDFModel: require(EclairJS_Globals.NAMESPACE + '/ml/feature/IDFModel'),
         IndexToString: require(EclairJS_Globals.NAMESPACE + '/ml/feature/IndexToString'),
         RegexTokenizer: require(EclairJS_Globals.NAMESPACE + '/ml/feature/RegexTokenizer'),
+        StopWordsRemover: require(EclairJS_Globals.NAMESPACE + '/ml/feature/StopWordsRemover'),
         StringIndexer: require(EclairJS_Globals.NAMESPACE + '/ml/feature/StringIndexer'),
         Tokenizer: require(EclairJS_Globals.NAMESPACE + '/ml/feature/Tokenizer'),
         VectorIndexer: require(EclairJS_Globals.NAMESPACE + '/ml/feature/VectorIndexer'),
