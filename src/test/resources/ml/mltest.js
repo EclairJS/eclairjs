@@ -228,6 +228,19 @@ var MinMaxScalerExample = function() {
         return "failed";
     }
 }
+
+var ModelSelectionViaTrainValidationSplitExample = function() {
+
+    load("examples/ml/model_selection_via_train_validation_split_example.js");
+    var result = run(sparkContext);
+    var str = JSON.stringify(result);
+    if (str) {
+        return "passed";
+    } else {
+        return "failed";
+    }
+}
+
 var PCAExample = function() {
 
     load("examples/ml/pca_example.js");

@@ -44,62 +44,39 @@
     /**
      * Transforms the dataset with optional parameters
      * @param {module:eclairjs/sql.DataFrame} dataset  input dataset
-     * @param {module:eclairjs/ml/param.ParamPair} firstParamPair  the first param pair, overwrite embedded params
-     * @param {...module:eclairjs/ml/param.ParamPair} otherParamPairs  other param pairs, overwrite embedded params
+     * @param {module:eclairjs/ml/param.ParamMap | module:eclairjs/ml/param.ParamPair} [params] additional parameters, overwrite embedded params, overwrite embedded params
+     * @param {...module:eclairjs/ml/param.ParamPair} [otherParamPairs]  other param pairs, Only used if argument two is {@link module:eclairjs/ml/param.ParamPair}. Overwrite embedded params
      * @returns {module:eclairjs/sql.DataFrame}  transformed dataset
-     * @ignore
      */
-    Transformer.prototype.transform0 = function(dataset,firstParamPair,otherParamPairs) {
-    throw "not implemented by ElairJS";
-    //   var dataset_uw = Utils.unwrapObject(dataset);
-    //   var firstParamPair_uw = Utils.unwrapObject(firstParamPair);
-    // // TODO: handle repeated parm 'otherParamPairs'
-    //   var otherParamPairs_uw = Utils.unwrapObject(otherParamPairs);
-    //   var javaObject =  this.getJavaObject().transform(dataset_uw,firstParamPair_uw,otherParamPairs_uw);
-    //   return new DataFrame(javaObject);
+    Transformer.prototype.transform = function() {
+        var ParamMap = require(EclairJS_Globals.NAMESPACE + '/ml/param/ParamMap');
+       var dataset_uw = Utils.unwrapObject(arguments[0]);
+        var javaObject;
+        if (arguments.length == 1) {
+            javaObject =  this.getJavaObject().transform(dataset_uw);
+        } else if (arguments[1] instanceof ParamMap) {
+            var paramMap_uw = Utils.unwrapObject(arguments[1]);
+            javaObject =  this.getJavaObject().transform(dataset_uw,paramMap_uw);
+        } else {
+            var firstParamPair_uw = Utils.unwrapObject(arguments[1]);
+            var otherParamPairs_uw = [];
+            for (var i = 2; i < arguments.length; i++) {
+                otherParamPairs_uw.push(Utils.unwrapObject(arguments[i])) ;
+            }
+            javaObject =  this.getJavaObject().transform(dataset_uw,firstParamPair_uw,otherParamPairs_uw);
+        }
+       return Utils.javaToJs(javaObject);
     };
     
     
     /**
-     * Transforms the dataset with provided parameter map as additional parameters.
-     * @param {module:eclairjs/sql.DataFrame} dataset  input dataset
-     * @param {module:eclairjs/ml/param.ParamMap} paramMap  additional parameters, overwrite embedded params
-     * @returns {module:eclairjs/sql.DataFrame}  transformed dataset
-     * @ignore
-     */
-    Transformer.prototype.transform1 = function(dataset,paramMap) {
-    throw "not implemented by ElairJS";
-    //   var dataset_uw = Utils.unwrapObject(dataset);
-    //   var paramMap_uw = Utils.unwrapObject(paramMap);
-    //   var javaObject =  this.getJavaObject().transform(dataset_uw,paramMap_uw);
-    //   return new DataFrame(javaObject);
-    };
-    
-    
-    /**
-     * Transforms the input dataset.
-     * @abstract
-     * @param {module:eclairjs/sql.DataFrame} dataset
-     * @returns {module:eclairjs/sql.DataFrame} 
-     */
-    Transformer.prototype.transform = function(dataset) {
-        throw "Abstract class must be implemented in extending class";
-    //   var dataset_uw = Utils.unwrapObject(dataset);
-    //   var javaObject =  this.getJavaObject().transform(dataset_uw);
-    //   return new DataFrame(javaObject);
-    };
-    
-    
-    /**
-     * @abstract
      * @param {module:eclairjs/ml/param.ParamMap} extra
      * @returns {module:eclairjs/ml.Transformer} 
      */
     Transformer.prototype.copy = function(extra) {
-    throw "Abstract class must be implemented in extending class";
-    //   var extra_uw = Utils.unwrapObject(extra);
-    //   var javaObject =  this.getJavaObject().copy(extra_uw);
-    //   return Utils.javaToJs(javaObject);
+       var extra_uw = Utils.unwrapObject(extra);
+       var javaObject =  this.getJavaObject().copy(extra_uw);
+       return Utils.javaToJs(javaObject);
     };
     
     module.exports = Transformer;

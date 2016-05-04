@@ -7,7 +7,7 @@
      */
     module.exports = {
       // CrossValidatorModel: require(EclairJS_Globals.NAMESPACE + '/ml/tuning/CrossValidatorModel'),
-       // TrainValidationSplitModel: require(EclairJS_Globals.NAMESPACE + '/ml/tuning/TrainValidationSplitModel'),
+        TrainValidationSplitModel: require(EclairJS_Globals.NAMESPACE + '/ml/tuning/TrainValidationSplitModel'),
        // CrossValidator: require(EclairJS_Globals.NAMESPACE + '/ml/tuning/CrossValidator'),
         ParamGridBuilder: require(EclairJS_Globals.NAMESPACE + '/ml/tuning/ParamGridBuilder'),
        // CrossValidator: require(EclairJS_Globals.NAMESPACE + '/ml/tuning/CrossValidator'),

@@ -16,7 +16,6 @@
 
 (function () {
 
-    var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
     var Estimator = require(EclairJS_Globals.NAMESPACE + '/ml/Estimator');
@@ -25,7 +24,6 @@
     
     /**
      * @classdesc
-     * :: Experimental ::
      * Validation for hyper-parameter tuning.
      * Randomly splits the input dataset into train and validation sets,
      * and uses evaluation metric on the validation set to select the best model.
@@ -33,11 +31,7 @@
      * @class
      * @memberof module:eclairjs/ml/tuning
      * @extends module:eclairjs/ml.Estimator
-     */
-    
-    /**
-     * @param {string} uid
-     * @constructor
+     * @param {string} [uid]
      */
     var TrainValidationSplit = function(uid) {
         var jvmObject;
@@ -50,7 +44,7 @@
         } else {
             jvmObject =  new org.apache.spark.ml.tuning.TrainValidationSplit();
         }
-    	 this.logger = Logger.getLogger("TrainValidationSplit_js");
+    	 this.logger = Logger.getLogger("ml_tuning_TrainValidationSplit_js");
     	 Estimator.call(this, jvmObject);
 
     };
@@ -58,8 +52,14 @@
     TrainValidationSplit.prototype = Object.create(Estimator.prototype);
     
     TrainValidationSplit.prototype.constructor = TrainValidationSplit;
-    
-    
+
+    /**
+     * An immutable unique ID for the object and its derivatives.
+     * @returns {string}
+     */
+    TrainValidationSplit.prototype.uid = function () {
+        return this.getJavaObject().uid();
+    };
     
     /**
      * @param {module:eclairjs/ml.Estimator} value

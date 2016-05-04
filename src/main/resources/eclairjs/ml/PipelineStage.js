@@ -53,7 +53,6 @@
     
     /**
      * Derives the output schema from the input schema.
-     * @abstract
      * @param {module:eclairjs/sql/types.StructType} schema
      * @returns {module:eclairjs/sql/types.StructType}
      */

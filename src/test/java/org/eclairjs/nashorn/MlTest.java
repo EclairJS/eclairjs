@@ -660,6 +660,38 @@ public class MlTest {
 
     /*
         tests
+        LinearRegression();
+        LinearRegression.regParam()
+        LinearRegression.fitIntercept()
+        LinearRegression.elasticNetParam()
+        ParamGridBuilder()
+        ParamGridBuilder.addGrid(DoubleParam, [0.1, 0.01])
+        ParamGridBuilder.addGrid(BooleanParam)
+        ParamGridBuilder.build();
+        TrainValidationSplit()
+        TrainValidationSplit.setEstimator(LinearRegression)
+        TrainValidationSplit.setEvaluator(new RegressionEvaluator())
+        TrainValidationSplit.setEstimatorParamMaps(paramGrid)
+        TrainValidationSplit.setTrainRatio(0.8);
+        TrainValidationSplit.fit(trainingDF);
+        TrainValidationSplitModel.transform(testDF)
+
+     */
+    @Test
+    public void ModelSelectionViaTrainValidationSplitExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("ModelSelectionViaTrainValidationSplitExample");
+
+        String expected = "passed";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
+
+    /*
+        tests
         PCA()
         PCA.setInputCol("features");
         PCA.setOutputCol("pcaFeatures");
