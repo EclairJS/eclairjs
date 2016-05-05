@@ -740,6 +740,26 @@ public class MlTest {
 
     /*
         tests
+        NGram()
+        NGram.setInputCol()
+        NGram.setOutputCol();
+        NGram.transform();
+     */
+    @Test
+    public void NGramExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("NGramExample");
+
+        String expected = "passed";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
+
+    /*
+        tests
         PCA()
         PCA.setInputCol("features");
         PCA.setOutputCol("pcaFeatures");

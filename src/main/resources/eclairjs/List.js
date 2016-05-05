@@ -273,7 +273,7 @@
      */
     List.prototype.toArray = function () {
 
-        return this.getJavaObject().toArray();
+        return Utils.javaToJs(this.getJavaObject().toArray());
 
     };
 

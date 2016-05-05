@@ -19,7 +19,7 @@
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
 
-   // var SqlDate = require('sql/SqlDate');
+    // var SqlDate = require('sql/SqlDate');
     //var SqlTimestamp = require('sql/SqlTimestamp');
     //var StructType = require('sql/types/StructType');
 
@@ -270,11 +270,12 @@
     /**
      * Returns the value at position i of array type as List.
      * @param {integer} index
-     * @returns {Array}
+     * @returns {module:eclairjs.List}
      */
     Row.prototype.getList = function (index) {
+        var List = require(EclairJS_Globals.NAMESPACE + "/List");
         var l = this.getJavaObject().getList(index);
-        return Serialize.javaList(l);
+        return new List(l);
     };
     /**
      * Returns the value at position index of  struct type as an Row object.
@@ -372,7 +373,7 @@
          StructType	schema()
          Schema for the row.
          */
-        return  Utils.javaToJs(this.getJavaObject().schema());
+        return Utils.javaToJs(this.getJavaObject().schema());
 
     };
     /**
