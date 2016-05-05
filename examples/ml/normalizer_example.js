@@ -33,8 +33,6 @@ function run(sc) {
         .setOutputCol("normFeatures")
         .setP(1.0);
 
-    var l1NormData = normalizer.transform(dataFrame);
-    l1NormData.show();
 
     // Normalize each Vector using $L^\infty$ norm.
     return normalizer.transform(dataFrame, normalizer.p().w(Number.POSITIVE_INFINITY));

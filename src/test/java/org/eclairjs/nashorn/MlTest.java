@@ -781,6 +781,25 @@ public class MlTest {
 
     /*
         tests
+        OneHotEncoder()
+        OneHotEncoder.setInputCol()
+        OneHotEncoder.setOutputCol();
+        OneHotEncoder.transform();
+     */
+    @Test
+    public void OneHotEncoderExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("OneHotEncoderExample");
+
+        String expected = "passed";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
+    /*
+        tests
         PCA()
         PCA.setInputCol("features");
         PCA.setOutputCol("pcaFeatures");
