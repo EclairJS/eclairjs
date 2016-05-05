@@ -27,6 +27,7 @@
         BooleanParam: require(EclairJS_Globals.NAMESPACE + '/ml/param/BooleanParam'),
         DoubleParam: require(EclairJS_Globals.NAMESPACE + '/ml/param/DoubleParam'),
         IntParam: require(EclairJS_Globals.NAMESPACE + '/ml/param/IntParam'),
+        IntArrayParam: require(EclairJS_Globals.NAMESPACE + '/ml/param/IntArrayParam'),
         StringArrayParam: require(EclairJS_Globals.NAMESPACE + '/ml/param/StringArrayParam'),
         ParamPair: require(EclairJS_Globals.NAMESPACE + '/ml/param/ParamPair'),
         ParamMap: require(EclairJS_Globals.NAMESPACE + '/ml/param/ParamMap')

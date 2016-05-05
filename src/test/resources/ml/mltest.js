@@ -241,6 +241,17 @@ var ModelSelectionViaTrainValidationSplitExample = function() {
     }
 }
 
+var MultilayerPerceptronClassifierExample = function() {
+
+    load("examples/ml/multilayer_perceptron_classifier_example.js");
+    var result = run(sparkContext);
+    if (result) {
+        return "passed";
+    } else {
+        return "failed";
+    }
+}
+
 var PCAExample = function() {
 
     load("examples/ml/pca_example.js");

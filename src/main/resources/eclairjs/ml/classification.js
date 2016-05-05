@@ -32,6 +32,8 @@
         LogisticRegressionModel: require(EclairJS_Globals.NAMESPACE + '/ml/classification/LogisticRegressionModel'),
         LogisticRegressionSummary: require(EclairJS_Globals.NAMESPACE + '/ml/classification/LogisticRegressionSummary'),
         LogisticRegressionTrainingSummary: require(EclairJS_Globals.NAMESPACE + '/ml/classification/LogisticRegressionTrainingSummary'),
+        MultilayerPerceptronClassifier: require(EclairJS_Globals.NAMESPACE + '/ml/classification/MultilayerPerceptronClassifier'),
+        MultilayerPerceptronClassificationModel: require(EclairJS_Globals.NAMESPACE + '/ml/classification/MultilayerPerceptronClassificationModel'),
         BinaryLogisticRegressionSummary: require(EclairJS_Globals.NAMESPACE + '/ml/classification/BinaryLogisticRegressionSummary'),
         BinaryLogisticRegressionTrainingSummary: require(EclairJS_Globals.NAMESPACE + '/ml/classification/BinaryLogisticRegressionTrainingSummary')
     }

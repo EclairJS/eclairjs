@@ -73,7 +73,7 @@ if (typeof sparkContext === 'undefined') {
     var SparkConf = require('eclairjs/SparkConf');
     var SparkContext = require('eclairjs/SparkContext');
 
-    var sparkConf = new SparkConf().setAppName("KMeans Example");
+    var sparkConf = new SparkConf().setAppName("Example");
     var sc = new SparkContext(sparkConf);
     var results = run(sc);
     results.objectiveHistory.forEach(function (lossPerIteration) {

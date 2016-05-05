@@ -640,10 +640,10 @@ public class MlTest {
     /*
         tests
         MinMaxScaler()
-        MinMaxScaler.setInputCol("features")
-        MinMaxScaler.setOutputCol("scaledFeatures");
-        MinMaxScaler.fit(dataFrame);
-        MinMaxScalerModel.transform(dataFrame);
+        MinMaxScaler.setInputCol()
+        MinMaxScaler.setOutputCol();
+        MinMaxScaler.fit();
+        MinMaxScalerModel.transform();
      */
     @Test
     public void MinMaxScalerExample() throws Exception {
@@ -665,16 +665,15 @@ public class MlTest {
         LinearRegression.fitIntercept()
         LinearRegression.elasticNetParam()
         ParamGridBuilder()
-        ParamGridBuilder.addGrid(DoubleParam, [0.1, 0.01])
-        ParamGridBuilder.addGrid(BooleanParam)
+        ParamGridBuilder.addGrid()
         ParamGridBuilder.build();
         TrainValidationSplit()
-        TrainValidationSplit.setEstimator(LinearRegression)
-        TrainValidationSplit.setEvaluator(new RegressionEvaluator())
-        TrainValidationSplit.setEstimatorParamMaps(paramGrid)
-        TrainValidationSplit.setTrainRatio(0.8);
-        TrainValidationSplit.fit(trainingDF);
-        TrainValidationSplitModel.transform(testDF)
+        TrainValidationSplit.setEstimator()
+        TrainValidationSplit.setEvaluator()
+        TrainValidationSplit.setEstimatorParamMaps()
+        TrainValidationSplit.setTrainRatio();
+        TrainValidationSplit.fit();
+        TrainValidationSplitModel.transform()
 
      */
     @Test
@@ -683,6 +682,32 @@ public class MlTest {
 
         TestUtils.evalJSResource(engine, "/ml/mltest.js");
         Object ret = ((Invocable)engine).invokeFunction("ModelSelectionViaTrainValidationSplitExample");
+
+        String expected = "passed";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
+
+    /*
+        tests
+        MultilayerPerceptronClassifier()
+        MultilayerPerceptronClassifier.setLayers()
+        MultilayerPerceptronClassifier.setBlockSize()
+        MultilayerPerceptronClassifier.setSeed()
+        MultilayerPerceptronClassifier.setMaxIter();
+        MultilayerPerceptronClassifier.fit();
+        MultilayerPerceptronClassifierModel.transform();
+        MulticlassClassificationEvaluator()
+        MulticlassClassificationEvaluator.setMetricName();
+        MulticlassClassificationEvaluator.evaluate();
+     */
+    @Test
+    public void MultilayerPerceptronClassifierExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("MultilayerPerceptronClassifierExample");
 
         String expected = "passed";
 
