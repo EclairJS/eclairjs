@@ -15,42 +15,34 @@
  */
 /*
  Usage:
- bin/eclairjs.sh examples/ml/multilayer_perceptron_classifier_example.js"
+ bin/eclairjs.sh examples/ml/naive_bayes_example.js"
  */
 
 function run(sc) {
     var SQLContext = require('eclairjs/sql/SQLContext');
-    var MultilayerPerceptronClassifier = require("eclairjs/ml/classification/MultilayerPerceptronClassifier");
+    var NaiveBayes = require("eclairjs/ml/classification/NaiveBayes");
     var MulticlassClassificationEvaluator = require("eclairjs/ml/evaluation/MulticlassClassificationEvaluator");
 
 
     var sqlContext = new SQLContext(sc);
 
-    var path = "examples/data/mllib/sample_multiclass_classification_data.txt";
-    var dataFrame = sqlContext.read().format("libsvm").load(path);
+    // Load training data
+    var dataFrame = sqlContext.read().format("libsvm").load("examples/data/mllib/sample_libsvm_data.txt");
     // Split the data into train and test
     var splits = dataFrame.randomSplit([0.6, 0.4], 1234);
     var train = splits[0];
     var test = splits[1];
-    // specify layers for the neural network:
-    // input layer of size 4 (features), two intermediate of size 5 and 4
-    // and output of size 3 (classes)
-    var layers = [4, 5, 4, 3];
+
     // create the trainer and set its parameters
-    var trainer = new MultilayerPerceptronClassifier()
-        .setLayers(layers)
-        .setBlockSize(128)
-        .setSeed(1234)
-        .setMaxIter(100);
+    var nb = new NaiveBayes();
     // train the model
-    var model = trainer.fit(train);
+    var model = nb.fit(train);
     // compute precision on the test set
     var result = model.transform(test);
     var predictionAndLabels = result.select("prediction", "label");
     var evaluator = new MulticlassClassificationEvaluator()
         .setMetricName("precision");
-    return  evaluator.evaluate(predictionAndLabels);
-
+    return evaluator.evaluate(predictionAndLabels);
 
 }
 

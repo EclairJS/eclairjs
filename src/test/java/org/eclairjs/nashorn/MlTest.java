@@ -717,6 +717,29 @@ public class MlTest {
 
     /*
         tests
+        NaiveBayes();
+        NaiveBayes.fit();
+        NaiveBayesModel.transform();
+        MulticlassClassificationEvaluator()
+        MulticlassClassificationEvaluator.setMetricName();
+        MulticlassClassificationEvaluator.evaluate();
+
+     */
+    @Test
+    public void NaiveBayesExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("NaiveBayesExample");
+
+        String expected = "passed";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
+
+    /*
+        tests
         PCA()
         PCA.setInputCol("features");
         PCA.setOutputCol("pcaFeatures");
