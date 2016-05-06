@@ -1118,3 +1118,23 @@ var createDataFrameFromArray = function() {
 	var dataFrame2 = sqlContext.createDataFrame([[1,1],[1,2],[2,1],[2,1],[2,3],[3,2],[3,3]], structType2);
 	return JSON.stringify(dataFrame2.take(10));
 }
+
+
+
+/*
+ * SQLContext tests
+ */
+
+var createDataFrameJSON = function() {
+
+  var rdd=sparkContext.parallelize([{id:0,text:"abc"},{id:1,text:"def"},{id:2,text:"ghi"}]);
+
+
+	var schemaJson={
+	  id : "Integer",
+	  text: "String"
+	};
+	var dataFrame2 = sqlContext.createDataFrameFromJson(rdd,schemaJson);
+
+	return JSON.stringify(dataFrame2.take(3));
+}

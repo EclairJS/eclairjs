@@ -56,7 +56,26 @@
             return unObj;
         }
         else
-            return (obj && obj.getJavaObject) ? obj.getJavaObject() : obj;
+        {
+            if  (obj && obj.getJavaObject)
+             return obj.getJavaObject()
+            else
+            {
+              if (obj && typeof obj == 'object') {
+                var isObject="[object Object]"==obj.toString()
+                if (isObject) {
+                    var str = org.json.simple.JSONValue.toJSONString(obj);
+                    return org.json.simple.JSONValue.parse(str);
+                }
+                else
+                  return obj;
+
+
+              }
+
+              return obj;
+            }
+        }
     };
 
 

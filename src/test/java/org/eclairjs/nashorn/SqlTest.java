@@ -1808,4 +1808,29 @@ public class SqlTest {
         assertEquals("should be same", expected, ret.toString());
     }
 
+    @Test
+    public void createDataFrameJSON() throws Exception {
+    	/*
+    	 * tests
+    	 * SQLContext.createDataFrame([ ])
+    	 * DataFrame.take(10)
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable) engine).invokeFunction("createDataFrameJSON");
+        String schema = "\"schema\":{"
+                + "\"fields\":["
+                + "{\"name\":\"id\",\"dataType\":\"integer\",\"nullable\":true},"
+                + "{\"name\":\"text\",\"dataType\":\"string\",\"nullable\":true}"
+                + "]"
+                + "}";
+        String expected = "["
+                + "{\"values\":[0,\"abc\"]," + schema + "},"
+                + "{\"values\":[1,\"def\"]," + schema + "},"
+                + "{\"values\":[2,\"ghi\"]," + schema + "}"
+                + "]";
+        assertEquals("should be same", expected, ret.toString());
+    }
+
 }

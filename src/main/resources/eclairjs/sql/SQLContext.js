@@ -220,6 +220,58 @@
     };
 
 
+
+    /**
+     * Creates a {@link DataFrame} from RDD of JSON
+     * @param {{module:eclairjs.RDD<object>}    RDD of JSON
+     * @param {object} schema - object with keys corresponding to JSON field names, and values indicating Datatype
+     * @returns {module:eclairjs/sql.DataFrame}
+     * @example
+     * var df = sqlContext.createDataFrame([{id:1,"name":"jim"},{id:2,"name":"tom"}], {"id":"Integer","name","String"});
+     *
+     */
+    SQLContext.prototype.createDataFrameFromJson = function (jsonRDD, schemaJson) {
+        var StructType = require('eclairjs/sql/types/StructType');
+        var StructField = require('eclairjs/sql/types/StructField');
+        var DataTypes = require('eclairjs/sql/types').DataTypes;
+        var RowFactory = require('eclairjs/sql/RowFactory');
+
+        var fields = [];
+        var fieldNames = [];
+
+        for (var prop in schemaJson)
+        {
+          var type=schemaJson[prop];
+           var schemaType;
+          if (type==="String")
+            schemaType=DataTypes.StringType;
+          else if (type==="Integer")
+            schemaType=DataTypes.IntegerType;
+          else if (type==="Boolean")
+            schemaType=DataTypes.BooleanType;
+          else if (type==="Double")
+            schemaType=DataTypes.DoubleType;
+          else if (type==="Array")
+            schemaType=DataTypes.ArrayType;
+
+          fields.push(DataTypes.createStructField(prop, schemaType, true));
+          fieldNames.push(prop);
+        }
+        var schema = DataTypes.createStructType(fields);
+        // Convert records of the RDD (people) to Rows.
+
+        var rowRDD = jsonRDD.map(function(obj, RowFactory,fieldNames){
+
+           var values=[];
+           for (var i=0;i<fieldNames.length;i++)
+             values.push(obj[fieldNames[i]]);
+          return RowFactory.create(values);
+        },[RowFactory,fieldNames]);
+
+
+        return this.createDataFrame(rowRDD, schema);
+    };
+
     /**
      * Convert a [[BaseRelation]] created for external data sources into a {@link DataFrame}.
      *
