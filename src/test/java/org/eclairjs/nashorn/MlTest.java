@@ -876,4 +876,25 @@ public class MlTest {
 
         assertEquals("failure - strings are not equal", expected, ret);
     }
+
+    /*
+        tests
+        QuantileDiscretizer()
+        QuantileDiscretizer.setInputCol()
+        QuantileDiscretizer.setOutputCol()
+        QuantileDiscretizer.setNumBuckets(3);
+        QuantileDiscretizer.fit()
+        Bucketizer.transform(df);
+     */
+    @Test
+    public void QuantileDiscretizerExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("QuantileDiscretizerExample");
+
+        String expected = "passed";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+    }
 }

@@ -40,6 +40,7 @@
         Normalizer: require(EclairJS_Globals.NAMESPACE + '/ml/feature/Normalizer'),
         OneHotEncoder: require(EclairJS_Globals.NAMESPACE + '/ml/feature/OneHotEncoder'),
         PolynomialExpansion: require(EclairJS_Globals.NAMESPACE + '/ml/feature/PolynomialExpansion'),
+        QuantileDiscretizer: require(EclairJS_Globals.NAMESPACE + '/ml/feature/QuantileDiscretizer'),
         RegexTokenizer: require(EclairJS_Globals.NAMESPACE + '/ml/feature/RegexTokenizer'),
         SQLTransformer: require(EclairJS_Globals.NAMESPACE + '/ml/feature/SQLTransformer'),
         StandardScaler: require(EclairJS_Globals.NAMESPACE + '/ml/feature/StandardScaler'),
