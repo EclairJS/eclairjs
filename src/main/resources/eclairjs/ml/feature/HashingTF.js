@@ -16,7 +16,6 @@
 
 (function () {
 
-    var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
     var Transformer = require(EclairJS_Globals.NAMESPACE + '/ml/Transformer');
@@ -25,19 +24,15 @@
     
     /**
      * @classdesc
-     * :: Experimental ::
      * Maps a sequence of terms to their term frequencies using the hashing trick.
      * @class
      * @memberof module:eclairjs/ml/feature
      * @extends module:eclairjs/ml.Transformer
-     */
-    
-    /**
-     * @param {string} uid
+     * @param {string} [uid]
      * @constructor
      */
     var HashingTF = function(uid) {
-    	 this.logger = Logger.getLogger("HashingTF_js");
+    	 this.logger = Logger.getLogger("ml_feature_HashingTF_js");
         var jvmObject;
         if (uid) {
             if (uid instanceof org.apache.spark.ml.feature.HashingTF) {
@@ -55,8 +50,14 @@
     HashingTF.prototype = Object.create(Transformer.prototype);
     
     HashingTF.prototype.constructor = HashingTF;
-    
-    
+
+    /**
+     * An immutable unique ID for the object and its derivatives.
+     * @returns {string}
+     */
+    HashingTF.prototype.uid = function () {
+        return this.getJavaObject().uid();
+    };
     
     /**
      * @param {string} value

@@ -828,4 +828,33 @@ public class MlTest {
         assertEquals("failure - strings are not equal", expected, ret);
     }
 
+    /*
+        tests
+        Tokenizer()
+        Tokenizer.setInputCol()
+        Tokenizer.setOutputCol();
+        HashingTF()
+        HashingTF.setNumFeatures()
+        HashingTF.setInputCol()
+        HashingTF.setOutputCol();
+        LogisticRegression()
+        LogisticRegression.setMaxIter()
+        LogisticRegression.setRegParam();
+        Pipeline()
+        Pipeline.setStages();
+        Pipeline.fit();
+        PipelineModel.transform();
+     */
+    @Test
+    public void PipelineExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("PipelineExample");
+
+        String expected = "passed";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+    }
+
 }

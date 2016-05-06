@@ -16,7 +16,6 @@
 
 (function () {
 
-    var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
     var UnaryTransformer = require(EclairJS_Globals.NAMESPACE + '/ml/UnaryTransformer');
@@ -25,17 +24,15 @@
     
     /**
      * @classdesc
-     * :: Experimental ::
      * A tokenizer that converts the input string to lowercase and then splits it by white spaces.
      *
-     * @see {@link RegexTokenizer}
      * @class
      * @memberof module:eclairjs/ml/feature
      * @extends module:eclairjs/ml.UnaryTransformer
      */
     
     /**
-     * @param {string} uid
+     * @param {string} [uid]
      * @constructor
      */
     var Tokenizer = function(uid) {
@@ -49,7 +46,7 @@
         } else {
             jvmObject = new org.apache.spark.ml.feature.Tokenizer();
         }
-    	 this.logger = Logger.getLogger("Tokenizer_js");
+    	 this.logger = Logger.getLogger("ml_feature_Tokenizer_js");
         UnaryTransformer.call(this, jvmObject);
     
     };
@@ -57,8 +54,22 @@
     Tokenizer.prototype = Object.create(UnaryTransformer.prototype);
     
     Tokenizer.prototype.constructor = Tokenizer;
-    
-    
+
+    /**
+     * An immutable unique ID for the object and its derivatives.
+     * @returns {string}
+     */
+    Tokenizer.prototype.uid = function () {
+        return this.getJavaObject().uid();
+    };
+
+    /**
+     *
+     * @returns {string}
+     */
+    Tokenizer.prototype.getOutputCol = function () {
+        return this.getJavaObject().getOutputCol();
+    };
     
     /**
      * @param {module:eclairjs/ml/param.ParamMap} extra
