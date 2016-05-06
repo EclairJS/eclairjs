@@ -897,4 +897,45 @@ public class MlTest {
 
         assertEquals("failure - strings are not equal", expected, ret);
     }
+
+    /*
+        tests
+        RandomForestClassifier()
+        RandomForestClassifier.setLabelCol()
+        RandomForestClassifier.setFeaturesCol();
+        StringIndexer()
+        StringIndexer.setInputCol()
+        StringIndexer.setOutputCol()
+        StringIndexer.fit();
+        VectorIndexer()
+        VectorIndexer.setInputCol()
+        VectorIndexer.setOutputCol()
+        VectorIndexer.setMaxCategories()
+        VectorIndexer.fit();
+        IndexToString()
+        IndexToString.setInputCol()
+        IndexToString.setOutputCol()
+        IndexToString.setLabels(l);
+        Pipeline()
+        Pipeline.setStages();
+        Pipeline.fit();
+        PipelineModel.transform(testData);
+        MulticlassClassificationEvaluator()
+        MulticlassClassificationEvaluator .setLabelCol()
+        MulticlassClassificationEvaluator .setPredictionCol()
+        MulticlassClassificationEvaluator.setMetricName();
+        MulticlassClassificationEvaluator.evaluate();
+
+     */
+    @Test
+    public void RandomForestClassifierExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("RandomForestClassifierExample");
+
+        String expected = "passed";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+    }
 }
