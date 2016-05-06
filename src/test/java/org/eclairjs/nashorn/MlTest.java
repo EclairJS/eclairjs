@@ -857,4 +857,23 @@ public class MlTest {
         assertEquals("failure - strings are not equal", expected, ret);
     }
 
+    /*
+        tests
+        PolynomialExpansion()
+        PolynomialExpansion.setInputCol()
+        PolynomialExpansion.setOutputCol()
+        PolynomialExpansion.setDegree();
+        PolynomialExpansion.transform();
+     */
+    @Test
+    public void PolynomialExpansionExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("PolynomialExpansionExample");
+
+        String expected = "passed";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+    }
 }
