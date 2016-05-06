@@ -28,8 +28,6 @@ function run(sc) {
     var PolynomialExpansion = require("eclairjs/ml/feature/PolynomialExpansion");
     var Vectors = require("eclairjs/mllib/linalg/Vectors");
     var VectorUDT = require("eclairjs/mllib/linalg/VectorUDT");
-    var LogisticRegression = require("eclairjs/ml/classification/LogisticRegression");
-    var Pipeline = require("eclairjs/ml/Pipeline");
 
 
     var sqlContext = new SQLContext(sc);
