@@ -828,4 +828,114 @@ public class MlTest {
         assertEquals("failure - strings are not equal", expected, ret);
     }
 
+    /*
+        tests
+        Tokenizer()
+        Tokenizer.setInputCol()
+        Tokenizer.setOutputCol();
+        HashingTF()
+        HashingTF.setNumFeatures()
+        HashingTF.setInputCol()
+        HashingTF.setOutputCol();
+        LogisticRegression()
+        LogisticRegression.setMaxIter()
+        LogisticRegression.setRegParam();
+        Pipeline()
+        Pipeline.setStages();
+        Pipeline.fit();
+        PipelineModel.transform();
+     */
+    @Test
+    public void PipelineExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("PipelineExample");
+
+        String expected = "passed";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+    }
+
+    /*
+        tests
+        PolynomialExpansion()
+        PolynomialExpansion.setInputCol()
+        PolynomialExpansion.setOutputCol()
+        PolynomialExpansion.setDegree();
+        PolynomialExpansion.transform();
+     */
+    @Test
+    public void PolynomialExpansionExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("PolynomialExpansionExample");
+
+        String expected = "passed";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+    }
+
+    /*
+        tests
+        QuantileDiscretizer()
+        QuantileDiscretizer.setInputCol()
+        QuantileDiscretizer.setOutputCol()
+        QuantileDiscretizer.setNumBuckets(3);
+        QuantileDiscretizer.fit()
+        Bucketizer.transform(df);
+     */
+    @Test
+    public void QuantileDiscretizerExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("QuantileDiscretizerExample");
+
+        String expected = "passed";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+    }
+
+    /*
+        tests
+        RandomForestClassifier()
+        RandomForestClassifier.setLabelCol()
+        RandomForestClassifier.setFeaturesCol();
+        StringIndexer()
+        StringIndexer.setInputCol()
+        StringIndexer.setOutputCol()
+        StringIndexer.fit();
+        VectorIndexer()
+        VectorIndexer.setInputCol()
+        VectorIndexer.setOutputCol()
+        VectorIndexer.setMaxCategories()
+        VectorIndexer.fit();
+        IndexToString()
+        IndexToString.setInputCol()
+        IndexToString.setOutputCol()
+        IndexToString.setLabels(l);
+        Pipeline()
+        Pipeline.setStages();
+        Pipeline.fit();
+        PipelineModel.transform(testData);
+        MulticlassClassificationEvaluator()
+        MulticlassClassificationEvaluator .setLabelCol()
+        MulticlassClassificationEvaluator .setPredictionCol()
+        MulticlassClassificationEvaluator.setMetricName();
+        MulticlassClassificationEvaluator.evaluate();
+
+     */
+    @Test
+    public void RandomForestClassifierExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("RandomForestClassifierExample");
+
+        String expected = "passed";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+    }
 }

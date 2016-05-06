@@ -38,46 +38,6 @@
     Estimator.prototype = Object.create(PipelineStage.prototype);
     
     Estimator.prototype.constructor = Estimator;
-    
-    
-    
-    /**
-     * Fits a single model to the input data with optional parameters.
-     *
-     * @param {module:eclairjs/sql.DataFrame} dataset  input dataset
-     * @param {module:eclairjs/ml/param.ParamPair} firstParamPair  the first param pair, overrides embedded params
-     * @param {...module:eclairjs/ml/param.ParamPair} otherParamPairs  other param pairs.  These values override any specified in this
-     *                        Estimator's embedded ParamMap.
-     * @returns {object}  fitted model
-     * @ignore
-     */
-    Estimator.prototype.fit0 = function(dataset,firstParamPair,otherParamPairs) {
-    throw "not implemented by ElairJS";
-    //   var dataset_uw = Utils.unwrapObject(dataset);
-    //   var firstParamPair_uw = Utils.unwrapObject(firstParamPair);
-    // // TODO: handle repeated parm 'otherParamPairs'
-    //   var otherParamPairs_uw = Utils.unwrapObject(otherParamPairs);
-    //   var javaObject =  this.getJavaObject().fit(dataset_uw,firstParamPair_uw,otherParamPairs_uw);
-    //   return Utils.javaToJs(javaObject);
-    };
-    
-    
-    /**
-     * Fits a single model to the input data with provided parameter map.
-     *
-     * @param {module:eclairjs/sql.DataFrame} dataset  input dataset
-     * @param {module:eclairjs/ml/param.ParamMap} paramMap  Parameter map.
-     *                 These values override any specified in this Estimator's embedded ParamMap.
-     * @returns {object}  fitted model
-     * @ignore
-     */
-    Estimator.prototype.fit1 = function(dataset,paramMap) {
-    throw "not implemented by ElairJS";
-    //   var dataset_uw = Utils.unwrapObject(dataset);
-    //   var paramMap_uw = Utils.unwrapObject(paramMap);
-    //   var javaObject =  this.getJavaObject().fit(dataset_uw,paramMap_uw);
-    //   return Utils.javaToJs(javaObject);
-    };
 
 
     /**
@@ -85,7 +45,7 @@
      * @param {module:eclairjs/sql.DataFrame} dataset
      * @param {module:eclairjs/ml/param.ParamMap} [paramMap]  Parameter map.
      *                 These values override any specified in this Estimator's embedded ParamMap.
-     * @returns {module:eclairjs/ml.Estimator} fitted model
+     * @returns {module:eclairjs/ml.Estimator | module:eclairjs/ml/feature.Bucketizer} fitted model
      */
     Estimator.prototype.fit = function(dataset, paramMap) {
         var dataset_uw = Utils.unwrapObject(dataset);
@@ -98,25 +58,6 @@
         }
 
         return Utils.javaToJs(javaObject);
-    };
-    
-    /**
-     * Fits multiple models to the input data with multiple sets of parameters.
-     * The default implementation uses a for loop on each parameter map.
-     * Subclasses could override this to optimize multi-model training.
-     *
-     * @param {module:eclairjs/sql.DataFrame} dataset  input dataset
-     * @param {ParamMap[]} paramMaps  An array of parameter maps.
-     *                  These values override any specified in this Estimator's embedded ParamMap.
-     * @returns {object[]}  fitted models, matching the input parameter maps
-     * @ignore
-     */
-    Estimator.prototype.fit3 = function(dataset,paramMaps) {
-    throw "not implemented by ElairJS";
-    //   var dataset_uw = Utils.unwrapObject(dataset);
-    //   var paramMaps_uw = Utils.unwrapObject(paramMaps);
-    //   var javaObject =  this.getJavaObject().fit(dataset_uw,paramMaps_uw);
-    //   return Utils.javaToJs(javaObject);
     };
     
     

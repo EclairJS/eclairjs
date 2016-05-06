@@ -305,3 +305,51 @@ var PCAExample = function() {
     var rows = run(sparkContext).collect();
     return JSON.stringify(rows);
 }
+
+var PipelineExample = function() {
+
+    load("examples/ml/pipeline_example.js");
+    var result = run(sparkContext);
+    var str = JSON.stringify(result)
+    if (str) {
+        return "passed";
+    } else {
+        return "failed";
+    }
+}
+
+var PolynomialExpansionExample = function() {
+
+    load("examples/ml/polynomial_expansion_example.js");
+    var result = run(sparkContext);
+    var str = JSON.stringify(result)
+    if (str) {
+        return "passed";
+    } else {
+        return "failed";
+    }
+}
+
+var QuantileDiscretizerExample = function() {
+
+    load("examples/ml/quantile_discretizer_example.js");
+    var result = run(sparkContext);
+    var str = JSON.stringify(result)
+    if (str) {
+        return "passed";
+    } else {
+        return "failed";
+    }
+}
+
+var RandomForestClassifierExample = function() {
+
+    load("examples/ml/random_forest_classifier_example.js");
+    var result = run(sparkContext);
+    var str = JSON.stringify(result)
+    if (str) {
+        return "passed";
+    } else {
+        return "failed";
+    }
+}
