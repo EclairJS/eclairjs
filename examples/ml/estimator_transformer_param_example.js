@@ -41,7 +41,6 @@ function run(sc) {
     var schema = DataTypes.createStructType(fields);
 
     // Prepare training data.
-    // We use LabeledPoint, which is a JavaBean. Spark SQL can convert RDDs of JavaBeans into
     // DataFrames, where it uses the bean metadata to infer the schema.
     var training = sqlContext.createDataFrame(
         [
