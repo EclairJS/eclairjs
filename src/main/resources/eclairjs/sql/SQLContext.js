@@ -224,7 +224,7 @@
     /**
      * Creates a {@link DataFrame} from RDD of JSON
      * @param {{module:eclairjs.RDD<object>}    RDD of JSON
-     * @param {object} schema - object with keys corresponding to JSON field names, and values indicating Datatype
+     * @param {object} schema - object with keys corresponding to JSON field names (or getter functions), and values indicating Datatype
      * @returns {module:eclairjs/sql.DataFrame}
      * @example
      * var df = sqlContext.createDataFrame([{id:1,"name":"jim"},{id:2,"name":"tom"}], {"id":"Integer","name","String"});
@@ -235,6 +235,7 @@
         var StructField = require('eclairjs/sql/types/StructField');
         var DataTypes = require('eclairjs/sql/types').DataTypes;
         var RowFactory = require('eclairjs/sql/RowFactory');
+
 
         var fields = [];
         var fieldNames = [];
@@ -253,6 +254,8 @@
             schemaType=DataTypes.DoubleType;
           else if (type==="Array")
             schemaType=DataTypes.ArrayType;
+          else if (type && typeof type == 'object' && type.getJavaObject)
+            schemaType=type;
 
           fields.push(DataTypes.createStructField(prop, schemaType, true));
           fieldNames.push(prop);
@@ -264,7 +267,31 @@
 
            var values=[];
            for (var i=0;i<fieldNames.length;i++)
-             values.push(obj[fieldNames[i]]);
+           {
+             var value;
+             var name=fieldNames[i];
+             if (obj.hasOwnProperty(name))
+             {
+                 var value = obj[name]
+                 //   if it is getter function, call to get value
+                 if (typeof value == "function")
+                 {
+                   value=value.apply(obj);
+                 }
+
+             }
+             else
+             {
+                name="get" + name.charAt(0).toUpperCase() + name.substr(1);
+                 var value = obj[name]
+                 //   if it is getter function, call to get value
+                 if (typeof value == "function")
+                 {
+                   value=value.apply(obj);
+                 }
+             }
+             values.push(value);
+           }
           return RowFactory.create(values);
         },[RowFactory,fieldNames]);
 
