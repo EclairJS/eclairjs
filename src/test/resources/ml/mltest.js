@@ -365,3 +365,15 @@ var RandomForestRegressorExample = function() {
         return "failed";
     }
 }
+
+var RFormulaExample = function() {
+
+    load("examples/ml/rformula_example.js");
+    var result = run(sparkContext);
+    var str = JSON.stringify(result)
+    if (str) {
+        return "passed";
+    } else {
+        return "failed";
+    }
+}
