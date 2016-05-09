@@ -353,3 +353,27 @@ var RandomForestClassifierExample = function() {
         return "failed";
     }
 }
+
+var RandomForestRegressorExample = function() {
+
+    load("examples/ml/random_forest_regressor_example.js");
+    var result = run(sparkContext);
+    var str = JSON.stringify(result)
+    if (str) {
+        return "passed";
+    } else {
+        return "failed";
+    }
+}
+
+var RFormulaExample = function() {
+
+    load("examples/ml/rformula_example.js");
+    var result = run(sparkContext);
+    var str = JSON.stringify(result)
+    if (str) {
+        return "passed";
+    } else {
+        return "failed";
+    }
+}
