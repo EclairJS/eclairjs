@@ -20,9 +20,7 @@
 
 function run(sc) {
     var SQLContext = require('eclairjs/sql/SQLContext');
-   // var StringIndexer = require("eclairjs/ml/feature/StringIndexer");
     var VectorIndexer = require("eclairjs/ml/feature/VectorIndexer");
-   // var IndexToString = require("eclairjs/ml/feature/IndexToString");
    var RandomForestRegressor = require("eclairjs/ml/regression/RandomForestRegressor");
    var RegressionEvaluator = require("eclairjs/ml/evaluation/RegressionEvaluator");
     var Pipeline = require("eclairjs/ml/Pipeline");
