@@ -44,15 +44,14 @@
 
     
 
-    <h4 class="name" id="Word2Vec"><span class="type-signature"></span>new Word2Vec<span class="signature">(obj)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Word2Vec"><span class="type-signature"></span>new Word2Vec<span class="signature">(uid<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    :: Experimental ::
-Word2Vec trains a model of `Map(String, Vector)`, i.e. transforms a word into a code for further
+    Word2Vec trains a model of `Map(String, Vector)`, i.e. transforms a word into a code for further
 natural language processing or machine learning process.
 </div>
 
@@ -77,6 +76,8 @@ natural language processing or machine learning process.
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -89,7 +90,7 @@ natural language processing or machine learning process.
 
         <tr>
             
-                <td class="name"><code>obj</code></td>
+                <td class="name"><code>uid</code></td>
             
 
             <td class="type">
@@ -101,6 +102,16 @@ natural language processing or machine learning process.
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -176,6 +187,17 @@ natural language processing or machine learning process.
     </div>
 
     
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li><a href="module-eclairjs_ml.Estimator.html">module:eclairjs/ml.Estimator</a></li>
+    </ul>
+
+
+    
 
     
 
@@ -189,6 +211,402 @@ natural language processing or machine learning process.
 
     
         <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id=".load"><span class="type-signature">(static) </span>load<span class="signature">(path)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs_ml_feature.Word2Vec.html">module:eclairjs/ml/feature.Word2Vec</a>}</span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>path</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line328">line 328</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="module-eclairjs_ml_feature.Word2Vec.html">module:eclairjs/ml/feature.Word2Vec</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="copy"><span class="type-signature"></span>copy<span class="signature">(extra)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs_ml_feature.Word2Vec.html">module:eclairjs/ml/feature.Word2Vec</a>}</span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>extra</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">module:eclairjs/ml.param.ParamMap</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="module-eclairjs_ml.Estimator.html#copy">module:eclairjs/ml.Estimator#copy</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line165">line 165</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="module-eclairjs_ml_feature.Word2Vec.html">module:eclairjs/ml/feature.Word2Vec</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="extractParamMap"><span class="type-signature"></span>extractParamMap<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="module-eclairjs_ml_param.ParamMap.html">module:eclairjs/ml/param.ParamMap</a>}</span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="module-eclairjs_ml.Estimator.html#extractParamMap">module:eclairjs/ml.Estimator#extractParamMap</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="eclairjs_ml_Estimator.js.html">eclairjs/ml/Estimator.js</a>, <a href="eclairjs_ml_Estimator.js.html#line80">line 80</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="module-eclairjs_ml_param.ParamMap.html">module:eclairjs/ml/param.ParamMap</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
 
         
             
@@ -271,6 +689,11 @@ natural language processing or machine learning process.
     
 
     
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="module-eclairjs_ml.Estimator.html#fit">module:eclairjs/ml.Estimator#fit</a>
+    </li></ul></dd>
+    
 
     
 
@@ -291,7 +714,7 @@ natural language processing or machine learning process.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line138">line 138</a>
+        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line145">line 145</a>
     </li></ul></dd>
     
 
@@ -326,6 +749,1462 @@ natural language processing or machine learning process.
     <dd>
         
 <span class="param-type"><a href="module-eclairjs_ml_feature.Word2VecModel.html">module:eclairjs/ml/feature.Word2VecModel</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getInputCol"><span class="type-signature"></span>getInputCol<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line256">line 256</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getMaxIter"><span class="type-signature"></span>getMaxIter<span class="signature">()</span><span class="type-signature"> &rarr; {integer}</span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line287">line 287</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">integer</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getMinCount"><span class="type-signature"></span>getMinCount<span class="signature">()</span><span class="type-signature"> &rarr; {integer}</span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line230">line 230</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">integer</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getNumPartitions"><span class="type-signature"></span>getNumPartitions<span class="signature">()</span><span class="type-signature"> &rarr; {integer}</span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line214">line 214</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">integer</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getOutputCol"><span class="type-signature"></span>getOutputCol<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line271">line 271</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getSeed"><span class="type-signature"></span>getSeed<span class="signature">()</span><span class="type-signature"> &rarr; {integer}</span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line319">line 319</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">integer</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getStepSize"><span class="type-signature"></span>getStepSize<span class="signature">()</span><span class="type-signature"> &rarr; {float}</span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line303">line 303</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">float</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getVectorSize"><span class="type-signature"></span>getVectorSize<span class="signature">()</span><span class="type-signature"> &rarr; {integer}</span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line182">line 182</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">integer</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getWindowSize"><span class="type-signature"></span>getWindowSize<span class="signature">()</span><span class="type-signature"> &rarr; {integer}</span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line198">line 198</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">integer</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="inputCol"><span class="type-signature"></span>inputCol<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="module-eclairjs_ml_param.Param.html">module:eclairjs/ml/param.Param</a>}</span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line248">line 248</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="module-eclairjs_ml_param.Param.html">module:eclairjs/ml/param.Param</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="maxIter"><span class="type-signature"></span>maxIter<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="module-eclairjs_ml_param.IntParam.html">module:eclairjs/ml/param.IntParam</a>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Param for maximum number of iterations (>= 0).
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line279">line 279</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="module-eclairjs_ml_param.IntParam.html">module:eclairjs/ml/param.IntParam</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="minCount"><span class="type-signature"></span>minCount<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="module-eclairjs_ml_param.IntParam.html">module:eclairjs/ml/param.IntParam</a>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    The minimum number of times a token must appear to be included in the word2vec model's vocabulary. Default: 5
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line222">line 222</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="module-eclairjs_ml_param.IntParam.html">module:eclairjs/ml/param.IntParam</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="numPartitions"><span class="type-signature"></span>numPartitions<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="module-eclairjs_ml_param.IntParam.html">module:eclairjs/ml/param.IntParam</a>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Number of partitions for sentences of words. Default: 1
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line206">line 206</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="module-eclairjs_ml_param.IntParam.html">module:eclairjs/ml/param.IntParam</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="outputCol"><span class="type-signature"></span>outputCol<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="module-eclairjs_ml_param.Param.html">module:eclairjs/ml/param.Param</a>}</span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line263">line 263</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="module-eclairjs_ml_param.Param.html">module:eclairjs/ml/param.Param</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="seed"><span class="type-signature"></span>seed<span class="signature">()</span><span class="type-signature"> &rarr; {module:eclairjs/ml/param.LongParam}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Param for random seed.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line311">line 311</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">module:eclairjs/ml/param.LongParam</span>
 
 
     </dd>
@@ -436,7 +2315,7 @@ natural language processing or machine learning process.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line57">line 57</a>
+        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line64">line 64</a>
     </li></ul></dd>
     
 
@@ -581,7 +2460,7 @@ natural language processing or machine learning process.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line111">line 111</a>
+        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line118">line 118</a>
     </li></ul></dd>
     
 
@@ -726,7 +2605,7 @@ natural language processing or machine learning process.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line129">line 129</a>
+        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line136">line 136</a>
     </li></ul></dd>
     
 
@@ -871,7 +2750,7 @@ natural language processing or machine learning process.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line102">line 102</a>
+        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line109">line 109</a>
     </li></ul></dd>
     
 
@@ -1016,7 +2895,7 @@ natural language processing or machine learning process.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line66">line 66</a>
+        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line73">line 73</a>
     </li></ul></dd>
     
 
@@ -1161,7 +3040,7 @@ natural language processing or machine learning process.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line120">line 120</a>
+        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line127">line 127</a>
     </li></ul></dd>
     
 
@@ -1306,7 +3185,7 @@ natural language processing or machine learning process.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line93">line 93</a>
+        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line100">line 100</a>
     </li></ul></dd>
     
 
@@ -1451,7 +3330,7 @@ natural language processing or machine learning process.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line75">line 75</a>
+        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line82">line 82</a>
     </li></ul></dd>
     
 
@@ -1596,7 +3475,7 @@ natural language processing or machine learning process.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line84">line 84</a>
+        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line91">line 91</a>
     </li></ul></dd>
     
 
@@ -1645,11 +3524,365 @@ natural language processing or machine learning process.
 
     
 
+    <h4 class="name" id="stepSize"><span class="type-signature"></span>stepSize<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="module-eclairjs_ml_param.DoubleParam.html">module:eclairjs/ml/param.DoubleParam</a>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Param for Step size to be used for each iteration of optimization
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line295">line 295</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="module-eclairjs_ml_param.DoubleParam.html">module:eclairjs/ml/param.DoubleParam</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
     <h4 class="name" id="transformSchema"><span class="type-signature"></span>transformSchema<span class="signature">(schema)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs_sql_types.StructType.html">module:eclairjs/sql/types.StructType</a>}</span></h4>
 
     
 
 
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>schema</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-eclairjs_sql_types.StructType.html">module:eclairjs/sql/types.StructType</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="module-eclairjs_ml.Estimator.html#transformSchema">module:eclairjs/ml.Estimator#transformSchema</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line155">line 155</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="module-eclairjs_sql_types.StructType.html">module:eclairjs/sql/types.StructType</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="uid"><span class="type-signature"></span>uid<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+<div class="description">
+    An immutable unique ID for the object and its derivatives.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line56">line 56</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="validateAndTransformSchema"><span class="type-signature"></span>validateAndTransformSchema<span class="signature">(schema)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs_sql_types.StructType.html">module:eclairjs/sql/types.StructType</a>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Validates and transforms the input schema.
+</div>
 
 
 
@@ -1741,7 +3974,7 @@ natural language processing or machine learning process.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line148">line 148</a>
+        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line239">line 239</a>
     </li></ul></dd>
     
 
@@ -1786,6 +4019,206 @@ natural language processing or machine learning process.
 
 
         
+            
+
+    
+
+    <h4 class="name" id="vectorSize"><span class="type-signature"></span>vectorSize<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="module-eclairjs_ml_param.IntParam.html">module:eclairjs/ml/param.IntParam</a>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    The dimension of the code that you want to transform from words. Default: 100
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line174">line 174</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="module-eclairjs_ml_param.IntParam.html">module:eclairjs/ml/param.IntParam</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="windowSize"><span class="type-signature"></span>windowSize<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="module-eclairjs_ml_param.IntParam.html">module:eclairjs/ml/param.IntParam</a>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    The window size (context words from [-window, window]) default 5.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="eclairjs_ml_feature_Word2Vec.js.html">eclairjs/ml/feature/Word2Vec.js</a>, <a href="eclairjs_ml_feature_Word2Vec.js.html#line190">line 190</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="module-eclairjs_ml_param.IntParam.html">module:eclairjs/ml/param.IntParam</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
     
 
     
@@ -1807,7 +4240,7 @@ natural language processing or machine learning process.
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Mon May 09 2016 15:36:24 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Tue May 10 2016 13:33:35 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>
