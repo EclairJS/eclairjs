@@ -141,8 +141,13 @@
      * @returns {MLWriter}
      */
     AFTSurvivalRegressionModel.prototype.write = function () {
-       var javaObject =  this.getJavaObject().write();
-       return Utils.javaToJs(javaObject);
+        var MLWriter = require(EclairJS_Globals.NAMESPACE + '/ml/util/MLWriter');
+        var javaObject = this.getJavaObject().write();
+        /*
+         the object is an inner class so don't use Utils.javaToJs
+         to create the MLWriter object.
+         */
+        return new MLWriter(javaObject);
     };
 
     /**
@@ -257,8 +262,13 @@
      * @returns {MLReader}
      */
     AFTSurvivalRegressionModel.read = function () {
-       var javaObject =  org.apache.spark.ml.regression.AFTSurvivalRegressionModel.read();
-       return Utils.javaToJs(javaObject);
+        var MLReader = require(EclairJS_Globals.NAMESPACE + '/ml/util/MLReader');
+        var javaObject =  org.apache.spark.ml.regression.AFTSurvivalRegressionModel.read();
+        /*
+         The object is and inner class so don't user Utils.javaToJs
+         to create th MLReader.
+         */
+        return new MLReader(javaObject);
     };
 
 

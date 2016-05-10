@@ -23,7 +23,7 @@
 
     /**
      * @classdesc
-     * Abstract class for utility classes that can load ML instances.
+     * Utility classes that can load ML instances.
      * @class
      * @memberof module:eclairjs/ml/util
      */
@@ -46,9 +46,8 @@
      * @returns {object}
      */
     MLReader.prototype.load = function (path) {
-        throw "not implemented by ElairJS";
-        //   var javaObject =  this.getJavaObject().load(path);
-        //   return Utils.javaToJs(javaObject);
+           var javaObject =  this.getJavaObject().load(path);
+           return Utils.javaToJs(javaObject);
     };
 
 
@@ -57,10 +56,9 @@
      * @returns {module:eclairjs/ml/util.MLReader}
      */
     MLReader.prototype.context = function (sqlContext) {
-        throw "not implemented by ElairJS";
-        //   var sqlContext_uw = Utils.unwrapObject(sqlContext);
-        //   var javaObject =  this.getJavaObject().context(sqlContext_uw);
-        //   return new MLReader(javaObject);
+           var sqlContext_uw = Utils.unwrapObject(sqlContext);
+           var javaObject =  this.getJavaObject().context(sqlContext_uw);
+           return new MLReader(javaObject);
     };
 
     module.exports = MLReader;

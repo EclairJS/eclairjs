@@ -23,7 +23,7 @@
 
     /**
      * @classdesc
-     * Abstract class for utility classes that can save ML instances.
+     * Utility classes that can save ML instances.
      * @class
      * @memberof module:eclairjs/ml/util
      */
@@ -44,8 +44,7 @@
      * @param {string} path
      */
     MLWriter.prototype.save = function (path) {
-        throw "not implemented by ElairJS";
-        //    this.getJavaObject().save(path);
+            this.getJavaObject().save(path);
     };
 
 
@@ -54,9 +53,8 @@
      * @returns {module:eclairjs/ml/util.MLWriter}
      */
     MLWriter.prototype.overwrite = function () {
-        throw "not implemented by ElairJS";
-        //   var javaObject =  this.getJavaObject().overwrite();
-        //   return new MLWriter(javaObject);
+           var javaObject =  this.getJavaObject().overwrite();
+           return new MLWriter(javaObject);
     };
 
 
@@ -65,10 +63,9 @@
      * @returns {module:eclairjs/ml/util.MLWriter}
      */
     MLWriter.prototype.context = function (sqlContext) {
-        throw "not implemented by ElairJS";
-        //   var sqlContext_uw = Utils.unwrapObject(sqlContext);
-        //   var javaObject =  this.getJavaObject().context(sqlContext_uw);
-        //   return new MLWriter(javaObject);
+           var sqlContext_uw = Utils.unwrapObject(sqlContext);
+           var javaObject =  this.getJavaObject().context(sqlContext_uw);
+           return new MLWriter(javaObject);
     };
 
     module.exports = MLWriter;

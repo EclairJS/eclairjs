@@ -86,8 +86,13 @@
      * @returns {module:eclairjs/ml/util.MLWriter} 
      */
     DistributedLDAModel.prototype.write = function() {
-       var javaObject =  this.getJavaObject().write();
-       return Utils.javaToJs(javaObject);
+        var MLWriter = require(EclairJS_Globals.NAMESPACE + '/ml/util/MLWriter');
+        var javaObject = this.getJavaObject().write();
+        /*
+         the object is an inner class so don't use Utils.javaToJs
+         to create the MLWriter object.
+         */
+        return new MLWriter(javaObject);
     };
     
     //
@@ -99,8 +104,13 @@
      * @returns {module:eclairjs/ml/util.MLReader} 
      */
     DistributedLDAModel.read = function() {
-       var javaObject =  org.apache.spark.ml.clustering.DistributedLDAModel.read();
-       return Utils.javaToJs(javaObject);
+        var MLReader = require(EclairJS_Globals.NAMESPACE + '/ml/util/MLReader');
+        var javaObject =  org.apache.spark.ml.clustering.DistributedLDAModel.read();
+        /*
+         The object is and inner class so don't user Utils.javaToJs
+         to create th MLReader.
+         */
+        return new MLReader(javaObject);
     };
     
     

@@ -206,8 +206,13 @@
      * @returns {module:eclairjs/ml/util.MLReader}
      */
     StringIndexerModel.read = function () {
+        var MLReader = require(EclairJS_Globals.NAMESPACE + '/ml/util/MLReader');
         var javaObject = org.apache.spark.ml.feature.StringIndexerModel.read();
-        return Utils.javaToJs(javaObject);
+        /*
+         The object is and inner class so don't user Utils.javaToJs
+         to create th MLReader.
+         */
+        return new MLReader(javaObject);
     };
 
 

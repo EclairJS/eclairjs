@@ -108,8 +108,13 @@
      * @returns {module:eclairjs/ml/util.MLWriter}
      */
     KMeansModel.prototype.write = function () {
+        var MLWriter = require(EclairJS_Globals.NAMESPACE + '/ml/util/MLWriter');
         var javaObject = this.getJavaObject().write();
-        return Utils.javaToJs(javaObject);
+        /*
+         the object is an inner class so don't use Utils.javaToJs
+         to create the MLWriter object.
+         */
+        return new MLWriter(javaObject);
     };
 
     //
@@ -121,8 +126,13 @@
      * @returns {module:eclairjs/ml/util.MLReader}
      */
     KMeansModel.read = function () {
+        var MLReader = require(EclairJS_Globals.NAMESPACE + '/ml/util/MLReader');
         var javaObject = org.apache.spark.ml.clustering.KMeansModel.read();
-        return Utils.javaToJs(javaObject);
+        /*
+         The object is and inner class so don't user Utils.javaToJs
+         to create th MLReader.
+         */
+        return new MLReader(javaObject);
     };
 
 
