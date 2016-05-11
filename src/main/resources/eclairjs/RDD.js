@@ -872,17 +872,6 @@
     };
 
     /**
-     * Return this RDD sorted by the given key function.
-     * @param {boolean} ascending
-     * @returns {module:eclairjs.RDD}
-     * @deprecated Use sortBy instead
-     */
-    RDD.prototype.sortByKey = function (ascending) {
-        var result = Utils.javaToJs(this.getJavaObject().sortByKey(ascending));
-        return result;
-    };
-
-    /**
      * The SparkContext that created this RDD.
      * @returns {module:eclairjs.SparkContext}
      */

@@ -1326,62 +1326,23 @@
 //   }
     };
 
-
     /**
-     * Sort the RDD by key, so that each partition contains a sorted range of the elements in
-     * ascending order. Calling `collect` or `save` on the resulting RDD will return or output an
-     * ordered list of records (in the `save` case, they will be written to multiple `part-X` files
-     * in the filesystem, in order of the keys).
+     * Sort the RDD by key, so that each partition contains a sorted range of the elements. Calling
+     * `collect` or `save` on the resulting RDD will return or output an ordered list of records
+     * (in the `save` case, they will be written to multiple `part-X` files in the filesystem, in
+     * order of the keys).
+     * @param {boolean} [ascending] defaults to false
+     * @param {number} [numPartitions]
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.sortByKey0 = function () {
-        var javaObject = this.getJavaObject().sortByKey();
+    PairRDD.prototype.sortByKey = function (ascending, numPartitions) {
+        var javaObject;
+        if (numPartitions) {
+            javaObject = this.getJavaObject().sortByKey(ascending, numPartitions);
+        } else {
+            javaObject = this.getJavaObject().sortByKey(ascending);
+        }
         return new PairRDD(javaObject);
-    };
-
-
-    /**
-     * Sort the RDD by key, so that each partition contains a sorted range of the elements. Calling
-     * `collect` or `save` on the resulting RDD will return or output an ordered list of records
-     * (in the `save` case, they will be written to multiple `part-X` files in the filesystem, in
-     * order of the keys).
-     * @param {boolean} ascending
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.sortByKey1 = function (ascending) {
-        throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().sortByKey(ascending);
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
-     * Sort the RDD by key, so that each partition contains a sorted range of the elements. Calling
-     * `collect` or `save` on the resulting RDD will return or output an ordered list of records
-     * (in the `save` case, they will be written to multiple `part-X` files in the filesystem, in
-     * order of the keys).
-     * @param {boolean} ascending
-     * @returns {module:eclairjs.PairRDD}
-     */
-    RDD.prototype.sortByKey = function (ascending) {
-        var result = new PairRDD(this.getJavaObject().sortByKey(ascending));
-        return result;
-    };
-
-
-    /**
-     * Sort the RDD by key, so that each partition contains a sorted range of the elements. Calling
-     * `collect` or `save` on the resulting RDD will return or output an ordered list of records
-     * (in the `save` case, they will be written to multiple `part-X` files in the filesystem, in
-     * order of the keys).
-     * @param {boolean} ascending
-     * @param {number} numPartitions
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.sortByKey2 = function (ascending, numPartitions) {
-        throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().sortByKey(ascending,numPartitions);
-//   return new PairRDD(javaObject);
     };
 
 
@@ -1392,6 +1353,7 @@
      * order of the keys).
      * @param {Comparator} comp
      * @returns {module:eclairjs.PairRDD}
+     * @ignore
      */
     PairRDD.prototype.sortByKey3 = function (comp) {
         throw "not implemented by ElairJS";
@@ -1409,6 +1371,7 @@
      * @param {Comparator} comp
      * @param {boolean} ascending
      * @returns {module:eclairjs.PairRDD}
+     * @ignore
      */
     PairRDD.prototype.sortByKey4 = function (comp, ascending) {
         throw "not implemented by ElairJS";
@@ -1427,6 +1390,7 @@
      * @param {boolean} ascending
      * @param {number} numPartitions
      * @returns {module:eclairjs.PairRDD}
+     * @ignore
      */
     PairRDD.prototype.sortByKey5 = function (comp, ascending, numPartitions) {
         throw "not implemented by ElairJS";
