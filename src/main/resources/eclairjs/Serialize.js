@@ -41,6 +41,20 @@ Serialize.javaArray = function (javaObj) {
     return false;
 };
 
+Serialize.javaMap = function (javaObj) {
+    if (javaObj instanceof java.util.Map) {
+        var map = {};
+        var keys = Java.from(javaObj.keySet().toArray());
+        keys.forEach(function(k){
+            map[k] = Serialize.javaToJs(javaObj.get(k));
+        });
+
+        return map;
+    }
+
+    return false;
+};
+
 Serialize.javaList = function (javaObj) {
     if (javaObj instanceof java.util.List) {
         var res = [];
@@ -320,7 +334,7 @@ Serialize.javaSqlDate = function (javaObj) {
 };
 
 Serialize.handlers = [
-    Serialize.javaSparkObject,
+
     Serialize.javaArray,
     Serialize.javaSqlTimestamp,
     Serialize.javaSqlDate,
@@ -330,7 +344,9 @@ Serialize.handlers = [
     Serialize.javaIterableWrapper,
     Serialize.javaSeqWrapper,
     Serialize.JSModule, // test for module before JSONObject since techinically it is an instance of org.json.simple.JSONObject
-    Serialize.JSONObject
+    Serialize.JSONObject,
+    Serialize.javaMap, // keep this before javaSparkObject to handle org.apache.api.java.JavaUtils$SerializableWrapper
+    Serialize.javaSparkObject,
 ];
 
 Serialize.javaToJs = function (javaObj) {
