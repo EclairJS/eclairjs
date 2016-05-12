@@ -66,8 +66,8 @@ if (typeof sparkContext === 'undefined') {
     var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("JavaScript Chi Sq Selector Example");
     var sc = new SparkContext(sparkConf);
-    var resultDF = run(sc);
-    resultDF.show();
+    var result = run(sc);
+    result.show();
     sc.stop();
 }
 

@@ -64,9 +64,9 @@ if (typeof sparkContext === 'undefined') {
 
     var sparkConf = new SparkConf().setAppName("Example");
     var sc = new SparkContext(sparkConf);
-    var rows = run(sc);
-    print(JSON.stringify(rows));
-    rows.forEach(function (r) {
+    var result = run(sc);
+    print(JSON.stringify(result));
+    result.forEach(function (r) {
         var ngrams = r.getList(0).toArray();
         var ngram = "";
         ngrams.forEach(function (n) {

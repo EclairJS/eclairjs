@@ -86,12 +86,12 @@ if (typeof sparkContext === 'undefined') {
     var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("JavaScript Decision Tree Regression Example");
     var sc = new SparkContext(sparkConf);
-    var ret = run(sc);
+    var result = run(sc);
 
     // Select example rows to display.
-    ret.predictions.select("label", "features").show(5);
-    print("Root Mean Squared Error (RMSE) on test data = " + ret.rmse);
-    print("Learned regression tree model:\n" + ret.treeModel.toDebugString());
+    result.predictions.select("label", "features").show(5);
+    print("Root Mean Squared Error (RMSE) on test data = " + result.rmse);
+    print("Learned regression tree model:\n" + result.treeModel.toDebugString());
     sc.stop();
 }
 

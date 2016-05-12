@@ -55,9 +55,9 @@ if (typeof sparkContext === 'undefined')  {
     var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("JavaScript StandardScalerExample");
     var sc = new SparkContext(sparkConf);
-    var output = run(sc);
+    var result = run(sc);
 
-    output.show(20,true);
+    result.show(20,true);
 
     // $example off$
     sc.stop();

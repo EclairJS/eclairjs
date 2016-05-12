@@ -61,8 +61,8 @@ if (typeof sparkContext === 'undefined')  {
     var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("JavaScript SQLTransformerExample");
     var sc = new SparkContext(sparkConf);
-    var output = run(sc);
-    output.show(20,true);
+    var result = run(sc);
+    result.show(20,true);
 
     // $example off$
     sc.stop();

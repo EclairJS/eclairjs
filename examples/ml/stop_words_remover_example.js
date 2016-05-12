@@ -61,7 +61,7 @@ if (typeof sparkContext === 'undefined')  {
     var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("JavaScript StopWordsRemoverExample");
     var sc = new SparkContext(sparkConf);
-    var output = run(sc);
+    var result = run(sc);
 
     // $example off$
     sc.stop();

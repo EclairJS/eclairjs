@@ -63,9 +63,9 @@ if (typeof sparkContext === 'undefined')  {
     var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("JavaScript VectorAssemblerExample");
     var sc = new SparkContext(sparkConf);
-    var output = run(sc);
+    var result = run(sc);
 
-    print(output.select("features", "clicked").first());
+    print(result.select("features", "clicked").first());
     // $example off$
     sc.stop();
 }

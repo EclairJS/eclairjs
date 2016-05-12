@@ -56,24 +56,24 @@ if (typeof sparkContext === 'undefined') {
     var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("Binary Classification Metrics Test");
     var sc = new SparkContext(sparkConf);
-    var metrics = run(sc);
+    var result = run(sc);
     // Precision by threshold
-    var precision = metrics.precisionByThreshold();
+    var precision = result.precisionByThreshold();
     print("Precision by threshold: " + precision.collect());
 
 // Recall by threshold
-    var recall = metrics.recallByThreshold();
+    var recall = result.recallByThreshold();
     print("Recall by threshold: " + recall.collect());
 
 // F Score by threshold
-    var f1Score = metrics.fMeasureByThreshold();
+    var f1Score = result.fMeasureByThreshold();
     print("F1 Score by threshold: " + f1Score.collect());
 
-    var f2Score = metrics.fMeasureByThreshold(2.0);
+    var f2Score = result.fMeasureByThreshold(2.0);
     print("F2 Score by threshold: " + f2Score.collect());
 
 // Precision-recall curve
-    var prc = metrics.pr();
+    var prc = result.pr();
     print("Precision-recall curve: " + prc.collect());
 
     sc.stop();

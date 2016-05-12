@@ -92,7 +92,7 @@ if (typeof sparkContext === 'undefined')  {
     var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("JavaScript AFTSurvivalRegressionExample");
     var sc = new SparkContext(sparkConf);
-    var rmse = run(sc);
-    print("Root-mean-square error = " + rmse);
+    var result = run(sc);
+    print("Root-mean-square error = " + result);
     sc.stop();
 }

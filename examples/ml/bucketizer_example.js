@@ -64,7 +64,7 @@ if (typeof sparkContext === 'undefined')  {
     var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("JavaScript Bucketizer Example");
     var sc = new SparkContext(sparkConf);
-    var bucketedData = run(sc);
-    bucketedData.show();
+    var result = run(sc);
+    result.show();
     sc.stop();
 }

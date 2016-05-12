@@ -66,11 +66,11 @@ if (typeof sparkContext === 'undefined')  {
     var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("JavaScript AFTSurvivalRegressionExample");
     var sc = new SparkContext(sparkConf);
-    var ret = run(sc);
+    var result = run(sc);
     // Print the coefficients, intercept and scale parameter for AFT survival regression
-    print("Coefficients: " + ret.model.coefficients() + " Intercept: "
-        + ret.model.intercept() + " Scale: " + ret.model.scale());
-    ret.dataframe.show(false);
+    print("Coefficients: " + result.model.coefficients() + " Intercept: "
+        + result.model.intercept() + " Scale: " + result.model.scale());
+    result.dataframe.show(false);
     sc.stop();
 }
 

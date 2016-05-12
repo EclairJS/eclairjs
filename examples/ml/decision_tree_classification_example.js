@@ -102,12 +102,12 @@ if (typeof sparkContext === 'undefined') {
     var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("JavaScript Decision Tree Classification Example");
     var sc = new SparkContext(sparkConf);
-    var ret = run(sc);
+    var result = run(sc);
 
     // Select example rows to display.
-    ret.predictions.select("predictedLabel", "label", "features").show(5);
-    print("Test Error = " + (1.0 - ret.accuracy));
-    print("Learned classification tree model:\n" + ret.treeModel.toDebugString());;
+    result.predictions.select("predictedLabel", "label", "features").show(5);
+    print("Test Error = " + (1.0 - result.accuracy));
+    print("Learned classification tree model:\n" + result.treeModel.toDebugString());;
     sc.stop();
 }
 

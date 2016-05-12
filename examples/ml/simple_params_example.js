@@ -110,11 +110,11 @@ if (typeof sparkContext === 'undefined')  {
     var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("JavaScript SimpleParamsExample");
     var sc = new SparkContext(sparkConf);
-    var output = run(sc);
+    var result = run(sc);
 
-    for (var i=0;i<output.length;i++)
+    for (var i=0;i<result.length;i++)
     {
-      var r=output[i];
+      var r=result[i];
       print("(" + r.get(0) + ", " + r.get(1) + ") -> prob=" + r.get(2) +
           ", prediction=" + r.get(3));
     }

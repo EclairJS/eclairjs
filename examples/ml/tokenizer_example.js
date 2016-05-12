@@ -75,9 +75,9 @@ if (typeof sparkContext === 'undefined')  {
     var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("JavaScript TokenizerExample");
     var sc = new SparkContext(sparkConf);
-    var output = run(sc);
+    var result = run(sc);
 
-    print(output);
+    print(result);
     // $example off$
     sc.stop();
 }

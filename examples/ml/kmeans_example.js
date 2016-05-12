@@ -76,9 +76,9 @@ if (typeof sparkContext === 'undefined') {
     var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("KMeans Example");
     var sc = new SparkContext(sparkConf);
-    var centers = run(sc);
+    var result = run(sc);
     print("Cluster Centers: ");
-    centers.forEach(function (center) {
+    result.forEach(function (center) {
         print(center);
     });
 

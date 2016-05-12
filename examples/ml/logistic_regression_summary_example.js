@@ -75,13 +75,13 @@ if (typeof sparkContext === 'undefined') {
 
     var sparkConf = new SparkConf().setAppName("Example");
     var sc = new SparkContext(sparkConf);
-    var results = run(sc);
-    results.objectiveHistory.forEach(function (lossPerIteration) {
+    var result = run(sc);
+    result.objectiveHistory.forEach(function (lossPerIteration) {
         print(lossPerIteration);
     });
-    results.roc.show();
-    results.roc.select("FPR").show();
-    print(results.areaUnderROC);
+    result.roc.show();
+    result.roc.select("FPR").show();
+    print(result.areaUnderROC);
 
     sc.stop();
 }

@@ -66,8 +66,8 @@ if (typeof sparkContext === 'undefined') {
 
     var sparkConf = new SparkConf().setAppName("Example");
     var sc = new SparkContext(sparkConf);
-    var rows = run(sc);
-    rows.forEach(function (r) {
+    var result = run(sc);
+    result.forEach(function (r) {
         print(r.get(0));
     });
 

@@ -88,9 +88,9 @@ if (typeof sparkContext === 'undefined')  {
     var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("JavaScript TrainValidationSplitExample");
     var sc = new SparkContext(sparkConf);
-    var output = run(sc);
+    var result = run(sc);
 
-    output.show();
+    result.show();
     // $example off$
     sc.stop();
 }

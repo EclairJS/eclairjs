@@ -53,31 +53,31 @@ if (typeof sparkContext === 'undefined') {
     var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("Multilabel Classification Metrics Example");
     var sc = new SparkContext(sparkConf);
-    var metrics = run(sc);
+    var result = run(sc);
 
 // Summary stats
-    print("Recall = " + metrics.recall());
-    print("Precision = ", +metrics.precision());
-    print("F1 measure = ", +metrics.f1Measure());
-    print("Accuracy = ", +metrics.accuracy());
+    print("Recall = " + result.recall());
+    print("Precision = ", +result.precision());
+    print("F1 measure = ", +result.f1Measure());
+    print("Accuracy = ", +result.accuracy());
 
 // Stats by labels
-    for (var i = 0; i < metrics.labels().length - 1; i++) {
-        print("Class " + metrics.labels()[i] + " precision = " +  metrics.precision(metrics.labels()[i]));
-        print("Class " + metrics.labels()[i] + " recall = " + metrics.recall(metrics.labels()[i]));
-        print("Class " + metrics.labels()[i] + " F1 score = " +  metrics.f1Measure(metrics.labels()[i]));
+    for (var i = 0; i < result.labels().length - 1; i++) {
+        print("Class " + result.labels()[i] + " precision = " +  result.precision(result.labels()[i]));
+        print("Class " + result.labels()[i] + " recall = " + result.recall(result.labels()[i]));
+        print("Class " + result.labels()[i] + " F1 score = " +  result.f1Measure(result.labels()[i]));
     }
 
 // Micro stats
-    print("Micro recall = " + metrics.microRecall());
-    print("Micro precision = " + metrics.microPrecision());
-    print("Micro F1 measure = " + metrics.microF1Measure());
+    print("Micro recall = " + result.microRecall());
+    print("Micro precision = " + result.microPrecision());
+    print("Micro F1 measure = " + result.microF1Measure());
 
 // Hamming loss
-    print("Hamming loss = " + metrics.hammingLoss());
+    print("Hamming loss = " + result.hammingLoss());
 
 // Subset accuracy
-    print("Subset accuracy = " + metrics.subsetAccuracy());
+    print("Subset accuracy = " + result.subsetAccuracy());
 
     sc.stop();
 }

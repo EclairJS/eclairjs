@@ -61,8 +61,8 @@ if (typeof sparkContext === 'undefined')  {
     var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("JavaScript Binarizer Example");
     var sc = new SparkContext(sparkConf);
-    var rows = run(sc);
-    rows.forEach(function (row) {
+    var result = run(sc);
+    result.forEach(function (row) {
         var binarized_value = row.getDouble(0);
         print(binarized_value);
     });

@@ -72,10 +72,10 @@ if (typeof sparkContext === 'undefined')  {
     var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("JavaScript TfldExample");
     var sc = new SparkContext(sparkConf);
-    var output = run(sc);
+    var result = run(sc);
 
-    for (var i=0; i<output.length; i++) {
-        var r=output[i];
+    for (var i=0; i<result.length; i++) {
+        var r=result[i];
       var features = r.get(0);
       var label = r.getDouble(1);
       print(features);

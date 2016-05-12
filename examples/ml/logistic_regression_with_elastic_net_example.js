@@ -57,10 +57,10 @@ if (typeof sparkContext === 'undefined') {
 
     var sparkConf = new SparkConf().setAppName("Example");
     var sc = new SparkContext(sparkConf);
-    var results = run(sc);
+    var result = run(sc);
     // Print the coefficients and intercept for logistic regression
     print("Coefficients: "
-        + results.coefficients + " Intercept: " + results.intercept);
+        + result.coefficients + " Intercept: " + result.intercept);
 
     sc.stop();
 }

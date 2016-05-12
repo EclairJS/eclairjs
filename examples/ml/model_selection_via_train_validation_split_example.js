@@ -75,8 +75,8 @@ if (typeof sparkContext === 'undefined') {
 
     var sparkConf = new SparkConf().setAppName("Example");
     var sc = new SparkContext(sparkConf);
-    var results = run(sc);
-    results.show();
+    var result = run(sc);
+    result.show();
 
     sc.stop();
 }

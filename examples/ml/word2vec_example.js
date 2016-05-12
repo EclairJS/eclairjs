@@ -62,8 +62,8 @@ if (typeof sparkContext === 'undefined')  {
     var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("JavaScript Word2Vec Example");
     var sc = new SparkContext(sparkConf);
-    var rows = run(sc);
-    rows.forEach(function (r) {
+    var result = run(sc);
+    result.forEach(function (r) {
         print(r);
     })
 }

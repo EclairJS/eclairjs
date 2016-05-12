@@ -50,8 +50,8 @@ if (typeof sparkContext === 'undefined') {
 
     var sparkConf = new SparkConf().setAppName("Example");
     var sc = new SparkContext(sparkConf);
-    var lInfNormData = run(sc);
-    lInfNormData.show();
+    var result = run(sc);
+    result.show();
 
     sc.stop();
 }

@@ -61,8 +61,8 @@ if (typeof sparkContext === 'undefined') {
     var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("JavaScript DCT Example");
     var sc = new SparkContext(sparkConf);
-    var resultDF = run(sc);
-    resultDF.show(3);
+    var result = run(sc);
+    result.show(3);
     sc.stop();
 }
 
