@@ -162,6 +162,20 @@
      *
      */
     SQLContext.prototype.createDataFrame = function (rowRDD_or_values, schema) {
+        function castDataType(x, dt){
+            if ((x instanceof java.lang.Integer) &&  (dt.getJavaObject() instanceof org.apache.spark.sql.types.DoubleType)) {
+                return x.doubleValue();
+            } else if ((x instanceof java.lang.Integer) &&  (dt.getJavaObject() instanceof org.apache.spark.sql.types.FloatType)) {
+                return x.floatValue();
+            } else if ((x instanceof java.lang.Double) &&  (dt.getJavaObject() instanceof org.apache.spark.sql.types.IntegerType)) {
+                return x.intValue();
+            } else if ((x instanceof java.lang.Double) &&  (dt.getJavaObject() instanceof org.apache.spark.sql.types.FloatType)) {
+                return x.floatValue();
+            } else {
+                return Utils.unwrapObject(x);
+            }
+        }
+
         var DoubleType = require(EclairJS_Globals.NAMESPACE + '/sql/types/DoubleType');
         var rowRDD_uw;
         var schema_uw = Utils.unwrapObject(schema);
@@ -173,9 +187,12 @@
 
                 if (Array.isArray(row)) {
                     var rowValues = [];
-                    row.forEach(function (value) {
-                        rowValues.push(Utils.unwrapObject(value));
-                    })
+                    for (var i = 0; i < row.length; i++) {
+                        //rowValues.push(Utils.unwrapObject(value));
+                        var x = row[i];
+                        var dt = fields[i].dataType();
+                        rowValues.push(castDataType(x, dt));
+                    }
                     rows.add(org.apache.spark.sql.RowFactory.create(rowValues));
                 } else {
                    /*
@@ -188,15 +205,20 @@
                     for (var i = 0; i < row.length(); i++) {
                         var x = row.get(i);
                         var dt = fields[i].dataType();
+                        v.push(castDataType(x, dt));
+                        /*
                         if ((x instanceof java.lang.Integer) &&  (dt.getJavaObject() instanceof org.apache.spark.sql.types.DoubleType)) {
                             v.push(x.doubleValue())
                         } else if ((x instanceof java.lang.Integer) &&  (dt.getJavaObject() instanceof org.apache.spark.sql.types.FloatType)) {
                             v.push(x.floatValue())
                         } else if ((x instanceof java.lang.Double) &&  (dt.getJavaObject() instanceof org.apache.spark.sql.types.IntegerType)) {
                             v.push(x.intValue())
+                        } else if ((x instanceof java.lang.Double) &&  (dt.getJavaObject() instanceof org.apache.spark.sql.types.FloatType)) {
+                            v.push(x.floatValue())
                         } else {
                             v.push(Utils.unwrapObject(x));
                         }
+                        */
                     }
                     rows.add(org.apache.spark.sql.RowFactory.create(v));
                 }

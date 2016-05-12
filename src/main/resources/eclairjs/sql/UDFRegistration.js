@@ -74,7 +74,6 @@
         var args = f2.split(",");
         var bindArgsLen = bindArgs ? bindArgs.length : 0;
         var udfArgLen = args.length - bindArgsLen;
-        print(udfArgLen);
 
         var udfClass;
         switch (udfArgLen) {
@@ -83,6 +82,15 @@
                 break;
             case 2:
                 udfClass = org.eclairjs.nashorn.sql.JSUDF2;
+                break;
+            case 3:
+                udfClass = org.eclairjs.nashorn.sql.JSUDF3;
+                break;
+            case 4:
+                udfClass = org.eclairjs.nashorn.sql.JSUDF4;
+                break;
+            case 5:
+                udfClass = org.eclairjs.nashorn.sql.JSUDF5;
                 break;
             case 6:
                 udfClass = org.eclairjs.nashorn.sql.JSUDF6;

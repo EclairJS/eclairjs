@@ -67,6 +67,66 @@ var udf2Test = function() {
     return JSON.stringify(result);
 }
 
+var udf3Test = function() {
+
+    var fields = [];
+    fields.push(DataTypes.createStructField("test", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("item2", DataTypes.IntegerType, true));
+    fields.push(DataTypes.createStructField("floatNum", DataTypes.DoubleType, true));
+    var schema = DataTypes.createStructType(fields);
+    var df = sqlContext.createDataFrame([["test 1", 1, 3.0], ["string 2", 2, 1.1],["string 3", 3, 2.2]], schema);
+    df.registerTempTable("mytable");
+
+    sqlContext.udf().register("udfTest", function(str, num, floatNum) {
+        return str.length() + num + floatNum;
+    }, DataTypes.FloatType);
+
+    var result = sqlContext.sql("SELECT *, udfTest(mytable.test, mytable.item2, mytable.floatNum) as transformedByUDF FROM mytable").collect();
+
+    return JSON.stringify(result);
+}
+
+var udf4Test = function() {
+
+    var fields = [];
+    fields.push(DataTypes.createStructField("test", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("item2", DataTypes.IntegerType, true));
+    fields.push(DataTypes.createStructField("floatNum", DataTypes.DoubleType, true));
+    fields.push(DataTypes.createStructField("floatNum2", DataTypes.FloatType, true));
+    var schema = DataTypes.createStructType(fields);
+    var df = sqlContext.createDataFrame([["test 1", 1, 3.0, 2.2]], schema);
+    df.registerTempTable("mytable");
+
+    sqlContext.udf().register("udfTest", function(str, num, floatNum, floatNum2) {
+        return str.length() + num + floatNum + floatNum2;
+    }, DataTypes.DoubleType);
+
+    var result = sqlContext.sql("SELECT *, udfTest(mytable.test, mytable.item2, mytable.floatNum, mytable.floatNum2) as transformedByUDF FROM mytable").collect();
+
+    return JSON.stringify(result);
+}
+
+var udf5Test = function() {
+
+    var fields = [];
+    fields.push(DataTypes.createStructField("test", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("item2", DataTypes.IntegerType, true));
+    fields.push(DataTypes.createStructField("floatNum", DataTypes.DoubleType, true));
+    fields.push(DataTypes.createStructField("floatNum2", DataTypes.FloatType, true));
+    fields.push(DataTypes.createStructField("dob", DataTypes.TimestampType, true));
+    var schema = DataTypes.createStructType(fields);
+    var df = sqlContext.createDataFrame([["test 1", 1, 3.0, 2.2, new SqlTimestamp("1996-03-07 00:00:00")]], schema);
+    df.registerTempTable("mytable");
+
+    sqlContext.udf().register("udfTest", function(str, num, floatNum, floatNum2, ts) {
+        return str +" "+ num +" "+ floatNum +" "+ floatNum2 +" "+ ts;
+    }, DataTypes.StringType);
+
+    var result = sqlContext.sql("SELECT *, udfTest(mytable.test, mytable.item2, mytable.floatNum, mytable.floatNum2, mytable.dob) as transformedByUDF FROM mytable").collect();
+
+    return JSON.stringify(result);
+}
+
 var udf6Test = function() {
     var SqlTimestamp = require(EclairJS_Globals.NAMESPACE + '/sql/SqlTimestamp');
     var fields = [];
