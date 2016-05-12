@@ -152,34 +152,13 @@ var java2wrapper = {
     "Assignment": "PowerIterationClusteringAssignment", // PowerIterationClustering$Assignment
     "FreqSequence": "PrefixSpanFreqSequence", // PrefixSpan$FreqSequence
     "GenericRowWithSchema": "Row",
+    "GenericRow": "Row",
     "last_place_holder": ""
 };
 var javaPackageMap = {
     "eclairjs/sql/catalyst/expressions": "eclairjs/sql",
     "eclairjs/api/java": "eclairjs",
     "eclairjs/streaming/api/java": "eclairjs/streaming"
-};
-var completedModules = { // FIXME temporary until all Class are require compatible
-    "eclairjs/sql/types": true,
-    "eclairjs/sql": true,
-    "eclairjs/mllib/classification": true,
-    "eclairjs/mllib/clustering": true,
-    "eclairjs/mllib/evaluation": true,
-    "eclairjs/mllib/feature": true,
-    "eclairjs/mllib/fpm": true,
-    "eclairjs/mllib/optimization": true,
-    "eclairjs/mllib/linalg": true,
-    "eclairjs/mllib/regression": true,
-    "eclairjs/mllib/random": true,
-    "eclairjs/mllib/recommendation": true,
-    "eclairjs/mllib/tree/model": true,
-    "eclairjs/mllib/tree/loss": true,
-    "eclairjs/mllib/tree/configuration": true,
-    "eclairjs/mllib/tree": true,
-    "eclairjs/storage": true,
-    "eclairjs/mllib": true,
-    "eclairjs/ml/feature": true,
-    "eclairjs/streaming/dstream": true
 };
 Serialize.javaSparkObject = function (javaObj) {
     if (javaObj == null) {
@@ -231,10 +210,9 @@ Serialize.javaSparkObject = function (javaObj) {
          */
         packageName = EclairJS_Globals.NAMESPACE+"/streaming/dstream";
     }
-    //if (completedModules[packageName] ) { // FIXME temporary util all Class are require compatible
-        var tmp = packageName+'/'+className;
-        req = 'var ' + className + ' = require("'+packageName+'/'+className+'");'
-    //}
+
+    var tmp = packageName+'/'+className;
+    req = 'var ' + className + ' = require("'+packageName+'/'+className+'");'
 
     var ret = false;
     try {
@@ -245,7 +223,7 @@ Serialize.javaSparkObject = function (javaObj) {
         var wrapperObjectFunction = new Function("javaObj", cmd); // better closer, keep require our of the global space
         ret = wrapperObjectFunction(javaObj);
     } catch(se) {
-        Serialize.logger.error("Exception in trying to create javaSparkObject. Going to try and load required module");
+        Serialize.logger.error("Exception in trying to create SparkObject.");
         Serialize.logger.error(se);
     }
 
@@ -277,19 +255,16 @@ Serialize.javaSqlTimestamp = function (javaObj) {
     if (javaObj instanceof java.sql.Timestamp) {
         var ret = false;
         try {
-            // If TypeError exception is thrown catch it and try loading
-            // module before giving up - this could be on worker node
-            ret = eval("new SqlTimestamp(javaObj)");
+            // Make sure module is required before attempting new.
+            var req = "var SqlTimestamp = require('" + EclairJS_Globals.NAMESPACE + "/sql/SqlTimestamp');";
+            var cmd = req + " return new SqlTimestamp(javaObj)";
+            Serialize.logger.debug(cmd);
+            var wrapperObjectFunction = new Function("javaObj", cmd); // better closer, keep require our of the global space
+            ret = wrapperObjectFunction(javaObj);
         } catch(se) {
-            Serialize.logger.debug("Exception in trying to create SqlTimestamp. Going to try and load required module");
-            Serialize.logger.debug(se);
-            // Should probably raise exception if module has not been required
-            if (mod) {
-                ModuleUtils.loadFileInNashorn("sql/SqlTimestamp");
-                ret = eval("new SqlTimestamp(javaObj)");
-            }
+            Serialize.logger.error("Exception in trying to create SqlTimestamp.");
+            Serialize.logger.error(se);
         }
-
         return ret;
     }
     return false;
@@ -299,21 +274,16 @@ Serialize.javaSqlDate = function (javaObj) {
     if (javaObj instanceof java.sql.Date) {
         var ret = false;
         try {
-            // If TypeError exception is thrown catch it and try loading
-            // module before giving up - this could be on worker node
-            ret = eval("new SqlDate(javaObj)");
+            // Make sure module is required before attempting new.
+            var req = "var SqlDate = require('" + EclairJS_Globals.NAMESPACE + "/sql/SqlDate');";
+            var cmd = req + " return new SqlDate(javaObj)";
+            Serialize.logger.debug(cmd);
+            var wrapperObjectFunction = new Function("javaObj", cmd); // better closer, keep require our of the global space
+            ret = wrapperObjectFunction(javaObj);
         } catch(se) {
-            Serialize.logger.debug("Exception in trying to create SqlDate. Going to try and load required module");
-            Serialize.logger.debug(se);
-            var mod = ModuleUtils.getModuleFromJavaPackageAndClass(packageName, className);
-            // Should probably raise exception if module has not been required
-            if (mod) {
-                ModuleUtils.loadFileInNashorn("sql/SqlDate");
-
-                ret = eval("new SqlDate(javaObj)");
-            }
+            Serialize.logger.error("Exception in trying to create SqlDate.");
+            Serialize.logger.error(se);
         }
-
         return ret;
     }
     return false;
