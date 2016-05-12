@@ -482,6 +482,19 @@
         return new SQLContext(javaObject);
     };
 
+    /**
+     * A collection of methods for registering user-defined functions (UDF).
+     * @example
+     * // TODO add example
+     * @returns {module:eclairjs/sql.UDFRegistration}
+     */
+    SQLContext.prototype.udf = function () {
+        var javaObject = this.getJavaObject().udf();
+        var udfr = Utils.javaToJs(javaObject);
+        udfr.sparkContext(this.sparkContext());
+        return  udfr;
+    };
+
 
 //
 // static methods
