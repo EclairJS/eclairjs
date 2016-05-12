@@ -103,4 +103,27 @@ public class SqlUDFTest {
         assertEquals("should be same", expected, ret.toString());
     }
 
+    @Test
+    public void udf7Test() throws Exception {
+
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/sql/user_defined_function_test.js");
+        Object ret = ((Invocable) engine).invokeFunction("udf7Test");
+
+        String expected = "[{\"values\":[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\",\"7\",\"1234567\"],\"schema\":{\"fields\":[{\"name\":\"col1\",\"dataType\":\"string\",\"nullable\":true},{\"name\":\"col2\",\"dataType\":\"string\",\"nullable\":true},{\"name\":\"col3\",\"dataType\":\"string\",\"nullable\":true},{\"name\":\"col4\",\"dataType\":\"string\",\"nullable\":true},{\"name\":\"col5\",\"dataType\":\"string\",\"nullable\":true},{\"name\":\"col6\",\"dataType\":\"string\",\"nullable\":true},{\"name\":\"col7\",\"dataType\":\"string\",\"nullable\":true},{\"name\":\"transformedByUDF\",\"dataType\":\"string\",\"nullable\":true}]}}]";
+        assertEquals("should be same", expected, ret.toString());
+    }
+    @Test
+    public void udf8Test() throws Exception {
+
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/sql/user_defined_function_test.js");
+        Object ret = ((Invocable) engine).invokeFunction("udf8Test");
+
+        String expected = "[{\"values\":[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"12345678\"],\"schema\":{\"fields\":[{\"name\":\"col1\",\"dataType\":\"string\",\"nullable\":true},{\"name\":\"col2\",\"dataType\":\"string\",\"nullable\":true},{\"name\":\"col3\",\"dataType\":\"string\",\"nullable\":true},{\"name\":\"col4\",\"dataType\":\"string\",\"nullable\":true},{\"name\":\"col5\",\"dataType\":\"string\",\"nullable\":true},{\"name\":\"col6\",\"dataType\":\"string\",\"nullable\":true},{\"name\":\"col7\",\"dataType\":\"string\",\"nullable\":true},{\"name\":\"col8\",\"dataType\":\"string\",\"nullable\":true},{\"name\":\"transformedByUDF\",\"dataType\":\"string\",\"nullable\":true}]}}]";
+        assertEquals("should be same", expected, ret.toString());
+    }
+
 }

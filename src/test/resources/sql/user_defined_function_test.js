@@ -152,3 +152,51 @@ var udf6Test = function() {
 
     return JSON.stringify(result);
 }
+
+var udf7Test = function() {
+    var fields = [];
+    fields.push(DataTypes.createStructField("col1", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("col2", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("col3", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("col4", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("col5", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("col6", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("col7", DataTypes.StringType, true));
+    var schema = DataTypes.createStructType(fields);
+    var df = sqlContext.createDataFrame([["1", "2", "3", "4", "5", "6", "7"]], schema);
+    df.registerTempTable("mytable");
+
+    sqlContext.udf().register("udfTest", function(col1, col2, col3, col4, col5, col6, col7) {
+        return col1 + col2 + col3 + col4 + col5 + col6 + col7;
+    }, DataTypes.StringType);
+    var smt = "SELECT *, " +
+        "udfTest(mytable.col1, mytable.col2, mytable.col3, mytable.col4, mytable.col5, mytable.col6, mytable.col7) " +
+        "as transformedByUDF FROM mytable";
+    var result = sqlContext.sql(smt).collect();
+
+    return JSON.stringify(result);
+}
+
+var udf8Test = function() {
+    var fields = [];
+    fields.push(DataTypes.createStructField("col1", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("col2", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("col3", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("col4", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("col5", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("col6", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("col7", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("col8", DataTypes.StringType, true));
+    var schema = DataTypes.createStructType(fields);
+    var df = sqlContext.createDataFrame([["1", "2", "3", "4", "5", "6", "7", "8"]], schema);
+    df.registerTempTable("mytable");
+
+    sqlContext.udf().register("udfTest", function(col1, col2, col3, col4, col5, col6, col7, col8) {
+        return col1 + col2 + col3 + col4 + col5 + col6 + col7 + col8;
+    }, DataTypes.StringType);
+    var smt = "SELECT *, " +
+        "udfTest(mytable.col1, mytable.col2, mytable.col3, mytable.col4, mytable.col5, mytable.col6, mytable.col7, mytable.col8) " +
+        "as transformedByUDF FROM mytable";
+    var result = sqlContext.sql(smt).collect();
+    return JSON.stringify(result);
+}

@@ -62,7 +62,7 @@
      * @param {string} name
      * @param {func} func
      * @param {module:eclairjs/sql/types.DataType} returnType DataType returned from the UDF function
-     * @param {[]} bindArgs
+     * @param {object[]} [bindArgs]
      * @returns {module:eclairjs/sql.UserDefinedFunction}
      */
     UDFRegistration.prototype.register = function (name, func, returnType, bindArgs) {
@@ -94,6 +94,12 @@
                 break;
             case 6:
                 udfClass = org.eclairjs.nashorn.sql.JSUDF6;
+                break;
+            case 7:
+                udfClass = org.eclairjs.nashorn.sql.JSUDF7;
+                break;
+            case 8:
+                udfClass = org.eclairjs.nashorn.sql.JSUDF8;
                 break;
 
             default:
