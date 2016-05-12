@@ -21,15 +21,13 @@
     var RDD = require(EclairJS_Globals.NAMESPACE + '/RDD');
 
     /**
-     * @param {module:eclairjs.RDD} rdd of [Tuple(value, value)]{@link Tuple}.
+     * @param {module:eclairjs.RDD} rdd of [Tuple(value, value)]{@link module:eclairjs.Tuple}.
      *  @class
      *  @memberof module:eclairjs
      *  @extends module:eclairjs.RDD
      */
     var PairRDD = function (rdd, kClassTag, vClassTag) {
-        //var jvmObject = new org.apache.spark.api.java.JavaPairRDD(rdd,kClassTag,vClassTag);
 
-        //JavaWrapper.call(this, rdd);
         RDD.call(this, Utils.unwrapObject(rdd));
         this.className = "PairRDD_js";
         this.logger = Logger.getLogger("PairRDD_js");
@@ -42,20 +40,14 @@
 
     PairRDD.prototype.constructor = PairRDD;
 
-    PairRDD.prototype.testme = function () {
-        print("testme")
-    };
-
     /**
      * @param {module:eclairjs.RDD} rdd
      * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.wrapRDD = function (rdd) {
-        throw "not implemented by ElairJS";
-// // TODO: handle Tuple conversion for 'rdd'
-//   var rdd_uw = Utils.unwrapObject(rdd);
-//   var javaObject =  this.getJavaObject().wrapRDD(rdd_uw);
-//   return new PairRDD(javaObject);
+        var rdd_uw = Utils.unwrapObject(rdd);
+        var javaObject = this.getJavaObject().wrapRDD(rdd_uw);
+        return new PairRDD(javaObject);
     };
 
 
@@ -66,10 +58,9 @@
      * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.persist = function (newLevel) {
-        throw "not implemented by ElairJS";
-//   var newLevel_uw = Utils.unwrapObject(newLevel);
-//   var javaObject =  this.getJavaObject().persist(newLevel_uw);
-//   return new PairRDD(javaObject);
+        var newLevel_uw = Utils.unwrapObject(newLevel);
+        var javaObject = this.getJavaObject().persist(newLevel_uw);
+        return new PairRDD(javaObject);
     };
 
 
@@ -80,15 +71,14 @@
      * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.unpersist = function (blocking) {
-        throw "not implemented by ElairJS";
-//
-//   if (arguments[0]) {
-//   var javaObject =  this.getJavaObject().unpersist(blocking);
-//   return new PairRDD(javaObject);
-//   } else {
-//   var javaObject =  this.getJavaObject().unpersist();
-//   return new PairRDD(javaObject);
-//   }
+
+        if (arguments[0]) {
+            var javaObject = this.getJavaObject().unpersist(blocking);
+            return new PairRDD(javaObject);
+        } else {
+            var javaObject = this.getJavaObject().unpersist();
+            return new PairRDD(javaObject);
+        }
     };
 
 
@@ -137,15 +127,14 @@
      * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.coalesce = function (numPartitions, shuffle) {
-        throw "not implemented by ElairJS";
-//
-//   if (arguments[1]) {
-//   var javaObject =  this.getJavaObject().coalesce(numPartitions,shuffle);
-//   return new PairRDD(javaObject);
-//   } else {
-//   var javaObject =  this.getJavaObject().coalesce(numPartitions);
-//   return new PairRDD(javaObject);
-//   }
+
+        if (arguments[1]) {
+            var javaObject = this.getJavaObject().coalesce(numPartitions, shuffle);
+            return new PairRDD(javaObject);
+        } else {
+            var javaObject = this.getJavaObject().coalesce(numPartitions);
+            return new PairRDD(javaObject);
+        }
     };
 
 
@@ -161,9 +150,8 @@
      * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.repartition = function (numPartitions) {
-        throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().repartition(numPartitions);
-//   return new PairRDD(javaObject);
+        var javaObject = this.getJavaObject().repartition(numPartitions);
+        return new PairRDD(javaObject);
     };
 
 
@@ -175,15 +163,14 @@
      * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.sample = function (withReplacement, fraction, seed) {
-        throw "not implemented by ElairJS";
-//
-//   if (arguments[2]) {
-//   var javaObject =  this.getJavaObject().sample(withReplacement,fraction,seed);
-//   return new PairRDD(javaObject);
-//   } else {
-//   var javaObject =  this.getJavaObject().sample(withReplacement,fraction);
-//   return new PairRDD(javaObject);
-//   }
+
+        if (arguments[2]) {
+            var javaObject = this.getJavaObject().sample(withReplacement, fraction, seed);
+            return new PairRDD(javaObject);
+        } else {
+            var javaObject = this.getJavaObject().sample(withReplacement, fraction);
+            return new PairRDD(javaObject);
+        }
     };
 
 
@@ -195,21 +182,20 @@
      * RDD, to produce a sample of size that's approximately equal to the sum of
      * math.ceil(numItems * samplingRate) over all key values.
      * @param {boolean} withReplacement
-     * @param {JMap} fractions
+     * @param {object} fractions key, value pair object Hash Map
      * @param {number} [seed]
      * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.sampleByKey = function (withReplacement, fractions, seed) {
-        throw "not implemented by ElairJS";
-//   var fractions_uw = Utils.unwrapObject(fractions);
-//
-//   if (arguments[2]) {
-//   var javaObject =  this.getJavaObject().sampleByKey(withReplacement,fractions_uw,seed);
-//   return new PairRDD(javaObject);
-//   } else {
-//   var javaObject =  this.getJavaObject().sampleByKey(withReplacement,fractions_uw);
-//   return new PairRDD(javaObject);
-//   }
+        var fractions_uw = Utils.createJavaHashMap(fractions);
+
+        if (arguments[2]) {
+            var javaObject = this.getJavaObject().sampleByKey(withReplacement, fractions_uw, seed);
+            return new PairRDD(javaObject);
+        } else {
+            var javaObject = this.getJavaObject().sampleByKey(withReplacement, fractions_uw);
+            return new PairRDD(javaObject);
+        }
     };
 
 
@@ -223,21 +209,20 @@
      * additional pass over the RDD to guarantee sample size; when sampling with replacement, we need
      * two additional passes.
      * @param {boolean} withReplacement
-     * @param {JMap} fractions
+     * @param {object} fractions key, value pair object Hash Map
      * @param {number} [seed]
      * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.sampleByKeyExact = function (withReplacement, fractions, seed) {
-        throw "not implemented by ElairJS";
-//   var fractions_uw = Utils.unwrapObject(fractions);
-//
-//   if (arguments[2]) {
-//   var javaObject =  this.getJavaObject().sampleByKeyExact(withReplacement,fractions_uw,seed);
-//   return new PairRDD(javaObject);
-//   } else {
-//   var javaObject =  this.getJavaObject().sampleByKeyExact(withReplacement,fractions_uw);
-//   return new PairRDD(javaObject);
-//   }
+        var fractions_uw = Utils.createJavaHashMap(fractions);
+
+        if (arguments[2]) {
+            var javaObject = this.getJavaObject().sampleByKeyExact(withReplacement, fractions_uw, seed);
+            return new PairRDD(javaObject);
+        } else {
+            var javaObject = this.getJavaObject().sampleByKeyExact(withReplacement, fractions_uw);
+            return new PairRDD(javaObject);
+        }
     };
 
 
@@ -262,10 +247,9 @@
      * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.intersection = function (other) {
-        throw "not implemented by ElairJS";
-//   var other_uw = Utils.unwrapObject(other);
-//   var javaObject =  this.getJavaObject().intersection(other_uw);
-//   return new PairRDD(javaObject);
+        var other_uw = Utils.unwrapObject(other);
+        var javaObject = this.getJavaObject().intersection(other_uw);
+        return new PairRDD(javaObject);
     };
 
 
@@ -273,9 +257,8 @@
      * @returns {module:eclairjs.Tuple}
      */
     PairRDD.prototype.first = function () {
-        throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().first();
-//   return new Tuple2(javaObject);
+        var javaObject = this.getJavaObject().first();
+        return Utils.javaToJs(javaObject);
     };
 
 
@@ -358,16 +341,13 @@
      * @param {number} numPartitions
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.combineByKey2 = function (createCombiner, mergeValue, mergeCombiners, numPartitions) {
-        throw "not implemented by ElairJS";
-//   var sv = Utils.createJavaParams(createCombiner);
-//   var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
-//   var sv2 = Utils.createJavaParams(mergeValue);
-//   var fn2 = new org.eclairjs.nashorn.JSFunction2(sv2.funcStr, sv2.scopeVars);
-//   var sv3 = Utils.createJavaParams(mergeCombiners);
-//   var fn3 = new org.eclairjs.nashorn.JSFunction2(sv3.funcStr, sv3.scopeVars);
-//   var javaObject =  this.getJavaObject().combineByKey(fn,fn2,fn3,numPartitions);
-//   return new PairRDD(javaObject);
+    PairRDD.prototype.combineByKey = function (createCombiner, mergeValue, mergeCombiners, numPartitions, bindArgs) {
+        var fn = Utils.createLambdaFunction(createCombiner, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
+        var fn2 = Utils.createLambdaFunction(mergeValue, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
+        var fn3 = Utils.createLambdaFunction(mergeCombiners, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
+
+        var javaObject = this.getJavaObject().combineByKey(fn, fn2, fn3);
+        return new PairRDD(javaObject);
     };
 
 
@@ -402,12 +382,11 @@
     };
 
     /**
-     * @returns {Map}
+     * @returns {object} key, value hash map
      */
     PairRDD.prototype.countByKey = function () {
-        throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().countByKey();
-//   return new Map(javaObject);
+        var javaObject = this.getJavaObject().countByKey();
+        return Utils.javaToJs(javaObject);
     };
 
 
@@ -969,12 +948,11 @@
 
     /**
      * Return the key-value pairs in this RDD to the master as a Map.
-     * @returns {Map}
+     * @returns {object} key, value hash map
      */
     PairRDD.prototype.collectAsMap = function () {
-        throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().collectAsMap();
-//   return new Map(javaObject);
+        var javaObject = this.getJavaObject().collectAsMap();
+        return Utils.javaToJs(javaObject);
     };
 
 
@@ -1348,63 +1326,23 @@
 //   }
     };
 
-
-    /**
-     * Sort the RDD by key, so that each partition contains a sorted range of the elements in
-     * ascending order. Calling `collect` or `save` on the resulting RDD will return or output an
-     * ordered list of records (in the `save` case, they will be written to multiple `part-X` files
-     * in the filesystem, in order of the keys).
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.sortByKey0 = function () {
-        throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().sortByKey();
-//   return new PairRDD(javaObject);
-    };
-
-
     /**
      * Sort the RDD by key, so that each partition contains a sorted range of the elements. Calling
      * `collect` or `save` on the resulting RDD will return or output an ordered list of records
      * (in the `save` case, they will be written to multiple `part-X` files in the filesystem, in
      * order of the keys).
-     * @param {boolean} ascending
+     * @param {boolean} [ascending] defaults to false
+     * @param {number} [numPartitions]
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.sortByKey1 = function (ascending) {
-        throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().sortByKey(ascending);
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
-     * Sort the RDD by key, so that each partition contains a sorted range of the elements. Calling
-     * `collect` or `save` on the resulting RDD will return or output an ordered list of records
-     * (in the `save` case, they will be written to multiple `part-X` files in the filesystem, in
-     * order of the keys).
-     * @param {boolean} ascending
-     * @returns {module:eclairjs.PairRDD}
-     */
-    RDD.prototype.sortByKey = function (ascending) {
-        var result = new PairRDD(this.getJavaObject().sortByKey(ascending));
-        return result;
-    };
-
-
-    /**
-     * Sort the RDD by key, so that each partition contains a sorted range of the elements. Calling
-     * `collect` or `save` on the resulting RDD will return or output an ordered list of records
-     * (in the `save` case, they will be written to multiple `part-X` files in the filesystem, in
-     * order of the keys).
-     * @param {boolean} ascending
-     * @param {number} numPartitions
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.sortByKey2 = function (ascending, numPartitions) {
-        throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().sortByKey(ascending,numPartitions);
-//   return new PairRDD(javaObject);
+    PairRDD.prototype.sortByKey = function (ascending, numPartitions) {
+        var javaObject;
+        if (numPartitions) {
+            javaObject = this.getJavaObject().sortByKey(ascending, numPartitions);
+        } else {
+            javaObject = this.getJavaObject().sortByKey(ascending);
+        }
+        return new PairRDD(javaObject);
     };
 
 
@@ -1415,6 +1353,7 @@
      * order of the keys).
      * @param {Comparator} comp
      * @returns {module:eclairjs.PairRDD}
+     * @ignore
      */
     PairRDD.prototype.sortByKey3 = function (comp) {
         throw "not implemented by ElairJS";
@@ -1432,6 +1371,7 @@
      * @param {Comparator} comp
      * @param {boolean} ascending
      * @returns {module:eclairjs.PairRDD}
+     * @ignore
      */
     PairRDD.prototype.sortByKey4 = function (comp, ascending) {
         throw "not implemented by ElairJS";
@@ -1450,6 +1390,7 @@
      * @param {boolean} ascending
      * @param {number} numPartitions
      * @returns {module:eclairjs.PairRDD}
+     * @ignore
      */
     PairRDD.prototype.sortByKey5 = function (comp, ascending, numPartitions) {
         throw "not implemented by ElairJS";
@@ -1565,11 +1506,9 @@
      * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.fromRDD = function (rdd) {
-        throw "not implemented by ElairJS";
-// // TODO: handle Tuple conversion for 'rdd'
-//   var rdd_uw = Utils.unwrapObject(rdd);
-//   var javaObject =  org.apache.spark.api.java.PairRDD.fromRDD(rdd_uw);
-//   return new PairRDD(javaObject);
+        var rdd_uw = Utils.unwrapObject(rdd);
+        var javaObject = org.apache.spark.api.java.PairRDD.fromRDD(rdd_uw);
+        return new PairRDD(javaObject);
     };
 
 
@@ -1589,7 +1528,6 @@
      * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.fromRDD = function (rdd) {
-// // TODO: handle Tuple conversion for 'rdd'
         var rdd_uw = Utils.unwrapObject(rdd);
         var javaObject = org.apache.spark.api.java.JavaPairRDD.fromJavaRDD(rdd_uw);
         return new PairRDD(javaObject);

@@ -110,7 +110,8 @@
      * Creates a Java HashMap from a JavaScript object.
      * @private
      * @param {object} obj hashMap
-     * @param {entryCallback} entryMapFunction callback to modify entry value
+     * @param {object} javaMapObj
+     * @param {entryCallback} [entryMapFunction] callback to modify entry value
      * @returns {HashMap} java.util.HashMap
      */
     Utils.createJavaHashMap = function (obj, javaMapObj, entryMapFunction) {
