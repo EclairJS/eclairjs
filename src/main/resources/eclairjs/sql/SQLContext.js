@@ -162,7 +162,14 @@
      *
      */
     SQLContext.prototype.createDataFrame = function (rowRDD_or_values, schema) {
+
         function castDataType(x, dt){
+            /*
+             Nashorn interprets numbers as java.lang.Double, java.lang.Long, or java.lang.Integer objects,
+             depending on the computation performed.
+             JavaScript numbers are not always converted to the correct Java type. So we need to force all the number types in the
+             row to be matched to the type specified in the schema
+             */
             if ((x instanceof java.lang.Integer) &&  (dt.getJavaObject() instanceof org.apache.spark.sql.types.DoubleType)) {
                 return x.doubleValue();
             } else if ((x instanceof java.lang.Integer) &&  (dt.getJavaObject() instanceof org.apache.spark.sql.types.FloatType)) {
@@ -181,44 +188,24 @@
         var schema_uw = Utils.unwrapObject(schema);
         var fields = schema.fields();
         if (Array.isArray(rowRDD_or_values)) {
-            //var rows = [];
             var rows = new java.util.ArrayList();
             rowRDD_or_values.forEach(function (row) {
 
                 if (Array.isArray(row)) {
                     var rowValues = [];
                     for (var i = 0; i < row.length; i++) {
-                        //rowValues.push(Utils.unwrapObject(value));
                         var x = row[i];
                         var dt = fields[i].dataType();
                         rowValues.push(castDataType(x, dt));
                     }
                     rows.add(org.apache.spark.sql.RowFactory.create(rowValues));
                 } else {
-                   /*
-                    should be a Row, but Nashorn interprets numbers as java.lang.Double, java.lang.Long, or java.lang.Integer objects,
-                    depending on the computation performed.
-                    JavaScript numbers are not always converted to the correct Java type. So we need to force all the number types in the
-                    row to be matched to the type specified in the schema
-                    */
+
                     var v = [];
                     for (var i = 0; i < row.length(); i++) {
                         var x = row.get(i);
                         var dt = fields[i].dataType();
                         v.push(castDataType(x, dt));
-                        /*
-                        if ((x instanceof java.lang.Integer) &&  (dt.getJavaObject() instanceof org.apache.spark.sql.types.DoubleType)) {
-                            v.push(x.doubleValue())
-                        } else if ((x instanceof java.lang.Integer) &&  (dt.getJavaObject() instanceof org.apache.spark.sql.types.FloatType)) {
-                            v.push(x.floatValue())
-                        } else if ((x instanceof java.lang.Double) &&  (dt.getJavaObject() instanceof org.apache.spark.sql.types.IntegerType)) {
-                            v.push(x.intValue())
-                        } else if ((x instanceof java.lang.Double) &&  (dt.getJavaObject() instanceof org.apache.spark.sql.types.FloatType)) {
-                            v.push(x.floatValue())
-                        } else {
-                            v.push(Utils.unwrapObject(x));
-                        }
-                        */
                     }
                     rows.add(org.apache.spark.sql.RowFactory.create(v));
                 }
@@ -505,9 +492,13 @@
     };
 
     /**
-     * A collection of methods for registering user-defined functions (UDF).
+     * A methods for registering user-defined functions (UDF).
      * @example
-     * // TODO add example
+     * sqlContext.udf().register("udfTest", function(col1, ...col22) {
+     *       return col1 + ...col22;
+     * }, DataTypes.StringType);
+     * var smt = "SELECT *, udfTest(mytable.col1,...mytable.col22) as transformedByUDF FROM mytable";
+     * var result = sqlContext.sql(smt).collect();
      * @returns {module:eclairjs/sql.UDFRegistration}
      */
     SQLContext.prototype.udf = function () {

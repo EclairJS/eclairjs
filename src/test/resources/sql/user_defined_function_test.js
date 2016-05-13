@@ -32,6 +32,40 @@ var SparkContext = require(EclairJS_Globals.NAMESPACE + '/SparkContext');
 var sparkContext = new SparkContext("local[*]", "user defined function test");
 var sqlContext = new SQLContext(sparkContext);
 
+var createStringTableDF = function(sqlContext) {
+
+    var fields = [];
+    fields.push(DataTypes.createStructField("col1", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("col2", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("col3", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("col4", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("col5", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("col6", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("col7", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("col8", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("col9", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("col10", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("col11", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("col12", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("col13", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("col14", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("col15", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("col16", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("col17", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("col18", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("col19", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("col20", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("col21", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("col22", DataTypes.StringType, true));
+    var schema = DataTypes.createStructType(fields);
+    var df = sqlContext.createDataFrame([[
+        "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22"
+    ]], schema);
+    df.registerTempTable("mytable");
+    return df;
+
+}
+
 var udf1Test = function() {
 
     var fields = [];
@@ -154,17 +188,8 @@ var udf6Test = function() {
 }
 
 var udf7Test = function() {
-    var fields = [];
-    fields.push(DataTypes.createStructField("col1", DataTypes.StringType, true));
-    fields.push(DataTypes.createStructField("col2", DataTypes.StringType, true));
-    fields.push(DataTypes.createStructField("col3", DataTypes.StringType, true));
-    fields.push(DataTypes.createStructField("col4", DataTypes.StringType, true));
-    fields.push(DataTypes.createStructField("col5", DataTypes.StringType, true));
-    fields.push(DataTypes.createStructField("col6", DataTypes.StringType, true));
-    fields.push(DataTypes.createStructField("col7", DataTypes.StringType, true));
-    var schema = DataTypes.createStructType(fields);
-    var df = sqlContext.createDataFrame([["1", "2", "3", "4", "5", "6", "7"]], schema);
-    df.registerTempTable("mytable");
+
+    createStringTableDF(sqlContext);
 
     sqlContext.udf().register("udfTest", function(col1, col2, col3, col4, col5, col6, col7) {
         return col1 + col2 + col3 + col4 + col5 + col6 + col7;
@@ -178,24 +203,284 @@ var udf7Test = function() {
 }
 
 var udf8Test = function() {
-    var fields = [];
-    fields.push(DataTypes.createStructField("col1", DataTypes.StringType, true));
-    fields.push(DataTypes.createStructField("col2", DataTypes.StringType, true));
-    fields.push(DataTypes.createStructField("col3", DataTypes.StringType, true));
-    fields.push(DataTypes.createStructField("col4", DataTypes.StringType, true));
-    fields.push(DataTypes.createStructField("col5", DataTypes.StringType, true));
-    fields.push(DataTypes.createStructField("col6", DataTypes.StringType, true));
-    fields.push(DataTypes.createStructField("col7", DataTypes.StringType, true));
-    fields.push(DataTypes.createStructField("col8", DataTypes.StringType, true));
-    var schema = DataTypes.createStructType(fields);
-    var df = sqlContext.createDataFrame([["1", "2", "3", "4", "5", "6", "7", "8"]], schema);
-    df.registerTempTable("mytable");
+
+    createStringTableDF(sqlContext);
 
     sqlContext.udf().register("udfTest", function(col1, col2, col3, col4, col5, col6, col7, col8) {
         return col1 + col2 + col3 + col4 + col5 + col6 + col7 + col8;
     }, DataTypes.StringType);
     var smt = "SELECT *, " +
         "udfTest(mytable.col1, mytable.col2, mytable.col3, mytable.col4, mytable.col5, mytable.col6, mytable.col7, mytable.col8) " +
+        "as transformedByUDF FROM mytable";
+    var result = sqlContext.sql(smt).collect();
+    return JSON.stringify(result);
+}
+
+var udf9Test = function() {
+
+    createStringTableDF(sqlContext);
+
+    sqlContext.udf().register("udfTest", function(col1, col2, col3, col4, col5, col6, col7, col8, col9) {
+        return col1 + col2 + col3 + col4 + col5 + col6 + col7 + col8 + col9;
+    }, DataTypes.StringType);
+    var smt = "SELECT *, " +
+        "udfTest(mytable.col1, mytable.col2, mytable.col3, mytable.col4, mytable.col5, mytable.col6, mytable.col7, mytable.col8,  mytable.col9) " +
+        "as transformedByUDF FROM mytable";
+    var result = sqlContext.sql(smt).collect();
+    return JSON.stringify(result);
+}
+
+var udf10Test = function() {
+
+    createStringTableDF(sqlContext);
+
+    sqlContext.udf().register("udfTest", function(col1, col2, col3, col4, col5, col6, col7, col8, col9, col10) {
+        return col1 + col2 + col3 + col4 + col5 + col6 + col7 + col8 + col9 + col10;
+    }, DataTypes.StringType);
+    var smt = "SELECT *, " +
+        "udfTest(mytable.col1, mytable.col2, mytable.col3, mytable.col4, mytable.col5, mytable.col6, mytable.col7, mytable.col8,  mytable.col9,  mytable.col10) " +
+        "as transformedByUDF FROM mytable";
+    var result = sqlContext.sql(smt).collect();
+    return JSON.stringify(result);
+}
+
+var udf11Test = function() {
+
+    createStringTableDF(sqlContext);
+
+    sqlContext.udf().register("udfTest", function(col1, col2, col3, col4, col5, col6, col7, col8, col9, col10, col11) {
+        return col1 + col2 + col3 + col4 + col5 + col6 + col7 + col8 + col9 + col10 + col11;
+    }, DataTypes.StringType);
+    var smt = "SELECT *, " +
+        "udfTest(mytable.col1, mytable.col2, mytable.col3, mytable.col4, mytable.col5, mytable.col6, mytable.col7, " +
+        "mytable.col8,  mytable.col9,  mytable.col10, mytable.col11) " +
+        "as transformedByUDF FROM mytable";
+    var result = sqlContext.sql(smt).collect();
+    return JSON.stringify(result);
+}
+
+var udf12Test = function() {
+
+    createStringTableDF(sqlContext);
+
+    sqlContext.udf().register("udfTest", function(col1, col2, col3, col4, col5, col6, col7, col8, col9, col10, col11, col12) {
+        return col1 + col2 + col3 + col4 + col5 + col6 + col7 + col8 + col9 + col10 + col11 + col12;
+    }, DataTypes.StringType);
+    var smt = "SELECT *, " +
+        "udfTest(mytable.col1, mytable.col2, mytable.col3, mytable.col4, mytable.col5, mytable.col6, mytable.col7, " +
+        "mytable.col8,  mytable.col9,  mytable.col10, mytable.col11,  mytable.col12) " +
+        "as transformedByUDF FROM mytable";
+    var result = sqlContext.sql(smt).collect();
+    return JSON.stringify(result);
+}
+
+var udf13Test = function() {
+
+    createStringTableDF(sqlContext);
+
+    sqlContext.udf().register("udfTest",
+        function(col1, col2, col3, col4, col5, col6, col7, col8, col9, col10, col11,
+                  col12, col13
+                ) {
+        return col1 + col2 + col3 + col4 + col5 + col6 + col7 + col8 + col9 + col10 + col11 + col12 + col13;
+    }, DataTypes.StringType);
+    var smt = "SELECT *, " +
+        "udfTest(mytable.col1, mytable.col2, mytable.col3, mytable.col4, mytable.col5, mytable.col6, mytable.col7, " +
+        "mytable.col8,  mytable.col9,  mytable.col10, mytable.col11,  mytable.col12, mytable.col13) " +
+        "as transformedByUDF FROM mytable";
+    var result = sqlContext.sql(smt).collect();
+    return JSON.stringify(result);
+}
+
+var udf14Test = function() {
+
+    createStringTableDF(sqlContext);
+
+    sqlContext.udf().register("udfTest",
+        function(col1, col2, col3, col4, col5, col6, col7, col8, col9, col10, col11,
+                 col12, col13, col14
+        ) {
+            return col1 + col2 + col3 + col4 + col5 + col6 + col7 + col8 + col9 + col10 + col11 + col12 + col13 + col14;
+        }, DataTypes.StringType);
+    var smt = "SELECT *, " +
+        "udfTest(mytable.col1, mytable.col2, mytable.col3, mytable.col4, mytable.col5, mytable.col6, mytable.col7, " +
+        "mytable.col8,  mytable.col9,  mytable.col10, mytable.col11,  mytable.col12, mytable.col13, mytable.col14) " +
+        "as transformedByUDF FROM mytable";
+    var result = sqlContext.sql(smt).collect();
+    return JSON.stringify(result);
+}
+
+var udf15Test = function() {
+
+    createStringTableDF(sqlContext);
+
+    sqlContext.udf().register("udfTest",
+        function(col1, col2, col3, col4, col5, col6, col7, col8, col9, col10, col11,
+                 col12, col13, col14, col15
+        ) {
+            return col1 + col2 + col3 + col4 + col5 + col6 + col7 + col8 + col9 + col10 + col11 + col12 + col13 + col14 +
+                    col15;
+        }, DataTypes.StringType);
+    var smt = "SELECT *, " +
+        "udfTest(" +
+            "mytable.col1, mytable.col2, mytable.col3, mytable.col4, mytable.col5, mytable.col6, mytable.col7, " +
+            "mytable.col8,  mytable.col9,  mytable.col10, mytable.col11,  mytable.col12, mytable.col13, mytable.col14," +
+            "mytable.col15" +
+        ") " +
+        "as transformedByUDF FROM mytable";
+    var result = sqlContext.sql(smt).collect();
+    return JSON.stringify(result);
+}
+
+var udf16Test = function() {
+
+    createStringTableDF(sqlContext);
+
+    sqlContext.udf().register("udfTest",
+        function(col1, col2, col3, col4, col5, col6, col7, col8, col9, col10, col11,
+                 col12, col13, col14, col15, col16
+        ) {
+            return col1 + col2 + col3 + col4 + col5 + col6 + col7 + col8 + col9 + col10 + col11 + col12 + col13 + col14 +
+                col15 + col16;
+        }, DataTypes.StringType);
+    var smt = "SELECT *, " +
+        "udfTest(" +
+        "mytable.col1, mytable.col2, mytable.col3, mytable.col4, mytable.col5, mytable.col6, mytable.col7, " +
+        "mytable.col8,  mytable.col9,  mytable.col10, mytable.col11,  mytable.col12, mytable.col13, mytable.col14," +
+        "mytable.col15, mytable.col16" +
+        ") " +
+        "as transformedByUDF FROM mytable";
+    var result = sqlContext.sql(smt).collect();
+    return JSON.stringify(result);
+}
+
+var udf17Test = function() {
+
+    createStringTableDF(sqlContext);
+
+    sqlContext.udf().register("udfTest",
+        function(col1, col2, col3, col4, col5, col6, col7, col8, col9, col10, col11,
+                 col12, col13, col14, col15, col16, col17
+        ) {
+            return col1 + col2 + col3 + col4 + col5 + col6 + col7 + col8 + col9 + col10 + col11 + col12 + col13 + col14 +
+                col15 + col16 + col17;
+        }, DataTypes.StringType);
+    var smt = "SELECT *, " +
+        "udfTest(" +
+        "mytable.col1, mytable.col2, mytable.col3, mytable.col4, mytable.col5, mytable.col6, mytable.col7, " +
+        "mytable.col8,  mytable.col9,  mytable.col10, mytable.col11,  mytable.col12, mytable.col13, mytable.col14," +
+        "mytable.col15, mytable.col16, mytable.col17" +
+        ") " +
+        "as transformedByUDF FROM mytable";
+    var result = sqlContext.sql(smt).collect();
+    return JSON.stringify(result);
+}
+
+var udf18Test = function() {
+
+    createStringTableDF(sqlContext);
+
+    sqlContext.udf().register("udfTest",
+        function(col1, col2, col3, col4, col5, col6, col7, col8, col9, col10, col11,
+                 col12, col13, col14, col15, col16, col17, col18
+        ) {
+            return col1 + col2 + col3 + col4 + col5 + col6 + col7 + col8 + col9 + col10 + col11 + col12 + col13 + col14 +
+                col15 + col16 + col17 + col18;
+        }, DataTypes.StringType);
+    var smt = "SELECT *, " +
+        "udfTest(" +
+        "mytable.col1, mytable.col2, mytable.col3, mytable.col4, mytable.col5, mytable.col6, mytable.col7, " +
+        "mytable.col8,  mytable.col9,  mytable.col10, mytable.col11,  mytable.col12, mytable.col13, mytable.col14," +
+        "mytable.col15, mytable.col16, mytable.col17, mytable.col18" +
+        ") " +
+        "as transformedByUDF FROM mytable";
+    var result = sqlContext.sql(smt).collect();
+    return JSON.stringify(result);
+}
+
+var udf19Test = function() {
+
+    createStringTableDF(sqlContext);
+
+    sqlContext.udf().register("udfTest",
+        function(col1, col2, col3, col4, col5, col6, col7, col8, col9, col10, col11,
+                 col12, col13, col14, col15, col16, col17, col18, col19
+        ) {
+            return col1 + col2 + col3 + col4 + col5 + col6 + col7 + col8 + col9 + col10 + col11 + col12 + col13 + col14 +
+                col15 + col16 + col17 + col18 + col19;
+        }, DataTypes.StringType);
+    var smt = "SELECT *, " +
+        "udfTest(" +
+        "mytable.col1, mytable.col2, mytable.col3, mytable.col4, mytable.col5, mytable.col6, mytable.col7, " +
+        "mytable.col8,  mytable.col9,  mytable.col10, mytable.col11,  mytable.col12, mytable.col13, mytable.col14," +
+        "mytable.col15, mytable.col16, mytable.col17, mytable.col18, mytable.col19" +
+        ") " +
+        "as transformedByUDF FROM mytable";
+    var result = sqlContext.sql(smt).collect();
+    return JSON.stringify(result);
+}
+
+var udf20Test = function() {
+
+    createStringTableDF(sqlContext);
+
+    sqlContext.udf().register("udfTest",
+        function(col1, col2, col3, col4, col5, col6, col7, col8, col9, col10, col11,
+                 col12, col13, col14, col15, col16, col17, col18, col19, col20
+        ) {
+            return col1 + col2 + col3 + col4 + col5 + col6 + col7 + col8 + col9 + col10 + col11 + col12 + col13 + col14 +
+                col15 + col16 + col17 + col18 + col19 + col20;
+        }, DataTypes.StringType);
+    var smt = "SELECT *, " +
+        "udfTest(" +
+        "mytable.col1, mytable.col2, mytable.col3, mytable.col4, mytable.col5, mytable.col6, mytable.col7, " +
+        "mytable.col8,  mytable.col9,  mytable.col10, mytable.col11,  mytable.col12, mytable.col13, mytable.col14," +
+        "mytable.col15, mytable.col16, mytable.col17, mytable.col18, mytable.col19, mytable.col20" +
+        ") " +
+        "as transformedByUDF FROM mytable";
+    var result = sqlContext.sql(smt).collect();
+    return JSON.stringify(result);
+}
+
+var udf21Test = function() {
+
+    createStringTableDF(sqlContext);
+
+    sqlContext.udf().register("udfTest",
+        function(col1, col2, col3, col4, col5, col6, col7, col8, col9, col10, col11,
+                 col12, col13, col14, col15, col16, col17, col18, col19, col20, col21
+        ) {
+            return col1 + col2 + col3 + col4 + col5 + col6 + col7 + col8 + col9 + col10 + col11 + col12 + col13 + col14 +
+                col15 + col16 + col17 + col18 + col19 + col20 + col21;
+        }, DataTypes.StringType);
+    var smt = "SELECT *, " +
+        "udfTest(" +
+        "mytable.col1, mytable.col2, mytable.col3, mytable.col4, mytable.col5, mytable.col6, mytable.col7, " +
+        "mytable.col8,  mytable.col9,  mytable.col10, mytable.col11,  mytable.col12, mytable.col13, mytable.col14," +
+        "mytable.col15, mytable.col16, mytable.col17, mytable.col18, mytable.col19, mytable.col20, mytable.col21" +
+        ") " +
+        "as transformedByUDF FROM mytable";
+    var result = sqlContext.sql(smt).collect();
+    return JSON.stringify(result);
+}
+
+var udf22Test = function() {
+
+    createStringTableDF(sqlContext);
+
+    sqlContext.udf().register("udfTest",
+        function(col1, col2, col3, col4, col5, col6, col7, col8, col9, col10, col11,
+                 col12, col13, col14, col15, col16, col17, col18, col19, col20, col21, col22
+        ) {
+            return col1 + col2 + col3 + col4 + col5 + col6 + col7 + col8 + col9 + col10 + col11 + col12 + col13 + col14 +
+                col15 + col16 + col17 + col18 + col19 + col20 + col21 + col22;
+        }, DataTypes.StringType);
+    var smt = "SELECT *, " +
+        "udfTest(" +
+        "mytable.col1, mytable.col2, mytable.col3, mytable.col4, mytable.col5, mytable.col6, mytable.col7, " +
+        "mytable.col8,  mytable.col9,  mytable.col10, mytable.col11,  mytable.col12, mytable.col13, mytable.col14," +
+        "mytable.col15, mytable.col16, mytable.col17, mytable.col18, mytable.col19, mytable.col20, mytable.col21, mytable.col22" +
+        ") " +
         "as transformedByUDF FROM mytable";
     var result = sqlContext.sql(smt).collect();
     return JSON.stringify(result);

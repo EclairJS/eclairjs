@@ -23,7 +23,13 @@
 
     /**
      * @classdesc
-     * Functions for registering user-defined functions. Use {@link udf} to access this.
+     * Registering user-defined functions.
+     * @example
+     * sqlContext.udf().register("udfTest", function(col1, ...col22) {
+     *       return col1 + ...col22;
+     * }, DataTypes.StringType);
+     * var smt = "SELECT *, udfTest(mytable.col1,...mytable.col22) as transformedByUDF FROM mytable";
+     * var result = sqlContext.sql(smt).collect();
      *
      * @since EclairJS 0.5 Spark  1.3.0
      * @class
@@ -60,10 +66,11 @@
      * Register a Scala closure of 0 arguments as user-defined function (UDF).
      * @since EclairJS 0.5 Spark  1.3.0
      * @param {string} name
-     * @param {func} func
+     * @param {func} func function with 1 to 20 arguments
      * @param {module:eclairjs/sql/types.DataType} returnType DataType returned from the UDF function
      * @param {object[]} [bindArgs]
      * @returns {module:eclairjs/sql.UserDefinedFunction}
+     *
      */
     UDFRegistration.prototype.register = function (name, func, returnType, bindArgs) {
 
@@ -100,6 +107,48 @@
                 break;
             case 8:
                 udfClass = org.eclairjs.nashorn.sql.JSUDF8;
+                break;
+            case 9:
+                udfClass = org.eclairjs.nashorn.sql.JSUDF9;
+                break;
+            case 10:
+                udfClass = org.eclairjs.nashorn.sql.JSUDF10;
+                break;
+            case 11:
+                udfClass = org.eclairjs.nashorn.sql.JSUDF11;
+                break;
+            case 12:
+                udfClass = org.eclairjs.nashorn.sql.JSUDF12;
+                break;
+            case 13:
+                udfClass = org.eclairjs.nashorn.sql.JSUDF13;
+                break;
+            case 14:
+                udfClass = org.eclairjs.nashorn.sql.JSUDF14;
+                break;
+            case 15:
+                udfClass = org.eclairjs.nashorn.sql.JSUDF15;
+                break;
+            case 16:
+                udfClass = org.eclairjs.nashorn.sql.JSUDF16;
+                break;
+            case 17:
+                udfClass = org.eclairjs.nashorn.sql.JSUDF17;
+                break;
+            case 18:
+                udfClass = org.eclairjs.nashorn.sql.JSUDF18;
+                break;
+            case 19:
+                udfClass = org.eclairjs.nashorn.sql.JSUDF19;
+                break;
+            case 20:
+                udfClass = org.eclairjs.nashorn.sql.JSUDF20;
+                break;
+            case 21:
+                udfClass = org.eclairjs.nashorn.sql.JSUDF21;
+                break;
+            case 22:
+                udfClass = org.eclairjs.nashorn.sql.JSUDF22;
                 break;
 
             default:
