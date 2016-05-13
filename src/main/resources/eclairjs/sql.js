@@ -35,7 +35,7 @@
         SQLContext: require(EclairJS_Globals.NAMESPACE + '/sql/SQLContext'),
         SqlDate: require(EclairJS_Globals.NAMESPACE + '/sql/SqlDate'),
         SqlTimestamp: require(EclairJS_Globals.NAMESPACE + '/sql/SqlTimestamp'),
-        UDFRegistration: require(EclairJS_Globals.NAMESPACE + '/sql/UDFRegistration'),
-        UserDefinedFunction: require(EclairJS_Globals.NAMESPACE + '/sql/UserDefinedFunction')
+        UDFRegistration: require(EclairJS_Globals.NAMESPACE + '/sql/UDFRegistration')
+        //UserDefinedFunction: require(EclairJS_Globals.NAMESPACE + '/sql/UserDefinedFunction') Scala only
     }
 })();

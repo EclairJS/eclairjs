@@ -66,10 +66,9 @@
      * Register a Scala closure of 0 arguments as user-defined function (UDF).
      * @since EclairJS 0.5 Spark  1.3.0
      * @param {string} name
-     * @param {func} func function with 1 to 20 arguments
+     * @param {func} func function with 1 to 22 arguments
      * @param {module:eclairjs/sql/types.DataType} returnType DataType returned from the UDF function
      * @param {object[]} [bindArgs]
-     * @returns {module:eclairjs/sql.UserDefinedFunction}
      *
      */
     UDFRegistration.prototype.register = function (name, func, returnType, bindArgs) {

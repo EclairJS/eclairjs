@@ -455,4 +455,5 @@ public class SqlUDFTest {
         assertEquals("should be same", expected, ret.toString());
     }
 
+
 }

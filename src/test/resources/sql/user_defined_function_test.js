@@ -485,3 +485,4 @@ var udf22Test = function() {
     var result = sqlContext.sql(smt).collect();
     return JSON.stringify(result);
 }
+
