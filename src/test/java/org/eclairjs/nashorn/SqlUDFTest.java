@@ -455,5 +455,18 @@ public class SqlUDFTest {
         assertEquals("should be same", expected, ret.toString());
     }
 
+    @Test
+    public void callUdfTest() throws Exception {
+
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/sql/user_defined_function_test.js");
+        Object ret = ((Invocable) engine).invokeFunction("callUdfTest");
+
+
+        String expected = "[{\"values\":[\"12\"],\"schema\":{\"fields\":[{\"name\":\"udfTest(col1,col2)\",\"dataType\":\"string\",\"nullable\":true}]}}]";
+        assertEquals("should be same", expected, ret.toString());
+    }
+
 
 }

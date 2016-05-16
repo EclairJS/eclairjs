@@ -486,3 +486,17 @@ var udf22Test = function() {
     return JSON.stringify(result);
 }
 
+var callUdfTest = function() {
+
+    var df = createStringTableDF(sqlContext);
+
+    sqlContext.udf().register("udfTest",
+        function(col1, col2) {
+            return col1 + col2;
+        }, DataTypes.StringType);
+
+    var result = df.select(functions.callUDF("udfTest", [new Column("col1"), new Column("col2")]));
+
+    return JSON.stringify(result);
+}
+

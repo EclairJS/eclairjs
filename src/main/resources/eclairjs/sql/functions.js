@@ -2375,27 +2375,27 @@
 
     /**
      * Call an user-defined function.
-     * NOTE: this seems overly complex for JavaScript environment so we are not implementing at this time
      * Example:
      * @example
-     *  import org.apache.spark.sql._
+     * var Column = require(EclairJS_Globals.NAMESPACE + '/sql/Column');
+     * var functions = require(EclairJS_Globals.NAMESPACE + '/sql/functions');
      *
-     *  val df = Seq(("id1", 1), ("id2", 4), ("id3", 5)).toDF("id", "value")
-     *  val sqlContext = df.sqlContext
-     *  sqlContext.udf.register("simpleUDF", (v: Int) => v * v)
-     *  df.select($"id", callUDF("simpleUDF", $"value"))
+     * sqlContext.udf().register("udfTest", function(col1, col2) {
+     *          return col1 + col2;
+     *  }, DataTypes.StringType);
+     *
+     *  var result = df.select(functions.callUDF("udfTest", [new Column("col1"), new Column("col2")]));
      *
      *
      * @since EclairJS 0.1 Spark  1.5.0
-     * @private
-     * @ignore
+     * @param {string} udfName
+     * @param {module:eclairjs/sql.Column[]} cols
      * @returns {module:eclairjs/sql.Column}
      */
     functions.callUDF = function (udfName, cols) {
-        throw "not implemented by ElairJS";
-//   var cols_uw = Utils.unwrapObject(cols);
-//   var javaObject = org.apache.spark.sql.functions.callUDF(udfName,cols_uw);
-//   return Utils.javaToJs(javaObject);
+        var cols_uw = Utils.unwrapObject(cols);
+        var javaObject = org.apache.spark.sql.functions.callUDF(udfName, cols_uw);
+        return Utils.javaToJs(javaObject);
     }
 
     module.exports = functions;
