@@ -56,7 +56,7 @@
      */
     KMeansModel.prototype.k = function () {
         throw "not implemented by ElairJS";
-    //   return  this.getJavaObject().k();
+        //   return  this.getJavaObject().k();
     };
 
 
@@ -67,8 +67,8 @@
      */
     KMeansModel.prototype.predict0 = function (point) {
         throw "not implemented by ElairJS";
-    //   var point_uw = Utils.unwrapObject(point);
-    //   return  this.getJavaObject().predict(point_uw);
+        //   var point_uw = Utils.unwrapObject(point);
+        //   return  this.getJavaObject().predict(point_uw);
     };
 
 
@@ -79,9 +79,9 @@
      */
     KMeansModel.prototype.predict1 = function (points) {
         throw "not implemented by ElairJS";
-    //   var points_uw = Utils.unwrapObject(points);
-    //   var javaObject =  this.getJavaObject().predict(points_uw);
-    //   return new RDD(javaObject);
+        //   var points_uw = Utils.unwrapObject(points);
+        //   var javaObject =  this.getJavaObject().predict(points_uw);
+        //   return new RDD(javaObject);
     };
 
 
@@ -92,9 +92,9 @@
      */
     KMeansModel.prototype.predict2 = function (points) {
         throw "not implemented by ElairJS";
-    //   var points_uw = Utils.unwrapObject(points);
-    //   var javaObject =  this.getJavaObject().predict(points_uw);
-    //   return new JavaRDD(javaObject);
+        //   var points_uw = Utils.unwrapObject(points);
+        //   var javaObject =  this.getJavaObject().predict(points_uw);
+        //   return new JavaRDD(javaObject);
     };
 
 
@@ -105,8 +105,8 @@
      * @returns {number}
      */
     KMeansModel.prototype.computeCost = function (data) {
-       var data_uw = Utils.unwrapObject(data);
-       return  this.getJavaObject().computeCost(data_uw.rdd());
+        var data_uw = Utils.unwrapObject(data);
+        return this.getJavaObject().computeCost(data_uw.rdd());
     };
 
 
@@ -116,8 +116,8 @@
      */
     KMeansModel.prototype.save = function (sc, path) {
         throw "not implemented by ElairJS";
-    //   var sc_uw = Utils.unwrapObject(sc);
-    //    this.getJavaObject().save(sc_uw,path);
+        //   var sc_uw = Utils.unwrapObject(sc);
+        //    this.getJavaObject().save(sc_uw,path);
     };
 
     /**
@@ -132,6 +132,23 @@
         return ret;
     };
 
+    /**
+     * Export the model to a local file in PMML format
+     * @param {string} [path]
+     * @param {module:eclairjs.SparkContext} [sc] Export the model to a directory on a distributed file system in PMML format
+     * @returns {string} Export the model as a String in PMML format
+     */
+    KMeansModel.prototype.toPMML = function (path, sc) {
+        var centers = this.getJavaObject().toPMML();
+        if (arguments.length == 1) {
+            this.getJavaObject().toPMML(arguments[0]); // path
+        } else if (arguments.length == 2) {
+            this.getJavaObject().toPMML(Utils.unwrapObject(arguments[1]).sc(), arguments[0]);
+        }
+        return this.getJavaObject().toPMML();
+
+    };
+
     //
     // static methods
     //
@@ -144,9 +161,9 @@
      */
     KMeansModel.load = function (sc, path) {
         throw "not implemented by ElairJS";
-    //   var sc_uw = Utils.unwrapObject(sc);
-    //   var javaObject =  org.apache.spark.mllib.clustering.KMeansModel.load(sc_uw,path);
-    //   return new KMeansModel(javaObject);
+        //   var sc_uw = Utils.unwrapObject(sc);
+        //   var javaObject =  org.apache.spark.mllib.clustering.KMeansModel.load(sc_uw,path);
+        //   return new KMeansModel(javaObject);
     };
 
     module.exports = KMeansModel;
