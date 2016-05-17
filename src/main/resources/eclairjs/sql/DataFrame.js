@@ -708,7 +708,7 @@
 	 * @returns {object}
 	 */
 	DataFrame.prototype.toJSON = function () {
-        return this.collect();
+        return Utils.javaToJs(this.getJavaObject().toJSON());
 	};
 	/**
 	 * Represents the content of the DataFrame as an RDD of Rows.
