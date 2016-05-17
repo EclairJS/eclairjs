@@ -30,9 +30,13 @@
     var SQLContext = function (sc) {
         this.logger = Logger.getLogger("sql.SQLContext_js");
 
-        this.logger.debug("jsc type = " + sc);
-        var JavaSQLContext = Java.type("org.apache.spark.sql.SQLContext");
-        var jvmObj = new JavaSQLContext(Utils.unwrapObject(sc));
+       // this.logger.debug("jsc type = " + sc);
+        var jvmObj;
+        if (sc instanceof org.apache.spark.sql.SQLContext) {
+            jvmObj = sc;
+        } else {
+            jvmObj =  new org.apache.spark.sql.SQLContext(Utils.unwrapObject(sc));
+        }
         JavaWrapper.call(this, jvmObj);
     }
 
