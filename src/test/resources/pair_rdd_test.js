@@ -67,3 +67,36 @@ var countByKey = function() {
     return JSON.stringify(count);
 
 }
+
+var aggregateByKey = function() {
+
+    var Tuple = require(EclairJS_Globals.NAMESPACE + '/Tuple');
+    var Serializable = require(EclairJS_Globals.NAMESPACE + '/Serializable');
+    var s = new Serializable();
+
+    var pairRdd =sparkContext.parallelizePairs([
+        new Tuple(1, 1),
+        new Tuple(1, 1),
+        new Tuple(3, 2),
+        new Tuple(5, 1),
+        new Tuple(new Tuple(5, 3), 2)
+    ]);
+    var result = pairRdd.aggregateByKey(s /*new java.util.HashSet()*/,
+        function(hashSetA, b) {
+            hashSetA[b] = hashSetA[b] ? hashSetA[b] + 1 : 1;
+            return hashSetA;
+        },
+        function(setA, setB){
+            for (var k in setA) {
+                if (setB.hasOwnProperty(k)) {
+                    setA[k] += setB[k];
+                }
+            }
+            return setA;
+        });
+
+    var sets = result.collect();
+
+    return JSON.stringify(sets);
+
+}

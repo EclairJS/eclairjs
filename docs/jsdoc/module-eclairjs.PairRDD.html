@@ -296,152 +296,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1508">line 1508</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".fromRDD"><span class="type-signature">(static) </span>fromRDD<span class="signature">(rdd)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>rdd</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-eclairjs.RDD.html">module:eclairjs.RDD</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1530">line 1530</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1413">line 1413</a>
     </li></ul></dd>
     
 
@@ -586,7 +441,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1519">line 1519</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1402">line 1402</a>
     </li></ul></dd>
     
 
@@ -932,7 +787,7 @@ allocation.
 
     
 
-    <h4 class="name" id="aggregateByKey0"><span class="type-signature"></span>aggregateByKey0<span class="signature">(zeroValue, partitioner, seqFunc, combFunc)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
+    <h4 class="name" id="aggregateByKey"><span class="type-signature"></span>aggregateByKey<span class="signature">(zeroValue, seqFunc, combFunc, numPartitions<span class="signature-attributes">opt</span>, bindArgs<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
 
     
 
@@ -969,6 +824,8 @@ instead of creating a new U.
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -987,35 +844,20 @@ instead of creating a new U.
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type"><a href="module-eclairjs.Serializable.html">module:eclairjs.Serializable</a></span>
 
 
             
             </td>
 
             
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>partitioner</code></td>
-            
-
-            <td class="type">
-            
+                <td class="attributes">
                 
-<span class="param-type"><a href="module-eclairjs.Partitioner.html">module:eclairjs.Partitioner</a></span>
 
+                
 
-            
-            </td>
-
+                
+                </td>
             
 
             
@@ -1040,6 +882,14 @@ instead of creating a new U.
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -1063,160 +913,13 @@ instead of creating a new U.
             </td>
 
             
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line427">line 427</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="aggregateByKey1"><span class="type-signature"></span>aggregateByKey1<span class="signature">(zeroValue, numPartitions, seqFunc, combFunc)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Aggregate the values of each key, using given combine functions and a neutral "zero value".
-This function can return a different result type, U, than the type of the values in this RDD,
-V. Thus, we need one operation for merging a V into a U and one operation for merging two U's,
-as in scala.TraversableOnce. The former operation is used for merging values within a
-partition, and the latter is used for merging values between partitions. To avoid memory
-allocation, both of these functions are allowed to modify and return their first argument
-instead of creating a new U.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>zeroValue</code></td>
-            
-
-            <td class="type">
-            
+                <td class="attributes">
                 
-<span class="param-type">object</span>
 
+                
 
-            
-            </td>
-
+                
+                </td>
             
 
             
@@ -1241,28 +944,15 @@ instead of creating a new U.
             </td>
 
             
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>seqFunc</code></td>
-            
-
-            <td class="type">
-            
+                <td class="attributes">
                 
-<span class="param-type">func</span>
+                    &lt;optional><br>
+                
 
+                
 
-            
-            </td>
-
+                
+                </td>
             
 
             
@@ -1274,23 +964,33 @@ instead of creating a new U.
 
         <tr>
             
-                <td class="name"><code>combFunc</code></td>
+                <td class="name"><code>bindArgs</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">func</span>
+<span class="param-type">Array.&lt;Object></span>
 
 
             
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"></td>
+            <td class="description last">array whose values will be added to func's argument list.</td>
         </tr>
 
     
@@ -1331,7 +1031,7 @@ instead of creating a new U.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line454">line 454</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line371">line 371</a>
     </li></ul></dd>
     
 
@@ -1374,204 +1074,23 @@ instead of creating a new U.
     
 
 
-
-        
-            
-
+    <h5>Example</h5>
     
-
-    <h4 class="name" id="aggregateByKey2"><span class="type-signature"></span>aggregateByKey2<span class="signature">(zeroValue, seqFunc, combFunc)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Aggregate the values of each key, using given combine functions and a neutral "zero value".
-This function can return a different result type, U, than the type of the values in this RDD,
-V. Thus, we need one operation for merging a V into a U and one operation for merging two U's.
-The former operation is used for merging values within a partition, and the latter is used for
-merging values between partitions. To avoid memory allocation, both of these functions are
-allowed to modify and return their first argument instead of creating a new U.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>zeroValue</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>seqFunc</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">func</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>combFunc</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">func</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line478">line 478</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
+    <pre class="prettyprint"><code>var Serializable = require(EclairJS_Globals.NAMESPACE + '/Serializable');
+var s = new Serializable();
+ var result = pairRdd.aggregateByKey(s,
+  function(hashSetA, b) {
+     hashSetA[b] = hashSetA[b] ? hashSetA[b] + 1 : 1;
+     return hashSetA;
+ },
+ function(setA, setB){
+    for (var k in setA) {
+       if (setB.hasOwnProperty(k)) {
+            setA[k] += setB[k];
+          }
+     }
+     return setA;
+ });</code></pre>
 
 
 
@@ -2262,7 +1781,7 @@ list of values for that key in `this` as well as `other`.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line994">line 994</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line889">line 889</a>
     </li></ul></dd>
     
 
@@ -2458,7 +1977,7 @@ tuple with the list of values for that key in `this`, `other1` and `other2`.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1011">line 1011</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line906">line 906</a>
     </li></ul></dd>
     
 
@@ -2678,7 +2197,7 @@ for that key in `this`, `other1`, `other2` and `other3`.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1031">line 1031</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line926">line 926</a>
     </li></ul></dd>
     
 
@@ -2828,7 +2347,7 @@ list of values for that key in `this` as well as `other`.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1048">line 1048</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line943">line 943</a>
     </li></ul></dd>
     
 
@@ -3001,7 +2520,7 @@ tuple with the list of values for that key in `this`, `other1` and `other2`.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1063">line 1063</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line958">line 958</a>
     </li></ul></dd>
     
 
@@ -3198,7 +2717,7 @@ for that key in `this`, `other1`, `other2` and `other3`.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1081">line 1081</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line976">line 976</a>
     </li></ul></dd>
     
 
@@ -3371,7 +2890,7 @@ list of values for that key in `this` as well as `other`.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1098">line 1098</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line993">line 993</a>
     </li></ul></dd>
     
 
@@ -3567,7 +3086,7 @@ tuple with the list of values for that key in `this`, `other1` and `other2`.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1114">line 1114</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1009">line 1009</a>
     </li></ul></dd>
     
 
@@ -3787,7 +3306,7 @@ for that key in `this`, `other1`, `other2` and `other3`.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1133">line 1133</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1028">line 1028</a>
     </li></ul></dd>
     
 
@@ -3992,7 +3511,7 @@ for that key in `this`, `other1`, `other2` and `other3`.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line953">line 953</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line848">line 848</a>
     </li></ul></dd>
     
 
@@ -4321,512 +3840,7 @@ aggregation.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line344">line 344</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="combineByKey0"><span class="type-signature"></span>combineByKey0<span class="signature">(createCombiner, mergeValue, mergeCombiners, partitioner, mapSideCombine, serializer)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Generic function to combine the elements for each key using a custom set of aggregation
-functions. Turns a PairRDD[(K, V)] into a result of type PairRDD[(K, C)], for a
-"combined type" C. Note that V and C can be different -- for example, one might group an
-RDD of type (Int, Int) into an RDD of type (Int, List[Int]). Users provide three
-functions:
-
- - `createCombiner`, which turns a V into a C (e.g., creates a one-element list)
- - `mergeValue`, to merge a V into a C (e.g., adds it to the end of a list)
- - `mergeCombiners`, to combine two C's into a single one.
-
-In addition, users can control the partitioning of the output RDD, the serializer that is use
-for the shuffle, and whether to perform map-side aggregation (if a mapper can produce multiple
-items with the same key).
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>createCombiner</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">func</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>mergeValue</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">func</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>mergeCombiners</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">func</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>partitioner</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-eclairjs.Partitioner.html">module:eclairjs.Partitioner</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>mapSideCombine</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>serializer</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Serializer</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line287">line 287</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="combineByKey1"><span class="type-signature"></span>combineByKey1<span class="signature">(createCombiner, mergeValue, mergeCombiners, partitioner)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Generic function to combine the elements for each key using a custom set of aggregation
-functions. Turns a PairRDD[(K, V)] into a result of type PairRDD[(K, C)], for a
-"combined type" C. Note that V and C can be different -- for example, one might group an
-RDD of type (Int, Int) into an RDD of type (Int, List[Int]). Users provide three
-functions:
-
- - `createCombiner`, which turns a V into a C (e.g., creates a one-element list)
- - `mergeValue`, to merge a V into a C (e.g., adds it to the end of a list)
- - `mergeCombiners`, to combine two C's into a single one.
-
-In addition, users can control the partitioning of the output RDD. This method automatically
-uses map-side aggregation in shuffling the RDD.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>createCombiner</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">func</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>mergeValue</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">func</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>mergeCombiners</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">func</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>partitioner</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-eclairjs.Partitioner.html">module:eclairjs.Partitioner</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line321">line 321</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line274">line 274</a>
     </li></ul></dd>
     
 
@@ -5022,7 +4036,7 @@ partitioner/parallelism level and using map-side aggregation.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line768">line 768</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line663">line 663</a>
     </li></ul></dd>
     
 
@@ -5747,7 +4761,7 @@ Algorithmic Engineering of a State of The Art Cardinality Estimation Algorithm",
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1436">line 1436</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1331">line 1331</a>
     </li></ul></dd>
     
 
@@ -5924,7 +4938,7 @@ Algorithmic Engineering of a State of The Art Cardinality Estimation Algorithm",
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1456">line 1456</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1351">line 1351</a>
     </li></ul></dd>
     
 
@@ -6078,7 +5092,7 @@ Algorithmic Engineering of a State of The Art Cardinality Estimation Algorithm",
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1474">line 1474</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1369">line 1369</a>
     </li></ul></dd>
     
 
@@ -6362,7 +5376,7 @@ and increase accuracy when the cardinality is small.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line387">line 387</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line315">line 315</a>
     </li></ul></dd>
     
 
@@ -6559,7 +5573,7 @@ not finish within a timeout.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line400">line 400</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line328">line 328</a>
     </li></ul></dd>
     
 
@@ -7746,7 +6760,7 @@ keys; this also retains the original RDD's partitioning.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line978">line 978</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line873">line 873</a>
     </li></ul></dd>
     
 
@@ -8181,7 +7195,7 @@ may be added to the result an arbitrary number of times, and must not change the
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line499">line 499</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line394">line 394</a>
     </li></ul></dd>
     
 
@@ -8378,7 +7392,7 @@ may be added to the result an arbitrary number of times, and must not change the
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line519">line 519</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line414">line 414</a>
     </li></ul></dd>
     
 
@@ -8552,7 +7566,7 @@ which may be added to the result an arbitrary number of times, and must not chan
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line537">line 537</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line432">line 432</a>
     </li></ul></dd>
     
 
@@ -9143,7 +8157,7 @@ in `this` have key k. Uses the given Partitioner to partition the output RDD.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line751">line 751</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line646">line 646</a>
     </li></ul></dd>
     
 
@@ -9298,7 +8312,7 @@ parallelism level.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line922">line 922</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line817">line 817</a>
     </li></ul></dd>
     
 
@@ -9475,7 +8489,7 @@ in `this` have key k. Hash-partitions the resulting RDD into the given number of
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line941">line 941</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line836">line 836</a>
     </li></ul></dd>
     
 
@@ -10213,7 +9227,7 @@ will provide much better performance.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line574">line 574</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line469">line 469</a>
     </li></ul></dd>
     
 
@@ -10318,7 +9332,7 @@ will provide much better performance.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line807">line 807</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line702">line 702</a>
     </li></ul></dd>
     
 
@@ -10463,7 +9477,7 @@ will provide much better performance.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1147">line 1147</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1042">line 1042</a>
     </li></ul></dd>
     
 
@@ -10631,7 +9645,7 @@ will provide much better performance.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1160">line 1160</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1055">line 1055</a>
     </li></ul></dd>
     
 
@@ -10822,7 +9836,7 @@ will provide much better performance.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1175">line 1175</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1070">line 1070</a>
     </li></ul></dd>
     
 
@@ -11468,7 +10482,7 @@ the merging locally on each mapper before sending results to a reducer, similarl
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line696">line 696</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line591">line 591</a>
     </li></ul></dd>
     
 
@@ -11619,7 +10633,7 @@ pair of elements will be returned as a (k, (v1, v2)) tuple, where (k, v1) is in 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line821">line 821</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line716">line 716</a>
     </li></ul></dd>
     
 
@@ -11793,7 +10807,7 @@ pair of elements will be returned as a (k, (v1, v2)) tuple, where (k, v1) is in 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line837">line 837</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line732">line 732</a>
     </li></ul></dd>
     
 
@@ -12090,7 +11104,7 @@ pair of elements will be returned as a (k, (v1, v2)) tuple, where (k, v1) is in 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1407">line 1407</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1302">line 1302</a>
     </li></ul></dd>
     
 
@@ -12265,7 +11279,7 @@ partition the output RDD.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line713">line 713</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line608">line 608</a>
     </li></ul></dd>
     
 
@@ -12417,7 +11431,7 @@ using the existing partitioner/parallelism level.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line853">line 853</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line748">line 748</a>
     </li></ul></dd>
     
 
@@ -12592,7 +11606,7 @@ into `numPartitions` partitions.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line870">line 870</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line765">line 765</a>
     </li></ul></dd>
     
 
@@ -12862,7 +11876,7 @@ RDD has a known partitioner by only searching the partition that the key maps to
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1191">line 1191</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1086">line 1086</a>
     </li></ul></dd>
     
 
@@ -14098,7 +13112,7 @@ this also retains the original RDD's partitioning.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line965">line 965</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line860">line 860</a>
     </li></ul></dd>
     
 
@@ -14744,7 +13758,7 @@ this also retains the original RDD's partitioning.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line680">line 680</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line575">line 575</a>
     </li></ul></dd>
     
 
@@ -15371,7 +14385,7 @@ The print behavior can be customized by providing two functions.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1494">line 1494</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1389">line 1389</a>
     </li></ul></dd>
     
 
@@ -15733,7 +14747,7 @@ the merging locally on each mapper before sending results to a reducer, similarl
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line362">line 362</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line292">line 292</a>
     </li></ul></dd>
     
 
@@ -15907,7 +14921,7 @@ the merging locally on each mapper before sending results to a reducer, similarl
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line555">line 555</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line450">line 450</a>
     </li></ul></dd>
     
 
@@ -16059,7 +15073,7 @@ parallelism level.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line789">line 789</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line684">line 684</a>
     </li></ul></dd>
     
 
@@ -16108,7 +15122,7 @@ parallelism level.
 
     
 
-    <h4 class="name" id="reduceByKeyLocally"><span class="type-signature"></span>reduceByKeyLocally<span class="signature">(func)</span><span class="type-signature"> &rarr; {Map}</span></h4>
+    <h4 class="name" id="reduceByKeyLocally"><span class="type-signature"></span>reduceByKeyLocally<span class="signature">(func)</span><span class="type-signature"> &rarr; {Object}</span></h4>
 
     
 
@@ -16210,7 +15224,7 @@ before sending results to a reducer, similarly to a "combiner" in MapReduce.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line376">line 376</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line306">line 306</a>
     </li></ul></dd>
     
 
@@ -16236,6 +15250,10 @@ before sending results to a reducer, similarly to a "combiner" in MapReduce.
 <h5>Returns:</h5>
 
         
+<div class="param-desc">
+    Key value pair hashmap
+</div>
+
 
 
 <dl>
@@ -16244,7 +15262,7 @@ before sending results to a reducer, similarly to a "combiner" in MapReduce.
     </dt>
     <dd>
         
-<span class="param-type">Map</span>
+<span class="param-type">Object</span>
 
 
     </dd>
@@ -16566,7 +15584,7 @@ because it can push the sorting down into the shuffle machinery.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1315">line 1315</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1210">line 1210</a>
     </li></ul></dd>
     
 
@@ -16741,7 +15759,7 @@ partition the output RDD.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line731">line 731</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line626">line 626</a>
     </li></ul></dd>
     
 
@@ -16893,7 +15911,7 @@ RDD using the existing partitioner/parallelism level.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line886">line 886</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line781">line 781</a>
     </li></ul></dd>
     
 
@@ -17068,7 +16086,7 @@ RDD into the given number of partitions.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line903">line 903</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line798">line 798</a>
     </li></ul></dd>
     
 
@@ -17906,7 +16924,7 @@ MapReduce job.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1298">line 1298</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1193">line 1193</a>
     </li></ul></dd>
     
 
@@ -18125,7 +17143,7 @@ MapReduce job.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1205">line 1205</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1100">line 1100</a>
     </li></ul></dd>
     
 
@@ -18321,7 +17339,7 @@ MapReduce job.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1221">line 1221</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1116">line 1116</a>
     </li></ul></dd>
     
 
@@ -18540,7 +17558,7 @@ MapReduce job.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1237">line 1237</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1132">line 1132</a>
     </li></ul></dd>
     
 
@@ -18672,7 +17690,7 @@ a Configuration object for that storage system.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1269">line 1269</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1164">line 1164</a>
     </li></ul></dd>
     
 
@@ -18868,7 +17886,7 @@ a Configuration object for that storage system.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1282">line 1282</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1177">line 1177</a>
     </li></ul></dd>
     
 
@@ -19087,7 +18105,7 @@ a Configuration object for that storage system.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1254">line 1254</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1149">line 1149</a>
     </li></ul></dd>
     
 
@@ -19527,7 +18545,7 @@ a Configuration object for that storage system.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1485">line 1485</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1380">line 1380</a>
     </li></ul></dd>
     
 
@@ -19983,7 +19001,7 @@ order of the keys).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1338">line 1338</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1233">line 1233</a>
     </li></ul></dd>
     
 
@@ -20470,7 +19488,7 @@ RDD will be &lt;= us.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line595">line 595</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line490">line 490</a>
     </li></ul></dd>
     
 
@@ -20642,7 +19660,7 @@ RDD will be &lt;= us.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line609">line 609</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line504">line 504</a>
     </li></ul></dd>
     
 
@@ -20814,7 +19832,7 @@ RDD will be &lt;= us.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line623">line 623</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line518">line 518</a>
     </li></ul></dd>
     
 
@@ -20966,7 +19984,7 @@ RDD will be &lt;= us.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line640">line 640</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line535">line 535</a>
     </li></ul></dd>
     
 
@@ -21134,7 +20152,7 @@ RDD will be &lt;= us.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line653">line 653</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line548">line 548</a>
     </li></ul></dd>
     
 
@@ -21302,7 +20320,7 @@ RDD will be &lt;= us.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line666">line 666</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line561">line 561</a>
     </li></ul></dd>
     
 
@@ -23254,7 +22272,7 @@ times (use `.distinct()` to eliminate them).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1418">line 1418</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1313">line 1313</a>
     </li></ul></dd>
     
 
@@ -24107,13 +23125,13 @@ the same index assignments, you should sort the RDD with sortByKey() or save it 
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-eclairjs.html">eclairjs</a></li><li><a href="module-eclairjs_ml.html">eclairjs/ml</a></li><li><a href="module-eclairjs_ml_attribute.html">eclairjs/ml/attribute</a></li><li><a href="module-eclairjs_ml_classification.html">eclairjs/ml/classification</a></li><li><a href="module-eclairjs_ml_clustering.html">eclairjs/ml/clustering</a></li><li><a href="module-eclairjs_ml_evaluation.html">eclairjs/ml/evaluation</a></li><li><a href="module-eclairjs_ml_feature.html">eclairjs/ml/feature</a></li><li><a href="module-eclairjs_ml_param.html">eclairjs/ml/param</a></li><li><a href="module-eclairjs_ml_recommendation.html">eclairjs/ml/recommendation</a></li><li><a href="module-eclairjs_ml_regression.html">eclairjs/ml/regression</a></li><li><a href="module-eclairjs_ml_tuning.html">eclairjs/ml/tuning</a></li><li><a href="module-eclairjs_ml_util.html">eclairjs/ml/util</a></li><li><a href="module-eclairjs_mllib.html">eclairjs/mllib</a></li><li><a href="module-eclairjs_mllib_classification.html">eclairjs/mllib/classification</a></li><li><a href="module-eclairjs_mllib_clustering.html">eclairjs/mllib/clustering</a></li><li><a href="module-eclairjs_mllib_evaluation.html">eclairjs/mllib/evaluation</a></li><li><a href="module-eclairjs_mllib_feature.html">eclairjs/mllib/feature</a></li><li><a href="module-eclairjs_mllib_fpm.html">eclairjs/mllib/fpm</a></li><li><a href="module-eclairjs_mllib_linalg.html">eclairjs/mllib/linalg</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.html">eclairjs/mllib/linalg/distributed</a></li><li><a href="module-eclairjs_mllib_optimization.html">eclairjs/mllib/optimization</a></li><li><a href="module-eclairjs_mllib_random.html">eclairjs/mllib/random</a></li><li><a href="module-eclairjs_mllib_recommendation.html">eclairjs/mllib/recommendation</a></li><li><a href="module-eclairjs_mllib_regression.html">eclairjs/mllib/regression</a></li><li><a href="module-eclairjs_mllib_tree.html">eclairjs/mllib/tree</a></li><li><a href="module-eclairjs_mllib_tree_configuration.html">eclairjs/mllib/tree/configuration</a></li><li><a href="module-eclairjs_mllib_tree_loss.html">eclairjs/mllib/tree/loss</a></li><li><a href="module-eclairjs_mllib_tree_model.html">eclairjs/mllib/tree/model</a></li><li><a href="module-eclairjs_partial.html">eclairjs/partial</a></li><li><a href="module-eclairjs_sql.html">eclairjs/sql</a></li><li><a href="module-eclairjs_sql_execution.html">eclairjs/sql/execution</a></li><li><a href="module-eclairjs_sql_types.html">eclairjs/sql/types</a></li><li><a href="module-eclairjs_storage.html">eclairjs/storage</a></li><li><a href="module-eclairjs_streaming.html">eclairjs/streaming</a></li><li><a href="module-eclairjs_streaming_dstream.html">eclairjs/streaming/dstream</a></li><li><a href="module-eclairjs_streaming_kafka.html">eclairjs/streaming/kafka</a></li><li><a href="module-eclairjs_streaming_twitter.html">eclairjs/streaming/twitter</a></li></ul><h3>Classes</h3><ul><li><a href="module-eclairjs.Accumulable.html">Accumulable</a></li><li><a href="module-eclairjs.AccumulableParam.html">AccumulableParam</a></li><li><a href="module-eclairjs.Accumulator.html">Accumulator</a></li><li><a href="module-eclairjs.FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="module-eclairjs.FloatRDD.html">FloatRDD</a></li><li><a href="module-eclairjs.FutureAction.html">FutureAction</a></li><li><a href="module-eclairjs.HashPartitioner.html">HashPartitioner</a></li><li><a href="module-eclairjs.IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="module-eclairjs.List.html">List</a></li><li><a href="module-eclairjs.Logger.html">Logger</a></li><li><a href="module-eclairjs.PairRDD.html">PairRDD</a></li><li><a href="module-eclairjs.Partitioner.html">Partitioner</a></li><li><a href="module-eclairjs.RangePartitioner.html">RangePartitioner</a></li><li><a href="module-eclairjs.RDD.html">RDD</a></li><li><a href="module-eclairjs.SparkConf.html">SparkConf</a></li><li><a href="module-eclairjs.SparkContext.html">SparkContext</a></li><li><a href="module-eclairjs.SparkFiles.html">SparkFiles</a></li><li><a href="module-eclairjs.SparkJobInfo.html">SparkJobInfo</a></li><li><a href="module-eclairjs.SparkStageInfo.html">SparkStageInfo</a></li><li><a href="module-eclairjs.SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="module-eclairjs.Tuple.html">Tuple</a></li><li><a href="module-eclairjs_ml.Estimator.html">Estimator</a></li><li><a href="module-eclairjs_ml.Model.html">Model</a></li><li><a href="module-eclairjs_ml.Pipeline.html">Pipeline</a></li><li><a href="module-eclairjs_ml.PipelineModel.html">PipelineModel</a></li><li><a href="module-eclairjs_ml.PipelineStage.html">PipelineStage</a></li><li><a href="module-eclairjs_ml.PredictionModel.html">PredictionModel</a></li><li><a href="module-eclairjs_ml.Predictor.html">Predictor</a></li><li><a href="module-eclairjs_ml.Transformer.html">Transformer</a></li><li><a href="module-eclairjs_ml.UnaryTransformer.html">UnaryTransformer</a></li><li><a href="module-eclairjs_ml_attribute.AttributeGroup.html">AttributeGroup</a></li><li><a href="module-eclairjs_ml_attribute.NumericAttribute.html">NumericAttribute</a></li><li><a href="module-eclairjs_ml_classification.BinaryLogisticRegressionSummary.html">BinaryLogisticRegressionSummary</a></li><li><a href="module-eclairjs_ml_classification.BinaryLogisticRegressionTrainingSummary.html">BinaryLogisticRegressionTrainingSummary</a></li><li><a href="module-eclairjs_ml_classification.ClassificationModel.html">ClassificationModel</a></li><li><a href="module-eclairjs_ml_classification.Classifier.html">Classifier</a></li><li><a href="module-eclairjs_ml_classification.DecisionTreeClassificationModel.html">DecisionTreeClassificationModel</a></li><li><a href="module-eclairjs_ml_classification.DecisionTreeClassifier.html">DecisionTreeClassifier</a></li><li><a href="module-eclairjs_ml_classification.GBTClassificationModel.html">GBTClassificationModel</a></li><li><a href="module-eclairjs_ml_classification.GBTClassifier.html">GBTClassifier</a></li><li><a href="module-eclairjs_ml_classification.LogisticRegression.html">LogisticRegression</a></li><li><a href="module-eclairjs_ml_classification.LogisticRegressionModel.html">LogisticRegressionModel</a></li><li><a href="module-eclairjs_ml_classification.LogisticRegressionSummary.html">LogisticRegressionSummary</a></li><li><a href="module-eclairjs_ml_classification.LogisticRegressionTrainingSummary.html">LogisticRegressionTrainingSummary</a></li><li><a href="module-eclairjs_ml_classification.MultilayerPerceptronClassificationModel.html">MultilayerPerceptronClassificationModel</a></li><li><a href="module-eclairjs_ml_classification.MultilayerPerceptronClassifier.html">MultilayerPerceptronClassifier</a></li><li><a href="module-eclairjs_ml_classification.NaiveBayes.html">NaiveBayes</a></li><li><a href="module-eclairjs_ml_classification.NaiveBayesModel.html">NaiveBayesModel</a></li><li><a href="module-eclairjs_ml_classification.ProbabilisticClassificationModel.html">ProbabilisticClassificationModel</a></li><li><a href="module-eclairjs_ml_classification.ProbabilisticClassifier.html">ProbabilisticClassifier</a></li><li><a href="module-eclairjs_ml_classification.RandomForestClassificationModel.html">RandomForestClassificationModel</a></li><li><a href="module-eclairjs_ml_classification.RandomForestClassifier.html">RandomForestClassifier</a></li><li><a href="module-eclairjs_ml_clustering.DistributedLDAModel.html">DistributedLDAModel</a></li><li><a href="module-eclairjs_ml_clustering.KMeans.html">KMeans</a></li><li><a href="module-eclairjs_ml_clustering.KMeansModel.html">KMeansModel</a></li><li><a href="module-eclairjs_ml_clustering.LDA.html">LDA</a></li><li><a href="module-eclairjs_ml_clustering.LDAModel.html">LDAModel</a></li><li><a href="module-eclairjs_ml_clustering.LocalLDAModel.html">LocalLDAModel</a></li><li><a href="module-eclairjs_ml_evaluation.Evaluator.html">Evaluator</a></li><li><a href="module-eclairjs_ml_evaluation.MulticlassClassificationEvaluator.html">MulticlassClassificationEvaluator</a></li><li><a href="module-eclairjs_ml_evaluation.RegressionEvaluator.html">RegressionEvaluator</a></li><li><a href="module-eclairjs_ml_feature.Binarizer.html">Binarizer</a></li><li><a href="module-eclairjs_ml_feature.Bucketizer.html">Bucketizer</a></li><li><a href="module-eclairjs_ml_feature.ChiSqSelector.html">ChiSqSelector</a></li><li><a href="module-eclairjs_ml_feature.ChiSqSelectorModel.html">ChiSqSelectorModel</a></li><li><a href="module-eclairjs_ml_feature.CountVectorizer.html">CountVectorizer</a></li><li><a href="module-eclairjs_ml_feature.CountVectorizerModel.html">CountVectorizerModel</a></li><li><a href="module-eclairjs_ml_feature.DCT.html">DCT</a></li><li><a href="module-eclairjs_ml_feature.ElementwiseProduct.html">ElementwiseProduct</a></li><li><a href="module-eclairjs_ml_feature.HashingTF.html">HashingTF</a></li><li><a href="module-eclairjs_ml_feature.IDFModel.html">IDFModel</a></li><li><a href="module-eclairjs_ml_feature.IndexToString.html">IndexToString</a></li><li><a href="module-eclairjs_ml_feature.MinMaxScaler.html">MinMaxScaler</a></li><li><a href="module-eclairjs_ml_feature.MinMaxScalerModel.html">MinMaxScalerModel</a></li><li><a href="module-eclairjs_ml_feature.NGram.html">NGram</a></li><li><a href="module-eclairjs_ml_feature.Normalizer.html">Normalizer</a></li><li><a href="module-eclairjs_ml_feature.OneHotEncoder.html">OneHotEncoder</a></li><li><a href="module-eclairjs_ml_feature.PCA.html">PCA</a></li><li><a href="module-eclairjs_ml_feature.PCAModel.html">PCAModel</a></li><li><a href="module-eclairjs_ml_feature.PolynomialExpansion.html">PolynomialExpansion</a></li><li><a href="module-eclairjs_ml_feature.QuantileDiscretizer.html">QuantileDiscretizer</a></li><li><a href="module-eclairjs_ml_feature.RFormula.html">RFormula</a></li><li><a href="module-eclairjs_ml_feature.RFormulaModel.html">RFormulaModel</a></li><li><a href="module-eclairjs_ml_feature.StandardScalerModel.html">StandardScalerModel</a></li><li><a href="module-eclairjs_ml_feature.StringIndexer.html">StringIndexer</a></li><li><a href="module-eclairjs_ml_feature.StringIndexerModel.html">StringIndexerModel</a></li><li><a href="module-eclairjs_ml_feature.VectorIndexer.html">VectorIndexer</a></li><li><a href="module-eclairjs_ml_feature.VectorIndexerModel.html">VectorIndexerModel</a></li><li><a href="module-eclairjs_ml_feature.VectorSlicer.html">VectorSlicer</a></li><li><a href="module-eclairjs_ml_feature.Word2Vec.html">Word2Vec</a></li><li><a href="module-eclairjs_ml_feature.Word2VecModel.html">Word2VecModel</a></li><li><a href="module-eclairjs_ml_param.BooleanParam.html">BooleanParam</a></li><li><a href="module-eclairjs_ml_param.DoubleParam.html">DoubleParam</a></li><li><a href="module-eclairjs_ml_param.IntArrayParam.html">IntArrayParam</a></li><li><a href="module-eclairjs_ml_param.IntParam.html">IntParam</a></li><li><a href="module-eclairjs_ml_param.Param.html">Param</a></li><li><a href="module-eclairjs_ml_param.ParamMap.html">ParamMap</a></li><li><a href="module-eclairjs_ml_param.ParamPair.html">ParamPair</a></li><li><a href="module-eclairjs_ml_param.StringArrayParam.html">StringArrayParam</a></li><li><a href="module-eclairjs_ml_recommendation.ALS.html">ALS</a></li><li><a href="module-eclairjs_ml_recommendation.ALSModel.html">ALSModel</a></li><li><a href="module-eclairjs_ml_regression.AFTSurvivalRegression.html">AFTSurvivalRegression</a></li><li><a href="module-eclairjs_ml_regression.AFTSurvivalRegressionModel.html">AFTSurvivalRegressionModel</a></li><li><a href="module-eclairjs_ml_regression.DecisionTreeRegressionModel.html">DecisionTreeRegressionModel</a></li><li><a href="module-eclairjs_ml_regression.DecisionTreeRegressor.html">DecisionTreeRegressor</a></li><li><a href="module-eclairjs_ml_regression.GBTRegressionModel.html">GBTRegressionModel</a></li><li><a href="module-eclairjs_ml_regression.GBTRegressor.html">GBTRegressor</a></li><li><a href="module-eclairjs_ml_regression.LinearRegression.html">LinearRegression</a></li><li><a href="module-eclairjs_ml_regression.LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="module-eclairjs_ml_regression.LinearRegressionSummary.html">LinearRegressionSummary</a></li><li><a href="module-eclairjs_ml_regression.LinearRegressionTrainingSummary.html">LinearRegressionTrainingSummary</a></li><li><a href="module-eclairjs_ml_regression.RandomForestRegressionModel.html">RandomForestRegressionModel</a></li><li><a href="module-eclairjs_ml_regression.RandomForestRegressor.html">RandomForestRegressor</a></li><li><a href="module-eclairjs_ml_regression.RegressionModel.html">RegressionModel</a></li><li><a href="module-eclairjs_ml_tuning.ParamGridBuilder.html">ParamGridBuilder</a></li><li><a href="module-eclairjs_ml_tuning.TrainValidationSplit.html">TrainValidationSplit</a></li><li><a href="module-eclairjs_ml_tuning.TrainValidationSplitModel.html">TrainValidationSplitModel</a></li><li><a href="module-eclairjs_ml_util.MLReader.html">MLReader</a></li><li><a href="module-eclairjs_ml_util.MLWriter.html">MLWriter</a></li><li><a href="module-eclairjs_mllib.MLUtils.html">MLUtils</a></li><li><a href="module-eclairjs_mllib_classification.ClassificationModel.html">ClassificationModel</a></li><li><a href="module-eclairjs_mllib_classification.LogisticRegressionModel.html">LogisticRegressionModel</a></li><li><a href="module-eclairjs_mllib_classification.LogisticRegressionWithLBFGS.html">LogisticRegressionWithLBFGS</a></li><li><a href="module-eclairjs_mllib_classification.LogisticRegressionWithSGD.html">LogisticRegressionWithSGD</a></li><li><a href="module-eclairjs_mllib_classification.NaiveBayes.html">NaiveBayes</a></li><li><a href="module-eclairjs_mllib_classification.NaiveBayesModel.html">NaiveBayesModel</a></li><li><a href="module-eclairjs_mllib_classification.SVMModel.html">SVMModel</a></li><li><a href="module-eclairjs_mllib_classification.SVMWithSGD.html">SVMWithSGD</a></li><li><a href="module-eclairjs_mllib_clustering.BisectingKMeans.html">BisectingKMeans</a></li><li><a href="module-eclairjs_mllib_clustering.BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="module-eclairjs_mllib_clustering.DistributedLDAModel.html">DistributedLDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.KMeans.html">KMeans</a></li><li><a href="module-eclairjs_mllib_clustering.KMeansModel.html">KMeansModel</a></li><li><a href="module-eclairjs_mllib_clustering.LDA.html">LDA</a></li><li><a href="module-eclairjs_mllib_clustering.LDAModel.html">LDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.LocalLDAModel.html">LocalLDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClustering.html">PowerIterationClustering</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClusteringAssignment.html">PowerIterationClusteringAssignment</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClusteringModel.html">PowerIterationClusteringModel</a></li><li><a href="module-eclairjs_mllib_evaluation.BinaryClassificationMetrics.html">BinaryClassificationMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.MulticlassMetrics.html">MulticlassMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.MultilabelMetrics.html">MultilabelMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.RankingMetrics.html">RankingMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.RegressionMetrics.html">RegressionMetrics</a></li><li><a href="module-eclairjs_mllib_feature.Word2Vec.html">Word2Vec</a></li><li><a href="module-eclairjs_mllib_feature.Word2VecModel.html">Word2VecModel</a></li><li><a href="module-eclairjs_mllib_fpm.AssociationRules.html">AssociationRules</a></li><li><a href="module-eclairjs_mllib_fpm.FPGrowth.html">FPGrowth</a></li><li><a href="module-eclairjs_mllib_fpm.FPGrowthModel.html">FPGrowthModel</a></li><li><a href="module-eclairjs_mllib_fpm.FreqItemset.html">FreqItemset</a></li><li><a href="module-eclairjs_mllib_fpm.PrefixSpan.html">PrefixSpan</a></li><li><a href="module-eclairjs_mllib_fpm.PrefixSpanFreqSequence.html">PrefixSpanFreqSequence</a></li><li><a href="module-eclairjs_mllib_fpm.PrefixSpanModel.html">PrefixSpanModel</a></li><li><a href="module-eclairjs_mllib_fpm.Rule.html">Rule</a></li><li><a href="module-eclairjs_mllib_linalg.DenseMatrix.html">DenseMatrix</a></li><li><a href="module-eclairjs_mllib_linalg.DenseVector.html">DenseVector</a></li><li><a href="module-eclairjs_mllib_linalg.Matrices.html">Matrices</a></li><li><a href="module-eclairjs_mllib_linalg.Matrix.html">Matrix</a></li><li><a href="module-eclairjs_mllib_linalg.QRDecomposition.html">QRDecomposition</a></li><li><a href="module-eclairjs_mllib_linalg.SingularValueDecomposition.html">SingularValueDecomposition</a></li><li><a href="module-eclairjs_mllib_linalg.SparseMatrix.html">SparseMatrix</a></li><li><a href="module-eclairjs_mllib_linalg.SparseVector.html">SparseVector</a></li><li><a href="module-eclairjs_mllib_linalg.Vector.html">Vector</a></li><li><a href="module-eclairjs_mllib_linalg.Vectors.html">Vectors</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.DistributedMatrix.html">DistributedMatrix</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.RowMatrix.html">RowMatrix</a></li><li><a href="module-eclairjs_mllib_optimization.Gradient.html">Gradient</a></li><li><a href="module-eclairjs_mllib_optimization.LBFGS.html">LBFGS</a></li><li><a href="module-eclairjs_mllib_optimization.LogisticGradient.html">LogisticGradient</a></li><li><a href="module-eclairjs_mllib_optimization.SquaredL2Updater.html">SquaredL2Updater</a></li><li><a href="module-eclairjs_mllib_optimization.Updater.html">Updater</a></li><li><a href="module-eclairjs_mllib_random.RandomRDDs.html">RandomRDDs</a></li><li><a href="module-eclairjs_mllib_recommendation.ALS.html">ALS</a></li><li><a href="module-eclairjs_mllib_recommendation.MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="module-eclairjs_mllib_recommendation.Rating.html">Rating</a></li><li><a href="module-eclairjs_mllib_regression.GeneralizedLinearModel.html">GeneralizedLinearModel</a></li><li><a href="module-eclairjs_mllib_regression.LabeledPoint.html">LabeledPoint</a></li><li><a href="module-eclairjs_mllib_regression.LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="module-eclairjs_mllib_regression.LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="module-eclairjs_mllib_tree.DecisionTree.html">DecisionTree</a></li><li><a href="module-eclairjs_mllib_tree.GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="module-eclairjs_mllib_tree.RandomForest.html">RandomForest</a></li><li><a href="module-eclairjs_mllib_tree_configuration.BoostingStrategy.html">BoostingStrategy</a></li><li><a href="module-eclairjs_mllib_tree_configuration.Strategy.html">Strategy</a></li><li><a href="module-eclairjs_mllib_tree_loss.Loss.html">Loss</a></li><li><a href="module-eclairjs_mllib_tree_model.DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="module-eclairjs_mllib_tree_model.GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="module-eclairjs_mllib_tree_model.RandomForestModel.html">RandomForestModel</a></li><li><a href="module-eclairjs_partial.PartialResult.html">PartialResult</a></li><li><a href="module-eclairjs_sql.Column.html">Column</a></li><li><a href="module-eclairjs_sql.DataFrame.html">DataFrame</a></li><li><a href="module-eclairjs_sql.DataFrameHolder.html">DataFrameHolder</a></li><li><a href="module-eclairjs_sql.DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="module-eclairjs_sql.DataFrameReader.html">DataFrameReader</a></li><li><a href="module-eclairjs_sql.DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="module-eclairjs_sql.DataFrameWriter.html">DataFrameWriter</a></li><li><a href="module-eclairjs_sql.functions.html">functions</a></li><li><a href="module-eclairjs_sql.GroupedData.html">GroupedData</a></li><li><a href="module-eclairjs_sql.Row.html">Row</a></li><li><a href="module-eclairjs_sql.RowFactory.html">RowFactory</a></li><li><a href="module-eclairjs_sql.SQLContext.html">SQLContext</a></li><li><a href="module-eclairjs_sql.SqlDate.html">SqlDate</a></li><li><a href="module-eclairjs_sql.SqlTimestamp.html">SqlTimestamp</a></li><li><a href="module-eclairjs_sql.UDFRegistration.html">UDFRegistration</a></li><li><a href="module-eclairjs_sql_execution.QueryExecution.html">QueryExecution</a></li><li><a href="module-eclairjs_sql_types.ArrayType.html">ArrayType</a></li><li><a href="module-eclairjs_sql_types.BinaryType.html">BinaryType</a></li><li><a href="module-eclairjs_sql_types.BooleanType.html">BooleanType</a></li><li><a href="module-eclairjs_sql_types.CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="module-eclairjs_sql_types.DataType.html">DataType</a></li><li><a href="module-eclairjs_sql_types.DataTypes.html">DataTypes</a></li><li><a href="module-eclairjs_sql_types.DateType.html">DateType</a></li><li><a href="module-eclairjs_sql_types.DoubleType.html">DoubleType</a></li><li><a href="module-eclairjs_sql_types.FloatType.html">FloatType</a></li><li><a href="module-eclairjs_sql_types.IntegerType.html">IntegerType</a></li><li><a href="module-eclairjs_sql_types.MapType.html">MapType</a></li><li><a href="module-eclairjs_sql_types.Metadata.html">Metadata</a></li><li><a href="module-eclairjs_sql_types.NullType.html">NullType</a></li><li><a href="module-eclairjs_sql_types.NumericType.html">NumericType</a></li><li><a href="module-eclairjs_sql_types.StringType.html">StringType</a></li><li><a href="module-eclairjs_sql_types.StructField.html">StructField</a></li><li><a href="module-eclairjs_sql_types.StructType.html">StructType</a></li><li><a href="module-eclairjs_sql_types.TimestampType.html">TimestampType</a></li><li><a href="module-eclairjs_storage.StorageLevel.html">StorageLevel</a></li><li><a href="module-eclairjs_streaming.Duration.html">Duration</a></li><li><a href="module-eclairjs_streaming.StreamingContext.html">StreamingContext</a></li><li><a href="module-eclairjs_streaming.Time.html">Time</a></li><li><a href="module-eclairjs_streaming_dstream.DStream.html">DStream</a></li><li><a href="module-eclairjs_streaming_dstream.PairDStream.html">PairDStream</a></li><li><a href="module-eclairjs_streaming_kafka.KafkaUtils.html">KafkaUtils</a></li><li><a href="module-eclairjs_streaming_twitter.TwitterAuthorization.html">TwitterAuthorization</a></li><li><a href="module-eclairjs_streaming_twitter.TwitterUtils.html">TwitterUtils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#module">module</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-eclairjs.html">eclairjs</a></li><li><a href="module-eclairjs_ml.html">eclairjs/ml</a></li><li><a href="module-eclairjs_ml_attribute.html">eclairjs/ml/attribute</a></li><li><a href="module-eclairjs_ml_classification.html">eclairjs/ml/classification</a></li><li><a href="module-eclairjs_ml_clustering.html">eclairjs/ml/clustering</a></li><li><a href="module-eclairjs_ml_evaluation.html">eclairjs/ml/evaluation</a></li><li><a href="module-eclairjs_ml_feature.html">eclairjs/ml/feature</a></li><li><a href="module-eclairjs_ml_param.html">eclairjs/ml/param</a></li><li><a href="module-eclairjs_ml_recommendation.html">eclairjs/ml/recommendation</a></li><li><a href="module-eclairjs_ml_regression.html">eclairjs/ml/regression</a></li><li><a href="module-eclairjs_ml_tuning.html">eclairjs/ml/tuning</a></li><li><a href="module-eclairjs_ml_util.html">eclairjs/ml/util</a></li><li><a href="module-eclairjs_mllib.html">eclairjs/mllib</a></li><li><a href="module-eclairjs_mllib_classification.html">eclairjs/mllib/classification</a></li><li><a href="module-eclairjs_mllib_clustering.html">eclairjs/mllib/clustering</a></li><li><a href="module-eclairjs_mllib_evaluation.html">eclairjs/mllib/evaluation</a></li><li><a href="module-eclairjs_mllib_feature.html">eclairjs/mllib/feature</a></li><li><a href="module-eclairjs_mllib_fpm.html">eclairjs/mllib/fpm</a></li><li><a href="module-eclairjs_mllib_linalg.html">eclairjs/mllib/linalg</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.html">eclairjs/mllib/linalg/distributed</a></li><li><a href="module-eclairjs_mllib_optimization.html">eclairjs/mllib/optimization</a></li><li><a href="module-eclairjs_mllib_random.html">eclairjs/mllib/random</a></li><li><a href="module-eclairjs_mllib_recommendation.html">eclairjs/mllib/recommendation</a></li><li><a href="module-eclairjs_mllib_regression.html">eclairjs/mllib/regression</a></li><li><a href="module-eclairjs_mllib_tree.html">eclairjs/mllib/tree</a></li><li><a href="module-eclairjs_mllib_tree_configuration.html">eclairjs/mllib/tree/configuration</a></li><li><a href="module-eclairjs_mllib_tree_loss.html">eclairjs/mllib/tree/loss</a></li><li><a href="module-eclairjs_mllib_tree_model.html">eclairjs/mllib/tree/model</a></li><li><a href="module-eclairjs_partial.html">eclairjs/partial</a></li><li><a href="module-eclairjs_sql.html">eclairjs/sql</a></li><li><a href="module-eclairjs_sql_execution.html">eclairjs/sql/execution</a></li><li><a href="module-eclairjs_sql_types.html">eclairjs/sql/types</a></li><li><a href="module-eclairjs_storage.html">eclairjs/storage</a></li><li><a href="module-eclairjs_streaming.html">eclairjs/streaming</a></li><li><a href="module-eclairjs_streaming_dstream.html">eclairjs/streaming/dstream</a></li><li><a href="module-eclairjs_streaming_kafka.html">eclairjs/streaming/kafka</a></li><li><a href="module-eclairjs_streaming_twitter.html">eclairjs/streaming/twitter</a></li></ul><h3>Classes</h3><ul><li><a href="module-eclairjs.Accumulable.html">Accumulable</a></li><li><a href="module-eclairjs.AccumulableParam.html">AccumulableParam</a></li><li><a href="module-eclairjs.Accumulator.html">Accumulator</a></li><li><a href="module-eclairjs.FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="module-eclairjs.FloatRDD.html">FloatRDD</a></li><li><a href="module-eclairjs.FutureAction.html">FutureAction</a></li><li><a href="module-eclairjs.HashPartitioner.html">HashPartitioner</a></li><li><a href="module-eclairjs.IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="module-eclairjs.List.html">List</a></li><li><a href="module-eclairjs.Logger.html">Logger</a></li><li><a href="module-eclairjs.PairRDD.html">PairRDD</a></li><li><a href="module-eclairjs.Partitioner.html">Partitioner</a></li><li><a href="module-eclairjs.RangePartitioner.html">RangePartitioner</a></li><li><a href="module-eclairjs.RDD.html">RDD</a></li><li><a href="module-eclairjs.Serializable.html">Serializable</a></li><li><a href="module-eclairjs.SparkConf.html">SparkConf</a></li><li><a href="module-eclairjs.SparkContext.html">SparkContext</a></li><li><a href="module-eclairjs.SparkFiles.html">SparkFiles</a></li><li><a href="module-eclairjs.SparkJobInfo.html">SparkJobInfo</a></li><li><a href="module-eclairjs.SparkStageInfo.html">SparkStageInfo</a></li><li><a href="module-eclairjs.SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="module-eclairjs.Tuple.html">Tuple</a></li><li><a href="module-eclairjs_ml.Estimator.html">Estimator</a></li><li><a href="module-eclairjs_ml.Model.html">Model</a></li><li><a href="module-eclairjs_ml.Pipeline.html">Pipeline</a></li><li><a href="module-eclairjs_ml.PipelineModel.html">PipelineModel</a></li><li><a href="module-eclairjs_ml.PipelineStage.html">PipelineStage</a></li><li><a href="module-eclairjs_ml.PredictionModel.html">PredictionModel</a></li><li><a href="module-eclairjs_ml.Predictor.html">Predictor</a></li><li><a href="module-eclairjs_ml.Transformer.html">Transformer</a></li><li><a href="module-eclairjs_ml.UnaryTransformer.html">UnaryTransformer</a></li><li><a href="module-eclairjs_ml_attribute.AttributeGroup.html">AttributeGroup</a></li><li><a href="module-eclairjs_ml_attribute.NumericAttribute.html">NumericAttribute</a></li><li><a href="module-eclairjs_ml_classification.BinaryLogisticRegressionSummary.html">BinaryLogisticRegressionSummary</a></li><li><a href="module-eclairjs_ml_classification.BinaryLogisticRegressionTrainingSummary.html">BinaryLogisticRegressionTrainingSummary</a></li><li><a href="module-eclairjs_ml_classification.ClassificationModel.html">ClassificationModel</a></li><li><a href="module-eclairjs_ml_classification.Classifier.html">Classifier</a></li><li><a href="module-eclairjs_ml_classification.DecisionTreeClassificationModel.html">DecisionTreeClassificationModel</a></li><li><a href="module-eclairjs_ml_classification.DecisionTreeClassifier.html">DecisionTreeClassifier</a></li><li><a href="module-eclairjs_ml_classification.GBTClassificationModel.html">GBTClassificationModel</a></li><li><a href="module-eclairjs_ml_classification.GBTClassifier.html">GBTClassifier</a></li><li><a href="module-eclairjs_ml_classification.LogisticRegression.html">LogisticRegression</a></li><li><a href="module-eclairjs_ml_classification.LogisticRegressionModel.html">LogisticRegressionModel</a></li><li><a href="module-eclairjs_ml_classification.LogisticRegressionSummary.html">LogisticRegressionSummary</a></li><li><a href="module-eclairjs_ml_classification.LogisticRegressionTrainingSummary.html">LogisticRegressionTrainingSummary</a></li><li><a href="module-eclairjs_ml_classification.MultilayerPerceptronClassificationModel.html">MultilayerPerceptronClassificationModel</a></li><li><a href="module-eclairjs_ml_classification.MultilayerPerceptronClassifier.html">MultilayerPerceptronClassifier</a></li><li><a href="module-eclairjs_ml_classification.NaiveBayes.html">NaiveBayes</a></li><li><a href="module-eclairjs_ml_classification.NaiveBayesModel.html">NaiveBayesModel</a></li><li><a href="module-eclairjs_ml_classification.ProbabilisticClassificationModel.html">ProbabilisticClassificationModel</a></li><li><a href="module-eclairjs_ml_classification.ProbabilisticClassifier.html">ProbabilisticClassifier</a></li><li><a href="module-eclairjs_ml_classification.RandomForestClassificationModel.html">RandomForestClassificationModel</a></li><li><a href="module-eclairjs_ml_classification.RandomForestClassifier.html">RandomForestClassifier</a></li><li><a href="module-eclairjs_ml_clustering.DistributedLDAModel.html">DistributedLDAModel</a></li><li><a href="module-eclairjs_ml_clustering.KMeans.html">KMeans</a></li><li><a href="module-eclairjs_ml_clustering.KMeansModel.html">KMeansModel</a></li><li><a href="module-eclairjs_ml_clustering.LDA.html">LDA</a></li><li><a href="module-eclairjs_ml_clustering.LDAModel.html">LDAModel</a></li><li><a href="module-eclairjs_ml_clustering.LocalLDAModel.html">LocalLDAModel</a></li><li><a href="module-eclairjs_ml_evaluation.Evaluator.html">Evaluator</a></li><li><a href="module-eclairjs_ml_evaluation.MulticlassClassificationEvaluator.html">MulticlassClassificationEvaluator</a></li><li><a href="module-eclairjs_ml_evaluation.RegressionEvaluator.html">RegressionEvaluator</a></li><li><a href="module-eclairjs_ml_feature.Binarizer.html">Binarizer</a></li><li><a href="module-eclairjs_ml_feature.Bucketizer.html">Bucketizer</a></li><li><a href="module-eclairjs_ml_feature.ChiSqSelector.html">ChiSqSelector</a></li><li><a href="module-eclairjs_ml_feature.ChiSqSelectorModel.html">ChiSqSelectorModel</a></li><li><a href="module-eclairjs_ml_feature.CountVectorizer.html">CountVectorizer</a></li><li><a href="module-eclairjs_ml_feature.CountVectorizerModel.html">CountVectorizerModel</a></li><li><a href="module-eclairjs_ml_feature.DCT.html">DCT</a></li><li><a href="module-eclairjs_ml_feature.ElementwiseProduct.html">ElementwiseProduct</a></li><li><a href="module-eclairjs_ml_feature.HashingTF.html">HashingTF</a></li><li><a href="module-eclairjs_ml_feature.IDFModel.html">IDFModel</a></li><li><a href="module-eclairjs_ml_feature.IndexToString.html">IndexToString</a></li><li><a href="module-eclairjs_ml_feature.MinMaxScaler.html">MinMaxScaler</a></li><li><a href="module-eclairjs_ml_feature.MinMaxScalerModel.html">MinMaxScalerModel</a></li><li><a href="module-eclairjs_ml_feature.NGram.html">NGram</a></li><li><a href="module-eclairjs_ml_feature.Normalizer.html">Normalizer</a></li><li><a href="module-eclairjs_ml_feature.OneHotEncoder.html">OneHotEncoder</a></li><li><a href="module-eclairjs_ml_feature.PCA.html">PCA</a></li><li><a href="module-eclairjs_ml_feature.PCAModel.html">PCAModel</a></li><li><a href="module-eclairjs_ml_feature.PolynomialExpansion.html">PolynomialExpansion</a></li><li><a href="module-eclairjs_ml_feature.QuantileDiscretizer.html">QuantileDiscretizer</a></li><li><a href="module-eclairjs_ml_feature.RFormula.html">RFormula</a></li><li><a href="module-eclairjs_ml_feature.RFormulaModel.html">RFormulaModel</a></li><li><a href="module-eclairjs_ml_feature.StandardScalerModel.html">StandardScalerModel</a></li><li><a href="module-eclairjs_ml_feature.StringIndexer.html">StringIndexer</a></li><li><a href="module-eclairjs_ml_feature.StringIndexerModel.html">StringIndexerModel</a></li><li><a href="module-eclairjs_ml_feature.VectorIndexer.html">VectorIndexer</a></li><li><a href="module-eclairjs_ml_feature.VectorIndexerModel.html">VectorIndexerModel</a></li><li><a href="module-eclairjs_ml_feature.VectorSlicer.html">VectorSlicer</a></li><li><a href="module-eclairjs_ml_feature.Word2Vec.html">Word2Vec</a></li><li><a href="module-eclairjs_ml_feature.Word2VecModel.html">Word2VecModel</a></li><li><a href="module-eclairjs_ml_param.BooleanParam.html">BooleanParam</a></li><li><a href="module-eclairjs_ml_param.DoubleParam.html">DoubleParam</a></li><li><a href="module-eclairjs_ml_param.IntArrayParam.html">IntArrayParam</a></li><li><a href="module-eclairjs_ml_param.IntParam.html">IntParam</a></li><li><a href="module-eclairjs_ml_param.Param.html">Param</a></li><li><a href="module-eclairjs_ml_param.ParamMap.html">ParamMap</a></li><li><a href="module-eclairjs_ml_param.ParamPair.html">ParamPair</a></li><li><a href="module-eclairjs_ml_param.StringArrayParam.html">StringArrayParam</a></li><li><a href="module-eclairjs_ml_recommendation.ALS.html">ALS</a></li><li><a href="module-eclairjs_ml_recommendation.ALSModel.html">ALSModel</a></li><li><a href="module-eclairjs_ml_regression.AFTSurvivalRegression.html">AFTSurvivalRegression</a></li><li><a href="module-eclairjs_ml_regression.AFTSurvivalRegressionModel.html">AFTSurvivalRegressionModel</a></li><li><a href="module-eclairjs_ml_regression.DecisionTreeRegressionModel.html">DecisionTreeRegressionModel</a></li><li><a href="module-eclairjs_ml_regression.DecisionTreeRegressor.html">DecisionTreeRegressor</a></li><li><a href="module-eclairjs_ml_regression.GBTRegressionModel.html">GBTRegressionModel</a></li><li><a href="module-eclairjs_ml_regression.GBTRegressor.html">GBTRegressor</a></li><li><a href="module-eclairjs_ml_regression.LinearRegression.html">LinearRegression</a></li><li><a href="module-eclairjs_ml_regression.LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="module-eclairjs_ml_regression.LinearRegressionSummary.html">LinearRegressionSummary</a></li><li><a href="module-eclairjs_ml_regression.LinearRegressionTrainingSummary.html">LinearRegressionTrainingSummary</a></li><li><a href="module-eclairjs_ml_regression.RandomForestRegressionModel.html">RandomForestRegressionModel</a></li><li><a href="module-eclairjs_ml_regression.RandomForestRegressor.html">RandomForestRegressor</a></li><li><a href="module-eclairjs_ml_regression.RegressionModel.html">RegressionModel</a></li><li><a href="module-eclairjs_ml_tuning.ParamGridBuilder.html">ParamGridBuilder</a></li><li><a href="module-eclairjs_ml_tuning.TrainValidationSplit.html">TrainValidationSplit</a></li><li><a href="module-eclairjs_ml_tuning.TrainValidationSplitModel.html">TrainValidationSplitModel</a></li><li><a href="module-eclairjs_ml_util.MLReader.html">MLReader</a></li><li><a href="module-eclairjs_ml_util.MLWriter.html">MLWriter</a></li><li><a href="module-eclairjs_mllib.MLUtils.html">MLUtils</a></li><li><a href="module-eclairjs_mllib_classification.ClassificationModel.html">ClassificationModel</a></li><li><a href="module-eclairjs_mllib_classification.LogisticRegressionModel.html">LogisticRegressionModel</a></li><li><a href="module-eclairjs_mllib_classification.LogisticRegressionWithLBFGS.html">LogisticRegressionWithLBFGS</a></li><li><a href="module-eclairjs_mllib_classification.LogisticRegressionWithSGD.html">LogisticRegressionWithSGD</a></li><li><a href="module-eclairjs_mllib_classification.NaiveBayes.html">NaiveBayes</a></li><li><a href="module-eclairjs_mllib_classification.NaiveBayesModel.html">NaiveBayesModel</a></li><li><a href="module-eclairjs_mllib_classification.SVMModel.html">SVMModel</a></li><li><a href="module-eclairjs_mllib_classification.SVMWithSGD.html">SVMWithSGD</a></li><li><a href="module-eclairjs_mllib_clustering.BisectingKMeans.html">BisectingKMeans</a></li><li><a href="module-eclairjs_mllib_clustering.BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="module-eclairjs_mllib_clustering.DistributedLDAModel.html">DistributedLDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.KMeans.html">KMeans</a></li><li><a href="module-eclairjs_mllib_clustering.KMeansModel.html">KMeansModel</a></li><li><a href="module-eclairjs_mllib_clustering.LDA.html">LDA</a></li><li><a href="module-eclairjs_mllib_clustering.LDAModel.html">LDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.LocalLDAModel.html">LocalLDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClustering.html">PowerIterationClustering</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClusteringAssignment.html">PowerIterationClusteringAssignment</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClusteringModel.html">PowerIterationClusteringModel</a></li><li><a href="module-eclairjs_mllib_evaluation.BinaryClassificationMetrics.html">BinaryClassificationMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.MulticlassMetrics.html">MulticlassMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.MultilabelMetrics.html">MultilabelMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.RankingMetrics.html">RankingMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.RegressionMetrics.html">RegressionMetrics</a></li><li><a href="module-eclairjs_mllib_feature.Word2Vec.html">Word2Vec</a></li><li><a href="module-eclairjs_mllib_feature.Word2VecModel.html">Word2VecModel</a></li><li><a href="module-eclairjs_mllib_fpm.AssociationRules.html">AssociationRules</a></li><li><a href="module-eclairjs_mllib_fpm.FPGrowth.html">FPGrowth</a></li><li><a href="module-eclairjs_mllib_fpm.FPGrowthModel.html">FPGrowthModel</a></li><li><a href="module-eclairjs_mllib_fpm.FreqItemset.html">FreqItemset</a></li><li><a href="module-eclairjs_mllib_fpm.PrefixSpan.html">PrefixSpan</a></li><li><a href="module-eclairjs_mllib_fpm.PrefixSpanFreqSequence.html">PrefixSpanFreqSequence</a></li><li><a href="module-eclairjs_mllib_fpm.PrefixSpanModel.html">PrefixSpanModel</a></li><li><a href="module-eclairjs_mllib_fpm.Rule.html">Rule</a></li><li><a href="module-eclairjs_mllib_linalg.DenseMatrix.html">DenseMatrix</a></li><li><a href="module-eclairjs_mllib_linalg.DenseVector.html">DenseVector</a></li><li><a href="module-eclairjs_mllib_linalg.Matrices.html">Matrices</a></li><li><a href="module-eclairjs_mllib_linalg.Matrix.html">Matrix</a></li><li><a href="module-eclairjs_mllib_linalg.QRDecomposition.html">QRDecomposition</a></li><li><a href="module-eclairjs_mllib_linalg.SingularValueDecomposition.html">SingularValueDecomposition</a></li><li><a href="module-eclairjs_mllib_linalg.SparseMatrix.html">SparseMatrix</a></li><li><a href="module-eclairjs_mllib_linalg.SparseVector.html">SparseVector</a></li><li><a href="module-eclairjs_mllib_linalg.Vector.html">Vector</a></li><li><a href="module-eclairjs_mllib_linalg.Vectors.html">Vectors</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.DistributedMatrix.html">DistributedMatrix</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.RowMatrix.html">RowMatrix</a></li><li><a href="module-eclairjs_mllib_optimization.Gradient.html">Gradient</a></li><li><a href="module-eclairjs_mllib_optimization.LBFGS.html">LBFGS</a></li><li><a href="module-eclairjs_mllib_optimization.LogisticGradient.html">LogisticGradient</a></li><li><a href="module-eclairjs_mllib_optimization.SquaredL2Updater.html">SquaredL2Updater</a></li><li><a href="module-eclairjs_mllib_optimization.Updater.html">Updater</a></li><li><a href="module-eclairjs_mllib_random.RandomRDDs.html">RandomRDDs</a></li><li><a href="module-eclairjs_mllib_recommendation.ALS.html">ALS</a></li><li><a href="module-eclairjs_mllib_recommendation.MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="module-eclairjs_mllib_recommendation.Rating.html">Rating</a></li><li><a href="module-eclairjs_mllib_regression.GeneralizedLinearModel.html">GeneralizedLinearModel</a></li><li><a href="module-eclairjs_mllib_regression.LabeledPoint.html">LabeledPoint</a></li><li><a href="module-eclairjs_mllib_regression.LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="module-eclairjs_mllib_regression.LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="module-eclairjs_mllib_tree.DecisionTree.html">DecisionTree</a></li><li><a href="module-eclairjs_mllib_tree.GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="module-eclairjs_mllib_tree.RandomForest.html">RandomForest</a></li><li><a href="module-eclairjs_mllib_tree_configuration.BoostingStrategy.html">BoostingStrategy</a></li><li><a href="module-eclairjs_mllib_tree_configuration.Strategy.html">Strategy</a></li><li><a href="module-eclairjs_mllib_tree_loss.Loss.html">Loss</a></li><li><a href="module-eclairjs_mllib_tree_model.DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="module-eclairjs_mllib_tree_model.GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="module-eclairjs_mllib_tree_model.RandomForestModel.html">RandomForestModel</a></li><li><a href="module-eclairjs_partial.PartialResult.html">PartialResult</a></li><li><a href="module-eclairjs_sql.Column.html">Column</a></li><li><a href="module-eclairjs_sql.DataFrame.html">DataFrame</a></li><li><a href="module-eclairjs_sql.DataFrameHolder.html">DataFrameHolder</a></li><li><a href="module-eclairjs_sql.DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="module-eclairjs_sql.DataFrameReader.html">DataFrameReader</a></li><li><a href="module-eclairjs_sql.DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="module-eclairjs_sql.DataFrameWriter.html">DataFrameWriter</a></li><li><a href="module-eclairjs_sql.functions.html">functions</a></li><li><a href="module-eclairjs_sql.GroupedData.html">GroupedData</a></li><li><a href="module-eclairjs_sql.Row.html">Row</a></li><li><a href="module-eclairjs_sql.RowFactory.html">RowFactory</a></li><li><a href="module-eclairjs_sql.SQLContext.html">SQLContext</a></li><li><a href="module-eclairjs_sql.SqlDate.html">SqlDate</a></li><li><a href="module-eclairjs_sql.SqlTimestamp.html">SqlTimestamp</a></li><li><a href="module-eclairjs_sql.UDFRegistration.html">UDFRegistration</a></li><li><a href="module-eclairjs_sql_execution.QueryExecution.html">QueryExecution</a></li><li><a href="module-eclairjs_sql_types.ArrayType.html">ArrayType</a></li><li><a href="module-eclairjs_sql_types.BinaryType.html">BinaryType</a></li><li><a href="module-eclairjs_sql_types.BooleanType.html">BooleanType</a></li><li><a href="module-eclairjs_sql_types.CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="module-eclairjs_sql_types.DataType.html">DataType</a></li><li><a href="module-eclairjs_sql_types.DataTypes.html">DataTypes</a></li><li><a href="module-eclairjs_sql_types.DateType.html">DateType</a></li><li><a href="module-eclairjs_sql_types.DoubleType.html">DoubleType</a></li><li><a href="module-eclairjs_sql_types.FloatType.html">FloatType</a></li><li><a href="module-eclairjs_sql_types.IntegerType.html">IntegerType</a></li><li><a href="module-eclairjs_sql_types.MapType.html">MapType</a></li><li><a href="module-eclairjs_sql_types.Metadata.html">Metadata</a></li><li><a href="module-eclairjs_sql_types.NullType.html">NullType</a></li><li><a href="module-eclairjs_sql_types.NumericType.html">NumericType</a></li><li><a href="module-eclairjs_sql_types.StringType.html">StringType</a></li><li><a href="module-eclairjs_sql_types.StructField.html">StructField</a></li><li><a href="module-eclairjs_sql_types.StructType.html">StructType</a></li><li><a href="module-eclairjs_sql_types.TimestampType.html">TimestampType</a></li><li><a href="module-eclairjs_storage.StorageLevel.html">StorageLevel</a></li><li><a href="module-eclairjs_streaming.Duration.html">Duration</a></li><li><a href="module-eclairjs_streaming.StreamingContext.html">StreamingContext</a></li><li><a href="module-eclairjs_streaming.Time.html">Time</a></li><li><a href="module-eclairjs_streaming_dstream.DStream.html">DStream</a></li><li><a href="module-eclairjs_streaming_dstream.PairDStream.html">PairDStream</a></li><li><a href="module-eclairjs_streaming_kafka.KafkaUtils.html">KafkaUtils</a></li><li><a href="module-eclairjs_streaming_twitter.TwitterAuthorization.html">TwitterAuthorization</a></li><li><a href="module-eclairjs_streaming_twitter.TwitterUtils.html">TwitterUtils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#module">module</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Fri May 13 2016 16:43:43 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Tue May 17 2016 09:56:42 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>

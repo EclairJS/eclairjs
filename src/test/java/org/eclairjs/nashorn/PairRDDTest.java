@@ -65,5 +65,16 @@ public class PairRDDTest {
 
     }
 
-    
+    @Test
+    public void aggregateByKey() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/pair_rdd_test.js");
+        Object ret = ((Invocable)engine).invokeFunction("aggregateByKey");
+
+        String expected = "[{\"0\":1,\"1\":{\"1\":2},\"length\":2},{\"0\":3,\"1\":{\"2\":1},\"length\":2},{\"0\":{\"0\":5,\"1\":3,\"length\":2},\"1\":{\"2\":1},\"length\":2},{\"0\":5,\"1\":{\"1\":1},\"length\":2}]";
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
+
 }

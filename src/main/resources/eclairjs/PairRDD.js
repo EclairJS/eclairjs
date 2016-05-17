@@ -263,76 +263,6 @@
 
 
     /**
-     * Generic function to combine the elements for each key using a custom set of aggregation
-     * functions. Turns a PairRDD[(K, V)] into a result of type PairRDD[(K, C)], for a
-     * "combined type" C. Note that V and C can be different -- for example, one might group an
-     * RDD of type (Int, Int) into an RDD of type (Int, List[Int]). Users provide three
-     * functions:
-     *
-     *  - `createCombiner`, which turns a V into a C (e.g., creates a one-element list)
-     *  - `mergeValue`, to merge a V into a C (e.g., adds it to the end of a list)
-     *  - `mergeCombiners`, to combine two C's into a single one.
-     *
-     * In addition, users can control the partitioning of the output RDD, the serializer that is use
-     * for the shuffle, and whether to perform map-side aggregation (if a mapper can produce multiple
-     * items with the same key).
-     * @param {func} createCombiner
-     * @param {func} mergeValue
-     * @param {func} mergeCombiners
-     * @param {module:eclairjs.Partitioner} partitioner
-     * @param {boolean} mapSideCombine
-     * @param {Serializer} serializer
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.combineByKey0 = function (createCombiner, mergeValue, mergeCombiners, partitioner, mapSideCombine, serializer) {
-        throw "not implemented by ElairJS";
-//   var sv = Utils.createJavaParams(createCombiner);
-//   var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
-//   var sv2 = Utils.createJavaParams(mergeValue);
-//   var fn2 = new org.eclairjs.nashorn.JSFunction2(sv2.funcStr, sv2.scopeVars);
-//   var sv3 = Utils.createJavaParams(mergeCombiners);
-//   var fn3 = new org.eclairjs.nashorn.JSFunction2(sv3.funcStr, sv3.scopeVars);
-//   var partitioner_uw = Utils.unwrapObject(partitioner);
-//   var serializer_uw = Utils.unwrapObject(serializer);
-//   var javaObject =  this.getJavaObject().combineByKey(fn,fn2,fn3,partitioner_uw,mapSideCombine,serializer_uw);
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
-     * Generic function to combine the elements for each key using a custom set of aggregation
-     * functions. Turns a PairRDD[(K, V)] into a result of type PairRDD[(K, C)], for a
-     * "combined type" C. Note that V and C can be different -- for example, one might group an
-     * RDD of type (Int, Int) into an RDD of type (Int, List[Int]). Users provide three
-     * functions:
-     *
-     *  - `createCombiner`, which turns a V into a C (e.g., creates a one-element list)
-     *  - `mergeValue`, to merge a V into a C (e.g., adds it to the end of a list)
-     *  - `mergeCombiners`, to combine two C's into a single one.
-     *
-     * In addition, users can control the partitioning of the output RDD. This method automatically
-     * uses map-side aggregation in shuffling the RDD.
-     * @param {func} createCombiner
-     * @param {func} mergeValue
-     * @param {func} mergeCombiners
-     * @param {module:eclairjs.Partitioner} partitioner
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.combineByKey1 = function (createCombiner, mergeValue, mergeCombiners, partitioner) {
-        throw "not implemented by ElairJS";
-//   var sv = Utils.createJavaParams(createCombiner);
-//   var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
-//   var sv2 = Utils.createJavaParams(mergeValue);
-//   var fn2 = new org.eclairjs.nashorn.JSFunction2(sv2.funcStr, sv2.scopeVars);
-//   var sv3 = Utils.createJavaParams(mergeCombiners);
-//   var fn3 = new org.eclairjs.nashorn.JSFunction2(sv3.funcStr, sv3.scopeVars);
-//   var partitioner_uw = Utils.unwrapObject(partitioner);
-//   var javaObject =  this.getJavaObject().combineByKey(fn,fn2,fn3,partitioner_uw);
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
      * Simplified version of combineByKey that hash-partitions the output RDD and uses map-side
      * aggregation.
      * @param {func} createCombiner
@@ -371,14 +301,12 @@
      * immediately to the master as a Map. This will also perform the merging locally on each mapper
      * before sending results to a reducer, similarly to a "combiner" in MapReduce.
      * @param {func} func
-     * @returns {Map}
+     * @returns {Object} Key value pair hashmap
      */
-    PairRDD.prototype.reduceByKeyLocally = function (func) {
-        throw "not implemented by ElairJS";
-//   var sv = Utils.createJavaParams(func);
-//   var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
-//   var javaObject =  this.getJavaObject().reduceByKeyLocally(fn);
-//   return new Map(javaObject);
+    PairRDD.prototype.reduceByKeyLocally = function (func, bindArgs) {
+        var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
+        var javaObject = this.getJavaObject().reduceByKeyLocally(fn);
+        return new Utils.javaToJs(javaObject);
     };
 
     /**
@@ -398,15 +326,13 @@
      * @returns {module:eclairjs/partial.PartialResult}
      */
     PairRDD.prototype.countByKeyApprox = function (timeout, confidence) {
-        throw "not implemented by ElairJS";
-//
-//   if (arguments[1]) {
-//   var javaObject =  this.getJavaObject().countByKeyApprox(timeout,confidence);
-//   return new PartialResult(javaObject);
-//   } else {
-//   var javaObject =  this.getJavaObject().countByKeyApprox(timeout);
-//   return new PartialResult(javaObject);
-//   }
+        var javaObject;
+        if (arguments[1]) {
+            javaObject = this.getJavaObject().countByKeyApprox(timeout, confidence);
+        } else {
+            javaObject = this.getJavaObject().countByKeyApprox(timeout);
+        }
+        return Utils.javaToJs(javaObject);
     };
 
 
@@ -418,72 +344,41 @@
      * partition, and the latter is used for merging values between partitions. To avoid memory
      * allocation, both of these functions are allowed to modify and return their first argument
      * instead of creating a new U.
-     * @param {object} zeroValue
-     * @param {module:eclairjs.Partitioner} partitioner
+     * @example
+     * var Serializable = require(EclairJS_Globals.NAMESPACE + '/Serializable');
+     * var s = new Serializable();
+     *  var result = pairRdd.aggregateByKey(s,
+     *   function(hashSetA, b) {
+     *      hashSetA[b] = hashSetA[b] ? hashSetA[b] + 1 : 1;
+     *      return hashSetA;
+     *  },
+     *  function(setA, setB){
+     *     for (var k in setA) {
+     *        if (setB.hasOwnProperty(k)) {
+     *             setA[k] += setB[k];
+     *           }
+     *      }
+     *      return setA;
+     *  });
+     *
+     * @param {module:eclairjs.Serializable} zeroValue
      * @param {func} seqFunc
      * @param {func} combFunc
+     * @param {number} [numPartitions]
+     * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.aggregateByKey0 = function (zeroValue, partitioner, seqFunc, combFunc) {
-        throw "not implemented by ElairJS";
-//   var zeroValue_uw = Utils.unwrapObject(zeroValue);
-//   var partitioner_uw = Utils.unwrapObject(partitioner);
-//   var sv = Utils.createJavaParams(seqFunc);
-//   var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
-//   var sv2 = Utils.createJavaParams(combFunc);
-//   var fn2 = new org.eclairjs.nashorn.JSFunction2(sv2.funcStr, sv2.scopeVars);
-//   var javaObject =  this.getJavaObject().aggregateByKey(zeroValue_uw,partitioner_uw,fn,fn2);
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
-     * Aggregate the values of each key, using given combine functions and a neutral "zero value".
-     * This function can return a different result type, U, than the type of the values in this RDD,
-     * V. Thus, we need one operation for merging a V into a U and one operation for merging two U's,
-     * as in scala.TraversableOnce. The former operation is used for merging values within a
-     * partition, and the latter is used for merging values between partitions. To avoid memory
-     * allocation, both of these functions are allowed to modify and return their first argument
-     * instead of creating a new U.
-     * @param {object} zeroValue
-     * @param {number} numPartitions
-     * @param {func} seqFunc
-     * @param {func} combFunc
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.aggregateByKey1 = function (zeroValue, numPartitions, seqFunc, combFunc) {
-        throw "not implemented by ElairJS";
-//   var zeroValue_uw = Utils.unwrapObject(zeroValue);
-//   var sv = Utils.createJavaParams(seqFunc);
-//   var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
-//   var sv2 = Utils.createJavaParams(combFunc);
-//   var fn2 = new org.eclairjs.nashorn.JSFunction2(sv2.funcStr, sv2.scopeVars);
-//   var javaObject =  this.getJavaObject().aggregateByKey(zeroValue_uw,numPartitions,fn,fn2);
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
-     * Aggregate the values of each key, using given combine functions and a neutral "zero value".
-     * This function can return a different result type, U, than the type of the values in this RDD,
-     * V. Thus, we need one operation for merging a V into a U and one operation for merging two U's.
-     * The former operation is used for merging values within a partition, and the latter is used for
-     * merging values between partitions. To avoid memory allocation, both of these functions are
-     * allowed to modify and return their first argument instead of creating a new U.
-     * @param {object} zeroValue
-     * @param {func} seqFunc
-     * @param {func} combFunc
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.aggregateByKey2 = function (zeroValue, seqFunc, combFunc) {
-        throw "not implemented by ElairJS";
-//   var zeroValue_uw = Utils.unwrapObject(zeroValue);
-//   var sv = Utils.createJavaParams(seqFunc);
-//   var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
-//   var sv2 = Utils.createJavaParams(combFunc);
-//   var fn2 = new org.eclairjs.nashorn.JSFunction2(sv2.funcStr, sv2.scopeVars);
-//   var javaObject =  this.getJavaObject().aggregateByKey(zeroValue_uw,fn,fn2);
-//   return new PairRDD(javaObject);
+    PairRDD.prototype.aggregateByKey = function (zeroValue, seqFunc, combFunc, numPartitions, bindArgs) {
+        var zeroValue_uw = Utils.unwrapObject(zeroValue);
+        var fn = Utils.createLambdaFunction(seqFunc, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
+        var fn2 = Utils.createLambdaFunction(combFunc, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
+        var javaObject;
+        if (numPartitions) {
+            javaObject = this.getJavaObject().aggregateByKey(zeroValue_uw, numPartitions, fn, fn2);
+        } else {
+            javaObject = this.getJavaObject().aggregateByKey(zeroValue_uw, fn, fn2);
+        }
+        return new PairRDD(javaObject);
     };
 
 
@@ -1500,25 +1395,13 @@
 // static methods
 //
 
-
-    /**
-     * @param {module:eclairjs.RDD} rdd
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.fromRDD = function (rdd) {
-        var rdd_uw = Utils.unwrapObject(rdd);
-        var javaObject = org.apache.spark.api.java.PairRDD.fromRDD(rdd_uw);
-        return new PairRDD(javaObject);
-    };
-
-
     /**
      * @param {module:eclairjs.PairRDD} rdd
      * @returns {module:eclairjs.RDD}
      */
     PairRDD.toRDD = function (rdd) {
         var rdd_uw = Utils.unwrapObject(rdd);
-        var javaObject = org.apache.spark.api.java.PairRDD.toRDD(rdd_uw);
+        var javaObject = org.apache.spark.api.java.JavaPairRDD.toRDD(rdd_uw);
         return new RDD(javaObject);
     };
 
