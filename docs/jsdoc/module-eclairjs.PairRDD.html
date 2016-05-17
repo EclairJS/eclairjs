@@ -296,7 +296,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1413">line 1413</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line727">line 727</a>
     </li></ul></dd>
     
 
@@ -441,7 +441,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1402">line 1402</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line716">line 716</a>
     </li></ul></dd>
     
 
@@ -1657,7 +1657,7 @@ memory, otherwise saving it on a file will require recomputation.
 
     
 
-    <h4 class="name" id="cogroup0"><span class="type-signature"></span>cogroup0<span class="signature">(other, partitioner)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
+    <h4 class="name" id="cogroup"><span class="type-signature"></span>cogroup<span class="signature">(other1, other2<span class="signature-attributes">opt</span>, other3<span class="signature-attributes">opt</span>, numPartitions<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
 
     
 
@@ -1689,178 +1689,7 @@ list of values for that key in `this` as well as `other`.
         <th>Type</th>
 
         
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>other</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>partitioner</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-eclairjs.Partitioner.html">module:eclairjs.Partitioner</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line889">line 889</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="cogroup1"><span class="type-signature"></span>cogroup1<span class="signature">(other1, other2, partitioner)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    For each key k in `this` or `other1` or `other2`, return a resulting RDD that contains a
-tuple with the list of values for that key in `this`, `other1` and `other2`.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
+        <th>Attributes</th>
         
 
         
@@ -1887,6 +1716,14 @@ tuple with the list of values for that key in `this`, `other1` and `other2`.
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -1910,202 +1747,15 @@ tuple with the list of values for that key in `this`, `other1` and `other2`.
             </td>
 
             
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>partitioner</code></td>
-            
-
-            <td class="type">
-            
+                <td class="attributes">
                 
-<span class="param-type"><a href="module-eclairjs.Partitioner.html">module:eclairjs.Partitioner</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line906">line 906</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="cogroup2"><span class="type-signature"></span>cogroup2<span class="signature">(other1, other2, other3, partitioner)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    For each key k in `this` or `other1` or `other2` or `other3`,
-return a resulting RDD that contains a tuple with the list of values
-for that key in `this`, `other1`, `other2` and `other3`.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>other1</code></td>
-            
-
-            <td class="type">
-            
+                    &lt;optional><br>
                 
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
 
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>other2</code></td>
-            
-
-            <td class="type">
-            
                 
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
 
-
-            
-            </td>
-
+                
+                </td>
             
 
             
@@ -2130,698 +1780,15 @@ for that key in `this`, `other1`, `other2` and `other3`.
             </td>
 
             
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>partitioner</code></td>
-            
-
-            <td class="type">
-            
+                <td class="attributes">
                 
-<span class="param-type"><a href="module-eclairjs.Partitioner.html">module:eclairjs.Partitioner</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line926">line 926</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="cogroup3"><span class="type-signature"></span>cogroup3<span class="signature">(other)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    For each key k in `this` or `other`, return a resulting RDD that contains a tuple with the
-list of values for that key in `this` as well as `other`.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>other</code></td>
-            
-
-            <td class="type">
-            
+                    &lt;optional><br>
                 
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
 
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line943">line 943</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="cogroup4"><span class="type-signature"></span>cogroup4<span class="signature">(other1, other2)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    For each key k in `this` or `other1` or `other2`, return a resulting RDD that contains a
-tuple with the list of values for that key in `this`, `other1` and `other2`.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>other1</code></td>
-            
-
-            <td class="type">
-            
                 
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
 
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>other2</code></td>
-            
-
-            <td class="type">
-            
                 
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line958">line 958</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="cogroup5"><span class="type-signature"></span>cogroup5<span class="signature">(other1, other2, other3)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    For each key k in `this` or `other1` or `other2` or `other3`,
-return a resulting RDD that contains a tuple with the list of values
-for that key in `this`, `other1`, `other2` and `other3`.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>other1</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>other2</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>other3</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line976">line 976</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="cogroup6"><span class="type-signature"></span>cogroup6<span class="signature">(other, numPartitions)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    For each key k in `this` or `other`, return a resulting RDD that contains a tuple with the
-list of values for that key in `this` as well as `other`.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>other</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-            
-            </td>
-
+                </td>
             
 
             
@@ -2839,12 +1806,22 @@ list of values for that key in `this` as well as `other`.
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">integer</span>
 
 
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -2890,423 +1867,7 @@ list of values for that key in `this` as well as `other`.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line993">line 993</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="cogroup7"><span class="type-signature"></span>cogroup7<span class="signature">(other1, other2, numPartitions)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    For each key k in `this` or `other1` or `other2`, return a resulting RDD that contains a
-tuple with the list of values for that key in `this`, `other1` and `other2`.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>other1</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>other2</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>numPartitions</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1009">line 1009</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="cogroup8"><span class="type-signature"></span>cogroup8<span class="signature">(other1, other2, other3, numPartitions)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    For each key k in `this` or `other1` or `other2` or `other3`,
-return a resulting RDD that contains a tuple with the list of values
-for that key in `this`, `other1`, `other2` and `other3`.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>other1</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>other2</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>other3</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>numPartitions</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1028">line 1028</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line575">line 575</a>
     </li></ul></dd>
     
 
@@ -3511,7 +2072,7 @@ for that key in `this`, `other1`, `other2` and `other3`.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line848">line 848</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line532">line 532</a>
     </li></ul></dd>
     
 
@@ -3841,202 +2402,6 @@ aggregation.
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line274">line 274</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="combineByKey3"><span class="type-signature"></span>combineByKey3<span class="signature">(createCombiner, mergeValue, mergeCombiners)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Simplified version of combineByKey that hash-partitions the resulting RDD using the existing
-partitioner/parallelism level and using map-side aggregation.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>createCombiner</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">func</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>mergeValue</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">func</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>mergeCombiners</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">func</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line663">line 663</a>
     </li></ul></dd>
     
 
@@ -4633,7 +2998,7 @@ Algorithmic Engineering of a State of The Art Cardinality Estimation Algorithm",
 
     
 
-    <h4 class="name" id="countApproxDistinctByKey0"><span class="type-signature"></span>countApproxDistinctByKey0<span class="signature">(relativeSD, partitioner)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
+    <h4 class="name" id="countApproxDistinctByKey"><span class="type-signature"></span>countApproxDistinctByKey<span class="signature">(relativeSD, numPartitions<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
 
     
 
@@ -4668,182 +3033,7 @@ Algorithmic Engineering of a State of The Art Cardinality Estimation Algorithm",
         <th>Type</th>
 
         
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>relativeSD</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Relative accuracy. Smaller values create counters that require more space.
-                  It must be greater than 0.000017.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>partitioner</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-eclairjs.Partitioner.html">module:eclairjs.Partitioner</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">partitioner of the resulting RDD.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1331">line 1331</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="countApproxDistinctByKey1"><span class="type-signature"></span>countApproxDistinctByKey1<span class="signature">(relativeSD, numPartitions)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Return approximate number of distinct values for each key in this RDD.
-
-The algorithm used is based on streamlib's implementation of "HyperLogLog in Practice:
-Algorithmic Engineering of a State of The Art Cardinality Estimation Algorithm", available
-<a href="http://dx.doi.org/10.1145/2452376.2452456">here</a>.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
+        <th>Attributes</th>
         
 
         
@@ -4863,12 +3053,20 @@ Algorithmic Engineering of a State of The Art Cardinality Estimation Algorithm",
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">float</span>
 
 
             
             </td>
 
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -4887,12 +3085,22 @@ Algorithmic Engineering of a State of The Art Cardinality Estimation Algorithm",
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">integer</span>
 
 
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -4938,161 +3146,7 @@ Algorithmic Engineering of a State of The Art Cardinality Estimation Algorithm",
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1351">line 1351</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="countApproxDistinctByKey2"><span class="type-signature"></span>countApproxDistinctByKey2<span class="signature">(relativeSD)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Return approximate number of distinct values for each key in this RDD.
-
-The algorithm used is based on streamlib's implementation of "HyperLogLog in Practice:
-Algorithmic Engineering of a State of The Art Cardinality Estimation Algorithm", available
-<a href="http://dx.doi.org/10.1145/2452376.2452456">here</a>.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>relativeSD</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Relative accuracy. Smaller values create counters that require more space.
-                  It must be greater than 0.000017.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1369">line 1369</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line685">line 685</a>
     </li></ul></dd>
     
 
@@ -6659,7 +4713,7 @@ Approximate version of countByValue().
 
     
 
-    <h4 class="name" id="flatMapValues"><span class="type-signature"></span>flatMapValues<span class="signature">(f)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
+    <h4 class="name" id="flatMapValues"><span class="type-signature"></span>flatMapValues<span class="signature">(f, bindArgs<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
 
     
 
@@ -6691,6 +4745,8 @@ keys; this also retains the original RDD's partitioning.
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -6715,6 +4771,47 @@ keys; this also retains the original RDD's partitioning.
             
             </td>
 
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;object></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -6760,7 +4857,7 @@ keys; this also retains the original RDD's partitioning.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line873">line 873</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line559">line 559</a>
     </li></ul></dd>
     
 
@@ -7047,7 +5144,7 @@ non-distributed collection.
 
     
 
-    <h4 class="name" id="foldByKey0"><span class="type-signature"></span>foldByKey0<span class="signature">(zeroValue, partitioner, func)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
+    <h4 class="name" id="foldByKey"><span class="type-signature"></span>foldByKey<span class="signature">(zeroValue, func, numPartitions<span class="signature-attributes">opt</span>, bindArgs<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
 
     
 
@@ -7080,6 +5177,8 @@ may be added to the result an arbitrary number of times, and must not change the
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -7098,35 +5197,23 @@ may be added to the result an arbitrary number of times, and must not change the
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type"><a href="module-eclairjs.Serializable.html">module:eclairjs.Serializable</a></span>
+|
+
+<span class="param-type">number</span>
 
 
             
             </td>
 
             
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>partitioner</code></td>
-            
-
-            <td class="type">
-            
+                <td class="attributes">
                 
-<span class="param-type"><a href="module-eclairjs.Partitioner.html">module:eclairjs.Partitioner</a></span>
 
+                
 
-            
-            </td>
-
+                
+                </td>
             
 
             
@@ -7151,10 +5238,84 @@ may be added to the result an arbitrary number of times, and must not change the
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
             <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>numPartitions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Object></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">array whose values will be added to func's argument list.</td>
         </tr>
 
     
@@ -7196,377 +5357,6 @@ may be added to the result an arbitrary number of times, and must not change the
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line394">line 394</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="foldByKey1"><span class="type-signature"></span>foldByKey1<span class="signature">(zeroValue, numPartitions, func)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Merge the values for each key using an associative function and a neutral "zero value" which
-may be added to the result an arbitrary number of times, and must not change the result
-(e.g ., Nil for list concatenation, 0 for addition, or 1 for multiplication.).
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>zeroValue</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>numPartitions</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>func</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">func</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line414">line 414</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="foldByKey2"><span class="type-signature"></span>foldByKey2<span class="signature">(zeroValue, func)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Merge the values for each key using an associative function and a neutral "zero value"
-which may be added to the result an arbitrary number of times, and must not change the result
-(e.g., Nil for list concatenation, 0 for addition, or 1 for multiplication.).
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>zeroValue</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>func</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">func</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line432">line 432</a>
     </li></ul></dd>
     
 
@@ -8029,7 +5819,7 @@ which may be added to the result an arbitrary number of times, and must not chan
 
     
 
-    <h4 class="name" id="fullOuterJoin0"><span class="type-signature"></span>fullOuterJoin0<span class="signature">(other, partitioner)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
+    <h4 class="name" id="fullOuterJoin"><span class="type-signature"></span>fullOuterJoin<span class="signature">(other, numPartitions<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
 
     
 
@@ -8041,7 +5831,7 @@ resulting RDD will either contain all pairs (k, (Some(v), Some(w))) for w in `ot
 the pair (k, (Some(v), None)) if no elements in `other` have key k. Similarly, for each
 element (k, w) in `other`, the resulting RDD will either contain all pairs
 (k, (Some(v), Some(w))) for v in `this`, or the pair (k, (None, Some(w))) if no elements
-in `this` have key k. Uses the given Partitioner to partition the output RDD.
+in `this` have key k.
 </div>
 
 
@@ -8064,6 +5854,8 @@ in `this` have key k. Uses the given Partitioner to partition the output RDD.
 
         <th>Type</th>
 
+        
+        <th>Attributes</th>
         
 
         
@@ -8090,337 +5882,13 @@ in `this` have key k. Uses the given Partitioner to partition the output RDD.
             </td>
 
             
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>partitioner</code></td>
-            
-
-            <td class="type">
-            
+                <td class="attributes">
                 
-<span class="param-type"><a href="module-eclairjs.Partitioner.html">module:eclairjs.Partitioner</a></span>
 
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line646">line 646</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="fullOuterJoin1"><span class="type-signature"></span>fullOuterJoin1<span class="signature">(other)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Perform a full outer join of `this` and `other`. For each element (k, v) in `this`, the
-resulting RDD will either contain all pairs (k, (Some(v), Some(w))) for w in `other`, or
-the pair (k, (Some(v), None)) if no elements in `other` have key k. Similarly, for each
-element (k, w) in `other`, the resulting RDD will either contain all pairs
-(k, (Some(v), Some(w))) for v in `this`, or the pair (k, (None, Some(w))) if no elements
-in `this` have key k. Hash-partitions the resulting RDD using the existing partitioner/
-parallelism level.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>other</code></td>
-            
-
-            <td class="type">
-            
                 
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
 
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line817">line 817</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="fullOuterJoin2"><span class="type-signature"></span>fullOuterJoin2<span class="signature">(other, numPartitions)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Perform a full outer join of `this` and `other`. For each element (k, v) in `this`, the
-resulting RDD will either contain all pairs (k, (Some(v), Some(w))) for w in `other`, or
-the pair (k, (Some(v), None)) if no elements in `other` have key k. Similarly, for each
-element (k, w) in `other`, the resulting RDD will either contain all pairs
-(k, (Some(v), Some(w))) for v in `this`, or the pair (k, (None, Some(w))) if no elements
-in `this` have key k. Hash-partitions the resulting RDD into the given number of partitions.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>other</code></td>
-            
-
-            <td class="type">
-            
                 
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-            
-            </td>
-
+                </td>
             
 
             
@@ -8438,12 +5906,22 @@ in `this` have key k. Hash-partitions the resulting RDD into the given number of
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">integer</span>
 
 
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -8489,7 +5967,7 @@ in `this` have key k. Hash-partitions the resulting RDD into the given number of
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line836">line 836</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line521">line 521</a>
     </li></ul></dd>
     
 
@@ -9227,7 +6705,7 @@ will provide much better performance.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line469">line 469</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line417">line 417</a>
     </li></ul></dd>
     
 
@@ -9276,112 +6754,7 @@ will provide much better performance.
 
     
 
-    <h4 class="name" id="groupByKey2"><span class="type-signature"></span>groupByKey2<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Group the values for each key in the RDD into a single sequence. Hash-partitions the
-resulting RDD with the existing partitioner/parallelism level.
-
-Note: If you are grouping in order to perform an aggregation (such as a sum or average) over
-each key, using [[PairRDD.reduceByKey]] or combineByKey
-will provide much better performance.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line702">line 702</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="groupWith0"><span class="type-signature"></span>groupWith0<span class="signature">(other)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
+    <h4 class="name" id="groupWith"><span class="type-signature"></span>groupWith<span class="signature">(other1, other2<span class="signature-attributes">opt</span>, other3<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
 
     
 
@@ -9408,150 +6781,7 @@ will provide much better performance.
         <th>Type</th>
 
         
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>other</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1042">line 1042</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="groupWith1"><span class="type-signature"></span>groupWith1<span class="signature">(other1, other2)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
+        <th>Attributes</th>
         
 
         
@@ -9578,6 +6808,14 @@ will provide much better performance.
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -9601,173 +6839,15 @@ will provide much better performance.
             </td>
 
             
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1055">line 1055</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="groupWith2"><span class="type-signature"></span>groupWith2<span class="signature">(other1, other2, other3)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>other1</code></td>
-            
-
-            <td class="type">
-            
+                <td class="attributes">
                 
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>other2</code></td>
-            
-
-            <td class="type">
-            
+                    &lt;optional><br>
                 
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
 
+                
 
-            
-            </td>
-
+                
+                </td>
             
 
             
@@ -9792,6 +6872,16 @@ will provide much better performance.
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -9836,7 +6926,7 @@ will provide much better performance.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1070">line 1070</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line606">line 606</a>
     </li></ul></dd>
     
 
@@ -10357,7 +7447,7 @@ Note that this method performs a shuffle internally.
 
     
 
-    <h4 class="name" id="join"><span class="type-signature"></span>join<span class="signature">(other, partitioner)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
+    <h4 class="name" id="join"><span class="type-signature"></span>join<span class="signature">(other, numPartitions<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
 
     
 
@@ -10390,179 +7480,7 @@ the merging locally on each mapper before sending results to a reducer, similarl
         <th>Type</th>
 
         
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>other</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>partitioner</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-eclairjs.Partitioner.html">module:eclairjs.Partitioner</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line591">line 591</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="join1"><span class="type-signature"></span>join1<span class="signature">(other)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Return an RDD containing all pairs of elements with matching keys in `this` and `other`. Each
-pair of elements will be returned as a (k, (v1, v2)) tuple, where (k, v1) is in `this` and
-(k, v2) is in `other`. Performs a hash join across the cluster.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
+        <th>Attributes</th>
         
 
         
@@ -10589,156 +7507,13 @@ pair of elements will be returned as a (k, (v1, v2)) tuple, where (k, v1) is in 
             </td>
 
             
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line716">line 716</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="join2"><span class="type-signature"></span>join2<span class="signature">(other, numPartitions)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Return an RDD containing all pairs of elements with matching keys in `this` and `other`. Each
-pair of elements will be returned as a (k, (v1, v2)) tuple, where (k, v1) is in `this` and
-(k, v2) is in `other`. Performs a hash join across the cluster.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>other</code></td>
-            
-
-            <td class="type">
-            
+                <td class="attributes">
                 
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
 
+                
 
-            
-            </td>
-
+                
+                </td>
             
 
             
@@ -10756,12 +7531,22 @@ pair of elements will be returned as a (k, (v1, v2)) tuple, where (k, v1) is in 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">integer</span>
 
 
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -10807,7 +7592,7 @@ pair of elements will be returned as a (k, (v1, v2)) tuple, where (k, v1) is in 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line732">line 732</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line470">line 470</a>
     </li></ul></dd>
     
 
@@ -11104,7 +7889,7 @@ pair of elements will be returned as a (k, (v1, v2)) tuple, where (k, v1) is in 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1302">line 1302</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line658">line 658</a>
     </li></ul></dd>
     
 
@@ -11153,7 +7938,7 @@ pair of elements will be returned as a (k, (v1, v2)) tuple, where (k, v1) is in 
 
     
 
-    <h4 class="name" id="leftOuterJoin0"><span class="type-signature"></span>leftOuterJoin0<span class="signature">(other, partitioner)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
+    <h4 class="name" id="leftOuterJoin"><span class="type-signature"></span>leftOuterJoin<span class="signature">(other, numPartitions<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
 
     
 
@@ -11162,8 +7947,7 @@ pair of elements will be returned as a (k, (v1, v2)) tuple, where (k, v1) is in 
 <div class="description">
     Perform a left outer join of `this` and `other`. For each element (k, v) in `this`, the
 resulting RDD will either contain all pairs (k, (v, Some(w))) for w in `other`, or the
-pair (k, (v, None)) if no elements in `other` have key k. Uses the given Partitioner to
-partition the output RDD.
+pair (k, (v, None)) if no elements in `other` have key k.
 </div>
 
 
@@ -11186,6 +7970,8 @@ partition the output RDD.
 
         <th>Type</th>
 
+        
+        <th>Attributes</th>
         
 
         
@@ -11212,332 +7998,13 @@ partition the output RDD.
             </td>
 
             
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>partitioner</code></td>
-            
-
-            <td class="type">
-            
+                <td class="attributes">
                 
-<span class="param-type"><a href="module-eclairjs.Partitioner.html">module:eclairjs.Partitioner</a></span>
 
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line608">line 608</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="leftOuterJoin1"><span class="type-signature"></span>leftOuterJoin1<span class="signature">(other)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Perform a left outer join of `this` and `other`. For each element (k, v) in `this`, the
-resulting RDD will either contain all pairs (k, (v, Some(w))) for w in `other`, or the
-pair (k, (v, None)) if no elements in `other` have key k. Hash-partitions the output
-using the existing partitioner/parallelism level.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>other</code></td>
-            
-
-            <td class="type">
-            
                 
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
 
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line748">line 748</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="leftOuterJoin2"><span class="type-signature"></span>leftOuterJoin2<span class="signature">(other, numPartitions)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Perform a left outer join of `this` and `other`. For each element (k, v) in `this`, the
-resulting RDD will either contain all pairs (k, (v, Some(w))) for w in `other`, or the
-pair (k, (v, None)) if no elements in `other` have key k. Hash-partitions the output
-into `numPartitions` partitions.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>other</code></td>
-            
-
-            <td class="type">
-            
                 
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-            
-            </td>
-
+                </td>
             
 
             
@@ -11555,12 +8022,22 @@ into `numPartitions` partitions.
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">integer</span>
 
 
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -11606,7 +8083,7 @@ into `numPartitions` partitions.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line765">line 765</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line486">line 486</a>
     </li></ul></dd>
     
 
@@ -11775,7 +8252,7 @@ The checkpoint directory set through `SparkContext#setCheckpointDir` is not used
 
     
 
-    <h4 class="name" id="lookup"><span class="type-signature"></span>lookup<span class="signature">(key)</span><span class="type-signature"> &rarr; {JList}</span></h4>
+    <h4 class="name" id="lookup"><span class="type-signature"></span>lookup<span class="signature">(key)</span><span class="type-signature"> &rarr; {Array.&lt;object>}</span></h4>
 
     
 
@@ -11876,7 +8353,7 @@ RDD has a known partitioner by only searching the partition that the key maps to
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1086">line 1086</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line628">line 628</a>
     </li></ul></dd>
     
 
@@ -11910,7 +8387,7 @@ RDD has a known partitioner by only searching the partition that the key maps to
     </dt>
     <dd>
         
-<span class="param-type">JList</span>
+<span class="param-type">Array.&lt;object></span>
 
 
     </dd>
@@ -13011,7 +9488,7 @@ of the original partition.
 
     
 
-    <h4 class="name" id="mapValues"><span class="type-signature"></span>mapValues<span class="signature">(f)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
+    <h4 class="name" id="mapValues"><span class="type-signature"></span>mapValues<span class="signature">(f, bindArgs<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
 
     
 
@@ -13043,6 +9520,8 @@ this also retains the original RDD's partitioning.
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -13067,6 +9546,47 @@ this also retains the original RDD's partitioning.
             
             </td>
 
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bindArgs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;object></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -13112,7 +9632,7 @@ this also retains the original RDD's partitioning.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line860">line 860</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line545">line 545</a>
     </li></ul></dd>
     
 
@@ -13644,155 +10164,6 @@ this also retains the original RDD's partitioning.
     <dd>
         
 <span class="param-type">string</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="partitionBy"><span class="type-signature"></span>partitionBy<span class="signature">(partitioner)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Return a copy of the RDD partitioned using the specified partitioner.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>partitioner</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-eclairjs.Partitioner.html">module:eclairjs.Partitioner</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line575">line 575</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
 
 
     </dd>
@@ -14385,7 +10756,7 @@ The print behavior can be customized by providing two functions.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1389">line 1389</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line703">line 703</a>
     </li></ul></dd>
     
 
@@ -14796,332 +11167,6 @@ the merging locally on each mapper before sending results to a reducer, similarl
 
     
 
-    <h4 class="name" id="reduceByKey1"><span class="type-signature"></span>reduceByKey1<span class="signature">(func, numPartitions)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Merge the values for each key using an associative reduce function. This will also perform
-the merging locally on each mapper before sending results to a reducer, similarly to a
-"combiner" in MapReduce. Output will be hash-partitioned with numPartitions partitions.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>func</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">func</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>numPartitions</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line450">line 450</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="reduceByKey2"><span class="type-signature"></span>reduceByKey2<span class="signature">(func)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Merge the values for each key using an associative reduce function. This will also perform
-the merging locally on each mapper before sending results to a reducer, similarly to a
-"combiner" in MapReduce. Output will be hash-partitioned with the existing partitioner/
-parallelism level.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>func</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">func</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line684">line 684</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
     <h4 class="name" id="reduceByKeyLocally"><span class="type-signature"></span>reduceByKeyLocally<span class="signature">(func)</span><span class="type-signature"> &rarr; {Object}</span></h4>
 
     
@@ -15437,18 +11482,16 @@ which can avoid performing a shuffle.
 
     
 
-    <h4 class="name" id="repartitionAndSortWithinPartitions"><span class="type-signature"></span>repartitionAndSortWithinPartitions<span class="signature">(partitioner, comp<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
+    <h4 class="name" id="rightOuterJoin"><span class="type-signature"></span>rightOuterJoin<span class="signature">(other, numPartitions<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
 
     
 
 
 
 <div class="description">
-    Repartition the RDD according to the given partitioner and, within each resulting partition,
-sort records by their keys.
-
-This is more efficient than calling `repartition` and then sorting within each partition
-because it can push the sorting down into the shuffle machinery.
+    Perform a right outer join of `this` and `other`. For each element (k, w) in `other`, the
+resulting RDD will either contain all pairs (k, (Some(v), w)) for v in `this`, or the
+pair (k, (None, w)) if no elements in `this` have key k.
 </div>
 
 
@@ -15486,13 +11529,13 @@ because it can push the sorting down into the shuffle machinery.
 
         <tr>
             
-                <td class="name"><code>partitioner</code></td>
+                <td class="name"><code>other</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="module-eclairjs.Partitioner.html">module:eclairjs.Partitioner</a></span>
+<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
 
 
             
@@ -15517,13 +11560,13 @@ because it can push the sorting down into the shuffle machinery.
 
         <tr>
             
-                <td class="name"><code>comp</code></td>
+                <td class="name"><code>numPartitions</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Comparator</span>
+<span class="param-type">integer</span>
 
 
             
@@ -15584,509 +11627,7 @@ because it can push the sorting down into the shuffle machinery.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1210">line 1210</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="rightOuterJoin0"><span class="type-signature"></span>rightOuterJoin0<span class="signature">(other, partitioner)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Perform a right outer join of `this` and `other`. For each element (k, w) in `other`, the
-resulting RDD will either contain all pairs (k, (Some(v), w)) for v in `this`, or the
-pair (k, (None, w)) if no elements in `this` have key k. Uses the given Partitioner to
-partition the output RDD.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>other</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>partitioner</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-eclairjs.Partitioner.html">module:eclairjs.Partitioner</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line626">line 626</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="rightOuterJoin1"><span class="type-signature"></span>rightOuterJoin1<span class="signature">(other)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Perform a right outer join of `this` and `other`. For each element (k, w) in `other`, the
-resulting RDD will either contain all pairs (k, (Some(v), w)) for v in `this`, or the
-pair (k, (None, w)) if no elements in `this` have key k. Hash-partitions the resulting
-RDD using the existing partitioner/parallelism level.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>other</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line781">line 781</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="rightOuterJoin2"><span class="type-signature"></span>rightOuterJoin2<span class="signature">(other, numPartitions)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Perform a right outer join of `this` and `other`. For each element (k, w) in `other`, the
-resulting RDD will either contain all pairs (k, (Some(v), w)) for v in `this`, or the
-pair (k, (None, w)) if no elements in `this` have key k. Hash-partitions the resulting
-RDD into the given number of partitions.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>other</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>numPartitions</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line798">line 798</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line502">line 502</a>
     </li></ul></dd>
     
 
@@ -16821,1321 +12362,6 @@ two additional passes.
 
     
 
-    <h4 class="name" id="saveAsHadoopDataset"><span class="type-signature"></span>saveAsHadoopDataset<span class="signature">(conf)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    Output the RDD to any Hadoop-supported storage system, using a Hadoop JobConf object for
-that storage system. The JobConf should set an OutputFormat and any output paths required
-(e.g. a table name to write to) in the same way as it would be configured for a Hadoop
-MapReduce job.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>conf</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">JobConf</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1193">line 1193</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="saveAsHadoopFile0"><span class="type-signature"></span>saveAsHadoopFile0<span class="signature">(path, keyClass, valueClass, outputFormatClass, conf)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>path</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>keyClass</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Class</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>valueClass</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Class</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>outputFormatClass</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Class</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>conf</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">JobConf</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1100">line 1100</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="saveAsHadoopFile1"><span class="type-signature"></span>saveAsHadoopFile1<span class="signature">(path, keyClass, valueClass, outputFormatClass)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>path</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>keyClass</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Class</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>valueClass</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Class</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>outputFormatClass</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Class</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1116">line 1116</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="saveAsHadoopFile2"><span class="type-signature"></span>saveAsHadoopFile2<span class="signature">(path, keyClass, valueClass, outputFormatClass, codec)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>path</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>keyClass</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Class</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>valueClass</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Class</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>outputFormatClass</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Class</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>codec</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Class</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1132">line 1132</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="saveAsNewAPIHadoopDataset"><span class="type-signature"></span>saveAsNewAPIHadoopDataset<span class="signature">(conf)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    Output the RDD to any Hadoop-supported storage system, using
-a Configuration object for that storage system.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>conf</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Configuration</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1164">line 1164</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="saveAsNewAPIHadoopFile"><span class="type-signature"></span>saveAsNewAPIHadoopFile<span class="signature">(path, keyClass, valueClass, outputFormatClass)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>path</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>keyClass</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Class</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>valueClass</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Class</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>outputFormatClass</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Class</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1177">line 1177</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="saveAsNewAPIHadoopFilewithConf"><span class="type-signature"></span>saveAsNewAPIHadoopFilewithConf<span class="signature">(path, keyClass, valueClass, outputFormatClass, conf)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>path</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>keyClass</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Class</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>valueClass</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Class</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>outputFormatClass</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Class</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>conf</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Configuration</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1149">line 1149</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
     <h4 class="name" id="saveAsObjectFile"><span class="type-signature"></span>saveAsObjectFile<span class="signature">(path)</span><span class="type-signature"> &rarr; {void}</span></h4>
 
     
@@ -18545,7 +12771,7 @@ a Configuration object for that storage system.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1380">line 1380</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line695">line 695</a>
     </li></ul></dd>
     
 
@@ -19001,7 +13227,7 @@ order of the keys).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1233">line 1233</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line643">line 643</a>
     </li></ul></dd>
     
 
@@ -19155,7 +13381,7 @@ order of the keys).
 
     
 
-    <h4 class="name" id="subtract"><span class="type-signature"></span>subtract<span class="signature">(other, numPartitions<span class="signature-attributes">opt</span>, p<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.RDD.html">module:eclairjs.RDD</a>}</span></h4>
+    <h4 class="name" id="subtract"><span class="type-signature"></span>subtract<span class="signature">(other, numPartitions<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
 
     
 
@@ -19206,7 +13432,7 @@ order of the keys).
             <td class="type">
             
                 
-<span class="param-type"><a href="module-eclairjs.RDD.html">module:eclairjs.RDD</a></span>
+<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
 
 
             
@@ -19237,7 +13463,7 @@ order of the keys).
             <td class="type">
             
                 
-<span class="param-type">int</span>
+<span class="param-type">integer</span>
 
 
             
@@ -19261,39 +13487,6 @@ order of the keys).
         </tr>
 
     
-
-        <tr>
-            
-                <td class="name"><code>p</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Partition</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">ignored if numPartitions is non-zero)</td>
-        </tr>
-
-    
     </tbody>
 </table>
 
@@ -19309,8 +13502,10 @@ order of the keys).
     
 
     
-    <dt class="inherited-from">Inherited From:</dt>
-    <dd class="inherited-from"><ul class="dummy"><li>
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
         <a href="module-eclairjs.RDD.html#subtract">module:eclairjs.RDD#subtract</a>
     </li></ul></dd>
     
@@ -19332,163 +13527,9 @@ order of the keys).
     
 
     
-
-    
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line890">line 890</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.RDD.html">module:eclairjs.RDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="subtract0"><span class="type-signature"></span>subtract0<span class="signature">(other)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Return an RDD with the elements from `this` that are not in `other`.
-
-Uses `this` partitioner/partition size, because even if `other` is huge, the resulting
-RDD will be &lt;= us.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>other</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line490">line 490</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line435">line 435</a>
     </li></ul></dd>
     
 
@@ -19537,15 +13578,11 @@ RDD will be &lt;= us.
 
     
 
-    <h4 class="name" id="subtract1"><span class="type-signature"></span>subtract1<span class="signature">(other, numPartitions)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
+    <h4 class="name" id="subtractByKey"><span class="type-signature"></span>subtractByKey<span class="signature">(other, numPartitions<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
 
     
 
 
-
-<div class="description">
-    Return an RDD with the elements from `this` that are not in `other`.
-</div>
 
 
 
@@ -19567,6 +13604,8 @@ RDD will be &lt;= us.
 
         <th>Type</th>
 
+        
+        <th>Attributes</th>
         
 
         
@@ -19592,6 +13631,14 @@ RDD will be &lt;= us.
             
             </td>
 
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -19609,12 +13656,22 @@ RDD will be &lt;= us.
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">integer</span>
 
 
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -19660,667 +13717,7 @@ RDD will be &lt;= us.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line504">line 504</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="subtract2"><span class="type-signature"></span>subtract2<span class="signature">(other, p)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Return an RDD with the elements from `this` that are not in `other`.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>other</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>p</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-eclairjs.Partitioner.html">module:eclairjs.Partitioner</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line518">line 518</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="subtractByKey0"><span class="type-signature"></span>subtractByKey0<span class="signature">(other)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Return an RDD with the pairs from `this` whose keys are not in `other`.
-
-Uses `this` partitioner/partition size, because even if `other` is huge, the resulting
-RDD will be &lt;= us.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>other</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line535">line 535</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="subtractByKey1"><span class="type-signature"></span>subtractByKey1<span class="signature">(other, numPartitions)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>other</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>numPartitions</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line548">line 548</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="subtractByKey2"><span class="type-signature"></span>subtractByKey2<span class="signature">(other, p)</span><span class="type-signature"> &rarr; {<a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a>}</span></h4>
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>other</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-eclairjs.PairRDD.html">module:eclairjs.PairRDD</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>p</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-eclairjs.Partitioner.html">module:eclairjs.Partitioner</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line561">line 561</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line451">line 451</a>
     </li></ul></dd>
     
 
@@ -22272,7 +15669,7 @@ times (use `.distinct()` to eliminate them).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line1313">line 1313</a>
+        <a href="eclairjs_PairRDD.js.html">eclairjs/PairRDD.js</a>, <a href="eclairjs_PairRDD.js.html#line668">line 668</a>
     </li></ul></dd>
     
 
@@ -23131,7 +16528,7 @@ the same index assignments, you should sort the RDD with sortByKey() or save it 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Tue May 17 2016 09:56:42 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Tue May 17 2016 11:57:35 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>
