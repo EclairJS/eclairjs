@@ -52,7 +52,7 @@ function run(sc) {
     var wordList=wordsDataFrame.select("words", "label"). take(3);
     for (var i=0;i<wordList.length;i++) {
       var words = wordList[i].getList(0);
-      for (var inx=0;inx<words.length;inx++) output+=words[inx] + " ";
+      for (var inx=0;inx<words.size();inx++) output+=words.get(inx) + " ";
       output+="\n";
     }
 
