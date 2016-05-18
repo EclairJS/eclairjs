@@ -122,4 +122,16 @@ public class SparkContextTest {
 
     };
 
+    @Test
+    public void broadcast() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        // String file = TestUtils.resourceToFile("/dream.txt");
+
+        TestUtils.evalJSResource(engine, "/sparkcontexttests.js");
+        Object ret = ((Invocable)engine).invokeFunction("broadcast");
+
+        assertEquals("failure - values are not equal", "[1,2]", ret);
+
+    };
+
 }
