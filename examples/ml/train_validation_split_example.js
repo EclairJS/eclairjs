@@ -50,9 +50,9 @@ function run(sc) {
     // TrainValidationSplit will try all combinations of values and determine best model using
     // the evaluator.
     var paramGrid = new ParamGridBuilder()
-      .addGridDouble(lr.regParam(), [ 0.1, 0.01])
-      .addGridBoolean(lr.fitIntercept())
-      .addGridDouble(lr.elasticNetParam(), [ 0.0, 0.5, 1.0])
+      .addGrid(lr.regParam(), [ 0.1, 0.01])
+      .addGrid(lr.fitIntercept())
+      .addGrid(lr.elasticNetParam(), [ 0.0, 0.5, 1.0])
       .build();
 
     // In this case the estimator is simply the linear regression.
