@@ -1180,6 +1180,10 @@
     RDD.prototype.zipWithUniqueId = function () {
         return Utils.javaToJs(this.getJavaObject().zipWithUniqueId());
     };
+    RDD.prototype.toJSON = function () {
+        print("RDD to JSON")
+        return Utils.javaToJs(this.getJavaObject().collect());
+    };
 
 ///
 ///  from Pair functions

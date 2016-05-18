@@ -1,25 +1,23 @@
 /*                                                                         
-* Copyright 2016 IBM Corp.                                                 
-*                                                                          
-* Licensed under the Apache License, Version 2.0 (the "License");          
-* you may not use this file except in compliance with the License.         
-* You may obtain a copy of the License at                                  
-*                                                                          
-*      http://www.apache.org/licenses/LICENSE-2.0                          
-*                                                                          
-* Unless required by applicable law or agreed to in writing, software      
-* distributed under the License is distributed on an "AS IS" BASIS,        
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
-* See the License for the specific language governing permissions and      
-* limitations under the License.                                           
-*/ 
+ * Copyright 2016 IBM Corp.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 (function () {
 
     var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
-
-    var Word2VecModel = require(EclairJS_Globals.NAMESPACE + '/mllib/feature/Word2VecModel');
 
     /**
      * Word2Vec creates vector representation of words in a text corpus.
@@ -41,13 +39,13 @@
      * @classdesc
      * @class
      */
-    var Word2Vec = function(jvmObject) {
-         
-         this.logger = Logger.getLogger("Word2Vec_js");
+    var Word2Vec = function (jvmObject) {
+
+        this.logger = Logger.getLogger("mllib_feature_Word2Vec_js");
         if (!jvmObject) {
             jvmObject = new org.apache.spark.mllib.feature.Word2Vec();
         }
-         JavaWrapper.call(this, jvmObject);
+        JavaWrapper.call(this, jvmObject);
 
     };
 
@@ -56,90 +54,82 @@
     Word2Vec.prototype.constructor = Word2Vec;
 
 
-
     /**
      * Sets vector size (default: 100).
-     * @param {number} vectorSize
-     * @returns {} 
+     * @param {integer} vectorSize
+     * @returns {module:eclairjs/mllib/feature.Word2Vec}
      */
-    Word2Vec.prototype.setVectorSize = function(vectorSize) {
-    throw "not implemented by ElairJS";
-    //   var javaObject =  this.getJavaObject().setVectorSize(vectorSize);
-    //   return new (javaObject);
+    Word2Vec.prototype.setVectorSize = function (vectorSize) {
+        var javaObject = this.getJavaObject().setVectorSize(vectorSize);
+        return new Word2Vec(javaObject);
     };
 
 
     /**
      * Sets initial learning rate (default: 0.025).
-     * @param {number} learningRate
-     * @returns {} 
+     * @param {float} learningRate
+     * @returns {module:eclairjs/mllib/feature.Word2Vec}
      */
-    Word2Vec.prototype.setLearningRate = function(learningRate) {
-    throw "not implemented by ElairJS";
-    //   var javaObject =  this.getJavaObject().setLearningRate(learningRate);
-    //   return new (javaObject);
+    Word2Vec.prototype.setLearningRate = function (learningRate) {
+        var javaObject = this.getJavaObject().setLearningRate(learningRate);
+        return new Word2Vec(javaObject);
     };
 
 
     /**
      * Sets number of partitions (default: 1). Use a small number for accuracy.
-     * @param {number} numPartitions
-     * @returns {} 
+     * @param {integer} numPartitions
+     * @returns {module:eclairjs/mllib/feature.Word2Vec}
      */
-    Word2Vec.prototype.setNumPartitions = function(numPartitions) {
-    throw "not implemented by ElairJS";
-    //   var javaObject =  this.getJavaObject().setNumPartitions(numPartitions);
-    //   return new (javaObject);
+    Word2Vec.prototype.setNumPartitions = function (numPartitions) {
+        var javaObject = this.getJavaObject().setNumPartitions(numPartitions);
+        return new Word2Vec(javaObject);
     };
 
 
     /**
      * Sets number of iterations (default: 1), which should be smaller than or equal to number of
      * partitions.
-     * @param {number} numIterations
-     * @returns {} 
+     * @param {integer} numIterations
+     * @returns {module:eclairjs/mllib/feature.Word2Vec}
      */
-    Word2Vec.prototype.setNumIterations = function(numIterations) {
-    throw "not implemented by ElairJS";
-    //   var javaObject =  this.getJavaObject().setNumIterations(numIterations);
-    //   return new (javaObject);
+    Word2Vec.prototype.setNumIterations = function (numIterations) {
+        var javaObject = this.getJavaObject().setNumIterations(numIterations);
+        return new Word2Vec(javaObject);
     };
 
 
     /**
-     * Sets random seed (default: a random long integer).
-     * @param {number} seed
-     * @returns {} 
+     * Sets random seed (default: a random integer).
+     * @param {integer} seed
+     * @returns {module:eclairjs/mllib/feature.Word2Vec}
      */
-    Word2Vec.prototype.setSeed = function(seed) {
-    throw "not implemented by ElairJS";
-    //   var javaObject =  this.getJavaObject().setSeed(seed);
-    //   return new (javaObject);
+    Word2Vec.prototype.setSeed = function (seed) {
+        var javaObject = this.getJavaObject().setSeed(seed);
+        return new Word2Vec(javaObject);
     };
 
 
     /**
      * Sets the window of words (default: 5)
-     * @param {number} window
-     * @returns {} 
+     * @param {integer} window
+     * @returns {module:eclairjs/mllib/feature.Word2Vec}
      */
-    Word2Vec.prototype.setWindowSize = function(window) {
-    throw "not implemented by ElairJS";
-    //   var javaObject =  this.getJavaObject().setWindowSize(window);
-    //   return new (javaObject);
+    Word2Vec.prototype.setWindowSize = function (window) {
+        var javaObject = this.getJavaObject().setWindowSize(window);
+        return new Word2Vec(javaObject);
     };
 
 
     /**
      * Sets minCount, the minimum number of times a token must appear to be included in the word2vec
      * model's vocabulary (default: 5).
-     * @param {number} minCount
-     * @returns {} 
+     * @param {integer} minCount
+     * @returns {module:eclairjs/mllib/feature.Word2Vec}
      */
-    Word2Vec.prototype.setMinCount = function(minCount) {
-    throw "not implemented by ElairJS";
-    //   var javaObject =  this.getJavaObject().setMinCount(minCount);
-    //   return new (javaObject);
+    Word2Vec.prototype.setMinCount = function (minCount) {
+        var javaObject = this.getJavaObject().setMinCount(minCount);
+        return new Word2Vec(javaObject);
     };
 
 
@@ -148,10 +138,10 @@
      * @param {module:eclairjs.RDD} dataset  an RDD of words
      * @returns {module:eclairjs/mllib/feature.Word2VecModel}  a Word2VecModel
      */
-    Word2Vec.prototype.fit = function(dataset) {
-       var dataset_uw = Utils.unwrapObject(dataset);
-       var javaObject =  this.getJavaObject().fit(dataset_uw);
-       return new Word2VecModel(javaObject);
+    Word2Vec.prototype.fit = function (dataset) {
+        var dataset_uw = Utils.unwrapObject(dataset);
+        var javaObject = this.getJavaObject().fit(dataset_uw);
+        return Utils.javaToJs(javaObject);
     };
 
     module.exports = Word2Vec;

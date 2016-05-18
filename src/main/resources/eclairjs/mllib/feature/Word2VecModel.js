@@ -21,25 +21,16 @@
 
 
     /**
-     * Word2Vec model
-     * @param wordIndex maps each word to an index, which can retrieve the corresponding
-     *                  vector from wordVectors
-     * @param wordVectors array of length numWords * vectorSize, vector corresponding
-     *                    to the word mapped with index i can be retrieved by the slice
-     *                    (i * vectorSize, i * vectorSize + vectorSize)
+     *
      * @classdesc
-     */
-
-    /**
-     * @param {Map} model
-     * @returns {??} 
+     *  Word2Vec model
      * @class
      * @memberof module:eclairjs/mllib/feature
      */
     var Word2VecModel = function(jvmObject) {
 
          //var jvmObject = new org.apache.spark.mllib.feature.Word2VecModel(model);
-         this.logger = Logger.getLogger("Word2VecModel_js");
+         this.logger = Logger.getLogger("mllib_feature_Word2VecModel_js");
          JavaWrapper.call(this, jvmObject);
 
     };
@@ -55,9 +46,8 @@
      * @param {string} path
      */
     Word2VecModel.prototype.save = function(sc,path) {
-    throw "not implemented by ElairJS";
-    //   var sc_uw = Utils.unwrapObject(sc);
-    //    this.getJavaObject().save(sc_uw,path);
+       var sc_uw = Utils.unwrapObject(sc);
+        this.getJavaObject().save(sc_uw,path);
     };
 
 
@@ -67,17 +57,16 @@
      * @returns {module:eclairjs/mllib/linalg.Vector}  vector representation of word
      */
     Word2VecModel.prototype.transform = function(word) {
-    throw "not implemented by ElairJS";
-    //   var javaObject =  this.getJavaObject().transform(word);
-    //   return Utils.javaToJs(javaObject);
+       var javaObject =  this.getJavaObject().transform(word);
+       return Utils.javaToJs(javaObject);
     };
 
 
     /**
      * Find synonyms of a word
-     * @param {string} word  a word
+     * @param {string | module:eclairjs/mllib/linald.Vector} wordOrVector
      * @param {number} num  number of synonyms to find
-     * @returns {module:eclairjs.Tuple[]}  array of (word, cosineSimilarity)
+     * @returns {module:eclairjs.Tuple[]}
      */
     Word2VecModel.prototype.findSynonyms = function(word,num) {
         var javaObject =  this.getJavaObject().findSynonyms(word,num);
@@ -86,27 +75,12 @@
 
 
     /**
-     * Find synonyms of the vector representation of a word
-     * @param {module:eclairjs/mllib/linalg.Vector} vector  vector representation of a word
-     * @param {number} num  number of synonyms to find
-     * @returns {module:eclairjs.Tuple[]}  array of (word, cosineSimilarity)
-     */
-    Word2VecModel.prototype.findSynonymswithnumber = function(vector,num) {
-    throw "not implemented by ElairJS";
-    //   var vector_uw = Utils.unwrapObject(vector);
-    //   var javaObject =  this.getJavaObject().findSynonyms(vector_uw,num);
-    //   return Utils.javaToJs(javaObject);
-    };
-
-
-    /**
      * Returns a map of words to their vector representations.
-     * @returns {Map} 
+     * @returns {object}
      */
     Word2VecModel.prototype.getVectors = function() {
-    throw "not implemented by ElairJS";
-    //   var javaObject =  this.getJavaObject().getVectors();
-    //   return new Map(javaObject);
+       var javaObject =  this.getJavaObject().getVectors();
+       return Utils.javaToJs(javaObject);
     };
 
     //
@@ -119,10 +93,9 @@
      * @returns {module:eclairjs/mllib/feature.Word2VecModel}
      */
     Word2VecModel.load = function(sc,path) {
-    throw "not implemented by ElairJS";
-    //   var sc_uw = Utils.unwrapObject(sc);
-    //   var javaObject =  org.apache.spark.mllib.feature.Word2VecModel.load(sc_uw,path);
-    //   return new Word2VecModel(javaObject);
+       var sc_uw = Utils.unwrapObject(sc);
+       var javaObject =  org.apache.spark.mllib.feature.Word2VecModel.load(sc_uw.sc(),path);
+       return new Word2VecModel(javaObject);
     };
 
     module.exports = Word2VecModel;
