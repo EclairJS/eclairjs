@@ -50,9 +50,11 @@ function run(sc) {
     var wordsDataFrame = tokenizer.transform(sentenceDataFrame);
     var output="";
     var wordList=wordsDataFrame.select("words", "label"). take(3);
+
+print(JSON.stringify(wordList))
     for (var i=0;i<wordList.length;i++) {
       var words = wordList[i].getList(0);
-      for (var inx=0;inx<words.size();inx++) output+=words.get(inx) + " ";
+      for (var inx=0;inx<words.size();inx++) output+=words.get(i) + " ";
       output+="\n";
     }
 
