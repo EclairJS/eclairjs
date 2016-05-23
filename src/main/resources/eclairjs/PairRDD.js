@@ -263,76 +263,6 @@
 
 
     /**
-     * Generic function to combine the elements for each key using a custom set of aggregation
-     * functions. Turns a PairRDD[(K, V)] into a result of type PairRDD[(K, C)], for a
-     * "combined type" C. Note that V and C can be different -- for example, one might group an
-     * RDD of type (Int, Int) into an RDD of type (Int, List[Int]). Users provide three
-     * functions:
-     *
-     *  - `createCombiner`, which turns a V into a C (e.g., creates a one-element list)
-     *  - `mergeValue`, to merge a V into a C (e.g., adds it to the end of a list)
-     *  - `mergeCombiners`, to combine two C's into a single one.
-     *
-     * In addition, users can control the partitioning of the output RDD, the serializer that is use
-     * for the shuffle, and whether to perform map-side aggregation (if a mapper can produce multiple
-     * items with the same key).
-     * @param {func} createCombiner
-     * @param {func} mergeValue
-     * @param {func} mergeCombiners
-     * @param {module:eclairjs.Partitioner} partitioner
-     * @param {boolean} mapSideCombine
-     * @param {Serializer} serializer
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.combineByKey0 = function (createCombiner, mergeValue, mergeCombiners, partitioner, mapSideCombine, serializer) {
-        throw "not implemented by ElairJS";
-//   var sv = Utils.createJavaParams(createCombiner);
-//   var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
-//   var sv2 = Utils.createJavaParams(mergeValue);
-//   var fn2 = new org.eclairjs.nashorn.JSFunction2(sv2.funcStr, sv2.scopeVars);
-//   var sv3 = Utils.createJavaParams(mergeCombiners);
-//   var fn3 = new org.eclairjs.nashorn.JSFunction2(sv3.funcStr, sv3.scopeVars);
-//   var partitioner_uw = Utils.unwrapObject(partitioner);
-//   var serializer_uw = Utils.unwrapObject(serializer);
-//   var javaObject =  this.getJavaObject().combineByKey(fn,fn2,fn3,partitioner_uw,mapSideCombine,serializer_uw);
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
-     * Generic function to combine the elements for each key using a custom set of aggregation
-     * functions. Turns a PairRDD[(K, V)] into a result of type PairRDD[(K, C)], for a
-     * "combined type" C. Note that V and C can be different -- for example, one might group an
-     * RDD of type (Int, Int) into an RDD of type (Int, List[Int]). Users provide three
-     * functions:
-     *
-     *  - `createCombiner`, which turns a V into a C (e.g., creates a one-element list)
-     *  - `mergeValue`, to merge a V into a C (e.g., adds it to the end of a list)
-     *  - `mergeCombiners`, to combine two C's into a single one.
-     *
-     * In addition, users can control the partitioning of the output RDD. This method automatically
-     * uses map-side aggregation in shuffling the RDD.
-     * @param {func} createCombiner
-     * @param {func} mergeValue
-     * @param {func} mergeCombiners
-     * @param {module:eclairjs.Partitioner} partitioner
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.combineByKey1 = function (createCombiner, mergeValue, mergeCombiners, partitioner) {
-        throw "not implemented by ElairJS";
-//   var sv = Utils.createJavaParams(createCombiner);
-//   var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
-//   var sv2 = Utils.createJavaParams(mergeValue);
-//   var fn2 = new org.eclairjs.nashorn.JSFunction2(sv2.funcStr, sv2.scopeVars);
-//   var sv3 = Utils.createJavaParams(mergeCombiners);
-//   var fn3 = new org.eclairjs.nashorn.JSFunction2(sv3.funcStr, sv3.scopeVars);
-//   var partitioner_uw = Utils.unwrapObject(partitioner);
-//   var javaObject =  this.getJavaObject().combineByKey(fn,fn2,fn3,partitioner_uw);
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
      * Simplified version of combineByKey that hash-partitions the output RDD and uses map-side
      * aggregation.
      * @param {func} createCombiner
@@ -371,14 +301,12 @@
      * immediately to the master as a Map. This will also perform the merging locally on each mapper
      * before sending results to a reducer, similarly to a "combiner" in MapReduce.
      * @param {func} func
-     * @returns {Map}
+     * @returns {Object} Key value pair hashmap
      */
-    PairRDD.prototype.reduceByKeyLocally = function (func) {
-        throw "not implemented by ElairJS";
-//   var sv = Utils.createJavaParams(func);
-//   var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
-//   var javaObject =  this.getJavaObject().reduceByKeyLocally(fn);
-//   return new Map(javaObject);
+    PairRDD.prototype.reduceByKeyLocally = function (func, bindArgs) {
+        var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
+        var javaObject = this.getJavaObject().reduceByKeyLocally(fn);
+        return new Utils.javaToJs(javaObject);
     };
 
     /**
@@ -398,15 +326,13 @@
      * @returns {module:eclairjs/partial.PartialResult}
      */
     PairRDD.prototype.countByKeyApprox = function (timeout, confidence) {
-        throw "not implemented by ElairJS";
-//
-//   if (arguments[1]) {
-//   var javaObject =  this.getJavaObject().countByKeyApprox(timeout,confidence);
-//   return new PartialResult(javaObject);
-//   } else {
-//   var javaObject =  this.getJavaObject().countByKeyApprox(timeout);
-//   return new PartialResult(javaObject);
-//   }
+        var javaObject;
+        if (arguments[1]) {
+            javaObject = this.getJavaObject().countByKeyApprox(timeout, confidence);
+        } else {
+            javaObject = this.getJavaObject().countByKeyApprox(timeout);
+        }
+        return Utils.javaToJs(javaObject);
     };
 
 
@@ -418,148 +344,65 @@
      * partition, and the latter is used for merging values between partitions. To avoid memory
      * allocation, both of these functions are allowed to modify and return their first argument
      * instead of creating a new U.
-     * @param {object} zeroValue
-     * @param {module:eclairjs.Partitioner} partitioner
+     * @example
+     * var Serializable = require(EclairJS_Globals.NAMESPACE + '/Serializable');
+     * var s = new Serializable();
+     *  var result = pairRdd.aggregateByKey(s,
+     *   function(hashSetA, b) {
+     *      hashSetA[b] = hashSetA[b] ? hashSetA[b] + 1 : 1;
+     *      return hashSetA;
+     *  },
+     *  function(setA, setB){
+     *     for (var k in setA) {
+     *        if (setB.hasOwnProperty(k)) {
+     *             setA[k] += setB[k];
+     *           }
+     *      }
+     *      return setA;
+     *  });
+     *
+     * @param {module:eclairjs.Serializable} zeroValue
      * @param {func} seqFunc
      * @param {func} combFunc
+     * @param {number} [numPartitions]
+     * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.aggregateByKey0 = function (zeroValue, partitioner, seqFunc, combFunc) {
-        throw "not implemented by ElairJS";
-//   var zeroValue_uw = Utils.unwrapObject(zeroValue);
-//   var partitioner_uw = Utils.unwrapObject(partitioner);
-//   var sv = Utils.createJavaParams(seqFunc);
-//   var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
-//   var sv2 = Utils.createJavaParams(combFunc);
-//   var fn2 = new org.eclairjs.nashorn.JSFunction2(sv2.funcStr, sv2.scopeVars);
-//   var javaObject =  this.getJavaObject().aggregateByKey(zeroValue_uw,partitioner_uw,fn,fn2);
-//   return new PairRDD(javaObject);
+    PairRDD.prototype.aggregateByKey = function (zeroValue, seqFunc, combFunc, numPartitions, bindArgs) {
+        var zeroValue_uw = Utils.unwrapObject(zeroValue);
+        var fn = Utils.createLambdaFunction(seqFunc, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
+        var fn2 = Utils.createLambdaFunction(combFunc, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
+        var javaObject;
+        if (numPartitions) {
+            javaObject = this.getJavaObject().aggregateByKey(zeroValue_uw, numPartitions, fn, fn2);
+        } else {
+            javaObject = this.getJavaObject().aggregateByKey(zeroValue_uw, fn, fn2);
+        }
+        return new PairRDD(javaObject);
     };
-
-
-    /**
-     * Aggregate the values of each key, using given combine functions and a neutral "zero value".
-     * This function can return a different result type, U, than the type of the values in this RDD,
-     * V. Thus, we need one operation for merging a V into a U and one operation for merging two U's,
-     * as in scala.TraversableOnce. The former operation is used for merging values within a
-     * partition, and the latter is used for merging values between partitions. To avoid memory
-     * allocation, both of these functions are allowed to modify and return their first argument
-     * instead of creating a new U.
-     * @param {object} zeroValue
-     * @param {number} numPartitions
-     * @param {func} seqFunc
-     * @param {func} combFunc
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.aggregateByKey1 = function (zeroValue, numPartitions, seqFunc, combFunc) {
-        throw "not implemented by ElairJS";
-//   var zeroValue_uw = Utils.unwrapObject(zeroValue);
-//   var sv = Utils.createJavaParams(seqFunc);
-//   var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
-//   var sv2 = Utils.createJavaParams(combFunc);
-//   var fn2 = new org.eclairjs.nashorn.JSFunction2(sv2.funcStr, sv2.scopeVars);
-//   var javaObject =  this.getJavaObject().aggregateByKey(zeroValue_uw,numPartitions,fn,fn2);
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
-     * Aggregate the values of each key, using given combine functions and a neutral "zero value".
-     * This function can return a different result type, U, than the type of the values in this RDD,
-     * V. Thus, we need one operation for merging a V into a U and one operation for merging two U's.
-     * The former operation is used for merging values within a partition, and the latter is used for
-     * merging values between partitions. To avoid memory allocation, both of these functions are
-     * allowed to modify and return their first argument instead of creating a new U.
-     * @param {object} zeroValue
-     * @param {func} seqFunc
-     * @param {func} combFunc
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.aggregateByKey2 = function (zeroValue, seqFunc, combFunc) {
-        throw "not implemented by ElairJS";
-//   var zeroValue_uw = Utils.unwrapObject(zeroValue);
-//   var sv = Utils.createJavaParams(seqFunc);
-//   var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
-//   var sv2 = Utils.createJavaParams(combFunc);
-//   var fn2 = new org.eclairjs.nashorn.JSFunction2(sv2.funcStr, sv2.scopeVars);
-//   var javaObject =  this.getJavaObject().aggregateByKey(zeroValue_uw,fn,fn2);
-//   return new PairRDD(javaObject);
-    };
-
 
     /**
      * Merge the values for each key using an associative function and a neutral "zero value" which
      * may be added to the result an arbitrary number of times, and must not change the result
      * (e.g ., Nil for list concatenation, 0 for addition, or 1 for multiplication.).
-     * @param {object} zeroValue
-     * @param {module:eclairjs.Partitioner} partitioner
+     * @param {module:eclairjs.Serializable | number} zeroValue
      * @param {func} func
+     * @param {integer} [numPartitions]
+     * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.foldByKey0 = function (zeroValue, partitioner, func) {
-        throw "not implemented by ElairJS";
-//   var zeroValue_uw = Utils.unwrapObject(zeroValue);
-//   var partitioner_uw = Utils.unwrapObject(partitioner);
-//   var sv = Utils.createJavaParams(func);
-//   var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
-//   var javaObject =  this.getJavaObject().foldByKey(zeroValue_uw,partitioner_uw,fn);
-//   return new PairRDD(javaObject);
+    PairRDD.prototype.foldByKey = function (zeroValue, func, numPartitions, bindArgs) {
+        var zeroValue_uw = Utils.unwrapObject(zeroValue);
+        var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
+        var javaObject;
+        if (numPartitions) {
+            javaObject = this.getJavaObject().foldByKey(zeroValue_uw, numPartitions, fn);
+        } else {
+            javaObject = this.getJavaObject().foldByKey(zeroValue_uw, fn);
+        }
+
+        return new PairRDD(javaObject);
     };
-
-
-    /**
-     * Merge the values for each key using an associative function and a neutral "zero value" which
-     * may be added to the result an arbitrary number of times, and must not change the result
-     * (e.g ., Nil for list concatenation, 0 for addition, or 1 for multiplication.).
-     * @param {object} zeroValue
-     * @param {number} numPartitions
-     * @param {func} func
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.foldByKey1 = function (zeroValue, numPartitions, func) {
-        throw "not implemented by ElairJS";
-//   var zeroValue_uw = Utils.unwrapObject(zeroValue);
-//   var sv = Utils.createJavaParams(func);
-//   var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
-//   var javaObject =  this.getJavaObject().foldByKey(zeroValue_uw,numPartitions,fn);
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
-     * Merge the values for each key using an associative function and a neutral "zero value"
-     * which may be added to the result an arbitrary number of times, and must not change the result
-     * (e.g., Nil for list concatenation, 0 for addition, or 1 for multiplication.).
-     * @param {object} zeroValue
-     * @param {func} func
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.foldByKey2 = function (zeroValue, func) {
-        throw "not implemented by ElairJS";
-//   var zeroValue_uw = Utils.unwrapObject(zeroValue);
-//   var sv = Utils.createJavaParams(func);
-//   var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
-//   var javaObject =  this.getJavaObject().foldByKey(zeroValue_uw,fn);
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
-     * Merge the values for each key using an associative reduce function. This will also perform
-     * the merging locally on each mapper before sending results to a reducer, similarly to a
-     * "combiner" in MapReduce. Output will be hash-partitioned with numPartitions partitions.
-     * @param {func} func
-     * @param {number} numPartitions
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.reduceByKey1 = function (func, numPartitions) {
-        throw "not implemented by ElairJS";
-//   var sv = Utils.createJavaParams(func);
-//   var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
-//   var javaObject =  this.getJavaObject().reduceByKey(fn,numPartitions);
-//   return new PairRDD(javaObject);
-    };
-
 
     /**
      * Group the values for each key in the RDD into a single sequence. Allows controlling the
@@ -583,119 +426,50 @@
         return new PairRDD(javaObject);
     };
 
-
-    /**
-     * Return an RDD with the elements from `this` that are not in `other`.
-     *
-     * Uses `this` partitioner/partition size, because even if `other` is huge, the resulting
-     * RDD will be &lt;= us.
-     * @param {module:eclairjs.PairRDD} other
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.subtract0 = function (other) {
-        throw "not implemented by ElairJS";
-//   var other_uw = Utils.unwrapObject(other);
-//   var javaObject =  this.getJavaObject().subtract(other_uw);
-//   return new PairRDD(javaObject);
-    };
-
-
     /**
      * Return an RDD with the elements from `this` that are not in `other`.
      * @param {module:eclairjs.PairRDD} other
-     * @param {number} numPartitions
+     * @param {integer} [numPartitions]
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.subtract1 = function (other, numPartitions) {
-        throw "not implemented by ElairJS";
-//   var other_uw = Utils.unwrapObject(other);
-//   var javaObject =  this.getJavaObject().subtract(other_uw,numPartitions);
-//   return new PairRDD(javaObject);
+    PairRDD.prototype.subtract = function (other, numPartitions) {
+        var other_uw = Utils.unwrapObject(other);
+        var javaObject;
+        if (numPartitions) {
+            javaObject = this.getJavaObject().subtract(other_uw, numPartitions);
+        } else {
+            javaObject = this.getJavaObject().subtract(other_uw);
+        }
+        return new PairRDD(javaObject);
     };
-
-
-    /**
-     * Return an RDD with the elements from `this` that are not in `other`.
-     * @param {module:eclairjs.PairRDD} other
-     * @param {module:eclairjs.Partitioner} p
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.subtract2 = function (other, p) {
-        throw "not implemented by ElairJS";
-//   var other_uw = Utils.unwrapObject(other);
-//   var p_uw = Utils.unwrapObject(p);
-//   var javaObject =  this.getJavaObject().subtract(other_uw,p_uw);
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
-     * Return an RDD with the pairs from `this` whose keys are not in `other`.
-     *
-     * Uses `this` partitioner/partition size, because even if `other` is huge, the resulting
-     * RDD will be &lt;= us.
-     * @param {module:eclairjs.PairRDD} other
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.subtractByKey0 = function (other) {
-        throw "not implemented by ElairJS";
-//   var other_uw = Utils.unwrapObject(other);
-//   var javaObject =  this.getJavaObject().subtractByKey(other_uw);
-//   return new PairRDD(javaObject);
-    };
-
 
     /**
      * @param {module:eclairjs.PairRDD} other
-     * @param {number} numPartitions
+     * @param {integer} [numPartitions]
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.subtractByKey1 = function (other, numPartitions) {
-        throw "not implemented by ElairJS";
-//   var other_uw = Utils.unwrapObject(other);
-//   var javaObject =  this.getJavaObject().subtractByKey(other_uw,numPartitions);
-//   return new PairRDD(javaObject);
+    PairRDD.prototype.subtractByKey = function (other, numPartitions) {
+        var other_uw = Utils.unwrapObject(other);
+        var javaObject;
+        if (numPartitions) {
+            javaObject = this.getJavaObject().subtractByKey(other_uw, numPartitions);
+        } else {
+            javaObject = this.getJavaObject().subtractByKey(other_uw);
+        }
+        return new PairRDD(javaObject);
     };
-
-
-    /**
-     * @param {module:eclairjs.PairRDD} other
-     * @param {module:eclairjs.Partitioner} p
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.subtractByKey2 = function (other, p) {
-        throw "not implemented by ElairJS";
-//   var other_uw = Utils.unwrapObject(other);
-//   var p_uw = Utils.unwrapObject(p);
-//   var javaObject =  this.getJavaObject().subtractByKey(other_uw,p_uw);
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
-     * Return a copy of the RDD partitioned using the specified partitioner.
-     * @param {module:eclairjs.Partitioner} partitioner
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.partitionBy = function (partitioner) {
-        throw "not implemented by ElairJS";
-//   var partitioner_uw = Utils.unwrapObject(partitioner);
-//   var javaObject =  this.getJavaObject().partitionBy(partitioner_uw);
-//   return new PairRDD(javaObject);
-    };
-
 
     /**
      * Merge the values for each key using an associative reduce function. This will also perform
      * the merging locally on each mapper before sending results to a reducer, similarly to a
      * "combiner" in MapReduce.
      * @param {module:eclairjs.PairRDD} other
-     * @param {module:eclairjs.Partitioner} partitioner
+     * @param {integer} [numPartitions]
      * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.join = function (other, numPartitions) {
         var other_uw = Utils.unwrapObject(other);
-        var javaObject = numPartitions ? this.getJavaObject(other_uw, numPartitions).join() :
+        var javaObject = numPartitions ? this.getJavaObject().join(other_uw, numPartitions) :
             this.getJavaObject().join(other_uw);
         return new PairRDD(javaObject);
     };
@@ -704,36 +478,32 @@
     /**
      * Perform a left outer join of `this` and `other`. For each element (k, v) in `this`, the
      * resulting RDD will either contain all pairs (k, (v, Some(w))) for w in `other`, or the
-     * pair (k, (v, None)) if no elements in `other` have key k. Uses the given Partitioner to
-     * partition the output RDD.
+     * pair (k, (v, None)) if no elements in `other` have key k.
      * @param {module:eclairjs.PairRDD} other
-     * @param {module:eclairjs.Partitioner} partitioner
+     * @param {integer} [numPartitions]
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.leftOuterJoin0 = function (other, partitioner) {
-        throw "not implemented by ElairJS";
-//   var other_uw = Utils.unwrapObject(other);
-//   var partitioner_uw = Utils.unwrapObject(partitioner);
-//   var javaObject =  this.getJavaObject().leftOuterJoin(other_uw,partitioner_uw);
-//   return new PairRDD(javaObject);
+    PairRDD.prototype.leftOuterJoin = function (other, numPartitions) {
+        var other_uw = Utils.unwrapObject(other);
+        var javaObject = numPartitions ? this.getJavaObject().leftOuterJoin(other_uw, numPartitions) :
+            this.getJavaObject().leftOuterJoin(other_uw);
+        return new PairRDD(javaObject);
     };
 
 
     /**
      * Perform a right outer join of `this` and `other`. For each element (k, w) in `other`, the
      * resulting RDD will either contain all pairs (k, (Some(v), w)) for v in `this`, or the
-     * pair (k, (None, w)) if no elements in `this` have key k. Uses the given Partitioner to
-     * partition the output RDD.
+     * pair (k, (None, w)) if no elements in `this` have key k.
      * @param {module:eclairjs.PairRDD} other
-     * @param {module:eclairjs.Partitioner} partitioner
+     * @param {integer} [numPartitions]
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.rightOuterJoin0 = function (other, partitioner) {
-        throw "not implemented by ElairJS";
-//   var other_uw = Utils.unwrapObject(other);
-//   var partitioner_uw = Utils.unwrapObject(partitioner);
-//   var javaObject =  this.getJavaObject().rightOuterJoin(other_uw,partitioner_uw);
-//   return new PairRDD(javaObject);
+    PairRDD.prototype.rightOuterJoin = function (other, numPartitions) {
+        var other_uw = Utils.unwrapObject(other);
+        var javaObject = numPartitions ? this.getJavaObject().rightOuterJoin(other_uw, numPartitions) :
+            this.getJavaObject().rightOuterJoin(other_uw);
+        return new PairRDD(javaObject);
     };
 
 
@@ -743,208 +513,17 @@
      * the pair (k, (Some(v), None)) if no elements in `other` have key k. Similarly, for each
      * element (k, w) in `other`, the resulting RDD will either contain all pairs
      * (k, (Some(v), Some(w))) for v in `this`, or the pair (k, (None, Some(w))) if no elements
-     * in `this` have key k. Uses the given Partitioner to partition the output RDD.
+     * in `this` have key k.
      * @param {module:eclairjs.PairRDD} other
-     * @param {module:eclairjs.Partitioner} partitioner
+     * @param {integer} [numPartitions]
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.fullOuterJoin0 = function (other, partitioner) {
-        throw "not implemented by ElairJS";
-//   var other_uw = Utils.unwrapObject(other);
-//   var partitioner_uw = Utils.unwrapObject(partitioner);
-//   var javaObject =  this.getJavaObject().fullOuterJoin(other_uw,partitioner_uw);
-//   return new PairRDD(javaObject);
+    PairRDD.prototype.fullOuterJoin = function (other, numPartitions) {
+        var other_uw = Utils.unwrapObject(other);
+        var javaObject = numPartitions ? this.getJavaObject().fullOuterJoin(other_uw, numPartitions) :
+            this.getJavaObject().fullOuterJoin(other_uw);
+        return new PairRDD(javaObject);
     };
-
-
-    /**
-     * Simplified version of combineByKey that hash-partitions the resulting RDD using the existing
-     * partitioner/parallelism level and using map-side aggregation.
-     * @param {func} createCombiner
-     * @param {func} mergeValue
-     * @param {func} mergeCombiners
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.combineByKey3 = function (createCombiner, mergeValue, mergeCombiners) {
-        throw "not implemented by ElairJS";
-//   var sv = Utils.createJavaParams(createCombiner);
-//   var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
-//   var sv2 = Utils.createJavaParams(mergeValue);
-//   var fn2 = new org.eclairjs.nashorn.JSFunction2(sv2.funcStr, sv2.scopeVars);
-//   var sv3 = Utils.createJavaParams(mergeCombiners);
-//   var fn3 = new org.eclairjs.nashorn.JSFunction2(sv3.funcStr, sv3.scopeVars);
-//   var javaObject =  this.getJavaObject().combineByKey(fn,fn2,fn3);
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
-     * Merge the values for each key using an associative reduce function. This will also perform
-     * the merging locally on each mapper before sending results to a reducer, similarly to a
-     * "combiner" in MapReduce. Output will be hash-partitioned with the existing partitioner/
-     * parallelism level.
-     * @param {func} func
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.reduceByKey2 = function (func) {
-        throw "not implemented by ElairJS";
-//   var sv = Utils.createJavaParams(func);
-//   var fn = new org.eclairjs.nashorn.JSFunction2(sv.funcStr, sv.scopeVars);
-//   var javaObject =  this.getJavaObject().reduceByKey(fn);
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
-     * Group the values for each key in the RDD into a single sequence. Hash-partitions the
-     * resulting RDD with the existing partitioner/parallelism level.
-     *
-     * Note: If you are grouping in order to perform an aggregation (such as a sum or average) over
-     * each key, using [[PairRDD.reduceByKey]] or {@link combineByKey}
-     * will provide much better performance.
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.groupByKey2 = function () {
-        throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().groupByKey();
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
-     * Return an RDD containing all pairs of elements with matching keys in `this` and `other`. Each
-     * pair of elements will be returned as a (k, (v1, v2)) tuple, where (k, v1) is in `this` and
-     * (k, v2) is in `other`. Performs a hash join across the cluster.
-     * @param {module:eclairjs.PairRDD} other
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.join1 = function (other) {
-        throw "not implemented by ElairJS";
-//   var other_uw = Utils.unwrapObject(other);
-//   var javaObject =  this.getJavaObject().join(other_uw);
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
-     * Return an RDD containing all pairs of elements with matching keys in `this` and `other`. Each
-     * pair of elements will be returned as a (k, (v1, v2)) tuple, where (k, v1) is in `this` and
-     * (k, v2) is in `other`. Performs a hash join across the cluster.
-     * @param {module:eclairjs.PairRDD} other
-     * @param {number} numPartitions
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.join2 = function (other, numPartitions) {
-        throw "not implemented by ElairJS";
-//   var other_uw = Utils.unwrapObject(other);
-//   var javaObject =  this.getJavaObject().join(other_uw,numPartitions);
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
-     * Perform a left outer join of `this` and `other`. For each element (k, v) in `this`, the
-     * resulting RDD will either contain all pairs (k, (v, Some(w))) for w in `other`, or the
-     * pair (k, (v, None)) if no elements in `other` have key k. Hash-partitions the output
-     * using the existing partitioner/parallelism level.
-     * @param {module:eclairjs.PairRDD} other
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.leftOuterJoin1 = function (other) {
-        throw "not implemented by ElairJS";
-//   var other_uw = Utils.unwrapObject(other);
-//   var javaObject =  this.getJavaObject().leftOuterJoin(other_uw);
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
-     * Perform a left outer join of `this` and `other`. For each element (k, v) in `this`, the
-     * resulting RDD will either contain all pairs (k, (v, Some(w))) for w in `other`, or the
-     * pair (k, (v, None)) if no elements in `other` have key k. Hash-partitions the output
-     * into `numPartitions` partitions.
-     * @param {module:eclairjs.PairRDD} other
-     * @param {number} numPartitions
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.leftOuterJoin2 = function (other, numPartitions) {
-        throw "not implemented by ElairJS";
-//   var other_uw = Utils.unwrapObject(other);
-//   var javaObject =  this.getJavaObject().leftOuterJoin(other_uw,numPartitions);
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
-     * Perform a right outer join of `this` and `other`. For each element (k, w) in `other`, the
-     * resulting RDD will either contain all pairs (k, (Some(v), w)) for v in `this`, or the
-     * pair (k, (None, w)) if no elements in `this` have key k. Hash-partitions the resulting
-     * RDD using the existing partitioner/parallelism level.
-     * @param {module:eclairjs.PairRDD} other
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.rightOuterJoin1 = function (other) {
-        throw "not implemented by ElairJS";
-//   var other_uw = Utils.unwrapObject(other);
-//   var javaObject =  this.getJavaObject().rightOuterJoin(other_uw);
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
-     * Perform a right outer join of `this` and `other`. For each element (k, w) in `other`, the
-     * resulting RDD will either contain all pairs (k, (Some(v), w)) for v in `this`, or the
-     * pair (k, (None, w)) if no elements in `this` have key k. Hash-partitions the resulting
-     * RDD into the given number of partitions.
-     * @param {module:eclairjs.PairRDD} other
-     * @param {number} numPartitions
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.rightOuterJoin2 = function (other, numPartitions) {
-        throw "not implemented by ElairJS";
-//   var other_uw = Utils.unwrapObject(other);
-//   var javaObject =  this.getJavaObject().rightOuterJoin(other_uw,numPartitions);
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
-     * Perform a full outer join of `this` and `other`. For each element (k, v) in `this`, the
-     * resulting RDD will either contain all pairs (k, (Some(v), Some(w))) for w in `other`, or
-     * the pair (k, (Some(v), None)) if no elements in `other` have key k. Similarly, for each
-     * element (k, w) in `other`, the resulting RDD will either contain all pairs
-     * (k, (Some(v), Some(w))) for v in `this`, or the pair (k, (None, Some(w))) if no elements
-     * in `this` have key k. Hash-partitions the resulting RDD using the existing partitioner/
-     * parallelism level.
-     * @param {module:eclairjs.PairRDD} other
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.fullOuterJoin1 = function (other) {
-        throw "not implemented by ElairJS";
-//   var other_uw = Utils.unwrapObject(other);
-//   var javaObject =  this.getJavaObject().fullOuterJoin(other_uw);
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
-     * Perform a full outer join of `this` and `other`. For each element (k, v) in `this`, the
-     * resulting RDD will either contain all pairs (k, (Some(v), Some(w))) for w in `other`, or
-     * the pair (k, (Some(v), None)) if no elements in `other` have key k. Similarly, for each
-     * element (k, w) in `other`, the resulting RDD will either contain all pairs
-     * (k, (Some(v), Some(w))) for v in `this`, or the pair (k, (None, Some(w))) if no elements
-     * in `this` have key k. Hash-partitions the resulting RDD into the given number of partitions.
-     * @param {module:eclairjs.PairRDD} other
-     * @param {number} numPartitions
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.fullOuterJoin2 = function (other, numPartitions) {
-        throw "not implemented by ElairJS";
-//   var other_uw = Utils.unwrapObject(other);
-//   var javaObject =  this.getJavaObject().fullOuterJoin(other_uw,numPartitions);
-//   return new PairRDD(javaObject);
-    };
-
 
     /**
      * Return the key-value pairs in this RDD to the master as a Map.
@@ -960,6 +539,7 @@
      * Pass each value in the key-value pair RDD through a map function without changing the keys;
      * this also retains the original RDD's partitioning.
      * @param {func} f
+     * @param {object[]} [bindArgs]
      * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.mapValues = function (f, bindArgs) {
@@ -973,212 +553,69 @@
      * Pass each value in the key-value pair RDD through a flatMap function without changing the
      * keys; this also retains the original RDD's partitioning.
      * @param {func} f
+     * @param {object[]} [bindArgs]
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.flatMapValues = function (f) {
-        throw "not implemented by ElairJS";
-//   var sv = Utils.createJavaParams(f);
-//   var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
-//   var javaObject =  this.getJavaObject().flatMapValues(fn);
-//   return new PairRDD(javaObject);
+    PairRDD.prototype.flatMapValues = function (f, bindArgs) {
+        var fn = Utils.createLambdaFunction(f, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
+        var javaObject = this.getJavaObject().flatMapValues(fn);
+        return new PairRDD(javaObject);
     };
 
 
     /**
      * For each key k in `this` or `other`, return a resulting RDD that contains a tuple with the
      * list of values for that key in `this` as well as `other`.
-     * @param {module:eclairjs.PairRDD} other
-     * @param {module:eclairjs.Partitioner} partitioner
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.cogroup0 = function (other, partitioner) {
-        throw "not implemented by ElairJS";
-//   var other_uw = Utils.unwrapObject(other);
-//   var partitioner_uw = Utils.unwrapObject(partitioner);
-//   var javaObject =  this.getJavaObject().cogroup(other_uw,partitioner_uw);
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
-     * For each key k in `this` or `other1` or `other2`, return a resulting RDD that contains a
-     * tuple with the list of values for that key in `this`, `other1` and `other2`.
      * @param {module:eclairjs.PairRDD} other1
-     * @param {module:eclairjs.PairRDD} other2
-     * @param {module:eclairjs.Partitioner} partitioner
+     * @param {module:eclairjs.PairRDD} [other2]
+     * @param {module:eclairjs.PairRDD} [other3]
+     * @param {integer} [numPartitions]
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.cogroup1 = function (other1, other2, partitioner) {
-        throw "not implemented by ElairJS";
-//   var other1_uw = Utils.unwrapObject(other1);
-//   var other2_uw = Utils.unwrapObject(other2);
-//   var partitioner_uw = Utils.unwrapObject(partitioner);
-//   var javaObject =  this.getJavaObject().cogroup(other1_uw,other2_uw,partitioner_uw);
-//   return new PairRDD(javaObject);
+    PairRDD.prototype.cogroup = function (other1, other2, other3, numPartitions) {
+        var other1_uw = Utils.unwrapObject(other1);
+        var other2_uw = Utils.unwrapObject(other2);
+        var other3_uw = Utils.unwrapObject(other3);
+        var javaObject;
+        if (numPartitions) {
+            if (other3_uw) {
+                javaObject = this.getJavaObject().cogroup(other1_uw, other2_uw, other3_uw, numPartitions);
+            } else if (other2_uw) {
+                javaObject = this.getJavaObject().cogroup(other1_uw, other2_uw, numPartitions);
+            } else {
+                javaObject = this.getJavaObject().cogroup(other1_uw, numPartitions);
+            }
+        } else {
+            if (other3_uw) {
+                javaObject = this.getJavaObject().cogroup(other1_uw, other2_uw, other3_uw);
+            } else if (other2_uw) {
+                javaObject = this.getJavaObject().cogroup(other1_uw, other2_uw);
+            } else {
+                javaObject = this.getJavaObject().cogroup(other1_uw);
+            }
+        }
+        return new PairRDD(javaObject);
     };
-
-
-    /**
-     * For each key k in `this` or `other1` or `other2` or `other3`,
-     * return a resulting RDD that contains a tuple with the list of values
-     * for that key in `this`, `other1`, `other2` and `other3`.
-     * @param {module:eclairjs.PairRDD} other1
-     * @param {module:eclairjs.PairRDD} other2
-     * @param {module:eclairjs.PairRDD} other3
-     * @param {module:eclairjs.Partitioner} partitioner
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.cogroup2 = function (other1, other2, other3, partitioner) {
-        throw "not implemented by ElairJS";
-//   var other1_uw = Utils.unwrapObject(other1);
-//   var other2_uw = Utils.unwrapObject(other2);
-//   var other3_uw = Utils.unwrapObject(other3);
-//   var partitioner_uw = Utils.unwrapObject(partitioner);
-//   var javaObject =  this.getJavaObject().cogroup(other1_uw,other2_uw,other3_uw,partitioner_uw);
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
-     * For each key k in `this` or `other`, return a resulting RDD that contains a tuple with the
-     * list of values for that key in `this` as well as `other`.
-     * @param {module:eclairjs.PairRDD} other
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.cogroup3 = function (other) {
-        throw "not implemented by ElairJS";
-//   var other_uw = Utils.unwrapObject(other);
-//   var javaObject =  this.getJavaObject().cogroup(other_uw);
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
-     * For each key k in `this` or `other1` or `other2`, return a resulting RDD that contains a
-     * tuple with the list of values for that key in `this`, `other1` and `other2`.
-     * @param {module:eclairjs.PairRDD} other1
-     * @param {module:eclairjs.PairRDD} other2
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.cogroup4 = function (other1, other2) {
-        throw "not implemented by ElairJS";
-//   var other1_uw = Utils.unwrapObject(other1);
-//   var other2_uw = Utils.unwrapObject(other2);
-//   var javaObject =  this.getJavaObject().cogroup(other1_uw,other2_uw);
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
-     * For each key k in `this` or `other1` or `other2` or `other3`,
-     * return a resulting RDD that contains a tuple with the list of values
-     * for that key in `this`, `other1`, `other2` and `other3`.
-     * @param {module:eclairjs.PairRDD} other1
-     * @param {module:eclairjs.PairRDD} other2
-     * @param {module:eclairjs.PairRDD} other3
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.cogroup5 = function (other1, other2, other3) {
-        throw "not implemented by ElairJS";
-//   var other1_uw = Utils.unwrapObject(other1);
-//   var other2_uw = Utils.unwrapObject(other2);
-//   var other3_uw = Utils.unwrapObject(other3);
-//   var javaObject =  this.getJavaObject().cogroup(other1_uw,other2_uw,other3_uw);
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
-     * For each key k in `this` or `other`, return a resulting RDD that contains a tuple with the
-     * list of values for that key in `this` as well as `other`.
-     * @param {module:eclairjs.PairRDD} other
-     * @param {number} numPartitions
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.cogroup6 = function (other, numPartitions) {
-        throw "not implemented by ElairJS";
-//   var other_uw = Utils.unwrapObject(other);
-//   var javaObject =  this.getJavaObject().cogroup(other_uw,numPartitions);
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
-     * For each key k in `this` or `other1` or `other2`, return a resulting RDD that contains a
-     * tuple with the list of values for that key in `this`, `other1` and `other2`.
-     * @param {module:eclairjs.PairRDD} other1
-     * @param {module:eclairjs.PairRDD} other2
-     * @param {number} numPartitions
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.cogroup7 = function (other1, other2, numPartitions) {
-        throw "not implemented by ElairJS";
-//   var other1_uw = Utils.unwrapObject(other1);
-//   var other2_uw = Utils.unwrapObject(other2);
-//   var javaObject =  this.getJavaObject().cogroup(other1_uw,other2_uw,numPartitions);
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
-     * For each key k in `this` or `other1` or `other2` or `other3`,
-     * return a resulting RDD that contains a tuple with the list of values
-     * for that key in `this`, `other1`, `other2` and `other3`.
-     * @param {module:eclairjs.PairRDD} other1
-     * @param {module:eclairjs.PairRDD} other2
-     * @param {module:eclairjs.PairRDD} other3
-     * @param {number} numPartitions
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.cogroup8 = function (other1, other2, other3, numPartitions) {
-        throw "not implemented by ElairJS";
-//   var other1_uw = Utils.unwrapObject(other1);
-//   var other2_uw = Utils.unwrapObject(other2);
-//   var other3_uw = Utils.unwrapObject(other3);
-//   var javaObject =  this.getJavaObject().cogroup(other1_uw,other2_uw,other3_uw,numPartitions);
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
-     * @param {module:eclairjs.PairRDD} other
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.groupWith0 = function (other) {
-        throw "not implemented by ElairJS";
-//   var other_uw = Utils.unwrapObject(other);
-//   var javaObject =  this.getJavaObject().groupWith(other_uw);
-//   return new PairRDD(javaObject);
-    };
-
 
     /**
      * @param {module:eclairjs.PairRDD} other1
-     * @param {module:eclairjs.PairRDD} other2
+     * @param {module:eclairjs.PairRDD} [other2]
+     * @param {module:eclairjs.PairRDD} [other3]
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.groupWith1 = function (other1, other2) {
-        throw "not implemented by ElairJS";
-//   var other1_uw = Utils.unwrapObject(other1);
-//   var other2_uw = Utils.unwrapObject(other2);
-//   var javaObject =  this.getJavaObject().groupWith(other1_uw,other2_uw);
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
-     * @param {module:eclairjs.PairRDD} other1
-     * @param {module:eclairjs.PairRDD} other2
-     * @param {module:eclairjs.PairRDD} other3
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.groupWith2 = function (other1, other2, other3) {
-        throw "not implemented by ElairJS";
-//   var other1_uw = Utils.unwrapObject(other1);
-//   var other2_uw = Utils.unwrapObject(other2);
-//   var other3_uw = Utils.unwrapObject(other3);
-//   var javaObject =  this.getJavaObject().groupWith(other1_uw,other2_uw,other3_uw);
-//   return new PairRDD(javaObject);
+    PairRDD.prototype.groupWith = function (other1, other2, other3) {
+        var other1_uw = Utils.unwrapObject(other1);
+        var other2_uw = Utils.unwrapObject(other2);
+        var other3_uw = Utils.unwrapObject(other3);
+        var javaObject;
+        if (other3_uw) {
+            javaObject = this.getJavaObject().groupWith(other1_uw, other2_uw, other3_uw);
+        } else if (other2_uw) {
+            javaObject = this.getJavaObject().groupWith(other1_uw, other2_uw);
+        } else {
+            javaObject = this.getJavaObject().groupWith(other1_uw);
+        }
+        return new PairRDD(javaObject);
     };
 
 
@@ -1186,145 +623,13 @@
      * Return the list of values in the RDD for key `key`. This operation is done efficiently if the
      * RDD has a known partitioner by only searching the partition that the key maps to.
      * @param {object} key
-     * @returns {JList}
+     * @returns {object[]}
      */
     PairRDD.prototype.lookup = function (key) {
-        throw "not implemented by ElairJS";
-//   var key_uw = Utils.unwrapObject(key);
-//   return  this.getJavaObject().lookup(key_uw);
+        var key_uw = Utils.unwrapObject(key);
+        return Utils.javaToJs(this.getJavaObject().lookup(key_uw));
     };
 
-
-    /**
-     * @param {string} path
-     * @param {Class} keyClass
-     * @param {Class} valueClass
-     * @param {Class} outputFormatClass
-     * @param {JobConf} conf
-     */
-    PairRDD.prototype.saveAsHadoopFile0 = function (path, keyClass, valueClass, outputFormatClass, conf) {
-        throw "not implemented by ElairJS";
-//   var keyClass_uw = Utils.unwrapObject(keyClass);
-//   var valueClass_uw = Utils.unwrapObject(valueClass);
-//   var outputFormatClass_uw = Utils.unwrapObject(outputFormatClass);
-//   var conf_uw = Utils.unwrapObject(conf);
-//    this.getJavaObject().saveAsHadoopFile(path,keyClass_uw,valueClass_uw,outputFormatClass_uw,conf_uw);
-    };
-
-
-    /**
-     * @param {string} path
-     * @param {Class} keyClass
-     * @param {Class} valueClass
-     * @param {Class} outputFormatClass
-     */
-    PairRDD.prototype.saveAsHadoopFile1 = function (path, keyClass, valueClass, outputFormatClass) {
-        throw "not implemented by ElairJS";
-//   var keyClass_uw = Utils.unwrapObject(keyClass);
-//   var valueClass_uw = Utils.unwrapObject(valueClass);
-//   var outputFormatClass_uw = Utils.unwrapObject(outputFormatClass);
-//    this.getJavaObject().saveAsHadoopFile(path,keyClass_uw,valueClass_uw,outputFormatClass_uw);
-    };
-
-
-    /**
-     * @param {string} path
-     * @param {Class} keyClass
-     * @param {Class} valueClass
-     * @param {Class} outputFormatClass
-     * @param {Class} codec
-     */
-    PairRDD.prototype.saveAsHadoopFile2 = function (path, keyClass, valueClass, outputFormatClass, codec) {
-        throw "not implemented by ElairJS";
-//   var keyClass_uw = Utils.unwrapObject(keyClass);
-//   var valueClass_uw = Utils.unwrapObject(valueClass);
-//   var outputFormatClass_uw = Utils.unwrapObject(outputFormatClass);
-//   var codec_uw = Utils.unwrapObject(codec);
-//    this.getJavaObject().saveAsHadoopFile(path,keyClass_uw,valueClass_uw,outputFormatClass_uw,codec_uw);
-    };
-
-
-    /**
-     * @param {string} path
-     * @param {Class} keyClass
-     * @param {Class} valueClass
-     * @param {Class} outputFormatClass
-     * @param {Configuration} conf
-     */
-    PairRDD.prototype.saveAsNewAPIHadoopFilewithConf = function (path, keyClass, valueClass, outputFormatClass, conf) {
-        throw "not implemented by ElairJS";
-//   var keyClass_uw = Utils.unwrapObject(keyClass);
-//   var valueClass_uw = Utils.unwrapObject(valueClass);
-//   var outputFormatClass_uw = Utils.unwrapObject(outputFormatClass);
-//   var conf_uw = Utils.unwrapObject(conf);
-//    this.getJavaObject().saveAsNewAPIHadoopFile(path,keyClass_uw,valueClass_uw,outputFormatClass_uw,conf_uw);
-    };
-
-
-    /**
-     * Output the RDD to any Hadoop-supported storage system, using
-     * a Configuration object for that storage system.
-     * @param {Configuration} conf
-     */
-    PairRDD.prototype.saveAsNewAPIHadoopDataset = function (conf) {
-        throw "not implemented by ElairJS";
-//   var conf_uw = Utils.unwrapObject(conf);
-//    this.getJavaObject().saveAsNewAPIHadoopDataset(conf_uw);
-    };
-
-
-    /**
-     * @param {string} path
-     * @param {Class} keyClass
-     * @param {Class} valueClass
-     * @param {Class} outputFormatClass
-     */
-    PairRDD.prototype.saveAsNewAPIHadoopFile = function (path, keyClass, valueClass, outputFormatClass) {
-        throw "not implemented by ElairJS";
-//   var keyClass_uw = Utils.unwrapObject(keyClass);
-//   var valueClass_uw = Utils.unwrapObject(valueClass);
-//   var outputFormatClass_uw = Utils.unwrapObject(outputFormatClass);
-//    this.getJavaObject().saveAsNewAPIHadoopFile(path,keyClass_uw,valueClass_uw,outputFormatClass_uw);
-    };
-
-
-    /**
-     * Output the RDD to any Hadoop-supported storage system, using a Hadoop JobConf object for
-     * that storage system. The JobConf should set an OutputFormat and any output paths required
-     * (e.g. a table name to write to) in the same way as it would be configured for a Hadoop
-     * MapReduce job.
-     * @param {JobConf} conf
-     */
-    PairRDD.prototype.saveAsHadoopDataset = function (conf) {
-        throw "not implemented by ElairJS";
-//   var conf_uw = Utils.unwrapObject(conf);
-//    this.getJavaObject().saveAsHadoopDataset(conf_uw);
-    };
-
-
-    /**
-     * Repartition the RDD according to the given partitioner and, within each resulting partition,
-     * sort records by their keys.
-     *
-     * This is more efficient than calling `repartition` and then sorting within each partition
-     * because it can push the sorting down into the shuffle machinery.
-     * @param {module:eclairjs.Partitioner} partitioner
-     * @param {Comparator} [comp]
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.repartitionAndSortWithinPartitions = function (partitioner, comp) {
-        throw "not implemented by ElairJS";
-//   var partitioner_uw = Utils.unwrapObject(partitioner);
-//   var comp_uw = Utils.unwrapObject(comp);
-//
-//   if (arguments[1]) {
-//   var javaObject =  this.getJavaObject().repartitionAndSortWithinPartitions(partitioner_uw,comp_uw);
-//   return new PairRDD(javaObject);
-//   } else {
-//   var javaObject =  this.getJavaObject().repartitionAndSortWithinPartitions(partitioner_uw);
-//   return new PairRDD(javaObject);
-//   }
-    };
 
     /**
      * Sort the RDD by key, so that each partition contains a sorted range of the elements. Calling
@@ -1347,67 +652,12 @@
 
 
     /**
-     * Sort the RDD by key, so that each partition contains a sorted range of the elements. Calling
-     * `collect` or `save` on the resulting RDD will return or output an ordered list of records
-     * (in the `save` case, they will be written to multiple `part-X` files in the filesystem, in
-     * order of the keys).
-     * @param {Comparator} comp
-     * @returns {module:eclairjs.PairRDD}
-     * @ignore
-     */
-    PairRDD.prototype.sortByKey3 = function (comp) {
-        throw "not implemented by ElairJS";
-//   var comp_uw = Utils.unwrapObject(comp);
-//   var javaObject =  this.getJavaObject().sortByKey(comp_uw);
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
-     * Sort the RDD by key, so that each partition contains a sorted range of the elements. Calling
-     * `collect` or `save` on the resulting RDD will return or output an ordered list of records
-     * (in the `save` case, they will be written to multiple `part-X` files in the filesystem, in
-     * order of the keys).
-     * @param {Comparator} comp
-     * @param {boolean} ascending
-     * @returns {module:eclairjs.PairRDD}
-     * @ignore
-     */
-    PairRDD.prototype.sortByKey4 = function (comp, ascending) {
-        throw "not implemented by ElairJS";
-//   var comp_uw = Utils.unwrapObject(comp);
-//   var javaObject =  this.getJavaObject().sortByKey(comp_uw,ascending);
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
-     * Sort the RDD by key, so that each partition contains a sorted range of the elements. Calling
-     * `collect` or `save` on the resulting RDD will return or output an ordered list of records
-     * (in the `save` case, they will be written to multiple `part-X` files in the filesystem, in
-     * order of the keys).
-     * @param {Comparator} comp
-     * @param {boolean} ascending
-     * @param {number} numPartitions
-     * @returns {module:eclairjs.PairRDD}
-     * @ignore
-     */
-    PairRDD.prototype.sortByKey5 = function (comp, ascending, numPartitions) {
-        throw "not implemented by ElairJS";
-//   var comp_uw = Utils.unwrapObject(comp);
-//   var javaObject =  this.getJavaObject().sortByKey(comp_uw,ascending,numPartitions);
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
      * Return an RDD with the keys of each tuple.
      * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.keys = function () {
-        throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().keys();
-//   return new JavaRDD(javaObject);
+        var javaObject = this.getJavaObject().keys();
+        return new JavaRDD(javaObject);
     };
 
 
@@ -1419,8 +669,7 @@
         var javaObject = this.getJavaObject().values();
         return new RDD(javaObject);
     };
-
-
+    
     /**
      * Return approximate number of distinct values for each key in this RDD.
      *
@@ -1428,64 +677,24 @@
      * Algorithmic Engineering of a State of The Art Cardinality Estimation Algorithm", available
      * <a href="http://dx.doi.org/10.1145/2452376.2452456">here</a>.
      *
-     * @param {number} relativeSD  Relative accuracy. Smaller values create counters that require more space.
+     * @param {float} relativeSD  Relative accuracy. Smaller values create counters that require more space.
      *                   It must be greater than 0.000017.
-     * @param {module:eclairjs.Partitioner} partitioner  partitioner of the resulting RDD.
+     * @param {integer} [numPartitions]  number of partitions of the resulting RDD.
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.countApproxDistinctByKey0 = function (relativeSD, partitioner) {
-        throw "not implemented by ElairJS";
-//   var partitioner_uw = Utils.unwrapObject(partitioner);
-//   var javaObject =  this.getJavaObject().countApproxDistinctByKey(relativeSD,partitioner_uw);
-//   return new PairRDD(javaObject);
+    PairRDD.prototype.countApproxDistinctByKey = function (relativeSD, numPartitions) {
+        var javaObject = numPartitions ? this.getJavaObject().countApproxDistinctByKey(relativeSD, numPartitions) :
+            this.getJavaObject().countApproxDistinctByKey(relativeSD);
+        return new PairRDD(javaObject);
     };
-
-
-    /**
-     * Return approximate number of distinct values for each key in this RDD.
-     *
-     * The algorithm used is based on streamlib's implementation of "HyperLogLog in Practice:
-     * Algorithmic Engineering of a State of The Art Cardinality Estimation Algorithm", available
-     * <a href="http://dx.doi.org/10.1145/2452376.2452456">here</a>.
-     *
-     * @param {number} relativeSD  Relative accuracy. Smaller values create counters that require more space.
-     *                   It must be greater than 0.000017.
-     * @param {number} numPartitions  number of partitions of the resulting RDD.
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.countApproxDistinctByKey1 = function (relativeSD, numPartitions) {
-        throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().countApproxDistinctByKey(relativeSD,numPartitions);
-//   return new PairRDD(javaObject);
-    };
-
-
-    /**
-     * Return approximate number of distinct values for each key in this RDD.
-     *
-     * The algorithm used is based on streamlib's implementation of "HyperLogLog in Practice:
-     * Algorithmic Engineering of a State of The Art Cardinality Estimation Algorithm", available
-     * <a href="http://dx.doi.org/10.1145/2452376.2452456">here</a>.
-     *
-     * @param {number} relativeSD  Relative accuracy. Smaller values create counters that require more space.
-     *                   It must be greater than 0.000017.
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.prototype.countApproxDistinctByKey2 = function (relativeSD) {
-        throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().countApproxDistinctByKey(relativeSD);
-//   return new PairRDD(javaObject);
-    };
-
 
     /**
      * @param {string} name
      * @returns {module:eclairjs.PairRDD}
      */
     PairRDD.prototype.setName = function (name) {
-        throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().setName(name);
-//   return new PairRDD(javaObject);
+        var javaObject = this.getJavaObject().setName(name);
+        return new PairRDD(javaObject);
     };
 
     /**
@@ -1500,25 +709,13 @@
 // static methods
 //
 
-
-    /**
-     * @param {module:eclairjs.RDD} rdd
-     * @returns {module:eclairjs.PairRDD}
-     */
-    PairRDD.fromRDD = function (rdd) {
-        var rdd_uw = Utils.unwrapObject(rdd);
-        var javaObject = org.apache.spark.api.java.PairRDD.fromRDD(rdd_uw);
-        return new PairRDD(javaObject);
-    };
-
-
     /**
      * @param {module:eclairjs.PairRDD} rdd
      * @returns {module:eclairjs.RDD}
      */
     PairRDD.toRDD = function (rdd) {
         var rdd_uw = Utils.unwrapObject(rdd);
-        var javaObject = org.apache.spark.api.java.PairRDD.toRDD(rdd_uw);
+        var javaObject = org.apache.spark.api.java.JavaPairRDD.toRDD(rdd_uw);
         return new RDD(javaObject);
     };
 

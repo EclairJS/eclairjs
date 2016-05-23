@@ -303,8 +303,38 @@ Serialize.javaSqlDate = function (javaObj) {
     return false;
 };
 
-Serialize.handlers = [
+/**
+ * To send a JavaScript object to a spark worker we need to convert it to a Java object that implements java.io.Serializable.
+ * JSONSerializer is that object, this object has a string properties that is the JSON representation of the JavaScript object
+ * to be sent to the workers. Once it arrives at the workers it must be converted back to a JavaScript object for use in the
+ * LAMBDA function. THat is what we are doing here.
+ * @private
+ * @param javaObj Java object to convert to a JavaScript object
+ * @returns {boolean | module:eclairjs.Serializable}
+ * @constructor
+ */
+Serialize.JSONSerializer = function (javaObj) {
+    if (javaObj instanceof org.eclairjs.nashorn.JSONSerializer) {
+        var ret = false;
+        try {
+            // Make sure module is required before attempting new.
+            var req = "var Serializable = require('" + EclairJS_Globals.NAMESPACE + "/Serializable');";
+            var cmd = req + " return new Serializable(JSON.parse(javaObj.getJson()));";
+            //var cmd = "return JSON.parse(javaObj.getJson());"
+            Serialize.logger.debug(cmd);
+            var wrapperObjectFunction = new Function("javaObj", cmd); // better closer, keep require our of the global space
+            ret = wrapperObjectFunction(javaObj);
+        } catch(se) {
+            Serialize.logger.error("Exception in trying to create SqlDate.");
+            Serialize.logger.error(se);
+        }
+        return ret;
+    }
+    return false;
+};
 
+Serialize.handlers = [
+    Serialize.JSONSerializer,
     Serialize.javaArray,
     Serialize.javaSqlTimestamp,
     Serialize.javaSqlDate,

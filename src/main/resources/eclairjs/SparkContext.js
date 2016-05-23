@@ -327,11 +327,13 @@
     /**
      * Broadcast a read-only variable to the cluster, returning a Broadcast object for reading it in distributed functions.
      * The variable will be sent to each cluster only once.
-     * @param {object} value
-     * @returns {Broadcast}
+     * @param {object} value JSON object.
+     * @returns {module:eclairjs/broadcast.Broadcast}
      */
     SparkContext.prototype.broadcast = function (value) {
-        return this.getJavaObject().broadcast(value);
+        //var v = Utils.unwrapObject(value);
+        var v = JSON.stringify(value);
+        return Utils.javaToJs(this.getJavaObject().broadcast(v));
     };
 
     /**

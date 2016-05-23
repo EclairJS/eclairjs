@@ -131,11 +131,11 @@
     /**
      * Return a new RDD containing only the elements that satisfy a predicate.
      * @param {function} func
+     * @param {object[]} [bindArgs]
      * @returns {module:eclairjs.FloatRDD}
      */
     FloatRDD.prototype.filter = function (func, bindArgs) {
         var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, this.context, bindArgs);
-        var fn = new org.eclairjs.nashorn.JSFunction(sv.funcStr, sv.scopeVars);
         var obj = this.getJavaObject().filter(fn);
         return new FloatRDD(obj);
     };
@@ -143,18 +143,17 @@
 
     /**
      * Return a new RDD that is reduced into `numPartitions` partitions.
-     * @param {number} numPartitions
+     * @param {integer} numPartitions
      * @param {boolean} [shuffle]
      * @returns {module:eclairjs.FloatRDD}
      */
     FloatRDD.prototype.coalesce = function (numPartitions, shuffle) {
-        throw "not implemented by ElairJS";
-// 
-//   if (arguments[1]) {
-//   return  this.getJavaObject().coalesce(numPartitions,shuffle);
-//   } else {
-//   return  this.getJavaObject().coalesce(numPartitions);
-//   }
+
+        if (arguments[1]) {
+            return new FloatRDD(this.getJavaObject().coalesce(numPartitions, shuffle));
+        } else {
+            return new FloatRDD(this.getJavaObject().coalesce(numPartitions));
+        }
     };
 
 
@@ -170,49 +169,19 @@
      * @returns {module:eclairjs.FloatRDD}
      */
     FloatRDD.prototype.repartition = function (numPartitions) {
-        throw "not implemented by ElairJS";
-//   return  this.getJavaObject().repartition(numPartitions);
+        return new FloatRDD(this.getJavaObject().repartition(numPartitions));
     };
-
-
-    /**
-     * Return an RDD with the elements from `this` that are not in `other`.
-     *
-     * Uses `this` partitioner/partition size, because even if `other` is huge, the resulting
-     * RDD will be &lt;= us.
-     * @param {module:eclairjs.FloatRDD} other
-     * @returns {module:eclairjs.FloatRDD}
-     */
-    FloatRDD.prototype.subtract0 = function (other) {
-        throw "not implemented by ElairJS";
-//   return  this.getJavaObject().subtract(other);
-    };
-
 
     /**
      * Return an RDD with the elements from `this` that are not in `other`.
      * @param {module:eclairjs.FloatRDD} other
-     * @param {number} numPartitions
+     * @param {number} [numPartitions]
      * @returns {module:eclairjs.FloatRDD}
      */
-    FloatRDD.prototype.subtract1 = function (other, numPartitions) {
-        throw "not implemented by ElairJS";
-//   return  this.getJavaObject().subtract(other,numPartitions);
+    FloatRDD.prototype.subtract = function (other, numPartitions) {
+        var jvmObj = numPartitions ? this.getJavaObject().subtract(other, numPartitions) : this.getJavaObject().subtract(other);
+        return new FloatRDD(jvmObj);
     };
-
-
-    /**
-     * Return an RDD with the elements from `this` that are not in `other`.
-     * @param {module:eclairjs.FloatRDD} other
-     * @param {module:eclairjs.Partitioner} p
-     * @returns {module:eclairjs.FloatRDD}
-     */
-    FloatRDD.prototype.subtract2 = function (other, p) {
-        throw "not implemented by ElairJS";
-//   var p_uw = Utils.unwrapObject(p);
-//   return  this.getJavaObject().subtract(other,p_uw);
-    };
-
 
     /**
      * Return a sampled subset of this RDD.
@@ -222,13 +191,13 @@
      * @returns {module:eclairjs.FloatRDD}
      */
     FloatRDD.prototype.sample = function (withReplacement, fraction, seed) {
-        throw "not implemented by ElairJS";
-// 
-//   if (arguments[2]) {
-//   return  this.getJavaObject().sample(withReplacement,fraction,seed);
-//   } else {
-//   return  this.getJavaObject().sample(withReplacement,fraction);
-//   }
+        var jvmObj;
+        if (seed) {
+            jvmObj = this.getJavaObject().sample(withReplacement, fraction, seed);
+        } else {
+            jvmObj = this.getJavaObject().sample(withReplacement, fraction);
+        }
+        return new FloatRDD(jvmObj);
     };
 
 
@@ -239,8 +208,7 @@
      * @returns {module:eclairjs.FloatRDD}
      */
     FloatRDD.prototype.union = function (other) {
-        throw "not implemented by ElairJS";
-//   return  this.getJavaObject().union(other);
+        return new FloatRDD(this.getJavaObject().union(other));
     };
 
 
@@ -253,8 +221,7 @@
      * @returns {module:eclairjs.FloatRDD}
      */
     FloatRDD.prototype.intersection = function (other) {
-        throw "not implemented by ElairJS";
-//   return  this.getJavaObject().intersection(other);
+        return new FloatRDD(this.getJavaObject().intersection(other));
     };
 
 
@@ -262,8 +229,7 @@
      * @returns {float}
      */
     FloatRDD.prototype.sum = function () {
-        throw "not implemented by ElairJS";
-//   return  this.getJavaObject().sum();
+        return this.getJavaObject().sum();
     };
 
 
@@ -273,8 +239,7 @@
      * @returns {float}  the minimum of the RDD
      */
     FloatRDD.prototype.min = function () {
-        throw "not implemented by ElairJS";
-//   return  this.getJavaObject().min();
+        return this.getJavaObject().min();
     };
 
 
@@ -284,20 +249,18 @@
      * @returns {float}  the maximum of the RDD
      */
     FloatRDD.prototype.max = function () {
-        throw "not implemented by ElairJS";
-//   return  this.getJavaObject().max();
+        return this.getJavaObject().max();
     };
 
 
     /**
-     * Return a {@link StatCounter} object that captures the mean, variance and
+     * Return a {@link module:eclairjs/util.StatCounter} object that captures the mean, variance and
      * count of the RDD's elements in one operation.
-     * @returns {StatCounter}
+     * @returns {module:eclairjs/util.StatCounter}
      */
     FloatRDD.prototype.stats = function () {
-        throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().stats();
-//   return new StatCounter(javaObject);
+        var javaObject = this.getJavaObject().stats();
+        return Utils.javaToJs(javaObject);
     };
 
 
@@ -321,8 +284,7 @@
      * @returns {float}
      */
     FloatRDD.prototype.stdev = function () {
-        throw "not implemented by ElairJS";
-//   return  this.getJavaObject().stdev();
+        return this.getJavaObject().stdev();
     };
 
 
@@ -332,8 +294,7 @@
      * @returns {float}
      */
     FloatRDD.prototype.sampleStdev = function () {
-        throw "not implemented by ElairJS";
-//   return  this.getJavaObject().sampleStdev();
+        return this.getJavaObject().sampleStdev();
     };
 
 
@@ -343,8 +304,7 @@
      * @returns {float}
      */
     FloatRDD.prototype.sampleVariance = function () {
-        throw "not implemented by ElairJS";
-//   return  this.getJavaObject().sampleVariance();
+        return this.getJavaObject().sampleVariance();
     };
 
 
@@ -354,15 +314,13 @@
      * @returns {module:eclairjs/partial.PartialResult}
      */
     FloatRDD.prototype.meanApprox = function (timeout, confidence) {
-        throw "not implemented by ElairJS";
-// 
-//   if (arguments[1]) {
-//   var javaObject =  this.getJavaObject().meanApprox(timeout,confidence);
-//   return new PartialResult(javaObject);
-//   } else {
-//   var javaObject =  this.getJavaObject().meanApprox(timeout);
-//   return new PartialResult(javaObject);
-//   }
+        var javaObject;
+        if (confidence) {
+            javaObject = this.getJavaObject().meanApprox(timeout, confidence);
+        } else {
+            javaObject = this.getJavaObject().meanApprox(timeout);
+        }
+        return Utils.javaToJs(javaObject)
     };
 
 
@@ -373,68 +331,31 @@
      * @returns {module:eclairjs/partial.PartialResult}
      */
     FloatRDD.prototype.sumApprox = function (timeout, confidence) {
-        throw "not implemented by ElairJS";
-// 
-//   if (arguments[1]) {
-//   var javaObject =  this.getJavaObject().sumApprox(timeout,confidence);
-//   return new PartialResult(javaObject);
-//   } else {
-//   var javaObject =  this.getJavaObject().sumApprox(timeout);
-//   return new PartialResult(javaObject);
-//   }
+        var javaObject;
+        if (confidence) {
+            javaObject = this.getJavaObject().sumApprox(timeout, confidence);
+        } else {
+            javaObject = this.getJavaObject().sumApprox(timeout);
+        }
+        return Utils.javaToJs(javaObject)
     };
 
-
     /**
-     * Compute a histogram of the data using bucketCount number of buckets evenly
+     *  Compute a histogram of the data using bucketCount number of buckets evenly
      *  spaced between the minimum and maximum of the RDD. For example if the min
      *  value is 0 and the max is 100 and there are two buckets the resulting
-     *  buckets will be [0,50) [50,100]. bucketCount must be at least 1
-     * If the RDD contains infinity, NaN throws an exception
-     * If the elements in RDD do not vary (max == min) always returns a single bucket.
-     * @param {number} bucketCount
-     * @returns {Pair}
+     * @param {float[] | integer} buckets
+     * @param {boolean} [evenBuckets]
+     * @returns {number[] | Tuple}
      */
-    FloatRDD.prototype.histogram0 = function (bucketCount) {
-        throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().histogram(bucketCount);
-//   return new Pair(javaObject);
-    };
-
-
-    /**
-     * Compute a histogram using the provided buckets. The buckets are all open
-     * to the left except for the last which is closed
-     *  e.g. for the array
-     *  [1,10,20,50] the buckets are [1,10) [10,20) [20,50]
-     *  e.g 1&lt;=x&lt;10 , 10&lt;=x&lt;20, 20&lt;=x&lt;50
-     *  And on the input of 1 and 50 we would have a histogram of 1,0,0
-     *
-     * Note: if your histogram is evenly spaced (e.g. [0, 10, 20, 30]) this can be switched
-     * from an O(log n) insertion to O(1) per element. (where n = # buckets) if you set evenBuckets
-     * to true.
-     * buckets must be sorted and not contain any duplicates.
-     * buckets array must be at least two elements
-     * All NaN entries are treated the same. If you have a NaN bucket it must be
-     * the maximum value of the last position and all NaN entries will be counted
-     * in that bucket.
-     * @param {number[]} buckets
-     * @returns {number[]}
-     */
-    FloatRDD.prototype.histogram1 = function (buckets) {
-        throw "not implemented by ElairJS";
-//   return  this.getJavaObject().histogram(buckets);
-    };
-
-
-    /**
-     * @param {float[]} buckets
-     * @param {boolean} evenBuckets
-     * @returns {number[]}
-     */
-    FloatRDD.prototype.histogram2 = function (buckets, evenBuckets) {
-        throw "not implemented by ElairJS";
-//   return  this.getJavaObject().histogram(buckets,evenBuckets);
+    FloatRDD.prototype.histogram = function (buckets, evenBuckets) {
+        var javaObj;
+        if (Array.isArray(buckets)) {
+            javaObj = evenBuckets ? this.getJavaObject().histogram(buckets, evenBuckets) : this.getJavaObject().histogram(buckets);
+        } else {
+            javaObj = this.getJavaObject().histogram(buckets);
+        }
+        return Utils.javaToJs(javaObj);
     };
 
 
@@ -443,8 +364,7 @@
      * @returns {module:eclairjs.FloatRDD}
      */
     FloatRDD.prototype.setName = function (name) {
-        throw "not implemented by ElairJS";
-//   return  this.getJavaObject().setName(name);
+        return this.getJavaObject().setName(name);
     };
 //
 // static methods
@@ -466,9 +386,8 @@
      * @returns {module:eclairjs.RDD}
      */
     FloatRDD.toRDD = function (rdd) {
-        throw "not implemented by ElairJS";
-//   var javaObject =  org.apache.spark.api.java.JavaDoubleRDD.toRDD(rdd);
-//   return new RDD(javaObject);
+        var javaObject = org.apache.spark.api.java.JavaDoubleRDD.toRDD(rdd);
+        return Utils.javaToJs(javaObject);
     };
 
     module.exports = FloatRDD;

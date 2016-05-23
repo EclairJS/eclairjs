@@ -104,5 +104,11 @@ var scIntAccumulator = function() {
 
 }
 
+var broadcast = function() {
+	var b = sparkContext.broadcast([1,2]);
+	return JSON.stringify(b.value());
+
+}
+
 
 

@@ -65,5 +65,64 @@ public class PairRDDTest {
 
     }
 
-    
+    @Test
+    public void aggregateByKey() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/pair_rdd_test.js");
+        Object ret = ((Invocable)engine).invokeFunction("aggregateByKey");
+
+        String expected = "[{\"0\":1,\"1\":{\"1\":2},\"length\":2},{\"0\":3,\"1\":{\"2\":1},\"length\":2},{\"0\":{\"0\":5,\"1\":3,\"length\":2},\"1\":{\"2\":1},\"length\":2},{\"0\":5,\"1\":{\"1\":1},\"length\":2}]";
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
+
+    @Test
+    public void foldByKey() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/pair_rdd_test.js");
+        Object ret = ((Invocable)engine).invokeFunction("foldByKey");
+
+        String expected = "[{\"0\":1,\"1\":1,\"length\":2},{\"0\":2,\"1\":2,\"length\":2},{\"0\":3,\"1\":3,\"length\":2}]";
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
+
+    @Test
+    public void cogroup() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/pair_rdd_test.js");
+        Object ret = ((Invocable)engine).invokeFunction("cogroup");
+
+        String expected = "[{\"0\":\"Apples\",\"1\":{\"0\":[\"Fruit\"],\"1\":[3],\"length\":2},\"length\":2},{\"0\":\"Oranges\",\"1\":{\"0\":[\"Fruit\",\"Citrus\"],\"1\":[2],\"length\":2},\"length\":2}]";
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
+
+    @Test
+    public void cogroup2() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/pair_rdd_test.js");
+        Object ret = ((Invocable)engine).invokeFunction("cogroup2");
+
+        String expected = "[{\"0\":\"Apples\",\"1\":{\"0\":[\"Fruit\"],\"1\":[3],\"2\":[42],\"length\":3},\"length\":2},{\"0\":\"Oranges\",\"1\":{\"0\":[\"Fruit\",\"Citrus\"],\"1\":[2],\"2\":[21],\"length\":3},\"length\":2}]";
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
+
+    @Test
+    public void cogroup3() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/pair_rdd_test.js");
+        Object ret = ((Invocable)engine).invokeFunction("cogroup3");
+
+        String expected = "[{\"0\":\"Apples\",\"1\":{\"0\":[\"Fruit\"],\"1\":[3],\"2\":[42],\"3\":[\"WA\"],\"length\":4},\"length\":2},{\"0\":\"Oranges\",\"1\":{\"0\":[\"Fruit\",\"Citrus\"],\"1\":[2],\"2\":[21],\"3\":[\"FL\"],\"length\":4},\"length\":2}]";
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
+
 }

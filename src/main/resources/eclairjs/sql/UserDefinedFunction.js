@@ -23,6 +23,7 @@
     
     
     /**
+     * Scala only
      * @classdesc
      * A user-defined function. To create one, use the `udf` functions in {@link functions}.
      * As an example:
@@ -37,6 +38,7 @@
      * @since EclairJS 0.5 Spark  1.3.0
      * @class
      * @memberof module:eclairjs/sql
+     * @ignore
      */
     
     
@@ -55,12 +57,14 @@
     
     /**
      * @param {...module:eclairjs/sql.Column} exprs
-     * @returns {module:eclairjs/sql.Column} 
+     * @returns {module:eclairjs/sql.Column}
+     * @ignore
      */
     UserDefinedFunction.prototype.apply = function(exprs) {
-       var exprs_uw = Utils.unwrapObject(exprs);
+        throw "Not supported in EclairJS"
+/*       var exprs_uw = Utils.unwrapObject(exprs);
        var javaObject =  this.getJavaObject().apply(exprs_uw);
-       return  Utils.javaToJs(javaObject);
+       return  Utils.javaToJs(javaObject);*/
     };
     
     module.exports = UserDefinedFunction;
