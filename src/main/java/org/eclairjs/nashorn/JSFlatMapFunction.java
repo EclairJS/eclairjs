@@ -32,6 +32,7 @@ import java.util.List;
 public class JSFlatMapFunction implements FlatMapFunction {
 	private String func = null;
 	private Object args[] = null;
+    private Object fn = null;
 
     public JSFlatMapFunction(String func,  Object[] o) {
         this.func = func;
@@ -42,9 +43,12 @@ public class JSFlatMapFunction implements FlatMapFunction {
 	@Override
     public Iterable call(Object o) throws Exception {
         ScriptEngine e =  NashornEngineSingleton.getEngine();
+        if (this.fn == null) {
+            this.fn = e.eval(func);
+        }
         Invocable invocable = (Invocable) e;
 
-        Object params[] = {this.func, o};
+        Object params[] = {this.fn, o};
 
         if (this.args != null && this.args.length > 0 ) {
             params = ArrayUtils.addAll(params, this.args);

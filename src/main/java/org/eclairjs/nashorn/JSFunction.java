@@ -16,9 +16,6 @@ s * Copyright 2015 IBM Corp.
 
 package org.eclairjs.nashorn;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import org.apache.commons.lang.ArrayUtils;
@@ -27,6 +24,7 @@ import org.apache.spark.api.java.function.Function;
 public class JSFunction implements Function {
     private String func = null;
     private Object args[] = null;
+    private Object fn = null;
 
     public JSFunction(String func, Object[] o) {
         this.func = func;
@@ -37,16 +35,19 @@ public class JSFunction implements Function {
     @Override
     public Object call(Object o) throws Exception {
         ScriptEngine e =  NashornEngineSingleton.getEngine();
+        if (this.fn == null) {
+            this.fn = e.eval(func);
+        }
         Invocable invocable = (Invocable) e;
 
-        Object params[] = {this.func, o};
+        Object params[] = {this.fn, o};
         
         if (this.args != null && this.args.length > 0 ) {
         	params = ArrayUtils.addAll(params, this.args);
         }
       
         Object ret = invocable.invokeFunction("Utils_invoke", params);
-        //return Utils.jsToJava(ret);
+
         return ret;
     }
 }

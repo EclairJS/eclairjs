@@ -27,6 +27,7 @@ import org.apache.spark.api.java.function.Function0;
 public class JSFunction0 implements Function0 {
     private String func = null;
     private Object args[] = null;
+    private Object fn = null;
 
     public JSFunction0(String func, Object[] o) {
         this.func = func;
@@ -37,16 +38,19 @@ public class JSFunction0 implements Function0 {
     @Override
     public Object call() throws Exception {
         ScriptEngine e =  NashornEngineSingleton.getEngine();
+        if (this.fn == null) {
+            this.fn = e.eval(func);
+        }
         Invocable invocable = (Invocable) e;
 
-        Object params[] = {this.func};
+        Object params[] = {this.fn};
 
         if (this.args != null && this.args.length > 0 ) {
         	params = ArrayUtils.addAll(params, this.args);
         }
 
         Object ret = invocable.invokeFunction("Utils_invoke", params);
-        //return Utils.jsToJava(ret);
+
         return ret;
     }
 }

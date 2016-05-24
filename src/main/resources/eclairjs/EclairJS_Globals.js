@@ -19,7 +19,7 @@ var EclairJS_Globals = {
 };
 
 function Utils_invoke(func) {
-    var fn = eval(func);
+    var fn = func;
     var a = Array.prototype.slice.call(arguments);
     var args = (arguments.length > 1)
         ? a.slice(1).map(function (arg) {
@@ -39,3 +39,4 @@ function Utils_invoke(func) {
 
     return ret;
 };
+

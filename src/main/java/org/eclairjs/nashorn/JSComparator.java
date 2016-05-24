@@ -31,6 +31,7 @@ public class JSComparator implements java.util.Comparator, java.io.Serializable 
     private String func = null;
     private Object args[] = null;
     private String functionName = null;
+    private Object fn = null;
 
     public JSComparator(String func, Object[] o) {
         this.func = func;
@@ -43,28 +44,14 @@ public class JSComparator implements java.util.Comparator, java.io.Serializable 
         int ret = -1;
 
         try {
-            /*
-            e.eval(this.func);
-            Invocable invocable = (Invocable) e;
-            Object arg0 = Utils.javaToJs(o, e);
-            Object arg1 = Utils.javaToJs(o2, e);
-            Object params[] = {arg0, arg1};
-        
-            if (this.args.length > 0 ) {
-        	    @SuppressWarnings("rawtypes")
-			    List sv = new ArrayList();
-        	    for (int i = 0; i < this.args.length; i++) {
-        		    sv.add(Utils.javaToJs(this.args[i], e));
-        	    }
-        	    params = ArrayUtils.addAll(params, sv.toArray());
-            }
- 
-            ret = Integer.valueOf(invocable.invokeFunction(this.functionName, params).toString());
-            */
+
             ScriptEngine e =  NashornEngineSingleton.getEngine();
+            if (this.fn == null) {
+                this.fn = e.eval(func);
+            }
             Invocable invocable = (Invocable) e;
 
-            Object params[] = {this.func, o, o2};
+            Object params[] = {this.fn, o, o2};
 
             if (this.args != null && this.args.length > 0 ) {
                 params = ArrayUtils.addAll(params, this.args);
@@ -74,7 +61,7 @@ public class JSComparator implements java.util.Comparator, java.io.Serializable 
 
 
             ret = Integer.valueOf(invocable.invokeFunction("Utils_invoke", params).toString());
-            //return Utils.jsToJava(ret);
+
             return ret;
         } catch(Exception exc) {
             exc.printStackTrace();
@@ -90,28 +77,14 @@ public class JSComparator implements java.util.Comparator, java.io.Serializable 
         boolean ret = false;
 
         try {
-            /*
-            e.eval(this.func);
-            Invocable invocable = (Invocable) e;
-            Object arg0 = Utils.javaToJs(o, e);
-            Object params[] = {arg0};
-
-            if (this.args.length > 0 ) {
-                @SuppressWarnings("rawtypes")
-                List sv = new ArrayList();
-                for (int i = 0; i < this.args.length; i++) {
-                    sv.add(Utils.javaToJs(this.args[i], e));
-                 }
-                params = ArrayUtils.addAll(params, sv.toArray());
-            }
-
-            ret = Boolean.valueOf(invocable.invokeFunction(this.functionName, params).toString());
-            */
 
             ScriptEngine e =  NashornEngineSingleton.getEngine();
+            if (this.fn == null) {
+                this.fn = e.eval(func);
+            }
             Invocable invocable = (Invocable) e;
 
-            Object params[] = {this.func, o};
+            Object params[] = {this.fn, o};
 
             if (this.args != null && this.args.length > 0 ) {
                 params = ArrayUtils.addAll(params, this.args);

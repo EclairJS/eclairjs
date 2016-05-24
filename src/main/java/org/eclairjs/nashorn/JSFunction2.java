@@ -28,6 +28,7 @@ public class JSFunction2 implements org.apache.spark.api.java.function.Function2
 
     private String func = null;
     private Object args[] = null;
+    private Object fn = null;
 
     public JSFunction2(String func, Object[] o) {
         this.func = func;
@@ -38,9 +39,12 @@ public class JSFunction2 implements org.apache.spark.api.java.function.Function2
     @Override
     public Object call(Object o, Object o2) throws Exception {
         ScriptEngine e =  NashornEngineSingleton.getEngine();
+        if (this.fn == null) {
+            this.fn = e.eval(func);
+        }
         Invocable invocable = (Invocable) e;
 
-        Object params[] = {this.func, o, o2};
+        Object params[] = {this.fn, o, o2};
 
         if (this.args != null && this.args.length > 0 ) {
             params = ArrayUtils.addAll(params, this.args);
