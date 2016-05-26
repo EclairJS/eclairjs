@@ -411,14 +411,13 @@
      * Note: If you are grouping in order to perform an aggregation (such as a sum or average) over
      * each key, using [[PairRDD.reduceByKey]] or {@link combineByKey}
      * will provide much better performance.
-     * @param {module:eclairjs.Partitioner | number} partitioner or number of partitions
+     * @param {integer} [number] or number of partitions
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.groupByKey = function (partitioner) {
+    PairRDD.prototype.groupByKey = function (number) {
         var javaObject;
-        if (partitioner) {
-            var partitioner_uw = Utils.unwrapObject(partitioner);
-            javaObject = this.getJavaObject().groupByKey(partitioner_uw);
+        if (number) {
+            javaObject = this.getJavaObject().groupByKey(number);
         } else {
             javaObject = this.getJavaObject().groupByKey();
         }

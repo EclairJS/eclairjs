@@ -191,3 +191,21 @@ var cogroup3 = function() {
     return JSON.stringify(cogrouped.collect());
 
 }
+
+var join = function() {
+    var Tuple = require(EclairJS_Globals.NAMESPACE + '/Tuple');
+
+    var movies = sparkContext.parallelizePairs([
+        new Tuple(1, "Toy Story"),
+        new Tuple(2, "Cars"),
+        new Tuple(3, "Star Wars")
+    ]);
+
+    var rating =sparkContext.parallelizePairs([
+        new Tuple(1, 10.0),
+        new Tuple(2, 9.734),
+        new Tuple(3, 10.0)
+    ]);
+    var movies_ratings = movies.join(rating);
+    return JSON.stringify(movies_ratings.collect());
+}

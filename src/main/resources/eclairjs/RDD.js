@@ -620,6 +620,18 @@
     };
 
     /**
+     * Return a new RDD by applying a function to all elements of this RDD.
+     * @param (function) func - (undocumented) Function with one parameter that returns tuple
+     * @param {Object[]} [bindArgs] array whose values will be added to func's argument list.
+     * @returns {module:eclairjs.FloatRDD}
+     */
+    RDD.prototype.mapToFloat = function (func, bindArgs) {
+        var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSDoubleFunction, this.context(), bindArgs);
+        var result = Utils.javaToJs(this.getJavaObject().mapToDouble(fn));
+        return result;
+    };
+
+    /**
      * Returns the max of this RDD as defined by the implicit Ordering[T].
      * @param (function) comparator - Compares its two arguments for order. Returns a negative integer, zero, or a positive integer as the first argument is less than, equal to, or greater than the second.
      * @param {Object[]} [bindArgs] - array whose values will be added to comparator's argument list.
@@ -935,20 +947,25 @@
     /**
      * Returns the first k (smallest) elements from this RDD as defined by the specified
      * implicit Ordering[T] and maintains the ordering. This does the opposite of {@link top}.
-     * For example:
-     * {{{
- *   sc.parallelize(Seq(10, 4, 2, 12, 3)).takeOrdered(1)
- *   // returns Array(2)
- *
- *   sc.parallelize(Seq(2, 3, 4, 5, 6)).takeOrdered(2)
- *   // returns Array(2, 3)
- * }}}
+     * @example
+     *     var result = rdd.takeOrdered(25, function(a, b){
+     *       return a > b ? -1 : a == b? 0 : 1;
+     *     });
      *
      * @param {number} num - the number of elements to return
+     * @param {function} [func] - compares to arguments
+     * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
      * @returns {Array}  an array of top elements
      */
-    RDD.prototype.takeOrdered = function (num) {
-        var res = this.getJavaObject().takeOrdered(num);
+    RDD.prototype.takeOrdered = function (num, func, bindArgs) {
+        var res;
+        if (func) {
+            var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSComparator, this.context(), bindArgs);
+            res = this.getJavaObject().takeOrdered(num, fn);
+        } else {
+            res = this.getJavaObject().takeOrdered(num);
+        }
+
         var results = [];
         for (var i = 0; i < res.size(); i++) {
             var value = res.get(i);
@@ -1180,8 +1197,8 @@
     RDD.prototype.zipWithUniqueId = function () {
         return Utils.javaToJs(this.getJavaObject().zipWithUniqueId());
     };
+
     RDD.prototype.toJSON = function () {
-        print("RDD to JSON")
         return Utils.javaToJs(this.getJavaObject().collect());
     };
 

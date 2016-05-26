@@ -25,11 +25,11 @@ var Tuple = require('eclairjs/Tuple');
 function run(sc) {
 
     var similarities = sc.parallelize([
-        new Tuple(0, 1, 0.9),
-        new Tuple(1, 2, 0.9),
-        new Tuple(2, 3, 0.9),
-        new Tuple(3, 4, 0.1),
-        new Tuple(4, 5, 0.9)
+        new Tuple(0.0, 1.0, 0.9),
+        new Tuple(1.0, 2.0, 0.9),
+        new Tuple(2.0, 3.0, 0.9),
+        new Tuple(3.0, 4.0, 0.1),
+        new Tuple(4.0, 5.0, 0.9)
     ]);
 
     var pic = new PowerIterationClustering()

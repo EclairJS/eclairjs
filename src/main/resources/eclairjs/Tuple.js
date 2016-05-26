@@ -36,7 +36,7 @@
         if ((arguments[0] instanceof Serialize.scalaProductClass) && (arguments[0].getClass().getName().indexOf("scala.Tuple") > -1)) {
             this.setJavaObject(arguments[0]);
         } else {
-            while (i--) {
+            for (var i = 0; i < arguments.length; i++) {
                 this[i] = arguments[i];
                 /*
                  for some reason javaScript numbers with the type of java.lang.Double and
@@ -61,7 +61,7 @@
      * @param {Function} unpacker Is passed all of the tuples values in order, it's return value will be returned.
      * @return {object} The value that the unpacker function returns.
      */
-    Tuple.prototype.unpack = function unpack(unpacker) {
+    Tuple.prototype.unpack = function (unpacker) {
         return unpacker.apply(this, this);
     };
 
@@ -70,7 +70,7 @@
      *
      * @return {String} A textual representation of the tuples contents.
      */
-    Tuple.prototype.toString = function toString() {
+    Tuple.prototype.toString = function () {
         var values = this.toArray().join(',');
         return ['(', values, ')'].join('');
     };
@@ -81,7 +81,7 @@
      *
      * @return {object[]} All of the tuples values contained within an array.
      */
-    Tuple.prototype.toArray = function toArray() {
+    Tuple.prototype.toArray = function () {
         return Array.prototype.slice.call(this);
     };
 
@@ -95,7 +95,7 @@
      *
      * @param {Function} callback Is passed every value in the tuple, one at a time.
      */
-    Tuple.prototype.forEach = function forEach(callback) {
+    Tuple.prototype.forEach = function (callback) {
         var length = this.length;
         var i;
 
@@ -113,7 +113,7 @@
      * @param {Object} target A tuple instance or any other array-like object you wish to compare to.
      * @return {Boolean} True if the tuples length and values match, false if not.
      */
-    Tuple.prototype.equals = function equals(target) {
+    Tuple.prototype.equals = function (target) {
         var i = this.length;
 
         if (i !== target.length) {
@@ -141,7 +141,7 @@
      *
      * @return {object} The product of all values contained within the tuple.
      */
-    Tuple.prototype.valueOf = function valueOf() {
+    Tuple.prototype.valueOf = function () {
         var value = this[0];
         var length = this.length;
         var i;
@@ -153,7 +153,7 @@
         return value;
     };
 
-    Tuple.prototype.getJavaObject = function getJavaObject() {
+    Tuple.prototype.getJavaObject = function () {
         var length = this.length;
         var i;
         var javaObj = [];
@@ -167,20 +167,39 @@
              back to java.lang.Double on the way out
              */
             var obj;
-            if (this._objectTypes[i] && (this._objectTypes[i] == java.lang.Double.class)) {
-                obj = Serialize.jsToJava(Number(this[i]))
+            if (this._objectTypes[i]) {
+                this.logger.debug("de-serialized this._objectTypes[i]" + this._objectTypes[i]);
+                if (this._objectTypes[i] == java.lang.Double.class) {
+                    obj = Serialize.jsToJava(Number(this[i])); // returns Double type
+                    expression += "javaObj[" + i + "]";
+               } else if (this._objectTypes[i] == java.lang.Integer.class) {
+                    this.logger.debug("force to int");
+                    obj =  + this[i]; // force to Integer type
+                    expression += "java.lang.Integer.parseInt(javaObj[" + i + "])";
+                } else if (this._objectTypes[i] == java.lang.Long.class) {
+                    this.logger.debug("force to int");
+                    obj =  + this[i]; // force to Long type
+                    expression += "java.lang.Long.parseLong(javaObj[" + i + "])";
+                } else {
+                    obj = Serialize.jsToJava(this[i]);
+                    expression += "javaObj[" + i + "]";
+                }
             } else {
                 obj = Serialize.jsToJava(this[i]);
+                expression += "javaObj[" + i + "]";
+
             }
             this.logger.debug("de-serialized " + obj);
             javaObj.push(obj);
 
-            expression += "javaObj[" + i + "]";
+            //expression += "javaObj[" + i + "]";
             if (i < length - 1) {
                 expression += ",";
             }
         }
         expression += ")";
+        this.logger.debug("javaObj " + javaObj);
+        this.logger.debug("expression " + expression);
         var retObj = eval('(' + expression + ')');
         this.logger.debug("getJavaObj returning " + retObj.class + " with value " + retObj.toString());
         return retObj;

@@ -125,4 +125,16 @@ public class PairRDDTest {
 
     }
 
+    @Test
+    public void join() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/pair_rdd_test.js");
+        Object ret = ((Invocable)engine).invokeFunction("join");
+
+        String expected = "[{\"0\":1,\"1\":{\"0\":\"Toy Story\",\"1\":10,\"length\":2},\"length\":2},{\"0\":2,\"1\":{\"0\":\"Cars\",\"1\":9.734,\"length\":2},\"length\":2},{\"0\":3,\"1\":{\"0\":\"Star Wars\",\"1\":10,\"length\":2},\"length\":2}]";
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
+
 }

@@ -60,17 +60,17 @@
 
 
     /**
-     * @param {number | module:eclairjs.RDD} user
-     * @param {number} product
+     * @param {integer | module:eclairjs.RDD} user
+     * @param {integer} [product] Required if argument one is integer
      * @returns {module:eclairjs.RDD | number}
      */
     MatrixFactorizationModel.prototype.predict = function (user, product) {
-        //  TODO: handle Tuple conversion for 'usersProducts'
         if (product) {
             return this.getJavaObject().predict(user, product);
         } else {
             var usersProducts_uw = Utils.unwrapObject(user);
-            var javaObject = this.getJavaObject().predict(usersProducts_uw.rdd());
+            var rdd = usersProducts_uw.rdd();
+            var javaObject = this.getJavaObject().predict(rdd);
             return Utils.javaToJs(javaObject.toJavaRDD());
         }
     };

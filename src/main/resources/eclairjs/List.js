@@ -23,7 +23,7 @@
      * in the list each element is inserted. The user can access elements by their integer index (position in the list),
      * and search for elements in the list.
      * @classdesc
-     * @param obj
+     * @param {object} [obj]
      * @constructor
      * @memberof module:eclairjs
      */

@@ -60,7 +60,10 @@
      */
     var ALS = function (jvmObject) {
 
-        this.logger = Logger.getLogger("ALS_js");
+        this.logger = Logger.getLogger("mllib_recommendation_ALS_js");
+        if (!jvmObject) {
+            jvmObject = new org.apache.spark.mllib.recommendation.ALS();
+        }
         JavaWrapper.call(this, jvmObject);
 
     };
@@ -77,9 +80,8 @@
      * @returns {}
      */
     ALS.prototype.setBlocks = function (numBlocks) {
-        throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().setBlocks(numBlocks);
-//   return new (javaObject);
+        var javaObject = this.getJavaObject().setBlocks(numBlocks);
+        return new ALS(javaObject);
     };
 
 
@@ -89,9 +91,8 @@
      * @returns {}
      */
     ALS.prototype.setUserBlocks = function (numUserBlocks) {
-        throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().setUserBlocks(numUserBlocks);
-//   return new (javaObject);
+        var javaObject = this.getJavaObject().setUserBlocks(numUserBlocks);
+        return new ALS(javaObject);
     };
 
 
@@ -101,9 +102,8 @@
      * @returns {}
      */
     ALS.prototype.setProductBlocks = function (numProductBlocks) {
-        throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().setProductBlocks(numProductBlocks);
-//   return new (javaObject);
+        var javaObject = this.getJavaObject().setProductBlocks(numProductBlocks);
+        return new ALS(javaObject);
     };
 
 
@@ -112,9 +112,8 @@
      * @returns {}
      */
     ALS.prototype.setRank = function (rank) {
-        throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().setRank(rank);
-//   return new (javaObject);
+        var javaObject = this.getJavaObject().setRank(rank);
+        return new ALS(javaObject);
     };
 
 
@@ -123,9 +122,8 @@
      * @returns {}
      */
     ALS.prototype.setIterations = function (iterations) {
-        throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().setIterations(iterations);
-//   return new (javaObject);
+        var javaObject = this.getJavaObject().setIterations(iterations);
+        return new ALS(javaObject);
     };
 
 
@@ -134,9 +132,8 @@
      * @returns {}
      */
     ALS.prototype.setLambda = function (lambda) {
-        throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().setLambda(lambda);
-//   return new (javaObject);
+        var javaObject = this.getJavaObject().setLambda(lambda);
+        return new ALS(javaObject);
     };
 
 
@@ -145,9 +142,8 @@
      * @returns {}
      */
     ALS.prototype.setImplicitPrefs = function (implicitPrefs) {
-        throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().setImplicitPrefs(implicitPrefs);
-//   return new (javaObject);
+        var javaObject = this.getJavaObject().setImplicitPrefs(implicitPrefs);
+        return new ALS(javaObject);
     };
 
 
@@ -157,9 +153,8 @@
      * @returns {}
      */
     ALS.prototype.setAlpha = function (alpha) {
-        throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().setAlpha(alpha);
-//   return new (javaObject);
+        var javaObject = this.getJavaObject().setAlpha(alpha);
+        return new ALS(javaObject);
     };
 
 
@@ -168,9 +163,8 @@
      * @returns {}
      */
     ALS.prototype.setSeed = function (seed) {
-        throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().setSeed(seed);
-//   return new (javaObject);
+        var javaObject = this.getJavaObject().setSeed(seed);
+        return new ALS(javaObject);
     };
 
 
@@ -181,9 +175,8 @@
      * @returns {}
      */
     ALS.prototype.setNonnegative = function (b) {
-        throw "not implemented by ElairJS";
-//   var javaObject =  this.getJavaObject().setNonnegative(b);
-//   return new (javaObject);
+        var javaObject = this.getJavaObject().setNonnegative(b);
+        return new ALS(javaObject);
     };
 
 
@@ -193,25 +186,12 @@
      * @param {module:eclairjs.RDD} ratings
      * @returns {module:eclairjs/mllib/recommendation.MatrixFactorizationModel}
      */
-    ALS.prototype.runwithRDD = function (ratings) {
-        throw "not implemented by ElairJS";
-//   var ratings_uw = Utils.unwrapObject(ratings);
-//   var javaObject =  this.getJavaObject().run(ratings_uw);
-//   return new MatrixFactorizationModel(javaObject);
+    ALS.prototype.run = function (ratings) {
+        var ratings_uw = Utils.unwrapObject(ratings);
+        var javaObject = this.getJavaObject().run(ratings_uw);
+        return Utils.javaToJs(javaObject);
     };
 
-
-    /**
-     * Java-friendly version of {@link run}.
-     * @param {module:eclairjs.RDD} ratings
-     * @returns {module:eclairjs/mllib/recommendation.MatrixFactorizationModel}
-     */
-    ALS.prototype.runwithJavaRDD = function (ratings) {
-        throw "not implemented by ElairJS";
-//   var ratings_uw = Utils.unwrapObject(ratings);
-//   var javaObject =  this.getJavaObject().run(ratings_uw);
-//   return new MatrixFactorizationModel(javaObject);
-    };
 //
 // static methods
 //
