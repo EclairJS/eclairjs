@@ -24,6 +24,7 @@ import javax.script.ScriptEngine;
 public class JSUDF15 extends JSUDF implements UDF15 {
     private String func = null;
     private Object args[] = null;
+    private Object fn = null;
 
     public JSUDF15(String func, Object[] o) {
         this.func = func;
@@ -36,9 +37,12 @@ public class JSUDF15 extends JSUDF implements UDF15 {
                        Object o10, Object o11, Object o12, Object o13, Object o14, Object o15
                     ) throws Exception {
         ScriptEngine e =  NashornEngineSingleton.getEngine();
+        if (this.fn == null) {
+            this.fn = e.eval(func);
+        }
         Invocable invocable = (Invocable) e;
 
-        Object params[] = {this.func, o, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15};
+        Object params[] = {this.fn, o, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15};
 
         if (this.args != null && this.args.length > 0 ) {
             params = ArrayUtils.addAll(params, this.args);

@@ -24,6 +24,7 @@ import javax.script.ScriptEngine;
 public class JSUDF8 extends JSUDF implements UDF8 {
     private String func = null;
     private Object args[] = null;
+    private Object fn = null;
 
     public JSUDF8(String func, Object[] o) {
         this.func = func;
@@ -34,9 +35,12 @@ public class JSUDF8 extends JSUDF implements UDF8 {
     @Override
     public Object call(Object o, Object o2, Object o3, Object o4,Object o5, Object o6, Object o7, Object o8) throws Exception {
         ScriptEngine e =  NashornEngineSingleton.getEngine();
+        if (this.fn == null) {
+            this.fn = e.eval(func);
+        }
         Invocable invocable = (Invocable) e;
 
-        Object params[] = {this.func, o, o2, o3, o4, o5, o6, o7, o8};
+        Object params[] = {this.fn, o, o2, o3, o4, o5, o6, o7, o8};
 
         if (this.args != null && this.args.length > 0 ) {
             params = ArrayUtils.addAll(params, this.args);
