@@ -46,18 +46,22 @@ public class JSComparator implements java.util.Comparator, java.io.Serializable 
         try {
 
             ScriptEngine e =  NashornEngineSingleton.getEngine();
-            if (this.fn == null) {
-                this.fn = e.eval(func);
-            }
+           // if (this.fn == null) {
+            /*
+            if we try to save teh evaluated function for future use we get serialization exception,
+            why Comparators are different than java.api.functions ?
+             */
+                Object fn = e.eval(func);
+            //}
             Invocable invocable = (Invocable) e;
 
-            Object params[] = {this.fn, o, o2};
+            Object params[] = {fn, o, o2};
 
             if (this.args != null && this.args.length > 0 ) {
                 params = ArrayUtils.addAll(params, this.args);
             }
-            Tuple2<String, String> s = new Tuple2("foo", "bar");
-            scala.collection.Iterator<Object> i = s.productIterator();
+            //Tuple2<String, String> s = new Tuple2("foo", "bar");
+            //scala.collection.Iterator<Object> i = s.productIterator();
 
 
             ret = Integer.valueOf(invocable.invokeFunction("Utils_invoke", params).toString());
