@@ -64,18 +64,14 @@ list.count();
 **Prerequisites**
 
 - [Jupyter](http://jupyter.org/)
-- [Apache Toree](https://github.com/apache/incubator-toree) Toree needs to be built for Apache Spark 1.6.0, set the environment variable ````export APACHE_SPARK_VERSION=1.6.0```` before building Toree with ````make dist```` and then publish to local maven repository with ````sbt publishM2````
- - _Note: On the ````sbt publishM2```` you may see an error something like ````[error] (toree/compile:packageBin) java.util.zip.ZipException: duplicate entry: LICENSE```` at the very end.  This doesn't really effect anything and you should be able to proceed with the following instructions._
-
+- [Apache Toree](https://github.com/apache/incubator-toree) Install Toree  ````pip install toree==0.1.0.dev7```` Note where the ````site-packages```` are located for example ````/Library/Python/2.7/site-packages````
 Instructions:
 
-1. Edit pom.xml under eclairjs-nashorn project root and change the reference to ````toree-assembly-<version>-incubating-SNAPSHOT.jar```` to point to the one under your incubator-toree project e.g. ````<path to incubator-toree distribution>/toree/lib/toree-assembly-<version>-incubating-SNAPSHOT.jar````
-
-2. ````mvn package -Pnotebook````
+1.  Rebuild ````mvn package -Pnotebook````
 
 3. Edit kernel.json and update the following:
  ```bash
- <path to incubator-toree distribution>/toree/bin/run.sh
+ <path to Pyton/sitepagages>/toree/bin/run.sh
  "SPARK_OPTS": --jars file:<path to nashorn jar>
  "SPARK_HOME": <path to spark 1.6.0 distribution>
  ```

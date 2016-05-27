@@ -16,7 +16,7 @@
 
 /*
  Usage:
- bin/eclairjs.sh examples/ml/movie_recommender.js"
+ bin/eclairjs.sh examples/mllib/movie_recommennder.js"
  */
 
 function run(sc) {
