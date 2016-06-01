@@ -221,13 +221,13 @@ public class MlTest {
 
         String schema = "{" +
                             "\"fields\":[" +
-                                "{\"name\":\"text\",\"dataType\":\"array\",\"nullable\":false}," +
+                                "{\"name\":\"text\",\"dataType\":\"array<string>\",\"nullable\":false}," +
                                 "{\"name\":\"feature\",\"dataType\":\"vector\",\"nullable\":true}" +
                             "]" +
                         "}";
         String expected = "[" +
-                            "{\"values\":[null,[1,1,1]],\"schema\":"+schema+"}," +
-                            "{\"values\":[null,[2,2,1]],\"schema\":"+schema+"}" +
+                            "{\"values\":[[\"a\",\"b\",\"c\"],[1,1,1]],\"schema\":"+schema+"}," +
+                            "{\"values\":[[\"a\",\"b\",\"b\",\"c\",\"a\"],[2,2,1]],\"schema\":"+schema+"}" +
                         "]";
 
         assertEquals("failure - strings are not equal", expected, ret);

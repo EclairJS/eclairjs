@@ -59,8 +59,7 @@
      * @returns {module:eclairjs/sql/types.DataType}
      */
     StructField.prototype.dataType = function () {
-        //DataType	dataType()
-        return new DataType(this.getJavaObject().dataType());
+        return Utils.javaToJs(this.getJavaObject().dataType());
     };
     /**
      * @returns {module:eclairjs/sql/types.Metadata}
