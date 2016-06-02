@@ -20,7 +20,7 @@
  */
 
 function run(sparkContext) {
-    var Tuple = require('eclairjs/Tuple');
+    var Tuple2 = require('eclairjs/Tuple2');
 
     var file = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "./examples/data/dream.txt";
 
@@ -36,17 +36,17 @@ function run(sparkContext) {
         return word.trim().length > 0;
     });
 
-    var rdd4 = rdd3.mapToPair(function (word, Tuple) {
-        return new Tuple(word, 1);
-    }, [Tuple]);
+    var rdd4 = rdd3.mapToPair(function (word, Tuple2) {
+        return new Tuple2(word, 1);
+    }, [Tuple2]);
 
     var rdd5 = rdd4.reduceByKey(function (a, b) {
         return a + b;
     });
 
-    var rdd6 = rdd5.mapToPair(function (tuple, Tuple) {
-        return new Tuple(tuple[1] + 0.0, tuple[0]);
-    }, [Tuple])
+    var rdd6 = rdd5.mapToPair(function (tuple, Tuple2) {
+        return new Tuple2(tuple._2() + 0.0, tuple._1());
+    }, [Tuple2])
 
     var rdd7 = rdd6.sortByKey(false);
     return JSON.stringify(rdd7.take(10));

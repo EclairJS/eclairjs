@@ -29,7 +29,7 @@ function run(sc) {
     var LBFGS = require("eclairjs/mllib/optimization/LBFGS");
     var LogisticGradient = require("eclairjs/mllib/optimization/LogisticGradient");
     var SquaredL2Updater = require("eclairjs/mllib/optimization/SquaredL2Updater");
-    var Tuple = require('eclairjs/Tuple');
+    var Tuple2 = require('eclairjs/Tuple2');
 
     var path = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/sample_libsvm_data.txt";
     var data = MLUtils.loadLibSVMFile(sc, path);
@@ -42,13 +42,13 @@ function run(sc) {
     var test = data.subtract(trainingInit);
 
     // Append 1 into the training data as intercept.
-    var training = data.map(function (lp, Tuple, MLUtils) {
+    var training = data.map(function (lp, Tuple2, MLUtils) {
         /*
             NOTE: MLUtils must be defined in the Global scope,
             or in this LAMBDA function.
          */
-        return new Tuple(lp.getLabel(), MLUtils.appendBias(lp.getFeatures()));
-    }, [Tuple, MLUtils]);
+        return new Tuple2(lp.getLabel(), MLUtils.appendBias(lp.getFeatures()));
+    }, [Tuple2, MLUtils]);
 
     training.cache();
 
@@ -75,8 +75,8 @@ function run(sc) {
         regParam,
         initialWeightsWithIntercept);
 
-    var weightsWithIntercept = result[0];
-    ret.loss = result[1];
+    var weightsWithIntercept = result._1();
+    ret.loss = result._2();
 
 
     var arrayWeightsWithIntercept = weightsWithIntercept.toArray();
@@ -93,9 +93,9 @@ function run(sc) {
 // Clear the default threshold.
     model.clearThreshold();
 
-    var scoreAndLabels = test.map(function (lp, model, Tuple) {
-        return new Tuple(model.predict(lp.getFeatures()), lp.getLabel());
-    }, [model, Tuple]);
+    var scoreAndLabels = test.map(function (lp, model, Tuple2) {
+        return new Tuple2(model.predict(lp.getFeatures()), lp.getLabel());
+    }, [model, Tuple2]);
 
 // Get evaluation metrics.
     var metrics = new BinaryClassificationMetrics(scoreAndLabels);

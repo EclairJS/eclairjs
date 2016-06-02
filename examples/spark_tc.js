@@ -20,7 +20,7 @@
  */
 var numEdges = 200;
 var numVertices = 50;
-var Tuple = require('eclairjs/Tuple');
+var Tuple2 = require('eclairjs/Tuple2');
 
 function random(max) {
 	return Math.floor(Math.random() * max);
@@ -32,7 +32,7 @@ function generateGraph(){
 	while (edges.length < numEdges) {
 		var from = random(numVertices);
 		var to = random(numVertices);
-		var tuple  = new Tuple(from, to);
+		var tuple  = new Tuple2(from, to);
 		if (from != to) {
 			var found=false;
 			for (var t in edges)
@@ -60,9 +60,9 @@ var tc = sc.parallelizePairs(generateGraph(), slices).cache();
 // the graph to obtain the path (x, z).
 
 // Because join() joins on keys, the edges are stored in reversed order.
-var edges = tc.mapToPair(function(tuple, Tuple) {
-	return new Tuple(tuple[1], tuple[0]);
-}, [Tuple]);
+var edges = tc.mapToPair(function(tuple, Tuple2) {
+	return new Tuple2(tuple._2(), tuple._1());
+}, [Tuple2]);
 
 
 var oldCount;
@@ -71,9 +71,9 @@ do {
 	oldCount = nextCount;
 	// Perform the join, obtaining an RDD of (y, (z, x)) pairs,
 	// then project the result to obtain the new (x, z) paths.
-	tc = tc.union(tc.join(edges).mapToPair(function(triple, Tuple){
-		return new Tuple(triple[1][1],triple[1][0]);
-	}, [Tuple])).distinct().cache();
+	tc = tc.union(tc.join(edges).mapToPair(function(triple, Tuple2){
+		return new Tuple2(triple._2()._2(),triple._2()._1());
+	}, [Tuple2])).distinct().cache();
 	nextCount = tc.count();
 
 } while (nextCount != oldCount);

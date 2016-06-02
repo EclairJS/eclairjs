@@ -18,6 +18,33 @@ var EclairJS_Globals = {
     NAMESPACE: 'eclairjs'
 };
 
+/**
+ *  We need to replace the Nashorn's implementation of parseInt becouse it returns
+ *  a java.lang.Double. Why you ask, that is a good question!
+ *  Any way this really mess up spark as we need a parseInt to be a java.lang.Integer
+ *  so we will replace it globally with an implementation that works for spark
+ * @param string
+ * @param radix
+ * @returns {Number}
+ * @private
+ */
+parseInt = function(string, radix) {
+
+    var val = NaN;
+    try{
+        if (radix) {
+            val = java.lang.Integer.parseInt(string, radix);
+        } else {
+            val = java.lang.Integer.parseInt(string);
+        }
+    } catch (e) {
+        // bad parseInt value
+    }
+
+    return val;
+};
+
+
 function Utils_invoke(func) {
     var fn = func;
     var a = Array.prototype.slice.call(arguments);

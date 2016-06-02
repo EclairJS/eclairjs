@@ -22,7 +22,7 @@
 var ALS = require('eclairjs/mllib/recommendation/ALS');
 var MatrixFactorizationModel = require('eclairjs/mllib/recommendation/MatrixFactorizationModel');
 var Rating = require('eclairjs/mllib/recommendation/Rating');
-var Tuple = require('eclairjs/Tuple');
+var Tuple2 = require('eclairjs/Tuple2');
 var FloatRDD = require('eclairjs/FloatRDD');
 var PairRDD = require('eclairjs/PairRDD');
 
@@ -42,21 +42,21 @@ function run(sc) {
     var model = ALS.train(ratings, rank, numIterations, 0.01);
 
 // Evaluate the model on rating data
-    var userProducts = ratings.map(function (r, Tuple) {
-        return new Tuple(r.user(), r.product());
+    var userProducts = ratings.map(function (r, Tuple2) {
+        return new Tuple2(r.user(), r.product());
 
-    }, [Tuple]);
+    }, [Tuple2]);
 
-    var predictions = PairRDD.fromRDD(model.predict(userProducts).map(function (r, Tuple) {
-        return new Tuple(new Tuple(r.user(), r.product()), r.rating());
-    }, [Tuple]));
+    var predictions = PairRDD.fromRDD(model.predict(userProducts).map(function (r, Tuple2) {
+        return new Tuple2(new Tuple2(r.user(), r.product()), r.rating());
+    }, [Tuple2]));
 
-    var ratesAndPreds =  PairRDD.fromRDD(ratings.map(function (r, Tuple) {
-        return new Tuple(new Tuple(r.user(), r.product()), r.rating());
-    }, [Tuple])).join(predictions).values();
+    var ratesAndPreds =  PairRDD.fromRDD(ratings.map(function (r, Tuple2) {
+        return new Tuple2(new Tuple2(r.user(), r.product()), r.rating());
+    }, [Tuple2])).join(predictions).values();
 
     var MSE = FloatRDD.fromRDD(ratesAndPreds.map(function (pair) {
-        var err = pair[0] - pair[1];
+        var err = pair._1() - pair._2();
         return err * err;
 
     })).mean();

@@ -71,10 +71,20 @@ Serialize.javaList = function (javaObj) {
 Serialize.scalaProductClass = Java.type("scala.Product");
 Serialize.scalaTuple = function (javaObj) {
     var ret = false;
-    if ((javaObj instanceof Serialize.scalaProductClass) && (javaObj.getClass().getName().indexOf("scala.Tuple") > -1)) {
-        Serialize.logger.debug("Tuple - " + javaObj);
-        var Tuple = require('eclairjs/Tuple');
-        ret = new Tuple(javaObj);
+    if (javaObj instanceof Serialize.scalaProductClass) {
+        if (javaObj.getClass().getName().indexOf("scala.Tuple2") > -1) {
+            Serialize.logger.debug("Tuple - " + javaObj);
+            var Tuple2 = require('eclairjs/Tuple2')
+            ret = new Tuple2(javaObj);
+        } else if (javaObj.getClass().getName().indexOf("scala.Tuple3") > -1) {
+            Serialize.logger.debug("Tuple - " + javaObj);
+            var Tuple3 = require('eclairjs/Tuple3');
+            ret = new Tuple3(javaObj);
+        } else if (javaObj.getClass().getName().indexOf("scala.Tuple4") > -1) {
+            Serialize.logger.debug("Tuple - " + javaObj);
+            var Tuple4 = require('eclairjs/Tuple4');
+            ret = new Tuple4(javaObj);
+        }
     }
 
     return ret;

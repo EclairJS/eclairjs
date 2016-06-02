@@ -36,7 +36,7 @@
 
 function run(sc) {
     var List = require('eclairjs/List');
-    var Tuple = require('eclairjs/Tuple');
+    var Tuple2 = require('eclairjs/Tuple2');
 
     // Loads in input file. It should be in format of:
     //     URL         neighbor URL
@@ -46,10 +46,10 @@ function run(sc) {
     var lines = sc.textFile(filename, 1);
 
     // Loads all URLs from input file and initialize their neighbors.
-    var links = lines.mapToPair(function (s, Tuple) {
+    var links = lines.mapToPair(function (s, Tuple2) {
         var parts = s.split(/\s+/);
-        return new Tuple(parts[0], parts[1]);
-    }, [Tuple]).distinct().groupByKey().cache();
+        return new Tuple2(parts[0], parts[1]);
+    }, [Tuple2]).distinct().groupByKey().cache();
 
 
     // Loads all URLs with other URL(s) link to from input file and initialize ranks of them to one.
@@ -61,15 +61,15 @@ function run(sc) {
     for (var current = 0; current < iters; current++) {
         // Calculates URL contributions to the rank of other URLs.
         var contribs = links.join(ranks).values()
-            .flatMapToPair(function (tuple, List, Tuple) {
-                var t = tuple[0];
+            .flatMapToPair(function (tuple, List, Tuple2) {
+                var t = tuple._1();
                 var urlCount = t.length;
                 var results = new List();
                 for (var n = 0; n < urlCount; n++) {
-                    results.add(new Tuple(t[n], tuple[1] / urlCount));
+                    results.add(new Tuple2(t[n], tuple._2() / urlCount));
                 }
                 return results;
-            }, [List, Tuple]);
+            }, [List, Tuple2]);
 
         // Re-calculates URL ranks based on neighbor contributions.
         ranks = contribs.reduceByKey(function (a, b) {
@@ -84,7 +84,7 @@ function run(sc) {
     var output = ranks.collect();
     var result = "";
     for (var i = 0; i < output.length; i++) {
-        result += output[i][0] + " has rank: " + output[i][1] + ".\n";
+        result += output[i]._1() + " has rank: " + output[i]._2() + ".\n";
     }
     return result;
 }

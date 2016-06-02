@@ -21,17 +21,17 @@
  */
 
 var MultilabelMetrics = require('eclairjs/mllib/evaluation').MultilabelMetrics;
-var Tuple = require('eclairjs/Tuple');
+var Tuple2 = require('eclairjs/Tuple2');
 
 function run(sc) {
 
     var data = [
-        new Tuple([0.0, 1.0], [0.0, 2.0]),
-        new Tuple([0.0, 2.0], [0.0, 1.0]),
-        new Tuple([2.0], [2.0]),
-        new Tuple([2.0, 0.0], [2.0, 0.0]),
-        new Tuple([0.0, 1.0, 2.0], [0.0, 1.0]),
-        new Tuple([1.0], [1.0, 2.0])
+        new Tuple2([0.0, 1.0], [0.0, 2.0]),
+        new Tuple2([0.0, 2.0], [0.0, 1.0]),
+        new Tuple2([2.0],[2.0]),
+        new Tuple2([2.0, 0.0], [2.0, 0.0]),
+        new Tuple2([0.0, 1.0, 2.0], [0.0, 1.0]),
+        new Tuple2([1.0], [1.0, 2.0])
     ];
 
     var scoreAndLabels = sc.parallelize(data);

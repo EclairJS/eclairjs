@@ -21,7 +21,7 @@
 
 var LDA = require('eclairjs/mllib/clustering/LDA');
 var Vectors = require('eclairjs/mllib/linalg/Vectors');
-var Tuple = require('eclairjs/Tuple');
+var Tuple2 = require('eclairjs/Tuple2');
 var PairRDD = require('eclairjs/PairRDD');
 
 function run(sc) {
@@ -38,9 +38,9 @@ function run(sc) {
         return Vectors.dense(values);
     }, [Vectors]);
 // Index documents with unique IDs
-    var data = parsedData.zipWithIndex().map(function (doc_id, Tuple) {
-        return new Tuple(doc_id[1], doc_id[0]); // swap
-    }, [Tuple]);
+    var data = parsedData.zipWithIndex().map(function (doc_id, Tuple2) {
+        return new Tuple2(doc_id._2(), doc_id._1()); // swap
+    }, [Tuple2]);
     var corpus = PairRDD.fromRDD(data).cache();
 
 // Cluster the documents into three topics using LDA
