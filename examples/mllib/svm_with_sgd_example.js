@@ -25,7 +25,7 @@ function run(sc) {
     var MLUtils = require("eclairjs/mllib/MLUtils");
     var SVMWithSGD = require('eclairjs/mllib/classification').SVMWithSGD;
     var BinaryClassificationMetrics = require('eclairjs/mllib/evaluation/BinaryClassificationMetrics');
-    var Tuple = require('eclairjs/Tuple');
+    var Tuple2 = require('eclairjs/Tuple2');
 
     var path = "examples/data/mllib/sample_libsvm_data.txt";
     var data = MLUtils.loadLibSVMFile(sc, path);
@@ -43,10 +43,10 @@ function run(sc) {
     model.clearThreshold();
 
 // Compute raw scores on the test set.
-    var scoreAndLabels = test.map(function (lp, model, Tuple) {
+    var scoreAndLabels = test.map(function (lp, model, Tuple2) {
         var score = model.predict(lp.getFeatures());
-        return new Tuple(score, lp.getLabel());
-    }, [model, Tuple]);
+        return new Tuple2(score, lp.getLabel());
+    }, [model, Tuple2]);
 
 
 // Get evaluation metrics.

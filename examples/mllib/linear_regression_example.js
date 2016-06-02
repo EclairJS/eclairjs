@@ -28,7 +28,7 @@ var LinearRegressionWithSGD = require('eclairjs/mllib/regression').LinearRegress
 var myLabeledPoint = require('eclairjs/mllib/regression/LabeledPoint');
 var myDenseVector = require('eclairjs/mllib/linalg/DenseVector');
 var LinearRegressionWithSGD = require('eclairjs/mllib/regression/LinearRegressionWithSGD');
-var Tuple = require('eclairjs/Tuple');
+var Tuple2 = require('eclairjs/Tuple2');
 
 function run(sc) {
     var filename = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/lpsa.data";
@@ -43,12 +43,12 @@ function run(sc) {
     var linearRegressionModel = LinearRegressionWithSGD.train(parsedData, numIterations);
 
     var delta = 17;
-    var valuesAndPreds = parsedData.mapToPair(function (lp, linearRegressionModel, delta, Tuple) {
+    var valuesAndPreds = parsedData.mapToPair(function (lp, linearRegressionModel, delta, Tuple2) {
         var label = lp.getLabel();
         var f = lp.getFeatures();
         var prediction = linearRegressionModel.predict(f) + delta;
-        return new Tuple(prediction, label);
-    }, [linearRegressionModel, delta, Tuple]); // end MapToPair
+        return new Tuple2(prediction, label);
+    }, [linearRegressionModel, delta, Tuple2]); // end MapToPair
 
     return  valuesAndPreds.take(10);
 

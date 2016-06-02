@@ -20,16 +20,16 @@
  */
 
 var PowerIterationClustering = require('eclairjs/mllib/clustering/PowerIterationClustering');
-var Tuple = require('eclairjs/Tuple');
+var Tuple3 = require('eclairjs/Tuple3');
 
 function run(sc) {
 
     var similarities = sc.parallelize([
-        new Tuple(0.0, 1.0, 0.9),
-        new Tuple(1.0, 2.0, 0.9),
-        new Tuple(2.0, 3.0, 0.9),
-        new Tuple(3.0, 4.0, 0.1),
-        new Tuple(4.0, 5.0, 0.9)
+        new Tuple3(0.0, 1.0, 0.9),
+        new Tuple3(1.0, 2.0, 0.9),
+        new Tuple3(2.0, 3.0, 0.9),
+        new Tuple3(3.0, 4.0, 0.1),
+        new Tuple3(4.0, 5.0, 0.9)
     ]);
 
     var pic = new PowerIterationClustering()

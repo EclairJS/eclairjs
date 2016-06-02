@@ -23,7 +23,7 @@
 function run(sc) {
     var NaiveBayes = require('eclairjs/mllib/classification').NaiveBayes;
     var MLUtils = require("eclairjs/mllib/MLUtils");
-    var Tuple = require('eclairjs/Tuple');
+    var Tuple2 = require('eclairjs/Tuple2');
 
     var path =  ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/sample_libsvm_data.txt";
     var inputData = MLUtils.loadLibSVMFile(sc, path);
@@ -32,14 +32,14 @@ function run(sc) {
     var test = tmp[1]; // test set
     var model = NaiveBayes.train(training, 1.0);
 
-    var predictionAndLabel = test.mapToPair(function (lp, model, Tuple) {
-        return new Tuple(model.predict(lp.getFeatures()), lp.getLabel());
-    }, [model, Tuple]);
+    var predictionAndLabel = test.mapToPair(function (lp, model, Tuple2) {
+        return new Tuple2(model.predict(lp.getFeatures()), lp.getLabel());
+    }, [model, Tuple2]);
 
     var ret = {};
     ret.model = model;
     ret.accuracy = predictionAndLabel.filter(function (tuple) {
-            return tuple[0] == tuple[1];
+            return tuple._1() == tuple._2();
         }).count() / test.count();
 
     return ret;

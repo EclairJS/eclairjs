@@ -24,7 +24,7 @@ function run(sc) {
     var MLUtils = require("eclairjs/mllib/MLUtils");
     var GradientBoostedTrees = require('eclairjs/mllib/tree/GradientBoostedTrees');
     var BoostingStrategy = require('eclairjs/mllib/tree/configuration/BoostingStrategy');
-    var Tuple = require('eclairjs/Tuple');
+    var Tuple2 = require('eclairjs/Tuple2');
 
     // Load and parse the data file.
     var datapath = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/sample_libsvm_data.txt";
@@ -47,13 +47,13 @@ function run(sc) {
     var model = GradientBoostedTrees.train(trainingData, boostingStrategy);
 
 
-    var predictionAndLabel = testData.mapToPair(function (lp, model, Tuple) {
-        return new Tuple(model.predict(lp.getFeatures()), lp.getLabel());
-    }, [model, Tuple]);
+    var predictionAndLabel = testData.mapToPair(function (lp, model, Tuple2) {
+        return new Tuple2(model.predict(lp.getFeatures()), lp.getLabel());
+    }, [model, Tuple2]);
 
 
     var testErr = predictionAndLabel.filter(function (tuple) {
-            return tuple[0] != tuple[1];
+            return tuple._1() != tuple._2();
         }).count() / testData.count();
 
     var ret = {};

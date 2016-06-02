@@ -220,8 +220,8 @@ tests({
     },
 
     testMapToPair : function() {
-        var Tuple = require(EclairJS_Globals.NAMESPACE +'/Tuple');
-        var rdd2 = rdd.mapToPair(function(num, Tuple) {return new Tuple(num,num+1)},[Tuple]);
+        var Tuple2 = require(EclairJS_Globals.NAMESPACE +'/Tuple2');
+        var rdd2 = rdd.mapToPair(function(num, Tuple2) {return new Tuple2(num,num+1)},[Tuple2]);
         var ret = JSON.stringify(rdd2.collect());
         var expected = "[{\"0\":1,\"1\":2,\"length\":2},{\"0\":2,\"1\":3,\"length\":2},{\"0\":3,\"1\":4,\"length\":2}]";
         assertEquals("failure mapToPair - arrays are not equal", expected, ret);

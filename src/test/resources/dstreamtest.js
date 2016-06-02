@@ -45,16 +45,16 @@ var flatMapTest = function() {
 var flatMapToPairTest = function() {
     streamingContext = new StreamingContext(sparkContext, duration);
     var List = require('eclairjs/List');
-    var Tuple = require('eclairjs/Tuple');
+    var Tuple2 = require('eclairjs/Tuple2');
     var dstream = streamingContext.socketTextStream("localhost", 9999);
-    var ds1 = dstream.flatMapToPair(function(line, List, Tuple) {
+    var ds1 = dstream.flatMapToPair(function(line, List, Tuple2) {
         var ret = new List();
         var arr = line.split(",");
         arr.forEach(function(letter) {
-            ret.add(new Tuple(letter,1));
+            ret.add(new Tuple2(letter,1));
         })
         return ret;
-    }, [List, Tuple])
+    }, [List, Tuple2])
 
     ds1.foreachRDD(function(rdd) {
         var d = rdd.collect();

@@ -27,6 +27,7 @@
      * @param {objects[]} List of values to store within the tuple.
      */
     var Tuple = function () {
+        throw ("Tuple deprecated");
         /**
          * Contains the number of elements held within the tuple.
          */

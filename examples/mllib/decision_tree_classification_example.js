@@ -25,7 +25,7 @@ function run(sc) {
     var DecisionTree = require('eclairjs/mllib/tree/DecisionTree');
     var LabeledPoint = require('eclairjs/mllib/regression/LabeledPoint');
     var MLUtils = require("eclairjs/mllib/MLUtils");
-    var Tuple = require('eclairjs/Tuple');
+    var Tuple2 = require('eclairjs/Tuple2');
 
     // Load and parse the data file.
     var datapath = ((typeof args !== "undefined") && (args.length > 1)) ?
@@ -52,13 +52,13 @@ function run(sc) {
 
 // Evaluate model on test instances and compute test error
 
-    var predictionAndLabel = testData.mapToPair(function (labeledPoint, model, Tuple) {
-        return new Tuple(model.predict(labeledPoint.getFeatures()), labeledPoint.getLabel());
-    }, [model, Tuple]);
+    var predictionAndLabel = testData.mapToPair(function (labeledPoint, model, Tuple2) {
+        return new Tuple2(model.predict(labeledPoint.getFeatures()), labeledPoint.getLabel());
+    }, [model, Tuple2]);
 
 
     var result = predictionAndLabel.filter(function (tuple2) {
-        return (tuple2[0] != tuple2[1]);
+        return (tuple2._1() != tuple2._2());
     });
     var testErr = result.count() / testData.count();
     var ret = {};

@@ -22,7 +22,7 @@
 function run(sc) {
     var MLUtils = require("eclairjs/mllib/MLUtils");
     var RandomForest = require('eclairjs/mllib/tree/RandomForest');
-    var Tuple = require('eclairjs/Tuple');
+    var Tuple2 = require('eclairjs/Tuple2');
 
     var datapath = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/sample_libsvm_data.txt";
 
@@ -58,9 +58,9 @@ function run(sc) {
     );
 
 // Evaluate model on test instances and compute test error
-    var predictionAndLabel = testData.mapToPair(function (p, model, Tuple) {
-        return new Tuple(model.predict(p.getFeatures()), p.getLabel());
-    }, [model, Tuple]);
+    var predictionAndLabel = testData.mapToPair(function (p, model, Tuple2) {
+        return new Tuple2(model.predict(p.getFeatures()), p.getLabel());
+    }, [model, Tuple2]);
 
     var testErr = 1.0 * predictionAndLabel.filter(function (tup) {
             return (tup[0] !== tup[1]);

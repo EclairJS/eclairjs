@@ -24,44 +24,40 @@ var sparkContext = new SparkContext("local[*]", "PairRDD unit test");
 
 
 var combineByKey = function() {
-    var Tuple = require(EclairJS_Globals.NAMESPACE + '/Tuple');
+    var Tuple2 = require(EclairJS_Globals.NAMESPACE + '/Tuple2');
     var pairRdd =sparkContext.parallelizePairs([
-        new Tuple("coffee", 1),
-        new Tuple("coffee", 2),
-        new Tuple("coffee", 4),
-        new Tuple("pandas", 3)
+        new Tuple2("coffee", 1),
+        new Tuple2("coffee", 2),
+        new Tuple2("coffee", 4),
+        new Tuple2("pandas", 3)
     ]);
     var avgCounts = pairRdd.combineByKey(
-        function(x, Tuple) {
+        function(x, Tuple2) {
             // createAcc
-            return new Tuple(x, 1);
+            return new Tuple2(x, 1);
         },
-        function(tuple, x) {
+        function(tuple, x, Tuple2) {
             // addAndCount
-            tuple[0] += x; // total
-            tuple[1] += 1; // num
-            return tuple;
+            return new Tuple2(tuple._1() + x, tuple._2() + 1);
         },
-        function(t1, t2) {
+        function(t1, t2, Tuple2) {
             // combine
-            t1[0] += t2[0]; // total
-            t1[1] += t2[1]; // num
-            return t1;
+            return new Tuple2(t1._1() + t2._1(), t1._2() + t2._2());
         },
     1,
-    [Tuple]);
+    [Tuple2]);
     var countMap = avgCounts.collectAsMap();
     return JSON.stringify(countMap);
 
 }
 
 var countByKey = function() {
-    var Tuple = require(EclairJS_Globals.NAMESPACE + '/Tuple');
+    var Tuple2 = require(EclairJS_Globals.NAMESPACE + '/Tuple2');
     var pairRdd =sparkContext.parallelizePairs([
-        new Tuple("coffee", 1),
-        new Tuple("coffee", 2),
-        new Tuple("coffee", 4),
-        new Tuple("pandas", 3)
+        new Tuple2("coffee", 1),
+        new Tuple2("coffee", 2),
+        new Tuple2("coffee", 4),
+        new Tuple2("pandas", 3)
     ]);
     var count = pairRdd.countByKey();
     return JSON.stringify(count);
@@ -70,16 +66,16 @@ var countByKey = function() {
 
 var aggregateByKey = function() {
 
-    var Tuple = require(EclairJS_Globals.NAMESPACE + '/Tuple');
+    var Tuple2 = require(EclairJS_Globals.NAMESPACE + '/Tuple2');
     var Serializable = require(EclairJS_Globals.NAMESPACE + '/Serializable');
     var s = new Serializable();
 
     var pairRdd =sparkContext.parallelizePairs([
-        new Tuple(1, 1),
-        new Tuple(1, 1),
-        new Tuple(3, 2),
-        new Tuple(5, 1),
-        new Tuple(new Tuple(5, 3), 2)
+        new Tuple2(1, 1),
+        new Tuple2(1, 1),
+        new Tuple2(3, 2),
+        new Tuple2(5, 1),
+        new Tuple2(new Tuple2(5, 3), 2)
     ]);
     var result = pairRdd.aggregateByKey(s,
         function(hashSetA, b) {
@@ -103,16 +99,15 @@ var aggregateByKey = function() {
 
 var foldByKey = function() {
 
-    var Tuple = require(EclairJS_Globals.NAMESPACE + '/Tuple');
+    var Tuple2 = require(EclairJS_Globals.NAMESPACE + '/Tuple2');
     var Serializable = require(EclairJS_Globals.NAMESPACE + '/Serializable');
-    var s = new Serializable();
 
     var pairRdd =sparkContext.parallelizePairs([
-        new Tuple(2, 1),
-        new Tuple(2, 1),
-        new Tuple(1, 1),
-        new Tuple(3, 2),
-        new Tuple(3, 1)
+        new Tuple2(2, 1),
+        new Tuple2(2, 1),
+        new Tuple2(1, 1),
+        new Tuple2(3, 2),
+        new Tuple2(3, 1)
     ]);
     var sums = pairRdd.foldByKey(0,
         function(a, b) {
@@ -125,16 +120,16 @@ var foldByKey = function() {
 
 var cogroup = function() {
 
-    var Tuple = require(EclairJS_Globals.NAMESPACE + '/Tuple');
+    var Tuple2 = require(EclairJS_Globals.NAMESPACE + '/Tuple2');
 
     var categories =sparkContext.parallelizePairs([
-        new Tuple("Apples", "Fruit"),
-        new Tuple("Oranges", "Fruit"),
-        new Tuple("Oranges", "Citrus")
+        new Tuple2("Apples", "Fruit"),
+        new Tuple2("Oranges", "Fruit"),
+        new Tuple2("Oranges", "Citrus")
     ]);
     var prices =sparkContext.parallelizePairs([
-        new Tuple("Oranges", 2),
-        new Tuple("Apples", 3)
+        new Tuple2("Oranges", 2),
+        new Tuple2("Apples", 3)
     ]);
     var cogrouped = categories.cogroup(prices);
 
@@ -144,20 +139,20 @@ var cogroup = function() {
 
 var cogroup2 = function() {
 
-    var Tuple = require(EclairJS_Globals.NAMESPACE + '/Tuple');
+    var Tuple2 = require(EclairJS_Globals.NAMESPACE + '/Tuple2');
 
     var categories =sparkContext.parallelizePairs([
-        new Tuple("Apples", "Fruit"),
-        new Tuple("Oranges", "Fruit"),
-        new Tuple("Oranges", "Citrus")
+        new Tuple2("Apples", "Fruit"),
+        new Tuple2("Oranges", "Fruit"),
+        new Tuple2("Oranges", "Citrus")
     ]);
     var prices =sparkContext.parallelizePairs([
-        new Tuple("Oranges", 2),
-        new Tuple("Apples", 3)
+        new Tuple2("Oranges", 2),
+        new Tuple2("Apples", 3)
     ]);
     var quantities =sparkContext.parallelizePairs([
-        new Tuple("Oranges", 21),
-        new Tuple("Apples", 42)
+        new Tuple2("Oranges", 21),
+        new Tuple2("Apples", 42)
     ]);
     var cogrouped = categories.cogroup(prices, quantities);
 
@@ -167,24 +162,24 @@ var cogroup2 = function() {
 
 var cogroup3 = function() {
 
-    var Tuple = require(EclairJS_Globals.NAMESPACE + '/Tuple');
+    var Tuple2 = require(EclairJS_Globals.NAMESPACE + '/Tuple2');
 
     var categories =sparkContext.parallelizePairs([
-        new Tuple("Apples", "Fruit"),
-        new Tuple("Oranges", "Fruit"),
-        new Tuple("Oranges", "Citrus")
+        new Tuple2("Apples", "Fruit"),
+        new Tuple2("Oranges", "Fruit"),
+        new Tuple2("Oranges", "Citrus")
     ]);
     var prices =sparkContext.parallelizePairs([
-        new Tuple("Oranges", 2),
-        new Tuple("Apples", 3)
+        new Tuple2("Oranges", 2),
+        new Tuple2("Apples", 3)
     ]);
     var quantities =sparkContext.parallelizePairs([
-        new Tuple("Oranges", 21),
-        new Tuple("Apples", 42)
+        new Tuple2("Oranges", 21),
+        new Tuple2("Apples", 42)
     ]);
     var origin =sparkContext.parallelizePairs([
-        new Tuple("Oranges", "FL"),
-        new Tuple("Apples", "WA")
+        new Tuple2("Oranges", "FL"),
+        new Tuple2("Apples", "WA")
     ]);
     var cogrouped = categories.cogroup(prices, quantities, origin);
 
@@ -193,18 +188,18 @@ var cogroup3 = function() {
 }
 
 var join = function() {
-    var Tuple = require(EclairJS_Globals.NAMESPACE + '/Tuple');
+    var Tuple2 = require(EclairJS_Globals.NAMESPACE + '/Tuple2');
 
     var movies = sparkContext.parallelizePairs([
-        new Tuple(1, "Toy Story"),
-        new Tuple(2, "Cars"),
-        new Tuple(3, "Star Wars")
+        new Tuple2(1, "Toy Story"),
+        new Tuple2(2, "Cars"),
+        new Tuple2(3, "Star Wars")
     ]);
 
     var rating =sparkContext.parallelizePairs([
-        new Tuple(1, 10.0),
-        new Tuple(2, 9.734),
-        new Tuple(3, 10.0)
+        new Tuple2(1, 10.0),
+        new Tuple2(2, 9.734),
+        new Tuple2(3, 10.0)
     ]);
     var movies_ratings = movies.join(rating);
     return JSON.stringify(movies_ratings.collect());

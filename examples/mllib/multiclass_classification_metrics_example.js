@@ -25,7 +25,7 @@ function run(sc) {
     var MLUtils = require("eclairjs/mllib/MLUtils");
     var LogisticRegressionWithLBFGS = require('eclairjs/mllib/classification').LogisticRegressionWithLBFGS;
     var MulticlassMetrics = require('eclairjs/mllib/evaluation').MulticlassMetrics;
-    var Tuple = require('eclairjs/Tuple');
+    var Tuple2 = require('eclairjs/Tuple2');
 
     var path =  ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/sample_multiclass_classification_data.txt";
     var data = MLUtils.loadLibSVMFile(sc, path);
@@ -41,10 +41,10 @@ function run(sc) {
         .run(training);
 
 // Compute raw scores on the test set.
-    var predictionAndLabels = test.map(function (lp, model) {
+    var predictionAndLabels = test.map(function (lp, model, Tuple2) {
         var prediction = model.predict(lp.getFeatures());
-        return new Tuple(prediction, lp.getLabel());
-    }, [model]);
+        return new Tuple2(prediction, lp.getLabel());
+    }, [model, Tuple2]);
     var ret = {};
     ret.model = model;
 // Get evaluation metrics.

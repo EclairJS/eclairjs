@@ -24,7 +24,7 @@ var RegressionMetrics = require('eclairjs/mllib/evaluation').RegressionMetrics;
 var ALS = require('eclairjs/mllib/recommendation/ALS');
 var Rating = require('eclairjs/mllib/recommendation/Rating');
 var List = require('eclairjs/List');
-var Tuple = require('eclairjs/Tuple');
+var Tuple2 = require('eclairjs/Tuple2');
 var PairRDD = require('eclairjs/PairRDD');
 
 function run(sc) {
@@ -42,15 +42,14 @@ function run(sc) {
     var model = ALS.train(ratings, 10, 10, 0.01);
     var userRecs = model.recommendProductsForUsers(10);
 
-    var userRecommendedScaled = userRecs.map(function (val, Rating, Tuple) {
-        var myRating = Rating; // FIXME: For now make a copy to pass to inner lambda
-        var newRatings = val[1].map(function (r) {
+    var userRecommendedScaled = userRecs.map(function (val, Rating, Tuple2) {
+        var newRatings = val._2().map(function (r) {
             var newRating = Math.max(Math.min(r.rating(), 1.0), 0.0);
             return new Rating(r.user(), r.product(), newRating);
         });
         
-        return new Tuple(val[0], newRatings);
-    }, [Rating, Tuple]);
+        return new Tuple2(val._1(), newRatings);
+    }, [Rating, Tuple2]);
 
     var userRecommended = PairRDD.fromRDD(userRecommendedScaled);
 
@@ -97,19 +96,19 @@ function run(sc) {
 
     print("Mean average precision = " + metrics.meanAveragePrecision());
 
-    var userProducts = ratings.map(function (r, Tuple) {
-        return new Tuple(r.user(), r.product());
-    }, [Tuple]);
+    var userProducts = ratings.map(function (r, Tuple2) {
+        return new Tuple2(r.user(), r.product());
+    }, [Tuple2]);
 
 
-    var predictions = PairRDD.fromRDD(model.predict(userProducts).map(function (r, Tuple) {
-        return new Tuple(new Tuple(r.user(), r.product()), r.rating());
-    }, [Tuple]));
+    var predictions = PairRDD.fromRDD(model.predict(userProducts).map(function (r, Tuple2) {
+        return new Tuple2(new Tuple2(r.user(), r.product()), r.rating());
+    }, [Tuple2]));
 
 
-    var ratesAndPreds = PairRDD.fromRDD(ratings.map(function (r, Tuple) {
-        return new Tuple(new Tuple(r.user(), r.product()), r.rating());
-    }, [Tuple])).join(predictions).values();
+    var ratesAndPreds = PairRDD.fromRDD(ratings.map(function (r, Tuple2) {
+        return new Tuple2(new Tuple2(r.user(), r.product()), r.rating());
+    }, [Tuple2])).join(predictions).values();
 
 // Create regression metrics object
     var regressionMetrics = new RegressionMetrics(ratesAndPreds);
