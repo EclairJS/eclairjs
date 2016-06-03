@@ -182,6 +182,13 @@
                 return x.intValue();
             } else if ((x instanceof java.lang.Double) &&  (dt.getJavaObject() instanceof org.apache.spark.sql.types.FloatType)) {
                 return x.floatValue();
+            } else if (dt.getJavaObject() instanceof org.apache.spark.sql.types.ArrayType) {
+                var elmDt = dt.elementType();
+                var elements =[];
+                x.forEach(function(elem){
+                    elements.push(castDataType(elem, elmDt))
+                })
+                return Serialize.jsToJava(elements);
             } else {
                 return Utils.unwrapObject(x);
             }
