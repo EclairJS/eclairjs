@@ -1833,4 +1833,27 @@ public class SqlTest {
         assertEquals("should be same", expected, ret.toString());
     }
 
+    @Test
+    public void dataFrameArrayTypeSerialize() throws Exception {
+    	/*
+    	 * tests
+    	 * SQLContext.createDataFrame([ ])
+    	 * DataFrame.toJSON()
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable) engine).invokeFunction("dataFrameArrayTypeSerialize");
+
+        String schema = "\"schema\":{"
+                + "\"fields\":["
+                + "{\"name\":\"col1\",\"dataType\":\"array<string>\",\"nullable\":false}"
+                + "]"
+                + "}";
+        String expected = "["
+                + "{\"values\":[[\"a\",\"b\",\"c\"]]," + schema + "}"
+                + "]";
+        assertEquals("should be same", expected, ret.toString());
+    }
+
 }

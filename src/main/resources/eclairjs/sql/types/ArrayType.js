@@ -63,7 +63,6 @@
      * @returns {module:eclairjs/sql/types.DataType}
      */
     ArrayType.prototype.elementType = function () {
-        // FIXME this should be wrappered with the correct sub-class
         //return new DataType(this.getJavaObject().elementType());
         return Utils.javaToJs(this.getJavaObject().elementType());
     };
@@ -86,6 +85,10 @@
      */
     ArrayType.prototype.simpleString = function () {
         return this.getJavaObject().simpleString();
+    };
+
+    ArrayType.prototype.toJSON = function () {
+        return this.typeName() + "<"+this.elementType().toJSON()+">";
     };
 
     module.exports = ArrayType;

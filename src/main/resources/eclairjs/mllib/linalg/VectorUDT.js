@@ -51,8 +51,8 @@
      * @returns {module:eclairjs/sql/types.StructType}
      */
     VectorUDT.prototype.sqlType = function () {
-           var javaObject =  this.getJavaObject().sqlType();
-           return Utils.javaToJs(javaObject);
+        var javaObject =  this.getJavaObject().sqlType();
+        return Utils.javaToJs(javaObject);
     };
 
 
@@ -61,8 +61,8 @@
      * @returns {InternalRow}
      */
     VectorUDT.prototype.serialize = function (obj) {
-           var obj_uw = Utils.unwrapObject(obj);
-           return  this.getJavaObject().serialize(obj_uw);
+        var obj_uw = Utils.unwrapObject(obj);
+        return  this.getJavaObject().serialize(obj_uw);
     };
 
 
@@ -71,9 +71,9 @@
      * @returns {module:eclairjs/mllib/linalg.Vector}
      */
     VectorUDT.prototype.deserialize = function (datum) {
-           var datum_uw = Utils.unwrapObject(datum);
-           var javaObject =  this.getJavaObject().deserialize(datum_uw);
-           return Utils.javaToJs(javaObject);
+        var datum_uw = Utils.unwrapObject(datum);
+        var javaObject =  this.getJavaObject().deserialize(datum_uw);
+        return Utils.javaToJs(javaObject);
     };
 
 
@@ -103,8 +103,8 @@
      * @returns {boolean}
      */
     VectorUDT.prototype.equals = function (o) {
-           var o_uw = Utils.unwrapObject(o);
-           return  this.getJavaObject().equals(o_uw);
+        var o_uw = Utils.unwrapObject(o);
+        return  this.getJavaObject().equals(o_uw);
     };
 
 
@@ -112,7 +112,7 @@
      * @returns {number}
      */
     VectorUDT.prototype.hashCode = function () {
-           return  this.getJavaObject().hashCode();
+        return  this.getJavaObject().hashCode();
     };
 
 
@@ -120,7 +120,7 @@
      * @returns {string}
      */
     VectorUDT.prototype.typeName = function () {
-            return  this.getJavaObject().typeName();
+        return  this.getJavaObject().typeName();
     };
 
     VectorUDT.prototype.toJSON = function () {
