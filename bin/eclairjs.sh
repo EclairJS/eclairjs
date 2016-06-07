@@ -95,6 +95,16 @@ esac
 shift # past argument or value
 done
 
+string='My long string';
+
+if [[ $options != *"-Dlog4j.configuration="* ]]
+then
+  if [ -z "$options" ]; then
+    option=" ";
+  fi
+  options="$options --driver-java-options -Dlog4j.configuration=file:\"./src/main/resources/conf/log4j.prop\"";
+fi
+
 #
 # start the REPL
 #
