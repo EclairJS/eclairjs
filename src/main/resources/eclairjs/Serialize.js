@@ -160,6 +160,27 @@ Serialize.javaSeqWrapper = function (javaObj) {
     return false;
 };
 
+Serialize.javaWrappedClass = Java.type("scala.collection.mutable.WrappedArray");
+Serialize.javaWrappedArray = function (javaObj) {
+    /*
+     NOTE: If we do not use a static variable for the Java.type(...)
+     we will incur HUGE performance degradations by invoking
+     Java.type(...) every time we invoke the serializer to check the
+     instance of the object
+     */
+    if (javaObj instanceof Serialize.javaWrappedClass) {
+        var res = [];
+        var iterator = javaObj.iterator();
+        while (iterator.hasNext()) {
+            res.push(Serialize.javaToJs(iterator.next()));
+        }
+
+        return res;
+    }
+
+    return false;
+};
+
 // Map java class name to wrapper class name
 var java2wrapper = {
     "JavaRDD": "RDD",
@@ -353,6 +374,7 @@ Serialize.handlers = [
     Serialize.javaIteratorWrapper,
     Serialize.javaIterableWrapper,
     Serialize.javaSeqWrapper,
+    Serialize.javaWrappedArray,
     Serialize.JSModule, // test for module before JSONObject since techinically it is an instance of org.json.simple.JSONObject
     Serialize.JSONObject,
     Serialize.javaMap, // keep this before javaSparkObject to handle org.apache.api.java.JavaUtils$SerializableWrapper

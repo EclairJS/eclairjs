@@ -1102,7 +1102,8 @@ var dataFrameStatCrossTabTest = function(file) {
 	
 	var ct = df.stat().crosstab("key", "value");
 	ct.show();
-	return JSON.stringify(ct.take(10));
+	//return JSON.stringify(ct.take(10));
+    return JSON.stringify(ct);
 }
 
 
@@ -1137,4 +1138,18 @@ var createDataFrameJSON = function() {
 	var dataFrame2 = sqlContext.createDataFrameFromJson(rdd,schemaJson);
 
 	return JSON.stringify(dataFrame2.take(3));
+}
+
+var dataFrameArrayTypeSerialize = function(){
+    var Metadata = require(EclairJS_Globals.NAMESPACE + '/sql/types/Metadata');
+    // Input data: Each row is a bag of words from a sentence or document.
+    var rdd = sparkContext.parallelize([
+        RowFactory.create([["a", "b", "c"]])
+    ]);
+    var schema = new StructType([
+        new StructField("col1", new ArrayType(DataTypes.StringType, true), false, Metadata.empty())
+    ]);
+    var df = sqlContext.createDataFrame(rdd, schema);
+
+    return JSON.stringify(df);
 }

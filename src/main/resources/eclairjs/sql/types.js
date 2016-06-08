@@ -32,6 +32,7 @@
         DoubleType: require(EclairJS_Globals.NAMESPACE + '/sql/types/DoubleType'),
         FloatType: require(EclairJS_Globals.NAMESPACE + '/sql/types/FloatType'),
         IntegerType: require(EclairJS_Globals.NAMESPACE + '/sql/types/IntegerType'),
+        LongType: require(EclairJS_Globals.NAMESPACE + '/sql/types/LongType'),
         MapType: require(EclairJS_Globals.NAMESPACE + '/sql/types/MapType'),
         Metadata: require(EclairJS_Globals.NAMESPACE + '/sql/types/Metadata'),
         NullType: require(EclairJS_Globals.NAMESPACE + '/sql/types/NullType'),

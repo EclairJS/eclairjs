@@ -31,6 +31,7 @@
     var StructField = require(EclairJS_Globals.NAMESPACE + '/sql/types/StructField');
     var StructType = require(EclairJS_Globals.NAMESPACE + '/sql/types/StructType');
     var ArrayType = require(EclairJS_Globals.NAMESPACE + '/sql/types/ArrayType');
+    var LongType = require(EclairJS_Globals.NAMESPACE + '/sql/types/LongType');
 
     /**
      * @constructor
@@ -90,9 +91,8 @@
     /**
      * Gets the LongType object. not a valid primitive type for JavaScript
      * @static
-     * @ignore
      */
-//DataTypes.LongType = new LongType(org.apache.spark.sql.types.DataTypes.LongType);
+    DataTypes.LongType = new LongType(org.apache.spark.sql.types.DataTypes.LongType);
     /**
      * Gets the BinaryType object.
      * @static

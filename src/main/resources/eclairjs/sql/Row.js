@@ -408,7 +408,8 @@
         var jsonObj = {};
         jsonObj.values = [];
         for (var i = 0; i < this.length(); i++) {
-            var v = (this.get(i) && this.get(i).toJSON) ? this.get(i).toJSON() : this.get(i);
+            var x = Utils.javaToJs(this.get(i));
+            var v = (x && x.toJSON) ? x.toJSON() : x;
             jsonObj.values.push(v);
         }
         jsonObj.schema = this.schema().toJSON();

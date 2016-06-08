@@ -26,8 +26,7 @@
      */
 
     var LongType = function(jvmObj) {
-        throw "not implemented by ElairJS";
-        //NumericType.call(this, jvmObj);
+        NumericType.call(this, jvmObj);
     };
 
 
@@ -42,40 +41,32 @@
      * @ignore
      */
     LongType.prototype.defaultSize = function () {
-        throw "not implemented by ElairJS";
-        //return this.getJavaObject().defaultSize();
+        return this.getJavaObject().defaultSize();
     };
     LongType.prototype.classTag = function () {
-        throw "not implemented by ElairJS";
-        //return this.getJavaObject().classTag();
+        return this.getJavaObject().classTag();
     };
     LongType.prototype.integral = function () {
-        throw "not implemented by ElairJS";
-        //return this.getJavaObject().integral();
+        return this.getJavaObject().integral();
     };
     LongType.prototype.numeric = function () {
-        throw "not implemented by ElairJS";
-        //return this.getJavaObject().numeric();
+        return this.getJavaObject().numeric();
     };
     LongType.prototype.ordering = function () {
-        throw "not implemented by ElairJS";
-        //return this.getJavaObject().ordering();
+        return this.getJavaObject().ordering();
     };
     LongType.prototype.tag = function () {
-        throw "not implemented by ElairJS";
-        //return this.getJavaObject().tag();
+        return this.getJavaObject().tag();
     };
     LongType.prototype.unapply = function () {
-        throw "not implemented by ElairJS";
-        //return this.getJavaObject().unapply();
+        return this.getJavaObject().unapply();
     };
     /**
      * @returns {string}
      * @ignore
      */
     LongType.prototype.simpleString = function () {
-        throw "not implemented by ElairJS";
-        //return this.getJavaObject().simpleString();
+        return this.getJavaObject().simpleString();
     };
 
     module.exports = LongType;
