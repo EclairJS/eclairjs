@@ -36,7 +36,8 @@ function run(sc) {
     var ALS = require('eclairjs/mllib/recommendation/ALS');
     var Rating = require('eclairjs/mllib/recommendation/Rating');
 
-    var small_ratings_raw_data = sc.textFile('examples/data/mllib/ml-latest-small/ratings.csv');
+    var small_ratings_raw_data = sc.textFile('examples/data/mllib/ml-latest/ratings.csv');
+//    var small_ratings_raw_data = sc.textFile('examples/data/mllib/ml-latest/ratings.csv');
     var small_ratings_raw_data_header = small_ratings_raw_data.take(1)[0];
     var small_ratings_data = small_ratings_raw_data.filter(function(line, small_ratings_raw_data_header) {
         // filters out the header
@@ -45,30 +46,31 @@ function run(sc) {
     .map(function(line) {
         return line.split(",");
     })
-    .map(function(tokens, Rating) {
+    .map(function(tokens) {
         // tokenes are userId,movieId,rating,timestamp
         return new Rating(tokens[0],tokens[1],tokens[2]);
-    }, [Rating]).cache()
+    }).cache()
     //print(small_ratings_data.take(3));
 
-    var small_movies_raw_data = sc.textFile('examples/data/mllib/ml-latest-small/movies.csv');
+    var small_movies_raw_data = sc.textFile('examples/data/mllib/ml-latest/movies.csv');
+//    var small_movies_raw_data = sc.textFile('examples/data/mllib/ml-latest/movies.csv');
     var small_movies_raw_data_header = small_movies_raw_data.take(1)[0];
     var small_movies_data = small_movies_raw_data.filter(function(line, small_movies_raw_data_header) {
             // filters out the header
             return line != small_movies_raw_data_header;
         }, [small_movies_raw_data_header])
 
-        .map(function(line, Tuple2) {
+        .map(function(line) {
             var fields = line.split(",");
             return new Tuple2(parseInt(fields[0]), fields[1]);
 
-        }, [Tuple2]).cache();
+        }).cache();
 
     var small_movies_titles = small_movies_data.mapToPair(
-        function( tuple2, Tuple2) { // Tuple2
+        function( tuple2) { // Tuple2
             return new Tuple2(tuple2._1(), tuple2._2());
 
-        }, [Tuple2]);
+        });
     //print(small_movies_data.take(3));
 
     var seed = 0;
@@ -77,16 +79,16 @@ function run(sc) {
     var validation_RDD = split[1];
     var test_RDD = split[2];
 
-    var  validation_for_predict_RDD = validation_RDD.map(function(rating, Tuple2) {
+    var  validation_for_predict_RDD = validation_RDD.map(function(rating) {
             return new Tuple2(rating.user(), rating.product());
 
-    }, [Tuple2]);
+    });
    // print(validation_for_predict_RDD.take(3));
 
-    var test_for_predict_RDD = test_RDD.map(function(rating, Tuple2) {
+    var test_for_predict_RDD = test_RDD.map(function(rating) {
             return new Tuple2(rating.user(), rating.product());
 
-    }, [Tuple2]);
+    });
 
     //print(test_for_predict_RDD.take(3));
 
@@ -109,17 +111,17 @@ function run(sc) {
         var model = ALS.train(training_RDD, rank, iterations, regularization_parameter, blocks, seed);
         //print(JSON.stringify(model.userFeatures()));
         var predictions = model.predict(validation_for_predict_RDD)
-            .mapToPair(function(rating, Tuple2) {
+            .mapToPair(function(rating) {
                 return new Tuple2(new Tuple2(rating.user(), rating.product()), rating.rating());
-            }, [Tuple2]
+            }
         );
 
         //print("predict " + predictions.take(3));
 
-        var rates_and_preds = validation_RDD.mapToPair( function(rating, Tuple2) {
+        var rates_and_preds = validation_RDD.mapToPair( function(rating) {
                 return new Tuple2(new Tuple2(rating.user(), rating.product()), rating.rating());
 
-        }, [Tuple2])
+        })
         .join(predictions);
 
         //print("rates_and_preds " + rates_and_preds.take(3));
@@ -156,19 +158,20 @@ function run(sc) {
 
      */
     var complete_ratings_raw_data = sc.textFile("examples/data/mllib/ml-latest/ratings.csv");
+//    var complete_ratings_raw_data = sc.textFile("examples/data/mllib/ml-latest/ratings.csv");
     var complete_ratings_raw_data_header = complete_ratings_raw_data.take(1)[0];
 
     var complete_ratings_data = complete_ratings_raw_data.filter(function (line, complete_ratings_raw_data_header) {
         return line != complete_ratings_raw_data_header;
     }, [complete_ratings_raw_data_header])
-    .map(function( line, Rating) {
+    .map(function( line) {
         var fields = line.split(",");
         var userId = parseInt(fields[0]);
         var movieId = parseInt(fields[1]);
         var rating = parseFloat(fields[2]);
         return new Rating(userId, movieId, rating);
 
-    }, [Rating])
+    })
     .cache();
 
    // print("There are recommendations in the complete dataset:  " + complete_ratings_data.count());
@@ -182,21 +185,21 @@ function run(sc) {
     /*
      Now we test on our testing set.
      */
-    test_for_predict_RDD = test_RDD.map(function (rating, Tuple2) {
+    test_for_predict_RDD = test_RDD.map(function (rating) {
             return new Tuple2(rating.user(), rating.product());
 
-    }, [Tuple2]);
+    } );
 
     var predictions = complete_model.predict(test_for_predict_RDD)
-        .mapToPair(function( rating, Tuple2) {
+        .mapToPair(function( rating) {
             return new Tuple2(new Tuple2(rating.user(), rating.product()), rating.rating());
 
-        }, [Tuple2]);
+        });
 
-    var rates_and_preds = test_RDD.mapToPair(function( rating, Tuple2) {
+    var rates_and_preds = test_RDD.mapToPair(function( rating) {
             return new Tuple2(new Tuple2(rating.user(), rating.product()), rating.rating());
 
-    }, [Tuple2])
+    })
     .join(predictions);
 
 
@@ -228,7 +231,7 @@ function run(sc) {
             return line != complete_movies_raw_data_header;
         }, [complete_movies_raw_data_header])
 
-        .map(function(line, Tuple2) {
+        .map(function(line) {
             var fields = line.split(",");
             //var x = java.lang.Integer.parseInt(fields[0]);
             var x = parseInt(fields[0]);
@@ -237,13 +240,13 @@ function run(sc) {
             //print("t " + t);
             return new Tuple2(x, fields[1]);
 
-        }, [Tuple2]).cache();
+        }).cache();
 
     var complete_movies_titles = complete_movies_data.mapToPair(
-        function( tuple2, Tuple2) { // Tuple2
+        function( tuple2) { // Tuple2
             return new Tuple2(tuple2._1(), tuple2._2());
 
-        }, [Tuple2]);
+        });
 
     //print("There are movies in the complete dataset " + complete_movies_titles.count());
 
@@ -251,13 +254,13 @@ function run(sc) {
      Another thing we want to do, is give recommendations
      of movies with a certain minimum number of ratings. For that, we need to count the number of ratings per movie.
      */
-    var movie_ID_with_ratings_RDD = complete_ratings_data.mapToPair(function( rating, Tuple2) {
+    var movie_ID_with_ratings_RDD = complete_ratings_data.mapToPair(function( rating) {
             return new Tuple2(rating.product(), rating.rating());
 
-    }, [Tuple2])
+    })
     .groupByKey();
 
-    var movie_ID_with_avg_ratings_RDD = movie_ID_with_ratings_RDD.mapToPair(function( ID_and_ratings_tuple, Tuple2) {
+    var movie_ID_with_avg_ratings_RDD = movie_ID_with_ratings_RDD.mapToPair(function( ID_and_ratings_tuple) {
 
             var w = ID_and_ratings_tuple._2();
        // print("w " + w);
@@ -273,16 +276,16 @@ function run(sc) {
             var avgRating = sum / count;
             return new Tuple2(ID_and_ratings_tuple._1(), new Tuple2(count, avgRating));
 
-        }, [Tuple2]);
+        });
    // print("movie_ID_with_avg_ratings_RDD  " + movie_ID_with_avg_ratings_RDD.take(10));
 
-    var movie_rating_counts_RDD = movie_ID_with_avg_ratings_RDD.mapToPair(function( ID_with_avg_ratings, Tuple2) {
+    var movie_rating_counts_RDD = movie_ID_with_avg_ratings_RDD.mapToPair(function( ID_with_avg_ratings) {
             var x =  ID_with_avg_ratings;
             var coutAvg = ID_with_avg_ratings._2();
             return new Tuple2(ID_with_avg_ratings._1(), coutAvg._1()); // movieID, rating count
 
 
-    }, [Tuple2]);
+    });
 
     /*
      Now we need to rate some movies for the new user.
@@ -336,21 +339,21 @@ function run(sc) {
                 return false;
             }
     }, [new_user_ratings_ids])
-    .map(function( tuple, new_user_ID, Tuple2) {
+    .map(function( tuple, new_user_ID) {
        // print("map tuple " + tuple[0])
             return new Tuple2(new_user_ID, tuple._1());
 
-    }, [new_user_ID, Tuple2]);
+    }, [new_user_ID]);
     //print("new_user_unrated_movies_RDD " + new_user_unrated_movies_RDD.take(3));
     //print("new_user_unrated_movies_RDD " + new_user_unrated_movies_RDD.count());
     // Use the input RDD, new_user_unrated_movies_RDD, with new_ratings_model.predictAll() to predict new ratings for the movies
     var new_user_recommendations_RDD = new_ratings_model.predict(new_user_unrated_movies_RDD);
 
     // Transform new_user_recommendations_RDD into pairs of the form (Movie ID, Predicted Rating)
-    var new_user_recommendations_rating_RDD = new_user_recommendations_RDD.mapToPair( function( rating, Tuple2) {
+    var new_user_recommendations_rating_RDD = new_user_recommendations_RDD.mapToPair( function( rating) {
             return new Tuple2(rating.product(), rating.rating());
 
-    }, [Tuple2]);
+    });
     //print("new_user_recommendations_rating_RDD" + new_user_recommendations_rating_RDD.take(3));
     //print("complete_movies_titles " + complete_movies_titles.take(3))
     var aRDD = new_user_recommendations_rating_RDD.join(complete_movies_titles);
@@ -366,7 +369,7 @@ function run(sc) {
      */
 
     var new_user_recommendations_rating_title_and_count_RDD2 =
-        new_user_recommendations_rating_title_and_count_RDD.map(function( t, Tuple3) {
+        new_user_recommendations_rating_title_and_count_RDD.map(function( t) {
             //System.out.println(t);
             // ( 27456,( (7.553736917670094,Shackleton's Antarctic Adventure (2001) ),1) )
             // a = (27456, b)
@@ -380,7 +383,7 @@ function run(sc) {
             //return new Tuple2(new_user_ID, ((Tuple2)t)._1);
             return x;
 
-    }, [Tuple3]);
+    });
 
     //print("new_user_recommendations_rating_title_and_count_RDD2" + new_user_recommendations_rating_title_and_count_RDD2.take(3));
 

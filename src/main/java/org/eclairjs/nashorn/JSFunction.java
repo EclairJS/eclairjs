@@ -18,12 +18,15 @@ package org.eclairjs.nashorn;
 
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
+
+import jdk.nashorn.api.scripting.ScriptObjectMirror;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.spark.api.java.function.Function;
 
 public class JSFunction implements Function {
     private String func = null;
     private Object args[] = null;
+    private Object argsJS[] = null;
     private Object fn = null;
 
     public JSFunction(String func, Object[] o) {
@@ -37,16 +40,32 @@ public class JSFunction implements Function {
         ScriptEngine e =  NashornEngineSingleton.getEngine();
         if (this.fn == null) {
             this.fn = e.eval(func);
+            if (this.args != null && this.args.length > 0 ) {
+                this.argsJS=new Object[this.args.length];
+                for (int i=0;i<this.args.length;i++)
+                    this.argsJS[i]=Utils.javaToJs(this.args[i],e);
+            }
+
         }
         Invocable invocable = (Invocable) e;
 
-        Object params[] = {this.fn, o};
-        
+        Object params[] = { o};
+//        Object params[] = {this.fn, o};
+
         if (this.args != null && this.args.length > 0 ) {
         	params = ArrayUtils.addAll(params, this.args);
         }
-      
-        Object ret = invocable.invokeFunction("Utils_invoke", params);
+
+        for (int i=0;i<params.length;i++)
+            params[i]=Utils.javaToJs(params[i],e);
+
+
+
+//        Object ret = invocable.invokeFunction("myTestFunc", params);
+
+    Object ret = ((ScriptObjectMirror)this.fn).call(null, params);
+//        Object ret = invocable.invokeFunction("Utils_invoke", params);
+        ret = Utils.jsToJava(ret);
 
         return ret;
     }

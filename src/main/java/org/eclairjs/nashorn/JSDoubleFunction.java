@@ -16,6 +16,7 @@ s * Copyright 2015 IBM Corp.
 
 package org.eclairjs.nashorn;
 
+import jdk.nashorn.api.scripting.ScriptObjectMirror;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.spark.api.java.function.DoubleFunction;
 
@@ -41,15 +42,25 @@ public class JSDoubleFunction implements DoubleFunction {
         }
         Invocable invocable = (Invocable) e;
 
-        Object params[] = {this.fn, o};
-        
+//        Object params[] = {this.fn, o};
+//
+//        if (this.args != null && this.args.length > 0 ) {
+//        	params = ArrayUtils.addAll(params, this.args);
+//        }
+//
+//        double ret = (double) invocable.invokeFunction("Utils_invoke", params);
+
+        Object params[] = { o};
+
         if (this.args != null && this.args.length > 0 ) {
-        	params = ArrayUtils.addAll(params, this.args);
+            params = ArrayUtils.addAll(params, this.args);
         }
 
-        double ret = (double) invocable.invokeFunction("Utils_invoke", params);
+        for (int i=0;i<params.length;i++)
+            params[i]=Utils.javaToJs(params[i],e);
 
-        return ret;
+        Object ret = ((ScriptObjectMirror)this.fn).call(null, params);
+
+        return ((Double)ret).doubleValue();
     }
 }
-

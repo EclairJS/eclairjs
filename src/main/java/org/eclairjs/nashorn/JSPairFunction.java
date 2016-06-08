@@ -52,15 +52,33 @@ public class JSPairFunction implements PairFunction {
         }
         Invocable invocable = (Invocable) e;
 
-        Object params[] = {this.fn, o};
+//        Object params[] = {this.fn, o};
+//
+//        if (this.args != null && this.args.length > 0 ) {
+//            params = ArrayUtils.addAll(params, this.args);
+//        }
+//
+//        Tuple2 ret = (Tuple2)invocable.invokeFunction("Utils_invoke", params);
+
+        Object params[] = { o};
 
         if (this.args != null && this.args.length > 0 ) {
             params = ArrayUtils.addAll(params, this.args);
         }
 
-        Tuple2 ret = (Tuple2)invocable.invokeFunction("Utils_invoke", params);
+        for (int i=0;i<params.length;i++)
+            params[i]=Utils.javaToJs(params[i],e);
 
-        return ret;
+
+        Object ret = ((ScriptObjectMirror)this.fn).call(null, params);
+
+        ret = Utils.jsToJava(ret);
+
+
+
+
+
+        return  (Tuple2)ret;
 
     }
 }
