@@ -18,6 +18,9 @@ public class Rating extends WrappedClass {
 
     public Object getJavaObject() {return rating;}
 
+    public String getClassName() {return "Rating";}
+
+
     WrappedFunction  F_user = new WrappedFunction () {
         @Override
         public Object call(Object thiz, Object... args) {
@@ -47,7 +50,7 @@ public class Rating extends WrappedClass {
             case "product": return F_product;
             case "rating": return F_rating;
         }
-        throw new RuntimeException("Rating."+name+" is not defined");
+        return super.getMember(name);
     }
     @Override
     public boolean hasMember(String name) {
@@ -57,7 +60,7 @@ public class Rating extends WrappedClass {
             case "rating":
                 return true;
         }
-        return false;
+        return super.hasMember(name);
     }
 
 }

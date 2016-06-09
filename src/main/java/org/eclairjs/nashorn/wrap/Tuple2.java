@@ -3,6 +3,9 @@ package org.eclairjs.nashorn.wrap;
 
 import org.eclairjs.nashorn.Utils;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Tuple2 extends WrappedClass {
 
     Object _1;
@@ -23,6 +26,17 @@ public class Tuple2 extends WrappedClass {
             Utils.jsToJava(_1),
             Utils.jsToJava(_2));
     }
+
+    public String getClassName() {return "Tuple2";}
+
+    public String toString() {
+        Map<String,Object> map=new HashMap<>();
+        map.put("_1",_1);
+        map.put("_2",_2);
+        return Utils.jsonString(map);
+    }
+
+    public String toJSON() {return toString();}
 
     WrappedFunction  F_1 = new WrappedFunction () {
         @Override
@@ -46,7 +60,7 @@ public class Tuple2 extends WrappedClass {
             case "_1": return F_1;
             case "_2": return F_2;
         }
-        throw new RuntimeException("Rating."+name+" is not defined");
+        return super.getMember(name);
     }
     @Override
     public boolean hasMember(String name) {
@@ -55,7 +69,7 @@ public class Tuple2 extends WrappedClass {
             case "_2":
                 return true;
         }
-        return false;
+        return super.hasMember(name);
     }
 
 }

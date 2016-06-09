@@ -425,7 +425,7 @@ public class Utils {
     		}
     		jarPath = decodedPath;
     	}
-    	logger.info("env = "+ jarPath);
+    	logger.info("env = " + jarPath);
     	return jarPath;
 
     }
@@ -566,4 +566,22 @@ public class Utils {
         }
     }
 
+    public static String jsonString(Map<String, Object> map) {
+        StringBuffer sb = new StringBuffer("{ ");
+        boolean wasOne=false;
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            if (wasOne)
+                sb.append(" ,");
+            sb.append(" \"").append(entry.getKey()).append("\" : ");
+            Object value = entry.getValue();
+            if (value instanceof String)
+                sb.append('"');
+            sb.append(value);
+            if (value instanceof String)
+                sb.append('"');
+            wasOne=true;
+        }
+        sb.append(" } ");
+        return sb.toString();
+    }
 }
