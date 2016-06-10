@@ -142,7 +142,7 @@ public class Utils {
                         for (int i=0;i<arr.length;i++)
                             alist.add(javaToJs(arr[i],engine));
 
-                            System.out.println("alist size="+alist.size());
+                            //System.out.println("alist size="+alist.size());
                         return alist;
                     }
                     else

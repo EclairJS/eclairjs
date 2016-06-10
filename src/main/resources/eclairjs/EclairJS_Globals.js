@@ -67,3 +67,16 @@ function Utils_invoke(func) {
     return ret;
 };
 
+/*var oldJSON = JSON;
+
+JSON = {
+    stringify: function(v) {
+        if (v instanceof org.eclairjs.nashorn.wrap.Tuple2) {
+            return v.toJSON();
+        }
+        return oldJSON.stringify(v);
+    },
+    parse: function() {
+        return oldJSON.parse(arguments);
+    }
+};*/

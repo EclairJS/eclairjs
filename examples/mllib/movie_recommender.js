@@ -68,10 +68,13 @@ function run(sc) {
 
     var small_movies_titles = small_movies_data.mapToPair(
         function( tuple2) { // Tuple2
+           // print("tuple2 = " + tuple2);
+           // print("tuple2 JSON= " + JSON.stringify(tuple2));
+           // print("JSON= " + JSON.stringify(["a", {"a":1}]));
             return new Tuple2(tuple2._1(), tuple2._2());
 
         });
-    //print(small_movies_data.take(3));
+    print(small_movies_titles.take(3));
 
     var seed = 0;
     var split = small_ratings_data.randomSplit([0.6, 0.2, 0.2], seed)
@@ -417,7 +420,7 @@ function run(sc) {
     });
     print("TOP recommended movies (with more than 25 reviews):");
     for (var i = 0; i < top_movies.length; i++) {
-        print(top_movies[i]);
+        print(JSON.stringify(top_movies[i]));
     }
 
     /*

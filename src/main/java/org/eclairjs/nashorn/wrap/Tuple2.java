@@ -29,14 +29,23 @@ public class Tuple2 extends WrappedClass {
 
     public String getClassName() {return "Tuple2";}
 
-    public String toString() {
-        Map<String,Object> map=new HashMap<>();
-        map.put("_1",_1);
-        map.put("_2",_2);
-        return Utils.jsonString(map);
+    public String toJSON() {
+        return "{\"0\":" + _1 + ",\"1\":" + _2 + "}" ;
     }
 
-    public String toJSON() {return toString();}
+    WrappedFunction  F_toJSON = new WrappedFunction () {
+        @Override
+        public Object call(Object thiz, Object... args) {
+            return "{\"0\":" + _1 + ",\"1\":" + _2 + "}" ;
+        }
+    };
+
+    WrappedFunction  F_valueOf = new WrappedFunction () {
+        @Override
+        public Object call(Object thiz, Object... args) {
+            return "(" + _1 + "," + _2 + ")";
+        }
+    };
 
     WrappedFunction  F_1 = new WrappedFunction () {
         @Override
@@ -59,8 +68,10 @@ public class Tuple2 extends WrappedClass {
         switch (name) {
             case "_1": return F_1;
             case "_2": return F_2;
+            case "valueOf": return F_valueOf;
+            case "toJSON": return F_toJSON;
         }
-        return super.getMember(name);
+        throw new RuntimeException("Tuple2."+name+" is not defined");
     }
     @Override
     public boolean hasMember(String name) {
