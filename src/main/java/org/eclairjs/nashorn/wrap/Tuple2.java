@@ -8,6 +8,28 @@ import java.util.Map;
 
 public class Tuple2 extends WrappedClass {
 
+
+
+
+    static WrappedFunction  F_1 = new WrappedFunction () {
+        @Override
+        public Object call(Object thiz, Object... args) {
+            return ((Tuple2)thiz)._1;
+        }
+    };
+
+    static WrappedFunction F_2  = new  WrappedFunction () {
+        @Override
+        public Object call(Object thiz, Object... args) {
+            return ((Tuple2)thiz)._2;
+        }
+    };
+    static Map<String,WrappedFunction> functions = new HashMap<>();
+    static {
+        functions.put("_1",F_1);
+        functions.put("_1",F_2);
+    }
+
     Object _1;
     Object _2;
 
@@ -28,6 +50,8 @@ public class Tuple2 extends WrappedClass {
     }
 
     public String getClassName() {return "Tuple2";}
+    public  boolean checkInstance(Object other){ return other instanceof Tuple2;}
+
 
     public String toString() {
         Map<String,Object> map=new HashMap<>();
@@ -38,19 +62,6 @@ public class Tuple2 extends WrappedClass {
 
     public String toJSON() {return toString();}
 
-    WrappedFunction  F_1 = new WrappedFunction () {
-        @Override
-        public Object call(Object thiz, Object... args) {
-            return _1;
-        }
-    };
-
-    WrappedFunction F_2  = new  WrappedFunction () {
-        @Override
-        public Object call(Object thiz, Object... args) {
-            return _2;
-        }
-    };
 
 
     // get the value of that named property

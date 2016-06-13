@@ -19,6 +19,7 @@ public class Rating extends WrappedClass {
     public Object getJavaObject() {return rating;}
 
     public String getClassName() {return "Rating";}
+    public  boolean checkInstance(Object other){ return other instanceof Rating;}
 
 
     WrappedFunction  F_user = new WrappedFunction () {
