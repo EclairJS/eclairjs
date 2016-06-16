@@ -6,6 +6,10 @@ import org.eclairjs.nashorn.wrap.WrappedFunction;
 
 public class Rating extends WrappedClass {
 
+    static public String getModuleName() {
+        return "mllib.recommendation.Rating";
+    }
+
     org.apache.spark.mllib.recommendation.Rating rating;
 
     public Rating(org.apache.spark.mllib.recommendation.Rating rating) {
@@ -15,6 +19,10 @@ public class Rating extends WrappedClass {
     public Rating(int user, int product, double rating)  {
         this.rating=new org.apache.spark.mllib.recommendation.Rating(user,product,rating);
     }
+
+    public String getClassName() {return "Rating";}
+
+    public  boolean checkInstance(Object other){ return other instanceof Rating;}
 
     public Object getJavaObject() {return rating;}
 
@@ -33,54 +41,37 @@ public class Rating extends WrappedClass {
         return toString();
     }
 
-    public String getClassName() {return "Rating";}
+    public int user() {
+        return rating.user();
+    }
 
-    WrappedFunction  F_toJSON = new WrappedFunction () {
+    public int product() {
+        return rating.product();
+    }
+
+    public double rating() {
+        return rating.rating();
+    }
+
+
+    static WrappedFunction  F_user = new WrappedFunction () {
         @Override
         public Object call(Object thiz, Object... args) {
-            return toJSON();
-        }
-    };
-
-    WrappedFunction  F_toString = new WrappedFunction () {
-        @Override
-        public Object call(Object thiz, Object... args) {
-            return toString();
-        }
-    };
-
-    WrappedFunction  F_valueOf = new WrappedFunction () {
-        @Override
-        public Object call(Object thiz, Object... args) {
-            return valueOf();
-        }
-    };
-
-    WrappedFunction  F_user = new WrappedFunction () {
-        @Override
-        public Object call(Object thiz, Object... args) {
-            return rating.user();
+            return ((Rating)thiz).user();
         }
     };
 
     WrappedFunction F_product  = new  WrappedFunction () {
         @Override
         public Object call(Object thiz, Object... args) {
-            return rating.product();
+            return ((Rating)thiz).product();
         }
     };
 
     WrappedFunction F_rating  = new  WrappedFunction (){
         @Override
         public Object call(Object thiz, Object... args) {
-            return rating.rating();
-        }
-    };
-
-    WrappedFunction F_getJavaObject = new  WrappedFunction () {
-        @Override
-        public Object call(Object thiz, Object... args) {
-            return getJavaObject();
+            return ((Rating)thiz).rating();
         }
     };
 
@@ -91,10 +82,6 @@ public class Rating extends WrappedClass {
             case "user": return F_user;
             case "product": return F_product;
             case "rating": return F_rating;
-            case "valueOf": return F_valueOf;
-            case "toJSON": return F_toJSON;
-            case "toString": return toString();
-            case "getJavaObject": return F_getJavaObject;
         }
         return super.getMember(name);
     }
@@ -104,10 +91,6 @@ public class Rating extends WrappedClass {
             case "user":
             case "product":
             case "rating":
-            case "valueOf":
-            case "toJSON":
-            case "toString":
-            case "getJavaObject":
                 return true;
         }
         return super.hasMember(name);

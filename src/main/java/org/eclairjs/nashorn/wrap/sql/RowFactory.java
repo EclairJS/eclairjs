@@ -16,15 +16,10 @@ package org.eclairjs.nashorn.wrap.sql;/*
 
 import org.eclairjs.nashorn.Utils;
 import org.eclairjs.nashorn.wrap.WrappedClass;
-import org.eclairjs.nashorn.wrap.WrappedFunction;
 
 import java.util.ArrayList;
 
 public class RowFactory extends WrappedClass {
-
-    public Object getJavaObject() {
-        return null;
-    }
 
     static public Row create(Object[] values) {
         ArrayList al = new ArrayList();
@@ -34,6 +29,19 @@ public class RowFactory extends WrappedClass {
         //System.out.print("RowFactory.create" + al);
         return new Row(org.apache.spark.sql.RowFactory.create(al.toArray()));
     }
+
+    static public String getModuleName() {
+        return "sql.RowFactory";
+    }
+
+    public Object getJavaObject() {
+        return null;
+    }
+
+    public boolean checkInstance(Object other) {
+        return other instanceof RowFactory;
+    }
+
     @Override
     public String toJSON() {
         return null;
@@ -49,59 +57,21 @@ public class RowFactory extends WrappedClass {
         return toString();
     }
 
-    static public String getModuleName() {return "sql.RowFactory";}
-    public String getClassName() {return "sql.RowFactory";}
-
-
-    WrappedFunction F_toJSON = new WrappedFunction () {
-        @Override
-        public Object call(Object thiz, Object... args) {
-            return toJSON() ;
-        }
-    };
-
-    WrappedFunction  F_toString = new WrappedFunction () {
-        @Override
-        public Object call(Object thiz, Object... args) {
-            return this.toString();
-        }
-    };
-
-    WrappedFunction  F_valueOf = new WrappedFunction () {
-        @Override
-        public Object call(Object thiz, Object... args) {
-            return valueOf();
-        }
-    };
-
-    WrappedFunction F_getJavaObject = new  WrappedFunction () {
-        @Override
-        public Object call(Object thiz, Object... args) {
-            return getJavaObject();
-        }
-    };
+    public String getClassName() {
+        return "RowFactory";
+    }
 
 
     // get the value of that named property
     @Override
     public Object getMember(String name) {
-        switch (name) {
-            case "valueOf": return F_valueOf;
-            case "toJSON": return F_toJSON;
-            case "toString": return toString();
-            case "getJavaObject": return F_getJavaObject;
-        }
-        throw new RuntimeException("RowFactory."+name+" is not defined");
+        return super.getMember(name);
+
     }
+
     @Override
     public boolean hasMember(String name) {
-        switch (name) {
-            case "valueOf":
-            case "toJSON":
-            case "toString":
-            case "getJavaObject":
-                return true;
-        }
+
         return super.hasMember(name);
     }
 

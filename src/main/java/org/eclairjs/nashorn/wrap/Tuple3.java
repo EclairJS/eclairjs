@@ -7,11 +7,35 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Tuple3 extends WrappedClass {
+    static WrappedFunction  F_1 = new WrappedFunction () {
+        @Override
+        public Object call(Object thiz, Object... args) {
+            return ((Tuple3)thiz)._1;
+        }
+    };
+    static WrappedFunction F_2  = new  WrappedFunction () {
+        @Override
+        public Object call(Object thiz, Object... args) {
+            return ((Tuple3)thiz)._2;
+        }
+    };
+    static WrappedFunction F_3  = new  WrappedFunction () {
+        @Override
+        public Object call(Object thiz, Object... args) {
+            return ((Tuple3)thiz)._3;
+        }
+    };
+    static Map<String,WrappedFunction> functions = new HashMap<>();
+
+    static {
+        functions.put("_1",F_1);
+        functions.put("_2",F_2);
+        functions.put("_3",F_3);
+    }
 
     Object _1;
     Object _2;
     Object _3;
-
     public Tuple3(scala.Tuple3 tuple3) {
         _1=Utils.javaToJs(tuple3._1(),null);
         _2=Utils.javaToJs(tuple3._2(),null);
@@ -22,6 +46,10 @@ public class Tuple3 extends WrappedClass {
         this._1=_1;
         this._2=_2;
         this._3=_3;
+    }
+
+    static public String getModuleName() {
+        return "Tuple3";
     }
 
     public Object getJavaObject() {
@@ -41,56 +69,9 @@ public class Tuple3 extends WrappedClass {
         return "(" + _1 + "," + _2 + "," + _3 + ")" ;
     }
 
-    @Override
-    public String valueOf() {
-        return toString();
-    }
 
     public String getClassName() {return "Tuple3";}
-
-
-    WrappedFunction  F_toJSON = new WrappedFunction () {
-        @Override
-        public Object call(Object thiz, Object... args) {
-            return toJSON();
-        }
-    };
-
-    WrappedFunction  F_toString = new WrappedFunction () {
-        @Override
-        public Object call(Object thiz, Object... args) {
-            return toString();
-        }
-    };
-
-    WrappedFunction  F_valueOf = new WrappedFunction () {
-        @Override
-        public Object call(Object thiz, Object... args) {
-            return valueOf();
-        }
-    };
-
-
-    WrappedFunction  F_1 = new WrappedFunction () {
-        @Override
-        public Object call(Object thiz, Object... args) {
-            return _1;
-        }
-    };
-
-    WrappedFunction F_2  = new  WrappedFunction () {
-        @Override
-        public Object call(Object thiz, Object... args) {
-            return _2;
-        }
-    };
-
-    WrappedFunction F_3  = new  WrappedFunction () {
-        @Override
-        public Object call(Object thiz, Object... args) {
-            return _3;
-        }
-    };
+    public  boolean checkInstance(Object other){ return other instanceof Tuple3;}
 
 
     // get the value of that named property
@@ -100,9 +81,6 @@ public class Tuple3 extends WrappedClass {
             case "_1": return F_1;
             case "_2": return F_2;
             case "_3": return F_3;
-            case "valueOf": return F_valueOf;
-            case "toJSON": return F_toJSON;
-            case "toString": return toString();
         }
         return super.getMember(name);
     }
@@ -112,9 +90,6 @@ public class Tuple3 extends WrappedClass {
             case "_1":
             case "_2":
             case "_3":
-            case "valueOf":
-            case "toJSON":
-            case "toString":
                 return true;
         }
         return super.hasMember(name);

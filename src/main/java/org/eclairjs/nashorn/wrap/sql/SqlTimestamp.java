@@ -22,13 +22,80 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 
 public class SqlTimestamp extends WrappedClass {
+    static WrappedFunction F_after = new  WrappedFunction () {
+        @Override
+        public Object call(Object thiz, Object... args) {
+            java.sql.Timestamp timestamp = (java.sql.Timestamp) ((SqlTimestamp)thiz).getJavaObject();
+            return timestamp.after((Date) Utils.jsToJava(args[0]));
+        }
+    };
+    static WrappedFunction F_before = new  WrappedFunction () {
+        @Override
+        public Object call(Object thiz, Object... args) {
+            java.sql.Timestamp timestamp = (java.sql.Timestamp) ((SqlTimestamp)thiz).getJavaObject();
+            return timestamp.before((Date)Utils.jsToJava(args[0]));
+        }
+    };
+    static WrappedFunction F_compareTo = new  WrappedFunction () {
+        @Override
+        public Object call(Object thiz, Object... args) {
+            java.sql.Timestamp timestamp = (java.sql.Timestamp) ((SqlTimestamp)thiz).getJavaObject();
+            return timestamp.compareTo((java.sql.Date) Utils.jsToJava(args[0]));
+        }
+    };
+    static WrappedFunction F_equals = new  WrappedFunction () {
+        @Override
+        public Object call(Object thiz, Object... args) {
+            java.sql.Timestamp timestamp = (java.sql.Timestamp) ((SqlTimestamp)thiz).getJavaObject();
+            return timestamp.equals((java.sql.Date) Utils.jsToJava(args[0]));
+        }
+    };
+    static WrappedFunction F_getNanos = new  WrappedFunction () {
+        @Override
+        public Object call(Object thiz, Object... args) {
+            java.sql.Timestamp timestamp = (java.sql.Timestamp) ((SqlTimestamp)thiz).getJavaObject();
+            return timestamp.getNanos();
+        }
+    };
+    static WrappedFunction F_getTime = new  WrappedFunction () {
+        @Override
+        public Object call(Object thiz, Object... args) {
+            java.sql.Timestamp timestamp = (java.sql.Timestamp) ((SqlTimestamp)thiz).getJavaObject();
+            return timestamp.getTime();
+        }
+    };
+    static  WrappedFunction F_hashCode = new  WrappedFunction () {
+        @Override
+        public Object call(Object thiz, Object... args) {
+            java.sql.Timestamp timestamp = (java.sql.Timestamp) ((SqlTimestamp)thiz).getJavaObject();
+            return timestamp.hashCode();
+        }
+    };
+    static WrappedFunction F_setNanos = new  WrappedFunction () {
+        @Override
+        public Object call(Object thiz, Object... args) {
+            java.sql.Timestamp timestamp = (java.sql.Timestamp) ((SqlTimestamp)thiz).getJavaObject();
+            timestamp.setNanos((int) args[0]);
+            return null;
+        }
+    };
+    static  WrappedFunction F_setTime = new  WrappedFunction () {
+        @Override
+        public Object call(Object thiz, Object... args) {
+            java.sql.Timestamp timestamp = (java.sql.Timestamp) ((SqlTimestamp)thiz).getJavaObject();
+            timestamp.setTime((int) args[0]);
+            return null;
+        }
+    };
     private java.sql.Timestamp timestamp = null;
-    static public String getModuleName() {return "sql.SqlTimestamp";}
 
     public SqlTimestamp(int ms) {
 
         timestamp = new java.sql.Timestamp(ms);
     }
+
+
+
     public SqlTimestamp(String ts) throws java.text.ParseException {
        // DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -40,15 +107,21 @@ public class SqlTimestamp extends WrappedClass {
         }
 
     }
+
     public SqlTimestamp(java.sql.Timestamp ts) {
 
         timestamp = ts;
     }
 
+    static public String getModuleName() {return "sql.SqlTimestamp";}
+
+    public  boolean checkInstance(Object other){ return other instanceof SqlTimestamp;}
+
+    public String getClassName() {return "SqlTimestamp";}
+
     public Object getJavaObject() {
         return timestamp;
     }
-
 
     @Override
     public String toJSON() {
@@ -66,123 +139,10 @@ public class SqlTimestamp extends WrappedClass {
         return toString();
     }
 
-    public String getClassName() {return "sql.SqlTimestamp";}
-
-
-    WrappedFunction F_toJSON = new WrappedFunction () {
-        @Override
-        public Object call(Object thiz, Object... args) {
-            return toJSON() ;
-        }
-    };
-
-    WrappedFunction  F_toString = new WrappedFunction () {
-        @Override
-        public Object call(Object thiz, Object... args) {
-            return toString();
-        }
-    };
-
-    WrappedFunction  F_valueOf = new WrappedFunction () {
-        @Override
-        public Object call(Object thiz, Object... args) {
-            return valueOf();
-        }
-    };
-
-    WrappedFunction F_getJavaObject = new  WrappedFunction () {
-        @Override
-        public Object call(Object thiz, Object... args) {
-            return getJavaObject();
-        }
-    };
-
-    WrappedFunction F_after = new  WrappedFunction () {
-        @Override
-        public Object call(Object thiz, Object... args) {
-
-            return timestamp.after((Date) Utils.jsToJava(args[0]));
-        }
-    };
-
-    WrappedFunction F_before = new  WrappedFunction () {
-        @Override
-        public Object call(Object thiz, Object... args) {
-
-            return timestamp.before((Date)Utils.jsToJava(args[0]));
-        }
-    };
-
-    WrappedFunction F_compareTo = new  WrappedFunction () {
-        @Override
-        public Object call(Object thiz, Object... args) {
-
-            return timestamp.compareTo((java.sql.Date) Utils.jsToJava(args[0]));
-        }
-    };
-
-    WrappedFunction F_equals = new  WrappedFunction () {
-        @Override
-        public Object call(Object thiz, Object... args) {
-
-            return timestamp.equals((java.sql.Date) Utils.jsToJava(args[0]));
-        }
-    };
-
-    WrappedFunction F_getNanos = new  WrappedFunction () {
-        @Override
-        public Object call(Object thiz, Object... args) {
-
-            return timestamp.getNanos();
-        }
-    };
-
-    WrappedFunction F_getTime = new  WrappedFunction () {
-        @Override
-        public Object call(Object thiz, Object... args) {
-
-            return timestamp.getTime();
-        }
-    };
-
-    WrappedFunction F_hashCode = new  WrappedFunction () {
-        @Override
-        public Object call(Object thiz, Object... args) {
-
-            return timestamp.hashCode();
-        }
-    };
-
-    WrappedFunction F_setNanos = new  WrappedFunction () {
-        @Override
-        public Object call(Object thiz, Object... args) {
-
-            timestamp.setNanos((int) args[0]);
-            return null;
-        }
-    };
-
-    WrappedFunction F_setTime = new  WrappedFunction () {
-        @Override
-        public Object call(Object thiz, Object... args) {
-
-            timestamp.setTime((int) args[0]);
-            return null;
-        }
-    };
-
- /*   SqlTimestamp.prototype.setTime = function (n) {
-        return this.getJavaObject().setTime(n);
-    };*/
-
     // get the value of that named property
     @Override
     public Object getMember(String name) {
         switch (name) {
-            case "valueOf": return F_valueOf;
-            case "toJSON": return F_toJSON;
-            case "toString": return F_toString;
-            case "getJavaObject": return F_getJavaObject;
             case "after": return F_after;
             case "before": return F_before;
             case "compareTo": return F_compareTo;
@@ -194,15 +154,11 @@ public class SqlTimestamp extends WrappedClass {
             case "setTime": return F_setTime;
 
         }
-        throw new RuntimeException("SqlTimestamp."+name+" is not defined");
+        return super.getMember(name);
     }
     @Override
     public boolean hasMember(String name) {
         switch (name) {
-            case "valueOf":
-            case "toJSON":
-            case "toString":
-            case "getJavaObject":
             case "after":
             case "before":
             case "compareTo":
