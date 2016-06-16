@@ -27,21 +27,48 @@ public class Tuple3 extends WrappedClass {
     public Object getJavaObject() {
         return new scala.Tuple3(
             Utils.jsToJava(_1),
-                Utils.jsToJava(_2),
-        Utils.jsToJava(_3));
+            Utils.jsToJava(_2),
+            Utils.jsToJava(_3));
+    }
+
+    @Override
+    public String toJSON() {
+        return "{\"0\":" + Utils.JsonStringify(_1) + ",\"1\":" + Utils.JsonStringify(_2) + ",\"2\":" + Utils.JsonStringify(_3) + ",\"length\":3}" ;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + _1 + "," + _2 + "," + _3 + ")" ;
+    }
+
+    @Override
+    public String valueOf() {
+        return toString();
     }
 
     public String getClassName() {return "Tuple3";}
 
-    public String toString() {
-        Map<String,Object> map=new HashMap<>();
-        map.put("_1",_1);
-        map.put("_2",_2);
-        map.put("_3",_3);
-        return Utils.jsonString(map);
-    }
 
-    public String toJSON() {return toString();}
+    WrappedFunction  F_toJSON = new WrappedFunction () {
+        @Override
+        public Object call(Object thiz, Object... args) {
+            return toJSON();
+        }
+    };
+
+    WrappedFunction  F_toString = new WrappedFunction () {
+        @Override
+        public Object call(Object thiz, Object... args) {
+            return toString();
+        }
+    };
+
+    WrappedFunction  F_valueOf = new WrappedFunction () {
+        @Override
+        public Object call(Object thiz, Object... args) {
+            return valueOf();
+        }
+    };
 
 
     WrappedFunction  F_1 = new WrappedFunction () {
@@ -73,6 +100,9 @@ public class Tuple3 extends WrappedClass {
             case "_1": return F_1;
             case "_2": return F_2;
             case "_3": return F_3;
+            case "valueOf": return F_valueOf;
+            case "toJSON": return F_toJSON;
+            case "toString": return toString();
         }
         return super.getMember(name);
     }
@@ -82,6 +112,9 @@ public class Tuple3 extends WrappedClass {
             case "_1":
             case "_2":
             case "_3":
+            case "valueOf":
+            case "toJSON":
+            case "toString":
                 return true;
         }
         return super.hasMember(name);

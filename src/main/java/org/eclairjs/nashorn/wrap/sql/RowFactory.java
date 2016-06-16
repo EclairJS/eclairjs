@@ -1,40 +1,47 @@
-package org.eclairjs.nashorn.wrap;
-
+package org.eclairjs.nashorn.wrap.sql;/*
+ * Copyright 2016 IBM Corp.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 import org.eclairjs.nashorn.Utils;
+import org.eclairjs.nashorn.wrap.WrappedClass;
+import org.eclairjs.nashorn.wrap.WrappedFunction;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
-public class Tuple2 extends WrappedClass {
-
-    Object _1;
-    Object _2;
-
-    public Tuple2(scala.Tuple2 tuple2) {
-        _1=Utils.javaToJs(tuple2._1(),null);
-        _2=Utils.javaToJs(tuple2._2(),null);
-    }
-
-    public Tuple2(Object _1, Object _2)  {
-        this._1=_1;
-        this._2=_2;
-    }
+public class RowFactory extends WrappedClass {
 
     public Object getJavaObject() {
-        return new scala.Tuple2(
-            Utils.jsToJava(_1),
-            Utils.jsToJava(_2));
+        return null;
     }
 
+    static public Row create(Object[] values) {
+        ArrayList al = new ArrayList();
+        for (int i = 0; i < values.length; i++) {
+            al.add(Utils.jsToJava(values[i]));
+        }
+        //System.out.print("RowFactory.create" + al);
+        return new Row(org.apache.spark.sql.RowFactory.create(al.toArray()));
+    }
     @Override
     public String toJSON() {
-        return "{\"0\":" + Utils.JsonStringify(_1) + ",\"1\":" + Utils.JsonStringify(_2) + ",\"length\":2}" ;
+        return null;
     }
 
     @Override
     public String toString() {
-        return "(" + _1 + "," + _2 + ")" ;
+        return null;
     }
 
     @Override
@@ -42,10 +49,11 @@ public class Tuple2 extends WrappedClass {
         return toString();
     }
 
-    public String getClassName() {return "Tuple2";}
+    static public String getModuleName() {return "sql.RowFactory";}
+    public String getClassName() {return "sql.RowFactory";}
 
 
-    WrappedFunction  F_toJSON = new WrappedFunction () {
+    WrappedFunction F_toJSON = new WrappedFunction () {
         @Override
         public Object call(Object thiz, Object... args) {
             return toJSON() ;
@@ -66,20 +74,6 @@ public class Tuple2 extends WrappedClass {
         }
     };
 
-    WrappedFunction  F_1 = new WrappedFunction () {
-        @Override
-        public Object call(Object thiz, Object... args) {
-            return _1;
-        }
-    };
-
-    WrappedFunction F_2  = new  WrappedFunction () {
-        @Override
-        public Object call(Object thiz, Object... args) {
-            return _2;
-        }
-    };
-
     WrappedFunction F_getJavaObject = new  WrappedFunction () {
         @Override
         public Object call(Object thiz, Object... args) {
@@ -92,20 +86,16 @@ public class Tuple2 extends WrappedClass {
     @Override
     public Object getMember(String name) {
         switch (name) {
-            case "_1": return F_1;
-            case "_2": return F_2;
             case "valueOf": return F_valueOf;
             case "toJSON": return F_toJSON;
             case "toString": return toString();
             case "getJavaObject": return F_getJavaObject;
         }
-        throw new RuntimeException("Tuple2."+name+" is not defined");
+        throw new RuntimeException("RowFactory."+name+" is not defined");
     }
     @Override
     public boolean hasMember(String name) {
         switch (name) {
-            case "_1":
-            case "_2":
             case "valueOf":
             case "toJSON":
             case "toString":
@@ -116,3 +106,4 @@ public class Tuple2 extends WrappedClass {
     }
 
 }
+

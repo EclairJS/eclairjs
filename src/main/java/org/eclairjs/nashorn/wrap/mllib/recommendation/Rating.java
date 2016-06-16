@@ -18,8 +18,43 @@ public class Rating extends WrappedClass {
 
     public Object getJavaObject() {return rating;}
 
+    @Override
+    public String toJSON() {
+        return "{\"user\":" + rating.user()+ ",\"product\":" + rating.product() + "\"rating\":" + rating.rating() + "}" ;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + rating.user() + "," + rating.product() + "," + rating.rating() + ")" ;
+    }
+
+    @Override
+    public String valueOf() {
+        return toString();
+    }
+
     public String getClassName() {return "Rating";}
 
+    WrappedFunction  F_toJSON = new WrappedFunction () {
+        @Override
+        public Object call(Object thiz, Object... args) {
+            return toJSON();
+        }
+    };
+
+    WrappedFunction  F_toString = new WrappedFunction () {
+        @Override
+        public Object call(Object thiz, Object... args) {
+            return toString();
+        }
+    };
+
+    WrappedFunction  F_valueOf = new WrappedFunction () {
+        @Override
+        public Object call(Object thiz, Object... args) {
+            return valueOf();
+        }
+    };
 
     WrappedFunction  F_user = new WrappedFunction () {
         @Override
@@ -42,6 +77,13 @@ public class Rating extends WrappedClass {
         }
     };
 
+    WrappedFunction F_getJavaObject = new  WrappedFunction () {
+        @Override
+        public Object call(Object thiz, Object... args) {
+            return getJavaObject();
+        }
+    };
+
     // get the value of that named property
     @Override
     public Object getMember(String name) {
@@ -49,6 +91,10 @@ public class Rating extends WrappedClass {
             case "user": return F_user;
             case "product": return F_product;
             case "rating": return F_rating;
+            case "valueOf": return F_valueOf;
+            case "toJSON": return F_toJSON;
+            case "toString": return toString();
+            case "getJavaObject": return F_getJavaObject;
         }
         return super.getMember(name);
     }
@@ -58,6 +104,10 @@ public class Rating extends WrappedClass {
             case "user":
             case "product":
             case "rating":
+            case "valueOf":
+            case "toJSON":
+            case "toString":
+            case "getJavaObject":
                 return true;
         }
         return super.hasMember(name);
