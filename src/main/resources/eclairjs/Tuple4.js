@@ -15,83 +15,42 @@
  */
 (function () {
 
-    var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
-    var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
-    var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
-    var javaTuple4 = Java.type('scala.Tuple4');
     /**
      * @classdesc
      * @param {object} obj
      * @param {object} obj
-     * @constructor
+     * @constructor Tuple4
      * @memberof module:eclairjs
      */
-    var Tuple4 = function () {
-        this.logger = Logger.getLogger("Tuple4_js");
-        var jvmObject;
-        //print("length " + arguments.length)
-        if (arguments.length == 3) {
-
-            jvmObject = new javaTuple4(
-                Serialize.jsToJava(arguments[0]),
-                Serialize.jsToJava(arguments[1]),
-                Serialize.jsToJava(arguments[2]),
-                Serialize.jsToJava(arguments[3])
-            );
-        } else {
-            jvmObject = Utils.unwrapObject(arguments[0]);
-        }
-        //print("Tuple3 " + jvmObject);
-        JavaWrapper.call(this, jvmObject);
-
-    };
-
-    Tuple4.prototype = Object.create(JavaWrapper.prototype);
-
-    Tuple4.prototype.constructor = Tuple4;
+    var Tuple4 = Java.type('org.eclairjs.nashorn.wrap.Tuple4');
 
     /**
      *
+     * @function
+     * @name module:eclairjs.Tuple4#_1
      * @returns {object}
      */
-    Tuple4.prototype._1 = function () {
-        return Utils.javaToJs( this.getJavaObject()._1());
-    };
 
     /**
      *
+     * @function
+     * @name module:eclairjs.Tuple4#_2
      * @returns {object}
      */
-    Tuple4.prototype._2 = function () {
-        return Utils.javaToJs( this.getJavaObject()._2());
-    };
 
     /**
      *
+     * @function
+     * @name module:eclairjs.Tuple4#_3
      * @returns {object}
      */
-    Tuple4.prototype._3 = function () {
-        return Utils.javaToJs( this.getJavaObject()._3());
-    };
 
     /**
      *
+     * @function
+     * @name module:eclairjs.Tuple4#_4
      * @returns {object}
      */
-    Tuple4.prototype._4 = function () {
-        return Utils.javaToJs( this.getJavaObject()._4());
-    };
-
-    Tuple4.prototype.toJSON = function () {
-        var jsonObj = {};
-        jsonObj[0] = this._1();
-        jsonObj[1] = this._2();
-        jsonObj[2] = this._3();
-        jsonObj[3] = this._4();
-        jsonObj.length = 4;
-        return jsonObj;
-
-    };
 
     module.exports = Tuple4;
 

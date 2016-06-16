@@ -36,24 +36,20 @@ function run(sc) {
     var ALS = require('eclairjs/mllib/recommendation/ALS');
     var Rating = require('eclairjs/mllib/recommendation/Rating');
 
-    var small_ratings_raw_data = sc.textFile('examples/data/mllib/ml-latest/ratings.csv');
-//    var small_ratings_raw_data = sc.textFile('examples/data/mllib/ml-latest/ratings.csv');
+    var small_ratings_raw_data = sc.textFile('examples/data/mllib/ml-latest-small/ratings.csv');
     var small_ratings_raw_data_header = small_ratings_raw_data.take(1)[0];
     var small_ratings_data = small_ratings_raw_data.filter(function(line, small_ratings_raw_data_header) {
         // filters out the header
         return line != small_ratings_raw_data_header;
     }, [small_ratings_raw_data_header])
     .map(function(line) {
-        return line.split(",");
-    })
-    .map(function(tokens) {
-        // tokenes are userId,movieId,rating,timestamp
+        var tokens = line.split(",");
         return new Rating(tokens[0],tokens[1],tokens[2]);
-    }).cache()
+    })
+    .cache()
     //print(small_ratings_data.take(3));
 
-    var small_movies_raw_data = sc.textFile('examples/data/mllib/ml-latest/movies.csv');
-//    var small_movies_raw_data = sc.textFile('examples/data/mllib/ml-latest/movies.csv');
+    var small_movies_raw_data = sc.textFile('examples/data/mllib/ml-latest-small/movies.csv');
     var small_movies_raw_data_header = small_movies_raw_data.take(1)[0];
     var small_movies_data = small_movies_raw_data.filter(function(line, small_movies_raw_data_header) {
             // filters out the header
@@ -74,7 +70,7 @@ function run(sc) {
             return new Tuple2(tuple2._1(), tuple2._2());
 
         });
-    print(small_movies_titles.take(3));
+    print("small_movies_titles " + small_movies_titles.take(3));
 
     var seed = 0;
     var split = small_ratings_data.randomSplit([0.6, 0.2, 0.2], seed)
@@ -160,8 +156,8 @@ function run(sc) {
      In order to build our recommender model, we will use the complete dataset.
 
      */
+  //  var complete_ratings_raw_data = sc.textFile("examples/data/mllib/ml-latest-small/ratings.csv");
     var complete_ratings_raw_data = sc.textFile("examples/data/mllib/ml-latest/ratings.csv");
-//    var complete_ratings_raw_data = sc.textFile("examples/data/mllib/ml-latest/ratings.csv");
     var complete_ratings_raw_data_header = complete_ratings_raw_data.take(1)[0];
 
     var complete_ratings_data = complete_ratings_raw_data.filter(function (line, complete_ratings_raw_data_header) {
@@ -228,6 +224,7 @@ function run(sc) {
      */
 
     var complete_movies_raw_data = sc.textFile('examples/data/mllib/ml-latest/movies.csv');
+    //var complete_movies_raw_data = sc.textFile('examples/data/mllib/ml-latest-small/movies.csv');
     var complete_movies_raw_data_header = complete_movies_raw_data.take(1)[0];
     var complete_movies_data = complete_movies_raw_data.filter(function(line, complete_movies_raw_data_header) {
             // filters out the header

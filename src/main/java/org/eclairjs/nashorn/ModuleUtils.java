@@ -20,32 +20,32 @@ public class ModuleUtils {
     }
 
     public static Object getRequiredFile(JSONObject module,ScriptEngine engine) {
-//        String name = "";
-//        if (module.containsKey("modname"))
-//            name=(String)module.get("modname");
-//
-//        Object requiredMod=modules.get(name);
-//        if (requiredMod==null) {
-////            //print("ModuleUtils.getRequiredFile file not found - going to try and load");
-////            // this could be a worker node - try and load it
-//            requiredMod = ModuleUtils._tryToLoadFile(module,engine);
-//
-//        }
-//        return requiredMod;
-//
-//        Object obj= engine.get("ModuleUtils");
-//        if (obj instanceof ScriptObjectMirror)
-//        {
-//            ScriptObjectMirror moduleUtils=(ScriptObjectMirror)obj;
-//            obj=moduleUtils.get("getRequiredFile");
-//            if (obj instanceof ScriptObjectMirror)
-//            {
-//                ScriptObjectMirror getRequiredFile=(ScriptObjectMirror)obj;
-//                getRequiredFile.call(null,)
-//            }
-//        }
-        return null;
+        String name = "";
+        if (module.containsKey("modname"))
+            name=(String)module.get("modname");
 
+        Object requiredMod=modules.get(name);
+        if (requiredMod==null) {
+            //print("ModuleUtils.getRequiredFile file not found - going to try and load");
+            // this could be a worker node - try and load it
+            requiredMod = ModuleUtils._tryToLoadFile(module,engine);
+
+        }
+        return requiredMod;
+/*
+        Object obj= engine.get("ModuleUtils");
+        if (obj instanceof ScriptObjectMirror)
+        {
+            ScriptObjectMirror moduleUtils=(ScriptObjectMirror)obj;
+            obj=moduleUtils.get("getRequiredFile");
+            if (obj instanceof ScriptObjectMirror)
+            {
+                ScriptObjectMirror getRequiredFile=(ScriptObjectMirror)obj;
+                getRequiredFile.call(null);
+            }
+        }
+        return null;
+*/
 
     }
      static Object _tryToLoadFile (JSONObject mod,ScriptEngine engine) {
@@ -62,8 +62,8 @@ public class ModuleUtils {
 
             if (mod.containsKey("core")) {
 //                // Module is part of JAR but not part of Bootstrap so have to manually load.
-                String filename = ModuleUtils.getResourcePath((String)mod.get("id"));
-                engine.eval("load('" + filename + "');");
+//                String filename = ModuleUtils.getResourcePath((String)mod.get("id"));
+//                engine.eval("load('" + filename + "');");
 
             } else {
 //                // If the required file is NOT on classpath (e.g. core file part of JAR) then it was
@@ -101,11 +101,16 @@ public class ModuleUtils {
                 // If this is worker node then required module needs to pass thru jvm-npm so it's
                 // exports are made "live"/available to lambdas thus we have to simulate "require".
                 String reqAddOn ="";
-//                if (mod.containsKey("exportname"))
-//                  reqAddOn = "\\."+ (String)mod.get("exportname");
+                if (mod.containsKey("exportname")) {
+                    String exportname = (String) mod.get("exportname");
+                    if (exportname.length() > 0 ) {
+                        reqAddOn = "." + (String) mod.get("exportname");
+                    }
+                }
                 //print("About to try and eval/require: "+"require('" + mod.modname + "')"+reqAddOn+";");
                 Object obj=engine.eval("require('" + mod.get("modname") + "')"+reqAddOn+";");
                 modules.put((String)mod.get("modname"),obj);
+                return obj;
             }
 
             // Before returing set the exportname in the new Module instance so worker node had it too.

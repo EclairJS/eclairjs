@@ -22,6 +22,7 @@ import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 
+import jdk.nashorn.internal.objects.NativeArray;
 import org.apache.log4j.Logger;
 import org.apache.spark.SparkFiles;
 import org.apache.spark.mllib.regression.LinearRegressionModel;
@@ -47,7 +48,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.text.DecimalFormat;
 import java.util.*;
+import java.sql.Timestamp;
 import java.util.function.BooleanSupplier;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -91,12 +94,23 @@ public class Utils {
                 JSONObject json=(JSONObject)o;
                 if (ModuleUtils.isModule(json)) {
                     Object mod = ModuleUtils.getRequiredFile(json,engine);
-
+                   // System.out.println("mod" + mod);
 //    Serialize.logger.debug("Serialize.JSModule found a lambda required module: "+mod);
-
-//                    return (mod && mod.exportname) ? mod.exports[mod.exportname] : (mod ? mod.exports : false);
+                    return mod;
+                   // return (mod && mod.exportname) ? mod.exports[mod.exportname] : (mod ? mod.exports : false);
                 }
-                throw new RuntimeException("java2js NOT HANDLED:"+packageName);
+                //System.out.println("JSONObject" + json.toJSONString());
+                Invocable invocable = (Invocable) engine;
+                try {
+                    String cmd = "JSON.parse('" + json.toJSONString() + "')";
+                    Object r = engine.eval(cmd);
+                    return r;
+                } catch (javax.script.ScriptException e) {
+
+                    throw new RuntimeException(e.toString());
+                 }
+//				 er  = invocable.invokeFunction("convertJavaJSONObject",params);
+        //        throw new RuntimeException("java2js NOT HANDLED:"+packageName);
 
 
             case "java.util.ArrayList":
@@ -112,6 +126,20 @@ public class Utils {
                 return new  org.eclairjs.nashorn.wrap.mllib.recommendation.Rating(
                         (org.apache.spark.mllib.recommendation.Rating)o
                 );
+            case "org.apache.spark.sql.catalyst.expressions.GenericRowWithSchema":
+            case "org.apache.spark.sql.catalyst.expressions.GenericRow":
+            case "org.apache.spark.sql.Row":
+                return new  org.eclairjs.nashorn.wrap.sql.Row(
+                        (org.apache.spark.sql.Row)o
+                );
+            case "java.sql.Timestamp":
+                return new  org.eclairjs.nashorn.wrap.sql.SqlTimestamp(
+                        (java.sql.Timestamp)o
+                );
+            case "java.sql.Date":
+                return new  org.eclairjs.nashorn.wrap.sql.SqlDate(
+                        (java.sql.Date)o
+                );
             case "scala.Tuple2":
                 return new  org.eclairjs.nashorn.wrap.Tuple2(
                         (scala.Tuple2)o
@@ -119,6 +147,10 @@ public class Utils {
             case "scala.Tuple3":
                 return new  org.eclairjs.nashorn.wrap.Tuple3(
                         (scala.Tuple3)o
+                );
+            case "scala.Tuple4":
+                return new  org.eclairjs.nashorn.wrap.Tuple4(
+                        (scala.Tuple4)o
                 );
             case "scala.collection.convert.Wrappers.IterableWrapper":
             {
@@ -167,8 +199,8 @@ public class Utils {
 //                    while(iter.hasNext()) {
 //                        alist.add(javaToJs(iter.next(),engine));
 //                    }
-                    System.out.println("from size="+from.size());
-                    System.out.println("from1 size="+from.get(0).getClass().getCanonicalName());
+                    //System.out.println("from size="+from.size());
+                    //System.out.println("from1 size="+from.get(0).getClass().getCanonicalName());
                     for(int i=0;i<from.size();i++) {
                         alist.add(javaToJs(from.get(i),engine));
                     }
@@ -314,7 +346,17 @@ public class Utils {
      public static Object jsToJava(Object o) {
 		if(o != null) {
 			logger.debug("jsToJava" + o.getClass().getName());
-		}
+		} else {
+            return o;
+        }
+         if (o instanceof jdk.nashorn.internal.objects.NativeArray) {
+             Object array[] =  ((NativeArray) o).asObjectArray();
+             ArrayList al = new ArrayList();
+             for (int i = 0; i < array.length; i++) {
+                 al.add(jsToJava(array[i]));
+             }
+             return al.toArray();
+         }
         if ( o.getClass().isPrimitive())
             return o;
 
@@ -341,12 +383,13 @@ public class Utils {
 				}
 				return list;
 			} else {
-                 throw new RuntimeException("js2java IMPLEMENT"+o);
-//                Object obj = ScriptObjectMirror.wrapAsJSONCompatible(o, null);
-//                String j = JSONValue.toJSONString(obj);
-//                return JSONValue.parse(j);
+  //               throw new RuntimeException("js2java IMPLEMENT"+o);
+                Object obj = ScriptObjectMirror.wrapAsJSONCompatible(o, null);
+                String j = JSONValue.toJSONString(obj);
+                return JSONValue.parse(j);
             }
 		}
+
          throw new RuntimeException("js2java NOT HANDLED"+o);
 //        else if (o instanceof IteratorWrapper) {
 //			ArrayList alist = new ArrayList();
@@ -583,5 +626,39 @@ public class Utils {
         }
         sb.append(" } ");
         return sb.toString();
+    }
+
+    public static String formatDouble(Double v) {
+        try {
+            DecimalFormat df = new DecimalFormat();
+            df.setGroupingUsed(false);
+            df.setMaximumFractionDigits(12);
+            return df.format(v);
+        } catch (java.lang.IllegalArgumentException e) {
+            return  v.toString();
+        }
+    }
+
+    public static String JsonStringify(Object o) {
+        String jsonStr = null;
+        try {
+            Invocable invocable = (Invocable) NashornEngineSingleton.getEngine();
+            jsonStr = (String) invocable.invokeFunction("objectToJsonString", o);
+        } catch (java.lang.Exception e) {
+            e.printStackTrace();
+        }
+        return jsonStr;
+
+    }
+
+    public static ScriptObjectMirror createJavaScriptObject(Object o) {
+        ScriptObjectMirror obj = null;
+        try {
+            Invocable invocable = (Invocable) NashornEngineSingleton.getEngine();
+            obj = (ScriptObjectMirror) invocable.invokeFunction("createJavaScriptSparkObject", o);
+        } catch (java.lang.Exception e) {
+            e.printStackTrace();
+        }
+        return obj;
     }
 }

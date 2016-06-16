@@ -40,7 +40,7 @@
      * Logs a message with the specific Marker at the DEBUG level.
      *
      * @function
-     * @name Logger#debug
+     * @name module:eclairjs.Logger#debug
      * @param {string} str text to be added to the logs
      */
 
@@ -48,7 +48,7 @@
      * Logs a message object with the ERROR level.
      *
      * @function
-     * @name Logger#error
+     * @name module:eclairjs.Logger#error
      * @param {string} str text to be added to the logs
      */
 
@@ -56,7 +56,7 @@
      * Logs a message with the specific Marker at the FATAL level.
      *
      * @function
-     * @name Logger#fatal
+     * @name module:eclairjs.Logger#fatal
      * @param {string} str text to be added to the logs
      */
 
@@ -64,7 +64,7 @@
      * Gets the logger name.
      *
      * @function
-     * @name Logger#getName
+     * @name module:eclairjs.Logger#getName
      * @param {string} str text to be added to the logs
      */
 
@@ -72,15 +72,15 @@
      * Logs a message with the specific Marker at the INFO level.
      *
      * @function
-     * @name Logger#info
+     * @name module:eclairjs.Logger#info
      * @param {string} str text to be added to the logs
      */
 
     /**
      * Logs a message with the specific Marker at the TRACE level.
      *
-     * @function
-     * @name Logger#trace
+     * @function Logger
+     * @name module:eclairjs.Logger#trace
      * @param {string} str text to be added to the logs
      */
 
@@ -88,7 +88,7 @@
      * Logs a message with the specific Marker at the WARN level.
      *
      * @function
-     * @name Logger#warn
+     * @name module:eclairjs.Logger#warn
      * @param {string} str text to be added to the logs
      */
 

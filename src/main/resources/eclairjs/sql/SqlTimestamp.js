@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 (function () {
-    var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
-    var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
+ //   var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
+ //   var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
 
     /**
-     * @constructor
+     * @constructor SqlTimestamp
      * @memberof module:eclairjs/sql
      * @classdesc A thin wrapper around Date that allows the JDBC API to identify this as an SQL TIMESTAMP value.
      * It adds the ability to hold the SQL TIMESTAMP fractional seconds value, by allowing the specification of
@@ -26,6 +26,8 @@
      * to support the JDBC escape syntax for timestamp values.
      * @param {number | string | Date} number of millisecond, string date representation, or Date object
      */
+    var SqlTimestamp = Java.type('org.eclairjs.nashorn.wrap.sql.SqlTimestamp');
+   /*
     var SqlTimestamp = function(o) {
         var jvmObj;
         if (!o) {
@@ -51,85 +53,105 @@
     SqlTimestamp.prototype = Object.create(JavaWrapper.prototype);
 
     SqlTimestamp.prototype.constructor = SqlTimestamp;
-
+*/
     /**
      * Indicates whether this Timestamp object is later than the given Timestamp object.
+     * @function
+     * @name module:eclairjs/sql.SqlTimestamp#after
      * @param {SqlTimeStamp} when
      * @returns {boolean}
      */
-    SqlTimestamp.prototype.after = function (when) {
+/*    SqlTimestamp.prototype.after = function (when) {
         return this.getJavaObject().after(Utils.unwrapObject(when));
-    };
+    };*/
     /**
      * Indicates whether this Timestamp object is earlier than the given Timestamp object.
+     *  @function
+     * @name module:eclairjs/sql.SqlTimestamp#before
      * @param {SqlTimeStamp} when
      * @returns {boolean}
      */
-    SqlTimestamp.prototype.before = function (when) {
+/*    SqlTimestamp.prototype.before = function (when) {
         return this.getJavaObject().before(Utils.unwrapObject(when));
-    };
+    };*/
     /**
      * Compares this Timestamp object to the given Date or Timestamp object.
+     *  @function
+     * @name module:eclairjs/sql.SqlTimestamp#compareTo
      * @param {module:eclairjs/sql.SqlDate | module:eclairjs/sql.SqlTimestamp} when
      * @returns {integer}
      */
-    SqlTimestamp.prototype.compareTo = function (when) {
+ /*   SqlTimestamp.prototype.compareTo = function (when) {
         return this.getJavaObject().compareTo(Utils.unwrapObject(when));
-    };
+    };*/
     /**
      * Tests to see if this Timestamp object is equal to the given Timestamp object.
+     *  @function
+     * @name module:eclairjs/sql.SqlTimestamp#equals
      * @param {module:eclairjs/sql.SqlTimestamp} when
      * @returns {boolean}
      */
-    SqlTimestamp.prototype.equals = function (when) {
+ /*   SqlTimestamp.prototype.equals = function (when) {
         return this.getJavaObject().equals(Utils.unwrapObject(when));
-    };
+    };*/
     /**
      * Gets this Timestamp object's nanos value.
+     *  @function
+     * @name module:eclairjs/sql.SqlTimestamp#getNanos
      * @returns {integer}
      */
-    SqlTimestamp.prototype.getNanos = function () {
+ /*   SqlTimestamp.prototype.getNanos = function () {
         return this.getJavaObject().getNanos();
-    };
+    };*/
     /**
      * Returns the number of milliseconds since January 1, 1970, 00:00:00 GMT represented by this Timestamp object
+     *  @function
+     * @name module:eclairjs/sql.SqlTimestamp#getTime
      * @returns {integer}
      */
-    SqlTimestamp.prototype.getTime = function () {
+/*    SqlTimestamp.prototype.getTime = function () {
         return this.getJavaObject().getTime();
-    };
+    };*/
     /**
      * Returns a hash code value for this object.
+     *  @function
+     * @name module:eclairjs/sql.SqlTimestamp#hashCode
      * @returns {integer}
      */
-    SqlTimestamp.prototype.hashCode = function () {
+ /*   SqlTimestamp.prototype.hashCode = function () {
         return this.getJavaObject().hashCode();
-    };
+    };*/
     /**
      * Sets this Timestamp object's nanos field to the given value.
+     *  @function
+     * @name module:eclairjs/sql.SqlTimestamp#setNanos
      * @param {integer}
      */
-    SqlTimestamp.prototype.setNanos = function (n) {
+ /*   SqlTimestamp.prototype.setNanos = function (n) {
         return this.getJavaObject().setNanos(n);
-    };
+    };*/
     /**
      * Sets this Timestamp object to represent a point in time that is time milliseconds after January 1, 1970 00:00:00 GMT.
+     *  @function
+     * @name module:eclairjs/sql.SqlTimestamp#setTime
      * @param {integer}
      */
-    SqlTimestamp.prototype.setTime = function (n) {
+ /*   SqlTimestamp.prototype.setTime = function (n) {
         return this.getJavaObject().setTime(n);
-    };
+    };*/
     /**
      * Formats a timestamp in JDBC timestamp escape format.
+     *  @function
+     * @name module:eclairjs/sql.SqlTimestamp#toString
      * @returns {string}
      */
-    SqlTimestamp.prototype.toString = function () {
+ /*   SqlTimestamp.prototype.toString = function () {
         return this.getJavaObject().toString();
-    };
+    };*/
 
-    SqlTimestamp.prototype.toJSON = function () {
+/*    SqlTimestamp.prototype.toJSON = function () {
         return this.getJavaObject().toString();
-    };
+    };*/
 
     module.exports = SqlTimestamp;
 

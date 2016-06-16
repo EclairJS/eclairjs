@@ -16,8 +16,7 @@
 
 (function () {
 
-    var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
-    var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
+
 
     /**
      * A more class to represent a rating than array[Int, Int, float].
@@ -28,39 +27,25 @@
      * @param {integer} user
      * @param {integer} product
      * @param {float} rating
-     *  @class
+     *  @class Rating
      *  @memberof module:eclairjs/mllib/recommendation
      */
-    var Rating = function () {
-        this.logger = Logger.getLogger("Rating_js");
-        var jvmObject = arguments[0];
-        if (arguments.length > 1) {
-            jvmObject = new org.apache.spark.mllib.recommendation.Rating(arguments[0], arguments[1], arguments[2]);
-        }
+    var Rating = Java.type('org.eclairjs.nashorn.wrap.mllib.recommendation.Rating');
 
-        JavaWrapper.call(this, jvmObject);
+    /**
+     * @function module:eclairjs/mllib/recommendation.Rating#user
+     * @returns {integer}
+     */
 
-    };
+    /**
+     * @function module:eclairjs/mllib/recommendation.Rating#product
+     * @returns {integer}
+     */
 
-    Rating.prototype = Object.create(JavaWrapper.prototype);
-
-    Rating.prototype.constructor = Rating;
-
-    Rating.prototype.user = function () {
-        return this.getJavaObject().user();
-    };
-
-    Rating.prototype.product = function () {
-        return this.getJavaObject().product();
-    };
-
-    Rating.prototype.rating = function () {
-        return this.getJavaObject().rating();
-    };
-
-    Rating.prototype.toString = function () {
-        return "{Rating: [" + this.user() + "," + this.product() + "," + this.rating() + "]}";
-    };
+    /**
+     * @function module:eclairjs/mllib/recommendation.Rating#rating
+     * @returns {float}
+     */
 
     module.exports = Rating;
 

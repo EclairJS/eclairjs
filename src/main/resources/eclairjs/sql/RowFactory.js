@@ -16,29 +16,32 @@
 
 (function () {
 
+
     //var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
-    var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
-    var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
-    var Row = require(EclairJS_Globals.NAMESPACE + '/sql/Row');
+    //var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
+    //var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
+    //var Row = require(EclairJS_Globals.NAMESPACE + '/sql/Row');
 
     /**
-     * @constructor
+     * @constructor RowFactory
      * @memberof module:eclairjs/sql
      * @classdesc A factory class used to construct Row objects.
      */
 
-    var RowFactory = function() {};
-
+    //var RowFactory = function() {};
+    var RowFactory = Java.type('org.eclairjs.nashorn.wrap.sql.RowFactory');
 
     // Static methods
 
     /**
      * Create a Row from the given arguments. Position i in the argument list becomes position i in the created Row object.
+     * @function
+     * @name module:eclairjs/sql.RowFactory#create
      * @param {...object} values Array of objects or object1,..., objectN
      * @returns {module:eclairjs/sql.Row}
      */
-    RowFactory.create = function () {
-        var javaValues = [];
+ /*   RowFactory.create = function () {
+       var javaValues = [];
 
         var values = arguments[0];
         if (!(Array.isArray(values))) {
@@ -47,7 +50,7 @@
         Logger.getLogger("sql.RowFactory_js").debug("RowFactory.create input= " + values);
         values.forEach(function (o) {
             var uw_o = Utils.unwrapObject(o);
-            if (Array.isArray(uw_o)) {
+            if (Array.isArray(uw_o)) { */
                 /*
                  if we have a Row that has an ArrayType element need to convert to List
                  or we will get exceptions when we try to create a Dataframe with a JavaScript Array
@@ -56,7 +59,7 @@
                  Example:
                  StructField("text", new SqlArrayType(DataTypes.StringType, true), false, Metadata.empty());
                  */
-                uw_o = java.util.Arrays.asList(uw_o);
+             /*   uw_o = java.util.Arrays.asList(uw_o);
             }
             javaValues.push(Utils.unwrapObject(uw_o));
         });
@@ -65,7 +68,7 @@
         var row = org.apache.spark.sql.RowFactory.create(javaValues);
         var r = new Row(row);
         return r;
-    };
+    };*/
 
     module.exports = RowFactory;
 

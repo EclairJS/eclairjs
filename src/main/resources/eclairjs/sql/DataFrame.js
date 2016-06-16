@@ -115,7 +115,8 @@
 		var jRows = this.getJavaObject().collect();
 		var rows = [];
 		for (var i = 0; i < jRows.length; i++) {
-			rows.push(Utils.javaToJs(jRows[i]));
+			//rows.push(Utils.javaToJs(jRows[i]));
+			rows.push(org.eclairjs.nashorn.Utils.javaToJs(jRows[i], org.eclairjs.nashorn.NashornEngineSingleton.getEngine()));
 		}
 		return rows;
 	};
@@ -708,7 +709,11 @@
 	 * @returns {object}
 	 */
 	DataFrame.prototype.toJSON = function () {
-        return this.collect();
+        //return this.collect();
+       var rows =  this.collect();
+        var s = JSON.stringify(rows);
+        var o = JSON.parse(s);
+        return o;
 	};
 	/**
 	 * Represents the content of the DataFrame as an RDD of Rows.

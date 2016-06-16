@@ -67,16 +67,39 @@ function Utils_invoke(func) {
     return ret;
 };
 
-/*var oldJSON = JSON;
+function createJavaScriptSparkObject(javaObj) {
+    return Serialize.javaToJs(javaObj);
+}
 
-JSON = {
-    stringify: function(v) {
-        if (v instanceof org.eclairjs.nashorn.wrap.Tuple2) {
-            return v.toJSON();
+function objectToJsonString(obj) {
+    return JSON.stringify(obj);
+}
+
+
+if (typeof nativeJSON === "undefined") {
+    nativeJSON = JSON;
+
+    JSON = {
+        stringify: function (v) {
+            // FIXME need to handle all arguments passed to JSON.stringify to match standard
+            var jsonObj = v;
+            if (Array.isArray(v)) {
+                jsonObj = [];
+                for (var i = 0; i < v.length; i++) {
+                    var s = JSON.stringify(v[i]);
+                    var o = nativeJSON.parse(s);
+                    jsonObj.push(o)
+                }
+            } else if (v instanceof org.eclairjs.nashorn.wrap.WrappedClass) {
+                var jsonStr =  v.toJSON();
+                //print("jsonStr " + jsonStr)
+                jsonObj = nativeJSON.parse(jsonStr);
+            }
+            return nativeJSON.stringify(jsonObj);
+        },
+        parse: function (text) {
+            // FIXME need to handle all arguments passed to JSON.parse to match standard
+            return nativeJSON.parse(text);
         }
-        return oldJSON.stringify(v);
-    },
-    parse: function() {
-        return oldJSON.parse(arguments);
     }
-};*/
+}
