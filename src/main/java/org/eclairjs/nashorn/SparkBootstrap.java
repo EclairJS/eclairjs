@@ -70,9 +70,6 @@ public class SparkBootstrap implements Bootstrap {
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/ModuleUtils.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/jvm-npm/jvm-npm.js") + "');");
             engine.eval("load('" + getResourceAsURLStirng("/eclairjs/Serialize.js") + "');");
-            engine.eval("var Rating=Java.type('org.eclairjs.nashorn.wrap.mllib.recommendation.Rating');");
-            engine.eval("var Tuple2=Java.type('org.eclairjs.nashorn.wrap.Tuple2');");
-            engine.eval("var Tuple3=Java.type('org.eclairjs.nashorn.wrap.Tuple3');");
 
             NashornEngineSingleton.setEngine(engine);
         } catch(Exception e) {
