@@ -80,6 +80,9 @@ public class Utils {
     public static Object javaToJs(Object o, ScriptEngine engine) {
         if (o==null)
             return o;
+        if (engine == null) {
+            engine = NashornEngineSingleton.getEngine();
+        }
         String packageName=o.getClass().getCanonicalName();
 
         switch (packageName)
@@ -102,7 +105,13 @@ public class Utils {
                 //System.out.println("JSONObject" + json.toJSONString());
                 Invocable invocable = (Invocable) engine;
                 try {
+
                     String cmd = "JSON.parse('" + json.toJSONString() + "')";
+                    /*
+                    If the JSON string has a "string" the result is \"string\" which is invalid JSON
+                    SO we need to change to \\"string\\" so JSON.parse will be happy
+                     */
+                    cmd = cmd.replace("\\\"", "\\\\\"");
                     Object r = engine.eval(cmd);
                     return r;
                 } catch (javax.script.ScriptException e) {
@@ -176,6 +185,9 @@ public class Utils {
 
                             //System.out.println("alist size="+alist.size());
                         return alist;
+                    } else if (o instanceof double[]) {
+                        // Do we need to convert this to JavaScript Array?
+                        return o;
                     }
                     else
                         from = Arrays.asList((Object[])o);
