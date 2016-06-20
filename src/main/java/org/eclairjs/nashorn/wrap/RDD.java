@@ -2,6 +2,7 @@ package org.eclairjs.nashorn.wrap;
 
 
 import jdk.nashorn.api.scripting.ScriptObjectMirror;
+import jdk.nashorn.api.scripting.ScriptUtils;
 import org.apache.spark.SparkContext;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDDLike;
@@ -485,14 +486,18 @@ public class RDD extends WrappedClass {
         public Object call(Object thiz, Object... args) {
             JavaRDD sparkJavaRDD = (JavaRDD) ((RDD)thiz).getJavaObject();
             JavaRDD result[];
-            double weights[] = (double[]) args[0];
-            if (args[1] != null) {
-                result = sparkJavaRDD.randomSplit(weights, (long) args[1]);
+            ScriptObjectMirror x = (ScriptObjectMirror) args[0];
+
+            double weights[] = (double[]) ScriptUtils.convert(args[0], double[].class);
+            if (args.length > 1) {
+                long seed = ((Integer) args[1]).longValue();
+
+                result = sparkJavaRDD.randomSplit(weights, seed);
             } else {
                 result = sparkJavaRDD.randomSplit(weights);
             }
 
-            return Utils.createJavaScriptObject(result);
+            return Utils.javaToJs(result);
         }
     };
 

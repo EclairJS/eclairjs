@@ -109,3 +109,7 @@ if (typeof nativeJSON === "undefined") {
         }
     }
 }
+
+function createJavaHashMap(obj) {
+    return Utils.createJavaHashMap(obj);
+}

@@ -714,4 +714,16 @@ public class Utils {
         }
         return obj;
     }
+
+    public static Object createJavaHashMap(Object map) {
+        Object obj = null;
+        try {
+            Invocable invocable = (Invocable) NashornEngineSingleton.getEngine();
+            Object params[] = {map};
+            obj = invocable.invokeFunction("createJavaHashMap", params);
+        } catch (java.lang.Exception e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
 }
