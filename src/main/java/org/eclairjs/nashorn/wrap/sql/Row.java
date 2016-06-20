@@ -236,7 +236,7 @@ public class Row extends WrappedClass {
         Currently schema returns a StuctType that is a JavaScript object that wrappers the JavaSpark object,
         If that changes to a Java object in the future this code will need to change.
          */
-        ScriptObjectMirror schema = schema();
+        ScriptObjectMirror schema = (ScriptObjectMirror) schema();
         if (schema != null) {
             Object j = schema.callMember("toJSON");
             String schemaJson = "";
@@ -256,9 +256,9 @@ public class Row extends WrappedClass {
         return mkstring(",", "[", "]");
     }
 
-    public ScriptObjectMirror schema() {
+    public Object schema() {
         Object o = sparkRow.schema();
-        ScriptObjectMirror structType = Utils.createJavaScriptObject(o);
+        Object structType = Utils.createJavaScriptObject(o);
         return structType;
     }
 
