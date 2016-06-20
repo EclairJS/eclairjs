@@ -77,6 +77,11 @@ public class Utils {
 
       static  	Logger logger = Logger.getLogger(Utils.class);
 
+    public static Object javaToJs(Object o) {
+        ScriptEngine engine = NashornEngineSingleton.getEngine();
+        return Utils.javaToJs(o, engine);
+    }
+
     public static Object javaToJs(Object o, ScriptEngine engine) {
         if (o==null)
             return o;
@@ -141,6 +146,10 @@ public class Utils {
                 return new  org.eclairjs.nashorn.wrap.sql.Row(
                         (org.apache.spark.sql.Row)o
                 );
+            case "org.apache.spark.api.java.JavaRDD":
+                return new org.eclairjs.nashorn.wrap.RDD((org.apache.spark.api.java.JavaRDD) o);
+            case "org.apache.spark.api.java.JavaPairRDD":
+                return new org.eclairjs.nashorn.wrap.PairRDD((org.apache.spark.api.java.JavaPairRDD) o);
             case "java.sql.Timestamp":
                 return new  org.eclairjs.nashorn.wrap.sql.SqlTimestamp(
                         (java.sql.Timestamp)o
@@ -663,11 +672,43 @@ public class Utils {
 
     }
 
-    public static ScriptObjectMirror createJavaScriptObject(Object o) {
-        ScriptObjectMirror obj = null;
+    public static Object createJavaScriptObject(Object o) {
+        Object obj = null;
         try {
             Invocable invocable = (Invocable) NashornEngineSingleton.getEngine();
-            obj = (ScriptObjectMirror) invocable.invokeFunction("createJavaScriptSparkObject", o);
+            obj =  invocable.invokeFunction("createJavaScriptSparkObject", o);
+        } catch (java.lang.Exception e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
+
+    public static Object createLambdaFunction(Object func, Object clazz, Object bindArgs) {
+        /*
+        FIXME we might be able to move this from JavaScript to Java once we have converted all the
+        wrappper objects to Java
+         */
+        Object obj = null;
+        try {
+            Invocable invocable = (Invocable) NashornEngineSingleton.getEngine();
+            Object params[] = {func, clazz, null, bindArgs};
+            obj = invocable.invokeFunction("createLambdaFunction", params);
+        } catch (java.lang.Exception e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
+
+    public static Object createLambdaFunction(Object func, Object clazz, Object context, Object bindArgs) {
+        /*
+        FIXME we might be able to move this from JavaScript to Java once we have converted all the
+        wrappper objects to Java
+         */
+        Object obj = null;
+        try {
+            Invocable invocable = (Invocable) NashornEngineSingleton.getEngine();
+            Object params[] = {func, clazz, context, bindArgs};
+            obj = invocable.invokeFunction("createLambdaFunction", params);
         } catch (java.lang.Exception e) {
             e.printStackTrace();
         }

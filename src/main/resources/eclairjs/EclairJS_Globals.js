@@ -75,6 +75,12 @@ function objectToJsonString(obj) {
     return JSON.stringify(obj);
 }
 
+function createLambdaFunction(func, clazz, sc, bindArgs) {
+    var Utils = require('eclairjs/Utils');
+    var c = Java.type(clazz);
+    return Utils.createLambdaFunction(func, c, sc, bindArgs);
+}
+
 
 if (typeof nativeJSON === "undefined") {
     nativeJSON = JSON;

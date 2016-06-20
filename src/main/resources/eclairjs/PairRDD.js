@@ -15,10 +15,10 @@
  */
 (function () {
 
-    var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
-    var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
-    var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
-    var RDD = require(EclairJS_Globals.NAMESPACE + '/RDD');
+    //var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
+    //var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
+    //var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
+    //var RDD = require(EclairJS_Globals.NAMESPACE + '/RDD');
 
     /**
      * @param {module:eclairjs.RDD} rdd of [Tuple(value, value)]{@link module:eclairjs.Tuple}.
@@ -26,29 +26,30 @@
      *  @memberof module:eclairjs
      *  @extends module:eclairjs.RDD
      */
-    var PairRDD = function (rdd, kClassTag, vClassTag) {
+    var PairRDD = Java.type('org.eclairjs.nashorn.wrap.PairRDD');
+    //var PairRDD = function (rdd, kClassTag, vClassTag) {
+    //
+    //    RDD.call(this, Utils.unwrapObject(rdd));
+    //    this.className = "PairRDD_js";
+    //    this.logger = Logger.getLogger("PairRDD_js");
+    //    this.logger.debug("constructor")
+    //
+    //};
 
-        RDD.call(this, Utils.unwrapObject(rdd));
-        this.className = "PairRDD_js";
-        this.logger = Logger.getLogger("PairRDD_js");
-        this.logger.debug("constructor")
 
-    };
-
-
-    PairRDD.prototype = Object.create(RDD.prototype);
-
-    PairRDD.prototype.constructor = PairRDD;
+    //PairRDD.prototype = Object.create(RDD.prototype);
+    //
+    //PairRDD.prototype.constructor = PairRDD;
 
     /**
      * @param {module:eclairjs.RDD} rdd
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.wrapRDD = function (rdd) {
-        var rdd_uw = Utils.unwrapObject(rdd);
-        var javaObject = this.getJavaObject().wrapRDD(rdd_uw);
-        return new PairRDD(javaObject);
-    };
+    //PairRDD.prototype.wrapRDD = function (rdd) {
+    //    var rdd_uw = Utils.unwrapObject(rdd);
+    //    var javaObject = this.getJavaObject().wrapRDD(rdd_uw);
+    //    return new PairRDD(javaObject);
+    //};
 
 
     /**
@@ -57,11 +58,11 @@
      * @param {module:eclairjs/storage.StorageLevel} newLevel
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.persist = function (newLevel) {
-        var newLevel_uw = Utils.unwrapObject(newLevel);
-        var javaObject = this.getJavaObject().persist(newLevel_uw);
-        return new PairRDD(javaObject);
-    };
+    //PairRDD.prototype.persist = function (newLevel) {
+    //    var newLevel_uw = Utils.unwrapObject(newLevel);
+    //    var javaObject = this.getJavaObject().persist(newLevel_uw);
+    //    return new PairRDD(javaObject);
+    //};
 
 
     /**
@@ -70,16 +71,16 @@
      * @param {boolean} [blocking]  Whether to block until all blocks are deleted.
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.unpersist = function (blocking) {
-
-        if (arguments[0]) {
-            var javaObject = this.getJavaObject().unpersist(blocking);
-            return new PairRDD(javaObject);
-        } else {
-            var javaObject = this.getJavaObject().unpersist();
-            return new PairRDD(javaObject);
-        }
-    };
+    //PairRDD.prototype.unpersist = function (blocking) {
+    //
+    //    if (arguments[0]) {
+    //        var javaObject = this.getJavaObject().unpersist(blocking);
+    //        return new PairRDD(javaObject);
+    //    } else {
+    //        var javaObject = this.getJavaObject().unpersist();
+    //        return new PairRDD(javaObject);
+    //    }
+    //};
 
 
     /**
@@ -87,17 +88,17 @@
      * @param {number} [numPartitions]
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.distinct = function (numPartitions) {
-        var javaObject
-        if (arguments[0]) {
-            javaObject = this.getJavaObject().distinct(numPartitions);
-
-        } else {
-            javaObject = this.getJavaObject().distinct();
-
-        }
-        return new PairRDD(javaObject);
-    };
+    //PairRDD.prototype.distinct = function (numPartitions) {
+    //    var javaObject
+    //    if (arguments[0]) {
+    //        javaObject = this.getJavaObject().distinct(numPartitions);
+    //
+    //    } else {
+    //        javaObject = this.getJavaObject().distinct();
+    //
+    //    }
+    //    return new PairRDD(javaObject);
+    //};
 
 
     /**
@@ -106,19 +107,19 @@
      * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.filter = function (func, bindArgs) {
-        var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
-        var javaObject = this.getJavaObject().filter(fn);
-        return new PairRDD(javaObject);
-    };
+    //PairRDD.prototype.filter = function (func, bindArgs) {
+    //    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
+    //    var javaObject = this.getJavaObject().filter(fn);
+    //    return new PairRDD(javaObject);
+    //};
 
     /**
      * Persist this RDD with the default storage level (`MEMORY_ONLY`).
      * @returns {module:eclairjs.RDD}
      */
-    PairRDD.prototype.cache = function () {
-        return new PairRDD(this.getJavaObject().cache());
-    };
+    //PairRDD.prototype.cache = function () {
+    //    return new PairRDD(this.getJavaObject().cache());
+    //};
 
     /**
      * Return a new RDD that is reduced into `numPartitions` partitions.
@@ -126,16 +127,16 @@
      * @param {boolean} [shuffle]
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.coalesce = function (numPartitions, shuffle) {
-
-        if (arguments[1]) {
-            var javaObject = this.getJavaObject().coalesce(numPartitions, shuffle);
-            return new PairRDD(javaObject);
-        } else {
-            var javaObject = this.getJavaObject().coalesce(numPartitions);
-            return new PairRDD(javaObject);
-        }
-    };
+    //PairRDD.prototype.coalesce = function (numPartitions, shuffle) {
+    //
+    //    if (arguments[1]) {
+    //        var javaObject = this.getJavaObject().coalesce(numPartitions, shuffle);
+    //        return new PairRDD(javaObject);
+    //    } else {
+    //        var javaObject = this.getJavaObject().coalesce(numPartitions);
+    //        return new PairRDD(javaObject);
+    //    }
+    //};
 
 
     /**
@@ -149,10 +150,10 @@
      * @param {number} numPartitions
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.repartition = function (numPartitions) {
-        var javaObject = this.getJavaObject().repartition(numPartitions);
-        return new PairRDD(javaObject);
-    };
+    //PairRDD.prototype.repartition = function (numPartitions) {
+    //    var javaObject = this.getJavaObject().repartition(numPartitions);
+    //    return new PairRDD(javaObject);
+    //};
 
 
     /**
@@ -162,16 +163,16 @@
      * @param {number} [seed]
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.sample = function (withReplacement, fraction, seed) {
-
-        if (arguments[2]) {
-            var javaObject = this.getJavaObject().sample(withReplacement, fraction, seed);
-            return new PairRDD(javaObject);
-        } else {
-            var javaObject = this.getJavaObject().sample(withReplacement, fraction);
-            return new PairRDD(javaObject);
-        }
-    };
+    //PairRDD.prototype.sample = function (withReplacement, fraction, seed) {
+    //
+    //    if (arguments[2]) {
+    //        var javaObject = this.getJavaObject().sample(withReplacement, fraction, seed);
+    //        return new PairRDD(javaObject);
+    //    } else {
+    //        var javaObject = this.getJavaObject().sample(withReplacement, fraction);
+    //        return new PairRDD(javaObject);
+    //    }
+    //};
 
 
     /**
@@ -186,17 +187,17 @@
      * @param {number} [seed]
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.sampleByKey = function (withReplacement, fractions, seed) {
-        var fractions_uw = Utils.createJavaHashMap(fractions);
-
-        if (arguments[2]) {
-            var javaObject = this.getJavaObject().sampleByKey(withReplacement, fractions_uw, seed);
-            return new PairRDD(javaObject);
-        } else {
-            var javaObject = this.getJavaObject().sampleByKey(withReplacement, fractions_uw);
-            return new PairRDD(javaObject);
-        }
-    };
+    //PairRDD.prototype.sampleByKey = function (withReplacement, fractions, seed) {
+    //    var fractions_uw = Utils.createJavaHashMap(fractions);
+    //
+    //    if (arguments[2]) {
+    //        var javaObject = this.getJavaObject().sampleByKey(withReplacement, fractions_uw, seed);
+    //        return new PairRDD(javaObject);
+    //    } else {
+    //        var javaObject = this.getJavaObject().sampleByKey(withReplacement, fractions_uw);
+    //        return new PairRDD(javaObject);
+    //    }
+    //};
 
 
     /**
@@ -213,18 +214,18 @@
      * @param {number} [seed]
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.sampleByKeyExact = function (withReplacement, fractions, seed) {
-        var fractions_uw = Utils.createJavaHashMap(fractions);
-
-        if (arguments[2]) {
-            var javaObject = this.getJavaObject().sampleByKeyExact(withReplacement, fractions_uw, seed);
-            return new PairRDD(javaObject);
-        } else {
-            var javaObject = this.getJavaObject().sampleByKeyExact(withReplacement, fractions_uw);
-            return new PairRDD(javaObject);
-        }
-    };
-
+    //PairRDD.prototype.sampleByKeyExact = function (withReplacement, fractions, seed) {
+    //    var fractions_uw = Utils.createJavaHashMap(fractions);
+    //
+    //    if (arguments[2]) {
+    //        var javaObject = this.getJavaObject().sampleByKeyExact(withReplacement, fractions_uw, seed);
+    //        return new PairRDD(javaObject);
+    //    } else {
+    //        var javaObject = this.getJavaObject().sampleByKeyExact(withReplacement, fractions_uw);
+    //        return new PairRDD(javaObject);
+    //    }
+    //};
+    //
 
     /**
      * Return the union of this RDD and another one. Any identical elements will appear multiple
@@ -232,11 +233,11 @@
      * @param {module:eclairjs.PairRDD} other
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.union = function (other) {
-        var other_uw = Utils.unwrapObject(other);
-        var javaObject = this.getJavaObject().union(other_uw);
-        return new PairRDD(javaObject);
-    };
+    //PairRDD.prototype.union = function (other) {
+    //    var other_uw = Utils.unwrapObject(other);
+    //    var javaObject = this.getJavaObject().union(other_uw);
+    //    return new PairRDD(javaObject);
+    //};
 
     /**
      * Return the intersection of this RDD and another one. The output will not contain any duplicate
@@ -246,20 +247,20 @@
      * @param {module:eclairjs.PairRDD} other
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.intersection = function (other) {
-        var other_uw = Utils.unwrapObject(other);
-        var javaObject = this.getJavaObject().intersection(other_uw);
-        return new PairRDD(javaObject);
-    };
+    //PairRDD.prototype.intersection = function (other) {
+    //    var other_uw = Utils.unwrapObject(other);
+    //    var javaObject = this.getJavaObject().intersection(other_uw);
+    //    return new PairRDD(javaObject);
+    //};
 
 
     /**
      * @returns {module:eclairjs.Tuple}
      */
-    PairRDD.prototype.first = function () {
-        var javaObject = this.getJavaObject().first();
-        return Utils.javaToJs(javaObject);
-    };
+    //PairRDD.prototype.first = function () {
+    //    var javaObject = this.getJavaObject().first();
+    //    return Utils.javaToJs(javaObject);
+    //};
 
 
     /**
@@ -271,14 +272,14 @@
      * @param {number} numPartitions
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.combineByKey = function (createCombiner, mergeValue, mergeCombiners, numPartitions, bindArgs) {
-        var fn = Utils.createLambdaFunction(createCombiner, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
-        var fn2 = Utils.createLambdaFunction(mergeValue, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
-        var fn3 = Utils.createLambdaFunction(mergeCombiners, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
-
-        var javaObject = this.getJavaObject().combineByKey(fn, fn2, fn3);
-        return new PairRDD(javaObject);
-    };
+    //PairRDD.prototype.combineByKey = function (createCombiner, mergeValue, mergeCombiners, numPartitions, bindArgs) {
+    //    var fn = Utils.createLambdaFunction(createCombiner, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
+    //    var fn2 = Utils.createLambdaFunction(mergeValue, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
+    //    var fn3 = Utils.createLambdaFunction(mergeCombiners, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
+    //
+    //    var javaObject = this.getJavaObject().combineByKey(fn, fn2, fn3);
+    //    return new PairRDD(javaObject);
+    //};
 
 
     /**
@@ -289,11 +290,11 @@
      * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.reduceByKey = function (func, bindArgs) {
-        var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
-        var result = this.getJavaObject().reduceByKey(fn);
-        return new PairRDD(result);
-    };
+    //PairRDD.prototype.reduceByKey = function (func, bindArgs) {
+    //    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
+    //    var result = this.getJavaObject().reduceByKey(fn);
+    //    return new PairRDD(result);
+    //};
 
 
     /**
@@ -303,19 +304,19 @@
      * @param {func} func
      * @returns {Object} Key value pair hashmap
      */
-    PairRDD.prototype.reduceByKeyLocally = function (func, bindArgs) {
-        var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
-        var javaObject = this.getJavaObject().reduceByKeyLocally(fn);
-        return new Utils.javaToJs(javaObject);
-    };
+    //PairRDD.prototype.reduceByKeyLocally = function (func, bindArgs) {
+    //    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
+    //    var javaObject = this.getJavaObject().reduceByKeyLocally(fn);
+    //    return new Utils.javaToJs(javaObject);
+    //};
 
     /**
      * @returns {object} key, value hash map
      */
-    PairRDD.prototype.countByKey = function () {
-        var javaObject = this.getJavaObject().countByKey();
-        return Utils.javaToJs(javaObject);
-    };
+    //PairRDD.prototype.countByKey = function () {
+    //    var javaObject = this.getJavaObject().countByKey();
+    //    return Utils.javaToJs(javaObject);
+    //};
 
 
     /**
@@ -325,15 +326,15 @@
      * @param {number} [confidence]
      * @returns {module:eclairjs/partial.PartialResult}
      */
-    PairRDD.prototype.countByKeyApprox = function (timeout, confidence) {
-        var javaObject;
-        if (arguments[1]) {
-            javaObject = this.getJavaObject().countByKeyApprox(timeout, confidence);
-        } else {
-            javaObject = this.getJavaObject().countByKeyApprox(timeout);
-        }
-        return Utils.javaToJs(javaObject);
-    };
+    //PairRDD.prototype.countByKeyApprox = function (timeout, confidence) {
+    //    var javaObject;
+    //    if (arguments[1]) {
+    //        javaObject = this.getJavaObject().countByKeyApprox(timeout, confidence);
+    //    } else {
+    //        javaObject = this.getJavaObject().countByKeyApprox(timeout);
+    //    }
+    //    return Utils.javaToJs(javaObject);
+    //};
 
 
     /**
@@ -368,18 +369,18 @@
      * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.aggregateByKey = function (zeroValue, seqFunc, combFunc, numPartitions, bindArgs) {
-        var zeroValue_uw = Utils.unwrapObject(zeroValue);
-        var fn = Utils.createLambdaFunction(seqFunc, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
-        var fn2 = Utils.createLambdaFunction(combFunc, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
-        var javaObject;
-        if (numPartitions) {
-            javaObject = this.getJavaObject().aggregateByKey(zeroValue_uw, numPartitions, fn, fn2);
-        } else {
-            javaObject = this.getJavaObject().aggregateByKey(zeroValue_uw, fn, fn2);
-        }
-        return new PairRDD(javaObject);
-    };
+    //PairRDD.prototype.aggregateByKey = function (zeroValue, seqFunc, combFunc, numPartitions, bindArgs) {
+    //    var zeroValue_uw = Utils.unwrapObject(zeroValue);
+    //    var fn = Utils.createLambdaFunction(seqFunc, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
+    //    var fn2 = Utils.createLambdaFunction(combFunc, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
+    //    var javaObject;
+    //    if (numPartitions) {
+    //        javaObject = this.getJavaObject().aggregateByKey(zeroValue_uw, numPartitions, fn, fn2);
+    //    } else {
+    //        javaObject = this.getJavaObject().aggregateByKey(zeroValue_uw, fn, fn2);
+    //    }
+    //    return new PairRDD(javaObject);
+    //};
 
     /**
      * Merge the values for each key using an associative function and a neutral "zero value" which
@@ -391,18 +392,18 @@
      * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.foldByKey = function (zeroValue, func, numPartitions, bindArgs) {
-        var zeroValue_uw = Utils.unwrapObject(zeroValue);
-        var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
-        var javaObject;
-        if (numPartitions) {
-            javaObject = this.getJavaObject().foldByKey(zeroValue_uw, numPartitions, fn);
-        } else {
-            javaObject = this.getJavaObject().foldByKey(zeroValue_uw, fn);
-        }
-
-        return new PairRDD(javaObject);
-    };
+    //PairRDD.prototype.foldByKey = function (zeroValue, func, numPartitions, bindArgs) {
+    //    var zeroValue_uw = Utils.unwrapObject(zeroValue);
+    //    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
+    //    var javaObject;
+    //    if (numPartitions) {
+    //        javaObject = this.getJavaObject().foldByKey(zeroValue_uw, numPartitions, fn);
+    //    } else {
+    //        javaObject = this.getJavaObject().foldByKey(zeroValue_uw, fn);
+    //    }
+    //
+    //    return new PairRDD(javaObject);
+    //};
 
     /**
      * Group the values for each key in the RDD into a single sequence. Allows controlling the
@@ -414,16 +415,16 @@
      * @param {integer} [number] or number of partitions
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.groupByKey = function (number) {
-        var javaObject;
-        if (number) {
-            javaObject = this.getJavaObject().groupByKey(number);
-        } else {
-            javaObject = this.getJavaObject().groupByKey();
-        }
-
-        return new PairRDD(javaObject);
-    };
+    //PairRDD.prototype.groupByKey = function (number) {
+    //    var javaObject;
+    //    if (number) {
+    //        javaObject = this.getJavaObject().groupByKey(number);
+    //    } else {
+    //        javaObject = this.getJavaObject().groupByKey();
+    //    }
+    //
+    //    return new PairRDD(javaObject);
+    //};
 
     /**
      * Return an RDD with the elements from `this` that are not in `other`.
@@ -431,32 +432,32 @@
      * @param {integer} [numPartitions]
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.subtract = function (other, numPartitions) {
-        var other_uw = Utils.unwrapObject(other);
-        var javaObject;
-        if (numPartitions) {
-            javaObject = this.getJavaObject().subtract(other_uw, numPartitions);
-        } else {
-            javaObject = this.getJavaObject().subtract(other_uw);
-        }
-        return new PairRDD(javaObject);
-    };
+    //PairRDD.prototype.subtract = function (other, numPartitions) {
+    //    var other_uw = Utils.unwrapObject(other);
+    //    var javaObject;
+    //    if (numPartitions) {
+    //        javaObject = this.getJavaObject().subtract(other_uw, numPartitions);
+    //    } else {
+    //        javaObject = this.getJavaObject().subtract(other_uw);
+    //    }
+    //    return new PairRDD(javaObject);
+    //};
 
     /**
      * @param {module:eclairjs.PairRDD} other
      * @param {integer} [numPartitions]
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.subtractByKey = function (other, numPartitions) {
-        var other_uw = Utils.unwrapObject(other);
-        var javaObject;
-        if (numPartitions) {
-            javaObject = this.getJavaObject().subtractByKey(other_uw, numPartitions);
-        } else {
-            javaObject = this.getJavaObject().subtractByKey(other_uw);
-        }
-        return new PairRDD(javaObject);
-    };
+    //PairRDD.prototype.subtractByKey = function (other, numPartitions) {
+    //    var other_uw = Utils.unwrapObject(other);
+    //    var javaObject;
+    //    if (numPartitions) {
+    //        javaObject = this.getJavaObject().subtractByKey(other_uw, numPartitions);
+    //    } else {
+    //        javaObject = this.getJavaObject().subtractByKey(other_uw);
+    //    }
+    //    return new PairRDD(javaObject);
+    //};
 
     /**
      * Merge the values for each key using an associative reduce function. This will also perform
@@ -466,12 +467,12 @@
      * @param {integer} [numPartitions]
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.join = function (other, numPartitions) {
-        var other_uw = Utils.unwrapObject(other);
-        var javaObject = numPartitions ? this.getJavaObject().join(other_uw, numPartitions) :
-            this.getJavaObject().join(other_uw);
-        return new PairRDD(javaObject);
-    };
+    //PairRDD.prototype.join = function (other, numPartitions) {
+    //    var other_uw = Utils.unwrapObject(other);
+    //    var javaObject = numPartitions ? this.getJavaObject().join(other_uw, numPartitions) :
+    //        this.getJavaObject().join(other_uw);
+    //    return new PairRDD(javaObject);
+    //};
 
 
     /**
@@ -482,12 +483,12 @@
      * @param {integer} [numPartitions]
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.leftOuterJoin = function (other, numPartitions) {
-        var other_uw = Utils.unwrapObject(other);
-        var javaObject = numPartitions ? this.getJavaObject().leftOuterJoin(other_uw, numPartitions) :
-            this.getJavaObject().leftOuterJoin(other_uw);
-        return new PairRDD(javaObject);
-    };
+    //PairRDD.prototype.leftOuterJoin = function (other, numPartitions) {
+    //    var other_uw = Utils.unwrapObject(other);
+    //    var javaObject = numPartitions ? this.getJavaObject().leftOuterJoin(other_uw, numPartitions) :
+    //        this.getJavaObject().leftOuterJoin(other_uw);
+    //    return new PairRDD(javaObject);
+    //};
 
 
     /**
@@ -498,12 +499,12 @@
      * @param {integer} [numPartitions]
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.rightOuterJoin = function (other, numPartitions) {
-        var other_uw = Utils.unwrapObject(other);
-        var javaObject = numPartitions ? this.getJavaObject().rightOuterJoin(other_uw, numPartitions) :
-            this.getJavaObject().rightOuterJoin(other_uw);
-        return new PairRDD(javaObject);
-    };
+    //PairRDD.prototype.rightOuterJoin = function (other, numPartitions) {
+    //    var other_uw = Utils.unwrapObject(other);
+    //    var javaObject = numPartitions ? this.getJavaObject().rightOuterJoin(other_uw, numPartitions) :
+    //        this.getJavaObject().rightOuterJoin(other_uw);
+    //    return new PairRDD(javaObject);
+    //};
 
 
     /**
@@ -517,21 +518,21 @@
      * @param {integer} [numPartitions]
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.fullOuterJoin = function (other, numPartitions) {
-        var other_uw = Utils.unwrapObject(other);
-        var javaObject = numPartitions ? this.getJavaObject().fullOuterJoin(other_uw, numPartitions) :
-            this.getJavaObject().fullOuterJoin(other_uw);
-        return new PairRDD(javaObject);
-    };
+    //PairRDD.prototype.fullOuterJoin = function (other, numPartitions) {
+    //    var other_uw = Utils.unwrapObject(other);
+    //    var javaObject = numPartitions ? this.getJavaObject().fullOuterJoin(other_uw, numPartitions) :
+    //        this.getJavaObject().fullOuterJoin(other_uw);
+    //    return new PairRDD(javaObject);
+    //};
 
     /**
      * Return the key-value pairs in this RDD to the master as a Map.
      * @returns {object} key, value hash map
      */
-    PairRDD.prototype.collectAsMap = function () {
-        var javaObject = this.getJavaObject().collectAsMap();
-        return Utils.javaToJs(javaObject);
-    };
+    //PairRDD.prototype.collectAsMap = function () {
+    //    var javaObject = this.getJavaObject().collectAsMap();
+    //    return Utils.javaToJs(javaObject);
+    //};
 
 
     /**
@@ -541,11 +542,11 @@
      * @param {object[]} [bindArgs]
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.mapValues = function (f, bindArgs) {
-        var fn = Utils.createLambdaFunction(f, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
-        var javaObject = this.getJavaObject().mapValues(fn);
-        return new PairRDD(javaObject);
-    };
+    //PairRDD.prototype.mapValues = function (f, bindArgs) {
+    //    var fn = Utils.createLambdaFunction(f, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
+    //    var javaObject = this.getJavaObject().mapValues(fn);
+    //    return new PairRDD(javaObject);
+    //};
 
 
     /**
@@ -555,11 +556,11 @@
      * @param {object[]} [bindArgs]
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.flatMapValues = function (f, bindArgs) {
-        var fn = Utils.createLambdaFunction(f, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
-        var javaObject = this.getJavaObject().flatMapValues(fn);
-        return new PairRDD(javaObject);
-    };
+    //PairRDD.prototype.flatMapValues = function (f, bindArgs) {
+    //    var fn = Utils.createLambdaFunction(f, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
+    //    var javaObject = this.getJavaObject().flatMapValues(fn);
+    //    return new PairRDD(javaObject);
+    //};
 
 
     /**
@@ -571,30 +572,30 @@
      * @param {integer} [numPartitions]
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.cogroup = function (other1, other2, other3, numPartitions) {
-        var other1_uw = Utils.unwrapObject(other1);
-        var other2_uw = Utils.unwrapObject(other2);
-        var other3_uw = Utils.unwrapObject(other3);
-        var javaObject;
-        if (numPartitions) {
-            if (other3_uw) {
-                javaObject = this.getJavaObject().cogroup(other1_uw, other2_uw, other3_uw, numPartitions);
-            } else if (other2_uw) {
-                javaObject = this.getJavaObject().cogroup(other1_uw, other2_uw, numPartitions);
-            } else {
-                javaObject = this.getJavaObject().cogroup(other1_uw, numPartitions);
-            }
-        } else {
-            if (other3_uw) {
-                javaObject = this.getJavaObject().cogroup(other1_uw, other2_uw, other3_uw);
-            } else if (other2_uw) {
-                javaObject = this.getJavaObject().cogroup(other1_uw, other2_uw);
-            } else {
-                javaObject = this.getJavaObject().cogroup(other1_uw);
-            }
-        }
-        return new PairRDD(javaObject);
-    };
+    //PairRDD.prototype.cogroup = function (other1, other2, other3, numPartitions) {
+    //    var other1_uw = Utils.unwrapObject(other1);
+    //    var other2_uw = Utils.unwrapObject(other2);
+    //    var other3_uw = Utils.unwrapObject(other3);
+    //    var javaObject;
+    //    if (numPartitions) {
+    //        if (other3_uw) {
+    //            javaObject = this.getJavaObject().cogroup(other1_uw, other2_uw, other3_uw, numPartitions);
+    //        } else if (other2_uw) {
+    //            javaObject = this.getJavaObject().cogroup(other1_uw, other2_uw, numPartitions);
+    //        } else {
+    //            javaObject = this.getJavaObject().cogroup(other1_uw, numPartitions);
+    //        }
+    //    } else {
+    //        if (other3_uw) {
+    //            javaObject = this.getJavaObject().cogroup(other1_uw, other2_uw, other3_uw);
+    //        } else if (other2_uw) {
+    //            javaObject = this.getJavaObject().cogroup(other1_uw, other2_uw);
+    //        } else {
+    //            javaObject = this.getJavaObject().cogroup(other1_uw);
+    //        }
+    //    }
+    //    return new PairRDD(javaObject);
+    //};
 
     /**
      * @param {module:eclairjs.PairRDD} other1
@@ -602,20 +603,20 @@
      * @param {module:eclairjs.PairRDD} [other3]
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.groupWith = function (other1, other2, other3) {
-        var other1_uw = Utils.unwrapObject(other1);
-        var other2_uw = Utils.unwrapObject(other2);
-        var other3_uw = Utils.unwrapObject(other3);
-        var javaObject;
-        if (other3_uw) {
-            javaObject = this.getJavaObject().groupWith(other1_uw, other2_uw, other3_uw);
-        } else if (other2_uw) {
-            javaObject = this.getJavaObject().groupWith(other1_uw, other2_uw);
-        } else {
-            javaObject = this.getJavaObject().groupWith(other1_uw);
-        }
-        return new PairRDD(javaObject);
-    };
+    //PairRDD.prototype.groupWith = function (other1, other2, other3) {
+    //    var other1_uw = Utils.unwrapObject(other1);
+    //    var other2_uw = Utils.unwrapObject(other2);
+    //    var other3_uw = Utils.unwrapObject(other3);
+    //    var javaObject;
+    //    if (other3_uw) {
+    //        javaObject = this.getJavaObject().groupWith(other1_uw, other2_uw, other3_uw);
+    //    } else if (other2_uw) {
+    //        javaObject = this.getJavaObject().groupWith(other1_uw, other2_uw);
+    //    } else {
+    //        javaObject = this.getJavaObject().groupWith(other1_uw);
+    //    }
+    //    return new PairRDD(javaObject);
+    //};
 
 
     /**
@@ -624,10 +625,10 @@
      * @param {object} key
      * @returns {object[]}
      */
-    PairRDD.prototype.lookup = function (key) {
-        var key_uw = Utils.unwrapObject(key);
-        return Utils.javaToJs(this.getJavaObject().lookup(key_uw));
-    };
+    //PairRDD.prototype.lookup = function (key) {
+    //    var key_uw = Utils.unwrapObject(key);
+    //    return Utils.javaToJs(this.getJavaObject().lookup(key_uw));
+    //};
 
 
     /**
@@ -639,35 +640,35 @@
      * @param {number} [numPartitions]
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.sortByKey = function (ascending, numPartitions) {
-        var javaObject;
-        if (numPartitions) {
-            javaObject = this.getJavaObject().sortByKey(ascending, numPartitions);
-        } else {
-            javaObject = this.getJavaObject().sortByKey(ascending);
-        }
-        return new PairRDD(javaObject);
-    };
+    //PairRDD.prototype.sortByKey = function (ascending, numPartitions) {
+    //    var javaObject;
+    //    if (numPartitions) {
+    //        javaObject = this.getJavaObject().sortByKey(ascending, numPartitions);
+    //    } else {
+    //        javaObject = this.getJavaObject().sortByKey(ascending);
+    //    }
+    //    return new PairRDD(javaObject);
+    //};
 
 
     /**
      * Return an RDD with the keys of each tuple.
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.keys = function () {
-        var javaObject = this.getJavaObject().keys();
-        return new JavaRDD(javaObject);
-    };
+    //PairRDD.prototype.keys = function () {
+    //    var javaObject = this.getJavaObject().keys();
+    //    return new JavaRDD(javaObject);
+    //};
 
 
     /**
      * Return an RDD with the values of each tuple.
      * @returns {module:eclairjs.RDD}
      */
-    PairRDD.prototype.values = function () {
-        var javaObject = this.getJavaObject().values();
-        return new RDD(javaObject);
-    };
+    //PairRDD.prototype.values = function () {
+    //    var javaObject = this.getJavaObject().values();
+    //    return new RDD(javaObject);
+    //};
     
     /**
      * Return approximate number of distinct values for each key in this RDD.
@@ -681,28 +682,28 @@
      * @param {integer} [numPartitions]  number of partitions of the resulting RDD.
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.countApproxDistinctByKey = function (relativeSD, numPartitions) {
-        var javaObject = numPartitions ? this.getJavaObject().countApproxDistinctByKey(relativeSD, numPartitions) :
-            this.getJavaObject().countApproxDistinctByKey(relativeSD);
-        return new PairRDD(javaObject);
-    };
+    //PairRDD.prototype.countApproxDistinctByKey = function (relativeSD, numPartitions) {
+    //    var javaObject = numPartitions ? this.getJavaObject().countApproxDistinctByKey(relativeSD, numPartitions) :
+    //        this.getJavaObject().countApproxDistinctByKey(relativeSD);
+    //    return new PairRDD(javaObject);
+    //};
 
     /**
      * @param {string} name
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.prototype.setName = function (name) {
-        var javaObject = this.getJavaObject().setName(name);
-        return new PairRDD(javaObject);
-    };
+    //PairRDD.prototype.setName = function (name) {
+    //    var javaObject = this.getJavaObject().setName(name);
+    //    return new PairRDD(javaObject);
+    //};
 
     /**
      * @returns {module:eclairjs.RDD}
      */
-    PairRDD.prototype.rdd = function () {
-        var javaObject = this.getJavaObject().rdd();
-        return new RDD(javaObject);
-    };
+    //PairRDD.prototype.rdd = function () {
+    //    var javaObject = this.getJavaObject().rdd();
+    //    return new RDD(javaObject);
+    //};
 
 //
 // static methods
@@ -712,22 +713,22 @@
      * @param {module:eclairjs.PairRDD} rdd
      * @returns {module:eclairjs.RDD}
      */
-    PairRDD.toRDD = function (rdd) {
-        var rdd_uw = Utils.unwrapObject(rdd);
-        var javaObject = org.apache.spark.api.java.JavaPairRDD.toRDD(rdd_uw);
-        return new RDD(javaObject);
-    };
+    //PairRDD.toRDD = function (rdd) {
+    //    var rdd_uw = Utils.unwrapObject(rdd);
+    //    var javaObject = org.apache.spark.api.java.JavaPairRDD.toRDD(rdd_uw);
+    //    return new RDD(javaObject);
+    //};
 
 
     /**
      * @param {module:eclairjs.RDD} rdd
      * @returns {module:eclairjs.PairRDD}
      */
-    PairRDD.fromRDD = function (rdd) {
-        var rdd_uw = Utils.unwrapObject(rdd);
-        var javaObject = org.apache.spark.api.java.JavaPairRDD.fromJavaRDD(rdd_uw);
-        return new PairRDD(javaObject);
-    };
+    //PairRDD.fromRDD = function (rdd) {
+    //    var rdd_uw = Utils.unwrapObject(rdd);
+    //    var javaObject = org.apache.spark.api.java.JavaPairRDD.fromJavaRDD(rdd_uw);
+    //    return new PairRDD(javaObject);
+    //};
 
     module.exports = PairRDD;
 
