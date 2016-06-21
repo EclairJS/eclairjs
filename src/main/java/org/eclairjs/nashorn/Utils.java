@@ -150,6 +150,8 @@ public class Utils {
                 return new org.eclairjs.nashorn.wrap.RDD((org.apache.spark.api.java.JavaRDD) o);
             case "org.apache.spark.api.java.JavaPairRDD":
                 return new org.eclairjs.nashorn.wrap.PairRDD((org.apache.spark.api.java.JavaPairRDD) o);
+            case "org.apache.spark.api.java.JavaDoubleRDD":
+                return new org.eclairjs.nashorn.wrap.FloatRDD((org.apache.spark.api.java.JavaDoubleRDD) o);
             case "java.sql.Timestamp":
                 return new  org.eclairjs.nashorn.wrap.sql.SqlTimestamp(
                         (java.sql.Timestamp)o
