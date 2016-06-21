@@ -23,6 +23,7 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 
 import jdk.nashorn.internal.objects.NativeArray;
+import jdk.nashorn.internal.runtime.Undefined;
 import org.apache.log4j.Logger;
 import org.apache.spark.SparkFiles;
 import org.apache.spark.mllib.regression.LinearRegressionModel;
@@ -369,7 +370,7 @@ public class Utils {
 //    }
 
      public static Object jsToJava(Object o) {
-		if(o != null) {
+		if(o != null && !(o instanceof Undefined )) {
 			logger.debug("jsToJava" + o.getClass().getName());
 		} else {
             return o;
