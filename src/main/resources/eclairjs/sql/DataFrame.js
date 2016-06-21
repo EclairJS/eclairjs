@@ -458,7 +458,7 @@
 	 * @returns {module:eclairjs.RDD}
 	 */
 	DataFrame.prototype.mapPartitions = function (func, bindArgs) {
-		return this.toRDD().mapPartitions(func, bindArgs);
+		return this.toRDD().mapPartitions(func, null, bindArgs);
 	};
 	/**
 	 * Returns a DataFrameNaFunctions for working with missing data.
