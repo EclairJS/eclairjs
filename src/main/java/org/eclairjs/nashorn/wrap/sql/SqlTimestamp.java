@@ -14,6 +14,8 @@ package org.eclairjs.nashorn.wrap.sql;/*
  * limitations under the License.
  */
 
+import jdk.nashorn.api.scripting.ScriptObjectMirror;
+import jdk.nashorn.api.scripting.ScriptUtils;
 import org.eclairjs.nashorn.Utils;
 import org.eclairjs.nashorn.wrap.WrappedClass;
 import org.eclairjs.nashorn.wrap.WrappedFunction;
@@ -89,11 +91,16 @@ public class SqlTimestamp extends WrappedClass {
     };
     private java.sql.Timestamp timestamp = null;
 
+    public SqlTimestamp(Object date) {
+        ScriptObjectMirror jsDate = (ScriptObjectMirror) date;
+        Double x =  (Double) jsDate.callMember("getTime");
+        timestamp = new java.sql.Timestamp(x.longValue());
+    }
+
     public SqlTimestamp(int ms) {
 
         timestamp = new java.sql.Timestamp(ms);
     }
-
 
 
     public SqlTimestamp(String ts) throws java.text.ParseException {

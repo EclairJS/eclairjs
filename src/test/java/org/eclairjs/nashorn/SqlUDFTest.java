@@ -91,7 +91,7 @@ public class SqlUDFTest {
         TestUtils.evalJSResource(engine, "/sql/user_defined_function_test.js");
         Object ret = ((Invocable) engine).invokeFunction("udf3Test");
 
-        String expected = "[{\"values\":[\"test 1\",1,3,10],\"schema\":{\"fields\":[{\"name\":\"test\",\"dataType\":\"string\",\"nullable\":true},{\"name\":\"item2\",\"dataType\":\"integer\",\"nullable\":true},{\"name\":\"floatNum\",\"dataType\":\"double\",\"nullable\":true},{\"name\":\"transformedByUDF\",\"dataType\":\"float\",\"nullable\":true}]}},{\"values\":[\"string 2\",2,1.1,11.100000381469727],\"schema\":{\"fields\":[{\"name\":\"test\",\"dataType\":\"string\",\"nullable\":true},{\"name\":\"item2\",\"dataType\":\"integer\",\"nullable\":true},{\"name\":\"floatNum\",\"dataType\":\"double\",\"nullable\":true},{\"name\":\"transformedByUDF\",\"dataType\":\"float\",\"nullable\":true}]}},{\"values\":[\"string 3\",3,2.2,13.199999809265137],\"schema\":{\"fields\":[{\"name\":\"test\",\"dataType\":\"string\",\"nullable\":true},{\"name\":\"item2\",\"dataType\":\"integer\",\"nullable\":true},{\"name\":\"floatNum\",\"dataType\":\"double\",\"nullable\":true},{\"name\":\"transformedByUDF\",\"dataType\":\"float\",\"nullable\":true}]}}]";
+        String expected = "[{\"values\":[\"test 1\",1,3,10],\"schema\":{\"fields\":[{\"name\":\"test\",\"dataType\":\"string\",\"nullable\":true},{\"name\":\"item2\",\"dataType\":\"integer\",\"nullable\":true},{\"name\":\"floatNum\",\"dataType\":\"double\",\"nullable\":true},{\"name\":\"transformedByUDF\",\"dataType\":\"float\",\"nullable\":true}]}},{\"values\":[\"string 2\",2,1.1,11.1],\"schema\":{\"fields\":[{\"name\":\"test\",\"dataType\":\"string\",\"nullable\":true},{\"name\":\"item2\",\"dataType\":\"integer\",\"nullable\":true},{\"name\":\"floatNum\",\"dataType\":\"double\",\"nullable\":true},{\"name\":\"transformedByUDF\",\"dataType\":\"float\",\"nullable\":true}]}},{\"values\":[\"string 3\",3,2.2,13.2],\"schema\":{\"fields\":[{\"name\":\"test\",\"dataType\":\"string\",\"nullable\":true},{\"name\":\"item2\",\"dataType\":\"integer\",\"nullable\":true},{\"name\":\"floatNum\",\"dataType\":\"double\",\"nullable\":true},{\"name\":\"transformedByUDF\",\"dataType\":\"float\",\"nullable\":true}]}}]";
         assertEquals("should be same", expected, ret.toString());
     }
 
@@ -103,7 +103,7 @@ public class SqlUDFTest {
         TestUtils.evalJSResource(engine, "/sql/user_defined_function_test.js");
         Object ret = ((Invocable) engine).invokeFunction("udf4Test");
 
-        String expected = "[{\"values\":[\"test 1\",1,3,2.200000047683716,12.200000047683716],\"schema\":{\"fields\":[{\"name\":\"test\",\"dataType\":\"string\",\"nullable\":true},{\"name\":\"item2\",\"dataType\":\"integer\",\"nullable\":true},{\"name\":\"floatNum\",\"dataType\":\"double\",\"nullable\":true},{\"name\":\"floatNum2\",\"dataType\":\"float\",\"nullable\":true},{\"name\":\"transformedByUDF\",\"dataType\":\"double\",\"nullable\":true}]}}]";
+        String expected = "[{\"values\":[\"test 1\",1,3,2.2,12.200000047684],\"schema\":{\"fields\":[{\"name\":\"test\",\"dataType\":\"string\",\"nullable\":true},{\"name\":\"item2\",\"dataType\":\"integer\",\"nullable\":true},{\"name\":\"floatNum\",\"dataType\":\"double\",\"nullable\":true},{\"name\":\"floatNum2\",\"dataType\":\"float\",\"nullable\":true},{\"name\":\"transformedByUDF\",\"dataType\":\"double\",\"nullable\":true}]}}]";
         assertEquals("should be same", expected, ret.toString());
     }
 
@@ -115,7 +115,7 @@ public class SqlUDFTest {
         TestUtils.evalJSResource(engine, "/sql/user_defined_function_test.js");
         Object ret = ((Invocable) engine).invokeFunction("udf5Test");
 
-        String expected = "[{\"values\":[\"test 1\",1,3,2.200000047683716,\"1996-03-07 00:00:00.0\",\"test 1 1 3 2.200000047683716 1996-03-07 00:00:00.0\"],\"schema\":{\"fields\":[{\"name\":\"test\",\"dataType\":\"string\",\"nullable\":true},{\"name\":\"item2\",\"dataType\":\"integer\",\"nullable\":true},{\"name\":\"floatNum\",\"dataType\":\"double\",\"nullable\":true},{\"name\":\"floatNum2\",\"dataType\":\"float\",\"nullable\":true},{\"name\":\"dob\",\"dataType\":\"timestamp\",\"nullable\":true},{\"name\":\"transformedByUDF\",\"dataType\":\"string\",\"nullable\":true}]}}]";
+        String expected = "[{\"values\":[\"test 1\",1,3,2.2,\"1996-03-07 00:00:00.0\",\"test 1 1 3 2.200000047683716 1996-03-07 00:00:00.0\"],\"schema\":{\"fields\":[{\"name\":\"test\",\"dataType\":\"string\",\"nullable\":true},{\"name\":\"item2\",\"dataType\":\"integer\",\"nullable\":true},{\"name\":\"floatNum\",\"dataType\":\"double\",\"nullable\":true},{\"name\":\"floatNum2\",\"dataType\":\"float\",\"nullable\":true},{\"name\":\"dob\",\"dataType\":\"timestamp\",\"nullable\":true},{\"name\":\"transformedByUDF\",\"dataType\":\"string\",\"nullable\":true}]}}]";
         assertEquals("should be same", expected, ret.toString());
     }
 

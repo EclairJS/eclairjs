@@ -680,6 +680,10 @@ public class Utils {
     }
 
     public static Object createJavaScriptObject(Object o) {
+        /*
+        FIXME we should be able to remove this once all the Spark objects are
+        wrappered by Java
+         */
         Object obj = null;
         try {
             Invocable invocable = (Invocable) NashornEngineSingleton.getEngine();
