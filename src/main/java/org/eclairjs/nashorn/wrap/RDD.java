@@ -369,7 +369,12 @@ public class RDD extends WrappedClass {
                 bindArgs = args[2];
             }
             JSFlatMapFunction fn = (JSFlatMapFunction)Utils.createLambdaFunction(args[0], "org.eclairjs.nashorn.JSFlatMapFunction", sparkJavaRDD.context(), bindArgs);
-            Object val = sparkJavaRDD.mapPartitions(fn, (boolean) args[1]);
+            Object val;
+            if (args.length > 1 && args[1] != null) {
+                val = sparkJavaRDD.mapPartitions(fn, (boolean) args[1]);
+            } else {
+                val = sparkJavaRDD.mapPartitions(fn);
+            }
             return Utils.javaToJs(val, null);
         }
     };
