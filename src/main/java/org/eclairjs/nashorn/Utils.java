@@ -135,7 +135,7 @@ public class Utils {
                     alist.add(javaToJs(iter.next(),engine));
                 }
 
-                return alist;
+                return Utils.createJavaScriptObject(alist); // FIXME Java wrapper needed
             case "org.apache.spark.mllib.recommendation.Rating":
                 return new  org.eclairjs.nashorn.wrap.mllib.recommendation.Rating(
                         (org.apache.spark.mllib.recommendation.Rating)o
@@ -180,7 +180,7 @@ public class Utils {
                 List newList=new ArrayList<>();
                 while (iterater.hasNext())
                     newList.add(Utils.javaToJs(iterater.next(),engine));
-                return newList;
+                return Utils.createJavaScriptObject(newList); // FIXME replace JavaScript wrapper with Java
             }
             default:
                 if (o.getClass().isArray())
@@ -230,8 +230,10 @@ public class Utils {
 
                     return alist;
 
+                } else {
+                    return Utils.createJavaScriptObject(o); //FIXME we should move this from JavaScript to Java
                 }
-           throw new RuntimeException("java2js NOT HANDLED:"+packageName);
+           //throw new RuntimeException("java2js NOT HANDLED:"+packageName);
 
         }
 
@@ -399,6 +401,9 @@ public class Utils {
 
     	if (o instanceof ScriptObjectMirror) {
 			ScriptObjectMirror m = (ScriptObjectMirror)o;
+            if (m.hasMember("getJavaObject")) {
+                return m.callMember("getJavaObject");
+            }
 			 if(m.isArray()) {
 				ArrayList list = new ArrayList();
 				for(Object item : m.values()) {

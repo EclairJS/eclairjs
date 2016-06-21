@@ -74,7 +74,7 @@ public class Tuple4 extends WrappedClass {
     @Override
     public String toJSON() {
         return "{\"0\":" + Utils.JsonStringify(_1) + ",\"1\":" + Utils.JsonStringify(_2) +
-                ",\"2\":" + Utils.JsonStringify(_3) + ",\"4\":" + Utils.JsonStringify(_4) + ",\"length\":4}" ;
+                ",\"2\":" + Utils.JsonStringify(_3) + ",\"3\":" + Utils.JsonStringify(_4) + ",\"length\":4}" ;
     }
 
     @Override

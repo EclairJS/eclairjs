@@ -237,14 +237,20 @@ public class PairRDD extends RDD {
         public Object call(Object thiz, Object... args) {
             JavaPairRDD sparkJavaRDD = (JavaPairRDD) ((PairRDD)thiz).getJavaObject();
             Object  bindArgs = null;
-            // FIXME args[3] numPartitions from JavaScript is not used
-            if (args.length > 3) {
+
+
+            if (args.length > 4) {
                 bindArgs = args[4];
             }
             JSFunction fn = (JSFunction)Utils.createLambdaFunction(args[0], "org.eclairjs.nashorn.JSFunction", sparkJavaRDD.context(), bindArgs);
             JSFunction2 fn2 = (JSFunction2)Utils.createLambdaFunction(args[1], "org.eclairjs.nashorn.JSFunction2", sparkJavaRDD.context(), bindArgs);
             JSFunction2 fn3 = (JSFunction2)Utils.createLambdaFunction(args[2], "org.eclairjs.nashorn.JSFunction2", sparkJavaRDD.context(), bindArgs);
-            Object val = sparkJavaRDD.combineByKey(fn, fn2, fn3);
+            Object val;
+            if (args.length > 3) {
+                val = sparkJavaRDD.combineByKey(fn, fn2, fn3, (int) args[3]);
+            } else {
+                val = sparkJavaRDD.combineByKey(fn, fn2, fn3);
+            }
             return Utils.javaToJs(val, null);
         }
     };
@@ -310,8 +316,8 @@ public class PairRDD extends RDD {
             if (args.length > 4) {
                 bindArgs = args[4];
             }
-            JSFunction2 fn = (JSFunction2)Utils.createLambdaFunction(args[0], "org.eclairjs.nashorn.JSFunction2", sparkJavaRDD.context(), bindArgs);
-            JSFunction2 fn2 = (JSFunction2)Utils.createLambdaFunction(args[0], "org.eclairjs.nashorn.JSFunction2", sparkJavaRDD.context(), bindArgs);
+            JSFunction2 fn = (JSFunction2)Utils.createLambdaFunction(args[1], "org.eclairjs.nashorn.JSFunction2", sparkJavaRDD.context(), bindArgs);
+            JSFunction2 fn2 = (JSFunction2)Utils.createLambdaFunction(args[2], "org.eclairjs.nashorn.JSFunction2", sparkJavaRDD.context(), bindArgs);
             Object val;
             if (args.length > 3 ) {
                 val = sparkJavaRDD.aggregateByKey(zeroValue, (int) args[3], fn, fn2);
@@ -332,7 +338,7 @@ public class PairRDD extends RDD {
             if (args.length > 4) {
                 bindArgs = args[4];
             }
-            JSFunction2 fn = (JSFunction2)Utils.createLambdaFunction(args[0], "org.eclairjs.nashorn.JSFunction2", sparkJavaRDD.context(), bindArgs);
+            JSFunction2 fn = (JSFunction2)Utils.createLambdaFunction(args[1], "org.eclairjs.nashorn.JSFunction2", sparkJavaRDD.context(), bindArgs);
             Object val;
             if (args.length > 3 ) {
                 val = sparkJavaRDD.foldByKey(zeroValue, (int) args[3], fn);
