@@ -14,9 +14,11 @@ package org.eclairjs.nashorn.sql;/*
  * limitations under the License.
  */
 
+import jdk.nashorn.api.scripting.ScriptObjectMirror;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.spark.sql.api.java.UDF6;
 import org.eclairjs.nashorn.NashornEngineSingleton;
+import org.eclairjs.nashorn.Utils;
 
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
@@ -25,6 +27,7 @@ public class JSUDF6 extends JSUDF implements UDF6 {
     private String func = null;
     private Object args[] = null;
     private Object fn = null;
+    private Object argsJS[] = null;
 
     public JSUDF6(String func, Object[] o) {
         this.func = func;
@@ -37,18 +40,35 @@ public class JSUDF6 extends JSUDF implements UDF6 {
         ScriptEngine e =  NashornEngineSingleton.getEngine();
         if (this.fn == null) {
             this.fn = e.eval(func);
+            if (this.args != null && this.args.length > 0 ) {
+                this.argsJS=new Object[this.args.length];
+                for (int i=0;i<this.args.length;i++)
+                    this.argsJS[i]= Utils.javaToJs(this.args[i],e);
+            }
+
         }
         Invocable invocable = (Invocable) e;
 
-        Object params[] = {this.fn, o, o2, o3, o4, o5, o6};
+        Object params[] = {o, o2, o3, o4, o5, o6};
 
         if (this.args != null && this.args.length > 0 ) {
             params = ArrayUtils.addAll(params, this.args);
         }
 
-        Object ret = invocable.invokeFunction("Utils_invoke", params);
+        for (int i=0;i<params.length;i++)
+            params[i]=Utils.javaToJs(params[i],e);
+
+
+
+//        Object ret = invocable.invokeFunction("myTestFunc", params);
+
+        Object ret = ((ScriptObjectMirror)this.fn).call(null, params);
+//        Object ret = invocable.invokeFunction("Utils_invoke", params);
+        //ret = Utils.jsToJava(ret);
         ret = this.castValueToReturnType(ret);
         return ret;
+
+
     }
 
 

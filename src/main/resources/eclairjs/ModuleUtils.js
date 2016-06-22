@@ -81,8 +81,11 @@ function getModIdFromExport(func) {
                 return {modid: modid};
             } else if (typeof cache[modid] === "object"){
                 for (var exp in cache[modid]) {
+                    //print("cache["+modid+"]["+exp+"]: "+cache[modid][exp]);
+                    if (!cache[modid][exp]) {
+                        return;
+                    }
                     cacheFuncSig = cache[modid][exp].getModuleName ? cache[modid][exp].getModuleName() : cache[modid][exp].toString();
-                    //print("cache[modid][exp]: "+cache[modid][exp]);
                     if (typeof cache[modid][exp] === "function" && /*cache[modid][exp].toString()*/ cacheFuncSig === funcSig /*func.toString()*/) {
                         return {modid: modid, expname: exp};
                     }

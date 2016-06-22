@@ -535,7 +535,7 @@ public class RDD extends WrappedClass {
         @Override
         public Object call(Object thiz, Object... args) {
             JavaRDD sparkJavaRDD = (JavaRDD) ((RDD)thiz).getJavaObject();
-            JavaRDD result = sparkJavaRDD.sample((boolean) args[0], (double) args[1], (long) args[2]);
+            JavaRDD result = sparkJavaRDD.sample((boolean) args[0], (double) args[1], ((Integer) args[2]).longValue());
 
             return Utils.javaToJs(result, null);
         }

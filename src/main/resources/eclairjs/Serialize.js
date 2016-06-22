@@ -405,6 +405,13 @@ Serialize.javaToJs = function (javaObj) {
         return javaObj;
     }
 
+    if (javaObj instanceof org.eclairjs.nashorn.wrap.WrappedClass) {
+        /*
+        This is one of our AbstractJSObject Java/JavaScript objects
+         */
+        return javaObj;
+    }
+
     var res = null;
     for (var i = 0; i < Serialize.handlers.length; i++) {
         var fn = Serialize.handlers[i];

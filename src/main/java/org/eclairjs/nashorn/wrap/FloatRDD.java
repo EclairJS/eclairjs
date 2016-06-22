@@ -16,16 +16,16 @@ import java.util.Map;
 
 public class FloatRDD extends RDD {
 
-    static public Object toRDD(Object rdd) {
+    static public FloatRDD toRDD(Object rdd) {
         JavaDoubleRDD rdd_uw = (JavaDoubleRDD) Utils.jsToJava(rdd);
         JavaRDD javaObject = org.apache.spark.api.java.JavaDoubleRDD.toRDD( rdd_uw).toJavaRDD();
-        return  Utils.javaToJs(javaObject);
+        return (FloatRDD) Utils.javaToJs(javaObject);
     }
 
-    static public Object fromRDD(Object rdd) {
+    static public FloatRDD fromRDD(Object rdd) {
         JavaRDD rdd_uw = (JavaRDD) Utils.jsToJava(rdd);
         JavaDoubleRDD javaObject = org.apache.spark.api.java.JavaDoubleRDD.fromRDD(rdd_uw.rdd());
-        return  Utils.javaToJs(javaObject);
+        return  (FloatRDD) Utils.javaToJs(javaObject);
     }
 
     static WrappedFunction  F_wrapRDD = new WrappedFunction () {
@@ -330,6 +330,11 @@ public class FloatRDD extends RDD {
         //super((rdd));
     }
 
+    public FloatRDD(RDD rdd) {
+        JavaRDD rdd_uw = (JavaRDD) Utils.jsToJava(rdd);
+        javaDoubleRDD = org.apache.spark.api.java.JavaDoubleRDD.fromRDD(rdd_uw.rdd());
+        //super((rdd));
+    }
     static public String getModuleName() {
         return "FloatRDD";
     }

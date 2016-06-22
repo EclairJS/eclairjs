@@ -22,8 +22,10 @@ import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 
+import jdk.nashorn.api.scripting.ScriptUtils;
 import jdk.nashorn.internal.objects.NativeArray;
 import jdk.nashorn.internal.runtime.Undefined;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
 import org.apache.spark.SparkFiles;
 import org.apache.spark.mllib.regression.LinearRegressionModel;
@@ -228,8 +230,18 @@ public class Utils {
                     for(int i=0;i<from.size();i++) {
                         alist.add(javaToJs(from.get(i),engine));
                     }
+                    Object array = alist.toArray();
+                    try {
+                        String func = "function(javaArray){return Java.from(javaArray)}";
+                        Object fn = engine.eval(func);
+                        Object params[] = { array};
+                        array = ((ScriptObjectMirror)fn).call(null, params);
 
-                    return alist;
+                    } catch (ScriptException e) {
+                        e.printStackTrace();
+                    }
+
+                   return array;
 
                 } else {
                     return Utils.createJavaScriptObject(o); //FIXME we should move this from JavaScript to Java
@@ -238,7 +250,7 @@ public class Utils {
 
         }
 
-//        return o;
+       // return o;
     }
 
 //	 public static Object javaToJs(Object o, ScriptEngine engine) {
@@ -394,6 +406,7 @@ public class Utils {
              case "java.lang.Float":
              case "java.lang.Double":
              case "java.lang.Boolean":
+             case "java.lang.Long":
                 return o;
          }
 
@@ -405,12 +418,34 @@ public class Utils {
             if (m.hasMember("getJavaObject")) {
                 return m.callMember("getJavaObject");
             }
-			 if(m.isArray()) {
-				ArrayList list = new ArrayList();
-				for(Object item : m.values()) {
-					list.add(jsToJava(item));
-				}
-				return list;
+			if(m.isArray()) {
+                try {
+                    if (m.containsKey("0")) {
+                        Object v = m.get("0");
+                        if (v instanceof Double) {
+                            double[] doubleArray = (double[]) ScriptUtils.convert(m, double[].class);
+                            return doubleArray;
+                        } else if (v instanceof Integer) {
+                            int[] intArray = (int[]) ScriptUtils.convert(m, int[].class);
+                            return intArray;
+                        } else {
+                            Object[] objectArray = (Object[]) ScriptUtils.convert(m, Object[].class);
+                            return objectArray;
+                        }
+                    }
+                } catch (ClassCastException e) {
+                    /*
+                    If the array contains ScriptObjectMirror the above conversions throws exception
+                    so we have to convert the contents of the array as well.
+                     */
+                    ArrayList list = new ArrayList();
+                    for(Object item : m.values()) {
+                        list.add(jsToJava(item));
+                    }
+                    Object x = list.toArray();
+                    return x;
+                }
+
 			} else {
   //               throw new RuntimeException("js2java IMPLEMENT"+o);
                 Object obj = ScriptObjectMirror.wrapAsJSONCompatible(o, null);

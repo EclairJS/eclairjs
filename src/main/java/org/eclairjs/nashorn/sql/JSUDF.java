@@ -15,6 +15,8 @@ package org.eclairjs.nashorn.sql;/*
  */
 
 import org.apache.spark.sql.types.*;
+import org.eclairjs.nashorn.wrap.sql.SqlDate;
+import org.eclairjs.nashorn.wrap.sql.SqlTimestamp;
 
 public class JSUDF {
     private DataType returnType = null;
@@ -42,6 +44,10 @@ public class JSUDF {
             ret =  ((Integer)value).doubleValue();
         } else if (this.getReturnType() == DataTypes.FloatType && value instanceof Integer) {
             ret =  ((Integer)value).floatValue();
+        } else if (this.getReturnType() == DataTypes.TimestampType) {
+            ret =  ((SqlTimestamp)value).getJavaObject();
+        } else if (this.getReturnType() == DataTypes.DateType) {
+            ret =  ((SqlDate)value).getJavaObject();
         }
 
         return ret;

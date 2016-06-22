@@ -28,7 +28,7 @@ public class Rating extends WrappedClass {
 
     @Override
     public String toJSON() {
-        return "{\"user\":" + rating.user()+ ",\"product\":" + rating.product() + "\"rating\":" + rating.rating() + "}" ;
+        return "{\"user\":" + rating.user()+ ",\"product\":" + rating.product() + ",\"rating\":" + rating.rating() + "}" ;
     }
 
     @Override
