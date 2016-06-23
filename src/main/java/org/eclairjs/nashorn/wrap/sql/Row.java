@@ -27,7 +27,7 @@ public class Row extends WrappedClass {
         @Override
         public Object call(Object thiz, Object... args) {
             org.apache.spark.sql.Row sparkRow = (org.apache.spark.sql.Row) ((Row) thiz).getJavaObject();
-            Object o = sparkRow.get((int) args[0]);
+            Object o = sparkRow.get(Utils.toInt(args[0]));
             return Utils.javaToJs(o, NashornEngineSingleton.getEngine());
         }
     };
@@ -35,24 +35,21 @@ public class Row extends WrappedClass {
         @Override
         public Object call(Object thiz, Object... args) {
             org.apache.spark.sql.Row sparkRow = (org.apache.spark.sql.Row) ((Row) thiz).getJavaObject();
-            int index = (int) args[0];
-            return sparkRow.getString(index);
+            return sparkRow.getString(Utils.toInt(args[0]));
         }
     };
     static WrappedFunction F_getBoolean = new WrappedFunction() {
         @Override
         public Object call(Object thiz, Object... args) {
             org.apache.spark.sql.Row sparkRow = (org.apache.spark.sql.Row) ((Row) thiz).getJavaObject();
-            int index = (int) args[0];
-            return sparkRow.getBoolean(index);
+            return sparkRow.getBoolean(Utils.toInt(args[0]));
         }
     };
     static WrappedFunction F_getDate = new WrappedFunction() {
         @Override
         public Object call(Object thiz, Object... args) {
             org.apache.spark.sql.Row sparkRow = (org.apache.spark.sql.Row) ((Row) thiz).getJavaObject();
-            int index = (int) args[0];
-            Object o = sparkRow.getDate(index);
+            Object o = sparkRow.getDate(Utils.toInt(args[0]));
             return Utils.javaToJs(o, NashornEngineSingleton.getEngine());
         }
     };
@@ -60,25 +57,22 @@ public class Row extends WrappedClass {
         @Override
         public Object call(Object thiz, Object... args) {
             org.apache.spark.sql.Row sparkRow = (org.apache.spark.sql.Row) ((Row) thiz).getJavaObject();
-            int index = (int) args[0];
-            return sparkRow.getDouble(index);
+            return sparkRow.getDouble(Utils.toInt(args[0]));
         }
     };
     static WrappedFunction F_getFloat = new WrappedFunction() {
         @Override
         public Object call(Object thiz, Object... args) {
             org.apache.spark.sql.Row sparkRow = (org.apache.spark.sql.Row) ((Row) thiz).getJavaObject();
-            int index = (int) args[0];
             //return sparkRow.getFloat(index);
-            return sparkRow.getDouble(index); // a Java Double = JavaScript Float
+            return sparkRow.getDouble(Utils.toInt(args[0])); // a Java Double = JavaScript Float
         }
     };
     static WrappedFunction F_getInt = new WrappedFunction() {
         @Override
         public Object call(Object thiz, Object... args) {
             org.apache.spark.sql.Row sparkRow = (org.apache.spark.sql.Row) ((Row) thiz).getJavaObject();
-            int index = (int) args[0];
-            return sparkRow.getInt(index);
+            return sparkRow.getInt(Utils.toInt(args[0]));
         }
     };
     static WrappedFunction F_length = new WrappedFunction() {
@@ -93,8 +87,7 @@ public class Row extends WrappedClass {
         @Override
         public Object call(Object thiz, Object... args) {
             org.apache.spark.sql.Row sparkRow = (org.apache.spark.sql.Row) ((Row) thiz).getJavaObject();
-            int index = (int) args[0];
-            Object o = sparkRow.getTimestamp(index);
+            Object o = sparkRow.getTimestamp(Utils.toInt(args[0]));
             return Utils.javaToJs(o, NashornEngineSingleton.getEngine());
         }
     };
@@ -160,14 +153,14 @@ public class Row extends WrappedClass {
         @Override
         public Object call(Object thiz, Object... args) {
             org.apache.spark.sql.Row sparkRow = (org.apache.spark.sql.Row) ((Row) thiz).getJavaObject();
-            return Utils.createJavaScriptObject(sparkRow.getList((int) args[0]));
+            return Utils.createJavaScriptObject(sparkRow.getList(Utils.toInt(args[0])));
         }
     };
     static WrappedFunction F_getStruct = new WrappedFunction() {
         @Override
         public Object call(Object thiz, Object... args) {
             org.apache.spark.sql.Row sparkRow = (org.apache.spark.sql.Row) ((Row) thiz).getJavaObject();
-            return Utils.createJavaScriptObject(sparkRow.getStruct((int) args[0]));
+            return Utils.createJavaScriptObject(sparkRow.getStruct(Utils.toInt(args[0])));
         }
     };
     static WrappedFunction F_hashCode = new WrappedFunction() {
@@ -181,7 +174,7 @@ public class Row extends WrappedClass {
         @Override
         public Object call(Object thiz, Object... args) {
             org.apache.spark.sql.Row sparkRow = (org.apache.spark.sql.Row) ((Row) thiz).getJavaObject();
-            return sparkRow.isNullAt((int) args[0]);
+            return sparkRow.isNullAt(Utils.toInt(args[0]));
         }
     };
     private org.apache.spark.sql.Row sparkRow = null;
@@ -225,7 +218,13 @@ public class Row extends WrappedClass {
                     e.printStackTrace();
                 }
             } else {
-                jsonObj += x;
+                /*
+                we need to wrap the object so we can get the JSON string of it
+                FIXME this can be removed when all Spark objects are converted to Java Wrapped, or replaced with o.toJSON
+                 */
+                Object wrappedObj = Utils.createJavaScriptObject(x);
+                String jsonStr = Utils.JsonStringify(wrappedObj);
+                jsonObj += jsonStr; // x;
             }
             if (i < sparkRow.length() - 1) {
                 jsonObj += ",";

@@ -18,15 +18,15 @@ import org.eclairjs.nashorn.Utils;
 import org.eclairjs.nashorn.wrap.WrappedClass;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class RowFactory extends WrappedClass {
 
-    static public Row create(Object[] values) {
+    static public Row create(Object... values) {
         ArrayList al = new ArrayList();
         for (int i = 0; i < values.length; i++) {
             al.add(Utils.jsToJava(values[i]));
         }
-        //System.out.print("RowFactory.create" + al);
         return new Row(org.apache.spark.sql.RowFactory.create(al.toArray()));
     }
 

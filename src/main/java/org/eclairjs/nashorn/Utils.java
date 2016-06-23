@@ -778,4 +778,40 @@ public class Utils {
         }
         return obj;
     }
+
+    public static int toInt(Object num) {
+        int x;
+         if (num instanceof Long) {
+            x = ((Long) num).intValue();
+        } else if (num instanceof Double) {
+             x = ((Double) num).intValue();
+         } else {
+            x = (int) num;
+        }
+        return x;
+    }
+
+    public static long toLong(Object num) {
+        long x;
+        if (num instanceof Integer) {
+            x = ((Integer) num).longValue();
+        } else if (num instanceof Double) {
+            x = ((Double) num).longValue();
+        } else {
+            x = (long) num;
+        }
+        return x;
+    }
+
+    public static double toDouble(Object num) {
+        double x;
+        if (num instanceof Long) {
+            x = ((Long) num).doubleValue();
+        } if (num instanceof Integer) {
+            x = ((Integer) num).doubleValue();
+        } else {
+            x = (double) num;
+        }
+        return x;
+    }
 }

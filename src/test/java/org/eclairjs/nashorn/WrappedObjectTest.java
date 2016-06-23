@@ -59,12 +59,14 @@ public class WrappedObjectTest {
 
     @Test
     public void testJson() throws Exception {
+
         Object ret = execJS(
+                 "  var Tuple2 = require('eclairjs/Tuple2');",
                 "	var tuple = new Tuple2(1,\"A\");",
                 "	return tuple.toJSON();");
         System.out.println(ret);
 
-        String expected = "{  \"_1\" : 1 , \"_2\" : \"A\" } ";
+        String expected = "{\"0\":1,\"1\":\"A\",\"length\":2}";
         assertEquals("failure - strings are not equal", expected, ret);
 
     }
