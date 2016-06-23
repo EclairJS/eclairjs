@@ -99,7 +99,7 @@ public class SparkJS{
 	
 	public void displayWelcome() {
 		System.out.println("Welcome to eclairJS-nashorn, Type in expressions to have them evaluated.");
-		System.out.println("SQL context available as sc..");
+		System.out.println("Spark context available as sc..");
 	}
 	
 	private String getMaster() {
@@ -128,13 +128,13 @@ public class SparkJS{
 	private String createSparkContext() {
 		String master = this.getMaster();
 		String name = this.getAppName();
-		String sparkContext = "var conf = new SparkConf()";
+		String sparkContext = "var SparkConf = require('eclairjs/SparkConf'); var conf = new SparkConf()";
 		sparkContext += ".setMaster(\""+master+"\")";
 		if (name != null) {
 			sparkContext += ".setAppName(\""+name+"\")";
 		}
 		sparkContext += "; ";
-		sparkContext += "var sc = new SparkContext(conf);";
+		sparkContext += "var SparkContext = require('eclairjs/SparkContext'); var sc = new SparkContext(conf);";
 		return sparkContext;
 	}
 	

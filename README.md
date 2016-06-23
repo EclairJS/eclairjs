@@ -1,6 +1,6 @@
 EclairJS Nashorn
 ===================
-The **EclairJS Nashorn** API exposes the [Spark](http://spark.apache.org/) programming model to JavaScript.  **EclairJS Nashorn** is built on top of [Spark's Java API](http://spark.apache.org/docs/latest/api/java/index.html). For a NodeJS implementation of the Spark programming model visit the [eclairjs-node](https://github.com/EclairJS/eclairjs-node) project.
+The **EclairJS Nashorn** API exposes the [Spark](http://spark.apache.org/) programming model to JavaScript.  **EclairJS Nashorn** is built on top of [Spark's Java API](http://spark.apache.org/docs/latest/api/java/index.html). For a NodeJS implementation of the Spark programming model visit the [eclairjs-node](https://github.com/EclairJS/eclairjs-node) project. More detailed information is available in the Eclair Nashorn [Wiki](https://github.com/EclairJS/eclairjs-nashorn/wikis/home).
 
 ## Build from source
 **Prerequisites**
@@ -97,7 +97,3 @@ Instructions:
 
 ## Versions
 It should be noted that the master branch is used for development and although every effort is made to keep it stable it could be in a slight state of flux depending on what is going on.  Please see our [releases page](https://github.com/EclairJS/eclairjs-nashorn/releases) if you would like to download a stable version.
-
-## Resources
-More detailed information is available in the Eclair Nashorn [Wiki](https://github.com/EclairJS/eclairjs-nashorn/wikis/home). Presentations and information about how to get involved is in [Project and Community](https://github.com/EclairJS/eclairjs-node/wikis/Project-and-Community).
-

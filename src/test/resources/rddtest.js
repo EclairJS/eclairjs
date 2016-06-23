@@ -11,7 +11,7 @@ tests({
 
     version : function() {
         var ver= sparkContext.version();
-        assertEquals("failure - strings are not equal", "EclairJS-nashorn 0.5-SNAPSHOT Spark 1.6.0", ver);
+        assertEquals("failure - strings are not equal", "EclairJS-nashorn 0.6-SNAPSHOT Spark 1.6.0", ver);
 
     },
 
