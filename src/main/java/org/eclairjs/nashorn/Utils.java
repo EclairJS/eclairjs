@@ -413,7 +413,7 @@ public class Utils {
          if (o instanceof WrappedClass)
              return ((WrappedClass)o).getJavaObject();
 
-    	if (o instanceof ScriptObjectMirror) {
+    	if (o instanceof ScriptObjectMirror ) {
 			ScriptObjectMirror m = (ScriptObjectMirror)o;
             if (m.hasMember("getJavaObject")) {
                 return m.callMember("getJavaObject");
@@ -452,7 +452,12 @@ public class Utils {
                 String j = JSONValue.toJSONString(obj);
                 return JSONValue.parse(j);
             }
-		}
+		} else if (o instanceof jdk.nashorn.internal.runtime.ScriptObject){
+            ScriptObjectMirror jsObj = ScriptUtils.wrap((jdk.nashorn.internal.runtime.ScriptObject) o);
+            if (jsObj.hasMember("getJavaObject")) {
+                return jsObj.callMember("getJavaObject");
+            }
+        }
 
          throw new RuntimeException("js2java NOT HANDLED"+o);
 //        else if (o instanceof IteratorWrapper) {
