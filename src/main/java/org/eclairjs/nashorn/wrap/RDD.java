@@ -116,15 +116,7 @@ public class RDD extends WrappedClass {
         @Override
         public Object call(Object thiz, Object... args) {
             JavaRDDLike sparkJavaRDD = (JavaRDDLike) ((RDD)thiz).getJavaObject();
-            double relativeSD;
-            if (args[0] instanceof Double) {
-                relativeSD = (Double) args[0];
-            } else {
-                // int
-                relativeSD = ((Integer) args[0]).doubleValue();
-            }
-
-            Object val = sparkJavaRDD.countApproxDistinct(relativeSD);
+            Object val = sparkJavaRDD.countApproxDistinct(Utils.toDouble(args[0]));
 
             return val;
 
@@ -135,7 +127,7 @@ public class RDD extends WrappedClass {
         @Override
         public Object call(Object thiz, Object... args) {
             JavaRDDLike sparkJavaRDD = (JavaRDDLike) ((RDD)thiz).getJavaObject();
-            Object val = sparkJavaRDD.countByValueApprox((long) args[0], (double) args[1]);
+            Object val = sparkJavaRDD.countByValueApprox(Utils.toLong(args[0]), Utils.toDouble(args[1]));
             return Utils.createJavaScriptObject(val);
 
         }
@@ -147,7 +139,7 @@ public class RDD extends WrappedClass {
             JavaRDD sparkJavaRDD = (JavaRDD) ((RDD)thiz).getJavaObject();
             Object val;
             if (args.length > 0) {
-                val = sparkJavaRDD.distinct((int) args[0]);
+                val = sparkJavaRDD.distinct(Utils.toInt(args[0]));
             } else {
                 val = sparkJavaRDD.distinct();
             }
@@ -289,7 +281,7 @@ public class RDD extends WrappedClass {
             JSFunction fn = (JSFunction)Utils.createLambdaFunction(args[0], "org.eclairjs.nashorn.JSFunction", sparkJavaRDD.context(), bindArgs);
             Object val;
             if (args.length > 1) {
-                val = sparkJavaRDD.groupBy(fn, (int) args[1]);
+                val = sparkJavaRDD.groupBy(fn, Utils.toInt(args[1]));
             } else {
                 val = sparkJavaRDD.groupBy(fn);
             }
@@ -491,13 +483,10 @@ public class RDD extends WrappedClass {
         public Object call(Object thiz, Object... args) {
             JavaRDD sparkJavaRDD = (JavaRDD) ((RDD)thiz).getJavaObject();
             JavaRDD result[];
-            ScriptObjectMirror x = (ScriptObjectMirror) args[0];
 
             double weights[] = (double[]) ScriptUtils.convert(args[0], double[].class);
             if (args.length > 1) {
-                long seed = ((Integer) args[1]).longValue();
-
-                result = sparkJavaRDD.randomSplit(weights, seed);
+                result = sparkJavaRDD.randomSplit(weights, Utils.toLong(args[1]));
             } else {
                 result = sparkJavaRDD.randomSplit(weights);
             }
@@ -525,7 +514,7 @@ public class RDD extends WrappedClass {
         @Override
         public Object call(Object thiz, Object... args) {
             JavaRDD sparkJavaRDD = (JavaRDD) ((RDD)thiz).getJavaObject();
-            JavaRDD result = sparkJavaRDD.repartition(((int) args[0]));
+            JavaRDD result = sparkJavaRDD.repartition(Utils.toInt(args[0]));
 
             return Utils.javaToJs(result, null);
         }
@@ -535,7 +524,7 @@ public class RDD extends WrappedClass {
         @Override
         public Object call(Object thiz, Object... args) {
             JavaRDD sparkJavaRDD = (JavaRDD) ((RDD)thiz).getJavaObject();
-            JavaRDD result = sparkJavaRDD.sample((boolean) args[0], (double) args[1], ((Integer) args[2]).longValue());
+            JavaRDD result = sparkJavaRDD.sample((boolean) args[0], Utils.toDouble(args[1]), Utils.toLong(args[2]));
 
             return Utils.javaToJs(result, null);
         }
@@ -580,7 +569,7 @@ public class RDD extends WrappedClass {
                 bindArgs = args[3];
             }
             JSFunction fn = (JSFunction)Utils.createLambdaFunction(args[0], "org.eclairjs.nashorn.JSFunction", sparkJavaRDD.context(), bindArgs);
-            JavaRDD result = sparkJavaRDD.sortBy(fn, (boolean) args[1], (int) args[2]);
+            JavaRDD result = sparkJavaRDD.sortBy(fn, (boolean) args[1], Utils.toInt(args[2]));
 
             return Utils.javaToJs(result);
         }
@@ -603,7 +592,7 @@ public class RDD extends WrappedClass {
             JavaRDD sparkJavaRDD = (JavaRDD) ((RDD)thiz).getJavaObject();
             JavaRDD result;
             if (args.length > 1) {
-                result = sparkJavaRDD.subtract(other, (int) args[1]);
+                result = sparkJavaRDD.subtract(other, Utils.toInt(args[1]));
             } else {
                 result = sparkJavaRDD.subtract(other);
             }
@@ -616,7 +605,7 @@ public class RDD extends WrappedClass {
         @Override
         public Object call(Object thiz, Object... args) {
             JavaRDDLike sparkJavaRDD = (JavaRDDLike) ((RDD)thiz).getJavaObject();
-            List result = sparkJavaRDD.take((int) args[0]);
+            List result = sparkJavaRDD.take(Utils.toInt(args[0]));
 
             return Utils.createJavaScriptObject(result);
         }
@@ -633,9 +622,9 @@ public class RDD extends WrappedClass {
                     bindArgs = args[2];
                 }
                 JSComparator fn = (JSComparator) Utils.createLambdaFunction(args[1], "org.eclairjs.nashorn.JSComparator", sparkJavaRDD.context(), bindArgs);
-                result = sparkJavaRDD.takeOrdered((int) args[0], fn);
+                result = sparkJavaRDD.takeOrdered(Utils.toInt(args[0]), fn);
             } else {
-                result = sparkJavaRDD.takeOrdered((int) args[0]);
+                result = sparkJavaRDD.takeOrdered(Utils.toInt(args[0]));
             }
 
             return Utils.createJavaScriptObject(result);
@@ -646,7 +635,7 @@ public class RDD extends WrappedClass {
         @Override
         public Object call(Object thiz, Object... args) {
             JavaRDDLike sparkJavaRDD = (JavaRDDLike) ((RDD)thiz).getJavaObject();
-            List result = sparkJavaRDD.takeSample((boolean) args[0], (int) args[1], (long) args[2]);
+            List result = sparkJavaRDD.takeSample((boolean) args[0], Utils.toInt(args[1]), Utils.toLong(args[2]));
 
             return Utils.createJavaScriptObject(result);
         }
@@ -676,7 +665,7 @@ public class RDD extends WrappedClass {
         @Override
         public Object call(Object thiz, Object... args) {
             JavaRDDLike sparkJavaRDD = (JavaRDDLike) ((RDD)thiz).getJavaObject();
-            List result = sparkJavaRDD.top((int) args[0]);
+            List result = sparkJavaRDD.top(Utils.toInt(args[0]));
 
             return Utils.createJavaScriptObject(result);
         }
@@ -694,9 +683,9 @@ public class RDD extends WrappedClass {
             JSFunction2 fn = (JSFunction2) Utils.createLambdaFunction(args[1], "org.eclairjs.nashorn.JSFunction2", sparkJavaRDD.context(), bindArgs);
             Object  bindArgs2 = null;
             if (args.length > 4) {
-                bindArgs = args[4];
+                bindArgs2 = args[4];
             }
-            JSFunction2 fn2 = (JSFunction2) Utils.createLambdaFunction(args[2], "org.eclairjs.nashorn.JSFunction2", sparkJavaRDD.context(), bindArgs);
+            JSFunction2 fn2 = (JSFunction2) Utils.createLambdaFunction(args[2], "org.eclairjs.nashorn.JSFunction2", sparkJavaRDD.context(), bindArgs2);
             Object result = sparkJavaRDD.treeAggregate(zeroValue, fn, fn2);
 
             return Utils.createJavaScriptObject(result);
@@ -712,7 +701,7 @@ public class RDD extends WrappedClass {
                 bindArgs = args[2];
             }
             JSFunction2 fn = (JSFunction2) Utils.createLambdaFunction(args[0], "org.eclairjs.nashorn.JSFunction2", sparkJavaRDD.context(), bindArgs);
-            Object result = sparkJavaRDD.treeReduce(fn, (int) args[1]);
+            Object result = sparkJavaRDD.treeReduce(fn, Utils.toInt(args[1]));
 
             return Utils.createJavaScriptObject(result);
         }

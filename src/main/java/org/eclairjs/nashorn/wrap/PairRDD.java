@@ -68,7 +68,7 @@ public class PairRDD extends RDD {
             JavaPairRDD sparkPairRDD  = (JavaPairRDD) ((PairRDD)thiz).getJavaObject();
             Object val;
             if (args.length > 0) {
-                val = sparkPairRDD.distinct((int) args[0]);
+                val = sparkPairRDD.distinct( Utils.toInt(args[0]));
             } else {
                 val = sparkPairRDD.distinct();
             }
@@ -105,7 +105,7 @@ public class PairRDD extends RDD {
         public Object call(Object thiz, Object... args) {
             JavaPairRDD sparkJavaRDD = (JavaPairRDD) ((PairRDD)thiz).getJavaObject();
             Object val;
-            int numPartitions = (int) args[0];
+            int numPartitions = Utils.toInt(args[0]);
             if (args.length > 1) {
                 val = sparkJavaRDD.coalesce(numPartitions, (boolean) args[1]);
             } else {
@@ -120,7 +120,7 @@ public class PairRDD extends RDD {
         @Override
         public Object call(Object thiz, Object... args) {
             JavaPairRDD sparkJavaRDD = (JavaPairRDD) ((PairRDD)thiz).getJavaObject();
-            Object val = sparkJavaRDD.repartition((int) args[0]);
+            Object val = sparkJavaRDD.repartition(Utils.toInt(args[0]));
 
             return Utils.javaToJs(val);
         }
@@ -132,19 +132,9 @@ public class PairRDD extends RDD {
             JavaPairRDD sparkJavaRDD = (JavaPairRDD) ((PairRDD)thiz).getJavaObject();
             Object val;
             boolean withReplacement = (boolean) args[0];
-            double fraction;
-            if (args[1] instanceof Integer) {
-                fraction = ((Integer) args[1]).doubleValue();
-            } else {
-                fraction = (double) args[1];
-            }
+            double fraction = Utils.toDouble(args[1]);
             if (args.length > 2) {
-                long seed;
-                if (args[2] instanceof Double) {
-                    seed = ((Double) args[2]).longValue();
-                } else {
-                    seed = ((Integer) args[2]).longValue();
-                }
+                long seed = Utils.toLong(args[2]);
                 val = sparkJavaRDD.sample(withReplacement, fraction, seed);
             } else {
                 val = sparkJavaRDD.sample(withReplacement, fraction);
@@ -162,12 +152,7 @@ public class PairRDD extends RDD {
             Object val;
             boolean withReplacement = (boolean) args[0];
             if (args.length > 2) {
-                long seed;
-                if (args[2] instanceof Double) {
-                    seed = ((Double) args[2]).longValue();
-                } else {
-                    seed = ((Integer) args[2]).longValue();
-                }
+                long seed = Utils.toLong(args[2]);
                 val = sparkJavaRDD.sampleByKey(withReplacement, fractions, seed);
             } else {
                 val = sparkJavaRDD.sampleByKey(withReplacement, fractions);
@@ -185,12 +170,7 @@ public class PairRDD extends RDD {
             Object val;
             boolean withReplacement = (boolean) args[0];
             if (args.length > 2) {
-                long seed;
-                if (args[2] instanceof Double) {
-                    seed = ((Double) args[2]).longValue();
-                } else {
-                    seed = ((Integer) args[2]).longValue();
-                }
+                long seed = Utils.toLong(args[2]);
                 val = sparkJavaRDD.sampleByKeyExact(withReplacement, fractions, seed);
             } else {
                 val = sparkJavaRDD.sampleByKeyExact(withReplacement, fractions);
@@ -247,7 +227,7 @@ public class PairRDD extends RDD {
             JSFunction2 fn3 = (JSFunction2)Utils.createLambdaFunction(args[2], "org.eclairjs.nashorn.JSFunction2", sparkJavaRDD.context(), bindArgs);
             Object val;
             if (args.length > 3) {
-                val = sparkJavaRDD.combineByKey(fn, fn2, fn3, (int) args[3]);
+                val = sparkJavaRDD.combineByKey(fn, fn2, fn3, Utils.toInt(args[3]));
             } else {
                 val = sparkJavaRDD.combineByKey(fn, fn2, fn3);
             }
@@ -298,9 +278,9 @@ public class PairRDD extends RDD {
             JavaPairRDD sparkJavaRDD = (JavaPairRDD) ((PairRDD)thiz).getJavaObject();
             Object val;
             if (args.length > 1) {
-                val = sparkJavaRDD.countByKeyApprox((long) args[0], (double) args[1]);
+                val = sparkJavaRDD.countByKeyApprox( Utils.toLong(args[0]), Utils.toDouble(args[1]) );
             } else {
-                val = sparkJavaRDD.countByKeyApprox((long) args[0]);
+                val = sparkJavaRDD.countByKeyApprox( Utils.toLong(args[0]) );
             }
 
             return Utils.javaToJs(val, null);
@@ -320,7 +300,7 @@ public class PairRDD extends RDD {
             JSFunction2 fn2 = (JSFunction2)Utils.createLambdaFunction(args[2], "org.eclairjs.nashorn.JSFunction2", sparkJavaRDD.context(), bindArgs);
             Object val;
             if (args.length > 3 ) {
-                val = sparkJavaRDD.aggregateByKey(zeroValue, (int) args[3], fn, fn2);
+                val = sparkJavaRDD.aggregateByKey(zeroValue, Utils.toInt(args[3]), fn, fn2);
             } else {
                 val = sparkJavaRDD.aggregateByKey(zeroValue, fn, fn2);
             }
@@ -341,7 +321,7 @@ public class PairRDD extends RDD {
             JSFunction2 fn = (JSFunction2)Utils.createLambdaFunction(args[1], "org.eclairjs.nashorn.JSFunction2", sparkJavaRDD.context(), bindArgs);
             Object val;
             if (args.length > 3 ) {
-                val = sparkJavaRDD.foldByKey(zeroValue, (int) args[3], fn);
+                val = sparkJavaRDD.foldByKey(zeroValue, Utils.toInt(args[3]), fn);
             } else {
                 val = sparkJavaRDD.foldByKey(zeroValue, fn);
             }
@@ -356,7 +336,7 @@ public class PairRDD extends RDD {
             JavaPairRDD sparkJavaRDD = (JavaPairRDD) ((PairRDD)thiz).getJavaObject();
             Object val;
             if (args.length > 0 ) {
-                val = sparkJavaRDD.groupByKey((int) args[0]);
+                val = sparkJavaRDD.groupByKey(Utils.toInt(args[0]));
             } else {
                 val = sparkJavaRDD.groupByKey();
             }
@@ -373,7 +353,7 @@ public class PairRDD extends RDD {
             JavaPairRDD other = (JavaPairRDD) Utils.jsToJava(args[0]);
             Object val;
             if (args.length > 1 ) {
-                val = sparkJavaRDD.subtract(other, (int) args[1]);
+                val = sparkJavaRDD.subtract(other, Utils.toInt(args[1]));
             } else {
                 val = sparkJavaRDD.subtract(other);
             }
@@ -389,7 +369,7 @@ public class PairRDD extends RDD {
             JavaPairRDD other = (JavaPairRDD) Utils.jsToJava(args[0]);
             Object val;
             if (args.length > 1 ) {
-                val = sparkJavaRDD.subtractByKey(other, (int) args[1]);
+                val = sparkJavaRDD.subtractByKey(other, Utils.toInt(args[1]));
             } else {
                 val = sparkJavaRDD.subtractByKey(other);
             }
@@ -416,7 +396,7 @@ public class PairRDD extends RDD {
             JavaPairRDD other = (JavaPairRDD) Utils.jsToJava(args[0]);
             Object val;
             if (args.length > 1) {
-               val = sparkJavaRDD.leftOuterJoin(other, (int) args[1]);
+               val = sparkJavaRDD.leftOuterJoin(other, Utils.toInt(args[1]));
             } else {
                val = sparkJavaRDD.leftOuterJoin(other);
             }
@@ -432,7 +412,7 @@ public class PairRDD extends RDD {
             JavaPairRDD other = (JavaPairRDD) Utils.jsToJava(args[0]);
             Object val;
             if (args.length > 1) {
-                val = sparkJavaRDD.rightOuterJoin(other, (int) args[1]);
+                val = sparkJavaRDD.rightOuterJoin(other,  Utils.toInt(args[1]));
             } else {
                 val = sparkJavaRDD.rightOuterJoin(other);
             }
@@ -448,7 +428,7 @@ public class PairRDD extends RDD {
             JavaPairRDD other = (JavaPairRDD) Utils.jsToJava(args[0]);
             Object val;
             if (args.length > 1) {
-                val = sparkJavaRDD.fullOuterJoin(other, (int) args[1]);
+                val = sparkJavaRDD.fullOuterJoin(other, Utils.toInt(args[1]));
             } else {
                 val = sparkJavaRDD.fullOuterJoin(other);
             }
@@ -512,7 +492,7 @@ public class PairRDD extends RDD {
             }
             Object val;
             if (args.length > 3) {
-                int numPartitions = (int) args[3];
+                int numPartitions = Utils.toInt(args[3]);
                 if (other3 != null) {
                     val = sparkJavaRDD.cogroup(other, other2, other3, numPartitions);
                 } else if (other2 != null) {
@@ -578,7 +558,7 @@ public class PairRDD extends RDD {
             JavaPairRDD sparkJavaRDD = (JavaPairRDD) ((PairRDD)thiz).getJavaObject();
             Object val;
             if (args.length > 1) {
-                val = sparkJavaRDD.sortByKey((boolean) args[0], (int) args[1]);
+                val = sparkJavaRDD.sortByKey((boolean) args[0], Utils.toInt(args[1]));
             } else {
                 val = sparkJavaRDD.sortByKey((boolean) args[0]);
             }
@@ -613,9 +593,9 @@ public class PairRDD extends RDD {
             JavaPairRDD sparkJavaRDD = (JavaPairRDD) ((PairRDD)thiz).getJavaObject();
             Object val;
             if (args.length > 1) {
-                val = sparkJavaRDD.countApproxDistinctByKey((double) args[0], (int)args[1]);
+                val = sparkJavaRDD.countApproxDistinctByKey( Utils.toDouble(args[0]), Utils.toInt(args[1]));
             } else {
-                val = sparkJavaRDD.countApproxDistinctByKey((double) args[0]);
+                val = sparkJavaRDD.countApproxDistinctByKey( Utils.toDouble(args[0]));
             }
 
             return Utils.javaToJs(val);

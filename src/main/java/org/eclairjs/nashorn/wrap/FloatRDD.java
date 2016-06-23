@@ -72,7 +72,7 @@ public class FloatRDD extends RDD {
             JavaDoubleRDD sparkJavaRDD = (JavaDoubleRDD) ((FloatRDD)thiz).getJavaObject();
             Object val;
             if (args.length > 0) {
-                val = sparkJavaRDD.distinct((int) args[0]);
+                val = sparkJavaRDD.distinct( Utils.toInt(args[0]));
             } else {
                 val = sparkJavaRDD.distinct();
             }
@@ -99,7 +99,7 @@ public class FloatRDD extends RDD {
     static WrappedFunction  F_coalesce = new WrappedFunction () {
         @Override
         public Object call(Object thiz, Object... args) {
-            int numPartitions = (int) args[0];
+            int numPartitions = Utils.toInt(args[0]);
             boolean shuffle = (boolean) args[1];
             JavaDoubleRDD sparkJavaRDD = (JavaDoubleRDD) ((FloatRDD)thiz).getJavaObject();
             Object val = sparkJavaRDD.coalesce(numPartitions, shuffle);
@@ -113,7 +113,7 @@ public class FloatRDD extends RDD {
         @Override
         public Object call(Object thiz, Object... args) {
             JavaDoubleRDD sparkJavaRDD = (JavaDoubleRDD) ((FloatRDD)thiz).getJavaObject();
-            JavaDoubleRDD result = sparkJavaRDD.repartition(((int) args[0]));
+            JavaDoubleRDD result = sparkJavaRDD.repartition( Utils.toInt(args[0]));
 
             return Utils.javaToJs(result, null);
         }
@@ -126,7 +126,7 @@ public class FloatRDD extends RDD {
             JavaDoubleRDD sparkJavaRDD = (JavaDoubleRDD) ((FloatRDD)thiz).getJavaObject();
             JavaDoubleRDD result;
             if (args.length > 1) {
-                result = sparkJavaRDD.subtract(other, (int) args[1]);
+                result = sparkJavaRDD.subtract(other, Utils.toInt(args[1]));
             } else {
                 result = sparkJavaRDD.subtract(other);
             }
@@ -139,7 +139,7 @@ public class FloatRDD extends RDD {
         @Override
         public Object call(Object thiz, Object... args) {
             JavaDoubleRDD sparkJavaRDD = (JavaDoubleRDD) ((FloatRDD)thiz).getJavaObject();
-            JavaDoubleRDD result = sparkJavaRDD.sample((boolean) args[0], (double) args[1], (long) args[2]);
+            JavaDoubleRDD result = sparkJavaRDD.sample((boolean) args[0],  Utils.toDouble(args[1]),  Utils.toLong(args[2]));
 
             return Utils.javaToJs(result, null);
         }
@@ -261,11 +261,10 @@ public class FloatRDD extends RDD {
         @Override
         public Object call(Object thiz, Object... args) {
             JavaDoubleRDD sparkJavaRDD = (JavaDoubleRDD) ((FloatRDD)thiz).getJavaObject();
-            long timeout = ((Integer) args[0]).longValue();
+            long timeout =  Utils.toLong(args[0]);
             Object val;
             if (args.length > 1) {
-                double confidence = (Double) args[1];
-                val =  sparkJavaRDD.meanApprox(timeout, confidence);
+                val =  sparkJavaRDD.meanApprox(timeout, Utils.toDouble(args[1]));
             } else {
                 val =  sparkJavaRDD.meanApprox(timeout);
             }
@@ -278,11 +277,10 @@ public class FloatRDD extends RDD {
         @Override
         public Object call(Object thiz, Object... args) {
             JavaDoubleRDD sparkJavaRDD = (JavaDoubleRDD) ((FloatRDD)thiz).getJavaObject();
-            long timeout = ((Integer) args[0]).longValue();
+            long timeout =  Utils.toLong(args[0]);
             Object val;
             if (args.length > 1) {
-                double confidence = (Double) args[1];
-                val =  sparkJavaRDD.sumApprox(timeout, confidence);
+                val =  sparkJavaRDD.sumApprox(timeout, Utils.toDouble(args[1]));
             } else {
                 val =  sparkJavaRDD.sumApprox(timeout);
             }
