@@ -175,9 +175,10 @@ case class Method(name:String,var comment:String,returnType:DataType,parms:List[
     sb.toString()
   }
 
-  def parmList() : String =
+  def parmList(number:Int=0) : String =
   {
-     parms.map(_.name).toArray.mkString(",")
+     val list= if (number==0) parms else parms.dropRight(parms.length-number)
+     list.map(_.name).toArray.mkString(",")
   }
 
   def getParm(name:String) =

@@ -19,6 +19,7 @@ object Main extends App {
   var isConsole=true;
   var statistics=false
   var generateNode=false
+  var generateJavaWrapper=false
 
   var pass1=true;
   val allClasses= scala.collection.mutable.Map[String,Clazz]()
@@ -101,6 +102,12 @@ object Main extends App {
           val toFile=destDir.getAbsolutePath+"/"+file.getName.replace(".scala",".js")
           Statistics.processFile(model,toFile)
         }
+      else if (generateJavaWrapper)
+      {
+        val generator=  new GenerateJavaWrapper
+
+        val src= generator.generate(model,destDir:io.File)
+      }
       else
         {
           val generator= if (generateNode) new GenerateNode else new GenerateNashorn
@@ -149,6 +156,8 @@ object Main extends App {
     val stats = optionParser.accepts("statistics", "generate statistics (no js generated)")
 
     val genNodeOption = optionParser.accepts("generateNode", "generate code for node (default is nashorn)")
+
+    val genWrapperOption = optionParser.accepts("generateJavaWrapper", "generate code for java wrapper (default is nashorn)")
 
     val console = optionParser.accepts("console", "write generated code to console")
 
@@ -210,6 +219,8 @@ object Main extends App {
     }
 
     generateNode = has(genNodeOption)
+
+    generateJavaWrapper = has(genWrapperOption)
 
     if (has(stats)) {
       statistics=true

@@ -5,7 +5,6 @@ import java.util.Properties
 import java.io.FileInputStream
 import org.eclairjs.tools.generate.model._
 
-import scala.collection.parallel.mutable
 
 abstract class GenerateJSBase {
 
