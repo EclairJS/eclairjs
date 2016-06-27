@@ -76,22 +76,21 @@ function getModIdFromExport(func) {
         for (var modid in cache) {
             var funcSig =  func.getModuleName ? func.getModuleName() : func.toString();
             var cacheFuncSig = cache[modid].getModuleName ? cache[modid].getModuleName() : cache[modid].toString();
-            //print("funcSig " + funcSig);
             if ((typeof cache[modid] === "function") && (/*cache[modid].toString()*/ cacheFuncSig === funcSig /*func.toString()*/)) {
                 return {modid: modid};
             } else if (typeof cache[modid] === "object"){
                 for (var exp in cache[modid]) {
                     //print("cache["+modid+"]["+exp+"]: "+cache[modid][exp]);
-                    if (!cache[modid][exp]) {
-                        return;
-                    }
-                    cacheFuncSig = cache[modid][exp].getModuleName ? cache[modid][exp].getModuleName() : cache[modid][exp].toString();
-                    if (typeof cache[modid][exp] === "function" && /*cache[modid][exp].toString()*/ cacheFuncSig === funcSig /*func.toString()*/) {
-                        return {modid: modid, expname: exp};
+                    if (cache[modid][exp]) {
+                        cacheFuncSig = cache[modid][exp].getModuleName ? cache[modid][exp].getModuleName() : cache[modid][exp].toString();
+                        if (typeof cache[modid][exp] === "function" && /*cache[modid][exp].toString()*/ cacheFuncSig === funcSig /*func.toString()*/) {
+                            return {modid: modid, expname: exp};
+                        }
                     }
                 }
             }
         }
+        return;
     }
 }
 

@@ -143,6 +143,10 @@ public class Utils {
                 return new  org.eclairjs.nashorn.wrap.mllib.recommendation.Rating(
                         (org.apache.spark.mllib.recommendation.Rating)o
                 );
+            case "org.apache.spark.mllib.regression.LabeledPoint":
+                return new  org.eclairjs.nashorn.wrap.mllib.regression.LabeledPoint(
+                        (org.apache.spark.mllib.regression.LabeledPoint)o
+                );
             case "org.apache.spark.sql.catalyst.expressions.GenericRowWithSchema":
             case "org.apache.spark.sql.catalyst.expressions.GenericRow":
             case "org.apache.spark.sql.Row":
@@ -785,7 +789,9 @@ public class Utils {
             x = ((Long) num).intValue();
         } else if (num instanceof Double) {
              x = ((Double) num).intValue();
-         } else {
+         } else if (num instanceof String) {
+            x = Integer.getInteger((String) num);
+        } else {
             x = (int) num;
         }
         return x;
@@ -809,6 +815,8 @@ public class Utils {
             x = ((Long) num).doubleValue();
         } if (num instanceof Integer) {
             x = ((Integer) num).doubleValue();
+        } else if (num instanceof String) {
+            x = Double.parseDouble((String) num);
         } else {
             x = (double) num;
         }
