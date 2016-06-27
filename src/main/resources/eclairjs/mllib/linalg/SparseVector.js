@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 (function () {
-    var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
-    var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
-    var Vector = require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Vector');
+    //var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
+    //var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
+    //var Vector = require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Vector');
     /**
      * A sparse vector represented by an index array and an value array.
      *
@@ -31,44 +31,48 @@
      * @param {integer} size
      * @param {integer[]} indices
      * @param {float[]} values
-     * @class
+     * @class SparseVector
      * @memberof module:eclairjs/mllib/linalg
      * @extends module:eclairjs/mllib/linalg.Vector
      */
-    var SparseVector = function () {
-
-        this.logger = Logger.getLogger("SparseVector_js");
-        var jvmObj;
-        if (arguments[0] instanceof org.apache.spark.mllib.linalg.SparseVector) {
-            jvmObj = arguments[0];
-        } else {
-            jvmObj = new org.apache.spark.mllib.linalg.SparseVector(arguments[0], arguments[1], arguments[2]);
-
-        }
-        Vector.call(this, jvmObj);
-
-    };
-
-    SparseVector.prototype = Object.create(Vector.prototype);
-
-    SparseVector.prototype.constructor = SparseVector;
+    var SparseVector = Java.type('org.eclairjs.nashorn.wrap.mllib.linalg.SparseVector');
+    //var SparseVector = function () {
+    //
+    //    this.logger = Logger.getLogger("SparseVector_js");
+    //    var jvmObj;
+    //    if (arguments[0] instanceof org.apache.spark.mllib.linalg.SparseVector) {
+    //        jvmObj = arguments[0];
+    //    } else {
+    //        jvmObj = new org.apache.spark.mllib.linalg.SparseVector(arguments[0], arguments[1], arguments[2]);
+    //
+    //    }
+    //    Vector.call(this, jvmObj);
+    //
+    //};
+    //
+    //SparseVector.prototype = Object.create(Vector.prototype);
+    //
+    //SparseVector.prototype.constructor = SparseVector;
 
     /**
+     * @function
+     * @name module:eclairjs/mllib/linalg.SparseVector#indices
      * @returns {integer[]}
      */
-    SparseVector.prototype.indices = function() {
-        return this.getJavaObject().indices();
-    };
+    //SparseVector.prototype.indices = function() {
+    //    return this.getJavaObject().indices();
+    //};
 
     /**
-     * @param {module:eclairjs/mllib/linalg.SparseVector} sv
+     * @function
+     * @name module:eclairjs/mllib/linalg.SparseVector#values
      * @returns {module:eclairjs.Tuple}
      */
-    SparseVector.unapply = function (sv) {
-           var sv_uw = Utils.unwrapObject(sv);
-           var javaObject =  org.apache.spark.mllib.linalg.SparseVector.unapply(sv_uw);
-           return new Tuple3(javaObject);
-    };
+    //SparseVector.unapply = function (sv) {
+    //       var sv_uw = Utils.unwrapObject(sv);
+    //       var javaObject =  org.apache.spark.mllib.linalg.SparseVector.unapply(sv_uw);
+    //       return new Tuple3(javaObject);
+    //};
 
     module.exports = SparseVector;
 

@@ -143,6 +143,14 @@ public class Utils {
                 return new  org.eclairjs.nashorn.wrap.mllib.recommendation.Rating(
                         (org.apache.spark.mllib.recommendation.Rating)o
                 );
+            case "org.eclairjs.nashorn.wrap.mllib.linalg.SparseVector":
+                return new  org.eclairjs.nashorn.wrap.mllib.linalg.SparseVector(
+                        (org.apache.spark.mllib.linalg.SparseVector)o
+                );
+            case "org.eclairjs.nashorn.wrap.mllib.linalg.DenseVector":
+                return new  org.eclairjs.nashorn.wrap.mllib.linalg.DenseVector(
+                        (org.apache.spark.mllib.linalg.DenseVector)o
+                );
             case "org.apache.spark.mllib.regression.LabeledPoint":
                 return new  org.eclairjs.nashorn.wrap.mllib.regression.LabeledPoint(
                         (org.apache.spark.mllib.regression.LabeledPoint)o
