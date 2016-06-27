@@ -97,7 +97,7 @@ public class SqlTimestamp extends WrappedClass {
         timestamp = new java.sql.Timestamp(x.longValue());
     }
 
-    public SqlTimestamp(int ms) {
+    public SqlTimestamp(long ms) {
 
         timestamp = new java.sql.Timestamp(ms);
     }

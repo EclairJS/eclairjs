@@ -1153,3 +1153,10 @@ var dataFrameArrayTypeSerialize = function(){
 
     return JSON.stringify(df);
 }
+
+
+var sqlDateFromMilliSec = function(){
+	var d = new SqlDate(1467062856591);
+
+	return d.toString();
+}

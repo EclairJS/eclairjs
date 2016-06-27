@@ -68,7 +68,7 @@ public class SqlDate extends WrappedClass {
     };
     private java.sql.Date date = null;
 
-    public SqlDate(int ms) {
+    public SqlDate(long ms) {
 
         date = new java.sql.Date(ms);
     }

@@ -1856,4 +1856,19 @@ public class SqlTest {
         assertEquals("should be same", expected, ret.toString());
     }
 
+    @Test
+    public void sqlDateFromMilliSec() throws Exception {
+    	/*
+    	 * tests
+    	 * SQLContext.createDataFrame([ ])
+    	 * DataFrame.toJSON()
+    	 */
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable) engine).invokeFunction("sqlDateFromMilliSec");
+        
+        assertEquals("should be same", "2016-06-27", ret.toString());
+    }
+
 }
