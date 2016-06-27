@@ -289,6 +289,7 @@ public class Row extends WrappedClass {
     public Object getMember(String name) {
         switch (name) {
             case "get":
+            case "apply":
                 return F_get;
             case "getString":
                 return F_getString;
@@ -336,6 +337,7 @@ public class Row extends WrappedClass {
     public boolean hasMember(String name) {
         switch (name) {
             case "get":
+            case "apply":
             case "getString":
             case "getBoolean":
             case "getDate":

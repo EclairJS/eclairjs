@@ -83,7 +83,6 @@
      * @name module:eclairjs/sql.Row#apply
      * @param index
      * @returns {object}
-     * @ignore
      */
  /*   Row.prototype.apply = function (index) {
 
