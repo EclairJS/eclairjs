@@ -1160,3 +1160,24 @@ var sqlDateFromMilliSec = function(){
 
 	return d.toString();
 }
+
+var rowCreateFromArray = function(){
+    var d = new SqlDate(new Date("2012-09-01").getTime());
+    var t = new SqlTimestamp(new Date("2012-09-01 17:12:03.0").getTime());
+    var row = RowFactory.create([1122334,111,d,t,parseFloat("1"),parseFloat("1139.99"),"SALE"]);
+
+    return JSON.stringify(row);
+}
+
+var nullSchemaRow = function() {
+    var SparkContext = require(EclairJS_Globals.NAMESPACE + '/SparkContext');
+    var jsc = new SparkContext("local[*]", "dataframe test");
+    jsc.version();
+    var rdd1 = jsc.parallelize([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+    var RowFactory = require(EclairJS_Globals.NAMESPACE + '/sql/RowFactory');
+    var rdd2 = rdd1.map(function (element, RowFactory){
+        return RowFactory.create([element]);
+    }, [RowFactory]);
+    
+    return JSON.stringify(rdd2.collect());
+}

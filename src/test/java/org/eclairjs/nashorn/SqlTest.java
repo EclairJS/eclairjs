@@ -1858,17 +1858,35 @@ public class SqlTest {
 
     @Test
     public void sqlDateFromMilliSec() throws Exception {
-    	/*
-    	 * tests
-    	 * SQLContext.createDataFrame([ ])
-    	 * DataFrame.toJSON()
-    	 */
+
         ScriptEngine engine = TestUtils.getEngine();
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable) engine).invokeFunction("sqlDateFromMilliSec");
         
         assertEquals("should be same", "2016-06-27", ret.toString());
+    }
+
+    @Test
+    public void rowCreateFromArray() throws Exception {
+
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable) engine).invokeFunction("rowCreateFromArray");
+
+        assertEquals("should be same", "{\"values\":[1122334,111,\"2012-08-31\",\"2012-09-01 17:12:03.0\",1,1139.99,\"SALE\"]}", ret.toString());
+    }
+
+    @Test
+    public void nullSchemaRow() throws Exception {
+
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable) engine).invokeFunction("nullSchemaRow");
+        String expected =  "[{\"values\":[0]},{\"values\":[1]},{\"values\":[2]},{\"values\":[3]},{\"values\":[4]},{\"values\":[5]},{\"values\":[6]},{\"values\":[7]},{\"values\":[8]},{\"values\":[9]}]";
+        assertEquals("should be same", expected, ret.toString());
     }
 
 }
