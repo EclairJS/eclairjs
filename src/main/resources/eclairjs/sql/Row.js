@@ -256,12 +256,22 @@
 
         return this.getJavaObject().getString(index);
     };*/
+
     /**
-     * Returns the value at position i of array type as List.
+     * Returns the value at position i of array type as array.
      * @function
      * @name module:eclairjs/sql.Row#getList
      * @param {integer} index
-     * @returns {module:eclairjs.List}
+     * @returns {Object[]}
+     * @deprecated Use {@link module:eclairjs/sql.Row#getArray}
+     */
+
+    /**
+     * Returns the value at position i of array type as array.
+     * @function
+     * @name module:eclairjs/sql.Row#getArray
+     * @param {integer} index
+     * @returns {Object[]}
      */
  /*   Row.prototype.getList = function (index) {
         var List = require(EclairJS_Globals.NAMESPACE + "/List");

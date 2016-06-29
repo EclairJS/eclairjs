@@ -306,6 +306,7 @@ public class Row extends WrappedClass {
             case "getTimestamp":
                 return F_getTimestamp;
             case "getList":
+            case "getArray":
                 return F_getList;
             case "getStruct":
                 return F_getStruct;
@@ -346,6 +347,7 @@ public class Row extends WrappedClass {
             case "getInt":
             case "getTimestamp":
             case "getList":
+            case "getArray":
             case "getStruct":
             case "mkString":
             case "schema":
