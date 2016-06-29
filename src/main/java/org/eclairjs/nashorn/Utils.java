@@ -830,4 +830,69 @@ public class Utils {
         }
         return x;
     }
+
+    public static int [] toIntArray(Object arr) {
+        if (arr instanceof ScriptObjectMirror) {
+            ScriptObjectMirror m = (ScriptObjectMirror) arr;
+            if (m.isArray()) {
+                try {
+                    int[] intArray = (int[]) ScriptUtils.convert(m, int[].class);
+                    return intArray;
+                } catch (ClassCastException e) {
+                    /*
+                    If the array contains ScriptObjectMirror the above conversions throws exception
+                    so we have to convert the contents of the array as well.
+                     */
+                    ArrayList list = new ArrayList();
+                    for (Object item : m.values()) {
+                        list.add(jsToJava(item));
+                    }
+                    Object x = list.toArray();
+                    return (int[]) x;
+                }
+
+            }
+        }
+        throw new RuntimeException("expecting array, got " + arr);
+    }
+
+    public static double [] toDoubleArray(Object arr) {
+        if (arr instanceof ScriptObjectMirror) {
+            ScriptObjectMirror m = (ScriptObjectMirror) arr;
+            if (m.isArray()) {
+                try {
+                    double[] doubleArray = (double[]) ScriptUtils.convert(m, double[].class);
+                    return doubleArray;
+                } catch (ClassCastException e) {
+                    /*
+                    If the array contains ScriptObjectMirror the above conversions throws exception
+                    so we have to convert the contents of the array as well.
+                     */
+                    ArrayList list = new ArrayList();
+                    for (Object item : m.values()) {
+                        list.add(jsToJava(item));
+                    }
+                    Object x = list.toArray();
+                    return (double[]) x;
+                }
+
+            }
+        }
+        throw new RuntimeException("expecting array, got " + arr);
+    }
+
+    public static Object toObject(Object obj) {
+        if (obj instanceof WrappedClass)
+            return ((WrappedClass)obj).getJavaObject();
+
+        if (obj instanceof ScriptObjectMirror ) {
+            ScriptObjectMirror m = (ScriptObjectMirror) obj;
+            if (m.hasMember("getJavaObject")) {
+                return m.callMember("getJavaObject");
+            }
+        }
+        throw new RuntimeException("expecting spark object, got " + obj);
+    }
 }
+
+
