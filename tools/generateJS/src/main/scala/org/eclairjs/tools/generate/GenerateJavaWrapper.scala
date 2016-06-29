@@ -60,7 +60,7 @@ class GenerateJavaWrapper {
     sbFile ++= s"package ${wrapperPackageName(cls)};\n"
     sbFile ++= getTemplate("copyright")
 
-    val imports= mutable.ListBuffer("org.eclairjs.nashorn.Utils","org.eclairjs.nashorn.wrap.WrappedFunction")
+    val imports= mutable.ListBuffer("org.eclairjs.nashorn.Utils","org.eclairjs.nashorn.wrap.WrappedFunction","org.apache.log4j.Logger")
     imports += parentFullName(cls);
 
     imports.map(pkg=> sbFile ++= s"import $pkg;\n")
@@ -68,7 +68,12 @@ class GenerateJavaWrapper {
     addNewlines(2,sbFile)
     sbFile ++= s"public class ${cls.name} extends ${parentClass(cls)} {\n"
 
-    val sb=new StringBuilder
+
+    addNewlines(1,sbFile)
+
+    sbFile ++= s" static Logger logger = Logger.getLogger(${cls.name}.class);\n"
+
+    addNewlines(1,sbFile)
 
     val methods=cls.methods.filter(member=> !member.isConstructor() && member.isInstanceOf[Method])
 
@@ -98,7 +103,7 @@ class GenerateJavaWrapper {
     if (staticCls.isDefined && staticCls.get.members.filter(!_.isConstructor()).length>0)
     {
 
-      sb.append("\n//\n// static methods\n//\n")
+      sbFile.append("\n//\n// static methods\n//\n")
       staticCls.get.members.filter(!_.isConstructor()) foreach( member =>
           member match {
             case method:Method => generateMethodBody(method,true,objName,fullJavaName)
@@ -126,7 +131,10 @@ class GenerateJavaWrapper {
       |    private $fullJavaName $objName;
       |
       |    public ${cls.name}($fullJavaName $objName)
-      |    { this.$objName = $objName; }
+      |    {
+      |       logger.debug("constructor");
+      |       this.$objName = $objName;
+      |    }
       |
       |    static public String getModuleName() {
       |        return "$moduleName";
@@ -169,9 +177,6 @@ class GenerateJavaWrapper {
       |    }
       |""".stripMargin
 
-    val body =sb.toString()
-    sbFile ++= body
-
     sbFile ++="\n}\n"
     val src :String = sbFile.toString()
 
@@ -208,48 +213,93 @@ class GenerateJavaWrapper {
 
     val returnValue= if (hasReturn) "returnValue = "  else ""
 
+    sb ++=s"""logger.debug(\"${method.name}\");\n"""
+
     sb ++=s"Object returnValue = null;\n"
+
     sb ++=s"$fullJavaName $objName = ($fullJavaName) ((${cls.name}) thiz).getJavaObject();\n"
+
 
     var inx=0;
 
-
-    method.parms.foreach(parm =>{
-
-
+    def addParm(parm:Parm): Unit = {
       if (parm.isRepeated)
         sb++=s" %%% deliberate syntax error +++ // TODO: handle repeated parm '${parm.name}'\n"
 
       if (parm.isOptional)
-        {
-          System.out.println(s"Optional parm, method - ${method.name}, parm - ${parm.name}")
-        }
+      {
+        System.out.println(s"Optional parm, method - ${method.name}, parm - ${parm.name}")
+      }
       parm.typ match {
         case FunctionDataType(name,parms,returnType) => {
           val argsLength=method.parms.length
           val functionType=funcMac.getOrElse(name,"JSFunction")
 
           sb ++= s"""Object  bindArgs$inx = null;
-            |if (args.length > $argsLength) {
-            |    bindArgs = args[$argsLength];
-            |}
-            |$functionType ${parm.name} = ($functionType)Utils.createLambdaFunction(args[$inx], "org.eclairjs.nashorn.$functionType", $objName.context(), bindArgs$inx);
-            |""".stripMargin
+                                           |if (args.length > $argsLength) {
+                                                                           |    bindArgs = args[$argsLength];
+                                                                                                             |}
+                                                                                                             |$functionType ${parm.name} = ($functionType)Utils.createLambdaFunction(args[$inx], "org.eclairjs.nashorn.$functionType", $objName.context(), bindArgs$inx);
+                                                                                                                                                                                                                                                                         |""".stripMargin
         }
         case _ => {
           val parmType= javaType(parm.typ)
+          parmType match {
+            case "int" =>
+              sb ++= s"int ${parm.name} = Utils.toInt(args[$inx]);\n"
+            case "double" =>
+              sb ++= s"double ${parm.name} =  Utils.toDouble(args[$inx]);\n"
+            case "long" =>
+              sb ++= s"long ${parm.name} =  Utils.toLong(args[$inx]);\n"
+            case "int[]" =>
+              sb ++= s"int[] ${parm.name} = Utils.toIntArray(args[$inx]);\n"
+            case "double[]" =>
+              sb ++= s"double[] ${parm.name} =  Utils.toDoubleArray(args[$inx]);\n"
+            case _ => {
+              if (isSparkClass(parm.typ))
+                sb ++= s"$parmType ${parm.name} = ($parmType) Utils.toObject(args[$inx]);\n"
+              else
+                sb ++= s"$parmType ${parm.name} = ($parmType) args[$inx];\n"
 
-          if (isSparkClass(parm.typ))
-            sb ++= s"$parmType ${parm.name} = ($parmType) Utils.jsToJava(args[$inx]);\n"
-          else
-            sb ++= s"$parmType ${parm.name} = ($parmType) args[$inx];\n"
+            }
+          }
+
         }
       }
+
+    }
+
+    def addCall(parmList:String,indent:String) = {
+      sb ++= s"$indent$returnValue$callTarget.${method.name}($parmList);\n"
+    }
+
+    val nonOptionalParms=method.requiredParms()
+
+    nonOptionalParms   foreach(parm =>{
+      addParm(parm)
       inx+=1
-    })
+    }  )
 
 
-    sb ++= s"$returnValue$callTarget.${method.name}(${method.parmList()});\n"
+    val numRequredParms=nonOptionalParms.length
+
+    if (numRequredParms==method.parms.length)
+      addCall(method.parmList(),"")
+    else {    // has optional parms
+      val optionalParms=method.optionalParms()
+      sb ++= s"\nif (args.length==$numRequredParms) {\n"
+        addCall(method.parmList(numRequredParms),"  ")
+
+      sb ++= s"\n} else {\n"
+      optionalParms    foreach(parm =>{
+        addParm(parm)
+        inx+=1
+      }  )
+      addCall(method.parmList(),"  ")
+      sb ++= s"\n}\n"
+    }
+
+
 
     if (hasReturn) {
       if (method.returnType.isSparkClass()) {
@@ -323,6 +373,7 @@ class GenerateJavaWrapper {
   {
     typ match {
       case "Int" => "int"
+      case "Long" => "long"
       case "Boolean" => "boolean"
       case "String" => "String"
       case "Float" => "float"
