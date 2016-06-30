@@ -15,6 +15,16 @@
  */
 
 /*
+
+ This example is a EclairJS (JavaScript) implementation of [movie recommending](https://github.com/jadianes/spark-movie-lens/blob/master/notebooks/building-recommender.ipynb).
+ #### This example requires the following additional setup
+ * Download the [movieLens rating dataset](http://grouplens.org/datasets/movielens/)
+ **[ml-latest-small.zip](http://files.grouplens.org/datasets/movielens/ml-latest-small.zip)
+ **[ml-latest.zip](http://files.grouplens.org/datasets/movielens/ml-latest.zip) and unzip is a location that is accessible by Spark.
+
+ */
+
+/*
  Usage:
  "bin/eclairjs.sh --driver-memory 4g --executor-memory 4g examples/mllib/movie_recommender.js"
  */
