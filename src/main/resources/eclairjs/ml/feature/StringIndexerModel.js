@@ -68,7 +68,7 @@
      * @returns {string[]}
      */
     StringIndexerModel.prototype.labels = function () {
-        return this.getJavaObject().labels();
+        return Utils.javaToJs(this.getJavaObject().labels());
     };
 
     /**
