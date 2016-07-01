@@ -50,9 +50,7 @@ if (typeof sparkContext === 'undefined') {
     var sparkConf = new SparkConf().setAppName("PrefixSpanExample");
     var sc = new SparkContext(sparkConf);
     var result = run(sc);
-    result.forEach(function (freqSeq) {
-        print(JSON.stringify(freqSeq.sequence()) + ", " + freqSeq.freq());
-    });
+    print(JSON.stringify(result));
 
     sc.stop();
 }

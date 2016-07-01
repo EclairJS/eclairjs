@@ -69,9 +69,11 @@ tests({
     },
 
     testContext : function() {
-        var ret = JSON.stringify(rdd.context());
-        var expectedClass = "org.apache.spark.api.java.JavaSparkContext";
-        assertEquals("failure - not an instance of SparkContext", true, ret.indexOf(expectedClass)>=0);
+        var context = {"sc": rdd.context()}
+        var ret = JSON.stringify(context);
+        print("ret " + ret)
+        var expectedClass = "{\"sc\":{\"version\":\"EclairJS-nashorn 0.6-SNAPSHOT Spark 1.6.0\",\"appName\":\"testapp\",\"master\":\"local[*]\"}}";
+        assertEquals("failure - not an instance of SparkContext", expectedClass, ret);
     },
 
     testCount : function() {
@@ -153,8 +155,8 @@ tests({
 
     testGetStorageLevel : function() {
         var ret = JSON.stringify(rdd.getStorageLevel());
-        expectedClass = "StorageLevel";
-        assertContains("failure - not an instance of StorageLevel", ret,expectedClass);
+        var expected = "{\"useDisk\":false,\"useMemory\":true,\"useOffHeap\":false,\"replication\":1}";
+        assertContains("failure - StorageLevel", ret, expected);
     },
 
     testGlom : function() {

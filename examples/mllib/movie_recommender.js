@@ -21,7 +21,8 @@
  * Download the [movieLens rating dataset](http://grouplens.org/datasets/movielens/)
  **[ml-latest-small.zip](http://files.grouplens.org/datasets/movielens/ml-latest-small.zip)
  **[ml-latest.zip](http://files.grouplens.org/datasets/movielens/ml-latest.zip) and unzip is a location that is accessible by Spark.
-
+ * Add the following options to the eclairjs/kernel.jon SPARK_OPTS
+ "SPARK_OPTS": "--driver-memory 4g --executor-memory 4g ..."
  */
 
 /*

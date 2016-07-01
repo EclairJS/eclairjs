@@ -578,6 +578,15 @@
         }
     };
 
+    SparkContext.prototype.toJSON = function () {
+        var jsonObj = {
+            "version": this.version(),
+            "appName": this.appName(),
+            "master": this.master()
+        }
+        return jsonObj;
+    };
+
     module.exports = SparkContext;
 
 

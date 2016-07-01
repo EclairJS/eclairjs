@@ -205,6 +205,15 @@
         return this.getJavaObject().description();
     };
 
+    StorageLevel.prototype.toJSON = function() {
+        var jsonObj = {};
+        jsonObj.useDisk = this.useDisk();
+        jsonObj.useMemory = this.useMemory();
+        jsonObj.useOffHeap = this.useOffHeap();
+        jsonObj.replication = this.replication();
+        return jsonObj;
+    };
+
     module.exports = StorageLevel;
 
 })();

@@ -801,8 +801,9 @@ public class RDD extends WrappedClass {
 
     public Object collect() {
         JavaRDDLike sparkJavaRDD = (JavaRDDLike) getJavaObject();
-        List result = sparkJavaRDD.collect();
-        return Utils.createJavaScriptObject(result);
+        Object result = sparkJavaRDD.collect();
+        Object x = Utils.createJavaScriptObject(result);
+        return x;
     }
 /*
     @Override

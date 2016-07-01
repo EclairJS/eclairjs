@@ -55,6 +55,10 @@ public class CoreTest {
 
     }
 
+    @Test
+    public void testContext() throws Exception {
+
+    }
 
 
 

@@ -86,13 +86,12 @@ if (typeof nativeJSON === "undefined") {
     nativeJSON = JSON;
 
     JSON = {
-        stringify: function (v) {
-            // FIXME need to handle all arguments passed to JSON.stringify to match standard
+        stringify: function (v, replacer, space) {
             var jsonObj = v;
             if (Array.isArray(v)) {
                 jsonObj = [];
                 for (var i = 0; i < v.length; i++) {
-                    var s = JSON.stringify(v[i]);
+                    var s = JSON.stringify(v[i], replacer, space);
                     var o = nativeJSON.parse(s);
                     jsonObj.push(o)
                 }
@@ -100,8 +99,32 @@ if (typeof nativeJSON === "undefined") {
                 var jsonStr =  v.toJSON();
                 //print("jsonStr " + jsonStr)
                 jsonObj = nativeJSON.parse(jsonStr);
+            } else if (  typeof v === 'object') {
+                if (v.toJSON) {
+                    jsonObj = v.toJSON();
+                } else {
+                    //print("v " + v)
+                    var str = '{';
+                    var sep = '';
+                    //print("v " + v)
+                    for (var p in v) {
+                        if ((v[p] != null) && (typeof v[p] != 'function')) {
+                            // print("type " + typeof v[p]);
+                            var val = JSON.stringify(v[p], replacer, space);
+                            //print('val ' + val)
+                            if (val != '{}') {
+                                str += sep + '"' + p + '"' + ':' + val;
+                                sep = ',';
+                            }
+                        }
+                    }
+                    str += '}'
+                    //print("json " + str)
+
+                    jsonObj = nativeJSON.parse(str);
+                }
             }
-            return nativeJSON.stringify(jsonObj);
+            return nativeJSON.stringify(jsonObj, replacer, space);
         },
         parse: function (text) {
             // FIXME need to handle all arguments passed to JSON.parse to match standard
