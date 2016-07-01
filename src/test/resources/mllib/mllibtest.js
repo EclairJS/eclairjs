@@ -33,7 +33,7 @@ var LinearRegressionWithSGDExample = function() {
 
 var AssociationRulesTest = function() {
     load("examples/mllib/association_rules_example.js");
-    return run(sparkContext);
+    return JSON.stringify(run(sparkContext));
 }
 
 var BisectingKMeansExample = function() {

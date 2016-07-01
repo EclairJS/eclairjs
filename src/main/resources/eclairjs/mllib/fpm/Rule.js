@@ -17,6 +17,7 @@
 
     var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
+    var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
 
     /**
      * An association rule between sets of items.
@@ -39,26 +40,26 @@
 
     /**
      * Returns antecedent
-     * @returns {object}
+     * @returns {Object[]}
      */
     Rule.prototype.antecedent = function() {
         /*
         public java.util.List<Item> javaAntecedent()
         Returns antecedent in a Java List.
         */
-       return this.getJavaObject().javaAntecedent();
+       return Utils.javaToJs(this.getJavaObject().javaAntecedent());
     };
 
     /**
      * Returns consequent
-     * @returns {object}
+     * @returns {Object[]}
      */
     Rule.prototype.consequent = function() {
         /*
          public java.util.List<Item> javaConsequent()
          Returns consequent in a Java List.
          */
-        return this.getJavaObject().javaConsequent();
+        return Utils.javaToJs(this.getJavaObject().javaConsequent());
     };
 
     /**
@@ -80,6 +81,14 @@
     Rule.prototype.toString = function() {
 
        return this.getJavaObject().toString();
+    };
+
+    Rule.prototype.toJSON = function() {
+        var jsonObj = {};
+        jsonObj.antecedent = this.antecedent();
+        jsonObj.consequent = this.consequent();
+        jsonObj.confidence = this.confidence();
+        return jsonObj;
     };
 
     module.exports = Rule;

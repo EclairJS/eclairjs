@@ -65,7 +65,7 @@ public class MlLibTest {
         TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
         Object ret = ((Invocable)engine).invokeFunction("AssociationRulesTest");
 
-        String expected = "[a] => [b], 0.8";
+        String expected = "[{\"antecedent\":[\"a\"],\"consequent\":[\"b\"],\"confidence\":0.8}]";
         assertEquals("failure - strings are not equal", expected, ret.toString());
 
     }

@@ -30,11 +30,8 @@ function run(sc) {
         .setMinConfidence(0.8);
     var results = arules.run(freqItemsets);
     var rules = results.collect();
-    var str = "";
-    rules.forEach(function(rule){
-        str += rule.antecedent() + " => " + rule.consequent() + ", " + rule.confidence();
-    });
-    return str;
+
+    return rules;
 }
 
 /*
@@ -46,6 +43,10 @@ if (typeof sparkContext === 'undefined')  {
     var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("JavaScriptAssociationRulesExample");
     var sc = new SparkContext(sparkConf);
-    var result = run(sc);
-    print(result);
+    var rules = run(sc);
+    var str = "";
+    rules.forEach(function(rule){
+        str += rule.antecedent() + " => " + rule.consequent() + ", " + rule.confidence();
+    });
+    print(str);
 }
