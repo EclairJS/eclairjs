@@ -14,50 +14,71 @@
  * limitations under the License.
  */
 
-var LabeledPoint = require("eclairjs/mllib/regression/LabeledPoint");
-var LinearRegressionWithSGD = require("eclairjs/mllib/regression/LinearRegressionWithSGD");
-var RegressionMetrics = require("eclairjs/mllib/evaluation/RegressionMetrics");
-var Vectors = require("eclairjs/mllib/linalg/Vectors");
-var SparkConf = require('eclairjs/SparkConf');
-var SparkContext = require('eclairjs/SparkContext');
-var sparkConf = new SparkConf()
-  .setAppName("Regression Metrics Example");
+/*
+ Usage:
+ bin/eclairjs.sh examples/mllib/regression_metrics_example.js [path]]"
+ */
 
-var sc = new SparkContext(sparkConf);
-var filename = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/sample_linear_regression_data.txt";
-var data = data = sc.textFile(filename);
+function run(sc) {
 
-var parsedData = data.map(function(line, LabeledPoint, Vectors) {
-    var arr = line.split(" ");
-    var features = arr.slice(1).map(function(item) {
-        return parseFloat(item.split(":")[1]);
-    });
+    var LabeledPoint = require("eclairjs/mllib/regression/LabeledPoint");
+    var LinearRegressionWithSGD = require("eclairjs/mllib/regression/LinearRegressionWithSGD");
+    var RegressionMetrics = require("eclairjs/mllib/evaluation/RegressionMetrics");
+    var Vectors = require("eclairjs/mllib/linalg/Vectors");
+    var Tuple2 = require('eclairjs/Tuple2');
 
-    return new LabeledPoint(parseFloat(arr[0]), new Vectors.dense(features));
-}, [LabeledPoint, Vectors]).cache();
+    var filename = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/sample_linear_regression_data.txt";
 
-var numIterations = 100;
-var model = LinearRegressionWithSGD.train(parsedData, numIterations);
+    var data = data = sc.textFile(filename);
 
-var valuesAndPreds = parsedData.mapToPair(function(lp, model) { // FIXME
-    return [
-        model.predict(lp.getFeatures()), 
-        lp.getLabel()
-    ];
-}); // end MapToPair
+    var parsedData = data.map(function (line, LabeledPoint, Vectors) {
+        var arr = line.split(" ");
+        var features = arr.slice(1).map(function (item) {
+            return parseFloat(item.split(":")[1]);
+        });
+
+        return new LabeledPoint(parseFloat(arr[0]), Vectors.dense(features));
+    }, [LabeledPoint, Vectors]).cache();
+
+    var numIterations = 100;
+    var model = LinearRegressionWithSGD.train(parsedData, numIterations);
+
+    var valuesAndPreds = parsedData.mapToPair(function (lp, model, Tuple2) {
+        return new Tuple2(
+            model.predict(lp.getFeatures()),
+            lp.getLabel()
+        );
+    }, [model, Tuple2]); // end MapToPair
 
 //Instantiate metrics object
-var metrics = new RegressionMetrics(valuesAndPreds)
+    var metrics = new RegressionMetrics(valuesAndPreds)
 
-// Squared Error
-print("MSE = " + metrics.meanSquaredError());
-print("RMSE = " + metrics.rootMeanSquaredError());
+    return metrics;
+}
+
+/*
+ check if SparkContext is defined, if it is we are being run from Unit Test
+ */
+
+if (typeof sparkContext === 'undefined') {
+    var SparkConf = require('eclairjs/SparkConf');
+    var SparkContext = require('eclairjs/SparkContext');
+    var sparkConf = new SparkConf().setAppName("LDA Example");
+    var sc = new SparkContext(sparkConf);
+    var metrics = run(sc);
+    // Squared Error
+    print("MSE = " + metrics.meanSquaredError());
+    print("RMSE = " + metrics.rootMeanSquaredError());
 
 // R-squared
-print("R-squared = " + metrics.r2());
+    print("R-squared = " + metrics.r2());
 
 // Mean absolute error
-print("MAE = " + metrics.meanAbsoluteError())
+    print("MAE = " + metrics.meanAbsoluteError())
 
 // Explained variance
-print("Explained variance = " + metrics.explainedVariance())
+    print("Explained variance = " + metrics.explainedVariance())
+
+
+    sc.stop();
+}

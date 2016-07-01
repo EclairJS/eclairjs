@@ -670,4 +670,18 @@ public class MlLibTest {
 
     }
 
+    @Test
+    public void RegressionMetricsExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
+
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
+        Object ret = ((Invocable)engine).invokeFunction("RegressionMetricsExample");
+
+        String expected = "{\"r2\":0.027639110967836777,\"rootMeanSquaredError\":10.164137288436281,\"meanSquaredError\":103.30968681818085,\"meanAbsoluteError\":8.148691907953307,\"explainedVariance\":2.888395201717894}";
+
+        assertEquals("failure - strings are not equal", expected, ret.toString());
+
+    }
+
 }

@@ -256,3 +256,9 @@ var RandomForestRegressionExample = function() {
         return "failed";
     }
 }
+
+var RegressionMetricsExample = function() {
+    load("examples/mllib/regression_metrics_example.js");
+    var result = run(sparkContext);
+    return JSON.stringify(result);
+}

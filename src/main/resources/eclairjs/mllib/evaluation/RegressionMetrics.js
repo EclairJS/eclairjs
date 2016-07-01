@@ -98,6 +98,16 @@
        return  this.getJavaObject().r2();
     };
 
+    RegressionMetrics.prototype.toJSON = function () {
+      var jsonObj = {};
+        jsonObj.r2 = this.r2();
+        jsonObj.rootMeanSquaredError = this.rootMeanSquaredError();
+        jsonObj.meanSquaredError = this.meanSquaredError();
+        jsonObj.meanAbsoluteError = this.meanAbsoluteError();
+        jsonObj.explainedVariance = this.explainedVariance();
+        return jsonObj;
+    };
+
     module.exports = RegressionMetrics;
 
 })();
