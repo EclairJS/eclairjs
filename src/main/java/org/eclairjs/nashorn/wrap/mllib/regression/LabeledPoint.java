@@ -75,7 +75,7 @@ public class LabeledPoint extends WrappedClass {
     }
 
     public Object getFeatures() {
-        return Utils.javaToJs(this._labeledPoint.features());
+        return  Utils.javaToJs(this._labeledPoint.features());
     }
 
     @Override
@@ -85,9 +85,7 @@ public class LabeledPoint extends WrappedClass {
 
     @Override
     public String toJSON() {
-        String jsonStr = "{label: " + this.getLabel() + ", features: " + this.getFeatures() + " }";
-
-        return jsonStr;
+        return "{\"label\": " + this.getLabel() + ", \"features\": " + Utils.JsonStringify(this.getFeatures()) + " }";
     }
 
     public String getClassName() {

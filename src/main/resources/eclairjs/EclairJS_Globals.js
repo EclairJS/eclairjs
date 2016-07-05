@@ -126,9 +126,9 @@ if (typeof nativeJSON === "undefined") {
             }
             return nativeJSON.stringify(jsonObj, replacer, space);
         },
-        parse: function (text) {
+        parse: function (text, reviver) {
             // FIXME need to handle all arguments passed to JSON.parse to match standard
-            return nativeJSON.parse(text);
+            return nativeJSON.parse(text, reviver);
         }
     }
 }

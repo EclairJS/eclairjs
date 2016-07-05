@@ -262,3 +262,9 @@ var RegressionMetricsExample = function() {
     var result = run(sparkContext);
     return JSON.stringify(result);
 }
+
+var SampledRDDs = function() {
+    load("examples/mllib/sampled_rdds.js");
+    var result = run(sparkContext);
+    return JSON.stringify(result);
+}

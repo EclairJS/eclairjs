@@ -873,7 +873,7 @@
      * @param {number} fraction  expected size of the sample as a fraction of this RDD's size
      *  without replacement: probability that each element is chosen; fraction must be [0, 1]
      *  with replacement: expected number of times each element is chosen; fraction must be >= 0
-     * @param {number} seed  seed for the random number generator
+     * @param {number} [seed]  seed for the random number generator
      * @returns {module:eclairjs.RDD}
      */
     //RDD.prototype.sample = function (withReplacement, fraction, seed) {
@@ -1027,7 +1027,7 @@
      * @name module:eclairjs.RDD#takeSample
      * @param {boolean} withReplacement  whether sampling is done with replacement
      * @param {number} num  size of the returned sample
-     * @param {number} seed  seed for the random number generator
+     * @param {number} [seed]  seed for the random number generator
      * @returns {Array}  sample of specified size in an array
      */
     //RDD.prototype.takeSample = function (withReplacement, num, seed) {

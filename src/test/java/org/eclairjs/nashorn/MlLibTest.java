@@ -684,4 +684,20 @@ public class MlLibTest {
 
     }
 
+    @Test
+    public void SampledRDDs() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        //String file = TestUtils.resourceToFile("/data/mllib/lpsa.data");
+
+        TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
+        String ret = (String)  ((Invocable)engine).invokeFunction("SampledRDDs");
+
+        //String expected = "{\"numExamples\":100,\"expectedSampleSize\":10,\"sampledRDD_count\":11,\"sampledArray_length\":10}";
+        String expected = "{\"numExamples\":100";
+
+
+        assertEquals("failure - strings are not equal", expected, ret.substring(0, expected.length()));
+
+    }
+
 }

@@ -524,7 +524,13 @@ public class RDD extends WrappedClass {
         @Override
         public Object call(Object thiz, Object... args) {
             JavaRDD sparkJavaRDD = (JavaRDD) ((RDD)thiz).getJavaObject();
-            JavaRDD result = sparkJavaRDD.sample((boolean) args[0], Utils.toDouble(args[1]), Utils.toLong(args[2]));
+            JavaRDD result;
+            if (args.length < 3) {
+                result = sparkJavaRDD.sample((boolean) args[0], Utils.toDouble(args[1]));
+            } else {
+                result = sparkJavaRDD.sample((boolean) args[0], Utils.toDouble(args[1]), Utils.toLong(args[2]));
+            }
+
 
             return Utils.javaToJs(result, null);
         }
@@ -635,7 +641,12 @@ public class RDD extends WrappedClass {
         @Override
         public Object call(Object thiz, Object... args) {
             JavaRDDLike sparkJavaRDD = (JavaRDDLike) ((RDD)thiz).getJavaObject();
-            List result = sparkJavaRDD.takeSample((boolean) args[0], Utils.toInt(args[1]), Utils.toLong(args[2]));
+            List result;
+            if (args.length < 3) {
+                result = sparkJavaRDD.takeSample((boolean) args[0], Utils.toInt(args[1]));
+            } else {
+                result = sparkJavaRDD.takeSample((boolean) args[0], Utils.toInt(args[1]), Utils.toLong(args[2]));
+            }
 
             return Utils.createJavaScriptObject(result);
         }
