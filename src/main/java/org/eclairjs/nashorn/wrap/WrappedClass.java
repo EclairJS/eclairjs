@@ -75,7 +75,8 @@ public abstract class WrappedClass extends AbstractJSObject {
             case "getJavaObject":
                 return F_getJavaObject;
         }
-        throw new RuntimeException(getClassName() + "." + name + " is not defined");
+        return null;
+//        throw new RuntimeException(getClassName() + "." + name + " is not defined");
     }
 
     @Override
