@@ -207,6 +207,9 @@ public class Row extends WrappedClass {
             if (x instanceof Double) {
                 jsonObj += Utils.formatDouble((Double) x);
             } else if (x instanceof String || x instanceof java.sql.Timestamp || x instanceof java.sql.Date) {
+                if (x instanceof String ) {
+                    x = ((String) x).replace("\"", "\\\""); // replace any " in the string with /"
+                }
                 jsonObj += "\"" + x + "\"";
             } else if (x instanceof scala.collection.mutable.WrappedArray) {
                 try {
