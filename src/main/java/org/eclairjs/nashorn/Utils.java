@@ -143,11 +143,11 @@ public class Utils {
                 return new  org.eclairjs.nashorn.wrap.mllib.recommendation.Rating(
                         (org.apache.spark.mllib.recommendation.Rating)o
                 );
-            case "org.eclairjs.nashorn.wrap.mllib.linalg.SparseVector":
+            case "org.apache.spark.mllib.linalg.SparseVector":
                 return new  org.eclairjs.nashorn.wrap.mllib.linalg.SparseVector(
                         (org.apache.spark.mllib.linalg.SparseVector)o
                 );
-            case "org.eclairjs.nashorn.wrap.mllib.linalg.DenseVector":
+            case "org.apache.spark.mllib.linalg.DenseVector":
                 return new  org.eclairjs.nashorn.wrap.mllib.linalg.DenseVector(
                         (org.apache.spark.mllib.linalg.DenseVector)o
                 );
@@ -202,58 +202,17 @@ public class Utils {
                 {
 
                     List from=null;
-                    if (o instanceof int[])
+                    if (o instanceof int[] || o instanceof double[])
                     {
-                        int arr[]=(int[])o;
-                        alist = new ArrayList(arr.length);
-                        for (int i=0;i<arr.length;i++)
-                            alist.add(javaToJs(arr[i],engine));
-
-                            //System.out.println("alist size="+alist.size());
-                        return alist;
-                    } else if (o instanceof double[]) {
-                        // Do we need to convert this to JavaScript Array?
-                        return o;
+                        return Utils.toJsArray(o);
+                    } else {
+                        from = Arrays.asList((Object[]) o);
+                        alist = new ArrayList(from.size());
+                        for (int i = 0; i < from.size(); i++) {
+                            alist.add(javaToJs(from.get(i), engine));
+                        }
+                        return Utils.toJsArray(alist.toArray());
                     }
-                    else
-                        from = Arrays.asList((Object[])o);
-
-//                    Class compType=o.getClass().getComponentType();
-//                    if (compType.isPrimitive())
-//                        return o;
-//                    String compName=compType.getCanonicalName();
-//                    switch (compName) {
-//                        case "java.lang.String":
-//                        case "java.lang.Integer":
-//                        case "java.lang.Float":
-//                        case "java.lang.Double":
-//                        case "java.lang.Boolean":
-//                            return o;
-//                    }
-
-
-                    alist = new ArrayList(from.size());
-                     iter=from.iterator();
-//                    while(iter.hasNext()) {
-//                        alist.add(javaToJs(iter.next(),engine));
-//                    }
-                    //System.out.println("from size="+from.size());
-                    //System.out.println("from1 size="+from.get(0).getClass().getCanonicalName());
-                    for(int i=0;i<from.size();i++) {
-                        alist.add(javaToJs(from.get(i),engine));
-                    }
-                    Object array = alist.toArray();
-                    try {
-                        String func = "function(javaArray){return Java.from(javaArray)}";
-                        Object fn = engine.eval(func);
-                        Object params[] = { array};
-                        array = ((ScriptObjectMirror)fn).call(null, params);
-
-                    } catch (ScriptException e) {
-                        e.printStackTrace();
-                    }
-
-                   return array;
 
                 } else {
                     return Utils.createJavaScriptObject(o); //FIXME we should move this from JavaScript to Java
@@ -892,6 +851,21 @@ public class Utils {
             }
         }
         throw new RuntimeException("expecting spark object, got " + obj);
+    }
+
+    public static Object toJsArray(Object javaArray) {
+        Object jsArray  = javaArray;
+        ScriptEngine engine = NashornEngineSingleton.getEngine();
+        try {
+            String func = "function(javaArray){return Java.from(javaArray)}";
+            Object fn = engine.eval(func);
+            Object params[] = {jsArray};
+            jsArray = ((ScriptObjectMirror) fn).call(null, params);
+
+        } catch (ScriptException e) {
+            e.printStackTrace();
+        }
+        return jsArray;
     }
 }
 

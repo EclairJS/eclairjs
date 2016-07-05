@@ -33,8 +33,8 @@ public class Tuple2 extends WrappedClass {
     }
 
     public Tuple2(Object _1, Object _2)  {
-        this._1=_1;
-        this._2=_2;
+        this._1=Utils.javaToJs(_1);
+        this._2=Utils.javaToJs(_2);
     }
 
     static public String getModuleName() {

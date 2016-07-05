@@ -138,6 +138,7 @@ var binaryClassificationMetricsExample = function() {
 var lbfgsExample = function() {
     load("examples/mllib/lbfgs_example.js");
     var result = run(sparkContext);
+    var str = JSON.stringify(result); // just to ensure they are javaScript objects
     return result.auROC;
 }
 

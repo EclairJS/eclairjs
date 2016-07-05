@@ -43,9 +43,9 @@ public class Tuple3 extends WrappedClass {
     }
 
     public Tuple3(Object _1, Object _2, Object _3)  {
-        this._1=_1;
-        this._2=_2;
-        this._3=_3;
+        this._1=Utils.javaToJs(_1);
+        this._2=Utils.javaToJs(_2);
+        this._3=Utils.javaToJs(_3);
     }
 
     static public String getModuleName() {
