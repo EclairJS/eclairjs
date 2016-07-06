@@ -102,6 +102,8 @@ if (typeof nativeJSON === "undefined") {
             } else if (  typeof v === 'object') {
                 if (v.toJSON) {
                     jsonObj = v.toJSON();
+                    var s = JSON.stringify(jsonObj,  replacer, space);
+                    jsonObj = JSON.parse(s);
                 } else {
                     //print("v " + v)
                     var str = '{';

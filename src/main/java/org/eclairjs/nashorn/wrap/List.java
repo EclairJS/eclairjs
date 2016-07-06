@@ -260,7 +260,7 @@ public class List extends WrappedClass {
         } else if (jsArray instanceof List)
             list = ((List)jsArray).list;
         else
-            list.add(Utils.jsToJava(jsArray));
+            list.add(jsArray/*Utils.jsToJava(jsArray)*/);
 
         return  list;
     }
@@ -274,7 +274,15 @@ public class List extends WrappedClass {
 
     @Override
     public String toJSON() {
-        return toString() ;
+        String str = "";
+        String sep = "";
+        for (int i = 0; i < list.size(); i++) {
+            Object item = Utils.javaToJs(list.get(i));
+            str += Utils.JsonStringify(item);
+            str += sep;
+            sep =",";
+        }
+        return str;
     }
 
     @Override
