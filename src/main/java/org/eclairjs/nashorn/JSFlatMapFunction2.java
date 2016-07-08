@@ -28,32 +28,17 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class JSFlatMapFunction2 implements FlatMapFunction2 {
-	private String func = null;
-	private Object args[] = null;
-    private Object fn = null;
-
+public class JSFlatMapFunction2  extends JSBaseFunction implements FlatMapFunction2 {
     public JSFlatMapFunction2(String func,  Object[] o) {
-        this.func = func;
-        this.args = o;
+            super(func,o);
     }
 
     @SuppressWarnings("unchecked")
 	@Override
     public Iterable call(Object o, Object o2) throws Exception {
-        ScriptEngine e =  NashornEngineSingleton.getEngine();
-        if (this.fn == null) {
-            this.fn = e.eval(func);
-        }
-        Invocable invocable = (Invocable) e;
+        Object params[] = {o, o2};
 
-        Object params[] = {this.fn, o, o2};
-
-        if (this.args != null && this.args.length > 0 ) {
-            params = ArrayUtils.addAll(params, this.args);
-        }
-
-        Object ret = invocable.invokeFunction("Utils_invoke", params);
+        Object ret = callScript(params);
         if (ret.getClass().isArray()) {
             String type = ret.getClass().getTypeName();
             if (type.equals("double[]")) {

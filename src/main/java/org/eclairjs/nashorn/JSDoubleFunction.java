@@ -23,43 +23,19 @@ import org.apache.spark.api.java.function.DoubleFunction;
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 
-public class JSDoubleFunction implements DoubleFunction {
-    private String func = null;
-    private Object args[] = null;
-    private Object fn = null;
+public class JSDoubleFunction extends JSBaseFunction implements DoubleFunction {
 
-    public JSDoubleFunction(String func, Object[] o) {
-        this.func = func;
-        this.args = o;
+    public JSDoubleFunction(String func, Object[] o)
+    {
+        super(func,o);
     }
 
     @SuppressWarnings({ "null", "unchecked" })
     @Override
     public double call(Object o) throws Exception {
-        ScriptEngine e =  NashornEngineSingleton.getEngine();
-        if (this.fn == null) {
-            this.fn = e.eval(func);
-        }
-        Invocable invocable = (Invocable) e;
-
-//        Object params[] = {this.fn, o};
-//
-//        if (this.args != null && this.args.length > 0 ) {
-//        	params = ArrayUtils.addAll(params, this.args);
-//        }
-//
-//        double ret = (double) invocable.invokeFunction("Utils_invoke", params);
 
         Object params[] = { o};
-
-        if (this.args != null && this.args.length > 0 ) {
-            params = ArrayUtils.addAll(params, this.args);
-        }
-
-        for (int i=0;i<params.length;i++)
-            params[i]=Utils.javaToJs(params[i],e);
-
-        Object ret = ((ScriptObjectMirror)this.fn).call(null, params);
+        Object ret = callScript(params);
 
         return ((Double)ret).doubleValue();
     }

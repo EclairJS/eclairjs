@@ -10,33 +10,20 @@ import javax.script.ScriptEngine;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JSPairFlatMapFunction implements PairFlatMapFunction {
-
-    private String func = null;
-    private Object args[] = null;
-    private Object fn = null;
+public class JSPairFlatMapFunction extends JSBaseFunction implements PairFlatMapFunction {
 
     public JSPairFlatMapFunction(String func,  Object[] o) {
-        this.func = func;
-        this.args = o;
+        super(func,o);
     }
 
     @Override
     public Iterable<Tuple2> call(Object o) throws Exception {
-        ScriptEngine e =  NashornEngineSingleton.getEngine();
-        if (this.fn == null) {
-            this.fn = e.eval(func);
-        }
-        Invocable invocable = (Invocable) e;
-
-        Object params[] = {this.fn, o};
-
-        if (this.args != null && this.args.length > 0 ) {
-            params = ArrayUtils.addAll(params, this.args);
-        }
+        Object params[] = {o};
 
 
-        List<Tuple2> l = (List<Tuple2>)invocable.invokeFunction("Utils_invoke", params);
+        Object ret = callScript(params);
+
+        List<Tuple2> l = (List<Tuple2>)ret;
 
         return l;
     }

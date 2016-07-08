@@ -378,8 +378,15 @@ public class Utils {
              case "java.lang.Double":
              case "java.lang.Boolean":
              case "java.lang.Long":
+             case "org.json.simple.JSONObject":
+             case "java.lang.Object[]":
+             case "java.lang.String[]":
+             case "scala.Tuple2":
+             case "scala.Tuple3":
                 return o;
          }
+         if (packageName.startsWith("org.apache.spark"))
+             return o;
 
          if (o instanceof WrappedClass)
              return ((WrappedClass)o).getJavaObject();
@@ -429,8 +436,16 @@ public class Utils {
                 return jsObj.callMember("getJavaObject");
             }
         }
+        else  if (o instanceof java.util.ArrayList)
+        {
 
-         throw new RuntimeException("js2java NOT HANDLED"+o);
+            ArrayList list = (ArrayList) o;
+            int size=list.size();
+            for (int i=0;i<size;i++)
+                list.set(i,jsToJava(list.get(i)));
+            return list;
+        }
+         throw new RuntimeException("js2java NOT HANDLED "+packageName);
 //        else if (o instanceof IteratorWrapper) {
 //			ArrayList alist = new ArrayList();
 //			while(((IteratorWrapper) o).hasMoreElements()) {
