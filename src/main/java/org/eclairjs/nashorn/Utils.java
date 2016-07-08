@@ -696,6 +696,9 @@ public class Utils {
 
     public static String JsonStringify(Object o) {
         String jsonStr = null;
+        if (o == null) {
+            return "";
+        }
         try {
             Invocable invocable = (Invocable) NashornEngineSingleton.getEngine();
             jsonStr = (String) invocable.invokeFunction("objectToJsonString", o);
