@@ -383,6 +383,7 @@ public class Utils {
              case "java.lang.String[]":
              case "scala.Tuple2":
              case "scala.Tuple3":
+             case "scala.Tuple4":
                 return o;
          }
          if (packageName.startsWith("org.apache.spark"))

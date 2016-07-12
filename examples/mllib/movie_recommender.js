@@ -38,7 +38,7 @@ function run(sc) {
     var start = new Date().getTime();
 
     var Tuple2 = require('eclairjs/Tuple2');
-    var Tuple3 = require('eclairjs/Tuple3');
+    var Tuple4 = require('eclairjs/Tuple4');
     var List = require('eclairjs/List');
     var ALS = require('eclairjs/mllib/recommendation/ALS');
     var Rating = require('eclairjs/mllib/recommendation/Rating');
@@ -299,10 +299,11 @@ function run(sc) {
      */
 
     var new_user_recommendations_rating_title_and_count_RDD2 = new_user_recommendations_rating_title_and_count_RDD
-        .map(function (t, Tuple3) {
-            var x = new Tuple3(t._2()._1()._2(), t._2()._1()._1(), t._2()._2());
+        .map(function (t, Tuple4) {
+            print("t" + JSON.stringify(t))
+            var x = new Tuple4(t._2()._1()._2(), t._2()._1()._1(), t._2()._2(), t._1());
             return x;
-        }, [Tuple3]);
+        }, [Tuple4]);
 
     print("new_user_recommendations_rating_title_and_count_RDD2" + new_user_recommendations_rating_title_and_count_RDD2.take(3));
 
@@ -312,8 +313,8 @@ function run(sc) {
 
 
     var new_user_recommendations_rating_title_and_count_RDD2_filtered = new_user_recommendations_rating_title_and_count_RDD2
-        .filter(function (tuple3) {
-            if (tuple3._3() < 25) {
+        .filter(function (tuple4) {
+            if (tuple4._3() < 25) {
                 return false;
             } else {
                 return true;
@@ -325,9 +326,9 @@ function run(sc) {
      */
 
     var top_movies = new_user_recommendations_rating_title_and_count_RDD2_filtered
-        .takeOrdered(25, function (tuple3_a, tuple3_b) {
-            var aRate = tuple3_a._2();
-            var bRate = tuple3_b._2();
+        .takeOrdered(25, function (tuple4_a, tuple4_b) {
+            var aRate = tuple4_a._2();
+            var bRate = tuple4_b._2();
             return aRate > bRate ? -1 : aRate == bRate ? 0 : 1;
 
         });
