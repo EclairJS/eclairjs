@@ -43,7 +43,7 @@
 
     /**
      * @function
-     * @name {module:eclairjs/mllib/linalg.Vectors#dense
+     * @name module:eclairjs/mllib/linalg.Vectors#dense
      * Creates a dense vector from a double array.
      * @param {...float} values Array of floats or float1, ....., floatN
      * @returns {module:eclairjs/mllib/linalg.Vector}
@@ -60,7 +60,7 @@
 
     /**
      * @function
-     * @name {module:eclairjs/mllib/linalg.Vectors#sparse
+     * @name module:eclairjs/mllib/linalg.Vectors#sparse
      * Creates a sparse vector providing its index array and value array.
      *
      * @param {integer} size  vector size.
@@ -75,7 +75,7 @@
 
     /**
      * @function
-     * @name {module:eclairjs/mllib/linalg.Vectors#zeros
+     * @name module:eclairjs/mllib/linalg.Vectors#zeros
      * Creates a vector of all zeros.
      *
      * @param {integer} size  vector size
@@ -89,7 +89,7 @@
 
     /**
      * @function
-     * @name {module:eclairjs/mllib/linalg.Vectors#parse
+     * @name module:eclairjs/mllib/linalg.Vectors#parse
      * Parses a string resulted from [[Vector.toString]] into a {@link Vector}.
      * @param {string} s
      * @returns {module:eclairjs/mllib/linalg.Vector}
@@ -102,7 +102,7 @@
 
     /**
      * @function
-     * @name {module:eclairjs/mllib/linalg.Vectors#fromJson
+     * @name module:eclairjs/mllib/linalg.Vectors#fromJson
      * Parses the JSON representation of a vector into a {@link Vector}.
      * @param {string} json
      * @returns {module:eclairjs/mllib/linalg.Vector}
@@ -115,7 +115,7 @@
 
     /**
      * @function
-     * @name {module:eclairjs/mllib/linalg.Vectors#norm
+     * @name module:eclairjs/mllib/linalg.Vectors#norm
      * Returns the p-norm of this vector.
      * @param {module:eclairjs/mllib/linalg.Vector} vector  input vector.
      * @param {float} p  norm.
@@ -129,7 +129,7 @@
 
     /**
      * @function
-     * @name {module:eclairjs/mllib/linalg.Vectors#sqdist
+     * @name module:eclairjs/mllib/linalg.Vectors#sqdist
      * Returns the squared distance between two Vectors.
      * @param {module:eclairjs/mllib/linalg.Vector} v1  first Vector.
      * @param {module:eclairjs/mllib/linalg.Vector} v2  second Vector.
