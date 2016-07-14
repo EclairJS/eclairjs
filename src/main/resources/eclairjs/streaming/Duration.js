@@ -20,6 +20,8 @@
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
 
     var JavaDuration = Java.type("org.apache.spark.streaming.Duration");
+    var logger = Logger.getLogger("streaming.Duration_js");
+
 
     /**
      * @constructor
@@ -29,7 +31,6 @@
      */
     var Duration = function (millis) {
         var jvmObj = new JavaDuration(millis);
-        this.logger = Logger.getLogger("streaming.Duration_js");
         JavaWrapper.call(this, jvmObj);
     };
 

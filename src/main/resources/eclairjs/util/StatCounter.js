@@ -19,6 +19,7 @@
     var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
+    var logger = Logger.getLogger("util_StatCounter_js");
 
 
     /**
@@ -38,7 +39,6 @@
         } else {
             jvmObject = new org.apache.spark.util.StatCounter();
         }
-        this.logger = Logger.getLogger("util_StatCounter_js");
         JavaWrapper.call(this, jvmObject);
 
     };

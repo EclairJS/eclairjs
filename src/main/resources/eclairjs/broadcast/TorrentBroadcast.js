@@ -19,6 +19,7 @@
     var Broadcast = require(EclairJS_Globals.NAMESPACE + '/broadcast/Broadcast');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
+    var logger = Logger.getLogger("broadcast_TorrentBroadcast_js");
 
 
     /**
@@ -36,7 +37,6 @@
      */
 
     var TorrentBroadcast = function (jvmObject) {
-        this.logger = Logger.getLogger("broadcast_TorrentBroadcast_js");
         Broadcast.call(this, jvmObject);
 
     };

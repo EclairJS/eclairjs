@@ -20,6 +20,7 @@
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
     var AccumulableParam = require(EclairJS_Globals.NAMESPACE + '/AccumulableParam');
+    var logger = Logger.getLogger("FloatAccumulatorParam_js");
 
     /**
      * @constructor
@@ -27,8 +28,7 @@
      * @extends module:eclairjs.AccumulableParam
      */
     var FloatAccumulatorParam = function () {
-        this.logger = Logger.getLogger("FloatAccumulatorParam_js");
-        this.logger.debug("constructor");
+        logger.debug("constructor");
         var jvmObject;
         if (arguments.length == 1) {
             jvmObject = arguments[0]

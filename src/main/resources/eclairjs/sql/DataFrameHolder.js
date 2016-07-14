@@ -18,6 +18,7 @@
     var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
+    var logger = Logger.getLogger("sql.DataFrameHolder_js");
 
     /**
      * @constructor
@@ -28,7 +29,6 @@
         JavaWrapper.call(this, jvmDataFrame);
 
         // Initialize our Row-specific properties
-        this.logger = Logger.getLogger("sql.DataFrameHolder_js");
     };
 
     DataFrameHolder.prototype = Object.create(JavaWrapper.prototype);

@@ -25,11 +25,12 @@ var ModuleUtils = function(){};
 ModuleUtils.requires = {};
 
 ModuleUtils.defaultZipFile = "modules.zip";
+var logger= org.apache.log4j.Logger.getLogger("org.eclairjs.nashorn.resource.ModuleUtils_js");
+
 
 ModuleUtils.addRequiredFile = function(module) {
-    var logger= org.apache.log4j.Logger.getLogger("org.eclairjs.nashorn.resource.ModuleUtils_js");
     if (ModuleUtils.requires[module.modname]) {
-        logger.debug("ModuleUtils.addRequiredFile - Module already required: "+module.modname);
+        logger.debug("ModuleUtils.addRequiredFile - Module already required: {0}",module.modname);
     } else {
         // include the path
         logger.debug("ModuleUtils.addRequiredFile - ADDING MODULE: "+module.modname);

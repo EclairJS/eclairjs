@@ -18,6 +18,7 @@
     var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
+    var logger = Logger.getLogger("sql.SQLContext_js");
 
     /**
      * @constructor
@@ -28,9 +29,8 @@
      * @since EclairJS 0.1 Spark  1.0.0
      */
     var SQLContext = function (sc) {
-        this.logger = Logger.getLogger("sql.SQLContext_js");
 
-       // this.logger.debug("jsc type = " + sc);
+       // logger.debug("jsc type = " + sc);
         var jvmObj;
         if (sc instanceof org.apache.spark.sql.SQLContext) {
             jvmObj = sc;

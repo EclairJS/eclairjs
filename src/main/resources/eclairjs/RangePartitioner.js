@@ -18,6 +18,7 @@
     var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
+    var logger = Logger.getLogger("RangePartitioner_js");
 
     /**
      * @constructor
@@ -33,7 +34,6 @@
 
     var RangePartitioner = function (partitions, rdd, ascending) {
         var jvmObject = new org.apache.spark.RangePartitioner(partitions, rdd, ascending);
-        this.logger = Logger.getLogger("RangePartitioner_js");
         JavaWrapper.call(this, jvmObject);
 
     };

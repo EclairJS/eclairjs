@@ -19,6 +19,7 @@
     var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
+    var logger = Logger.getLogger("SparkStatusTracker_js");
 
     /**
      * Low-level status reporting APIs for monitoring job and stage progress.
@@ -41,7 +42,6 @@
 
     var SparkStatusTracker = function (jvmObject) {
 
-        this.logger = Logger.getLogger("SparkStatusTracker_js");
         JavaWrapper.call(this, jvmObject);
 
     };

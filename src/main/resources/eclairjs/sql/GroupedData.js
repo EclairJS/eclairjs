@@ -21,6 +21,7 @@
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
 
     var Column = require(EclairJS_Globals.NAMESPACE + '/sql/Column');
+    var logger = Logger.getLogger("sql.GroupDataed_js");
 
     /**
      * @constructor
@@ -31,8 +32,7 @@
 
         JavaWrapper.call(this, jvmGroupedData);
 
-        this.logger = Logger.getLogger("sql.GroupDataed_js");
-        this.logger.debug('constructor');
+        logger.debug('constructor');
     }
 
     GroupedData.prototype = Object.create(JavaWrapper.prototype);
@@ -87,11 +87,11 @@
      * @returns {module:eclairjs/sql.DataFrame}
      */
     GroupedData.prototype.count = function () {
-        this.logger.debug("count");
+        logger.debug("count");
         var jdf = this.getJavaObject().count();
-        this.logger.debug("count1");
+        logger.debug("count1");
         var df = Utils.javaToJs(jdf);
-        this.logger.debug("count return df");
+        logger.debug("count return df");
         return df;
     };
     /**

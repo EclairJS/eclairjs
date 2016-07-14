@@ -32,7 +32,7 @@
     var StructType = require(EclairJS_Globals.NAMESPACE + '/sql/types/StructType');
     var ArrayType = require(EclairJS_Globals.NAMESPACE + '/sql/types/ArrayType');
     var LongType = require(EclairJS_Globals.NAMESPACE + '/sql/types/LongType');
-
+    var logger =Logger.getLogger("DataType_js")
     /**
      * @constructor
      * @classdesc The base type of all Spark SQL data types.
@@ -132,7 +132,7 @@
          boolean nullable)
          Creates a StructField with empty metadata.
          */
-        Logger.getLogger("DataType_js").debug(dataType);
+        logger.debug(dataType);
 
         return new StructField(org.apache.spark.sql.types.DataTypes.createStructField(fieldName, Utils.unwrapObject(dataType), nullable));
 

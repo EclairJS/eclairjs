@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 (function () {
+        var logger = Logger.getLogger("PartialResult_js");
 
     /**
      * @constructor
@@ -22,7 +23,6 @@
      * @param {object} initialVal  23  * @param {boolean} isFinal
      */
     var PartialResult = function (initialVal, isFinal) {
-        this.logger = Logger.getLogger("PartialResult_js");
         var jvmObject;
         if (arguments[0] instanceof rg.apache.spark.partial.PartialResult) {
             jvmObject = arguments[0];

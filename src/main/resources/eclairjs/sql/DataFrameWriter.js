@@ -18,6 +18,7 @@
     var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
+    var logger = Logger.getLogger("sql.DataFrameWriter_js");
 
     /**
      * :: Experimental ::
@@ -31,7 +32,6 @@
      */
     var DataFrameWriter = function (javaDataFrameWriter) {
         var jvmObj = javaDataFrameWriter;
-        this.logger = Logger.getLogger("sql.DataFrameWriter_js");
         JavaWrapper.call(this, jvmObj);
     };
 

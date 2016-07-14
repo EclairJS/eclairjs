@@ -19,6 +19,7 @@
     var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
+    var logger = Logger.getLogger("FutureAction_js");
 
     /**
      * A future for the result of an action to support cancellation. This is an extension of the
@@ -30,7 +31,6 @@
 
 
     var FutureAction = function (jvmObject) {
-        this.logger = Logger.getLogger("FutureAction_js");
         JavaWrapper.call(this, jvmObject);
     };
 

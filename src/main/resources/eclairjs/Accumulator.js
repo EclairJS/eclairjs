@@ -20,6 +20,7 @@
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
     var Accumulable = require(EclairJS_Globals.NAMESPACE + '/Accumulable');
+    var logger = Logger.getLogger("Accumulator_js");
 
 
     /**
@@ -52,8 +53,7 @@
      * @extends module:eclairjs.Accumulable
      */
     var Accumulator = function (initialValue, param, name) {
-        this.logger = Logger.getLogger("Accumulator_js");
-        this.logger.debug("constructor");
+        logger.debug("constructor");
 
         Accumulable.apply(this, arguments);
 

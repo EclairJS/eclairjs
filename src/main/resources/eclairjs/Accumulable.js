@@ -22,6 +22,8 @@
     var IntAccumulatorParam = require(EclairJS_Globals.NAMESPACE + '/IntAccumulatorParam');
     var FloatAccumulatorParam = require(EclairJS_Globals.NAMESPACE + '/FloatAccumulatorParam');
 
+    var logger = Logger.getLogger("Accumulable_js");
+
     /**
      * A data type that can be accumulated, ie has an commutative and associative "add" operation,
      * but where the result type, `R`, may be different from the element type being added, `T`.
@@ -44,8 +46,7 @@
      *
      */
     var Accumulable = function () {
-        this.logger = Logger.getLogger("Accumulable_js");
-        this.logger.debug("constructor");
+        logger.debug("constructor");
         var jvmObject;
         if (arguments.length == 1) {
             jvmObject = arguments[0];

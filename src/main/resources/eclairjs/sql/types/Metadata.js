@@ -17,6 +17,7 @@
 
     var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
+    var logger = Logger.getLogger("sql.Metadata_js");
 
     /**
      *
@@ -30,7 +31,6 @@
      */
     var Metadata = function (jvmObj) {
 
-        this.logger = Logger.getLogger("sql.Metadata_js");
         JavaWrapper.call(this, jvmObj);
     };
 

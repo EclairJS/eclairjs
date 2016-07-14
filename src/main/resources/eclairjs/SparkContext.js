@@ -20,9 +20,9 @@
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
     var SparkConf = require(EclairJS_Globals.NAMESPACE + '/SparkConf');
+    var logger = Logger.getLogger("SparkContext_js");
 
     var initSparkContext = function (conf) {
-        var logger = Logger.getLogger("SparkContext_js");
         if (typeof kernel !== 'undefined') {
             if (kernel.javaSparkContext() != null) {
                 return kernel.javaSparkContext();
@@ -51,7 +51,6 @@
      */
     var SparkContext = function () {
         var jvmObj;
-        this.logger = Logger.getLogger("SparkContext_js");
         this.customModsAdded = false; // only add the big zip of all non-core required mods once per SparkContext
         if (arguments.length == 2) {
             var conf = new SparkConf()
@@ -65,7 +64,7 @@
             jvmObj = initSparkContext(arguments[0])
         }
         JavaWrapper.call(this, jvmObj);
-        this.logger.debug(this.version());
+        logger.debug(this.version());
     };
 
     SparkContext.prototype = Object.create(JavaWrapper.prototype);
@@ -265,7 +264,7 @@
         var initialValue = arguments[0];
         var name;
         var param = new FloatAccumulatorParam();
-        this.logger.debug("accumulator " + initialValue);
+        logger.debug("accumulator " , initialValue);
 
         if (arguments[1]) {
             if (typeof arguments[1] === "string") {
@@ -557,17 +556,17 @@
     SparkContext.prototype.addCustomModules = function () {
         // Only add the big zip of all non-core required mods once per SparkContext
         if (this.customModsAdded) {
-            this.logger.debug(ModuleUtils.defaultZipFile + " has already been added for this SparkContext instance");
+            logger.debug(ModuleUtils.defaultZipFile + " has already been added for this SparkContext instance");
             return;
         }            
         var mods = ModuleUtils.getModulesByType({type: "core", value: false});
-        this.logger.debug("addingCustomModules: "+mods.toString());
+        logger.debug("addingCustomModules: ",mods.toString());
         var folder = ".", zipfile = ModuleUtils.defaultZipFile, filenames = [];
         mods.forEach(function (mod) {
             filenames.push(mod.id.slice(mod.id.lastIndexOf("\/") + 1, mod.id.length));
         });
-        this.logger.debug("SparkContext.addCustomModules folder: "+folder);
-        this.logger.debug("SparkContext.addCustomModules filenames: "+filenames.toString());
+        logger.debug("SparkContext.addCustomModules folder: ",folder);
+        logger.debug("SparkContext.addCustomModules filenames: ",filenames.toString());
         try {
             org.eclairjs.nashorn.Utils.zipFile(folder, zipfile, filenames);
             this.getJavaObject().addFile(zipfile);

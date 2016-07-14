@@ -20,6 +20,7 @@
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
 
 	  var Column = require(EclairJS_Globals.NAMESPACE + '/sql/Column');
+     var logger = Logger.getLogger("sql.DataFrame_js");
 
 	/**
 	 * @constructor
@@ -34,8 +35,7 @@
 	 * var ageCol = people("age")
 	 */
 	 var DataFrame = function (jvmDataFrame) {
-        this.logger = Logger.getLogger("sql.DataFrame_js");
-        this.logger.debug("constructor");
+        logger.debug("constructor");
 		JavaWrapper.call(this, jvmDataFrame);
 
 		// Initialize our Row-specific properties

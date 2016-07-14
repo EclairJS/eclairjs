@@ -85,15 +85,15 @@ Serialize.scalaTuple = function (javaObj) {
     var ret = false;
     if (javaObj instanceof Serialize.scalaProductClass) {
         if (javaObj.getClass().getName().indexOf("scala.Tuple2") > -1) {
-            Serialize.logger.debug("Tuple - " + javaObj);
+            Serialize.logger.debug("Tuple - " , javaObj);
             var Tuple2 = require('eclairjs/Tuple2')
             ret = new Tuple2(javaObj);
         } else if (javaObj.getClass().getName().indexOf("scala.Tuple3") > -1) {
-            Serialize.logger.debug("Tuple - " + javaObj);
+            Serialize.logger.debug("Tuple - " , javaObj);
             var Tuple3 = require('eclairjs/Tuple3');
             ret = new Tuple3(javaObj);
         } else if (javaObj.getClass().getName().indexOf("scala.Tuple4") > -1) {
-            Serialize.logger.debug("Tuple - " + javaObj);
+            Serialize.logger.debug("Tuple - " , javaObj);
             var Tuple4 = require('eclairjs/Tuple4');
             ret = new Tuple4(javaObj);
         }
@@ -249,14 +249,14 @@ Serialize.javaSparkObject = function (javaObj) {
         className = java2wrapper[className]
     }
 
-    Serialize.logger.debug("javaSparkObject we have a className = " + className);
+    Serialize.logger.debug("javaSparkObject we have a className = ",className);
     //return eval("new " + className + "(javaObj)");
 
     var req = "";
     packageName = packageName.replace(/org.apache.spark/i, EclairJS_Globals.NAMESPACE );
     packageName = packageName.replace(/\./g, "/");
 
-    Serialize.logger.debug("javaSparkObject we have a packageName = " + packageName);
+    Serialize.logger.debug("javaSparkObject we have a packageName = " , packageName);
 
     packageName = (javaPackageMap[packageName]) ? javaPackageMap[packageName] : packageName;
 
@@ -291,7 +291,7 @@ Serialize.JSModule = function(obj) {
   if (ModuleUtils.isModule(obj)) {
     var mod = ModuleUtils.getRequiredFile(obj);
 
-    Serialize.logger.debug("Serialize.JSModule found a lambda required module: "+mod);
+    Serialize.logger.debug("Serialize.JSModule found a lambda required module: ",mod);
 
     return (mod && mod.exportname) ? mod.exports[mod.exportname] : (mod ? mod.exports : false);
   }
@@ -302,7 +302,7 @@ Serialize.JSModule = function(obj) {
 Serialize.JSONObject = function (javaObj) {
     if (javaObj instanceof org.json.simple.JSONObject) {
         var jsonStr = javaObj.toJSONString();
-        Serialize.logger.debug("JSONObject " + jsonStr)
+        Serialize.logger.debug("JSONObject " , jsonStr)
         return JSON.parse(jsonStr);
     }
     return false;
@@ -428,11 +428,11 @@ Serialize.JavaScriptObjectMirrorClass = Java.type('jdk.nashorn.api.scripting.Scr
 Serialize.jsToJava = function (obj) {
     if (obj) {
         var className = obj.getClass ? obj.getClass().getSimpleName() : obj;
-        Serialize.logger.debug("jsToJava " + className);
+        Serialize.logger.debug("jsToJava ",className);
         //return org.eclairjs.nashorn.Utils.jsToJava(obj);
 
         if (obj.getJavaObject) {
-            Serialize.logger.debug("Wrapped " + obj);
+            Serialize.logger.debug("Wrapped ",obj);
             return obj.getJavaObject();
         }
 
@@ -446,7 +446,7 @@ Serialize.jsToJava = function (obj) {
                 //l.add(Serialize.jsToJava(item));
                 l.push(Serialize.jsToJava(item));
             });
-            Serialize.logger.debug("Array " + l);
+            Serialize.logger.debug("Array " , l);
             //return l.toArray();
             /*
              run through the array
@@ -463,13 +463,13 @@ Serialize.jsToJava = function (obj) {
             var ret;
             if (type == "java.lang.Double") {
                 ret = Java.to(l, "double[]");
-                Serialize.logger.debug("double[] " + ret);
+                Serialize.logger.debug("double[] " , ret);
             } else if (type == "java.lang.Integer") {
                 ret = Java.to(l, "int[]");
-                Serialize.logger.debug("int[] " + ret);
+                Serialize.logger.debug("int[] " , ret);
             } else {
                 ret = Java.to(l);
-                Serialize.logger.debug("Object[] " + ret);
+                Serialize.logger.debug("Object[] " , ret);
             }
             return ret
         }
@@ -485,7 +485,7 @@ Serialize.jsToJava = function (obj) {
             return org.json.simple.JSONValue.parse(j);
         }
     } else {
-        Serialize.logger.debug("Serialize.jsToJava - JS object is null or undefined obj: "+obj);
+        Serialize.logger.debug("Serialize.jsToJava - JS object is null or undefined obj: ",obj);
         //throw("Serialize.jsToJava - JS object is null or undefined");
     }
 

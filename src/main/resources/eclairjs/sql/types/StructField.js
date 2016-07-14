@@ -20,6 +20,7 @@
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
 
     var DataType = require(EclairJS_Globals.NAMESPACE + '/sql/types/DataType');
+    var logger = Logger.getLogger("sql.StructField_js");
 
     /**
      * @constructor
@@ -33,9 +34,8 @@
     var StructField = function(name, dataType, nullable, metadata) {
         // StructField(java.lang.String name, DataType dataType, boolean nullable, Metadata metadata)
         var jvmObj = null;
-        this.logger = Logger.getLogger("sql.StructField_js");
         if (dataType == null) {
-            this.logger.debug("Java object ");
+            logger.debug("Java object ");
             jvmObj = name; // the name is really a jvmObject created by one of our wrappers.
         } else {
             var dt = Utils.unwrapObject(dataType);
@@ -46,7 +46,7 @@
         // Call the parent constructor, making sure (using Function#call)
         // that "this" is set correctly during the call
         JavaWrapper.call(this, jvmObj);
-        this.logger.debug("StructField constructor");
+        logger.debug("StructField constructor");
     };
 
 //Create a StructField.prototype object that inherits from JavaWrapper.prototype.

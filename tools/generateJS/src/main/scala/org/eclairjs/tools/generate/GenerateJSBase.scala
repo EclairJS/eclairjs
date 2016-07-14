@@ -48,7 +48,7 @@ abstract class GenerateJSBase {
 
     sbFile ++= getTemplate("copyright")
 
-    sbFile ++= getFileStart()
+    sbFile ++= getFileStart(cls)
 
     generateIncludes(file:File, sbFile:StringBuilder)
 
@@ -100,7 +100,7 @@ abstract class GenerateJSBase {
 
   }
 
-  def getFileStart(): String =
+  def getFileStart(cls:Clazz): String =
   {
     ""
   }

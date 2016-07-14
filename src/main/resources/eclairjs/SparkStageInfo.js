@@ -19,6 +19,7 @@
     var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
+    var logger = Logger.getLogger("SparkStageInfo_js");
 
     /**
      *
@@ -28,7 +29,6 @@
      */
     var SparkStageInfo = function (jvmObject) {
 
-        this.logger = Logger.getLogger("SparkStageInfo_js");
         JavaWrapper.call(this, jvmObject);
 
     };

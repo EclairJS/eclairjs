@@ -16,20 +16,20 @@
 (function () {
 
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
+    var javaWrapperLogger = Logger.getLogger("JavaWrapper_js");
 
     var JavaWrapper = function (jvmObj) {
         this._jvmObj = jvmObj;
-        this.javaWrapperLogger = Logger.getLogger("JavaWrapper_js");
-        this.javaWrapperLogger.debug("JavaWrapper constructor");
+        javaWrapperLogger.debug("JavaWrapper constructor");
     };
 
     JavaWrapper.prototype.getJavaObject = function () {
-        this.javaWrapperLogger.debug("getJavaObject");
+        javaWrapperLogger.debug("getJavaObject");
         return this._jvmObj;
     };
 
     JavaWrapper.prototype.setJavaObject = function (obj) {
-        this.javaWrapperLogger.debug("setJavaObject");
+        javaWrapperLogger.debug("setJavaObject");
         this._jvmObj = obj;
     };
 

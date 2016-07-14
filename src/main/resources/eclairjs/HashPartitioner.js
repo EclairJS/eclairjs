@@ -19,6 +19,8 @@
     var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
+    var logger = Logger.getLogger("HashPartitioner_js");
+
     /**
      * @constructor
      * @memberof module:eclairjs
@@ -33,7 +35,6 @@
 
     var HashPartitioner = function (partitions) {
         var jvmObject = new org.apache.spark.HashPartitioner(partitions);
-        this.logger = Logger.getLogger("HashPartitioner_js");
         JavaWrapper.call(this, jvmObject);
 
     };

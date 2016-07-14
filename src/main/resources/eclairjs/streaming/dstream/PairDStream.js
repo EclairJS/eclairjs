@@ -19,6 +19,7 @@
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
     var DStream = require(EclairJS_Globals.NAMESPACE + '/streaming/dstream/DStream');
+    var logger = Logger.getLogger("streaming.dtream.PairDStream_js");
 
     /**
      * @constructor
@@ -29,7 +30,6 @@
      */
     var PairDStream = function (jPairDStream) {
         var jvmObj = jPairDStream;
-        this.logger = Logger.getLogger("streaming.dtream.PairDStream_js");
         JavaWrapper.call(this, jvmObj);
     };
 

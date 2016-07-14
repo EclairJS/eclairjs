@@ -175,13 +175,26 @@ class GenerateNashorn  extends  GenerateJSBase {
 
 
 
-  override def getFileStart(): String =
+  override def getFileStart(cls:Clazz): String =
   {
-    var start = """(function () {
+
+    val sparkPrefix="org.apache.spark"
+
+    val parent=cls.parent
+    var dir = if (parent.packageName.length>0 && parent.packageName!="<empty>")
+      parent.packageName.substring(sparkPrefix.length)
+    else ""
+    if (dir.startsWith("."))
+      dir = dir.drop(1);
+    val name=s"$dir.${cls.name}_js"
+
+    var start = s"""(function () {
                   |
                   |    var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
                   |    var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
                   |    var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
+                  |    var logger = Logger.getLogger("$name");
+                  |
                   |
                   |""".stripMargin
     start

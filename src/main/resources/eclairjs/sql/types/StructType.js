@@ -28,6 +28,7 @@ protected scala.collection.Seq<org.apache.spark.sql.catalyst.expressions.Attribu
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
 
     var StructField = require(EclairJS_Globals.NAMESPACE + '/sql/types/StructField');
+    var logger = Logger.getLogger("sql.StructField_js");
 
     /**
      * @constructor
@@ -40,13 +41,12 @@ protected scala.collection.Seq<org.apache.spark.sql.catalyst.expressions.Attribu
     var StructType = function(fields) {
 
         var jvmObj = null;
-        this.logger = Logger.getLogger("sql.StructField_js");
         if (!fields)
         {
            jvmObj = new org.apache.spark.sql.types.StructType();
         }
         else if (!Array.isArray(fields)) {
-            this.logger.debug("Java object ");
+            logger.debug("Java object ");
             jvmObj = fields; // the name is really a jvmObject created by one of our wrappers.
         } else {
             var f = [];

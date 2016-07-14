@@ -19,6 +19,7 @@
     var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
+    var logger = Logger.getLogger("DataFrameStatFunctions_js");
 
     /**
      * Statistic functions for {@link DataFrame}s.
@@ -30,7 +31,6 @@
 
     var DataFrameStatFunctions = function (jvmObject) {
 
-        this.logger = Logger.getLogger("DataFrameStatFunctions_js");
         JavaWrapper.call(this, jvmObject);
 
     };

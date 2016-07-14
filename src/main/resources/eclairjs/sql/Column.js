@@ -18,6 +18,8 @@
     var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
 	var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
+	var logger = Logger.getLogger("sql.Column_js");
+
 	/**
 	 *
 	 * @constructor
@@ -33,7 +35,6 @@
 			jvmObj = column;
 
 		}
-		this.logger = Logger.getLogger("sql.Column_js");
 		JavaWrapper.call(this, jvmObj);
 	};
 
@@ -115,7 +116,7 @@
 	 * var results = peopleDataFrame.select(testCol);
 	 */
 	Column.prototype.between = function (lowerBound, upperBound) {
-		this.logger.debug("between");
+		logger.debug("between");
 		return new Column(this.getJavaObject().between(lowerBound, upperBound));
 	};
 	/**

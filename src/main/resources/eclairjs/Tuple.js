@@ -18,6 +18,7 @@
     var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
+    var logger = Logger.getLogger("Tuple_js");
     /**
      * Simple tuple implementation. This constructor will create new instances
      * and store immutable values within them.
@@ -31,7 +32,6 @@
         /**
          * Contains the number of elements held within the tuple.
          */
-        this.logger = Logger.getLogger("Tuple_js");
         var i = this.length = arguments.length;
         this._objectTypes = [];
         if ((arguments[0] instanceof Serialize.scalaProductClass) && (arguments[0].getClass().getName().indexOf("scala.Tuple") > -1)) {
@@ -169,16 +169,16 @@
              */
             var obj;
             if (this._objectTypes[i]) {
-                this.logger.debug("de-serialized this._objectTypes[i]" + this._objectTypes[i]);
+                logger.debug("de-serialized this._objectTypes[i]" , this._objectTypes[i]);
                 if (this._objectTypes[i] == java.lang.Double.class) {
                     obj = Serialize.jsToJava(Number(this[i])); // returns Double type
                     expression += "javaObj[" + i + "]";
                } else if (this._objectTypes[i] == java.lang.Integer.class) {
-                    this.logger.debug("force to int");
+                    logger.debug("force to int");
                     obj =  + this[i]; // force to Integer type
                     expression += "java.lang.Integer.parseInt(javaObj[" + i + "])";
                 } else if (this._objectTypes[i] == java.lang.Long.class) {
-                    this.logger.debug("force to int");
+                    logger.debug("force to int");
                     obj =  + this[i]; // force to Long type
                     expression += "java.lang.Long.parseLong(javaObj[" + i + "])";
                 } else {
@@ -190,7 +190,7 @@
                 expression += "javaObj[" + i + "]";
 
             }
-            this.logger.debug("de-serialized " + obj);
+            logger.debug("de-serialized " , obj);
             javaObj.push(obj);
 
             //expression += "javaObj[" + i + "]";
@@ -199,10 +199,10 @@
             }
         }
         expression += ")";
-        this.logger.debug("javaObj " + javaObj);
-        this.logger.debug("expression " + expression);
+        logger.debug("javaObj " , javaObj);
+        logger.debug("expression " , expression);
         var retObj = eval('(' + expression + ')');
-        this.logger.debug("getJavaObj returning " + retObj.class + " with value " + retObj.toString());
+        logger.debug("getJavaObj returning " , retObj.class , " with value " , retObj.toString());
         return retObj;
 
     };
@@ -218,12 +218,12 @@
         }
 
         this.length = x;
-        this.logger.debug("setJavaObject " + JSON.stringify(this));
+        logger.debug("setJavaObject " , JSON.stringify(this));
     };
 
 
     Tuple.prototype.toJSON = function () {
-        this.logger.debug("toJSON");
+        logger.debug("toJSON");
         var jsonObj = {};
         jsonObj.length = this.length;
         for (var i = 0; i < this.length; i++) {

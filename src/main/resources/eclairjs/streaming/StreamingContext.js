@@ -22,6 +22,7 @@
         Java.type('org.apache.spark.streaming.api.java.JavaStreamingContext');
 
     var JLinkedList = Java.type('java.util.LinkedList');
+    var logger = Logger.getLogger("streaming.Duration_js");
 
     /**
      * @constructor
@@ -44,7 +45,6 @@
                 new JavaStreamingContext(Utils.unwrapObject(sparkContext),
                     Utils.unwrapObject(duration)
                 );
-        this.logger = Logger.getLogger("streaming.Duration_js");
         JavaWrapper.call(this, jvmObj);
     };
 
