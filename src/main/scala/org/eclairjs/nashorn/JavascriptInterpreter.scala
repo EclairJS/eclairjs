@@ -19,6 +19,7 @@ import play.api.libs.json.{JsString, JsObject, Json}
 import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
 
+
 import scala.tools.nsc.interpreter.{InputStream, OutputStream}
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -47,11 +48,14 @@ class JavascriptInterpreter() extends org.apache.toree.interpreter.Interpreter {
 
   type CommMap = java.util.HashMap[String, Comm]
 
-  private val engine = {
+  private lazy val engine = {
+
     val manager = new ScriptEngineManager()
     val e = manager.getEngineByName("nashorn")
     val bootstrap = new SparkBootstrap()
     bootstrap.load(e)
+System.out.println("Engine created")
+
 
     e.eval(""" function print(str) {java.lang.System.out.println(str);}""")
     e
@@ -62,9 +66,9 @@ class JavascriptInterpreter() extends org.apache.toree.interpreter.Interpreter {
   //private var register:CommRegistrar = null
 
   override def init(kernel: KernelLike) = {
-    engine.put("kernel", kernel)
-    engine.put("commMap", new CommMap())
+ System.out.println("Start kernel init")
     //val comm = new Comm(kernel.asInstanceOf[Kernel]).open("foreachrdd")
+
 
     val  kernelImpl = kernel.asInstanceOf[Kernel]
     kernelImpl.comm.register("foreachrdd").addOpenHandler {
@@ -79,10 +83,24 @@ class JavascriptInterpreter() extends org.apache.toree.interpreter.Interpreter {
     }
     kernelImpl.comm.register("foreachrdd").addCloseHandler {
       (commWriter, commId, data: MsgData) =>
-        System.out.println("got close " + commId)
+        System.out.println("got  foreachrdd close " + commId)
         engine.get("commMap")
           .asInstanceOf[CommMap]
           .remove("foreachrdd:"+commId)
+    }
+
+    kernelImpl.comm.register("logger").addOpenHandler {
+      (commWriter, commId, targetName, data) =>
+        System.out.println("got logger open")
+        System.out.println(data)
+
+        EclairjsLoggerAppender.create(commWriter,data.toString())
+
+        comm = new Comm(kernelImpl, commWriter)
+    }
+    kernelImpl.comm.register("logger").addCloseHandler {
+      (commWriter, commId, data: MsgData) =>
+        System.out.println("got logger close " + commId)
     }
     /*
     kernelImpl.comm.register("foreachrdd").addMsgHandler {
@@ -93,6 +111,11 @@ class JavascriptInterpreter() extends org.apache.toree.interpreter.Interpreter {
         )))
     }
     */
+
+    engine.put("kernel", kernel)
+    engine.put("commMap", new CommMap())
+
+    System.out.println("END kernel init")
 
 
     this
@@ -193,14 +216,18 @@ class JavascriptInterpreter() extends org.apache.toree.interpreter.Interpreter {
    *         execution or the failure
    */
   override def interpret(code: String, silent: Boolean): (Result, scala.Either[ExecuteOutput, ExecuteFailure]) = {
+    System.out.println("EXEC="+code)
+
     val futureResult = Future {
-      StreamState.withStreams {
+      val s=StreamState.withStreams {
 
       engine.eval(code) match {
         case res:Object => res.toString()
         case _ => null
         }
       }
+      System.out.println("RESULT="+s)
+      s
     }.map(results => (Results.Success, Left(results)))
       .recover({ case ex: Exception =>
       (Results.Error, Right(ExecuteError(
