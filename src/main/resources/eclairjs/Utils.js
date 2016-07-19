@@ -46,6 +46,10 @@
         return Serialize.javaToJs(javaObj);
      };
 
+    Utils.jsToJava = function (javaObj) {
+        return Serialize.jsToJava(javaObj);
+    };
+
     Utils.unwrapObject = function (obj) {
 
         if (Array.isArray(obj)) {
