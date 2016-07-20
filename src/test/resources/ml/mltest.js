@@ -377,3 +377,10 @@ var RFormulaExample = function() {
         return "failed";
     }
 }
+
+var vectorsDense = function() {
+    var Vectors = require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Vectors');
+    var v = Vectors.dense(1.0, 2.0);
+    var x = Vectors.dense([1.0, 2.0]);
+    return x.equals(v);
+}

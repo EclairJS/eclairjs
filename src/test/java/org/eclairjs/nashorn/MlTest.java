@@ -987,4 +987,15 @@ public class MlTest {
         assertEquals("failure - strings are not equal", expected, ret);
     }
 
+    @Test
+    public void vectorsDense() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("vectorsDense");
+
+        Boolean expected = true;
+
+        assertEquals("failure - are not equal", expected, ret);
+    }
 }
