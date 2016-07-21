@@ -1181,3 +1181,18 @@ var nullSchemaRow = function() {
     
     return JSON.stringify(rdd2.collect());
 }
+
+var  dataFrameCreateTest = function() {
+
+    var fields = [];
+    fields.push(DataTypes.createStructField("Integer", DataTypes.IntegerType, true));
+    fields.push(DataTypes.createStructField("float", DataTypes.FloatType, true));
+    fields.push(DataTypes.createStructField("double", DataTypes.DoubleType, true));
+    fields.push(DataTypes.createStructField("string", DataTypes.StringType, true));
+    fields.push(DataTypes.createStructField("boolean", DataTypes.BooleanType, true));
+
+    var schema = DataTypes.createStructType(fields);
+    var df = sqlContext.createDataFrame([[ 1, 0.1, 1.0, "1.0", true]], schema);
+    return JSON.stringify(df.take(1));
+
+}

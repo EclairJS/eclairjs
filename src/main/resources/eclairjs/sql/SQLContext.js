@@ -203,13 +203,13 @@
             rowRDD_or_values.forEach(function (row) {
 
                 if (Array.isArray(row)) {
-                    var rowValues = [];
+                    var rowValues = new java.util.ArrayList();;
                     for (var i = 0; i < row.length; i++) {
                         var x = row[i];
                         var dt = fields[i].dataType();
-                        rowValues.push(castDataType(x, dt));
+                        rowValues.add(castDataType(x, dt));
                     }
-                    rows.add(org.apache.spark.sql.RowFactory.create(rowValues));
+                    rows.add(org.apache.spark.sql.RowFactory.create(rowValues.toArray()));
                 } else {
 
                     var v = [];
