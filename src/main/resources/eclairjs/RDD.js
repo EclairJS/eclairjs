@@ -886,6 +886,7 @@
      * @function
      * @name module:eclairjs.RDD#saveAsObjectFile
      * @param {string} path
+     * @param {boolean} [overwrite] defaults to false, if true overwrites file if it exists
      * @returns {void}
      */
     //RDD.prototype.saveAsObjectFile = function (path) {
@@ -897,6 +898,7 @@
      * @function
      * @name module:eclairjs.RDD#saveAsTextFile
      * @param {string} path
+     * @param {boolean} [overwrite] defaults to false, if true overwrites file if it exists
      * @returns {void}
      */
     //RDD.prototype.saveAsTextFile = function (path) {

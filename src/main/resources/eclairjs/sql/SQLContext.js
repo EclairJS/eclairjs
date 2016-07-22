@@ -562,6 +562,16 @@
         org.apache.spark.sql.SQLContext.clearActive();
     };
 
+    /**
+     *
+     * @param path
+     * @param minPartitions
+     * @returns
+     */
+    SQLContext.objectFile = function (path, minPartitions) {
+        org.apache.spark.sql.SQLContext.clearActive();
+    };
+
     module.exports = SQLContext;
 
 })();

@@ -539,8 +539,12 @@ public class RDD extends WrappedClass {
     static WrappedFunction  F_saveAsObjectFile = new WrappedFunction () {
         @Override
         public Object call(Object thiz, Object... args) {
+            String path = (String) args[0];
+            if ((args.length > 1) && ((boolean) args[1] == true) ) {
+                ((RDD)thiz).deletePath(path);
+            }
             JavaRDDLike sparkJavaRDD = (JavaRDDLike) ((RDD)thiz).getJavaObject();
-            sparkJavaRDD.saveAsObjectFile((String) args[0]);
+            sparkJavaRDD.saveAsObjectFile(path);
 
             return null;
         }
@@ -549,8 +553,12 @@ public class RDD extends WrappedClass {
     static WrappedFunction  F_saveAsTextFile = new WrappedFunction () {
         @Override
         public Object call(Object thiz, Object... args) {
+            String path = (String) args[0];
+            if ((args.length > 1) && ((boolean) args[1] == true) ) {
+                ((RDD)thiz).deletePath(path);
+            }
             JavaRDDLike sparkJavaRDD = (JavaRDDLike) ((RDD)thiz).getJavaObject();
-            sparkJavaRDD.saveAsTextFile((String) args[0]);
+            sparkJavaRDD.saveAsTextFile(path);
 
             return null;
         }
@@ -787,6 +795,16 @@ public class RDD extends WrappedClass {
     };
 
     private JavaRDD javaRDD;
+
+    private void deletePath(String path){
+        try {
+            org.apache.hadoop.conf.Configuration hadoopConf = new org.apache.hadoop.conf.Configuration();
+            org.apache.hadoop.fs.FileSystem hdfs = org.apache.hadoop.fs.FileSystem.get(new java.net.URI(path), hadoopConf);
+            hdfs.delete(new org.apache.hadoop.fs.Path(path), true);
+        } catch (Exception e){
+            System.err.print(e);
+        }
+    }
 
     public RDD(JavaRDD rdd) {
         javaRDD = rdd;

@@ -577,6 +577,25 @@
         }
     };
 
+    /**
+     * Load an RDD saved as a SequenceFile containing serialized objects, with NullWritable keys and BytesWritable
+     * values that contain a serialized partition. This is still an experimental storage format and may not be supported
+     * exactly as is in future Spark releases.
+     * @param {string} path
+     * @param (integer} [minPartitions]
+     * @returns {module:eclairjs.RDD}
+     */
+    SparkContext.prototype.objectFile = function (path, minPartitions) {
+        var javaRdd;
+        if(minPartitions) {
+            javaRdd = this.getJavaObject().objectFile(path, minPartitions);
+        } else {
+            javaRdd = this.getJavaObject().objectFile(path);
+        }
+        return Utils.javaToJs(javaRdd);
+
+    };
+
     SparkContext.prototype.toJSON = function () {
         var jsonObj = {
             "version": this.version(),

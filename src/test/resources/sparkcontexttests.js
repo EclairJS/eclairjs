@@ -110,5 +110,28 @@ var broadcast = function() {
 
 }
 
+var  objectFile = function() {
+    var Rating = require(EclairJS_Globals.NAMESPACE + '/mllib/recommendation/Rating');
+    var new_user_ratings = [
+        new Rating(0, 260, 9)
+    ];
+    var new_user_ratings_RDD = sparkContext.parallelize(new_user_ratings);
+    new_user_ratings_RDD.saveAsObjectFile('target/tmp/rdd_save_object_file_test', true);
+    var loadedRdd = sparkContext.objectFile('target/tmp/rdd_save_object_file_test');
+    return JSON.stringify(loadedRdd.take(1));
+
+}
+
+var  textFile = function() {
+    var Rating = require(EclairJS_Globals.NAMESPACE + '/mllib/recommendation/Rating');
+    var new_user_ratings = [
+        new Rating(0, 260, 9)
+    ];
+    var new_user_ratings_RDD = sparkContext.parallelize(new_user_ratings);
+    new_user_ratings_RDD.saveAsTextFile('target/tmp/rdd_save_text_file_test', true);
+    var loadedRdd = sparkContext.textFile('target/tmp/rdd_save_text_file_test');
+    return JSON.stringify(loadedRdd.take(1));
+
+}
 
 
