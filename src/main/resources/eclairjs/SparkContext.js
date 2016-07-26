@@ -580,7 +580,7 @@
     /**
      * Load an RDD saved as a SequenceFile containing serialized objects, with NullWritable keys and BytesWritable
      * values that contain a serialized partition. This is still an experimental storage format and may not be supported
-     * exactly as is in future Spark releases.
+     * exactly as is in future releases.
      * @param {string} path
      * @param {integer} [minPartitions]
      * @returns {module:eclairjs.RDD}

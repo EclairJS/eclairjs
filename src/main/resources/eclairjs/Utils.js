@@ -209,6 +209,20 @@
         return new clazz(func.toString(), unObj )
     };
 
+    /**
+     * deletes the path in Hadoop files system.
+     * @param {string} path
+     */
+    Utils.deleteHadoopFsPath = function(path){
+        try {
+            var hadoopConf = new org.apache.hadoop.conf.Configuration();
+            var hdfs = org.apache.hadoop.fs.FileSystem.get(new java.net.URI(path), hadoopConf);
+            hdfs.delete(new org.apache.hadoop.fs.Path(path), true);
+        } catch (e){
+            print(e);
+        }
+    }
+
     module.exports = Utils;
 
 })();

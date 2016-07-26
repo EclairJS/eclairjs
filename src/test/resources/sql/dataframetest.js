@@ -1196,3 +1196,24 @@ var  dataFrameCreateTest = function() {
     return JSON.stringify(df.take(1));
 
 }
+
+var  dataFrameGetListTest = function() {
+
+    var Metadata = require(EclairJS_Globals.NAMESPACE + '/sql/types/Metadata');
+    // Input data: Each row is a bag of words from a sentence or document.
+    var rdd = sparkContext.parallelize([
+        RowFactory.create([["a", "b", "c"]])
+    ]);
+    var schema = new StructType([
+        new StructField("col1", new ArrayType(DataTypes.StringType, true), false, Metadata.empty())
+    ]);
+    var df = sqlContext.createDataFrame(rdd, schema);
+    var dfMap = df.map(function(row){
+        var x = ['foo'].concat(row.getList(0));
+        print("x " + x.length);
+        return x;
+    });
+
+    return JSON.stringify(dfMap);
+
+}

@@ -124,8 +124,12 @@
      * @param {module:eclairjs.SparkContext} sc   Spark context used to save model data.
      * @param {string} path   Path specifying the directory in which to save this model.
      *              If the directory already exists, this method throws an exception.
+     * @param {boolean} [overwrite] if true overwrites the model, defaults to false;
      */
-    MatrixFactorizationModel.prototype.save = function (sc, path) {
+    MatrixFactorizationModel.prototype.save = function (sc, path, overwrite) {
+        if (overwrite) {
+            Utils.deleteHadoopFsPath(path);
+        }
         var sc_uw = Utils.unwrapObject(sc);
         this.getJavaObject().save(sc_uw.sc(), path);
     };
