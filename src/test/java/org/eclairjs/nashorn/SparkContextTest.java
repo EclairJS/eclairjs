@@ -134,4 +134,27 @@ public class SparkContextTest {
 
     };
 
+    @Test
+    public void objectFile() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        // String file = TestUtils.resourceToFile("/dream.txt");
+
+        TestUtils.evalJSResource(engine, "/sparkcontexttests.js");
+        Object ret = ((Invocable)engine).invokeFunction("objectFile");
+
+        assertEquals("failure - values are not equal", "[{\"user\":0,\"product\":260,\"rating\":9}]", ret);
+
+    };
+
+    @Test
+    public void textFile() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        // String file = TestUtils.resourceToFile("/dream.txt");
+
+        TestUtils.evalJSResource(engine, "/sparkcontexttests.js");
+        Object ret = ((Invocable)engine).invokeFunction("textFile");
+
+        assertEquals("failure - values are not equal", "[\"Rating(0,260,9.0)\"]", ret);
+
+    };
 }

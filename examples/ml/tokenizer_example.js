@@ -15,7 +15,7 @@
  */
 /*
  Usage:
- bin/eclairjs.sh examples/ml/vector_slicer_example.js"
+ bin/eclairjs.sh examples/ml/tokenizer_example.js"
  */
 
 function run(sc) {
@@ -54,7 +54,8 @@ function run(sc) {
 print(JSON.stringify(wordList))
     for (var i=0;i<wordList.length;i++) {
       var words = wordList[i].getList(0);
-      for (var inx=0;inx<words.size();inx++) output+=words.get(i) + " ";
+        words = words.concat(['cccc', 'yyy']);
+      for (var inx=0;inx<words.length;inx++) output+=words[inx] + " ";
       output+="\n";
     }
 

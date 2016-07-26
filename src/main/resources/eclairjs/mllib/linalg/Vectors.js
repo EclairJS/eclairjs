@@ -42,9 +42,9 @@
     //
 
     /**
+     * Creates a dense vector from a double array.
      * @function
      * @name module:eclairjs/mllib/linalg.Vectors#dense
-     * Creates a dense vector from a double array.
      * @param {...float} values Array of floats or float1, ....., floatN
      * @returns {module:eclairjs/mllib/linalg.Vector}
      */
@@ -59,10 +59,9 @@
 
 
     /**
+     * Creates a sparse vector providing its index array and value array.
      * @function
      * @name module:eclairjs/mllib/linalg.Vectors#sparse
-     * Creates a sparse vector providing its index array and value array.
-     *
      * @param {integer} size  vector size.
      * @param {integer[]} indices  index array, must be strictly increasing.
      * @param {float[]} values  value array, must have the same length as indices.
@@ -74,10 +73,9 @@
     //};
 
     /**
+     * Creates a vector of all zeros.
      * @function
      * @name module:eclairjs/mllib/linalg.Vectors#zeros
-     * Creates a vector of all zeros.
-     *
      * @param {integer} size  vector size
      * @returns {module:eclairjs/mllib/linalg.Vector}  a zero vector
      */
@@ -88,9 +86,9 @@
 
 
     /**
+     *  Parses a string resulted from [[Vector.toString]] into a {@link module:eclairjs/mllib/linalg.Vector}.
      * @function
      * @name module:eclairjs/mllib/linalg.Vectors#parse
-     * Parses a string resulted from [[Vector.toString]] into a {@link Vector}.
      * @param {string} s
      * @returns {module:eclairjs/mllib/linalg.Vector}
      */
@@ -101,9 +99,9 @@
 
 
     /**
+     * Parses the JSON representation of a vector into a {@link module:eclairjs/mllib/linalg.Vector}.
      * @function
      * @name module:eclairjs/mllib/linalg.Vectors#fromJson
-     * Parses the JSON representation of a vector into a {@link Vector}.
      * @param {string} json
      * @returns {module:eclairjs/mllib/linalg.Vector}
      */
@@ -114,9 +112,9 @@
 
 
     /**
+     * Returns the p-norm of this vector.
      * @function
      * @name module:eclairjs/mllib/linalg.Vectors#norm
-     * Returns the p-norm of this vector.
      * @param {module:eclairjs/mllib/linalg.Vector} vector  input vector.
      * @param {float} p  norm.
      * @returns {float}  norm in L^p^ space.
@@ -128,9 +126,9 @@
 
 
     /**
+     * Returns the squared distance between two Vectors.
      * @function
      * @name module:eclairjs/mllib/linalg.Vectors#sqdist
-     * Returns the squared distance between two Vectors.
      * @param {module:eclairjs/mllib/linalg.Vector} v1  first Vector.
      * @param {module:eclairjs/mllib/linalg.Vector} v2  second Vector.
      * @returns {float}  squared distance between two Vectors.

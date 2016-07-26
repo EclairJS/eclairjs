@@ -1889,4 +1889,17 @@ public class SqlTest {
         assertEquals("should be same", expected, ret.toString());
     }
 
+    @Test
+    public void dataFrameCreateTest() throws Exception {
+
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable) engine).invokeFunction("dataFrameCreateTest");
+        String expected =  "[{\"values\":[1,0.10000000149011612,1,\"1.0\",true],\"schema\":{\"fields\":[{\"name\":\"Integer\",\"dataType\":\"integer\",\"nullable\":true},{\"name\":\"float\",\"dataType\":\"float\",\"nullable\":true},{\"name\":\"double\",\"dataType\":\"double\",\"nullable\":true},{\"name\":\"string\",\"dataType\":\"string\",\"nullable\":true},{\"name\":\"boolean\",\"dataType\":\"boolean\",\"nullable\":true}]}}]";
+        assertEquals("should be same", expected, ret.toString());
+    }
+
+
+
 }

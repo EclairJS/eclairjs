@@ -10762,7 +10762,7 @@ two additional passes.
 
     
 
-    <h4 class="name" id="saveAsObjectFile"><span class="type-signature"></span>saveAsObjectFile<span class="signature">(path)</span><span class="type-signature"> &rarr; {void}</span></h4>
+    <h4 class="name" id="saveAsObjectFile"><span class="type-signature"></span>saveAsObjectFile<span class="signature">(path, overwrite<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {void}</span></h4>
 
     
 
@@ -10793,6 +10793,8 @@ two additional passes.
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -10818,10 +10820,51 @@ two additional passes.
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
             <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>overwrite</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">defaults to false, if true overwrites file if it exists</td>
         </tr>
 
     
@@ -10916,7 +10959,7 @@ two additional passes.
 
     
 
-    <h4 class="name" id="saveAsTextFile"><span class="type-signature"></span>saveAsTextFile<span class="signature">(path)</span><span class="type-signature"> &rarr; {void}</span></h4>
+    <h4 class="name" id="saveAsTextFile"><span class="type-signature"></span>saveAsTextFile<span class="signature">(path, overwrite<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {void}</span></h4>
 
     
 
@@ -10947,6 +10990,8 @@ two additional passes.
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -10972,10 +11017,51 @@ two additional passes.
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
             <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>overwrite</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">defaults to false, if true overwrites file if it exists</td>
         </tr>
 
     
@@ -11021,7 +11107,7 @@ two additional passes.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line895">line 895</a>
+        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line896">line 896</a>
     </li></ul></dd>
     
 
@@ -11126,7 +11212,7 @@ two additional passes.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line919">line 919</a>
+        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line921">line 921</a>
     </li></ul></dd>
     
 
@@ -11385,7 +11471,7 @@ two additional passes.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line930">line 930</a>
+        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line932">line 932</a>
     </li></ul></dd>
     
 
@@ -11687,7 +11773,7 @@ order of the keys).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line946">line 946</a>
+        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line948">line 948</a>
     </li></ul></dd>
     
 
@@ -12226,7 +12312,7 @@ order of the keys).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line973">line 973</a>
+        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line975">line 975</a>
     </li></ul></dd>
     
 
@@ -12457,7 +12543,7 @@ implicit Ordering[T] and maintains the ordering. This does the opposite of top.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line989">line 989</a>
+        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line991">line 991</a>
     </li></ul></dd>
     
 
@@ -12696,7 +12782,7 @@ implicit Ordering[T] and maintains the ordering. This does the opposite of top.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line1023">line 1023</a>
+        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line1025">line 1025</a>
     </li></ul></dd>
     
 
@@ -12805,7 +12891,7 @@ implicit Ordering[T] and maintains the ordering. This does the opposite of top.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line1044">line 1044</a>
+        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line1046">line 1046</a>
     </li></ul></dd>
     
 
@@ -12910,7 +12996,7 @@ implicit Ordering[T] and maintains the ordering. This does the opposite of top.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line1061">line 1061</a>
+        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line1063">line 1063</a>
     </li></ul></dd>
     
 
@@ -13072,7 +13158,7 @@ implicit Ordering[T]. This does the opposite of takeOrdered. For example:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line1071">line 1071</a>
+        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line1073">line 1073</a>
     </li></ul></dd>
     
 
@@ -13177,7 +13263,7 @@ implicit Ordering[T]. This does the opposite of takeOrdered. For example:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line1097">line 1097</a>
+        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line1099">line 1099</a>
     </li></ul></dd>
     
 
@@ -13464,7 +13550,7 @@ implicit Ordering[T]. This does the opposite of takeOrdered. For example:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line1106">line 1106</a>
+        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line1108">line 1108</a>
     </li></ul></dd>
     
 
@@ -13699,7 +13785,7 @@ implicit Ordering[T]. This does the opposite of takeOrdered. For example:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line1124">line 1124</a>
+        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line1126">line 1126</a>
     </li></ul></dd>
     
 
@@ -14015,7 +14101,7 @@ times (use `.distinct()` to eliminate them).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line1154">line 1154</a>
+        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line1156">line 1156</a>
     </li></ul></dd>
     
 
@@ -14321,7 +14407,7 @@ a map on the other).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line1166">line 1166</a>
+        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line1168">line 1168</a>
     </li></ul></dd>
     
 
@@ -14552,7 +14638,7 @@ of elements in each partition.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line1182">line 1182</a>
+        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line1184">line 1184</a>
     </li></ul></dd>
     
 
@@ -14667,7 +14753,7 @@ the same index assignments, you should sort the RDD with sortByKey() or save it 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line1231">line 1231</a>
+        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line1233">line 1233</a>
     </li></ul></dd>
     
 
@@ -14779,7 +14865,7 @@ the same index assignments, you should sort the RDD with sortByKey() or save it 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line1252">line 1252</a>
+        <a href="eclairjs_RDD.js.html">eclairjs/RDD.js</a>, <a href="eclairjs_RDD.js.html#line1254">line 1254</a>
     </li></ul></dd>
     
 
@@ -14845,7 +14931,7 @@ the same index assignments, you should sort the RDD with sortByKey() or save it 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Wed Jul 13 2016 12:19:18 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Fri Jul 22 2016 11:08:59 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>
