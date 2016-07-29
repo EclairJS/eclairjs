@@ -11,7 +11,7 @@ tests({
 
     version : function() {
         var ver= sparkContext.version();
-        assertEquals("failure - strings are not equal", "EclairJS-nashorn 0.6-SNAPSHOT Spark 1.6.0", ver);
+        assertEquals("failure - strings are not equal", "EclairJS-nashorn 0.6-SNAPSHOT Spark 2.0.0", ver);
 
     },
 
@@ -72,7 +72,7 @@ tests({
         var context = {"sc": rdd.context()}
         var ret = JSON.stringify(context);
         print("ret " + ret)
-        var expectedClass = "{\"sc\":{\"version\":\"EclairJS-nashorn 0.6-SNAPSHOT Spark 1.6.0\",\"appName\":\"testapp\",\"master\":\"local[*]\"}}";
+        var expectedClass = "{\"sc\":{\"version\":\"EclairJS-nashorn 0.6-SNAPSHOT Spark 2.0.0\",\"appName\":\"testapp\",\"master\":\"local[*]\"}}";
         assertEquals("failure - not an instance of SparkContext", expectedClass, ret);
     },
 
@@ -273,11 +273,6 @@ tests({
         assertEquals("failure take - arrays are not equal", expected, ret);
     },
 
-    testToArray : function() {
-        var ret = JSON.stringify(rdd.toArray());
-        var expected = "[1,2,3]";
-        assertEquals("failure toArray - arrays are not equal", expected, ret);
-    },
 
     testToDebugString : function() {
         var ret = rdd.toDebugString();
