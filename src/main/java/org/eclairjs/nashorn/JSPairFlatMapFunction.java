@@ -8,6 +8,7 @@ import scala.Tuple2;
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class JSPairFlatMapFunction extends JSBaseFunction implements PairFlatMapFunction {
@@ -17,7 +18,7 @@ public class JSPairFlatMapFunction extends JSBaseFunction implements PairFlatMap
     }
 
     @Override
-    public Iterable<Tuple2> call(Object o) throws Exception {
+    public Iterator<Tuple2> call(Object o) throws Exception {
         Object params[] = {o};
 
 
@@ -25,6 +26,6 @@ public class JSPairFlatMapFunction extends JSBaseFunction implements PairFlatMap
 
         List<Tuple2> l = (List<Tuple2>)ret;
 
-        return l;
+        return l.iterator();
     }
 }

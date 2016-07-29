@@ -28,7 +28,6 @@ import org.apache.spark.mllib.recommendation.ALS;
 import org.apache.spark.mllib.recommendation.Rating;
 import org.apache.spark.mllib.recommendation.MatrixFactorizationModel;
 import org.apache.spark.ml.recommendation.ALSModel;
-import org.apache.spark.sql.DataFrame;
 import org.apache.spark.sql.SQLContext;
 import org.apache.spark.sql.types.DataTypes;
 import scala.Tuple2;

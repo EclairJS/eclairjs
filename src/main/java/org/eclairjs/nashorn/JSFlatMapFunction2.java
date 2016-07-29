@@ -25,6 +25,7 @@ import jdk.nashorn.api.scripting.ScriptObjectMirror;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -35,7 +36,7 @@ public class JSFlatMapFunction2  extends JSBaseFunction implements FlatMapFuncti
 
     @SuppressWarnings("unchecked")
 	@Override
-    public Iterable call(Object o, Object o2) throws Exception {
+    public Iterator call(Object o, Object o2) throws Exception {
         Object params[] = {o, o2};
 
         Object ret = callScript(params);
@@ -47,24 +48,24 @@ public class JSFlatMapFunction2  extends JSBaseFunction implements FlatMapFuncti
                 for (int i = 0; i < z.length; i++) {
                     x.add(z[i]);
                 }
-                ret = x;
+                ret = x.iterator();
             } else if (type.equals("int[]")) {
                 int [] z = (int []) ret;
                 ArrayList x = new ArrayList();
                 for (int i = 0; i < z.length; i++) {
                     x.add(z[i]);
                 }
-                ret = x;
+                ret = x.iterator();
             } else {
                 Object [] z = (Object []) ret;
                 ArrayList x = new ArrayList();
                 for (int i = 0; i < z.length; i++) {
                     x.add(z[i]);
                 }
-                ret = x;
+                ret = x.iterator();
             }
 
         }
-        return (Iterable)ret;
+        return (Iterator)ret;
     }
 }

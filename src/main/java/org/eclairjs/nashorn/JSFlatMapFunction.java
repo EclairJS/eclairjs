@@ -23,10 +23,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.spark.api.java.function.FlatMapFunction;
 import jdk.nashorn.api.scripting.ScriptObjectMirror;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 
 public class JSFlatMapFunction  extends JSBaseFunction implements FlatMapFunction {
@@ -36,7 +33,7 @@ public class JSFlatMapFunction  extends JSBaseFunction implements FlatMapFunctio
 
     @SuppressWarnings("unchecked")
 	@Override
-    public Iterable call(Object o) throws Exception {
+    public Iterator call(Object o) throws Exception {
         Object params[] = { o};
 
         Object ret = callScript(params);
@@ -48,24 +45,24 @@ public class JSFlatMapFunction  extends JSBaseFunction implements FlatMapFunctio
                 for (int i = 0; i < z.length; i++) {
                     x.add(z[i]);
                 }
-                ret = x;
+                ret = x.iterator();
             } else if (type.equals("int[]")) {
                 int [] z = (int []) ret;
                 ArrayList x = new ArrayList();
                 for (int i = 0; i < z.length; i++) {
                     x.add(z[i]);
                 }
-                ret = x;
+                ret = x.iterator();
             } else {
                 Object [] z = (Object []) ret;
                 ArrayList x = new ArrayList();
                 for (int i = 0; i < z.length; i++) {
                     x.add(z[i]);
                 }
-                ret = x;
+                ret = x.iterator();
             }
 
         }
-        return (Iterable)ret;
+        return (Iterator)ret;
     }
 }

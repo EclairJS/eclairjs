@@ -659,16 +659,16 @@ public class RDD extends WrappedClass {
             return Utils.createJavaScriptObject(result);
         }
     };
-
-    static WrappedFunction  F_toArray = new WrappedFunction () {
-        @Override
-        public Object call(Object thiz, Object... args) {
-            JavaRDDLike sparkJavaRDD = (JavaRDDLike) ((RDD)thiz).getJavaObject();
-            Object result = sparkJavaRDD.toArray();
-
-            return Utils.createJavaScriptObject(result);
-        }
-    };
+//
+//    static WrappedFunction  F_toArray = new WrappedFunction () {
+//        @Override
+//        public Object call(Object thiz, Object... args) {
+//            JavaRDDLike sparkJavaRDD = (JavaRDDLike) ((RDD)thiz).getJavaObject();
+//            Object result = sparkJavaRDD.toArray();
+//
+//            return Utils.createJavaScriptObject(result);
+//        }
+//    };
 
     static WrappedFunction  F_toDebugString= new WrappedFunction () {
         @Override
@@ -896,7 +896,7 @@ public class RDD extends WrappedClass {
             case "take": return F_take;
             case "takeOrdered": return F_takeOrdered;
             case "takeSample": return F_takeSample;
-            case "toArray": return F_toArray;
+//            case "toArray": return F_toArray;
             case "toDebugString": return F_toDebugString;
             case "top": return F_top;
             case "treeAggregate": return F_treeAggregate;
