@@ -131,8 +131,8 @@ if (typeof sparkContext === 'undefined') {
     var sc = new SparkContext(conf);
     var result = run(sc, dataSet);
     for (var i = 0; i < result.length; i++) {
-        var key = result[i][0];
-        var stats = result[i][1];
+        var key = result[i]._1();
+        var stats = result[i]._2();
         print("user=" + key.user + "\tbytes=" + stats.bytes + "\tn=" + stats.count);
     }
 

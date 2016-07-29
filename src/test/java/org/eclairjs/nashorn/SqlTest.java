@@ -1900,6 +1900,16 @@ public class SqlTest {
         assertEquals("should be same", expected, ret.toString());
     }
 
+    @Test
+    public void dataFrameGetListTest() throws Exception {
+
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        Object ret = ((Invocable) engine).invokeFunction("dataFrameGetListTest");
+        String expected = "{\"0\":{\"0\":\"foo\",\"1\":\"a\",\"2\":\"b\",\"3\":\"c\"}}";
+        assertEquals("should be same", expected, ret.toString());
+    }
 
 
 }
