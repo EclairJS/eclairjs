@@ -45,6 +45,13 @@
         return p;
     };
 
+    /**
+     * @returns {string}
+     */
+    LinearRegressionModel.prototype.toString = function () {
+        return this.getJavaObject().toString();
+    };
+
     module.exports = LinearRegressionModel;
 
 })();
