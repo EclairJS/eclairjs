@@ -28,17 +28,17 @@
      * @memberof module:eclairjs/sql
      * @classdec A set of methods for aggregations on a DataFrame, created by DataFrame.groupBy.
      */
-    var GroupedData = function (jvmGroupedData) {
+    var RelationalGroupedDataset = function (jvmRelationalGroupedDataset) {
 
-        JavaWrapper.call(this, jvmGroupedData);
+        JavaWrapper.call(this, jvmRelationalGroupedDataset);
 
         logger.debug('constructor');
     }
 
-    GroupedData.prototype = Object.create(JavaWrapper.prototype);
+    RelationalGroupedDataset.prototype = Object.create(JavaWrapper.prototype);
 
-//Set the "constructor" property to refer to GroupedData
-    GroupedData.prototype.constructor = GroupedData;
+//Set the "constructor" property to refer to RelationalGroupedDataset
+    RelationalGroupedDataset.prototype.constructor = RelationalGroupedDataset;
 
     /**
      * Compute aggregates by specifying a series of aggregate columns. Note that this function by default retains the grouping columns in its output.
@@ -49,9 +49,9 @@
      * df.groupBy("department").agg(max("age"), sum("expense"));
      * @since EclairJS 0.1 Spark  1.3.0
      * @param {module:eclairjs/sql.Column | string} columnExpr,...columnExpr or columnName, ...columnName
-     * @returns {module:eclairjs/sql.DataFrame}
+     * @returns module:eclairjs/sql.Dataset}
      */
-    GroupedData.prototype.agg = function () {
+    RelationalGroupedDataset.prototype.agg = function () {
         /*
          * First convert any strings to Columns
          */
@@ -73,20 +73,20 @@
     /**
      * Compute the avg value for each numeric columns for each group.
      * @param {string[]} cols
-     * @returns {module:eclairjs/sql.DataFrame}
+     * @returns module:eclairjs/sql.Dataset}
      */
-    GroupedData.prototype.avg = function (cols) {
+    RelationalGroupedDataset.prototype.avg = function (cols) {
         return Utils.javaToJs(this.getJavaObject().avg(cols));
     };
 
-    GroupedData.prototype.apply = function (cols) {
+    RelationalGroupedDataset.prototype.apply = function (cols) {
         throw "not implemented by ElairJS";
     };
     /**
      * Count the number of rows for each group.
-     * @returns {module:eclairjs/sql.DataFrame}
+     * @returns module:eclairjs/sql.Dataset}
      */
-    GroupedData.prototype.count = function () {
+    RelationalGroupedDataset.prototype.count = function () {
         logger.debug("count");
         var jdf = this.getJavaObject().count();
         logger.debug("count1");
@@ -97,33 +97,33 @@
     /**
      * Compute the max value for each numeric columns for each group.
      * @param {string[]} cols
-     * @returns {module:eclairjs/sql.DataFrame}
+     * @returns module:eclairjs/sql.Dataset}
      */
-    GroupedData.prototype.max = function (cols) {
+    RelationalGroupedDataset.prototype.max = function (cols) {
         return Utils.javaToJs(this.getJavaObject().max(cols));
     };
     /**
      * Compute the mean value for each numeric columns for each group.
      * @param {string[]} cols
-     * @returns {module:eclairjs/sql.DataFrame}
+     * @returns module:eclairjs/sql.Dataset}
      */
-    GroupedData.prototype.mean = function (cols) {
+    RelationalGroupedDataset.prototype.mean = function (cols) {
         return Utils.javaToJs(this.getJavaObject().mean(cols));
     };
     /**
      * Compute the min value for each numeric columns for each group.
      * @param {string[]} cols
-     * @returns {module:eclairjs/sql.DataFrame}
+     * @returns module:eclairjs/sql.Dataset}
      */
-    GroupedData.prototype.min = function (cols) {
+    RelationalGroupedDataset.prototype.min = function (cols) {
         return Utils.javaToJs(this.getJavaObject().min(cols));
     };
     /**
      * Compute the sum value for each numeric columns for each group.
      * @param {string[]} cols
-     * @returns {module:eclairjs/sql.DataFrame}
+     * @returns module:eclairjs/sql.Dataset}
      */
-    GroupedData.prototype.sum = function (cols) {
+    RelationalGroupedDataset.prototype.sum = function (cols) {
         return Utils.javaToJs(this.getJavaObject().sum(cols));
     };
 
@@ -145,9 +145,9 @@
      * @param {string} pivotColumn  Name of the column to pivot.
      * @param {module:eclairjs.List} [values]  List of values that will be translated to columns in the output DataFrame.
      * @since EclairJS 0.1 Spark  1.6.0
-     * @returns {module:eclairjs/sql.GroupedData}
+     * @returns {module:eclairjs/sql.RelationalGroupedDataset}
      */
-    GroupedData.prototype.pivot = function (pivotColumn, values) {
+    RelationalGroupedDataset.prototype.pivot = function (pivotColumn, values) {
         var javaObject;
         if (values) {
             javaObject = this.getJavaObject().pivot(pivotColumn, Utils.unwrapObject(values));
@@ -155,10 +155,10 @@
             javaObject = this.getJavaObject().pivot(pivotColumn);
         }
 
-        return new GroupedData(javaObject);
+        return new RelationalGroupedDataset(javaObject);
     };
 
-    module.exports = GroupedData;
+    module.exports = RelationalGroupedDataset;
 
 })();
 

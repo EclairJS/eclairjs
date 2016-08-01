@@ -96,7 +96,7 @@ public class SqlTest {
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable) engine).invokeFunction("dataframeAsTest", file);
 
-        assertEquals("should be same", "[name: string, age: int, expense: int, DOB: timestamp, income: double, married: boolean, networth: double]", ret.toString());
+        assertEquals("should be same", "[name: string, age: int ... 5 more fields]", ret.toString());
     }
 
     @Test
@@ -173,7 +173,7 @@ public class SqlTest {
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable) engine).invokeFunction("dataframeCubeTest", file);
 
-        assertEquals("should be same", "[name: string, expense: int, AVG(age): double]".toLowerCase(), ret.toString().toLowerCase());
+        assertEquals("should be same", "[name: string, expense: int ... 1 more field]".toLowerCase(), ret.toString().toLowerCase());
     }
 
     @Test
@@ -559,9 +559,32 @@ public class SqlTest {
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
+        String schema = "\"schema\":{" +
+                "\"fields\":[" +
+                        "{\"name\":\"name\",\"dataType\":\"string\",\"nullable\":true}," +
+                        "{\"name\":\"age\",\"dataType\":\"integer\",\"nullable\":true}," +
+                        "{\"name\":\"name\",\"dataType\":\"string\",\"nullable\":true}," +
+                        "{\"name\":\"DOB\",\"dataType\":\"timestamp\",\"nullable\":true}" +
+                    "]" +
+                "}";
+
+                String expected = "[" +
+                    "{" +
+                        "\"values\":[\"Justin\",19,\"Justin\",\"1992-03-07 00:00:00.0\"]," +
+                            schema +
+                     "}," +
+                    "{" +
+                        "\"values\":[\"Michael\",29,\"Michael\",\"1996-03-07 00:00:00.0\"]," +
+                                schema +
+                    "}," +
+                    "{" +
+                        "\"values\":[\"Andy\",30,\"Andy\",\"1998-12-07 00:00:00.0\"]," +
+                                schema +
+                    "}" +
+                "]";
         Object ret = ((Invocable) engine).invokeFunction("dataframeJoinColumnExprTest", file);
 
-        assertEquals("should be same", "[Andy,30,Andy,1998-12-07 00:00:00.0]", ret);
+        assertEquals("should be same", expected, ret);
     }
 
     @Test
@@ -575,8 +598,8 @@ public class SqlTest {
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable) engine).invokeFunction("dataframeJoinColumnExprTest", file, "outer");
-
-        assertEquals("should be same", "[Andy,30,Andy,1998-12-07 00:00:00.0]", ret);
+        String expected = "[{\"values\":[\"Justin\",19,\"Justin\",\"1992-03-07 00:00:00.0\"],\"schema\":{\"fields\":[{\"name\":\"name\",\"dataType\":\"string\",\"nullable\":true},{\"name\":\"age\",\"dataType\":\"integer\",\"nullable\":true},{\"name\":\"name\",\"dataType\":\"string\",\"nullable\":true},{\"name\":\"DOB\",\"dataType\":\"timestamp\",\"nullable\":true}]}},{\"values\":[\"Michael\",29,\"Michael\",\"1996-03-07 00:00:00.0\"],\"schema\":{\"fields\":[{\"name\":\"name\",\"dataType\":\"string\",\"nullable\":true},{\"name\":\"age\",\"dataType\":\"integer\",\"nullable\":true},{\"name\":\"name\",\"dataType\":\"string\",\"nullable\":true},{\"name\":\"DOB\",\"dataType\":\"timestamp\",\"nullable\":true}]}},{\"values\":[\"Andy\",30,\"Andy\",\"1998-12-07 00:00:00.0\"],\"schema\":{\"fields\":[{\"name\":\"name\",\"dataType\":\"string\",\"nullable\":true},{\"name\":\"age\",\"dataType\":\"integer\",\"nullable\":true},{\"name\":\"name\",\"dataType\":\"string\",\"nullable\":true},{\"name\":\"DOB\",\"dataType\":\"timestamp\",\"nullable\":true}]}}]";
+        assertEquals("should be same", expected, ret);
     }
 
     @Test
@@ -742,8 +765,14 @@ public class SqlTest {
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable) engine).invokeFunction("dataframeRollupTest", file);
+        String schema =  "\"schema\":{\"fields\":[{\"name\":\"age\",\"dataType\":\"integer\",\"nullable\":true},{\"name\":\"networth\",\"dataType\":\"double\",\"nullable\":true},{\"name\":\"count\",\"dataType\":\"long\",\"nullable\":false}]}";
 
-        String expected = "[30,,1],[29,300000000.11,1],[29,,1],[30,500000000.11,1],[,,3],[19,100000,1],[19,,1]";
+        String expected = "[" +
+            "{" +
+                "\"values\":[null,null,3]," +
+                schema  +
+            "}" +
+        "]";
 
         assertEquals("should be same", expected, ret.toString());
     }
@@ -941,7 +970,7 @@ public class SqlTest {
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable) engine).invokeFunction("dataframeWithColumnRenamedTest", file);
 
-        String expected = "[name: string, renamedAge: int, expense: int, DOB: timestamp, income: double, married: boolean, networth: double]";
+        String expected = "[name: string, renamedAge: int ... 5 more fields]";
 
         assertEquals("should be same", expected, ret.toString());
     }
@@ -961,7 +990,7 @@ public class SqlTest {
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable) engine).invokeFunction("asCloumn", file);
-        assertEquals("should be same", "age AS ArrayBuffer(newAge, ventage)", ret);
+        assertEquals("should be same", "multialias(age)", ret);
     }
 
     @Test
@@ -1003,7 +1032,7 @@ public class SqlTest {
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable) engine).invokeFunction("containsCloumn", file);
-        assertEquals("should be same", "Contains(name, dogs)", ret);
+        assertEquals("should be same", "contains(name, dogs)", ret);
     }
 
     @Test
@@ -1156,7 +1185,7 @@ public class SqlTest {
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable) engine).invokeFunction("binaryTypeTest");
-        String expected = "[\"key: 1 value: 101010\",\"key: 2 value: 101010\",\"key: 3 value: 101010\"]";
+        String expected = "[\"key: 1 value: 16,5,6\",\"key: 2 value: 12,14,9\"]";
         assertEquals("should be same", expected, ret);
     }
     
@@ -1222,7 +1251,7 @@ public class SqlTest {
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable) engine).invokeFunction("functionsArray", file);
-        assertEquals("should be same", "array(age,expense)", ret);
+        assertEquals("should be same", "array(age, expense)", ret);
     }
 
     @Test
@@ -1237,7 +1266,7 @@ public class SqlTest {
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable) engine).invokeFunction("functionsCoalesce", file);
-        assertEquals("should be same", "coalesce(name,age)", ret);
+        assertEquals("should be same", "coalesce(name, age)", ret);
     }
 
     @Test
@@ -1252,7 +1281,7 @@ public class SqlTest {
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable) engine).invokeFunction("functionsStruct", file);
-        assertEquals("should be same", "struct(name,age)", ret);
+        assertEquals("should be same", "struct(name, age)", ret);
     }
 
     @Test
@@ -1267,7 +1296,7 @@ public class SqlTest {
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable) engine).invokeFunction("functionsGreatest", file);
-        assertEquals("should be same", "greatest(name,age)", ret);
+        assertEquals("should be same", "greatest(name, age)", ret);
     }
 
     @Test
@@ -1279,10 +1308,30 @@ public class SqlTest {
     	 */
         ScriptEngine engine = TestUtils.getEngine();
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
+        String schema = "\"schema\":{" +
+                    "\"fields\":[" +
+                        "{\"name\":\"length(name)\",\"dataType\":\"integer\",\"nullable\":true}," +
+                        "{\"name\":\"count\",\"dataType\":\"long\",\"nullable\":false}" +
+                    "]" +
+                "}";
 
+        String expected = "[" +
+                "{" +
+                    "\"values\":[6,1]," +
+                    schema +
+                 "}," +
+                "{" +
+                    "\"values\":[4,1]," +
+                    schema +
+                "}," +
+                "{" +
+                    "\"values\":[7,1]," +
+                     schema +
+                "}" +
+            "]";
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable) engine).invokeFunction("functionsExpr", file);
-        assertEquals("should be same", "[4,1],[6,1],[7,1]", ret);
+        assertEquals("should be same", expected, ret);
     }
 
     @Test
@@ -1312,7 +1361,7 @@ public class SqlTest {
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable) engine).invokeFunction("functionsConcat", file);
-        assertEquals("should be same", "concat(name,age)", ret);
+        assertEquals("should be same", "concat(name, age)", ret);
     }
 
     @Test
@@ -1327,7 +1376,7 @@ public class SqlTest {
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable) engine).invokeFunction("functionsFrom_unixtime", file);
-        assertEquals("should be same", "fromunixtime(DOB,yyyy-MM-dd)", ret);
+        assertEquals("should be same", "from_unixtime(DOB, yyyy-MM-dd)", ret);
     }
 
     @Test
@@ -1342,7 +1391,7 @@ public class SqlTest {
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable) engine).invokeFunction("functionsUnix_timestamp", file);
-        assertEquals("should be same", "unixtimestamp(currenttimestamp(),yyyy-MM-dd HH:mm:ss)", ret);
+        assertEquals("should be same", "unix_timestamp(current_timestamp(), yyyy-MM-dd HH:mm:ss)", ret);
     }
 
     @Test
@@ -1357,7 +1406,7 @@ public class SqlTest {
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable) engine).invokeFunction("functionsSort_array", file);
-        assertEquals("should be same", "sort_array(DOB,true)", ret);
+        assertEquals("should be same", "sort_array(DOB, true)", ret);
     }
     /*
      * Row tests
@@ -1436,10 +1485,32 @@ public class SqlTest {
     	 */
         ScriptEngine engine = TestUtils.getEngine();
         String file = TestUtils.resourceToFile("/data/sql/people.txt");
+        String schema = "\"schema\":" +
+                "{\"fields\":" +
+                    "[" +
+                        "{\"name\":\"name\",\"dataType\":\"string\",\"nullable\":true}," +
+                        "{\"name\":\"max(age)\",\"dataType\":\"integer\",\"nullable\":true}," +
+                        "{\"name\":\"sum(expense)\",\"dataType\":\"long\",\"nullable\":true}" +
+                    "]" +
+                "}";
 
+        String expected = "[" +
+            "{" +
+                "\"values\":[\"Andy\",30,2]," +
+                    schema  +
+             "}," +
+            "{" +
+                "\"values\":[\"Justin\",19,3]," +
+                    schema  +
+            "}," +
+            "{" +
+                "\"values\":[\"Michael\",29,1]," +
+                    schema  +
+            "}" +
+        "]";
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable) engine).invokeFunction("groupdedDataAgg", file);
-        assertEquals("should be same", "[Andy,30,2],[Michael,29,1],[Justin,19,3]", ret);
+        assertEquals("should be same", expected, ret);
     }
     
     /*
@@ -1713,7 +1784,7 @@ public class SqlTest {
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable) engine).invokeFunction("sqlContextGetAllConfTest");
 
-        String expected = "{\"prop2\":\"value2\",\"prop1\":\"value1\"}";
+        String expected = "local[*]";
         assertEquals("should be same", expected, ret.toString());
     }
 
@@ -1765,9 +1836,9 @@ public class SqlTest {
         String schema = "\"schema\":{"
                 + "\"fields\":["
                 + "{\"name\":\"key_value\",\"dataType\":\"string\",\"nullable\":true},"
-                + "{\"name\":\"1\",\"dataType\":\"long\",\"nullable\":false},"
-                + "{\"name\":\"2\",\"dataType\":\"long\",\"nullable\":false},"
-                + "{\"name\":\"3\",\"dataType\":\"long\",\"nullable\":false}"
+                + "{\"name\":\"1\",\"dataType\":\"long\",\"nullable\":true},"
+                + "{\"name\":\"2\",\"dataType\":\"long\",\"nullable\":true},"
+                + "{\"name\":\"3\",\"dataType\":\"long\",\"nullable\":true}"
                 + "]"
                 + "}";
         String expected = "["

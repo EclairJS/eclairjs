@@ -182,6 +182,8 @@
                 return x.intValue();
             } else if ((x instanceof java.lang.Double) &&  (dt.getJavaObject() instanceof org.apache.spark.sql.types.FloatType)) {
                 return x.floatValue();
+            } else if (dt.getJavaObject() instanceof org.apache.spark.sql.types.BinaryType) {
+                return Java.to(x ,'byte[]');//).asInstanceOf[Array[Byte]]
             } else if (dt.getJavaObject() instanceof org.apache.spark.sql.types.ArrayType) {
                 var elmDt = dt.elementType();
                 var elements =[];

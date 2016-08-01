@@ -310,20 +310,8 @@
 	 * by the evaluated values of the arguments.
 	 * @example
 	 * var col = peopleDataFrame.col("age");
-	 * var testCol = col.in([20, 19]);
+	 * var testCol = col.isin([20, 19]);
 	 * var results = peopleDataFrame.select(testCol);
-	 *
-	 * @since EclairJS 0.1 Spark  1.3.0
-	 * @param {array}
-	 * @returns {module:eclairjs/sql.Column}
-	 */
-	Column.prototype.in = function (list) {
-		var javaObject = this.getJavaObject().in(list);
-		return new Column(javaObject);
-	};
-	/**
-	 * A boolean expression that is evaluated to true if the value of this expression is contained
-	 * by the evaluated values of the arguments.
 	 *
 	 * @since EclairJS 0.1 Spark  1.3.0
 	 * @param {array}

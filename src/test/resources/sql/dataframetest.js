@@ -31,9 +31,12 @@ var SparkConf = require(EclairJS_Globals.NAMESPACE + '/SparkConf');
 var SparkContext = require(EclairJS_Globals.NAMESPACE + '/SparkContext');
 //var sql = require('sql');
 //require('sql');
+var SparkConf = new SparkConf(false).setMaster("local[*]").setAppName("dataframe");
 
-var sparkContext = new SparkContext("local[*]", "dataframe");
+var sparkContext = new SparkContext(SparkConf);
+
 var sqlContext = new SQLContext(sparkContext);
+sqlContext.setConf('spark.sql.crossJoin.enabled', 'true');
 var useDateType = false;
 
 load("https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.9.0/lodash.min.js");
@@ -380,8 +383,7 @@ var dataframeJoinColumnExprTest = function(file, joinType) {
 
 	var colExpr = df1.col("name").equalTo(df2.col("name"));
 	var joinedDf = df1.join(df2, colExpr, joinType);
-	
-	return joinedDf.head().toString();
+	return JSON.stringify(joinedDf.sort("DOB").collect());
 	
 }
 
@@ -468,7 +470,7 @@ var dataframeRollupTest = function(file, seed) {
 	var df = peopleDataFrame.repartition(1);
 	var results = df.rollup("age", "networth").count();
 	
-    return results.take(10).toString();
+    return JSON.stringify(results.sort("age").take(1));
 }
 
 var dataframeSchemaTest = function(file) {
@@ -625,7 +627,7 @@ var inCloumn = function(file) {
 
 	var peopleDataFrame = buildPeopleTable(file, false);
 	var col = peopleDataFrame.col("age");
-	var testCol = col.in([20, 19]);
+	var testCol = col.isin([20, 19]);
 	var results = peopleDataFrame.select(testCol);
     return results.take(10).toString();
 }
@@ -735,11 +737,11 @@ var binaryTypeTest = function() {
 	fields.push(DataTypes.createStructField("key", DataTypes.IntegerType, true));
 	fields.push(DataTypes.createStructField("value", DataTypes.BinaryType, true));
 	var schema = DataTypes.createStructType(fields);
-	var df = sqlContext.createDataFrame([[1,"101010"], [2,"101010"], [3,"101010"]], schema);
+    var df = sqlContext.createDataFrame([[1,[16,5,6]], [2,[12, 14, 9]]], schema);
 	
 	df.show();
 	var results = df.toRDD().map(function(row) {
-		return "key: " + row.getInt(0) + " value: " + row.getString(1);
+		return "key: " + row.getInt(0) + " value: " + row.getBinary(1);
 	});
 
 	return JSON.stringify(results.take(10));
@@ -804,10 +806,10 @@ var functionsStruct = function(file) {
 
 var functionsExpr = function(file) {
 
-	var peopleDataFrame = buildPeopleTable(file, true);
+	var peopleDataFrame = buildPeopleTable(file, true).sort("name");
 	var results = peopleDataFrame.groupBy(functions.expr("length(name)")).count();
 
-    return results.take(10).toString();
+    return JSON.stringify(results.take(10));
 }
 
 var functionsAtan2 = function(file) {
@@ -920,13 +922,8 @@ var groupdedDataAgg = function(file) {
 
 	var peopleDataFrame = buildPeopleTable(file, true);
 	var group = peopleDataFrame.groupBy("name");
-	print("group " + group)
-	var maxFunc = functions.max("age");
-	print("max " + maxFunc)
-	var sumFunc = functions.sum("expense");
-	print("sum " + sumFunc)
 	var result = group.agg(functions.max("age"), functions.sum("expense"));
-	return result.take(10).toString();
+	return JSON.stringify(result.sort("name").take(10));
 }
 
 /*
@@ -1069,7 +1066,7 @@ var sqlContextGetAllConfTest = function() {
 	var map = {"prop1" : "value1", "prop2": "value2"};
 	sqlContext.setConf(map);
 	var result = sqlContext.getAllConfs();
-    return JSON.stringify(result);
+    return result["spark.master"];
 }
 
 var sqlContextRangeTest = function() {

@@ -47,7 +47,7 @@
      * If integer Returns a new {@link DataFrame} that drops rows containing less than arg1 non-null and non-NaN values.
      * If array of column names
      * @param {string | string[]} [arg2] array of column names, only valid if arg1 is string or integer value
-     * @returns {module:eclairjs/sql.DataFrame}
+     * @returns {module:eclairjs/sql.Dataset}
      */
     DataFrameNaFunctions.prototype.drop = function (arg1, arg2) {
         var jvmObject;
@@ -60,8 +60,7 @@
         } else {
             jvmObject = this.getJavaObject().drop();
         }
-        var DataFrame = require(EclairJS_Globals.NAMESPACE + '/sql/DataFrame');
-        return new DataFrame(jvmObject);
+        return Utils.javaToJs(jvmObject);
 
     };
 
@@ -79,7 +78,7 @@
      * @example
      * var hash = {"name": "missing", "age": "99"};
      * var result = naFunc.fill(hash);
-     * @returns {module:eclairjs/sql.DataFrame}
+     * @returns {module:eclairjs/sql.Dataset}
      */
     DataFrameNaFunctions.prototype.fill = function (value, cols) {
         var javaObject;
@@ -93,8 +92,7 @@
         } else {
             javaObject = this.getJavaObject().fill(v); // Map is only valid with no cols
         }
-        var DataFrame = require(EclairJS_Globals.NAMESPACE + '/sql/DataFrame');
-        return new DataFrame(javaObject);
+        return Utils.javaToJs(javaObject);
     }
 
 
@@ -117,13 +115,12 @@
      * @param {object} replacement  value replacement map, as explained above
      *
      * @since EclairJS 0.1 Spark  1.3.1
-     * @returns {module:eclairjs/sql.DataFrame}
+     * @returns {module:eclairjs/sql.Dataset}
      */
     DataFrameNaFunctions.prototype.replace = function (col, replacement) {
         var replacement_uw = Utils.createJavaHashMap(replacement);
         var javaObject = this.getJavaObject().replace(col, replacement_uw);
-        var DataFrame = require(EclairJS_Globals.NAMESPACE + '/sql/DataFrame');
-        return new DataFrame(javaObject);
+        return Utils.javaToJs(javaObject);
     }
 
     module.exports = DataFrameNaFunctions;

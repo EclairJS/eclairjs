@@ -23,13 +23,13 @@
      */
     module.exports = {
         Column: require(EclairJS_Globals.NAMESPACE + '/sql/Column'),
-        DataFrame: require(EclairJS_Globals.NAMESPACE + '/sql/DataFrame'),
+        DataFrame: require(EclairJS_Globals.NAMESPACE + '/sql/Dataset'),
         DataFrameHolder: require(EclairJS_Globals.NAMESPACE + '/sql/DataFrameHolder'),
         DataFrameReader: require(EclairJS_Globals.NAMESPACE + '/sql/DataFrameReader'),
         DataFrameStatFunctions: require(EclairJS_Globals.NAMESPACE + '/sql/DataFrameStatFunctions'),
         DataFrameWriter: require(EclairJS_Globals.NAMESPACE + '/sql/DataFrameWriter'),
         functions: require(EclairJS_Globals.NAMESPACE + '/sql/functions'),
-        GroupedData: require(EclairJS_Globals.NAMESPACE + '/sql/GroupedData'),
+        GroupedData: require(EclairJS_Globals.NAMESPACE + '/sql/RelationalGroupedDataset'),
         Row: require(EclairJS_Globals.NAMESPACE + '/sql/Row'),
         RowFactory: require(EclairJS_Globals.NAMESPACE + '/sql/RowFactory'),
         SQLContext: require(EclairJS_Globals.NAMESPACE + '/sql/SQLContext'),

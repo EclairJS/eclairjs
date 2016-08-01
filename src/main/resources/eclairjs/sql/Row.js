@@ -404,6 +404,23 @@
         return jsonObj;
     };*/
 
+    /**
+     * Returns the value at position index,  representing Array[Byte] values.
+     * @function
+     * @example
+     * var fields = [];
+     * fields.push(DataTypes.createStructField("key", DataTypes.IntegerType, true));
+     * fields.push(DataTypes.createStructField("value", DataTypes.BinaryType, true));
+     * var schema = DataTypes.createStructType(fields);
+     * var df = sqlContext.createDataFrame([[1,[16,5,6]], [2,[12, 14, 9]]], schema);
+     * df.show();
+     * var results = df.toRDD().map(function(row) {
+	 *  	return "key: " + row.getInt(0) + " value: " + row.getBinary(1);
+	 * });
+     * @name module:eclairjs/sql.Row#getBinary
+     * @param {integer} index
+     * @returns {int[]}
+     */
     module.exports = Row;
 
 })();

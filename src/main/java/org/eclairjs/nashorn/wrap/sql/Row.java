@@ -38,6 +38,14 @@ public class Row extends WrappedClass {
             return sparkRow.getString(Utils.toInt(args[0]));
         }
     };
+    static WrappedFunction F_getBinary = new WrappedFunction() {
+        @Override
+        public Object call(Object thiz, Object... args) {
+            org.apache.spark.sql.Row sparkRow = (org.apache.spark.sql.Row) ((Row) thiz).getJavaObject();
+            byte[] x = (byte[])sparkRow.get(Utils.toInt(args[0]));
+            return Utils.toJsArray(x);
+        }
+    };
     static WrappedFunction F_getBoolean = new WrappedFunction() {
         @Override
         public Object call(Object thiz, Object... args) {
@@ -204,7 +212,9 @@ public class Row extends WrappedClass {
         String jsonObj = "{\"values\":[";
         for (int i = 0; i < sparkRow.length(); i++) {
             Object x = sparkRow.get(i);
-            if (x instanceof Double) {
+            if (x == null) {
+                jsonObj += "null";
+            } else if (x instanceof Double) {
                 jsonObj += Utils.formatDouble((Double) x);
             } else if (x instanceof String || x instanceof java.sql.Timestamp || x instanceof java.sql.Date) {
                 if (x instanceof String ) {
@@ -221,10 +231,10 @@ public class Row extends WrappedClass {
                     e.printStackTrace();
                 }
             } else {
-                /*
-                we need to wrap the object so we can get the JSON string of it
-                FIXME this can be removed when all Spark objects are converted to Java Wrapped, or replaced with o.toJSON
-                 */
+            /*
+            we need to wrap the object so we can get the JSON string of it
+            FIXME this can be removed when all Spark objects are converted to Java Wrapped, or replaced with o.toJSON
+             */
                 Object wrappedObj = Utils.createJavaScriptObject(x);
                 String jsonStr = Utils.JsonStringify(wrappedObj);
                 jsonObj += jsonStr; // x;
@@ -296,6 +306,8 @@ public class Row extends WrappedClass {
                 return F_get;
             case "getString":
                 return F_getString;
+            case "getBinary":
+                return F_getBinary;
             case "getBoolean":
                 return F_getBoolean;
             case "getDate":
@@ -343,6 +355,7 @@ public class Row extends WrappedClass {
             case "get":
             case "apply":
             case "getString":
+            case "getBinary":
             case "getBoolean":
             case "getDate":
             case "getDouble":
