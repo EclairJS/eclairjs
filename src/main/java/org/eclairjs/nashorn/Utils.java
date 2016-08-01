@@ -155,6 +155,14 @@ public class Utils {
                 return new  org.eclairjs.nashorn.wrap.mllib.regression.LabeledPoint(
                         (org.apache.spark.mllib.regression.LabeledPoint)o
                 );
+            case "org.apache.spark.ml.linalg.SparseVector":
+                return new  org.eclairjs.nashorn.wrap.ml.linalg.SparseVector(
+                        (org.apache.spark.ml.linalg.SparseVector)o
+                );
+            case "org.apache.spark.ml.linalg.DenseVector":
+                return new  org.eclairjs.nashorn.wrap.ml.linalg.DenseVector(
+                        (org.apache.spark.ml.linalg.DenseVector)o
+                );
             case "org.apache.spark.sql.catalyst.expressions.GenericRowWithSchema":
             case "org.apache.spark.sql.catalyst.expressions.GenericRow":
             case "org.apache.spark.sql.Row":

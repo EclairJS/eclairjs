@@ -64,6 +64,30 @@ public class SparseVector extends Vector {
 
         return _sparseVector.toString();
     }
+    @Override
+    public String toJSON() {
+        String json = "{";
+        json += "\"size\":" +  _sparseVector.size();
+        json += ",\"indices\":[";
+        int[] indices =  _sparseVector.indices();
+        for (int i = 0; i < indices.length; i++) {
+            json += indices[i];
+            if (i < (indices.length -1)) {
+                json += ",";
+            }
+        }
+        json += "],\"values\":[";
+        double[] values =  _sparseVector.values();
+        for (int i = 0; i < values.length; i++) {
+            json += values[i];
+            if (i < (values.length -1)) {
+                json += ",";
+            }
+        }
+        json += "]}";
+        return json;
+
+    }
 
     public String getClassName() {
         return "SparseVector";

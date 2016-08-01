@@ -26,8 +26,8 @@ function run(sc) {
     var DataTypes = require("eclairjs/sql/types/DataTypes");
     var Metadata = require("eclairjs/sql/types/Metadata");
     var PolynomialExpansion = require("eclairjs/ml/feature/PolynomialExpansion");
-    var Vectors = require("eclairjs/mllib/linalg/Vectors");
-    var VectorUDT = require("eclairjs/mllib/linalg/VectorUDT");
+    var Vectors = require("eclairjs/ml/linalg/Vectors");
+    var VectorUDT = require("eclairjs/ml/linalg/VectorUDT");
 
 
     var sqlContext = new SQLContext(sc);
