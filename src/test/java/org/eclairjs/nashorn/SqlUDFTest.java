@@ -464,7 +464,7 @@ public class SqlUDFTest {
         Object ret = ((Invocable) engine).invokeFunction("callUdfTest");
 
 
-        String expected = "[{\"values\":[\"12\"],\"schema\":{\"fields\":[{\"name\":\"udfTest(col1,col2)\",\"dataType\":\"string\",\"nullable\":true}]}}]";
+        String expected = "[{\"values\":[\"12\"],\"schema\":{\"fields\":[{\"name\":\"UDF(col1, col2)\",\"dataType\":\"string\",\"nullable\":true}]}}]";
         assertEquals("should be same", expected, ret.toString());
     }
 
