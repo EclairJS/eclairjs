@@ -26,8 +26,8 @@ function run(sc) {
     var Metadata = require('eclairjs/sql/types/Metadata');
     var SQLContext = require('eclairjs/sql/SQLContext');
     var RowFactory = require('eclairjs/sql/RowFactory');
-    var Vectors = require('eclairjs/mllib/linalg/Vectors');
-    var VectorUDT = require('eclairjs/mllib/linalg/VectorUDT');
+    var Vectors = require('eclairjs/ml/linalg/Vectors');
+    var VectorUDT = require('eclairjs/ml/linalg/VectorUDT');
     var AFTSurvivalRegression = require('eclairjs/ml/regression/AFTSurvivalRegression');
 
     var sqlContext = new SQLContext(sc);
