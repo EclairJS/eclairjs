@@ -382,7 +382,7 @@
      * @returns {void}
      */
     DStream.prototype.foreachRDD = function (func, bindArgs) {
-        var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, this.context().sparkContext(), bindArgs);
+        var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSVoidFunction, this.context().sparkContext(), bindArgs);
         this.getJavaObject().foreachRDD(fn);
     };
 
