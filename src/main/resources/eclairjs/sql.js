@@ -33,7 +33,9 @@
         Row: require(EclairJS_Globals.NAMESPACE + '/sql/Row'),
         RowFactory: require(EclairJS_Globals.NAMESPACE + '/sql/RowFactory'),
         SQLContext: require(EclairJS_Globals.NAMESPACE + '/sql/SQLContext'),
-        SqlDate: require(EclairJS_Globals.NAMESPACE + '/sql/SqlDate'),
+        SQLContext: require(EclairJS_Globals.NAMESPACE + '/sql/SQLContext'),
+        SparkSession: require(EclairJS_Globals.NAMESPACE + '/sql/SparkSession'),
+        SparkSessionBuilder: require(EclairJS_Globals.NAMESPACE + '/sql/SparkSessionBuilder'),
         SqlTimestamp: require(EclairJS_Globals.NAMESPACE + '/sql/SqlTimestamp'),
         UDFRegistration: require(EclairJS_Globals.NAMESPACE + '/sql/UDFRegistration')
         //UserDefinedFunction: require(EclairJS_Globals.NAMESPACE + '/sql/UserDefinedFunction') Scala only
