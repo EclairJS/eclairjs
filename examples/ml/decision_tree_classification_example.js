@@ -85,7 +85,7 @@ function run(sc) {
     var evaluator = new MulticlassClassificationEvaluator()
         .setLabelCol("indexedLabel")
         .setPredictionCol("prediction")
-        .setMetricName("precision");
+        .setMetricName("accuracy");
     ret.accuracy = evaluator.evaluate(predictions);
     ret.treeModel = model.stages()[2];
     return ret;

@@ -84,7 +84,7 @@ function run(sc) {
     var evaluator = new MulticlassClassificationEvaluator()
         .setLabelCol("indexedLabel")
         .setPredictionCol("prediction")
-        .setMetricName("precision");
+        .setMetricName("accuracy");
     result.accuracy = 1.0 - evaluator.evaluate(predictions);
     result.gbtModel = model.stages()[2];
 

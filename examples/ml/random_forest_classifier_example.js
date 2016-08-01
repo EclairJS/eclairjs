@@ -83,7 +83,7 @@ function run(sc) {
     var evaluator = new MulticlassClassificationEvaluator()
         .setLabelCol("indexedLabel")
         .setPredictionCol("prediction")
-        .setMetricName("precision");
+        .setMetricName("accuracy");
     var accuracy = evaluator.evaluate(predictions);
 
     ret.accuracy = 1.0 - accuracy;

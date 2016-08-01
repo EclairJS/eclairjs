@@ -61,6 +61,22 @@ public class DenseVector extends Vector {
         return _denseVector.toString();
     }
 
+    @Override
+    public String toJSON() {
+        String json = "{";
+        json += "\"values\":[";
+        double[] values =  _denseVector.values();
+        for (int i = 0; i < values.length; i++) {
+            json += values[i];
+            if (i < (values.length -1)) {
+                json += ",";
+            }
+        }
+        json += "]}";
+        return json;
+
+    }
+
     public String getClassName() {
         return "DenseVector";
     }

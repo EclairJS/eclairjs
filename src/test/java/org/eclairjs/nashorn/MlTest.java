@@ -190,9 +190,9 @@ public class MlTest {
                             "]" +
                          "}";
         String expected = "[" +
-                "{\"values\":[7,{\"type\":1,\"values\":[0,0,18,1]},1,{\"type\":1,\"values\":[1]}],\"schema\":"+schema+"}," +
-                "{\"values\":[8,{\"type\":1,\"values\":[0,1,12,0]},0,{\"type\":1,\"values\":[0]}],\"schema\":"+schema+"}," +
-                "{\"values\":[9,{\"type\":1,\"values\":[1,0,15,0.1]},0,{\"type\":1,\"values\":[0.1]}],\"schema\":"+schema+"}" +
+                "{\"values\":[7,{\"values\":[0,0,18,1]},1,{\"values\":[1]}],\"schema\":"+schema+"}," +
+                "{\"values\":[8,{\"values\":[0,1,12,0]},0,{\"values\":[0]}],\"schema\":"+schema+"}," +
+                "{\"values\":[9,{\"values\":[1,0,15,0.1]},0,{\"values\":[0.1]}],\"schema\":"+schema+"}" +
                 "]";
 
         assertEquals("failure - strings are not equal", expected, ret);
@@ -226,8 +226,8 @@ public class MlTest {
                             "]" +
                         "}";
         String expected = "[" +
-                            "{\"values\":[[\"a\",\"b\",\"c\"],{\"type\":0,\"size\":3,\"indices\":[0,1,2],\"values\":[1,1,1]}],\"schema\":"+schema+"}," +
-                            "{\"values\":[[\"a\",\"b\",\"b\",\"c\",\"a\"],{\"type\":0,\"size\":3,\"indices\":[0,1,2],\"values\":[2,2,1]}],\"schema\":"+schema+"}" +
+                            "{\"values\":[[\"a\",\"b\",\"c\"],{\"size\":3,\"indices\":[0,1,2],\"values\":[1,1,1]}],\"schema\":"+schema+"}," +
+                            "{\"values\":[[\"a\",\"b\",\"b\",\"c\",\"a\"],{\"size\":3,\"indices\":[0,1,2],\"values\":[2,2,1]}],\"schema\":"+schema+"}" +
                         "]";
 
         assertEquals("failure - strings are not equal", expected, ret);
@@ -251,9 +251,9 @@ public class MlTest {
 
         String schema = "{\"fields\":[{\"name\":\"featuresDCT\",\"dataType\":\"vector\",\"nullable\":true}]}";
         String expected = "[" +
-                "{\"values\":[{\"type\":1,\"values\":[1,-1.1480502970952693,2.0000000000000004,-2.7716385975338604]}],\"schema\":"+schema+"}," +
-                "{\"values\":[{\"type\":1,\"values\":[-1,3.378492794482933,-7.000000000000001,2.9301512653149677]}],\"schema\":"+schema+"}," +
-                "{\"values\":[{\"type\":1,\"values\":[4,9.304453421915744,11.000000000000002,1.5579302036357163]}],\"schema\":"+schema+"}" +
+                "{\"values\":[{\"values\":[1,-1.1480502970952693,2.0000000000000004,-2.7716385975338604]}],\"schema\":"+schema+"}," +
+                "{\"values\":[{\"values\":[-1,3.378492794482933,-7.000000000000001,2.9301512653149677]}],\"schema\":"+schema+"}," +
+                "{\"values\":[{\"values\":[4,9.304453421915744,11.000000000000002,1.5579302036357163]}],\"schema\":"+schema+"}" +
                 "]";
 
         assertEquals("failure - strings are not equal", expected, ret);
@@ -360,8 +360,8 @@ public class MlTest {
                             "]" +
                         "}";
         String expected = "[" +
-                            "{\"values\":[\"a\",{\"type\":1,\"values\":[1,2,3]},{\"type\":1,\"values\":[0,2,6]}],\"schema\":"+schema+"}" +
-                            ",{\"values\":[\"b\",{\"type\":1,\"values\":[4,5,6]},{\"type\":1,\"values\":[0,5,12]}],\"schema\":"+schema+"}" +
+                            "{\"values\":[\"a\",{\"values\":[1,2,3]},{\"values\":[0,2,6]}],\"schema\":"+schema+"}" +
+                            ",{\"values\":[\"b\",{\"values\":[4,5,6]},{\"values\":[0,5,12]}],\"schema\":"+schema+"}" +
                         "]";
 
         assertEquals("failure - strings are not equal", expected, ret);
@@ -529,7 +529,7 @@ public class MlTest {
         TestUtils.evalJSResource(engine, "/ml/mltest.js");
         Object ret = ((Invocable)engine).invokeFunction("KMeansExample");
 
-        String expected = "[{\"type\":1,\"values\":[0.1,0.1,0.1]},{\"type\":1,\"values\":[9.05,9.05,9.05]},{\"type\":1,\"values\":[9.2,9.2,9.2]}]";
+        String expected = "[{\"values\":[0.1,0.1,0.1]},{\"values\":[9.05,9.05,9.05]},{\"values\":[9.2,9.2,9.2]}]";
 
         assertEquals("failure - strings are not equal", expected, ret);
 
@@ -820,9 +820,9 @@ public class MlTest {
                             "]" +
                          "}";
         String expected = "[" +
-                "{\"values\":[{\"type\":1,\"values\":[1.6485728230883807,-4.013282700516296,-5.524543751369388]}],\"schema\":"+schema+"}," +
-                "{\"values\":[{\"type\":1,\"values\":[-4.645104331781534,-1.1167972663619026,-5.524543751369387]}],\"schema\":"+schema+"}," +
-                "{\"values\":[{\"type\":1,\"values\":[-6.428880535676489,-5.337951427775355,-5.524543751369389]}],\"schema\":"+schema+"}" +
+                "{\"values\":[{\"values\":[1.6485728230883807,-4.013282700516296,-5.524543751369388]}],\"schema\":"+schema+"}," +
+                "{\"values\":[{\"values\":[-4.645104331781534,-1.1167972663619026,-5.524543751369387]}],\"schema\":"+schema+"}," +
+                "{\"values\":[{\"values\":[-6.428880535676489,-5.337951427775355,-5.524543751369389]}],\"schema\":"+schema+"}" +
                 "]";
 
         assertEquals("failure - strings are not equal", expected, ret);
