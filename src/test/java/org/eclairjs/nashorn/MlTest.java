@@ -360,8 +360,8 @@ public class MlTest {
                             "]" +
                         "}";
         String expected = "[" +
-                            "{\"values\":[\"a\",{\"type\":1,\"values\":[1,2,3]},{\"type\":1,\"values\":[0,2,6]}],\"schema\":"+schema+"}" +
-                            ",{\"values\":[\"b\",{\"type\":1,\"values\":[4,5,6]},{\"type\":1,\"values\":[0,5,12]}],\"schema\":"+schema+"}" +
+                            "{\"values\":[\"a\",{\"values\":[1,2,3]},{\"values\":[0,2,6]}],\"schema\":"+schema+"}" +
+                            ",{\"values\":[\"b\",{\"values\":[4,5,6]},{\"values\":[0,5,12]}],\"schema\":"+schema+"}" +
                         "]";
 
         assertEquals("failure - strings are not equal", expected, ret);
