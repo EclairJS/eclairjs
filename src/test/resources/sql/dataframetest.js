@@ -1207,7 +1207,6 @@ var  dataFrameGetListTest = function() {
     var df = sqlContext.createDataFrame(rdd, schema);
     var dfMap = df.map(function(row){
         var x = ['foo'].concat(row.getList(0));
-        print("x " + x.length);
         return x;
     });
 
