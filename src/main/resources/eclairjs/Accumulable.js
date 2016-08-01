@@ -38,7 +38,6 @@
      * @memberof module:eclairjs
      * @param {object} initialValue initial value of accumulator
      * @param {module:eclairjs.AccumulableParam} param helper object defining how to add elements
-     * @param {string} name human-readable name for use in Spark's web UI
      */
     /*
      * NOTE for now EclairJS will only support floats and int types
@@ -46,7 +45,6 @@
      *
      */
     var Accumulable = function () {
-        logger.debug("constructor");
         var jvmObject;
         if (arguments.length == 1) {
             jvmObject = arguments[0];
@@ -59,7 +57,7 @@
                 value = new java.lang.Integer(parseInt(value)); // we need to create a Integer or we will get a java.lang.Double
             }
             var accumulableParam_uw = Utils.unwrapObject(arguments[1]);
-            jvmObject = new org.apache.spark.Accumulable(value, accumulableParam_uw, arguments[2]);
+            jvmObject = new org.apache.spark.Accumulable(value, accumulableParam_uw);
         }
 
         JavaWrapper.call(this, jvmObject);
