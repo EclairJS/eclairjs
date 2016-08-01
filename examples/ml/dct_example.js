@@ -30,8 +30,8 @@ function run(sc) {
     var RowFactory = require('eclairjs/sql/RowFactory');
     var Metadata = require('eclairjs/sql/types/Metadata');
     var DCT = require('eclairjs/ml/feature/DCT');
-    var Vectors = require('eclairjs/mllib/linalg/Vectors');
-    var VectorUDT = require('eclairjs/mllib/linalg/VectorUDT');
+    var Vectors = require('eclairjs/ml/linalg/Vectors');
+    var VectorUDT = require('eclairjs/ml/linalg/VectorUDT');
 
     var sqlContext = new SQLContext(sc);
     var  data = sc.parallelize([

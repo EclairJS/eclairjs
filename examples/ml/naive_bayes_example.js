@@ -41,7 +41,7 @@ function run(sc) {
     var result = model.transform(test);
     var predictionAndLabels = result.select("prediction", "label");
     var evaluator = new MulticlassClassificationEvaluator()
-        .setMetricName("precision");
+        .setMetricName("accuracy");
     return evaluator.evaluate(predictionAndLabels);
 
 }

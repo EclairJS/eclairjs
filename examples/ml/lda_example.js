@@ -25,10 +25,10 @@ function run(sc) {
     var StructType = require("eclairjs/sql/types/StructType");
     var Metadata = require("eclairjs/sql/types/Metadata");
     var RowFactory = require("eclairjs/sql/RowFactory");
-    var Vectors = require("eclairjs/mllib/linalg/Vectors");
+    var Vectors = require("eclairjs/ml/linalg/Vectors");
     var LDA = require("eclairjs/ml/clustering/LDA");
-    var Vector = require("eclairjs/mllib/linalg/Vector");
-    var VectorUDT = require("eclairjs/mllib/linalg/VectorUDT");
+    var Vector = require("eclairjs/ml/linalg/Vector");
+    var VectorUDT = require("eclairjs/ml/linalg/VectorUDT");
 
 
     var sqlContext = new SQLContext(sc);
