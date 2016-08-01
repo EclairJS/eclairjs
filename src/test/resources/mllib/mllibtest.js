@@ -185,7 +185,11 @@ var naiveBayesExample = function() {
 var pcaExample = function() {
     load("examples/mllib/pca_example.js");
     var result = run(sparkContext);
-    return JSON.stringify(result);
+    if (result) {
+        return "passed";
+    } else {
+        return "failed";
+    }
 }
 
 var PowerIterationClusteringExample = function() {

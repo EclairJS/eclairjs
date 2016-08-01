@@ -50,7 +50,7 @@ function run(sc, useTake) {
  */
 var inputFile = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/sample_fpgrowth.txt";
 var minSupport = ((typeof args !== "undefined") && (args.length > 2)) ? parseFloat(args[2]) :0.3;
-var numPartition = ((typeof args !== "undefined") && (args.length > 3)) ? parseInt(args[3]) : -1;
+var numPartition = ((typeof args !== "undefined") && (args.length > 3)) ? parseInt(args[3]) : 1;
 
 if (typeof sparkContext === 'undefined') {
 

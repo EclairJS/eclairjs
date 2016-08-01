@@ -163,7 +163,7 @@ public class MlLibTest {
         TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
         Object ret = ((Invocable)engine).invokeFunction("fpGrowthExample");
 
-        String expected = "[{\"freq\":3,\"items\":[\"t\"]},{\"freq\":3,\"items\":[\"t\",\"x\"]},{\"freq\":3,\"items\":[\"t\",\"x\",\"z\"]}]";
+        String expected = "[{\"freq\":3,\"items\":[\"s\"]},{\"freq\":3,\"items\":[\"s\",\"x\"]},{\"freq\":2,\"items\":[\"s\",\"x\",\"z\"]}]";
 
         assertEquals("failure - strings are not equal", expected, ret);
 
@@ -498,13 +498,7 @@ public class MlLibTest {
         TestUtils.evalJSResource(engine, "/mllib/mllibtest.js");
         Object ret = ((Invocable)engine).invokeFunction("pcaExample");
 
-        String expected = "[" +
-                "{\"type\":1,\"values\":[-3.727797721898679,-0.6667956524404748,0.9220670813414288]}," +
-                "{\"type\":1,\"values\":[-11.822603105047087,-3.1066779875032884,0.9220670813414369]}," +
-                "{\"type\":1,\"values\":[-24.217100376746416,-0.9858202879303413,0.9220670813414298]}" +
-                "]";
-
-        assertEquals("failure - strings are not equal", expected, ret.toString());
+        assertEquals("failure - strings are not equal", "passed", ret.toString());
 
     }
 
