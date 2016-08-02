@@ -8,6 +8,7 @@ import site
 from setuptools import setup
 from distutils import log
 from distutils.command.install import install
+from distutils.sysconfig import get_python_lib
 
 try:
     # Python 3
@@ -16,17 +17,15 @@ except ImportError:
     # Python 2
     from urllib import urlretrieve
 
-#VERSION='0.6-SNAPSHOT'
-VERSION='0.5'
+VERSION='0.6'
 PACKAGE_NAME='eclairjs-nashorn'
-BASEPATH = os.path.dirname(os.path.abspath(__file__))
 JAR_FILE='eclairjs-nashorn-'+VERSION+'-jar-with-dependencies.jar'
-JAR_FILE_PATH = os.path.join(BASEPATH, JAR_FILE)
-INSTALL_DIR = os.path.join(site.getsitepackages()[0], PACKAGE_NAME)
+JAR_FILE_PATH = os.path.join(PACKAGE_NAME, "jars", JAR_FILE)
+INSTALL_DIR = os.path.join(get_python_lib(), PACKAGE_NAME)
+MAVEN_URL = 'http://repo2.maven.org/maven2/org/eclairjs/eclairjs-nashorn/'+VERSION+'/'+JAR_FILE
 
-URL = 'http://repo2.maven.org/maven2/org/eclairjs/eclairjs-nashorn/'+VERSION+'/'+JAR_FILE
-#subprocess.call("mvn package -DskipTests -Pnotebook", shell=True)
-urlretrieve(URL, JAR_FILE_PATH)
+urlretrieve(MAVEN_URL, JAR_FILE_PATH)
+
 svem_flag = '--single-version-externally-managed'
 if svem_flag in sys.argv:
     # Die, setuptools, die.
@@ -36,7 +35,7 @@ class install_with_kernelspec(install):
     def build_kernel_json(self):
         import toree
         toree_home = os.path.dirname(inspect.getfile(toree))
-        jar = os.path.join(site.getsitepackages()[0], PACKAGE_NAME, JAR_FILE)
+        jar = os.path.join(INSTALL_DIR, "jars", JAR_FILE)
 
         kernel_json = {
                 "name": "eclair",
@@ -84,7 +83,7 @@ class install_with_kernelspec(install):
 
 
 setup(name=PACKAGE_NAME,
-      version='0.1',
+      version=VERSION,
       description='jupyter toree kernel for eclairjs',
       url='https://github.com/eclairjs/eclairjs-nashorn',
       author='Brian Burns',
@@ -92,8 +91,6 @@ setup(name=PACKAGE_NAME,
       license='Apache 2',
       install_requires=["IPython >= 4.0", "ipykernel", "toree"],
       cmdclass={'install': install_with_kernelspec},
-      data_files=[
-          (INSTALL_DIR,  [JAR_FILE_PATH])
-      ],
+      package_data={PACKAGE_NAME: ['jars/*']},
       packages=[PACKAGE_NAME]
 )
