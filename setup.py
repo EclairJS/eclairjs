@@ -84,7 +84,7 @@ setup(name=PACKAGE_NAME,
       install_requires=["IPython >= 4.0", "ipykernel", "toree"],
       cmdclass={'install': install_with_kernelspec},
       data_files=[
-          (PACKAGE_NAME,  [JAR_FILE_PATH])
+          (INSTALL_DIR,  [JAR_FILE_PATH])
       ],
       packages=[PACKAGE_NAME]
 )
