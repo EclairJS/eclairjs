@@ -18,7 +18,7 @@ except ImportError:
     from urllib import urlretrieve
 
 VERSION='0.6'
-PACKAGE_NAME='eclairjs-nashorn'
+PACKAGE_NAME='eclairjs'
 JAR_FILE='eclairjs-nashorn-'+VERSION+'-jar-with-dependencies.jar'
 JAR_FILE_PATH = os.path.join(PACKAGE_NAME, "jars", JAR_FILE)
 INSTALL_DIR = os.path.join(get_python_lib(), PACKAGE_NAME)
@@ -35,7 +35,10 @@ class install_with_kernelspec(install):
     def build_kernel_json(self):
         import toree
         toree_home = os.path.dirname(inspect.getfile(toree))
-        jar = os.path.join(INSTALL_DIR, "jars", JAR_FILE)
+        import eclairjs
+        jar_dir = os.path.dirname(inspect.getfile(eclairjs))
+        jar = os.path.join(jar_dir, "jars", JAR_FILE)
+        #jar = os.path.join(INSTALL_DIR, "jars", JAR_FILE)
 
         kernel_json = {
                 "name": "eclair",
