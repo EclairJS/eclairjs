@@ -111,8 +111,14 @@ if (typeof nativeJSON === "undefined") {
                     //print("v " + v)
                     for (var p in v) {
                         if ((v[p] != null) && (typeof v[p] != 'function')) {
-                            // print("type " + typeof v[p]);
-                            var val = JSON.stringify(v[p], replacer, space);
+                             //print("type " + typeof v[p]);
+                            var x;
+                            if (v[p] instanceof java.lang.Long) {
+                                x = Number(v[p]);
+                            } else {
+                                x = v[p];
+                            }
+                            var val = JSON.stringify(x, replacer, space);
                             //print('val ' + val)
                             if (val != '{}') {
                                 str += sep + '"' + p + '"' + ':' + val;

@@ -216,6 +216,8 @@ public class Row extends WrappedClass {
                 jsonObj += "null";
             } else if (x instanceof Double) {
                 jsonObj += Utils.formatDouble((Double) x);
+            } else if (x instanceof Long) {
+                jsonObj += x.toString();
             } else if (x instanceof String || x instanceof java.sql.Timestamp || x instanceof java.sql.Date) {
                 if (x instanceof String ) {
                     x = ((String) x).replace("\"", "\\\""); // replace any " in the string with /"
