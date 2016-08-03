@@ -276,7 +276,11 @@
 	 * @returns {module:eclairjs.RDD}
 	 */
 	Dataset.prototype.flatMap = function (func, bindArgs) {
-		return this.toRDD().flatMap(func, bindArgs);
+		//return this.toRDD().flatMap(func, bindArgs);
+        var bindArgs;
+        var fn = Utils.createLambdaFunction(func,org.eclairjs.nashorn.JSFlatMapFunction, bindArgs);
+        var javaObject =  this.getJavaObject().flatMap(fn, org.apache.spark.sql.Encoders.STRING() );
+        return Utils.javaToJs(javaObject);
 	};
 	/**
 	 * Applies a function to all elements of this Dataset.
@@ -772,6 +776,13 @@
 		return Utils.javaToJs(this.getJavaObject().write());
 	};
 
+	/**
+	 * Interface for saving the content of the Dataset out into external storage.
+	 * @returns {module:eclairjs/sql/streaming.DataStreamWriter}
+	 */
+	Dataset.prototype.writeStream = function () {
+		return Utils.javaToJs(this.getJavaObject().writeStream());
+	};
     module.exports = Dataset;
 
 })();

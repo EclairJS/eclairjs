@@ -169,6 +169,19 @@ public class Utils {
                 return new  org.eclairjs.nashorn.wrap.sql.Row(
                         (org.apache.spark.sql.Row)o
                 );
+            case "org.apache.spark.sql.streaming.DataStreamReader":
+                return new  org.eclairjs.nashorn.wrap.sql.streaming.DataStreamReader(
+                        (org.apache.spark.sql.streaming.DataStreamReader)o
+                );
+            case "org.apache.spark.sql.streaming.DataStreamWriter":
+                return new  org.eclairjs.nashorn.wrap.sql.streaming.DataStreamWriter(
+                        (org.apache.spark.sql.streaming.DataStreamWriter)o
+                );
+            case "org.apache.spark.sql.streaming.StreamingQuery":
+            case "org.apache.spark.sql.execution.streaming.StreamExecution":
+                return new  org.eclairjs.nashorn.wrap.sql.streaming.StreamingQuery(
+                        (org.apache.spark.sql.streaming.StreamingQuery)o
+                );
             case "org.apache.spark.api.java.JavaRDD":
                 return new org.eclairjs.nashorn.wrap.RDD((org.apache.spark.api.java.JavaRDD) o);
             case "org.apache.spark.api.java.JavaPairRDD":
