@@ -35,9 +35,8 @@ class install_with_kernelspec(install):
     def build_kernel_json(self):
         import toree
         toree_home = os.path.dirname(inspect.getfile(toree))
-        import eclairjs
-        jar_dir = os.path.dirname(inspect.getfile(eclairjs))
-        jar = os.path.join(jar_dir, "jars", JAR_FILE)
+        jar_dir = site.getsitepackages()[0]
+        jar = os.path.join(jar_dir, PACKAGE_NAME, "jars", JAR_FILE)
         #jar = os.path.join(INSTALL_DIR, "jars", JAR_FILE)
 
         kernel_json = {
