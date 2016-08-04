@@ -27,9 +27,11 @@ import org.eclairjs.nashorn.wrap.WrappedFunction;
 import org.apache.log4j.Logger;
 import org.eclairjs.nashorn.wrap.WrappedClass;
 
+import javax.xml.datatype.DatatypeConfigurationException;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Map;
+import scala.Tuple2;
 
 public class SparkSession extends WrappedClass {
 
@@ -253,7 +255,7 @@ public class SparkSession extends WrappedClass {
             Object returnValue = null;
             org.apache.spark.sql.SparkSession _sparkSession = (org.apache.spark.sql.SparkSession) ((SparkSession) thiz).getJavaObject();
 
-            final org.apache.spark.sql.types.StructType schema = (org.apache.spark.sql.types.StructType) Utils.toObject(args[1]);
+             org.apache.spark.sql.types.StructType schema = (org.apache.spark.sql.types.StructType) Utils.toObject(args[1]);
 
             if (args[0] instanceof org.eclairjs.nashorn.wrap.RDD)
             {
@@ -286,14 +288,14 @@ public class SparkSession extends WrappedClass {
                    }
                    else
                    {
-                       System.out.print(arr[i]);
-//                       var v = [];
-//                       for (var i = 0; i < row.length(); i++) {
-//                           var x = row.get(i);
-//                           var dt = fields[i].dataType();
-//                           v.push(castDataType(x, dt));
-//                       }
-//                       rows.add(org.apache.spark.sql.RowFactory.create(v));
+                       Row row = (Row)arr[i];
+                       Object [] rowValues= new Object[row.length()];
+                       for (int col = 0; col < row.length(); col++) {
+                           Object x = row.get(col);
+                           org.apache.spark.sql.types.DataType datatype = fields[col].dataType();
+                           rowValues[col]=castDataType(x, datatype);
+                       }
+                       rows.add(org.apache.spark.sql.RowFactory.create(rowValues));
 
                    }
                 }
@@ -305,31 +307,114 @@ public class SparkSession extends WrappedClass {
              return Utils.javaToJs(returnValue);
         }
 
-        Object castDataType(Object x, org.apache.spark.sql.types.DataType dt  )
+    };
+
+    static class JSONMapFunction implements Function< Object,  org.apache.spark.sql.Row>
+    {
+        List<Tuple2<String,DataType>> fieldsNames;
+        JSONMapFunction(List<Tuple2<String,DataType>> fieldsNames)
         {
-            if ((x instanceof java.lang.Integer) &&  (dt instanceof org.apache.spark.sql.types.DoubleType)) {
-                return ((java.lang.Integer)x).doubleValue();
-            } else if ((x instanceof java.lang.Integer) &&  (dt instanceof org.apache.spark.sql.types.FloatType)) {
-                return ((java.lang.Integer)x).floatValue();
-            } else if ((x instanceof java.lang.Double) &&  (dt instanceof org.apache.spark.sql.types.IntegerType)) {
-                return ((java.lang.Double)x).intValue();
-            } else if ((x instanceof java.lang.Double) &&  (dt instanceof org.apache.spark.sql.types.FloatType)) {
-                return ((java.lang.Double)x).floatValue();
-            } else if (dt instanceof org.apache.spark.sql.types.BinaryType) {
-                return ScriptUtils.convert(x, byte[].class);//).asInstanceOf[Array[Byte]]
-            } else if (dt instanceof org.apache.spark.sql.types.ArrayType) {
-                org.apache.spark.sql.types.DataType  elmDt = ((org.apache.spark.sql.types.ArrayType)dt).elementType();
-                Object [] from=(Object[])x;
-                Object [] elements=new Object[from.length];
-                for (int j=0;j<from.length;j++)
+            this.fieldsNames=fieldsNames;
+        }
+        @Override
+        public org.apache.spark.sql.Row call(Object obj) throws Exception {
+
+            List<Object> values=new ArrayList<>();
+//
+//  code for it is an object, but that is probably not possible
+//            ScriptObjectMirror json=ScriptUtils.wrap((jdk.nashorn.internal.runtime.ScriptObject) obj);
+//
+//            for (String name : fieldsNames)
+//            {
+//                Object value = null;
+//                if (json.containsKey(name))
+//                {
+//                    value=json.get(name);
+//                    //   if it is getter function, call to get value
+//                    if (value instanceof ScriptObjectMirror)
+//                    {
+//                        value=((ScriptObjectMirror)value).call(json);
+//                    }
+//
+//                }
+//                else
+//                {
+//                    name="get" + name.substring(0,1).toUpperCase() + name.substring(1);
+//                     value=json.get(name);
+//                    //   if it is getter function, call to get value
+//                    if (value instanceof ScriptObjectMirror)
+//                    {
+//                        value=((ScriptObjectMirror)value).call(json);
+//                    }
+//                }
+//                values.add(value);
+//            }
+
+            org.json.simple.JSONObject json = ( org.json.simple.JSONObject)obj;
+            for (Tuple2<String,DataType> tuple: fieldsNames)
+            {
+                Object value = null;
+                String name=tuple._1();
+                if (json.containsKey(name))
                 {
-                    elements[j]=castDataType(from[j], elmDt);
+                    value=json.get(name);
+                    //   if it is getter function, call to get value
+                    value = castDataType(value,tuple._2());
+
                 }
-                return Utils.jsToJava(elements);
-            } else {
-                return Utils.jsToJava(x);
+                values.add(value);
             }
 
+
+
+            return RowFactory.create(values.toArray());
+        }
+
+    }
+    static WrappedFunction F_createDataFrameFromJson = new WrappedFunction() {
+        @Override
+        public Object call(Object thiz, Object... args) {
+            logger.debug("createDataFrame");
+            Object returnValue = null;
+            org.apache.spark.sql.SparkSession _sparkSession = (org.apache.spark.sql.SparkSession) ((SparkSession) thiz).getJavaObject();
+
+
+            org.apache.spark.api.java.JavaRDD rdd = ( org.apache.spark.api.java.JavaRDD) Utils.toObject(args[0]);
+            ScriptObjectMirror jsonSchema=ScriptUtils.wrap((jdk.nashorn.internal.runtime.ScriptObject) args[1]);
+
+            List<Tuple2<String,DataType>> fieldNames=new ArrayList<>();
+            List<StructField> fields=new ArrayList<>();
+            for (Map.Entry<String, Object> entry : jsonSchema.entrySet()) {
+                String type=entry.getValue().toString();
+
+                String name=entry.getKey();
+                DataType schemaType;
+                switch (type) {
+                    case "String":
+                        schemaType=DataTypes.StringType; break;
+                    case "Integer":
+                        schemaType=DataTypes.IntegerType; break;
+                    case "Boolean":
+                        schemaType=DataTypes.BooleanType; break;
+                    case "Double":
+                        schemaType=DataTypes.DoubleType;
+//                    case "Array":
+//                        schemaType=DataTypes.ArrayType;
+                    default:
+                    {
+                        schemaType=(DataType) Utils.toObject(type);
+                    }
+
+                }
+                fields.add(DataTypes.createStructField(name, schemaType, true));
+                fieldNames.add(new Tuple2<String, DataType>(name,schemaType));
+
+            }
+            StructType schema = DataTypes.createStructType(fields);
+            rdd = rdd.map(new JSONMapFunction(fieldNames));
+            returnValue = _sparkSession.createDataFrame(rdd, schema);
+
+            return Utils.javaToJs(returnValue);
         }
     };
 
@@ -532,6 +617,8 @@ public class SparkSession extends WrappedClass {
 //                return F_emptyDataset;
             case "createDataFrame":
                 return F_createDataFrame;
+            case "createDataFrameFromJson":
+                return F_createDataFrameFromJson;
             case "baseRelationToDataFrame":
                 return F_baseRelationToDataFrame;
 //            case "createDataset":
@@ -565,6 +652,7 @@ public class SparkSession extends WrappedClass {
             case "newSession":
             case "emptyDataset":
             case "createDataFrame":
+            case "createDataFrameFromJson":
             case "baseRelationToDataFrame":
 //            case "createDataset":
             case "range":
@@ -614,5 +702,35 @@ org.apache.spark.sql.SparkSession session_uw = (org.apache.spark.sql.SparkSessio
 
   }
 
+    static Object castDataType(Object x, org.apache.spark.sql.types.DataType dt  )
+    {
+        if ((x instanceof java.lang.Integer) &&  (dt instanceof org.apache.spark.sql.types.DoubleType)) {
+            return ((java.lang.Integer)x).doubleValue();
+        } else if ((x instanceof java.lang.Integer) &&  (dt instanceof org.apache.spark.sql.types.FloatType)) {
+            return ((java.lang.Integer)x).floatValue();
+        } else if ((x instanceof java.lang.Long) &&  (dt instanceof org.apache.spark.sql.types.FloatType)) {
+            return ((java.lang.Long)x).floatValue();
+        } else if ((x instanceof java.lang.Double) &&  (dt instanceof org.apache.spark.sql.types.IntegerType)) {
+            return ((java.lang.Double)x).intValue();
+        } else if ((x instanceof java.lang.Long) &&  (dt instanceof org.apache.spark.sql.types.IntegerType)) {
+            return ((java.lang.Long)x).intValue();
+        } else if ((x instanceof java.lang.Double) &&  (dt instanceof org.apache.spark.sql.types.FloatType)) {
+            return ((java.lang.Double)x).floatValue();
+        } else if (dt instanceof org.apache.spark.sql.types.BinaryType) {
+            return Utils.toByteArray(x);//).asInstanceOf[Array[Byte]]
+        } else if (dt instanceof org.apache.spark.sql.types.ArrayType) {
+            org.apache.spark.sql.types.DataType  elmDt = ((org.apache.spark.sql.types.ArrayType)dt).elementType();
+            Object [] from=(Object[])x;
+            Object [] elements=new Object[from.length];
+            for (int j=0;j<from.length;j++)
+            {
+                elements[j]=castDataType(from[j], elmDt);
+            }
+            return Utils.jsToJava(elements);
+        } else {
+            return Utils.jsToJava(x);
+        }
+
+    }
 
 }

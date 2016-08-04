@@ -103,7 +103,7 @@
         var a = Array.prototype.slice.call(args);
         for (var i = 0; i < a.length; i++) {
             var o = a[i];
-            if (!(o instanceof type)) {
+            if (!(o instanceof type) && !o.getJavaObject) {
                 o = new type(o);
             }
             a[i] = Utils.unwrapObject(o);

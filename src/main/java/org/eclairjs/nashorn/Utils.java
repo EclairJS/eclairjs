@@ -955,6 +955,31 @@ public class Utils {
         }
         return jsArray;
     }
+
+    public static byte[] toByteArray(Object obj)
+    {
+        if (obj instanceof Object[])
+        {
+
+            Object[] arr=(Object[])obj;
+            byte [] byteArr=new byte[arr.length];
+            for (int i=0;i<arr.length;i++)
+            {
+                if (arr[i] instanceof Integer)
+                {
+                    byteArr[i]=((Integer)arr[i]).byteValue();
+                }
+                else if (arr [i]instanceof Double)
+                {
+                    byteArr[i]=((Double)arr[i]).byteValue();
+
+                }
+                else throw  new RuntimeException("cant convert to byte - "+arr[i]);
+            }
+            return byteArr;
+        } else throw new RuntimeException("not an array"+obj);
+
+    }
 }
 
 

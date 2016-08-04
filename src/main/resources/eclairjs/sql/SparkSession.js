@@ -162,179 +162,31 @@
     };
 */
 
-//
-//    /**
-//     * :: Experimental ::
-//     * Creates a {@link DataFrame} from an RDD of Product (e.g. case classes, tuples).
-//     *
-//     * @since EclairJS 0.6 Spark  2.0.0
-//     * @param {module:eclairjs/rdd.RDD} rdd
-//     * @returns {DataFrame}
-//     */
-//    SparkSession.prototype.createDataFrame0 = function(rdd) {
-//    throw "not implemented by ElairJS";
-//    //   var rdd_uw = Utils.unwrapObject(rdd);
-//    //   var javaObject =  this.getJavaObject().createDataFrame(rdd_uw);
-//    //   return new DataFrame(javaObject);
-//    };
-//
-//
-//    /**
-//     * :: Experimental ::
-//     * Creates a {@link DataFrame} from a local Seq of Product.
-//     *
-//     * @since EclairJS 0.6 Spark  2.0.0
-//     * @param {object[]} data
-//     * @returns {DataFrame}
-//     */
-//    SparkSession.prototype.createDataFrame1 = function(data) {
-//    throw "not implemented by ElairJS";
-//    //   var data_uw = Utils.unwrapObject(data);
-//    //   var javaObject =  this.getJavaObject().createDataFrame(data_uw);
-//    //   return new DataFrame(javaObject);
-//    };
-//
-//
-//    /**
-//     * :: DeveloperApi ::
-//     * Creates a [[DataFrame]] from an [[RDD]] containing {@link Row}s using the given schema.
-//     * It is important to make sure that the structure of every {@link Row} of the provided RDD matches
-//     * the provided schema. Otherwise, there will be runtime exception.
-//     * Example:
-//     * @example
-//     *  import org.apache.spark.sql._
-//     *  import org.apache.spark.sql.types._
-//     *  val sparkSession = new org.apache.spark.sql.SparkSession(sc)
-//     *
-//     *  val schema =
-//     *    StructType(
-//     *      StructField("name", StringType, false) ::
-//     *      StructField("age", IntegerType, true) :: Nil)
-//     *
-//     *  val people =
-//     *    sc.textFile("examples/src/main/resources/people.txt").map(
-//     *      _.split(",")).map(p => Row(p(0), p(1).trim.toInt))
-//     *  val dataFrame = sparkSession.createDataFrame(people, schema)
-//     *  dataFrame.printSchema
-//     *  // root
-//     *  // |-- name: string (nullable = false)
-//     *  // |-- age: integer (nullable = true)
-//     *
-//     *  dataFrame.createOrReplaceTempView("people")
-//     *  sparkSession.sql("select name from people").collect.foreach(println)
-//     *
-//     *
-//     * @since EclairJS 0.6 Spark  2.0.0
-//     * @param {module:eclairjs/rdd.RDD} rowRDD
-//     * @param {module:eclairjs/sql/types.StructType} schema
-//     * @returns {DataFrame}
-//     */
-//    SparkSession.prototype.createDataFrame2 = function(rowRDD,schema) {
-//    throw "not implemented by ElairJS";
-//    //   var rowRDD_uw = Utils.unwrapObject(rowRDD);
-//    //   var schema_uw = Utils.unwrapObject(schema);
-//    //   var javaObject =  this.getJavaObject().createDataFrame(rowRDD_uw,schema_uw);
-//    //   return new DataFrame(javaObject);
-//    };
-//
-//
-//    /**
-//     * :: DeveloperApi ::
-//     * Creates a [[DataFrame]] from a [[JavaRDD]] containing {@link Row}s using the given schema.
-//     * It is important to make sure that the structure of every {@link Row} of the provided RDD matches
-//     * the provided schema. Otherwise, there will be runtime exception.
-//     *
-//     * @since EclairJS 0.6 Spark  2.0.0
-//     * @param {module:eclairjs/api/java.JavaRDD} rowRDD
-//     * @param {module:eclairjs/sql/types.StructType} schema
-//     * @returns {DataFrame}
-//     */
-//    SparkSession.prototype.createDataFrame3 = function(rowRDD,schema) {
-//    throw "not implemented by ElairJS";
-//    //   var rowRDD_uw = Utils.unwrapObject(rowRDD);
-//    //   var schema_uw = Utils.unwrapObject(schema);
-//    //   var javaObject =  this.getJavaObject().createDataFrame(rowRDD_uw,schema_uw);
-//    //   return new DataFrame(javaObject);
-//    };
-//
-//
-//    /**
-//     * :: DeveloperApi ::
-//     * Creates a [[DataFrame]] from a [[java.util.List]] containing {@link Row}s using the given schema.
-//     * It is important to make sure that the structure of every {@link Row} of the provided List matches
-//     * the provided schema. Otherwise, there will be runtime exception.
-//     *
-//     * @since EclairJS 0.6 Spark  2.0.0
-//     * @param {[]} rows
-//     * @param {module:eclairjs/sql/types.StructType} schema
-//     * @returns {DataFrame}
-//     */
-//    SparkSession.prototype.createDataFrame4 = function(rows,schema) {
-//    throw "not implemented by ElairJS";
-//    //   var schema_uw = Utils.unwrapObject(schema);
-//    //   var javaObject =  this.getJavaObject().createDataFrame(rows,schema_uw);
-//    //   return new DataFrame(javaObject);
-//    };
-//
-//
-//    /**
-//     * Applies a schema to an RDD of Java Beans.
-//     *
-//     * WARNING: Since there is no guaranteed ordering for fields in a Java Bean,
-//     * SELECT * queries will return the columns in an undefined order.
-//     *
-//     * @since EclairJS 0.6 Spark  2.0.0
-//     * @param {module:eclairjs/rdd.RDD} rdd
-//     * @param {Class} beanClass
-//     * @returns {DataFrame}
-//     */
-//    SparkSession.prototype.createDataFrame5 = function(rdd,beanClass) {
-//    throw "not implemented by ElairJS";
-//    //   var rdd_uw = Utils.unwrapObject(rdd);
-//    //   var beanClass_uw = Utils.unwrapObject(beanClass);
-//    //   var javaObject =  this.getJavaObject().createDataFrame(rdd_uw,beanClass_uw);
-//    //   return new DataFrame(javaObject);
-//    };
-//
-//
-//    /**
-//     * Applies a schema to an RDD of Java Beans.
-//     *
-//     * WARNING: Since there is no guaranteed ordering for fields in a Java Bean,
-//     * SELECT * queries will return the columns in an undefined order.
-//     *
-//     * @since EclairJS 0.6 Spark  2.0.0
-//     * @param {module:eclairjs/api/java.JavaRDD} rdd
-//     * @param {Class} beanClass
-//     * @returns {DataFrame}
-//     */
-//    SparkSession.prototype.createDataFrame6 = function(rdd,beanClass) {
-//    throw "not implemented by ElairJS";
-//    //   var rdd_uw = Utils.unwrapObject(rdd);
-//    //   var beanClass_uw = Utils.unwrapObject(beanClass);
-//    //   var javaObject =  this.getJavaObject().createDataFrame(rdd_uw,beanClass_uw);
-//    //   return new DataFrame(javaObject);
-//    };
-//
-//
-//    /**
-//     * Applies a schema to a List of Java Beans.
-//     *
-//     * WARNING: Since there is no guaranteed ordering for fields in a Java Bean,
-//     *          SELECT * queries will return the columns in an undefined order.
-//     * @since EclairJS 0.6 Spark  1.6.0
-//     * @param {[]} data
-//     * @param {Class} beanClass
-//     * @returns {DataFrame}
-//     */
-//    SparkSession.prototype.createDataFrame7 = function(data,beanClass) {
-//    throw "not implemented by ElairJS";
-//    //   var beanClass_uw = Utils.unwrapObject(beanClass);
-//    //   var javaObject =  this.getJavaObject().createDataFrame(data,beanClass_uw);
-//    //   return new DataFrame(javaObject);
-//    };
-    
-    
+
+    /**
+     * Creates a {@link Dataset} from {@link RDD} of Rows using the schema
+     * @function
+     * @name module:eclairjs/sql.SparkSession#createDataFrame
+     * @param {module:eclairjs.RDD<module:eclairjs/sql.Row> | module:eclairjs/sql.Row[]} rowRDD_or_values A RDD of [Rows]{@link Row} or array of arrays that contain values of valid {@link DataTypes}
+     * @param {module:eclairjs/sql/types.StructType} schema -
+     * @returns {module:eclairjs/sql.DataFrame}
+     * @example
+     * var df = sqlSession.createDataFrame([[1,1], [1,2], [2,1], [2,1], [2,3], [3,2], [3,3]], schema);
+     *
+     */
+
+    /**
+    * Creates a {@link Dataset} from RDD of JSON
+    * @function
+    * @name module:eclairjs/sql.SparkSession#createDataFrameFromJson
+    * @param {{module:eclairjs.RDD<object>}    RDD of JSON
+    * @param {object} schema - object with keys corresponding to JSON field names (or getter functions), and values indicating Datatype
+    * @returns {module:eclairjs/sql.DataFrame}
+    * @example
+    * var df = sqlSession.createDataFrameFromJson([{id:1,"name":"jim"},{id:2,"name":"tom"}], {"id":"Integer","name","String"});
+    *
+    */
+
     /**
      * Convert a [[BaseRelation]] created for external data sources into a {@link DataFrame}.
      *
