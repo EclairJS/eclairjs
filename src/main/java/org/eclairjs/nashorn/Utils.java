@@ -24,6 +24,8 @@ import javax.script.ScriptException;
 
 import jdk.nashorn.api.scripting.ScriptUtils;
 import jdk.nashorn.internal.objects.NativeArray;
+import jdk.nashorn.internal.runtime.ScriptFunction;
+import jdk.nashorn.internal.runtime.ScriptRuntime;
 import jdk.nashorn.internal.runtime.Undefined;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
@@ -59,9 +61,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
-/**
- * Created by bburns on 9/18/15.
- */
 public class Utils {
 
     /*
@@ -867,6 +866,40 @@ public class Utils {
         throw new RuntimeException("expecting array, got " + arr);
     }
 
+    public static Object [] toObjectArray(Object arr) {
+        if (arr instanceof ScriptObjectMirror) {
+            ScriptObjectMirror m = (ScriptObjectMirror) arr;
+            if (m.isArray()) {
+                try {
+                    Object[] objectArray = (Object[]) ScriptUtils.convert(m, Object[].class);
+                    return objectArray;
+                } catch (ClassCastException e) {
+                    /*
+                    If the array contains ScriptObjectMirror the above conversions throws exception
+                    so we have to convert the contents of the array as well.
+                     */
+                    ArrayList list = new ArrayList();
+                    for (Object item : m.values()) {
+                        list.add(jsToJava(item));
+                    }
+                    Object x = list.toArray();
+                    return (Object[]) x;
+                }
+
+            }
+        }
+        else if (arr instanceof jdk.nashorn.internal.objects.NativeArray) {
+            Object array[] =  ((NativeArray) arr).asObjectArray();
+            ArrayList al = new ArrayList();
+            for (int i = 0; i < array.length; i++) {
+                al.add(jsToJava(array[i]));
+            }
+            return al.toArray();
+        }
+
+            throw new RuntimeException("expecting array, got " + arr);
+    }
+
     public static Object toObject(Object obj) {
         if (obj instanceof WrappedClass)
             return ((WrappedClass)obj).getJavaObject();
@@ -876,6 +909,21 @@ public class Utils {
             if (m.hasMember("getJavaObject")) {
                 return m.callMember("getJavaObject");
             }
+        }
+        else if (obj instanceof jdk.nashorn.internal.runtime.ScriptObject)
+        {
+            jdk.nashorn.internal.runtime.ScriptObject scriptObject=
+                    (jdk.nashorn.internal.runtime.ScriptObject)obj;
+
+            Object t = scriptObject.get("getJavaObject");
+
+            if (t instanceof ScriptFunction)
+            {
+                return ScriptRuntime.apply((ScriptFunction) t, scriptObject);
+            }
+//                    scriptObject.
+
+
         }
         throw new RuntimeException("expecting spark object, got " + obj);
     }

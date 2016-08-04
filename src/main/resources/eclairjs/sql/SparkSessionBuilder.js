@@ -16,51 +16,31 @@
 
 (function () {
 
-    var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
-    var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
-    var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
-    var logger = Logger.getLogger("sql.SparkSessionBuilder_js");
-
-
-
-    
-    
     /**
      * @classdesc
      * SparkSessionBuilder for {@link SparkSession}.
      * @class
      * @memberof module:eclairjs/sql
      */
-    
-    /**
-     * @constructor
-     */
-    var SparkSessionBuilder = function(jvmObject) {
-    	 
-    	 this.logger = Logger.getLogger("SparkSessionBuilder_js");
-    	 JavaWrapper.call(this, jvmObject);
-    
-    };
-    
-    SparkSessionBuilder.prototype = Object.create(JavaWrapper.prototype);
-    
-    SparkSessionBuilder.prototype.constructor = SparkSessionBuilder;
-    
-    
+      var SparkSessionBuilder = = Java.type('org.eclairjs.nashorn.wrap.sql.Builder');
+
+
     
     /**
      * Sets a name for the application, which will be shown in the Spark web UI.
      * If no application name is set, a randomly generated name will be used.
      *
      * @since EclairJS 0.6 Spark  2.0.0
+     * @function
+     * @name module:eclairjs/sql.SparkSessionBuilder#appName
      * @param {string} name
      * @returns {module:eclairjs/sql.SparkSessionBuilder} 
      */
-    SparkSessionBuilder.prototype.appName = function(name) {
-       var javaObject =  this.getJavaObject().appName(name);
-       return new SparkSessionBuilder(javaObject);
-    };
-    
+//    SparkSessionBuilder.prototype.appName = function(name) {
+//       var javaObject =  this.getJavaObject().appName(name);
+//       return new SparkSessionBuilder(javaObject);
+//    };
+//
 
 
     /**
@@ -69,24 +49,26 @@
      * both {@link SparkConf} and SparkSession's own configuration.
      *
      * @since EclairJS 0.6 Spark  2.0.0
+     * @function
+     * @name module:eclairjs/sql.SparkSessionBuilder#config
      * @param {module:eclairjs.SparkConf | string} conf or key
      * @param {boolean | number | String} [value]
      * @returns {module:eclairjs/sql.SparkSessionBuilder}
      */
-    SparkSessionBuilder.prototype.config = function(key,value) {
-      if (arguments.length==1 && key instanceof org.apache.spark.SparkConf)
-      {
-           var conf_uw = Utils.unwrapObject(key);
-           var javaObject =  this.getJavaObject().config(conf_uw);
-           return new SparkSessionBuilder(javaObject);
-
-      }
-      else
-      {
-           var javaObject =  this.getJavaObject().config(key,value);
-           return new SparkSessionBuilder(javaObject);
-      }
-    };
+//    SparkSessionBuilder.prototype.config = function(key,value) {
+//      if (arguments.length==1 && key instanceof org.apache.spark.SparkConf)
+//      {
+//           var conf_uw = Utils.unwrapObject(key);
+//           var javaObject =  this.getJavaObject().config(conf_uw);
+//           return new SparkSessionBuilder(javaObject);
+//
+//      }
+//      else
+//      {
+//           var javaObject =  this.getJavaObject().config(key,value);
+//           return new SparkSessionBuilder(javaObject);
+//      }
+//    };
     
     
     /**
@@ -94,26 +76,30 @@
      * run locally with 4 cores, or "spark://master:7077" to run on a Spark standalone cluster.
      *
      * @since EclairJS 0.6 Spark  2.0.0
+     * @function
+     * @name module:eclairjs/sql.SparkSessionBuilder#master
      * @param {string} master
      * @returns {module:eclairjs/sql.SparkSessionBuilder} 
      */
-    SparkSessionBuilder.prototype.master = function(master) {
-       var javaObject =  this.getJavaObject().master(master);
-       return new SparkSessionBuilder(javaObject);
-    };
-    
+//    SparkSessionBuilder.prototype.master = function(master) {
+//       var javaObject =  this.getJavaObject().master(master);
+//       return new SparkSessionBuilder(javaObject);
+//    };
+//
     
     /**
      * Enables Hive support, including connectivity to a persistent Hive metastore, support for
      * Hive serdes, and Hive user-defined functions.
      *
      * @since EclairJS 0.6 Spark  2.0.0
-     * @returns {module:eclairjs/sql.SparkSessionBuilder} 
+     * @function
+     * @name module:eclairjs/sql.SparkSessionBuilder#enableHiveSupport
+     * @returns {module:eclairjs/sql.SparkSessionBuilder}
      */
-    SparkSessionBuilder.prototype.enableHiveSupport = function() {
-       var javaObject =  this.getJavaObject().enableHiveSupport();
-       return new SparkSessionBuilder(javaObject);
-    };
+//    SparkSessionBuilder.prototype.enableHiveSupport = function() {
+//       var javaObject =  this.getJavaObject().enableHiveSupport();
+//       return new SparkSessionBuilder(javaObject);
+//    };
     
     
     /**
@@ -130,12 +116,15 @@
      * this SparkSessionBuilder will be applied to the existing SparkSession.
      *
      * @since EclairJS 0.6 Spark  2.0.0
-     * @returns {module:eclairjs/sql.SparkSession} 
+     * @function
+     * @static
+     * @name module:eclairjs/sql.SparkSessionBuilder#getOrCreate
+     * @returns {module:eclairjs/sql.SparkSession}
      */
-    SparkSessionBuilder.prototype.getOrCreate = function() {
-       var javaObject =  this.getJavaObject().getOrCreate();
-       return Utils.javaToJs(javaObject);
-    };
+//    SparkSessionBuilder.prototype.getOrCreate = function() {
+//       var javaObject =  this.getJavaObject().getOrCreate();
+//       return Utils.javaToJs(javaObject);
+//    };
     
     module.exports = SparkSessionBuilder;
 })();

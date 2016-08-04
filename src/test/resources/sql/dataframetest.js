@@ -19,7 +19,7 @@ var DataType = require(EclairJS_Globals.NAMESPACE + '/sql/types/DataType');
 var ArrayType = sqlTypes.ArrayType;
 var StructType = require(EclairJS_Globals.NAMESPACE + '/sql/types/StructType');
 var StructField = require(EclairJS_Globals.NAMESPACE + '/sql/types/StructField');
-var SQLContext = require(EclairJS_Globals.NAMESPACE + '/sql/SQLContext');
+var sparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/sparkSession');
 var SqlTimestamp = require(EclairJS_Globals.NAMESPACE + '/sql/SqlTimestamp');
 var RowFactory = require(EclairJS_Globals.NAMESPACE + '/sql/RowFactory');
 var Column = require(EclairJS_Globals.NAMESPACE + '/sql/Column');
@@ -27,16 +27,23 @@ var functions = require(EclairJS_Globals.NAMESPACE + '/sql/functions');
 var SqlDate = require(EclairJS_Globals.NAMESPACE + '/sql/SqlDate');
 var SqlTimestamp = require(EclairJS_Globals.NAMESPACE + '/sql/SqlTimestamp');
 var StorageLevel = require(EclairJS_Globals.NAMESPACE + '/storage/StorageLevel');
-var SparkConf = require(EclairJS_Globals.NAMESPACE + '/SparkConf');
-var SparkContext = require(EclairJS_Globals.NAMESPACE + '/SparkContext');
+var SparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/SparkSession');
 //var sql = require('sql');
 //require('sql');
-var SparkConf = new SparkConf(false).setMaster("local[*]").setAppName("dataframe");
+//var SparkConf = new SparkConf(false).setMaster("local[*]").setAppName("dataframe");
+//
+//var sparkContext = new SparkContext(SparkConf);
+//
+//var sparkSession = new sparkSession(sparkContext);
+var sparkSession = SparkSession
+                             .builder()
+                             .config('spark.sql.crossJoin.enabled', 'true')
+                             .appName("dataframe")
+                             .master("local[*]")
+                             .getOrCreate();
+var sparkContext = sparkSession.sparkContext();
+var sqlContext = sparkSession.sqlContext();
 
-var sparkContext = new SparkContext(SparkConf);
-
-var sqlContext = new SQLContext(sparkContext);
-sqlContext.setConf('spark.sql.crossJoin.enabled', 'true');
 var useDateType = false;
 
 load("https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.9.0/lodash.min.js");
@@ -95,7 +102,7 @@ var buildPeopleTable = function(file, date) {
 
 
 	//Apply the schema to the RDD.
-	var peopleDataFrame = sqlContext.createDataFrame(rowRDD, schema);
+	var peopleDataFrame = sparkSession.createDataFrame(rowRDD, schema);
 
 	// Register the DataFrame as a table.
 	peopleDataFrame.registerTempTable("people");
@@ -106,7 +113,7 @@ var programmaticallySpecifyingSchema = function(file) {
 
 	var peopleDataFrame = buildPeopleTable(file);
 	// SQL can be run over RDDs that have been registered as tables.
-	var results = sqlContext.sql("SELECT name FROM people");
+	var results = sparkSession.sql("SELECT name FROM people");
 
 	//The results of SQL queries are DataFrames and support all the normal RDD operations.
 	//The columns of a row in the result can be accessed by ordinal.
@@ -120,7 +127,7 @@ var programmaticallySpecifyingSchema = function(file) {
 var dataframeAggTest = function(file) {
 	var peopleDataFrame = buildPeopleTable(file);
 	// SQL can be run over RDDs that have been registered as tables.
-	var results = sqlContext.sql("SELECT name, age, expense FROM people");
+	var results = sparkSession.sql("SELECT name, age, expense FROM people");
 
 	var m = {};
 	m["age"] = "max";
@@ -136,7 +143,7 @@ var dataframeAggTest = function(file) {
 var dataframeApplyTest = function(file) {
 	var peopleDataFrame = buildPeopleTable(file);
 	// SQL can be run over RDDs that have been registered as tables.
-	//var results = sqlContext.sql("SELECT name, age, expense FROM people");
+	//var results = sparkSession.sql("SELECT name, age, expense FROM people");
 	var col = peopleDataFrame.apply("name");
 	
 	var s = col.toString();
@@ -147,7 +154,7 @@ var dataframeApplyTest = function(file) {
 var dataframeAsTest = function(file) {
 	var peopleDataFrame = buildPeopleTable(file);
 	// SQL can be run over RDDs that have been registered as tables.
-	//var results = sqlContext.sql("SELECT name, age, expense FROM people");
+	//var results = sparkSession.sql("SELECT name, age, expense FROM people");
 	var df = peopleDataFrame.as("aliasname");
 	
 	var s = df.toString();
@@ -248,7 +255,7 @@ var dataframeFilterWithColumnTest = function(file) {
 }
 
 var dataframeFirstTest = function(file) {
-    var dataFrame = sqlContext.read().json(file);
+    var dataFrame = sparkSession.read().json(file);
     var row = dataFrame.first();
     return row.mkString();
 }
@@ -304,7 +311,7 @@ var dataframeForeachPartitionTest = function(file) {
 }
 
 var dataframeGroupByTest = function(file) {
-    var dataFrame = sqlContext.read().json(file);
+    var dataFrame = sparkSession.read().json(file);
     var gd = dataFrame.groupBy(dataFrame.col("first"));
     var df2 = gd.count();
 
@@ -312,7 +319,7 @@ var dataframeGroupByTest = function(file) {
 }
 
 var dataframeGroupByWithStringsTest = function(file) {
-    var dataFrame = sqlContext.read().json(file);
+    var dataFrame = sparkSession.read().json(file);
     var gd = dataFrame.groupBy("first");
     var df2 = gd.count();
 
@@ -320,13 +327,13 @@ var dataframeGroupByWithStringsTest = function(file) {
 }
 
 var dataframeHeadTest = function(file) {
-    var dataFrame = sqlContext.read().json(file);
+    var dataFrame = sparkSession.read().json(file);
     var row = dataFrame.head();
     return row.mkString();
 }
 
 var dataframeInputFilesTest = function(file) {
-    var dataFrame = sqlContext.read().json(file);
+    var dataFrame = sparkSession.read().json(file);
     var files = dataFrame.inputFiles();
  	/*
 	 * the files are in temp directories for the path can change on each run of the test, so just checking the file name
@@ -378,8 +385,8 @@ var dataframeJoinUsingColumnsTest = function(file) {
 var dataframeJoinColumnExprTest = function(file, joinType) {
 	
 	var people = buildPeopleTable(file);
-	var df1 = sqlContext.sql("SELECT name, age FROM people");
-	var df2 = sqlContext.sql("SELECT name, DOB FROM people");
+	var df1 = sparkSession.sql("SELECT name, age FROM people");
+	var df2 = sparkSession.sql("SELECT name, DOB FROM people");
 
 	var colExpr = df1.col("name").equalTo(df2.col("name"));
 	var joinedDf = df1.join(df2, colExpr, joinType);
@@ -737,7 +744,7 @@ var binaryTypeTest = function() {
 	fields.push(DataTypes.createStructField("key", DataTypes.IntegerType, true));
 	fields.push(DataTypes.createStructField("value", DataTypes.BinaryType, true));
 	var schema = DataTypes.createStructType(fields);
-    var df = sqlContext.createDataFrame([[1,[16,5,6]], [2,[12, 14, 9]]], schema);
+    var df = sparkSession.createDataFrame([[1,[16,5,6]], [2,[12, 14, 9]]], schema);
 	
 	df.show();
 	var results = df.toRDD().map(function(row) {
@@ -1045,14 +1052,14 @@ var dataFrameParquetTest = function(file) {
 	var peopleDataFrame = buildPeopleTable(file);
 	var parquetWriter = peopleDataFrame.write();
 	parquetWriter.mode('overwrite').parquet("/tmp/people.parquet");
-	var parquetFileDF = sqlContext.read().parquet("/tmp/people.parquet");
+	var parquetFileDF = sparkSession.read().parquet("/tmp/people.parquet");
 	parquetFileDF.registerTempTable("parquetFile");
-	tweenties = sqlContext.sql("SELECT name FROM parquetFile WHERE age >= 20 AND age <= 29");
+	tweenties = sparkSession.sql("SELECT name FROM parquetFile WHERE age >= 20 AND age <= 29");
 	return JSON.stringify(tweenties.take(10));
 }
 
 /*
- * SQLContext test
+ * sparkSession test
  */
 
 var sqlContextSetConfTest = function() {
@@ -1071,7 +1078,7 @@ var sqlContextGetAllConfTest = function() {
 
 var sqlContextRangeTest = function() {
 
-	var result = sqlContext.range(1,5);
+	var result = sparkSession.range(1,5);
 
     return result.take(10).toString();
 }
@@ -1093,7 +1100,7 @@ var dataFrameStatCrossTabTest = function(file) {
 	fields.push(DataTypes.createStructField("key", DataTypes.IntegerType, true));
 	fields.push(DataTypes.createStructField("value", DataTypes.IntegerType, true));
 	var schema = DataTypes.createStructType(fields);
-	var df = sqlContext.createDataFrame([[1,1], [1,2], [2,1], [2,1], [2,3], [3,2], [3,3]], schema);
+	var df = sparkSession.createDataFrame([[1,1], [1,2], [2,1], [2,1], [2,3], [3,2], [3,3]], schema);
 	
 	df.show();
 	
@@ -1105,7 +1112,7 @@ var dataFrameStatCrossTabTest = function(file) {
 
 
 /*
- * SQLContext tests
+ * sparkSession tests
  */
 
 var createDataFrameFromArray = function() {
@@ -1113,14 +1120,14 @@ var createDataFrameFromArray = function() {
 	var structField4 = DataTypes.createStructField("key", DataTypes.IntegerType, true);
 	var structField5 = DataTypes.createStructField("value", DataTypes.IntegerType, true);
 	var structType2 = DataTypes.createStructType([structField4,structField5]);
-	var dataFrame2 = sqlContext.createDataFrame([[1,1],[1,2],[2,1],[2,1],[2,3],[3,2],[3,3]], structType2);
+	var dataFrame2 = sparkSession.createDataFrame([[1,1],[1,2],[2,1],[2,1],[2,3],[3,2],[3,3]], structType2);
 	return JSON.stringify(dataFrame2.take(10));
 }
 
 
 
 /*
- * SQLContext tests
+ * sparkSession tests
  */
 
 var createDataFrameJSON = function() {
@@ -1132,7 +1139,7 @@ var createDataFrameJSON = function() {
 	  id : "Integer",
 	  text: "String"
 	};
-	var dataFrame2 = sqlContext.createDataFrameFromJson(rdd,schemaJson);
+	var dataFrame2 = sparkSession.createDataFrameFromJson(rdd,schemaJson);
 
 	return JSON.stringify(dataFrame2.take(3));
 }
@@ -1146,7 +1153,7 @@ var dataFrameArrayTypeSerialize = function(){
     var schema = new StructType([
         new StructField("col1", new ArrayType(DataTypes.StringType, true), false, Metadata.empty())
     ]);
-    var df = sqlContext.createDataFrame(rdd, schema);
+    var df = sparkSession.createDataFrame(rdd, schema);
 
     return JSON.stringify(df);
 }
@@ -1189,7 +1196,7 @@ var  dataFrameCreateTest = function() {
     fields.push(DataTypes.createStructField("boolean", DataTypes.BooleanType, true));
 
     var schema = DataTypes.createStructType(fields);
-    var df = sqlContext.createDataFrame([[ 1, 0.1, 1.0, "1.0", true]], schema);
+    var df = sparkSession.createDataFrame([[ 1, 0.1, 1.0, "1.0", true]], schema);
     return JSON.stringify(df.take(1));
 
 }
@@ -1204,7 +1211,7 @@ var  dataFrameGetListTest = function() {
     var schema = new StructType([
         new StructField("col1", new ArrayType(DataTypes.StringType, true), false, Metadata.empty())
     ]);
-    var df = sqlContext.createDataFrame(rdd, schema);
+    var df = sparkSession.createDataFrame(rdd, schema);
     var dfMap = df.map(function(row){
         var x = ['foo'].concat(row.getList(0));
         return x;
