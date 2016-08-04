@@ -18,8 +18,8 @@
  Usage:
  bin/eclairjs.sh examples/spark_tc.js"
  */
-var numEdges = 200;
-var numVertices = 50;
+var numEdges = 20;
+var numVertices = 20;
 var Tuple2 = require('eclairjs/Tuple2');
 
 function random(max) {

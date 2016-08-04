@@ -77,7 +77,7 @@ tests({
     },
 
     testCount : function() {
-        var ret = rdd.count();
+        var ret = Number(rdd.count());
         var expected = 3;
         assertIntegerEquals("failure - counts are not equal", expected, ret);
     },
@@ -94,7 +94,7 @@ tests({
     },
 
     testCountApproxDistinct : function() {
-        var ret = rdd.countApproxDistinct(0.1);
+        var ret = Number(rdd.countApproxDistinct(0.1));
         var expected = 3;
         assertIntegerEquals("failure - counts are not equal", expected, ret);
     },

@@ -531,7 +531,7 @@
      */
 /*    SparkSession.prototype.readStream = function() {
        var javaObject =  this.getJavaObject().readStream();
-       return new DataStreamReader(javaObject);
+       return Utils.javaToJs(javaObject);
     };
     */
     

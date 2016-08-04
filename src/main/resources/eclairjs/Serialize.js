@@ -210,12 +210,14 @@ var java2wrapper = {
     "FreqSequence": "PrefixSpanFreqSequence", // PrefixSpan$FreqSequence
     "GenericRowWithSchema": "Row",
     "GenericRow": "Row",
+    "StreamExecution": "StreamingQuery",
     "last_place_holder": ""
 };
 var javaPackageMap = {
     "eclairjs/sql/catalyst/expressions": "eclairjs/sql",
     "eclairjs/api/java": "eclairjs",
-    "eclairjs/streaming/api/java": "eclairjs/streaming"
+    "eclairjs/streaming/api/java": "eclairjs/streaming",
+    "eclairjs/sql/execution/streaming": "eclairjs/sql/streaming"
 };
 Serialize.javaSparkObject = function (javaObj) {
     if (javaObj == null) {
