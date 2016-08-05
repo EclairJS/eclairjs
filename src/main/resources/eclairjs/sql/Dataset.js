@@ -70,7 +70,7 @@
 	 * @returns {module:eclairjs/sql.Dataset}
 	 */
 	Dataset.prototype.as = function (alias) {
-		return Utils.javaToJs(this.getJavaObject().as(alias));
+		return Utils.javaToJs(this.getJavaObject().as(Utils.unwrapObject(alias)));
 	};
 	/**
 	 * Selects column based on the column name and return it as a Column.
@@ -275,11 +275,11 @@
 	 * @param {Object[]} [bindArgs] array whose values will be added to func's argument list.
 	 * @returns {module:eclairjs.RDD}
 	 */
-	Dataset.prototype.flatMap = function (func, bindArgs) {
+	Dataset.prototype.flatMap = function (func, encoder, bindArgs) {
 		//return this.toRDD().flatMap(func, bindArgs);
         var bindArgs;
         var fn = Utils.createLambdaFunction(func,org.eclairjs.nashorn.JSFlatMapFunction, bindArgs);
-        var javaObject =  this.getJavaObject().flatMap(fn, org.apache.spark.sql.Encoders.STRING() );
+        var javaObject =  this.getJavaObject().flatMap(fn, Utils.unwrapObject(encoder));
         return Utils.javaToJs(javaObject);
 	};
 	/**
