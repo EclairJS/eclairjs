@@ -16,27 +16,26 @@
 
 package org.eclairjs.nashorn;
 
-import javax.script.Invocable;
-import javax.script.ScriptEngine;
+import java.util.ArrayList;
+import java.util.Iterator;
 
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.spark.api.java.function.FlatMapFunction;
-import jdk.nashorn.api.scripting.ScriptObjectMirror;
-
-import java.util.*;
+public class JSMapPartitionsFunction extends JSBaseFunction implements org.apache.spark.api.java.function.MapPartitionsFunction {
 
 
-public class JSFlatMapFunction  extends JSBaseFunction implements FlatMapFunction {
-    public JSFlatMapFunction(String func,  Object[] o) {
+    public JSMapPartitionsFunction(String func, Object[] o) {
         super(func,o);
     }
 
-    @SuppressWarnings("unchecked")
-	@Override
-    public Iterator call(Object o) throws Exception {
-        Object params[] = { o};
+    @SuppressWarnings({ "null", "unchecked" })
+    @Override
+    public Iterator call(Iterator  iter) throws Exception {
+        java.util.List list = new ArrayList();
+        while (iter.hasNext())
+            list.add(iter.next());
+        Object params[] = { list.toArray()};
+        Object ret = callScript( params);
 
-        Object ret = callScript(params);
         return toIterator(ret);
+
     }
 }

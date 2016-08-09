@@ -16,27 +16,19 @@
 
 package org.eclairjs.nashorn;
 
-import javax.script.Invocable;
-import javax.script.ScriptEngine;
-
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.spark.api.java.function.FlatMapFunction;
-import jdk.nashorn.api.scripting.ScriptObjectMirror;
-
-import java.util.*;
+public class JSReduceFunction extends JSBaseFunction implements org.apache.spark.api.java.function.ReduceFunction {
 
 
-public class JSFlatMapFunction  extends JSBaseFunction implements FlatMapFunction {
-    public JSFlatMapFunction(String func,  Object[] o) {
+    public JSReduceFunction(String func, Object[] o) {
         super(func,o);
     }
 
-    @SuppressWarnings("unchecked")
-	@Override
-    public Iterator call(Object o) throws Exception {
-        Object params[] = { o};
+    @SuppressWarnings({ "null", "unchecked" })
+    @Override
+    public Object call(Object o, Object o2) throws Exception {
+        Object params[] = { o, o2};
+        Object ret = callScript( params);
+        return ret;
 
-        Object ret = callScript(params);
-        return toIterator(ret);
     }
 }

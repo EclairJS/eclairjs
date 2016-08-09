@@ -222,7 +222,7 @@ public class Utils {
                 {
 
                     List from=null;
-                    if (o instanceof int[] || o instanceof double[])
+                    if (o instanceof int[] || o instanceof double[] || o instanceof String[])
                     {
                         return Utils.toJsArray(o);
                     } else {
@@ -634,7 +634,7 @@ public class Utils {
         Logger logger = Logger.getLogger(Utils.class);
         int DEFAULT_BUFFER_SIZE = 4096;
 
-        logger.debug("Going to try and unzip: "+zipfile);
+        logger.debug("Going to try and unzip: " + zipfile);
 
         ZipFile zfile = new ZipFile(zipfile);
         Enumeration<? extends ZipEntry> entries = zfile.entries();
@@ -668,7 +668,7 @@ public class Utils {
     public static void unzipChildren(String zipfilePrefix, String directory) throws IOException {
         Logger logger = Logger.getLogger(Utils.class);
         
-        logger.debug("UNZIP CHILDREN FOR PREFIX: "+zipfilePrefix);
+        logger.debug("UNZIP CHILDREN FOR PREFIX: " + zipfilePrefix);
         FileFilter filter = new FileFilter() {
             public boolean accept(File file) {
                 if (file.getName().startsWith(zipfilePrefix)) {
@@ -777,16 +777,25 @@ public class Utils {
         return obj;
     }
 
-    public static Object createJavaHashMap(Object map) {
-        Object obj = null;
-        try {
-            Invocable invocable = (Invocable) NashornEngineSingleton.getEngine();
-            Object params[] = {map};
-            obj = invocable.invokeFunction("createJavaHashMap", params);
-        } catch (java.lang.Exception e) {
-            e.printStackTrace();
+    public static Map createJavaHashMap(Object map) {
+
+        ScriptObjectMirror jsObject=null;
+        if (map instanceof jdk.nashorn.internal.runtime.ScriptObject)
+          jsObject=ScriptUtils.wrap((jdk.nashorn.internal.runtime.ScriptObject) map);
+        else if (map instanceof ScriptObjectMirror)
+            jsObject = (ScriptObjectMirror)map;
+        else
+            throw new RuntimeException("not a script object");
+
+
+            Map hashmap=new HashMap<>();
+        for (Map.Entry<String, Object> entry : jsObject.entrySet()) {
+            String key = entry.getKey().toString();
+            String value = entry.getValue().toString();
+
+            hashmap.put(key,value);
         }
-        return obj;
+        return hashmap;
     }
 
     public static int toInt(Object num) {
@@ -830,6 +839,8 @@ public class Utils {
     }
 
     public static int [] toIntArray(Object arr) {
+        if (arr instanceof NativeArray)
+            arr=ScriptUtils.wrap((NativeArray)arr);
         if (arr instanceof ScriptObjectMirror) {
             ScriptObjectMirror m = (ScriptObjectMirror) arr;
             if (m.isArray()) {
@@ -855,6 +866,8 @@ public class Utils {
     }
 
     public static double [] toDoubleArray(Object arr) {
+        if (arr instanceof NativeArray)
+            arr=ScriptUtils.wrap((NativeArray)arr);
         if (arr instanceof ScriptObjectMirror) {
             ScriptObjectMirror m = (ScriptObjectMirror) arr;
             if (m.isArray()) {
@@ -909,11 +922,66 @@ public class Utils {
             }
             return al.toArray();
         }
+        else
+        {
+            if (arr.getClass().isArray())
+            {
+                Object[] o = (Object[])arr;
+                Object [] newArr=new Object[o.length];
+                for (int i = 0; i < o.length; i++) {
+                    newArr[i]=jsToJava(o[i]);
+                }
+                return newArr;
+            }
+        }
 
-            throw new RuntimeException("expecting array, got " + arr);
+        throw new RuntimeException("expecting array, got " + arr);
+
+    }
+
+    public static Object[] varArgsObjectArray(Object [] args, int index)
+    {
+        int len=args.length-index;
+        Object [] varArgs=new Object[len];
+        System.arraycopy(args,index,varArgs,0,len);
+        return toObjectArray(varArgs);
+    }
+
+
+    public static Object [] removeUndefinedArgs(Object []args) {
+
+        int last=args.length-1;
+        while (last>=0)
+        {
+            if (!args[last].toString().equals("undefined"))
+                break;
+            last--;
+        }
+        if (last!=args.length-1)
+        {
+            last++;
+            Object[]newArgs=new Object[last];
+            System.arraycopy(args,0,newArgs,0,last);
+            return newArgs;
+        }
+        else
+            return args;
+    }
+
+    public static String [] toStringArray(Object obj) {
+        return  Arrays.stream(Utils.toObjectArray(obj)).toArray(String[]::new);
+
+    }
+
+    public static String [] toStringArray(Object []arr) {
+        return Arrays.stream(arr).toArray(String[]::new);
     }
 
     public static Object toObject(Object obj) {
+        return toObject(obj,true);
+    }
+
+    public static Object toObject(Object obj,boolean throwException) {
         if (obj instanceof WrappedClass)
             return ((WrappedClass)obj).getJavaObject();
 
@@ -938,7 +1006,10 @@ public class Utils {
 
 
         }
-        throw new RuntimeException("expecting spark object, got " + obj);
+        if (throwException)
+            throw new RuntimeException("expecting spark object, got " + obj);
+        else
+            return null;
     }
 
     public static Object toJsArray(Object javaArray) {

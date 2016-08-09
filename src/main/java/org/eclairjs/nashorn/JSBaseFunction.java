@@ -23,6 +23,8 @@ import org.apache.spark.api.java.function.Function;
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 abstract class JSBaseFunction implements Serializable{
     private String func = null;
@@ -60,6 +62,39 @@ abstract class JSBaseFunction implements Serializable{
         Object ret = ((ScriptObjectMirror)this.fn).call(null, params);
         ret = Utils.jsToJava(ret);
         return ret;
+    }
+
+    Iterator toIterator(Object obj)
+    {
+        Iterator iter=null;
+        if (obj.getClass().isArray()) {
+            String type = obj.getClass().getTypeName();
+            if (type.equals("double[]")) {
+                double [] z = (double []) obj;
+                ArrayList x = new ArrayList();
+                for (int i = 0; i < z.length; i++) {
+                    x.add(z[i]);
+                }
+                iter = x.iterator();
+            } else if (type.equals("int[]")) {
+                int [] z = (int []) obj;
+                ArrayList x = new ArrayList();
+                for (int i = 0; i < z.length; i++) {
+                    x.add(z[i]);
+                }
+                iter = x.iterator();
+            } else {
+                Object [] z = (Object []) obj;
+                ArrayList x = new ArrayList();
+                for (int i = 0; i < z.length; i++) {
+                    x.add(z[i]);
+                }
+                iter = x.iterator();
+            }
+
+        }
+        return iter;
+
     }
 }
 
