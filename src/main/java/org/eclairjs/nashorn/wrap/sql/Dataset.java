@@ -850,7 +850,7 @@ public class Dataset extends WrappedClass {
             org.apache.spark.sql.Dataset _dataset = (org.apache.spark.sql.Dataset) ((Dataset) thiz).getJavaObject();
             if (args.length==0)
                 returnValue = _dataset.dropDuplicates();
-            else if (args[0] instanceof NativeArray) {
+            else if (Utils.isJSArray(args[0])) {
                 String [] cols=Utils.toStringArray(args[0]);
                 returnValue = _dataset.dropDuplicates(cols);
             }
@@ -965,7 +965,7 @@ public class Dataset extends WrappedClass {
             logger.debug("flatMap");
             Object returnValue = null;
             org.apache.spark.sql.Dataset _dataset = (org.apache.spark.sql.Dataset) ((Dataset) thiz).getJavaObject();
-            org.apache.spark.sql.Encoder encoder =null;// (org.apache.spark.sql.Encoder) Utils.toObject(args[1],false);
+            org.apache.spark.sql.Encoder encoder = (org.apache.spark.sql.Encoder) Utils.toObject(args[1],false);
             int bindArgsInx=(encoder!=null)? 2 : 1;
             Object  bindArgs = null;
             if (args.length > bindArgsInx) {

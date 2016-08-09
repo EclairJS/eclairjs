@@ -865,6 +865,15 @@ public class Utils {
         throw new RuntimeException("expecting array, got " + arr);
     }
 
+    private static Object smToArray(ScriptObjectMirror m )
+    {
+        ArrayList list = new ArrayList();
+        for (Object item : m.values()) {
+            list.add(jsToJava(item));
+        }
+        return  list.toArray();
+    }
+
     public static double [] toDoubleArray(Object arr) {
         if (arr instanceof NativeArray)
             arr=ScriptUtils.wrap((NativeArray)arr);
@@ -879,12 +888,7 @@ public class Utils {
                     If the array contains ScriptObjectMirror the above conversions throws exception
                     so we have to convert the contents of the array as well.
                      */
-                    ArrayList list = new ArrayList();
-                    for (Object item : m.values()) {
-                        list.add(jsToJava(item));
-                    }
-                    Object x = list.toArray();
-                    return (double[]) x;
+                    return (double[]) smToArray(m);
                 }
 
             }
@@ -898,18 +902,16 @@ public class Utils {
             if (m.isArray()) {
                 try {
                     Object[] objectArray = (Object[]) ScriptUtils.convert(m, Object[].class);
-                    return objectArray;
+                    Object[] uwArray=new Object[objectArray.length];
+                    for (int i=0;i<objectArray.length;i++)
+                        uwArray[i]=jsToJava(objectArray[i]);
+                    return uwArray;
                 } catch (ClassCastException e) {
                     /*
                     If the array contains ScriptObjectMirror the above conversions throws exception
                     so we have to convert the contents of the array as well.
                      */
-                    ArrayList list = new ArrayList();
-                    for (Object item : m.values()) {
-                        list.add(jsToJava(item));
-                    }
-                    Object x = list.toArray();
-                    return (Object[]) x;
+                    return (Object[])smToArray(m);
                 }
 
             }
@@ -975,6 +977,18 @@ public class Utils {
 
     public static String [] toStringArray(Object []arr) {
         return Arrays.stream(arr).toArray(String[]::new);
+    }
+
+
+    public static boolean isJSArray(Object jsObject)
+    {
+        if (jsObject instanceof NativeArray)
+            return true;
+        if ((jsObject instanceof ScriptObjectMirror) && ((ScriptObjectMirror)jsObject).isArray())
+            return true;
+        if (jsObject.getClass().isArray())
+            return true;
+        return false;
     }
 
     public static Object toObject(Object obj) {

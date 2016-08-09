@@ -28,6 +28,7 @@ var SqlDate = require(EclairJS_Globals.NAMESPACE + '/sql/SqlDate');
 var SqlTimestamp = require(EclairJS_Globals.NAMESPACE + '/sql/SqlTimestamp');
 var StorageLevel = require(EclairJS_Globals.NAMESPACE + '/storage/StorageLevel');
 var SparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/SparkSession');
+var Encoders = require(EclairJS_Globals.NAMESPACE + '/sql/Encoders');
 //var sql = require('sql');
 //require('sql');
 //var SparkConf = new SparkConf(false).setMaster("local[*]").setAppName("dataframe");
@@ -267,7 +268,7 @@ var dataframeFlatMapTest = function(file) {
 		var r = [];
 		r.push(row.getString(0));
 		return r
-	});
+	},Encoders.STRING() );
 
     return result.take(10).toString();
 }
@@ -408,7 +409,7 @@ var dataframeMapTest = function(file) {
 	var peopleDataFrame = buildPeopleTable(file);
 	var names = peopleDataFrame.map(function(row) {
 		return "Name: " + row.getString(0);
-	});
+	},Encoders.STRING());
 
     return names.take(10).toString();
 }
@@ -418,7 +419,7 @@ var dataframeMapPartitionsTest = function(file) {
 	var peopleDataFrame = buildPeopleTable(file);
 	var names = peopleDataFrame.mapPartitions(function(rows) {
 		return [rows.length];
-	});
+	},Encoders.INT());
 
     return names.take(10).toString();
 }
@@ -556,7 +557,7 @@ var dataframeWhereTest = function(file) {
 	//The columns of a row in the result can be accessed by ordinal.
 	var names = result.toRDD().map(function(row) {
 		return "Name: " + row.getString(0);
-	});
+	},Encoders.STRING());
     return names.take(10).toString();
 }
 
@@ -664,7 +665,7 @@ var timestampType = function(file) {
 	//The columns of a row in the result can be accessed by ordinal.
 	var names = result.toRDD().map(function(row) {
 		return "Name: " + row.getString(0) + " DOB: " + row.getTimestamp(3);
-	});
+	},Encoders.STRING());
     return names.take(10).toString();
 }
 
@@ -1214,8 +1215,8 @@ var  dataFrameGetListTest = function() {
     var df = sparkSession.createDataFrame(rdd, schema);
     var dfMap = df.map(function(row){
         var x = ['foo'].concat(row.getList(0));
-        return x;
-    });
+        return JSON.stringify(x);
+    },Encoders.STRING());
 
     return JSON.stringify(dfMap);
 
