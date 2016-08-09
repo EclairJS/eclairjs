@@ -13,7 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/**
+ * Counts words in UTF8 encoded, '\n' delimited text received from the network.
+ *
+ * Usage: JavaStructuredNetworkWordCount <hostname> <port>
+ * <hostname> and <port> describe the TCP server that Structured Streaming
+ * would connect to receive data.
+ *
+ * To run this on your local machine, you need to first run a Netcat server
+ *    `$ nc -lk 9999`
+ * and then run the example
+ *    `$ bin/eclairjs.sh examples/sql/streaming/structuredNetworkWordCount.js localhost 9999`
+ */
 var SparkSession = require('eclairjs/sql/SparkSession');
+var Encoders = require('eclairjs/sql/Encoders');
 
 if (args.length < 2) {
     print("Usage: structuredNetworkWordCount <hostname> <port>");
@@ -30,29 +43,27 @@ var spark = SparkSession
 
 // Create DataFrame representing the stream of input lines from connection to host:port
 var lines = spark
-    .readStream() // returns org.apache.spark.sql.streaming.DataStreamReader
-    .format("socket") // returns org.apache.spark.sql.streaming.DataStreamReader
-    .option("host", host) // returns org.apache.spark.sql.streaming.DataStreamReader
-    .option("port", port) // returns org.apache.spark.sql.streaming.DataStreamReader
-    .load(); // returns org.apache.spark.sql.Dataset
-    /*.as(Encoders.STRING()*/
+    .readStream()
+    .format("socket")
+    .option("host", host)
+    .option("port", port)
+    .load()
+    .as(Encoders.STRING());
 
 
 // Split the lines into words
-var words = lines.flatMap(function (row) {
-    print(row.get(0))
-    var sentence = row.get(0);
+var words = lines.flatMap(function (sentence) {
     return sentence.split(" ");
-});
+}, Encoders.STRING());
 
 // Generate running word count
-var wordCounts = words.groupBy("value") // returns org.apache.spark.sql.RelationalGroupedDataset
-    .count(); // returns Dataset
-//wordCounts.show();
+var wordCounts = words.groupBy("value")
+    .count();
+
 // Start running the query that prints the running counts to the console
-var query = wordCounts.writeStream() // returns org.apache.spark.sql.streaming.DataStreamWriter
-    .outputMode("complete") // returns org.apache.spark.sql.streaming.DataStreamWriter
-    .format("console") // returns org.apache.spark.sql.streaming.DataStreamWriter
-    .start(); // returns org.apache.spark.sql.streaming.StreamingQuery
+var query = wordCounts.writeStream()
+    .outputMode("complete")
+    .format("console")
+    .start();
 
 query.awaitTermination();

@@ -1,4 +1,5 @@
-package org.eclairjs.nashorn;/*
+package org.eclairjs.nashorn;
+/*
  * Copyright 2016 IBM Corp.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,6 +28,13 @@ public class JSONSerializer implements java.io.Serializable {
         this.json = json;
     }
 
+    public JSONSerializer(Object json) {
+        this.json = "json";
+    }
+
+    public JSONSerializer() {
+        this.json = null;
+    }
     public String getJson() {
         return json;
     }
@@ -39,4 +47,13 @@ public class JSONSerializer implements java.io.Serializable {
     public String toString() {
         return this.getJson();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        JSONSerializer json = (JSONSerializer) o;
+        return json.getJson().equals(this.getJson());
+    }
+
 }
