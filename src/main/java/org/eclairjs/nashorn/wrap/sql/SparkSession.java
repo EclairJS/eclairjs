@@ -29,6 +29,7 @@ import org.eclairjs.nashorn.wrap.WrappedClass;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import scala.Tuple2;
@@ -431,18 +432,20 @@ public class SparkSession extends WrappedClass {
     };
 
 
-//    static WrappedFunction F_createDataset = new WrappedFunction() {
-//        @Override
-//        public Object call(Object thiz, Object... args) {
-//            logger.debug("createDataset");
-//            Object returnValue = null;
-//            org.apache.spark.sql.SparkSession _sparkSession = (org.apache.spark.sql.SparkSession) ((SparkSession) thiz).getJavaObject();
-//            org.apache.spark.rdd.RDD data = (org.apache.spark.rdd.RDD) Utils.toObject(args[0]);
-//            returnValue = _sparkSession.createDataset(data);
-//            // return Utils.javaToJs(returnValue);
-//            return new org.eclairjs.nashorn.wrap.sql.Dataset((org.apache.spark.sql.Dataset)returnValue);
-//        }
-//    };
+    static WrappedFunction F_createDataset = new WrappedFunction() {
+        @Override
+        public Object call(Object thiz, Object... args) {
+            logger.debug("createDataset");
+            Object returnValue = null;
+            org.apache.spark.sql.SparkSession _sparkSession = (org.apache.spark.sql.SparkSession) ((SparkSession) thiz).getJavaObject();
+            java.util.List data =  Arrays.asList(Utils.jsToJava(args[0]));
+            org.apache.spark.sql.Encoder encoder = (org.apache.spark.sql.Encoder) Utils.toObject(args[1]);
+            returnValue = _sparkSession.createDataset(data, encoder);
+            // return Utils.javaToJs(returnValue);
+            //return new org.eclairjs.nashorn.wrap.sql.Dataset((org.apache.spark.sql.Dataset)returnValue);
+            return Utils.javaToJs(returnValue);
+        }
+    };
 //
 //    static WrappedFunction F_createDataset = new WrappedFunction() {
 //        @Override
@@ -621,8 +624,8 @@ public class SparkSession extends WrappedClass {
                 return F_createDataFrameFromJson;
             case "baseRelationToDataFrame":
                 return F_baseRelationToDataFrame;
-//            case "createDataset":
-//                return F_createDataset;
+            case "createDataset":
+                return F_createDataset;
             case "range":
                 return F_range;
             case "table":
@@ -654,7 +657,7 @@ public class SparkSession extends WrappedClass {
             case "createDataFrame":
             case "createDataFrameFromJson":
             case "baseRelationToDataFrame":
-//            case "createDataset":
+            case "createDataset":
             case "range":
             case "table":
             case "sql":
