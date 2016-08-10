@@ -65,7 +65,7 @@ public class SqlTest {
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable) engine).invokeFunction("dataframeAggTest", file);
 
-        String json = "{\"values\":[30,6],\"schema\":{\"fields\":[{\"name\":\"max(age)\",\"datatype\":\"integer\",\"nullable\":true},{\"name\":\"sum(expense)\",\"datatype\":\"long\",\"nullable\":true}]}}";
+        String json = "{\"values\":[6,30],\"schema\":{\"fields\":[{\"name\":\"sum(expense)\",\"datatype\":\"long\",\"nullable\":true},{\"name\":\"max(age)\",\"datatype\":\"integer\",\"nullable\":true}]}}";
         assertEquals("should be same", json.toLowerCase(), ret.toString().toLowerCase()); // case is sometimes different when run from maven
     }
 
@@ -789,7 +789,7 @@ public class SqlTest {
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable) engine).invokeFunction("dataframeSampleTest", file);
 
-        String expected = "[Andy,30,2,1998-12-07 00:00:00.0,1500.44,false,500000000.11]";
+        String expected = "passed";
 
         assertEquals("should be same", expected, ret.toString());
     }
@@ -1800,7 +1800,7 @@ public class SqlTest {
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable) engine).invokeFunction("sqlContextRangeTest");
 
-        String expected = "[1],[2],[3],[4]";
+        String expected = "[1,2,3,4]";
         assertEquals("should be same", expected, ret.toString());
     }
 
@@ -1978,7 +1978,7 @@ public class SqlTest {
 
         TestUtils.evalJSResource(engine, "/sql/dataframetest.js");
         Object ret = ((Invocable) engine).invokeFunction("dataFrameGetListTest");
-        String expected = "{\"0\":{\"0\":\"foo\",\"1\":\"a\",\"2\":\"b\",\"3\":\"c\"}}";
+        String expected = "[\"[\\\"foo\\\",\\\"a\\\",\\\"b\\\",\\\"c\\\"]\"]";
         assertEquals("should be same", expected, ret.toString());
     }
 

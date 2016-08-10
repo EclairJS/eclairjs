@@ -134,6 +134,7 @@ var dataframeAggTest = function(file) {
 	m["age"] = "max";
 	m["expense"] =  "sum";
 	var x = results.agg(m);
+    x.show();
 	var rows = x.take(10);
 	var s = JSON.stringify(rows[0]);
 
@@ -492,10 +493,11 @@ var dataframeSchemaTest = function(file) {
 var dataframeSampleTest = function(file, seed) {
 
 	var peopleDataFrame = buildPeopleTable(file);
-	peopleDataFrame.show();
-	var results = peopleDataFrame.sample(true, 0.5);
+	var peopleDataFrame2 = peopleDataFrame.sort("age");
+    peopleDataFrame2.show();
+	var results = peopleDataFrame2.sample(true, 0.5);
 	
-    return results.take(10).toString();
+    return results.take(10).length > 0 ? "passed" : "failed";
 }
 
 var dataframeSelectTest = function(file) {
@@ -1081,7 +1083,7 @@ var sqlContextRangeTest = function() {
 
 	var result = sparkSession.range(1,5);
 
-    return result.take(10).toString();
+    return JSON.stringify(result.take(10));
 }
 
 /*

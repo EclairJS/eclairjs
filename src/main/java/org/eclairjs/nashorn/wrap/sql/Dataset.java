@@ -40,10 +40,9 @@ public class Dataset extends WrappedClass {
             Object returnValue = null;
             org.apache.spark.sql.Dataset _dataset = (org.apache.spark.sql.Dataset) ((Dataset) thiz).getJavaObject();
 
-            //String []argsStr = Arrays.stream(Utils.varArgsObjectArray(args, 0)).toArray(String[]::new);
-            String []argsStr = (String[]) Arrays.stream(Utils.varArgsObjectArray(args, 1)).toArray();
+            String []argsStr = Arrays.stream(Utils.varArgsObjectArray(args, 0)).toArray(String[]::new);
 
-              returnValue = _dataset.toDF(argsStr);
+            returnValue = _dataset.toDF(argsStr);
             return new Dataset((org.apache.spark.sql.Dataset)returnValue);
         }
     };
@@ -107,7 +106,7 @@ public class Dataset extends WrappedClass {
             logger.debug("columns");
             Object returnValue = null;
             org.apache.spark.sql.Dataset _dataset = (org.apache.spark.sql.Dataset) ((Dataset) thiz).getJavaObject();
-            returnValue = _dataset.columns();
+            returnValue = Utils.javaToJs(_dataset.columns());
             return returnValue;
         }
     };
@@ -262,8 +261,7 @@ public class Dataset extends WrappedClass {
                 if (args.length==1)
                     returnValue= _dataset.sortWithinPartitions(sortCol);
                 else {
-                    //String []sortCols = Arrays.stream(Utils.varArgsObjectArray(args, 1)).toArray(String[]::new);
-                    String []sortCols = (String[]) Arrays.stream(Utils.varArgsObjectArray(args, 1)).toArray();
+                    String []sortCols = Arrays.stream(Utils.varArgsObjectArray(args, 1)).toArray(String[]::new);
                     returnValue= _dataset.sortWithinPartitions(sortCol, sortCols);
                 }
             }
@@ -289,8 +287,7 @@ public class Dataset extends WrappedClass {
                 if (args.length==1)
                     returnValue= _dataset.sort(sortCol);
                 else {
-                    //String []sortCols = Arrays.stream(Utils.varArgsObjectArray(args, 1)).toArray(String[]::new);
-                    String []sortCols = (String[]) Arrays.stream(Utils.varArgsObjectArray(args, 1)).toArray();
+                    String []sortCols = Arrays.stream(Utils.varArgsObjectArray(args, 1)).toArray(String[]::new);
                     returnValue= _dataset.sort(sortCol, sortCols);
                 }
             }
@@ -317,8 +314,7 @@ public class Dataset extends WrappedClass {
                 if (args.length==1)
                     returnValue= _dataset.orderBy(sortCol);
                 else {
-                   // String []sortCols = Arrays.stream(Utils.varArgsObjectArray(args, 1)).toArray(String[]::new);
-                    String []sortCols = (String[]) Arrays.stream(Utils.varArgsObjectArray(args, 1)).toArray();
+                    String []sortCols = Arrays.stream(Utils.varArgsObjectArray(args, 1)).toArray(String[]::new);
                     returnValue= _dataset.orderBy(sortCol, sortCols);
                 }
             }
@@ -393,8 +389,7 @@ public class Dataset extends WrappedClass {
                 if (args.length==1)
                     returnValue= _dataset.select(sortCol);
                 else {
-                    //String []sortCols = Arrays.stream(Utils.varArgsObjectArray(args, 1)).toArray(String[]::new);
-                    String []sortCols = (String[]) Arrays.stream(Utils.varArgsObjectArray(args, 1)).toArray();
+                    String []sortCols = Arrays.stream(Utils.varArgsObjectArray(args, 1)).toArray(String[]::new);
                     returnValue= _dataset.select(sortCol, sortCols);
                 }
             }
@@ -446,8 +441,7 @@ public class Dataset extends WrappedClass {
             logger.debug("selectExpr");
             Object returnValue = null;
             org.apache.spark.sql.Dataset _dataset = (org.apache.spark.sql.Dataset) ((Dataset) thiz).getJavaObject();
-            //String []exprs = Arrays.stream(Utils.varArgsObjectArray(args, 0)).toArray(String[]::new);
-            String []exprs = (String[]) Arrays.stream(Utils.varArgsObjectArray(args, 0)).toArray();
+            String []exprs = Arrays.stream(Utils.varArgsObjectArray(args, 0)).toArray(String[]::new);
             returnValue = _dataset.selectExpr(exprs);
             return new Dataset((org.apache.spark.sql.Dataset)returnValue);
         }
@@ -547,8 +541,7 @@ public class Dataset extends WrappedClass {
                 if (args.length==1)
                     returnValue= _dataset.rollup(sortCol);
                 else {
-                   // String []sortCols = Arrays.stream(Utils.varArgsObjectArray(args, 1)).toArray(String[]::new);
-                    String []sortCols = (String []) Arrays.stream(Utils.varArgsObjectArray(args, 1)).toArray();
+                    String []sortCols = Arrays.stream(Utils.varArgsObjectArray(args, 1)).toArray(String[]::new);
                     returnValue= _dataset.rollup(sortCol, sortCols);
                 }
             }
@@ -574,8 +567,7 @@ public class Dataset extends WrappedClass {
                 if (args.length==1)
                     returnValue= _dataset.cube(sortCol);
                 else {
-                    //String []sortCols = Arrays.stream(Utils.varArgsObjectArray(args, 1)).toArray(String[]::new);
-                    String []sortCols = (String[]) Arrays.stream(Utils.varArgsObjectArray(args, 1)).toArray();
+                    String []sortCols = Arrays.stream(Utils.varArgsObjectArray(args, 1)).toArray(String[]::new);
                     returnValue= _dataset.cube(sortCol, sortCols);
                 }
             }
