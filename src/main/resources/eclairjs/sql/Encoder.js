@@ -16,11 +16,6 @@
 
 (function () {
 
-    //var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
-    //var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
-    //var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
-    //var logger = Logger.getLogger("sql.Encoder_js");
-
 
     var Encoder = Java.type('org.eclairjs.nashorn.wrap.sql.Encoder');
     
@@ -29,81 +24,41 @@
      * :: Experimental ::
      * Used to convert a JVM object of type `T` to and from the internal Spark SQL representation.
      *
-     * == Scala ==
-     * Encoders are generally created automatically through implicits from a `SparkSession`, or can be
-     * explicitly created by calling static methods on {@link Encoders}.
      *
      * @example 
-     *   import spark.implicits._
-     *
-     *   val ds = Seq(1, 2, 3).toDS() // implicitly provided (spark.implicits.newIntEncoder)
-     *  
-     *
-     * == Java ==
-     * Encoders are specified by calling static methods on {@link Encoders}.
-     *
-     * @example 
-     *   List<String> data = Arrays.asList("abc", "abc", "xyz");
-     *   Dataset<String> ds = context.createDataset(data, Encoders.STRING());
-     *  
+     *   var data = ["abc", "abc", "xyz"];
+     *   var ds = context.createDataset(data, Encoders.STRING());
      *
      * Encoders can be composed into tuples:
      *
      * @example 
-     *   Encoder<Tuple2<Integer, String>> encoder2 = Encoders.tuple(Encoders.INT(), Encoders.STRING());
-     *   List<Tuple2<Integer, String>> data2 = Arrays.asList(new scala.Tuple2(1, "a");
-     *   Dataset<Tuple2<Integer, String>> ds2 = context.createDataset(data2, encoder2);
-     *  
+     *   var encoder2 = Encoders.tuple(Encoders.INT(), Encoders.STRING());
+     *   var data2 = [new Tuple2(1, "a")];
+     *   var ds2 = context.createDataset(data2, encoder2);
      *
-     * Or constructed from Java Beans:
-     *
-     * @example 
-     *   Encoders.bean(MyClass.class);
-     *  
-     *
-     * == Implementation ==
-     *  - Encoders are not required to be thread-safe and thus they do not need to use locks to guard
-     *    against concurrent access if they reuse internal buffers to improve performance.
      *
      * @since EclairJS 0.5 Spark  1.6.0
-     * @class
+     * @class Encoder
      * @memberof module:eclairjs/sql
      */
     
-    //
-    //var Encoder = function() {
-    //	 throw "Can't instantiate abstract class - Encoder";
-    //\\ 	 this.logger = Logger.getLogger("Encoder_js");
-    //\\ 	 JavaWrapper.call(this, jvmObject);
-    //
-    //};
-    //
-    //Encoder.prototype = Object.create(JavaWrapper.prototype);
-    //
-    //Encoder.prototype.constructor = Encoder;
-    //
-    
     
     /**
-     *  Returns the schema of encoding this type of object as a Row. 
+     *  Returns the schema of encoding this type of object as a Row.
+     *  @function
+     *  @name  module:eclairjs/sql/Encoder#schema
      * @returns {module:eclairjs/sql/types.StructType} 
      */
-    //Encoder.prototype.schema = function() {
-    //throw "not implemented by ElairJS";
-    ////   var javaObject =  this.getJavaObject().schema();
-    ////   return new StructType(javaObject);
-    //};
-    
+
     
     /**
-     *  A ClassTag that can be used to construct and Array to contain a collection of `T`. 
-     * @returns {ClassTag} 
+     *  A ClassTag that can be used to construct and Array to contain a collection of `T`.
+     *  @function
+     *  @name  module:eclairjs/sql/Encoder#schema
+     * @returns {ClassTag}
+     * @private
      */
-    //Encoder.prototype.clsTag = function() {
-    //throw "not implemented by ElairJS";
-    ////   var javaObject =  this.getJavaObject().clsTag();
-    ////   return new ClassTag(javaObject);
-    //};
+
     
     module.exports = Encoder;
 })();

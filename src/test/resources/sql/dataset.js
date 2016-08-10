@@ -15,17 +15,21 @@
  */
 //var sqlTypes = require(EclairJS_Globals.NAMESPACE + '/sql/types');
 var Encoders = require('eclairjs/sql/Encoders');
+var Tuple2 = require('eclairjs/Tuple2');
+var Tuple3 = require('eclairjs/Tuple3');
+var Tuple4 = require('eclairjs/Tuple4');
+var Tuple5 = require('eclairjs/Tuple5');
 //var DataTypes = sqlTypes.DataTypes;
 //var DataType = require(EclairJS_Globals.NAMESPACE + '/sql/types/DataType');
 //var ArrayType = sqlTypes.ArrayType;
 //var StructType = require(EclairJS_Globals.NAMESPACE + '/sql/types/StructType');
 //var StructField = require(EclairJS_Globals.NAMESPACE + '/sql/types/StructField');
 var SparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/SparkSession');
-//var SqlTimestamp = require(EclairJS_Globals.NAMESPACE + '/sql/SqlTimestamp');
+var SqlTimestamp = require(EclairJS_Globals.NAMESPACE + '/sql/SqlTimestamp');
 //var RowFactory = require(EclairJS_Globals.NAMESPACE + '/sql/RowFactory');
 //var Column = require(EclairJS_Globals.NAMESPACE + '/sql/Column');
 //var functions = require(EclairJS_Globals.NAMESPACE + '/sql/functions');
-//var SqlDate = require(EclairJS_Globals.NAMESPACE + '/sql/SqlDate');
+var SqlDate = require(EclairJS_Globals.NAMESPACE + '/sql/SqlDate');
 //var SqlTimestamp = require(EclairJS_Globals.NAMESPACE + '/sql/SqlTimestamp');
 //var StorageLevel = require(EclairJS_Globals.NAMESPACE + '/storage/StorageLevel');
 //var SparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/SparkSession');
@@ -46,29 +50,72 @@ var sparkContext = sparkSession.sparkContext();
 var sqlContext = sparkSession.sqlContext();
 
 
-var stringEncoder = function(file) {
-
-   var dataset =  sparkSession.read().text(file).as(Encoders.STRING());
-    return dataset.take(1)[0];
+var stringEncoder = function() {
+    var ds = sparkSession.createDataset(["1","2","3"], Encoders.STRING());
+    return JSON.stringify(ds);
 }
 
-var intEncoder = function(file) {
+var intEncoder = function() {
+    var ds = sparkSession.createDataset([1,2,3], Encoders.INT());
+    return JSON.stringify(ds);
+}
 
-    var dataset =  sparkSession.read().text(file);
-    var obj = {
-        "item1": 6,
-        "item2": "test"
-    }
-    //var dataset = sparkSession.createDataset([obj], Encoders.json());
-    dataset.printSchema();
-    //var col = dataset.col('value').cast("int");
-    //var ds = dataset.select(dataset.col('value').as('json')).as(Encoders.JSON());
-    var ds = dataset.as(Encoders.JSON());
-    ds.printSchema();
-    //ds.flatMap(function(j){
-    //    print("j " + j);
-    //    return [j];
-    //},Encoders.json());
-    var o = ds.take(1)[0];
-    return JSON.stringify(o);//ds.take(1)[0];
+var floatEncoder = function() {
+    var ds = sparkSession.createDataset([1.0,2.2,3.45], Encoders.FLOAT());
+    return JSON.stringify(ds);
+}
+
+var doubleEncoder = function() {
+    var ds = sparkSession.createDataset([1.0,2.2,3.45], Encoders.DOUBLE());
+    return JSON.stringify(ds);
+}
+
+var booleanEncoder = function() {
+    var ds = sparkSession.createDataset([true, false], Encoders.BOOLEAN());
+    return JSON.stringify(ds);
+}
+
+var dateEncoder = function() {
+    var date = new SqlDate(30000);
+    var ds = sparkSession.createDataset([date], Encoders.DATE());
+    return JSON.stringify(ds);
+}
+
+var timestampEncoder = function() {
+    var date = new SqlTimestamp(30000);
+    var ds = sparkSession.createDataset([date], Encoders.TIMESTAMP());
+    return JSON.stringify(ds);
+}
+
+var tuple2Encoder = function() {
+    var ds = sparkSession.createDataset([new Tuple2(1, "two")], Encoders.tuple2(Encoders.INT(), Encoders.STRING()));
+    return JSON.stringify(ds);
+}
+
+var tuple3Encoder = function() {
+    var ds = sparkSession.createDataset([new Tuple3(1, "two", 2.234)], Encoders.tuple3(Encoders.INT(), Encoders.STRING(), Encoders.FLOAT()));
+    return JSON.stringify(ds);
+}
+
+var tuple4Encoder = function() {
+    var ds = sparkSession.createDataset([new Tuple4(1, "two", 2.234, true)], Encoders.tuple4(
+                                                                                                Encoders.INT(),
+                                                                                                Encoders.STRING(),
+                                                                                                Encoders.FLOAT(),
+                                                                                                Encoders.BOOLEAN()
+                                                                                            )
+    );
+    return JSON.stringify(ds);
+}
+
+var tuple5Encoder = function() {
+    var ds = sparkSession.createDataset([new Tuple5(1, "two", 2.234, true, 3)], Encoders.tuple5(
+        Encoders.INT(),
+        Encoders.STRING(),
+        Encoders.FLOAT(),
+        Encoders.BOOLEAN(),
+        Encoders.INT()
+        )
+    );
+    return JSON.stringify(ds);
 }

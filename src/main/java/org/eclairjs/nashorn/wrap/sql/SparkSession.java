@@ -438,10 +438,14 @@ public class SparkSession extends WrappedClass {
             logger.debug("createDataset");
             Object returnValue = null;
             org.apache.spark.sql.SparkSession _sparkSession = (org.apache.spark.sql.SparkSession) ((SparkSession) thiz).getJavaObject();
-            java.util.List data =  Arrays.asList(Utils.jsToJava(args[0]));
+            //java.util.List data =  Arrays.asList(Utils.jsToJava(args[0])); // does not work for int[]
+            Object[] arr = (Object[])ScriptUtils.convert(args[0], Object[].class); // convert to generic array
+            java.util.List data = new ArrayList();
+            for (int i = 0; i < arr.length; i++) {
+                data.add(Utils.jsToJava(arr[i]));
+            }
             org.apache.spark.sql.Encoder encoder = (org.apache.spark.sql.Encoder) Utils.toObject(args[1]);
             returnValue = _sparkSession.createDataset(data, encoder);
-            // return Utils.javaToJs(returnValue);
             //return new org.eclairjs.nashorn.wrap.sql.Dataset((org.apache.spark.sql.Dataset)returnValue);
             return Utils.javaToJs(returnValue);
         }

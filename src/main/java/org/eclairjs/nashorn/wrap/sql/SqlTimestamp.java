@@ -132,7 +132,7 @@ public class SqlTimestamp extends WrappedClass {
 
     @Override
     public String toJSON() {
-        return timestamp.toString() ;
+        return "\""+timestamp.toString()+"\"" ;
     }
 
     @Override

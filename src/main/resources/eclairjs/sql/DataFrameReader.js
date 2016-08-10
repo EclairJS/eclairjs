@@ -23,7 +23,7 @@
     /**
      * @constructor
      * @memberof module:eclairjs/sql
-     * @classdesc Interface used to load a DataFrame from external storage systems (e.g. file systems, key-value stores, etc).
+     * @classdesc Interface used to load a Dataset from external storage systems (e.g. file systems, key-value stores, etc).
      * Use SQLContext.read to access this.
      */
     var DataFrameReader = function (javaDataFrameReader) {
@@ -106,7 +106,7 @@
      * @param {string} [path] Loads data sources that require a path (e.g. data backed by
      * a local or distributed file system). If not specified loads data sources that don't require a path (e.g. external
      * key-value stores).
-     * @returns {module:eclairjs/sql.DataFrame}
+     * @returns {module:eclairjs/sql.Dataset}
      */
     DataFrameReader.prototype.load = function (path) {
         var javaObject;
@@ -120,7 +120,7 @@
 
 
     /**
-     * Construct a {@link DataFrame} representing the database table accessible via JDBC URL
+     * Construct a {@link Dataset} representing the database table accessible via JDBC URL
      * @example
      * // url named table and connection properties.
      * var url="jdbc:mysql://localhost:3306/eclairjstesting";
@@ -140,7 +140,7 @@
      *
      * // or
      * // url named table using connection properties. The `predicates` parameter gives a list
-     * // expressions suitable for inclusion in WHERE clauses; each one defines one partition of the {@link DataFrame}.
+     * // expressions suitable for inclusion in WHERE clauses; each one defines one partition of the {@link Dataset}.
      * // Don't create too many partitions in parallel on a large cluster; otherwise Spark might crash
      * // your external database systems.
      * var peopleDF = sqlContext.read().jdbc(url,table,predicates,connectionProperties);
@@ -164,7 +164,7 @@
      *                             tag/value. Normally at least a "user" and "password" property
      *                             should be included.
 
-     * @returns {module:eclairjs/sql.DataFrame}
+     * @returns {module:eclairjs/sql.Dataset}
      */
     DataFrameReader.prototype.jdbc = function () {
         var javaObject;
@@ -188,59 +188,61 @@
 
 
     /**
-     * Loads a JSON file, or RDD[String] storing JSON objects (one object per line) and returns the result as a {@link DataFrame}.
+     * Loads a JSON file, or RDD[String] storing JSON objects (one object per line) and returns the result as a {@link Dataset}.
      * If path this function goes through the input once to determine the input schema. If you know the
      * schema in advance, use the version that specifies the schema to avoid the extra scan.
      * If RDD  unless the schema is specified using {@link schema} function, this function goes through the
      * input once to determine the input schema.
-     * @param {string | module:eclairjs.RDD} path or RDD
-     * @returns {module:eclairjs/sql.DataFrame}
+     * @param {...string | module:eclairjs.RDD} path or RDD
+     * @returns {module:eclairjs/sql.Dataset}
      * @since EclairJS 0.1 Spark  1.4.0
      */
     DataFrameReader.prototype.json = function () {
+        var RDD = require(EclairJS_Globals.NAMESPACE + '/RDD');
         var arg = arguments[0];
-        if (typeof arg === 'object') {
-            arg = Utils.unwrapObject(arg);
+        if (arg instanceof RDD) {
+            return Utils.javaToJs(this.getJavaObject().json(Utils.unwrapObject(arg)));
+        } else {
+            return Utils.javaToJs(this.getJavaObject().json(Java.to(arguments, "java.lang.String[]")));
         }
 
-        return Utils.javaToJs(this.getJavaObject().json(arg));
     };
 
     /**
-     * Loads a Parquet file, returning the result as a {@link DataFrame}. This function returns an empty
-     * {@link DataFrame} if no paths are passed in.
+     * Loads a Parquet file, returning the result as a {@link Dataset}. This function returns an empty
+     * {@link Dataset} if no paths are passed in.
      *
      * @since EclairJS 0.1 Spark  1.4.0
-     * @param {string} path
-     * @returns {module:eclairjs/sql.DataFrame}
+     * @param {...string} path
+     * @returns {module:eclairjs/sql.Dataset}
      */
-    DataFrameReader.prototype.parquet = function (paths) {
-        var javaObject = this.getJavaObject().parquet(paths);
+    DataFrameReader.prototype.parquet = function () {
+        var javaObject = this.getJavaObject().parquet(Java.to(arguments, "java.lang.String[]"));
         return Utils.javaToJs(javaObject);
     };
 
 
     /**
-     * Loads an ORC file and returns the result as a {@link DataFrame}.
+     * Loads an ORC file and returns the result as a {@link Dataset}.
      *
-     * @param {string} path  input path
+     * @param {...string} path  input path
      * @since EclairJS 0.1 Spark  1.5.0
      * @note Currently, this method can only be used together with `HiveContext`.
-     * @returns {module:eclairjs/sql.DataFrame}
+     * @returns {module:eclairjs/sql.Dataset}
      */
-    DataFrameReader.prototype.orc = function (path) {
-        var javaObject = this.getJavaObject().orc(path);
+    DataFrameReader.prototype.orc = function () {
+        var javaObject = this.getJavaObject().orc(Java.to(arguments, "java.lang.String[]"));
 
         return Utils.javaToJs(javaObject);
     };
 
 
     /**
-     * Returns the specified table as a {@link DataFrame}.
+     * Returns the specified table as a {@link Dataset}.
      *
      * @since EclairJS 0.1 Spark  1.4.0
      * @param {string} tableName
-     * @returns {module:eclairjs/sql.DataFrame}
+     * @returns {module:eclairjs/sql.Dataset}
      */
     DataFrameReader.prototype.table = function (tableName) {
         var javaObject = this.getJavaObject().table(tableName);
@@ -249,20 +251,29 @@
     };
 
     /**
-     * Loads a text file and returns a {@link DataFrame} with a single string column named "value".
-     * Each line in the text file is a new row in the resulting DataFrame. For example:
+     * Loads a text file and returns a {@link Dataset} with a single string column named "value".
+     * Each line in the text file is a new row in the resulting Dataset. For example:
      * @example
      *   sqlContext.read().text("/path/to/spark/README.md")
      *
      *
      * @param {...string} paths  input path
      * @since EclairJS 0.1 Spark  1.6.0
-     * @returns {module:eclairjs/sql.DataFrame}
+     * @returns {module:eclairjs/sql.Dataset}
      */
-    DataFrameReader.prototype.text = function (paths) {
-        var javaObject = this.getJavaObject().text(paths);
+    DataFrameReader.prototype.text = function () {
+        var javaObject = this.getJavaObject().text(Java.to(arguments, "java.lang.String[]"));
 
         return Utils.javaToJs(javaObject);
+    };
+
+    /**
+     * Loads a CSV file and returns the result as a Dataset.
+     * @parma {...string} paths
+     * @returns {module:eclairjs/sql.Dataset}
+     */
+    DataFrameReader.prototype.csv = function (path) {
+        return Utils.javaToJs(this.getJavaObject().csv(Java.to(arguments, "java.lang.String[]")));
     };
 
     module.exports = DataFrameReader;

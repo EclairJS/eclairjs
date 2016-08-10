@@ -207,6 +207,10 @@ public class Utils {
                 return new  org.eclairjs.nashorn.wrap.Tuple4(
                         (scala.Tuple4)o
                 );
+            case "scala.Tuple5":
+                return new  org.eclairjs.nashorn.wrap.Tuple5(
+                        (scala.Tuple5)o
+                );
             case "scala.collection.convert.Wrappers.IterableWrapper":
             {
                 scala.collection.convert.Wrappers.IterableWrapper iterable=

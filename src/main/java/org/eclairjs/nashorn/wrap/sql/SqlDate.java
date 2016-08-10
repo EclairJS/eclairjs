@@ -108,6 +108,12 @@ public class SqlDate extends WrappedClass {
         return date.toString();
     }
 
+    @Override
+    public String toJSON() {
+
+        return "\""+date.toString()+"\"";
+    }
+
     public String getClassName() {
         return "SqlDate";
     }

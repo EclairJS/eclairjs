@@ -96,6 +96,10 @@ Serialize.scalaTuple = function (javaObj) {
             Serialize.logger.debug("Tuple - " , javaObj);
             var Tuple4 = require('eclairjs/Tuple4');
             ret = new Tuple4(javaObj);
+        } else if (javaObj.getClass().getName().indexOf("scala.Tuple5") > -1) {
+            Serialize.logger.debug("Tuple - " , javaObj);
+            var Tuple5 = require('eclairjs/Tuple5');
+            ret = new Tuple5(javaObj);
         }
     }
 
