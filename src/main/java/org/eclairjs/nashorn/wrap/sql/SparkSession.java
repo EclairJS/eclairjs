@@ -381,8 +381,7 @@ public class SparkSession extends WrappedClass {
 
 
             org.apache.spark.api.java.JavaRDD rdd = ( org.apache.spark.api.java.JavaRDD) Utils.toObject(args[0]);
-            ScriptObjectMirror jsonSchema=ScriptUtils.wrap((jdk.nashorn.internal.runtime.ScriptObject) args[1]);
-
+            ScriptObjectMirror jsonSchema= (ScriptObjectMirror)args[1];
             List<Tuple2<String,DataType>> fieldNames=new ArrayList<>();
             List<StructField> fields=new ArrayList<>();
             for (Map.Entry<String, Object> entry : jsonSchema.entrySet()) {
