@@ -134,6 +134,14 @@
      * @returns {module:eclairjs/sql.Encoder}
      */
 
+    /**
+    * Creates encoder for JSON
+    * @function
+     * @name module:eclairjs/sql/Encoders#json
+    * @param {object} schema - object with keys corresponding to JSON field names (or getter functions), and values indicating Datatype
+     * @returns {module:eclairjs/sql.Encoder}
+    *
+    */
 
 
 

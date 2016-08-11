@@ -15,10 +15,20 @@ package org.eclairjs.nashorn.wrap.sql;
 * limitations under the License.                                           
 */
 
+import jdk.nashorn.api.scripting.ScriptObjectMirror;
+import org.apache.spark.sql.catalyst.encoders.RowEncoder;
+import org.apache.spark.sql.types.DataType;
+import org.apache.spark.sql.types.DataTypes;
+import org.apache.spark.sql.types.StructField;
+import org.apache.spark.sql.types.StructType;
 import org.eclairjs.nashorn.Utils;
 import org.eclairjs.nashorn.wrap.WrappedFunction;
 import org.apache.log4j.Logger;
 import org.eclairjs.nashorn.wrap.WrappedClass;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 
 public class Encoders extends WrappedClass {
@@ -494,6 +504,43 @@ public class Encoders extends WrappedClass {
         org.apache.spark.sql.Encoder e5_uw = (org.apache.spark.sql.Encoder) Utils.toObject(e5);
 //     return Utils.javaToJs(org.apache.spark.sql.Encoders.tuple(e1_uw,e2_uw,e3_uw,e4_uw,e5_uw));
         return new org.eclairjs.nashorn.wrap.sql.Encoder((org.apache.spark.sql.Encoder)org.apache.spark.sql.Encoders.tuple(e1_uw,e2_uw,e3_uw,e4_uw,e5_uw));
+
+    }
+
+    public static Object json( Object obj ) {
+        logger.debug("json");
+        ScriptObjectMirror jsonSchema= (ScriptObjectMirror)obj;
+
+        List<StructField> fields=new ArrayList<>();
+        for (Map.Entry<String, Object> entry : jsonSchema.entrySet()) {
+            String type=entry.getValue().toString();
+
+            String name=entry.getKey();
+            DataType schemaType;
+            switch (type) {
+                case "String":
+                    schemaType= DataTypes.StringType; break;
+                case "Integer":
+                    schemaType=DataTypes.IntegerType; break;
+                case "Boolean":
+                    schemaType=DataTypes.BooleanType; break;
+                case "Double":
+                    schemaType=DataTypes.DoubleType;
+//                    case "Array":
+//                        schemaType=DataTypes.ArrayType;
+                default:
+                {
+                    schemaType=(DataType) Utils.toObject(type);
+                }
+
+            }
+            fields.add(DataTypes.createStructField(name, schemaType, true));
+        }
+        org.apache.spark.sql.types.StructType structType = DataTypes.createStructType(fields);
+
+        org.apache.spark.sql.Encoder encoder= RowEncoder.apply(structType);
+
+        return new org.eclairjs.nashorn.wrap.sql.Encoder(encoder);
 
     }
 
