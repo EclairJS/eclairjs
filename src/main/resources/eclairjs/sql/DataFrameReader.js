@@ -267,6 +267,18 @@
         return Utils.javaToJs(javaObject);
     };
 
+         /**
+          * Loads text files and returns a {@link Dataset} of String. See the documentation on the
+          * other overloaded `textFile()` method for more details.
+          * @since EclairJS 0.5 Spark  2.0.0
+          * @param {string} path
+          * @returns {module:eclairjs/sql.Dataset}
+          */
+         DataFrameReader.prototype.textFile = function(path) {
+            var javaObject =  this.getJavaObject().textFile(path);
+            return new Dataset(javaObject);
+         };
+
     /**
      * Loads a CSV file and returns the result as a Dataset.
      * @parma {...string} paths

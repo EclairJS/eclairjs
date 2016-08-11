@@ -138,6 +138,17 @@
         return Utils.javaToJs(javaObject);
     };
 
+
+    /**
+     * @returns {string}
+     * @function
+     * @name module:eclairjs.SparkContext#uiWebUrl
+     */
+     SparkContext.prototype.uiWebUrl = function() {
+        return  this.getJavaObject().uiWebUrl();
+     };
+
+
     /**
      * A unique identifier for the Spark application.
      * Its format depends on the scheduler implementation.
@@ -169,17 +180,17 @@
     };
 
 
-    /**
-     * initLocalProperties
-     */
-    SparkContext.prototype.initLocalProperties = function () {
-        this.getJavaObject().initLocalProperties();
-    };
-
 
     /**
-     * Set a local property that affects jobs submitted from this thread, such as the
-     * Spark fair scheduler pool.
+      * Set a local property that affects jobs submitted from this thread, such as the Spark fair
+      * scheduler pool. User-defined properties may also be set here. These properties are propagated
+      * through to worker tasks and can be accessed there via
+      * [[org.apache.spark.TaskContext#getLocalProperty]].
+      *
+      * These properties are inherited by child threads spawned from this thread. This
+      * may have unexpected consequences when working with thread pools. The standard java
+      * implementation of thread pools have worker threads spawn other worker threads.
+      * As a result, local properties may propagate unpredictably.
      * @param {string}
      * @param {string}
      */
@@ -279,6 +290,23 @@
         return new Accumulator(initialValue, param, name);
 
     };
+
+        /**
+         * Register the given accumulator.  Note that accumulators must be registered before use, or it
+         * will throw exception.
+         * @param {module:eclairjs/util.AccumulatorV2} acc
+         * @param {string} [name]
+         * @function
+         * @name module:eclairjs.SparkContext#register
+         */
+         SparkContext.prototype.register = function(acc,name) {
+            var acc_uw = Utils.unwrapObject(acc);
+            if (name)
+             this.getJavaObject().register(acc_uw,name);
+            else
+             this.getJavaObject().register(acc_uw);
+         };
+
     /**
      * Create an Accumulator integer variable, which tasks can "add" values to using the add method.
      * Only the master can access the accumulator's value.
@@ -334,6 +362,18 @@
         var v = JSON.stringify(value);
         return Utils.javaToJs(this.getJavaObject().broadcast(v));
     };
+
+
+    /**
+     * Returns a list of file paths that are added to resources.
+     * @returns {string[]}
+     * @function
+     * @name module:eclairjs.SparkContext#listFiles
+     */
+     SparkContext.prototype.listFiles = function() {
+        return  this.getJavaObject().listFiles();
+     };
+
 
     /**
      * Distribute a local Scala collection to form an RDD.

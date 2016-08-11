@@ -48,6 +48,16 @@
 //   return  this.getJavaObject().getPartition(key);
     }
 
+
+  /**
+      * @param {object} other
+      * @returns {boolean}
+      */
+     Partition.prototype.equals = function(other) {
+        var other_uw = Utils.unwrapObject(other);
+        return  this.getJavaObject().equals(other_uw);
+      };
+
 //
 // static methods
 //
