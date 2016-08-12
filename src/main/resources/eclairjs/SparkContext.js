@@ -23,6 +23,7 @@
     var logger = Logger.getLogger("SparkContext_js");
 
     var initSparkContext = function (conf) {
+        /*
         if (typeof kernel !== 'undefined') {
             if (kernel.javaSparkContext() != null) {
                 return kernel.javaSparkContext();
@@ -31,6 +32,7 @@
                 return kernel.javaSparkContext();
             }
         }
+        */
 
         /*
          * Create a new JavaSparkContext from a conf
