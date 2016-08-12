@@ -209,48 +209,48 @@
   </build>
   <properties>
     <spark.version>2.0.0</spark.version>
-    <toree.version>0.1.0.dev8-incubating-SNAPSHOT</toree.version>
+    <toree.version>0.1.0.dev9-incubating-SNAPSHOT</toree.version>
   </properties>
   <dependencies>
     <dependency>
       <groupId>org.scala-lang</groupId>
       <artifactId>scala-library</artifactId>
-      <version>2.10.2</version>
+      <version>2.11.0</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.spark</groupId>
-      <artifactId>spark-core_2.10</artifactId>
+      <artifactId>spark-core_2.11</artifactId>
       <version>${spark.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.spark</groupId>
-      <artifactId>spark-sql_2.10</artifactId>
+      <artifactId>spark-sql_2.11</artifactId>
       <version>${spark.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.spark</groupId>
-      <artifactId>spark-catalyst_2.10</artifactId>
+      <artifactId>spark-catalyst_2.11</artifactId>
       <version>${spark.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.spark</groupId>
-      <artifactId>spark-hive_2.10</artifactId>
+      <artifactId>spark-hive_2.11</artifactId>
       <version>${spark.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.spark</groupId>
-      <artifactId>spark-streaming_2.10</artifactId>
+      <artifactId>spark-streaming_2.11</artifactId>
       <version>${spark.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.spark</groupId>
-      <artifactId>spark-mllib_2.10</artifactId>
+      <artifactId>spark-mllib_2.11</artifactId>
       <version>${spark.version}</version>
       <scope>provided</scope>
     </dependency>
@@ -339,24 +339,26 @@
       <id>notebook</id>
       <dependencies>
         <dependency>
-          <groupId>org.apache.toree</groupId>
-          <artifactId>toree-kernel-api_2.10</artifactId>
+          <groupId>org.apache.toree.kernel</groupId>
+          <artifactId>toree-kernel-api_2.11</artifactId>
           <version>${toree.version}</version>
           <scope>provided</scope>
         </dependency>
         <dependency>
-          <groupId>org.apache.toree</groupId>
-          <artifactId>toree-kernel_2.10</artifactId>
-          <version>${toree.version}</version>
+          <groupId>org.apache.toree.kernel</groupId>
+          <artifactId>toree-kernel_2.11</artifactId>
+          <version>0.0.0-dev-SNAPSHOT</version>
           <scope>provided</scope>
         </dependency>
-        <!--dependency>
+        <!--
+        <dependency>
           <groupId>org.apache.toree</groupId>
           <artifactId>toree</artifactId>
           <version>${toree.version}</version>
           <scope>system</scope>
-          <systemPath>/Users/bburns/dev/incubator-toree/dist/toree/lib/toree-assembly-0.1.0.dev6-incubating-SNAPSHOT.jar</systemPath>
-        </dependency-->
+          <systemPath>/Users/bburns/dev/incubator-toree/dist/toree/lib/toree-assembly-0.1.0.dev9-incubating-SNAPSHOT.jar</systemPath>
+          </dependency>
+        -->
 
       </dependencies>
       <build>

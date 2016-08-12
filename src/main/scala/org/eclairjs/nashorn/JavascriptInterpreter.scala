@@ -156,10 +156,6 @@ System.out.println("Engine created")
    */
   override def addJars(jars: URL*): Unit = ???
 
-  /**
-   * @return Returns a string to reference the URI of where the interpreted class files are created
-   */
-  override def classServerURI: String = ""
 
   /**
    * Returns the name of the variable created from the last execution.
@@ -215,7 +211,8 @@ System.out.println("Engine created")
    * @return The success/failure of the interpretation and the output from the
    *         execution or the failure
    */
-  override def interpret(code: String, silent: Boolean): (Result, scala.Either[ExecuteOutput, ExecuteFailure]) = {
+
+  override def interpret(code: String, silent: Boolean, outputStreamResult: Option[OutputStream]): (Result, Either[ExecuteOutput, ExecuteFailure]) =  {
     System.out.println("EXEC="+code)
 
     val futureResult = Future {
@@ -239,6 +236,8 @@ System.out.println("Engine created")
 
     Await.result(futureResult, Duration.Inf)
   }
+
+
 
   /**
    * Attempts to perform code completion via the <TAB> command.
