@@ -496,7 +496,6 @@ var dataframeSampleTest = function(file, seed) {
 	var peopleDataFrame2 = peopleDataFrame.sort("age");
     peopleDataFrame2.show();
 	var results = peopleDataFrame2.sample(true, 0.5);
-	
     return results.take(10).length > 0 ? "passed" : "failed";
 }
 
@@ -1137,12 +1136,17 @@ var createDataFrameJSON = function() {
 
   var rdd=sparkContext.parallelize([{id:0,text:"abc"},{id:1,text:"def"},{id:2,text:"ghi"}]);
 
-
 	var schemaJson={
 	  id : "Integer",
 	  text: "String"
 	};
+	var encoder=Encoders.json(schemaJson)
 	var dataFrame2 = sparkSession.createDataFrameFromJson(rdd,schemaJson);
+
+    var dataFrame2 = dataFrame2.map(function(json){
+		return json;
+    },encoder);
+
 
 	return JSON.stringify(dataFrame2.take(3));
 }

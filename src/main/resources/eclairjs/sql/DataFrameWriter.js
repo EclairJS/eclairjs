@@ -257,6 +257,80 @@
         this.getJavaObject().text(path);
     };
 
+        /**
+         * Buckets the output by the given columns. If specified, the output is laid out on the file
+         * system similar to Hive's bucketing scheme.
+         *
+         * This is applicable for Parquet, JSON and ORC.
+         *
+         * @since EclairJS 0.7 Spark  2.0
+         * @param {number} numBuckets
+         * @param {string} colName
+         * @param {...string} colNames
+         * @returns {module:eclairjs/sql.DataFrameWriter}
+         * @function
+         * @name module:eclairjs/sql.DataFrameWriter#bucketBy
+         */
+         DataFrameWriter.prototype.bucketBy = function(numBuckets,colName,colNames) {
+            var args = Array.prototype.slice.call(arguments,2);
+
+            var javaObject =  this.getJavaObject().bucketBy(numBuckets,colName,Java.to(args, "java.lang.String[]"));
+            return new DataFrameWriter(javaObject);
+         };
+
+        /**
+         * Sorts the output in each bucket by the given columns.
+         *
+         * This is applicable for Parquet, JSON and ORC.
+         *
+         * @since EclairJS 0.7 Spark  2.0
+         * @param {string} colName
+         * @param {...string} colNames
+         * @returns {module:eclairjs/sql.DataFrameWriter}
+         * @function
+         * @name module:eclairjs/sql.DataFrameWriter#sortBy
+         */
+         DataFrameWriter.prototype.sortBy = function(colName,colNames) {
+         var args = Array.prototype.slice.call(arguments,1);
+
+            var javaObject =  this.getJavaObject().sortBy(colName,Java.to(args, "java.lang.String[]"));
+            return new DataFrameWriter(javaObject);
+         };
+    /**
+     * Saves the content of the {@link DataFrame} in CSV format at the specified path.
+     * This is equivalent to:
+     * @example
+     *   format("csv").save(path)
+     *
+     *
+     * You can set the following CSV-specific option(s) for writing CSV files:
+     * <li>`sep` (default `,`): sets the single character as a separator for each
+     * field and value.</li>
+     * <li>`quote` (default `"`): sets the single character used for escaping quoted values where
+     * the separator can be part of the value.</li>
+     * <li>`escape` (default `\`): sets the single character used for escaping quotes inside
+     * an already quoted value.</li>
+     * <li>`escapeQuotes` (default `true`): a flag indicating whether values containing
+     * quotes should always be enclosed in quotes. Default is to escape all values containing
+     * a quote character.</li>
+     * <li>`quoteAll` (default `false`): A flag indicating whether all values should always be
+     * enclosed in quotes. Default is to only escape values containing a quote character.</li>
+     * <li>`header` (default `false`): writes the names of columns as the first line.</li>
+     * <li>`nullValue` (default empty string): sets the string representation of a null value.</li>
+     * <li>`compression` (default `null`): compression codec to use when saving to file. This can be
+     * one of the known case-insensitive shorten names (`none`, `bzip2`, `gzip`, `lz4`,
+     * `snappy` and `deflate`). </li>
+     *
+     * @since EclairJS 0.7 Spark  2.0.0
+     * @param {string} path
+     * @function
+     * @name module:eclairjs/sql.DataFrameWriter#csv
+     */
+     DataFrameWriter.prototype.csv = function(path) {
+         this.getJavaObject().csv(path);
+     };
+
+
     module.exports = DataFrameWriter;
 
 })();

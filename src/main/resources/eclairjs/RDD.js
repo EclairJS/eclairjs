@@ -336,7 +336,7 @@
 
     /**
      * Aggregate the elements of each partition, and then the results for all the partitions, using a
-     * given associative and commutative function and a neutral "zero value". The function
+     * given associative function and a neutral "zero value". The function
      * op(t1, t2) is allowed to modify t1 and return it as its result value to avoid object
      * allocation; however, it should not modify t2.
      *
@@ -346,12 +346,11 @@
      * apply the fold to each element sequentially in some defined ordering. For functions
      * that are not commutative, the result may differ from that of a fold applied to a
      * non-distributed collection.
-     * @function
-     * @name module:eclairjs.RDD#fold
-     * @param {module:eclairjs.RDD} zeroValue - (undocumented)
-     * @param {function} func - (undocumented) Function with two parameters
-     * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
+     * @param {object} zeroValue
+     * @param {func} f
      * @returns {object}
+     * @function
+     * @name module:eclairjs/api/java.JavaRDDLike#fold
      */
     //RDD.prototype.fold = function (zeroValue, func, bindArgs) {
     //    var zeroValue_uw = Utils.unwrapObject(zeroValue);
@@ -760,18 +759,6 @@
     //    return Utils.javaToJs(result);
     //};
 
-    /**
-     * Get the preferred locations of a partition, taking into account whether the
-     * RDD is checkpointed.
-     * @returns {Seq}
-     * @private
-     */
-//    RDD.prototype.preferredLocations = function (split) {
-//        throw "not implemented by ElairJS";
-////   var split_uw = Utils.unwrapObject(split);
-////   var javaObject =  this.getJavaObject().preferredLocations(split_uw);
-////   return new Seq(javaObject);
-//    };
 
     /**
      * Randomly splits this RDD with the provided weights.

@@ -98,6 +98,29 @@
         return jsonObj;
     };
 
+        /**
+         * Updates the StructField with a new comment value.
+         * @param {string} comment
+         * @returns {module:eclairjs/sql/types.StructField}
+         * @function
+         * @name module:eclairjs/sql/types.StructField#withComment
+         */
+         StructField.prototype.withComment = function(comment) {
+            var javaObject =  this.getJavaObject().withComment(comment);
+            return new StructField(javaObject);
+         };
+
+        /**
+         * Return the comment of this StructField.
+         * @returns {string}
+         * @function
+         * @name module:eclairjs/sql/types.StructField#getComment
+         */
+         StructField.prototype.getComment = function() {
+            return  this.getJavaObject().getComment();
+         };
+
+
     module.exports = StructField;
 
 })();
