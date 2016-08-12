@@ -19,13 +19,13 @@
  bin/eclairjs.sh examples/word_count.js"
  */
 
-function run(sparkContext) {
+function run(spark) {
     var Tuple2 = require('eclairjs/Tuple2');
 
     var file = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "./examples/data/dream.txt";
 
 
-    var rdd = sparkContext.textFile(file).cache();
+    var rdd = spark.read().textFile(file).rdd();
 
 
     var rdd2 = rdd.flatMap(function (sentence) {
@@ -58,15 +58,16 @@ function run(sparkContext) {
  check if SparkContext is defined, if it is we are being run from Unit Test
  */
 
-if (typeof sparkContext === 'undefined') {
-    var SparkConf = require('eclairjs/SparkConf');
-    var SparkContext = require('eclairjs/SparkContext');
-    var conf = new SparkConf().setAppName("JavaScript word count");
-    var sc = new SparkContext(conf);
-    var result = run(sc);
+if (typeof sparkSession === 'undefined') {
+    var SparkSession = require('eclairjs/sql/SparkSession');
+    var spark = SparkSession
+          .builder()
+          .appName("JavaScript word count")
+          .getOrCreate();
+    var result = run(spark);
     print("top 10 words = " + result);
 
-    sc.stop();
+    spark.stop();
 }
 
 

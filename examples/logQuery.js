@@ -64,8 +64,9 @@ function extractKey(line) {
     return {ip: null, user: null, query: null};
 }
 
-function run(sc, file) {
+function run(spark, file) {
     var Tuple2 = require('eclairjs/Tuple2');
+    var sc=spark.sparkContext();
     var dataSet = file? sc.textFile(file) : sc.parallelize(exampleApacheLogs);
 
     var extracted = dataSet.mapToPair(function (line, Tuple2) {
@@ -123,20 +124,21 @@ function run(sc, file) {
  check if SparkContext is defined, if it is we are being run from Unit Test
  */
 
-if (typeof sparkContext === 'undefined') {
+if (typeof sparkSession === 'undefined') {
     var dataSet = (args.length == 2) ? args[1] : null;
-    var SparkConf = require('eclairjs/SparkConf');
-    var SparkContext = require('eclairjs/SparkContext');
-    var conf = new SparkConf().setAppName("JavaScript Log Query");
-    var sc = new SparkContext(conf);
-    var result = run(sc, dataSet);
+    var SparkSession = require('eclairjs/sql/SparkSession');
+    var spark = SparkSession
+          .builder()
+          .appName("JavaScript Log Query")
+          .getOrCreate();
+    var result = run(spark, dataSet);
     for (var i = 0; i < result.length; i++) {
         var key = result[i]._1();
         var stats = result[i]._2();
         print("user=" + key.user + "\tbytes=" + stats.bytes + "\tn=" + stats.count);
     }
 
-    sc.stop();
+    spark.stop();
 }
 
 

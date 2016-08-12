@@ -37,9 +37,9 @@ var    file = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "
 var    ITERATIONS = ((typeof args !== "undefined") && (args.length > 2)) ? 0 + args[2] : 10;
 
 
-function run(sc) {
+function run(spark) {
 
-    var lines = sc.textFile(file);
+    var lines = spark.read().textFile(file).rdd();
     var points = lines.map(function (line,D) {
         var tok = line.split(/\s+/);
         var y = tok[0];
@@ -95,16 +95,17 @@ function run(sc) {
  check if SparkContext is defined, if it is we are being run from Unit Test
  */
 
-if (typeof sparkContext === 'undefined') {
+if (typeof sparkSession === 'undefined') {
 
-    var SparkConf = require('eclairjs/SparkConf');
-    var SparkContext = require('eclairjs/SparkContext');
-    var conf = new SparkConf().setAppName("JavaScript Logistic Regression");
-    var sc = new SparkContext(conf);
-    var result = run(sc, file);
+    var SparkSession = require('eclairjs/sql/SparkSession');
+    var spark = SparkSession
+          .builder()
+          .appName("JavaScript Logistic Regression")
+          .getOrCreate();
+    var result = run(spark, file);
     print("Final w: ");
     printWeights(result);
-    sc.stop();
+    spark.stop();
 }
 
 

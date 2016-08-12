@@ -24,7 +24,9 @@
  */
 
 
-function run(sc) {
+function run(spark) {
+
+   var sc=spark.sparkContext();
     var slices = 50;
 
     var n = 10000 * slices;
@@ -53,14 +55,15 @@ function run(sc) {
  check if SparkContext is defined, if it is we are being run from Unit Test
  */
 
-if (typeof sparkContext === 'undefined') {
-    var SparkConf = require('eclairjs/SparkConf');
-    var SparkContext = require('eclairjs/SparkContext');
-    var conf = new SparkConf().setAppName("JavaScript Spark Pi");
-    var sc = new SparkContext(conf);
-    var result = run(sc);
+if (typeof sparkSession === 'undefined') {
+    var SparkSession = require('eclairjs/sql/SparkSession');
+    var spark = SparkSession
+          .builder()
+          .appName("JavaScript Spark Pi")
+          .getOrCreate();
+    var result = run(spark);
     print("Pi is roughly " + result);
-    sc.stop();
+    spark.stop();
 }
 
 

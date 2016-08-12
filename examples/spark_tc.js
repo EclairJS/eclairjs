@@ -48,7 +48,9 @@ function generateGraph(){
 }
 
 
-function run(sc, slices) {
+function run(spark, slices) {
+
+var sc=spark.sparkContext();
 
 var slices = slices ? 0+slices: 2;
 var tc = sc.parallelizePairs(generateGraph(), slices).cache();
@@ -87,14 +89,16 @@ return tc.count();
  check if SparkContext is defined, if it is we are being run from Unit Test
  */
 
-if (typeof sparkContext === 'undefined') {
+if (typeof sparkSession === 'undefined') {
 	var slices =  2;
-    var SparkConf = require('eclairjs/SparkConf');
-    var SparkContext = require('eclairjs/SparkContext');
-    var conf = new SparkConf().setAppName("JavaScript transitive closure");
-	var sc = new SparkContext(conf);
-	var result = run(sc, slices);
+
+    var SparkSession = require('eclairjs/sql/SparkSession');
+    var spark = SparkSession
+          .builder()
+          .appName("JavaScript transitive closure")
+          .getOrCreate();
+	var result = run(spark, slices);
 	print("TC has " + result + " edges.");
 
-	sc.stop();
+	spark.stop();
 }

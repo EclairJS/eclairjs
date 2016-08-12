@@ -168,6 +168,10 @@ public class Utils {
                 return new  org.eclairjs.nashorn.wrap.sql.Row(
                         (org.apache.spark.sql.Row)o
                 );
+            case "org.apache.spark.sql.Dataset":
+                return new  org.eclairjs.nashorn.wrap.sql.Dataset(
+                        (org.apache.spark.sql.Dataset)o
+                );
             case "org.apache.spark.sql.streaming.DataStreamReader":
                 return new  org.eclairjs.nashorn.wrap.sql.streaming.DataStreamReader(
                         (org.apache.spark.sql.streaming.DataStreamReader)o

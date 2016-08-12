@@ -276,7 +276,7 @@
           */
          DataFrameReader.prototype.textFile = function(path) {
             var javaObject =  this.getJavaObject().textFile(path);
-            return new Dataset(javaObject);
+            return Utils.javaToJs(javaObject);
          };
 
     /**

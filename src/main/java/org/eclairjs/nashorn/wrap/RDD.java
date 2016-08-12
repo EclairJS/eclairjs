@@ -82,6 +82,15 @@ public class RDD extends WrappedClass {
         }
     };
 
+    static WrappedFunction  F_collectAsync = new WrappedFunction () {
+        @Override
+        public Object call(Object thiz, Object... args) {
+            JavaRDD sparkJavaRDD = (JavaRDD) ((RDD)thiz).getJavaObject();
+            Object val = sparkJavaRDD.collectAsync();
+            return Utils.javaToJs(val, null);
+        }
+    };
+
     static WrappedFunction  F_context = new WrappedFunction () {
         @Override
         public Object call(Object thiz, Object... args) {
@@ -851,6 +860,7 @@ public class RDD extends WrappedClass {
             case "checkpoint": return F_checkpoint;
             case "coalesce": return F_coalesce;
             case "collect": return F_collect;
+            case "collectAsync": return F_collectAsync;
             case "context": return F_context;
             case "count": return F_count;
             case "countApprox": return F_countApprox;
@@ -919,6 +929,7 @@ public class RDD extends WrappedClass {
             case "checkpoint":
             case "coalesce":
             case "collect":
+            case "collectAsync":
             case "context":
             case "count":
             case "countApprox":

@@ -34,7 +34,7 @@
  * bin/eclairjs.sh examples/page_rank.js  <path pagerank_data file> < number of iters>
  */
 
-function run(sc) {
+function run(spark) {
     var List = require('eclairjs/List');
     var Tuple2 = require('eclairjs/Tuple2');
 
@@ -43,7 +43,7 @@ function run(sc) {
     //     URL         neighbor URL
     //     URL         neighbor URL
     //     ...
-    var lines = sc.textFile(filename, 1);
+    var lines = spark.read().textFile(filename, 1).rdd();
 
     // Loads all URLs from input file and initialize their neighbors.
     var links = lines.mapToPair(function (s, Tuple2) {
@@ -97,15 +97,17 @@ function run(sc) {
 var filename = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/pagerank_data.txt";
 var iters = ((typeof args !== "undefined") && (args.length > 2)) ? 0 + args[2] : 10;
 
-if (typeof sparkContext === 'undefined') {
-    var SparkConf = require('eclairjs/SparkConf');
-    var SparkContext = require('eclairjs/SparkContext');
-    var conf = new SparkConf().setAppName("JavaScript Page Rank");
-    var sc = new SparkContext(conf);
-    var result = run(sc);
+if (typeof sparkSession === 'undefined') {
+    var SparkSession = require('eclairjs/sql/SparkSession');
+    var spark = SparkSession
+          .builder()
+          .appName("JavaScript Page Rank")
+          .getOrCreate();
+
+    var result = run(spark);
     print(result);
 
-    sc.stop();
+    spark.stop();
 }
 
 

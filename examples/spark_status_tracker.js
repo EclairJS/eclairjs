@@ -18,7 +18,9 @@
  bin/eclairjs.sh examples/spark_status_tracker.js"
  */
 
-function run(sc) {
+function run(spark) {
+
+   var sc=spark.sparkContext();
 
     // Example of implementing a progress reporter for a simple job.
     var rdd = sc.parallelize([1, 2, 3, 4, 5], 5).map(
@@ -49,15 +51,16 @@ function run(sc) {
  check if SparkContext is defined, if it is we are being run from Unit Test
  */
 
-if (typeof sparkContext === 'undefined') {
-    var SparkConf = require('eclairjs/SparkConf');
-    var SparkContext = require('eclairjs/SparkContext');
-    var conf = new SparkConf().setAppName("JavaScript Status Tracker");
-    var sc = new SparkContext(conf);
-    var result = run(sc);
+if (typeof sparkSessiont === 'undefined') {
+    var SparkSession = require('eclairjs/sql/SparkSession');
+    var spark = SparkSession
+          .builder()
+          .appName("JavaScript Status Tracker")
+          .getOrCreate();
+    var result = run(spark);
     print("Job results are: " + result);
 
-    sc.stop();
+    spark.stop();
 }
 
 
