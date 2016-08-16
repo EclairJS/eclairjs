@@ -22,7 +22,7 @@
      * @class
      * @memberof module:eclairjs/sql
      */
-      var SparkSessionBuilder = = Java.type('org.eclairjs.nashorn.wrap.sql.Builder');
+      var SparkSessionBuilder = Java.type('org.eclairjs.nashorn.wrap.sql.Builder');
 
 
     

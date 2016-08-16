@@ -57,6 +57,9 @@ var stringEncoder = function() {
 
 var intEncoder = function() {
     var ds = sparkSession.createDataset([1,2,3], Encoders.INT());
+    ds =ds.map( function(value) {
+    		return value + 1;
+    	}, Encoders.INT());
     return JSON.stringify(ds);
 }
 

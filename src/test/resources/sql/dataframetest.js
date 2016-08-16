@@ -1151,6 +1151,27 @@ var createDataFrameJSON = function() {
 	return JSON.stringify(dataFrame2.take(3));
 }
 
+var createDatasetJSON = function() {
+
+  var values=[{id:0,text:"abc"},{id:1,text:"def"},{id:2,text:"ghi"}];
+//  var values=sparkContext.parallelize([{id:0,text:"abc"},{id:1,text:"def"},{id:2,text:"ghi"}]);
+
+	var schemaJson={
+	  id : "Integer",
+	  text: "String"
+	};
+	var encoder=Encoders.json(schemaJson)
+	var dataFrame2 = sparkSession.createDatasetFromJson(values,encoder);
+
+    var dataFrame2 = dataFrame2.map(function(json){
+		return json;
+    },encoder);
+
+
+	return JSON.stringify(dataFrame2.take(3));
+}
+
+
 var dataFrameArrayTypeSerialize = function(){
     var Metadata = require(EclairJS_Globals.NAMESPACE + '/sql/types/Metadata');
     // Input data: Each row is a bag of words from a sentence or document.

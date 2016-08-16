@@ -232,6 +232,16 @@
      return this.getJavaObject().getLong(index);
      };
      */
+
+    /**
+     * Returns the value of a given fieldName.
+     * @function
+     * @name module:eclairjs/sql.Row#getAs
+     * @param {String} fieldName
+     * @returns {integer|String|float}
+     */
+
+
     /**
      * Returns the value at position index of type as short.
      * @function

@@ -357,8 +357,17 @@ public class Dataset extends WrappedClass {
             logger.debug("as");
             Object returnValue = null;
             org.apache.spark.sql.Dataset _dataset = (org.apache.spark.sql.Dataset) ((Dataset) thiz).getJavaObject();
-            String alias = (String) args[0];
-            returnValue = _dataset.as(alias);
+            if (args[0] instanceof String)
+            {
+                String alias = (String) args[0];
+                returnValue = _dataset.as(alias);
+            }
+            else
+            {
+                org.apache.spark.sql.Encoder encoder = (org.apache.spark.sql.Encoder) Utils.toObject(args[0]);
+                returnValue = _dataset.as(encoder);
+//                return this;
+            }
             // return Utils.javaToJs(returnValue);
             return new Dataset((org.apache.spark.sql.Dataset)returnValue);
         }

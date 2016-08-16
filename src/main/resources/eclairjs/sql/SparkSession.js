@@ -181,7 +181,7 @@
     * @name module:eclairjs/sql.SparkSession#createDataFrameFromJson
     * @param {{module:eclairjs.RDD<object>}    RDD of JSON
     * @param {object} schema - object with keys corresponding to JSON field names (or getter functions), and values indicating Datatype
-    * @returns {module:eclairjs/sql.DataFrame}
+    * @returns {module:eclairjs/sql.Dataset}
     * @example
     * var df = sqlSession.createDataFrameFromJson([{id:1,"name":"jim"},{id:2,"name":"tom"}], {"id":"Integer","name","String"});
     *

@@ -17,6 +17,8 @@ package org.eclairjs.nashorn.wrap.sql;
 
 import jdk.nashorn.api.scripting.ScriptObjectMirror;
 import jdk.nashorn.api.scripting.ScriptUtils;
+import jdk.nashorn.internal.runtime.ScriptObject;
+import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.sql.*;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.RowFactory;
@@ -32,6 +34,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
+import org.json.simple.JSONObject;
 import scala.Tuple2;
 
 public class SparkSession extends WrappedClass {
@@ -319,56 +323,7 @@ public class SparkSession extends WrappedClass {
         }
         @Override
         public org.apache.spark.sql.Row call(Object obj) throws Exception {
-
-            List<Object> values=new ArrayList<>();
-//
-//  code for it is an object, but that is probably not possible
-//            ScriptObjectMirror json=ScriptUtils.wrap((jdk.nashorn.internal.runtime.ScriptObject) obj);
-//
-//            for (String name : fieldsNames)
-//            {
-//                Object value = null;
-//                if (json.containsKey(name))
-//                {
-//                    value=json.get(name);
-//                    //   if it is getter function, call to get value
-//                    if (value instanceof ScriptObjectMirror)
-//                    {
-//                        value=((ScriptObjectMirror)value).call(json);
-//                    }
-//
-//                }
-//                else
-//                {
-//                    name="get" + name.substring(0,1).toUpperCase() + name.substring(1);
-//                     value=json.get(name);
-//                    //   if it is getter function, call to get value
-//                    if (value instanceof ScriptObjectMirror)
-//                    {
-//                        value=((ScriptObjectMirror)value).call(json);
-//                    }
-//                }
-//                values.add(value);
-//            }
-
-            org.json.simple.JSONObject json = ( org.json.simple.JSONObject)obj;
-            for (Tuple2<String,DataType> tuple: fieldsNames)
-            {
-                Object value = null;
-                String name=tuple._1();
-                if (json.containsKey(name))
-                {
-                    value=json.get(name);
-                    //   if it is getter function, call to get value
-                    value = castDataType(value,tuple._2());
-
-                }
-                values.add(value);
-            }
-
-
-
-            return RowFactory.create(values.toArray());
+            return jsonToRow(( org.json.simple.JSONObject)obj,fieldsNames);
         }
 
     }
@@ -446,6 +401,46 @@ public class SparkSession extends WrappedClass {
             org.apache.spark.sql.Encoder encoder = (org.apache.spark.sql.Encoder) Utils.toObject(args[1]);
             returnValue = _sparkSession.createDataset(data, encoder);
             //return new org.eclairjs.nashorn.wrap.sql.Dataset((org.apache.spark.sql.Dataset)returnValue);
+            return Utils.javaToJs(returnValue);
+        }
+    };
+    static WrappedFunction F_createDatasetFromJson = new WrappedFunction() {
+        @Override
+        public Object call(Object thiz, Object... args) {
+            logger.debug("createDatasetFromJson");
+
+            Object returnValue = null;
+            org.apache.spark.sql.SparkSession _sparkSession = (org.apache.spark.sql.SparkSession) ((SparkSession) thiz).getJavaObject();
+
+            Object arg1 = Utils.jsToJava(args[0]);
+            org.apache.spark.sql.Encoder encoder = (org.apache.spark.sql.Encoder) Utils.toObject(args[1]);
+
+            StructField structFields[]=encoder.schema().fields();
+            List<Tuple2<String,DataType>> fieldNames=new ArrayList<>();
+            for (int i=0;i<structFields.length;i++)
+            {
+                fieldNames.add(new Tuple2<>(structFields[i].name(),structFields[i].dataType()));
+            }
+
+//            org.apache.spark.sql.catalyst.encoders.RowEncoder rowEncoder
+//                    = ( org.apache.spark.sql.catalyst.encoders.RowEncoder)encoder;
+
+            if (arg1 instanceof JavaRDD) {
+                JavaRDD rdd = (JavaRDD) arg1;
+                rdd = rdd.map(new JSONMapFunction(fieldNames));
+                returnValue = _sparkSession.createDataset(rdd.rdd(), encoder);
+            }
+            else
+            {
+                Object [] arr = (Object[]) arg1;
+
+                List list = new ArrayList<>(arr.length);
+                for (int i=0;i<arr.length;i++)
+                    list.add(scriptObjectToRow(arr[i],fieldNames));
+                returnValue = _sparkSession.createDataset(list, encoder);
+            }
+
+
             return Utils.javaToJs(returnValue);
         }
     };
@@ -629,6 +624,8 @@ public class SparkSession extends WrappedClass {
                 return F_baseRelationToDataFrame;
             case "createDataset":
                 return F_createDataset;
+            case "createDatasetFromJson":
+                return F_createDatasetFromJson;
             case "range":
                 return F_range;
             case "table":
@@ -661,6 +658,7 @@ public class SparkSession extends WrappedClass {
             case "createDataFrameFromJson":
             case "baseRelationToDataFrame":
             case "createDataset":
+            case "createDatasetFromJson":
             case "range":
             case "table":
             case "sql":
@@ -707,6 +705,89 @@ org.apache.spark.sql.SparkSession session_uw = (org.apache.spark.sql.SparkSessio
     org.apache.spark.sql.SparkSession.clearDefaultSession();
 
   }
+
+
+    static Row jsonToRow( org.json.simple.JSONObject json, List<Tuple2<String,DataType>> fieldsNames )
+    {
+        List<Object> values=new ArrayList<>();
+//
+//  code for it is an object, but that is probably not possible
+//            ScriptObjectMirror json=ScriptUtils.wrap((jdk.nashorn.internal.runtime.ScriptObject) obj);
+//
+//            for (String name : fieldsNames)
+//            {
+//                Object value = null;
+//                if (json.containsKey(name))
+//                {
+//                    value=json.get(name);
+//                    //   if it is getter function, call to get value
+//                    if (value instanceof ScriptObjectMirror)
+//                    {
+//                        value=((ScriptObjectMirror)value).call(json);
+//                    }
+//
+//                }
+//                else
+//                {
+//                    name="get" + name.substring(0,1).toUpperCase() + name.substring(1);
+//                     value=json.get(name);
+//                    //   if it is getter function, call to get value
+//                    if (value instanceof ScriptObjectMirror)
+//                    {
+//                        value=((ScriptObjectMirror)value).call(json);
+//                    }
+//                }
+//                values.add(value);
+//            }
+
+        for (Tuple2<String,DataType> tuple: fieldsNames)
+        {
+            Object value = null;
+            String name=tuple._1();
+            if (json.containsKey(name))
+            {
+                value=json.get(name);
+                //   if it is getter function, call to get value
+                value = castDataType(value,tuple._2());
+
+            }
+            values.add(value);
+        }
+
+        return RowFactory.create(values.toArray());
+    }
+
+
+
+    static Row scriptObjectToRow( Object obj, List<Tuple2<String,DataType>> fieldsNames )
+    {
+        ScriptObjectMirror jsObject=null;
+        if (obj instanceof jdk.nashorn.internal.runtime.ScriptObject)
+            jsObject=ScriptUtils.wrap((jdk.nashorn.internal.runtime.ScriptObject) obj);
+        else if (obj instanceof ScriptObjectMirror)
+            jsObject = (ScriptObjectMirror)obj;
+        else
+            throw new RuntimeException("not a script object");
+
+        List<Object> values=new ArrayList<>();
+
+        for (Tuple2<String,DataType> tuple: fieldsNames)
+        {
+            Object value = null;
+            String name=tuple._1();
+            if (jsObject.containsKey(name))
+            {
+                value=jsObject.get(name);
+                //   if it is getter function, call to get value
+                value = castDataType(value,tuple._2());
+
+            }
+            values.add(value);
+        }
+
+        return RowFactory.create(values.toArray());
+    }
+
 
     static Object castDataType(Object x, org.apache.spark.sql.types.DataType dt  )
     {

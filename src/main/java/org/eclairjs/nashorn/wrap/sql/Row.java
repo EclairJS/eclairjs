@@ -83,6 +83,14 @@ public class Row extends WrappedClass {
             return sparkRow.getInt(Utils.toInt(args[0]));
         }
     };
+    static WrappedFunction F_getAs = new WrappedFunction() {
+        @Override
+        public Object call(Object thiz, Object... args) {
+            org.apache.spark.sql.Row sparkRow = (org.apache.spark.sql.Row) ((Row) thiz).getJavaObject();
+            Object returnValue= sparkRow.getAs((String) args[0]);
+            return Utils.javaToJs(returnValue);
+        }
+    };
     static WrappedFunction F_length = new WrappedFunction() {
         @Override
         public Object call(Object thiz, Object... args) {
@@ -320,6 +328,8 @@ public class Row extends WrappedClass {
                 return F_getFloat;
             case "getInt":
                 return F_getInt;
+            case "getAs":
+                return F_getAs;
             case "getTimestamp":
                 return F_getTimestamp;
             case "getList":
@@ -363,6 +373,7 @@ public class Row extends WrappedClass {
             case "getDouble":
             case "getFloat":
             case "getInt":
+            case "getAs":
             case "getTimestamp":
             case "getList":
             case "getArray":
