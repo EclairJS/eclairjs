@@ -19,7 +19,6 @@ var DataType = require(EclairJS_Globals.NAMESPACE + '/sql/types/DataType');
 var ArrayType = sqlTypes.ArrayType;
 var StructType = require(EclairJS_Globals.NAMESPACE + '/sql/types/StructType');
 var StructField = require(EclairJS_Globals.NAMESPACE + '/sql/types/StructField');
-var sparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/sparkSession');
 var SqlTimestamp = require(EclairJS_Globals.NAMESPACE + '/sql/SqlTimestamp');
 var RowFactory = require(EclairJS_Globals.NAMESPACE + '/sql/RowFactory');
 var Column = require(EclairJS_Globals.NAMESPACE + '/sql/Column');
