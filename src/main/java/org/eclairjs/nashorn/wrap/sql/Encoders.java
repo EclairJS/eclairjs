@@ -525,9 +525,11 @@ public class Encoders extends WrappedClass {
                 case "Boolean":
                     schemaType=DataTypes.BooleanType; break;
                 case "Double":
-                    schemaType=DataTypes.DoubleType;
+                    schemaType=DataTypes.DoubleType; break;
 //                    case "Array":
-//                        schemaType=DataTypes.ArrayType;
+//                        schemaType=DataTypes.ArrayType; break;
+                case "Float":
+                    schemaType=DataTypes.FloatType; break;
                 default:
                 {
                     schemaType=(DataType) Utils.toObject(type);

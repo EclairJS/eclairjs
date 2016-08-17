@@ -27,8 +27,6 @@ function run(sc) {
     var start = new Date().getTime();
 
     function parseRating(str) {
-        //var RowFactory = require('eclairjs/sql/RowFactory');
-        var Tuple4 = require('eclairjs/Tuple4');
         var fields = str.split(",");
         if (fields.length != 4) {
             throw("Each line must contain 4 fields");
@@ -38,16 +36,14 @@ function run(sc) {
         var rating = parseFloat(fields[2]);
         var timestamp = parseInt(fields[3]);
 
-        //return RowFactory.create([userId, movieId, rating, timestamp]);
-        return new Tuple4(userId, movieId, rating, timestamp);
+        // return a plain old JSON object
+        return {userId:userId, movieId:movieId, rating:rating, timestamp:timestamp};
     }
 
     function parseMovie(str) {
         // movieId,title,genres
-        //var RowFactory = require('eclairjs/sql/RowFactory');
-        var Tuple3 = require('eclairjs/Tuple3');
         var fields = str.split(",");
-       // print("str " + str + " length " + fields.length)
+        // print("str " + str + " length " + fields.length)
         var movieId = parseInt(fields[0]);
         var title = fields[1];
         var genres = fields[2]; // Adventure|Animation|Children|Comedy|Fantasy
@@ -60,18 +56,14 @@ function run(sc) {
             genres = fields[3]
         }
 
-        //return RowFactory.create([movieId, title, genres]);
-        return new Tuple3(movieId, title, genres);
+        // return a plain old JSON object
+        return {movieId:movieId, title: title, genres: genres};
     }
 
-    //var SQLContext = require('eclairjs/sql/SQLContext');
     var SparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/SparkSession');
     var Encoders = require('eclairjs/sql/Encoders');
     var Dataset = require('eclairjs/sql/Dataset');
     var DataTypes = require('eclairjs/sql/types/DataTypes');
-    //var StructField = require('eclairjs/sql/types/StructField');
-    //var StructType = require('eclairjs/sql/types/StructType');
-    //var Metadata = require('eclairjs/sql/types/Metadata');
     var ALS = require('eclairjs/ml/recommendation/ALS');
     var RegressionEvaluator = require('eclairjs/ml/evaluation/RegressionEvaluator');
 
@@ -99,27 +91,12 @@ function run(sc) {
         .map(parseRating);
     //print('small_ratings_data_rdd'+JSON.stringify(small_ratings_data.take(3)));
     var small_ratings_data = small_ratings_data_rdd.collect();
-    print('small_ratings_data'+JSON.stringify(small_ratings_data[0]));
 
-    //var ratingSchema = new StructType([
-        //new StructField("userId", DataTypes.IntegerType, false, Metadata.empty()),
-        //new StructField("movieId", DataTypes.IntegerType, false, Metadata.empty()),
-        //new StructField("rating", DataTypes.FloatType, false, Metadata.empty()),
-        //new StructField("timestamp", DataTypes.DoubleType, false, Metadata.empty())
-    //]);
-    //var small_ratings_dataframe = sparkSession.createDataFrame(small_ratings_data, ratingSchema);
-    var small_ratings_dataset = sparkSession.createDataset(small_ratings_data, Encoders.tuple4(
-                                                                                    Encoders.INT(), 
-                                                                                    Encoders.INT(), 
-                                                                                    Encoders.FLOAT(), 
-                                                                                    Encoders.INT()));
-    print("small_ratings_dataset " + JSON.stringify(small_ratings_dataset.take(3)));
-    small_ratings_dataset.col("_1").as("userId");
-    small_ratings_dataset.col("_2").as("movieId");
-    small_ratings_dataset.col("_3").as("rating");
-    small_ratings_dataset.col("_4").as("timestamp");
+    var ratingEncoder=Encoders.json({userId:"Integer", movieId:"Integer", rating:"Float", timestamp:"Double"});
+    var small_ratings_dataset = sparkSession.createDatasetFromJson(small_ratings_data, ratingEncoder);
+
+    //print("small_ratings_dataset " + JSON.stringify(small_ratings_dataset.take(3)));
     small_ratings_dataset.show(5);
-    print("small_ratings_dataset schema: "); 
     small_ratings_dataset.printSchema();
 
     /*
@@ -135,32 +112,19 @@ function run(sc) {
         .map(parseMovie).cache();
     var small_movies_data = small_movies_data_rdd.collect();
 
-    //var movieSchema = new StructType([
-      //  new StructField("movieId", DataTypes.IntegerType, false, Metadata.empty()),
-      //  new StructField("title", DataTypes.StringType, false, Metadata.empty()),
-      //  new StructField("genres", DataTypes.StringType, false, Metadata.empty())
-    //]);
-    //var small_movie_dataframe = sparkSession.createDataFrame(small_movies_data, movieSchema);
-    var small_movie_dataset = sparkSession.createDataset(small_movies_data, Encoders.tuple3(
-                                                                                Encoders.INT(), 
-                                                                                Encoders.STRING(), 
-                                                                                Encoders.STRING()));
+    var movieEncoder=Encoders.json({movieId:"Integer", title:"String", genres:"String"})
+    var small_movie_dataset = sparkSession.createDatasetFromJson(small_movies_data, movieEncoder);
 
-    print("small_movie_dataset " + JSON.stringify(small_movie_dataset.take(3)));
-    small_movie_dataset.col("_1").as("movieId");
-    small_movie_dataset.col("_2").as("title");
-    small_movie_dataset.col("_3").as("genres");
+    //print("small_movie_dataset " + JSON.stringify(small_movie_dataset.take(3)));
     small_movie_dataset.show(5);
-    print("small_movie_dataset schema: ");
     small_movie_dataset.printSchema();
 
     //var small_movies_titles = small_movie_dataframe.select("movieId", "title");
-    var small_movies_titles = small_movie_dataset.select("_1", "_2");
+    var small_movies_titles = small_movie_dataset.select("movieId", "title");
     print("small_movies_titles " + JSON.stringify(small_movies_titles.take(3)));
 
     var seed = 0;
-    //var split = small_ratings_dataframe.randomSplit([0.6, 0.2, 0.2], seed)
-    //var split = small_ratings_dataframe.randomSplit([0.8, 0.2, 0.2])
+    //var split = small_ratings_dataset.randomSplit([0.6, 0.2, 0.2], seed)
     var split = small_ratings_dataset.randomSplit([0.8, 0.2, 0.2]);
     var training_DF = split[0];
     //var validation_DF = split[2];
@@ -191,7 +155,6 @@ function run(sc) {
        //print("rank " + rank);
        // var model = ALS.train(training_RDD, rank, iterations, regularization_parameter, blocks, seed);
         // Build the recommendation model using ALS on the training data
-        /*
         var als = new ALS()
            // .setRank(rank)
             .setMaxIter(5)
@@ -201,23 +164,12 @@ function run(sc) {
             .setUserCol("userId")
             .setItemCol("movieId")
             .setRatingCol("rating");
-        */
-        var als = new ALS()
-            //.setRank(rank)
-            .setMaxIter(5)
-            .setRegParam(0.01)
-            //.setNumBlocks(blocks)
-            //.setSeed(seed)
-            .setUserCol("_1")
-            .setItemCol("_2")
-            .setRatingCol("_3");
         var model = als.fit(training_DF);
         //print(JSON.stringify(model.userFeatures()));
         // Evaluate the model by computing the RMSE on the test data
         var rawPredictions = model.transform(test_DF);
         var predictions = rawPredictions
-            //.withColumn("rating", rawPredictions.col("rating").cast(DataTypes.DoubleType))
-            .withColumn("rating", rawPredictions.col("_3").cast(DataTypes.DoubleType))
+            .withColumn("rating", rawPredictions.col("rating").cast(DataTypes.DoubleType))
             .withColumn("prediction", rawPredictions.col("prediction").cast(DataTypes.DoubleType));
         //print("rawPredictions " + JSON.stringify(rawPredictions));
         var evaluator = new RegressionEvaluator()
