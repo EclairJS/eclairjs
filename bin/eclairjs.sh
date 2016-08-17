@@ -30,45 +30,79 @@ fi
 # Check for eclairJS-nashorn jar
 #
 if [ -z "$ECLAIRJS_JAR" ]; then
-	export ECLAIRJS_JAR=./target/eclairjs-nashorn-0.6-SNAPSHOT-jar-with-dependencies.jar
+    export ECLAIRJS_JAR=./target/eclairjs-nashorn-0.6-SNAPSHOT-jar-with-dependencies.jar
 fi
 
-# 
+#
 # Check for java 1.8
 #
 if [[ -n "$JAVA_HOME" ]] && [[ -x "$JAVA_HOME/bin/java" ]];  then
-		#echo found java executable in JAVA_HOME     
-		_java="$JAVA_HOME/bin/java"
+        #echo found java executable in JAVA_HOME
+        _java="$JAVA_HOME/bin/java"
 elif type -p java > /dev/null; then
-	#echo found java executable in PATH
-	_java=java
+    #echo found java executable in PATH
+    _java=java
 
 else
-	echo "Java 8 required, please Java 1.8.0_60 or greater."
-	exit 1
+    echo "Java 8 required, please Java 1.8.0 or greater."
+    exit 1
 fi
 
+#
+# Check Java version
+#
+
 if [[ "$_java" ]]; then
-	version=$("$_java" -version 2>&1 | awk -F '"' '/version/ {print $2}')
-	#echo version "$version"
-	
-	if [[ "$version" < "1.8.0_60" ]]; then
-	    vendor=$("$_java" -version 2>&1 | awk -F '"' '/IBM/ {print $0}')
-	    if [[ "$vendor" ]]; then 
-	       build=$(echo $vendor | cut -d' ' -f5 | cut -d',' -f1)
-	       ibmVersion=$(echo $vendor | cut -d' ' -f7)
-	      # echo build "$build"
-	      # echo ibmVersion "$ibmVersion"
-	      # echo vendor "$vendor"
-	       if [[ "$version" < "1.8.0" ]]; then
-	         echo IBM java version 1.8.0 is required.
-	        	 exit 1 
-	       fi       
-		else 
-		   echo java version greater than 1.8.0_59 is required.
-		   exit 1
-	    fi
-	fi
+    java_version=$("$_java" -version 2>&1 | awk -F '"' '/version/ {print $2}')
+    array=(${java_version//./ })
+#    for i in "${!array[@]}"
+#    do
+#        echo "$i=>${array[i]}"
+#    done
+
+    # Convert stringgs to base 10 numbers
+    version=$((10#${array[0]}));
+    release=$((10#${array[1]}));
+    array=(${array[2]//_/ });
+    minor=$((10#${array[0]}));
+    build=$((10#${array[1]}));
+
+#    echo "version $version release $release minor $minor build $build";
+
+    # Check version numbers for Sun Java
+    if (( $version < 1 )) || (( $release < 8 )) || (( $minor < 0 )) || (( $build <  90 )); then
+        #
+        # Failed sun Java version test, could be IBM version of Java so we will check that now
+        #
+        vendor=$("$_java" -version 2>&1 | awk -F '"' '/IBM/ {print $0}')
+        #echo "vendor $vendor";
+        if [[ "$vendor" ]]; then
+           build=$(echo $vendor | cut -d' ' -f5 | cut -d',' -f1)
+           ibmVersion=$(echo $vendor | cut -d' ' -f7)
+#          echo build "$build"
+#          echo ibmVersion "$ibmVersion"
+#          echo vendor "$vendor"
+           array=(${ibmVersion//./ })
+#            for i in "${!array[@]}"
+#            do
+#            echo "$i=>${array[i]}"
+#            done
+            version=$((10#${array[0]}));
+            release=$((10#${array[1]}));
+            minor=$((10#${array[2]}));
+            array=(${build//./ });
+            build_major=$((10#${array[0]}));
+            build_minor=$((10#${array[1]}));
+#            echo "version $version release $release minor $minor build $build";
+            if (( $version < 1 )) || (( $release < 8 )) || (( $minor < 0 )) || (( $build_major <  2 )) || (( $build_minor <  8 )); then
+             echo IBM java version 1.8.0 Build 2.8 or greater is required.
+                 exit 1
+           fi
+        else
+           echo java version greater than 1.8.0_90 is required.
+           exit 1
+        fi
+    fi
 fi
 
 # Use > 1 to consume two arguments per pass in the loop (e.g. each
@@ -84,7 +118,7 @@ do
 key="$1"
 
 case $key in
-	-*)
+    -*)
     options="$options $1 $2";
     shift # past argument
     ;;
@@ -95,7 +129,6 @@ esac
 shift # past argument or value
 done
 
-string='My long string';
 
 if [[ $options != *"-Dlog4j.configuration="* ]]
 then
@@ -110,4 +143,3 @@ fi
 #
 
 exec "${SPARK_HOME}"/bin/spark-submit --class org.eclairjs.nashorn.SparkJS --name "EclairJSShell" $options $ECLAIRJS_JAR  $proargs
-
