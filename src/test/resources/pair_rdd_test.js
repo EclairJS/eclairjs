@@ -19,9 +19,15 @@
  * The SparkContext will load the rest of sparkJS files. So these are the oly two
  * the user has to explicitly load.
  */
-var SparkContext = require(EclairJS_Globals.NAMESPACE + '/SparkContext');
-var sparkContext = new SparkContext("local[*]", "PairRDD unit test");
 
+
+var SparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/SparkSession');
+var sparkSession = SparkSession
+    .builder()
+    .appName("PairRDD unit test")
+    .master("local[*]")
+    .getOrCreate();
+var sparkContext = sparkSession.sparkContext();
 
 var combineByKey = function() {
     var Tuple2 = require(EclairJS_Globals.NAMESPACE + '/Tuple2');

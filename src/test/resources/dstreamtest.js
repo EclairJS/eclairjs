@@ -1,8 +1,12 @@
 var Duration = require('eclairjs/streaming/Duration');
 var StreamingContext = require('eclairjs/streaming/StreamingContext');
-var SparkContext = require(EclairJS_Globals.NAMESPACE + '/SparkContext');
-
-var sparkContext = new SparkContext("local[*]", "dstream");
+var SparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/SparkSession');
+var sparkSession = SparkSession
+    .builder()
+    .appName("dstream")
+    .master("local[*]")
+    .getOrCreate();
+var sparkContext = sparkSession.sparkContext();
 var streamingContext = null;
 var duration = new Duration(500);
 var data = [];

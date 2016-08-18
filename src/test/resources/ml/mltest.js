@@ -21,8 +21,14 @@
  * the user has to explicitly load. 
  */
 var SparkConf = require('eclairjs/SparkConf');
-var SparkContext = require('eclairjs/SparkContext');
-var sparkContext = new SparkContext("local[*]", "ml Unit test");
+var SparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/SparkSession');
+var sparkSession = SparkSession
+    .builder()
+    .appName("ml Unit test")
+    .master("local[*]")
+    .getOrCreate();
+var sparkContext = sparkSession.sparkContext();
+
 
 var Word2VecExample = function() {
 

@@ -1,6 +1,12 @@
 var StorageLevel = require(EclairJS_Globals.NAMESPACE + '/storage/StorageLevel');
-var SparkContext = require(EclairJS_Globals.NAMESPACE + '/SparkContext');
-var sparkContext = new SparkContext();
+var SparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/SparkSession');
+var sparkSession = SparkSession
+    .builder()
+    .appName("rddtest")
+    .master("local[*]")
+    .getOrCreate();
+var sparkContext = sparkSession.sparkContext();
+
 var rdd = sparkContext.parallelize([1, 2, 3]);
 load("https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.9.0/lodash.min.js");
 

@@ -13,9 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-var SparkContext = require(EclairJS_Globals.NAMESPACE + '/SparkContext');
+var SparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/SparkSession');
+var sparkSession = SparkSession
+	.builder()
+	.appName("spark context tests")
+	.master("local[*]")
+	.getOrCreate();
+var sparkContext = sparkSession.sparkContext();
 
-var sparkContext = new SparkContext("local[*]", "spark context tests");
 
 var accum;
 

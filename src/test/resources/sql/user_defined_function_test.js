@@ -29,7 +29,14 @@ var SqlDate = require(EclairJS_Globals.NAMESPACE + '/sql/SqlDate');
 var StorageLevel = require(EclairJS_Globals.NAMESPACE + '/storage/StorageLevel');
 var SparkConf = require(EclairJS_Globals.NAMESPACE + '/SparkConf');
 var SparkContext = require(EclairJS_Globals.NAMESPACE + '/SparkContext');
-var sparkContext = new SparkContext("local[*]", "user defined function test");
+var SparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/SparkSession');
+var sparkSession = SparkSession
+    .builder()
+    .appName("user defined function test")
+    .master("local[*]")
+    .getOrCreate();
+var sparkContext = sparkSession.sparkContext();
+
 var sqlContext = new SQLContext(sparkContext);
 
 var createStringTableDF = function(sqlContext) {
