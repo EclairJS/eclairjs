@@ -596,6 +596,58 @@
 
     };
 
+    /**
+     * A default Hadoop Configuration for the Hadoop code (e.g. file systems) that we reuse.
+     * '''Note:''' As it will be reused in all Hadoop RDDs, it's better not to modify it unless you plan to set some global configurations for all Hadoop RDDs.
+     * @example
+     *  var hadoopConf = sparkContext.hadoopConfiguration();
+     *  hadoopConf.set("fs.swift.service.softlayer.auth.url", "https://identity.open.softlayer.com/v3/auth/tokens");
+     *  hadoopConf.set("fs.swift.service.softlayer.auth.endpoint.prefix", "endpoints");
+     *  hadoopConf.set("fs.swift.service.softlayer.tenant", "productid"); // IBM BlueMix Object Store product id
+     *  hadoopConf.set("fs.swift.service.softlayer.username", "userid"); // IBM BlueMix Object Store user id
+     *  hadoopConf.set("fs.swift.service.softlayer.password", "secret"); // IBM BlueMix Object Store password
+     *  hadoopConf.set("fs.swift.service.softlayer.apikey", "secret"); // IBM BlueMix Object Store password
+     *
+     *  var rdd = sparkContext.textFile("swift://wordcount.softlayer/dream.txt").cache();
+     *
+     * @returns {org.apache.hadoop.conf.Configuration}
+     * @private
+     */
+    SparkContext.prototype.hadoopConfiguration = function () {
+        var javaRdd = this.getJavaObject().hadoopConfiguration();
+        return Utils.javaToJs(javaRdd);
+    };
+    /**
+     * Set the value of the name property of the Hadoop Configuration for the Hadoop code (e.g. file systems) that we reuse.
+     * '''Note:''' As it will be reused in all Hadoop RDDs, it's better not to modify it unless you plan to set some global configurations for all Hadoop RDDs.
+     * @example
+     *  sparkContext.setHadoopConfiguration("fs.swift.service.softlayer.auth.url", "https://identity.open.softlayer.com/v3/auth/tokens");
+     *  sparkContext.setHadoopConfiguration("fs.swift.service.softlayer.auth.endpoint.prefix", "endpoints");
+     *  sparkContext.setHadoopConfiguration("fs.swift.service.softlayer.tenant", "productid"); // IBM BlueMix Object Store product id
+     *  sparkContext.setHadoopConfiguration("fs.swift.service.softlayer.username", "userid"); // IBM BlueMix Object Store user id
+     *  sparkContext.setHadoopConfiguration("fs.swift.service.softlayer.password", "secret"); // IBM BlueMix Object Store password
+     *  sparkContext.setHadoopConfiguration("fs.swift.service.softlayer.apikey", "secret"); // IBM BlueMix Object Store password
+     *
+     *  var rdd = sparkContext.textFile("swift://wordcount.softlayer/dream.txt").cache();
+     *
+     * @param key
+     * @param value
+     * @returns {void}
+     */
+    SparkContext.prototype.setHadoopConfiguration = function (key, value) {
+        this.getJavaObject().hadoopConfiguration().set(key, value);
+    };
+    /**
+     * Get the value of the name property of the Hadoop Configuration for the Hadoop code (e.g. file systems) that we reuse.
+     * '''Note:''' As it will be reused in all Hadoop RDDs, it's better not to modify it unless you plan to set some global configurations for all Hadoop RDDs.
+     * , null if no such property exists.
+     * @param key
+     * @returns {string}
+     */
+    SparkContext.prototype.getHadoopConfiguration = function (key) {
+        return this.getJavaObject().hadoopConfiguration().get(key);
+    };
+
     SparkContext.prototype.toJSON = function () {
         var jsonObj = {
             "version": this.version(),
