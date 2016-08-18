@@ -210,7 +210,7 @@
   <properties>
     <spark.version>2.0.0</spark.version>
     <hadoop.version>2.6.0</hadoop.version>
-    <toree.version>0.1.0.dev9-incubating-SNAPSHOT</toree.version>
+    <toree.version>0.2.0.dev1-incubating-SNAPSHOT</toree.version>
   </properties>
   <dependencies>
     <dependency>
@@ -273,7 +273,6 @@
       <artifactId>hadoop-openstack</artifactId>
       <version>${hadoop.version}</version>
     </dependency>
--->
     <dependency>
       <groupId>com.googlecode.json-simple</groupId>
       <artifactId>json-simple</artifactId>
@@ -355,7 +354,7 @@
         <dependency>
           <groupId>org.apache.toree.kernel</groupId>
           <artifactId>toree-kernel_2.11</artifactId>
-          <version>0.0.0-dev-SNAPSHOT</version>
+          <version>${toree.version}</version>
           <scope>provided</scope>
         </dependency>
         <!--
