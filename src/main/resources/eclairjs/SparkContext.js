@@ -554,11 +554,8 @@
      * Zip up all required files not in JAR to preserve paths and add it to worker node for download via addFile.
      */
     SparkContext.prototype.addCustomModules = function () {
-        // Only add the big zip of all non-core required mods once per SparkContext
-        if (this.customModsAdded) {
-            logger.debug(ModuleUtils.defaultZipFile + " has already been added for this SparkContext instance");
-            return;
-        }            
+        // The big zip of all non-core required mods will be loaded only once per SparkContext.
+        // Note: If the temp file already exists for it, an exception is thrown and can be ignored.
         var mods = ModuleUtils.getModulesByType({type: "core", value: false});
         logger.debug("addingCustomModules: ",mods.toString());
         var folder = ".", zipfile = ModuleUtils.defaultZipFile, filenames = [];
@@ -570,10 +567,9 @@
         try {
             org.eclairjs.nashorn.Utils.zipFile(folder, zipfile, filenames);
             this.getJavaObject().addFile(zipfile);
-            this.customModsAdded = true;
+            logger.debug("Custom modules have been added");
         } catch (exc) {
-            print("Cannot add non core modules: " + filenames.toString());
-            print(exc);
+            logger.debug("Custom modules have already been added");
         }
     };
 

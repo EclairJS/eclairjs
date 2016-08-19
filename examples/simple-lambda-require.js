@@ -14,18 +14,21 @@
  * limitations under the License.
  */
 var hello = require('examples/hello');
+var goodbye = require('examples/simple/goodbye');
 var LabeledPoint = require('eclairjs/mllib/regression/LabeledPoint');
 
 var SparkConf = require('eclairjs/SparkConf');
 var SparkContext = require('eclairjs/SparkContext');
 
-var conf = new SparkConf().setAppName("Simple module binding to lambda function example");
+//var conf = new SparkConf().setAppName("Simple module binding to lambda function example").setMaster("spark://127.0.0.1:7077");
+var conf = new SparkConf().setAppName("Simple module binding to lambda function example").setMaster("local[*]");
 var sc = new SparkContext(conf);
 
 var doHello = function(){
-    sc.parallelize([1, 2, 3, 4]).foreach(function(x, hello, LabeledPoint) {
+    sc.parallelize([1, 2, 3, 4]).foreach(function(x, hello, goodbye, LabeledPoint) {
         hello(x);
-    }, [hello, LabeledPoint]);
+        goodbye(1);
+    }, [hello, goodbye, LabeledPoint]);
 }
 
 doHello();
