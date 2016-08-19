@@ -32,10 +32,16 @@ public class DataStreamWriter extends WrappedClass {
             logger.debug("outputMode");
             Object returnValue = null;
             org.apache.spark.sql.streaming.DataStreamWriter _dataStreamWriter = (org.apache.spark.sql.streaming.DataStreamWriter) ((DataStreamWriter) thiz).getJavaObject();
-            String outputMode = (String) args[0];
-            returnValue = _dataStreamWriter.outputMode(outputMode);
-            // return Utils.javaToJs(returnValue);
-            return new org.eclairjs.nashorn.wrap.sql.streaming.DataStreamWriter((org.apache.spark.sql.streaming.DataStreamWriter)returnValue);
+            if (args[0] instanceof String) {
+                String outputMode = (String) args[0];
+                returnValue = _dataStreamWriter.outputMode(outputMode);
+            } else {
+                OutputMode outputMode = (OutputMode) Utils.jsToJava(args[0]);
+                returnValue = _dataStreamWriter.outputMode(outputMode);
+            }
+
+            return Utils.javaToJs(returnValue);
+            //return new org.eclairjs.nashorn.wrap.sql.streaming.DataStreamWriter((org.apache.spark.sql.streaming.DataStreamWriter)returnValue);
         }
     };
 
@@ -98,25 +104,14 @@ public class DataStreamWriter extends WrappedClass {
             Object returnValue = null;
             org.apache.spark.sql.streaming.DataStreamWriter _dataStreamWriter = (org.apache.spark.sql.streaming.DataStreamWriter) ((DataStreamWriter) thiz).getJavaObject();
             String key = (String) args[0];
-            double value =  Utils.toDouble(args[1]);
+            String value = (String) args[1];
+            //double value =  Utils.toDouble(args[1]);
             returnValue = _dataStreamWriter.option(key,value);
             // return Utils.javaToJs(returnValue);
             return new org.eclairjs.nashorn.wrap.sql.streaming.DataStreamWriter((org.apache.spark.sql.streaming.DataStreamWriter)returnValue);
         }
     };
 
-    static WrappedFunction F_options = new WrappedFunction() {
-        @Override
-        public Object call(Object thiz, Object... args) {
-            logger.debug("options");
-            Object returnValue = null;
-            org.apache.spark.sql.streaming.DataStreamWriter _dataStreamWriter = (org.apache.spark.sql.streaming.DataStreamWriter) ((DataStreamWriter) thiz).getJavaObject();
-            java.util.Map options = (java.util.Map) Utils.toObject(args[0]);
-            returnValue = _dataStreamWriter.options(options);
-            // return Utils.javaToJs(returnValue);
-            return new org.eclairjs.nashorn.wrap.sql.streaming.DataStreamWriter((org.apache.spark.sql.streaming.DataStreamWriter)returnValue);
-        }
-    };
 
     static WrappedFunction F_start = new WrappedFunction() {
         @Override
@@ -138,18 +133,18 @@ public class DataStreamWriter extends WrappedClass {
         }
     };
 
-    static WrappedFunction F_foreach = new WrappedFunction() {
-        @Override
-        public Object call(Object thiz, Object... args) {
-            logger.debug("foreach");
-            Object returnValue = null;
-            org.apache.spark.sql.streaming.DataStreamWriter _dataStreamWriter = (org.apache.spark.sql.streaming.DataStreamWriter) ((DataStreamWriter) thiz).getJavaObject();
-            org.apache.spark.sql.ForeachWriter writer = (org.apache.spark.sql.ForeachWriter) Utils.toObject(args[0]);
-            returnValue = _dataStreamWriter.foreach(writer);
-            return Utils.javaToJs(returnValue);
-           // return new org.eclairjs.nashorn.wrap.sql.streaming.DataStreamWriter((org.apache.spark.sql.streaming.DataStreamWriter)returnValue);
-        }
-    };
+//    static WrappedFunction F_foreach = new WrappedFunction() {
+//        @Override
+//        public Object call(Object thiz, Object... args) {
+//            logger.debug("foreach");
+//            Object returnValue = null;
+//            org.apache.spark.sql.streaming.DataStreamWriter _dataStreamWriter = (org.apache.spark.sql.streaming.DataStreamWriter) ((DataStreamWriter) thiz).getJavaObject();
+//            org.apache.spark.sql.ForeachWriter writer = (org.apache.spark.sql.ForeachWriter) Utils.toObject(args[0]);
+//            returnValue = _dataStreamWriter.foreach(writer);
+//            return Utils.javaToJs(returnValue);
+//           // return new org.eclairjs.nashorn.wrap.sql.streaming.DataStreamWriter((org.apache.spark.sql.streaming.DataStreamWriter)returnValue);
+//        }
+//    };
 
 
     private org.apache.spark.sql.streaming.DataStreamWriter _dataStreamWriter;
@@ -198,12 +193,10 @@ public class DataStreamWriter extends WrappedClass {
                 return F_partitionBy;
             case "option":
                 return F_option;
-            case "options":
-                return F_options;
             case "start":
                 return F_start;
-            case "foreach":
-                return F_foreach;
+//            case "foreach":
+//                return F_foreach;
         }
         return super.getMember(name);
     }
@@ -217,9 +210,8 @@ public class DataStreamWriter extends WrappedClass {
             case "format":
             case "partitionBy":
             case "option":
-            case "options":
             case "start":
-            case "foreach":
+//            case "foreach":
                 return true;
         }
         return super.hasMember(name);

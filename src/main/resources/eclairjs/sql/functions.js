@@ -2398,6 +2398,30 @@
         return Utils.javaToJs(javaObject);
     }
 
+    /**
+     * Generates tumbling time windows given a timestamp specifying column.
+     * @param {module:eclairjs/sql.Column} timeColumn
+     * @param {string} windowDuration
+     * @param {string} [slideDuration] Bucketize rows into one or more time windows given a timestamp specifying column.
+     * @param {string} [startTime] Bucketize rows into one or more time windows given a timestamp specifying column.
+     * @returns {module:eclairjs/sql.Column}
+     */
+    functions.window = function (timeColumn, windowDuration, slideDuration, startTime) {
+        var cols_uw = Utils.unwrapObject(timeColumn);
+        var javaObject;
+        if (slideDuration) {
+            if (startTime) {
+                javaObject = org.apache.spark.sql.functions.window(cols_uw, windowDuration, slideDuration, startTime);
+            } else {
+                javaObject = org.apache.spark.sql.functions.window(cols_uw, windowDuration, slideDuration);
+            }
+        } else {
+            javaObject = org.apache.spark.sql.functions.window(cols_uw, windowDuration);
+        }
+
+        return Utils.javaToJs(javaObject);
+    }
+
     module.exports = functions;
 
 })();
