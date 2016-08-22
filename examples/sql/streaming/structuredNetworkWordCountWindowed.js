@@ -60,7 +60,7 @@ var slideDuration = slideSize + " seconds";
 
 var spark = SparkSession
     .builder()
-    .appName("JavaStructuredNetworkWordCountWindowed")
+    .appName("structuredNetworkWordCountWindowed")
     .getOrCreate();
 
 // Create DataFrame representing the stream of input lines from connection to host:port
