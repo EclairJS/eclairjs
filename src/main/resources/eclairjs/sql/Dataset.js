@@ -148,7 +148,7 @@
 	 * @function
      * @name module:eclairjs/sql.Dataset#collect
 	 * @param {string} name
-	 * @returns {module:eclairjs/sql.Row[]}
+	 * @returns {object[]}
 	 */
 /*
 	Dataset.prototype.collect = function () {
