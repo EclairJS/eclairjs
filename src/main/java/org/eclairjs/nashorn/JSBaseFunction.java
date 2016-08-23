@@ -17,6 +17,7 @@ s * Copyright 2015 IBM Corp.
 package org.eclairjs.nashorn;
 
 import jdk.nashorn.api.scripting.ScriptObjectMirror;
+import jdk.nashorn.api.scripting.ScriptUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.spark.api.java.function.Function;
 
@@ -25,6 +26,11 @@ import javax.script.ScriptEngine;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import org.apache.spark.sql.Encoders.*;
+import org.apache.spark.sql.Encoder;
+import org.eclairjs.nashorn.wrap.sql.Encoders;
+import scala.reflect.ClassTag;
 
 abstract class JSBaseFunction implements Serializable{
     private String func = null;
@@ -64,7 +70,7 @@ abstract class JSBaseFunction implements Serializable{
         return ret;
     }
 
-    Iterator toIterator(Object obj)
+    Iterator toIterator(Object obj,Encoder encoder)
     {
         Iterator iter=null;
         if (obj.getClass().isArray()) {
@@ -73,21 +79,21 @@ abstract class JSBaseFunction implements Serializable{
                 double [] z = (double []) obj;
                 ArrayList x = new ArrayList();
                 for (int i = 0; i < z.length; i++) {
-                    x.add(z[i]);
+                    x.add(castDataType(z[i],encoder));
                 }
                 iter = x.iterator();
             } else if (type.equals("int[]")) {
                 int [] z = (int []) obj;
                 ArrayList x = new ArrayList();
                 for (int i = 0; i < z.length; i++) {
-                    x.add(z[i]);
+                    x.add(castDataType(z[i],encoder));
                 }
                 iter = x.iterator();
             } else {
                 Object [] z = (Object []) obj;
                 ArrayList x = new ArrayList();
                 for (int i = 0; i < z.length; i++) {
-                    x.add(z[i]);
+                    x.add(castDataType(z[i],encoder));
                 }
                 iter = x.iterator();
             }
@@ -96,5 +102,29 @@ abstract class JSBaseFunction implements Serializable{
         return iter;
 
     }
+
+    static Object castDataType(Object x, Encoder encoder )
+    {
+        String cls=encoder.clsTag().toString();
+        switch (cls)
+        {
+            case "java.lang.Integer":
+                return ScriptUtils.convert(x,Integer.class);
+            case "java.lang.Float":
+                return ScriptUtils.convert(x,Float.class);
+            case "java.lang.Double":
+                return ScriptUtils.convert(x,Double.class);
+            case "java.lang.String":
+                return ScriptUtils.convert(x,String.class);
+            case "java.lang.Long":
+                return ScriptUtils.convert(x,Long.class);
+            case "java.lang.Boolean":
+                return ScriptUtils.convert(x,Boolean.class);
+        }
+
+        return x;
+
+    }
+
 }
 

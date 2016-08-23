@@ -16,14 +16,18 @@
 
 package org.eclairjs.nashorn;
 
+import org.apache.spark.sql.Encoder;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class JSMapPartitionsFunction extends JSBaseFunction implements org.apache.spark.api.java.function.MapPartitionsFunction {
 
+    Encoder encoder;
 
-    public JSMapPartitionsFunction(String func, Object[] o) {
+    public JSMapPartitionsFunction(String func, Encoder encoder, Object[] o) {
         super(func,o);
+        this.encoder=encoder;
     }
 
     @SuppressWarnings({ "null", "unchecked" })
@@ -35,7 +39,7 @@ public class JSMapPartitionsFunction extends JSBaseFunction implements org.apach
         Object params[] = { list.toArray()};
         Object ret = callScript( params);
 
-        return toIterator(ret);
+        return toIterator(ret,encoder);
 
     }
 }

@@ -1,22 +1,59 @@
 package org.eclairjs.nashorn;
+import jdk.internal.dynalink.beans.StaticClass;
 import jdk.nashorn.api.scripting.ScriptObjectMirror;
+import jdk.nashorn.api.scripting.ScriptUtils;
+import jdk.nashorn.internal.runtime.ScriptObject;
 import org.apache.log4j.Logger;
+import org.apache.spark.SparkContext;
 import org.json.simple.JSONObject;
+import scala.Tuple2;
 
 import javax.script.ScriptEngine;
+import javax.script.ScriptException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ModuleUtils {
 
     static HashMap<String,Object> modules=new HashMap<>();
     static Logger logger = Logger.getLogger(ModuleUtils.class);
 
+
     public static boolean isModule(JSONObject json)
     {
         return json.containsKey("modname");
 
+    }
+
+    public static boolean isModule(Object obj)
+    {
+        ScriptObjectMirror som=null;
+        if (obj instanceof ScriptObject)
+        {
+            som= ScriptUtils.wrap((jdk.nashorn.internal.runtime.ScriptObject) obj);
+        } else if (obj instanceof ScriptObjectMirror)
+            som=(ScriptObjectMirror)obj;
+        if (som!=null)
+        {
+            if (som.isFunction())
+            {
+                Object mod = ModuleUtils.getRequiredFileByExport(som);
+                return mod!=null;
+
+            }
+            return som.hasMember("modname");
+        }
+        if (obj instanceof StaticClass)
+        {
+            String modID=fincCacheValue(obj);
+            return modID!=null;
+        }
+
+        return false;
     }
 
     public static Object getRequiredFile(JSONObject module,ScriptEngine engine) {
@@ -130,10 +167,10 @@ public class ModuleUtils {
     };
 
 
-    /*
-//
-//    ModuleUtils.defaultZipFile = "modules.zip";
-//
+
+
+    static String defaultZipFile = "modules.zip";
+
 //    ModuleUtils.addRequiredFile = function(module) {
 //        var logger= org.apache.log4j.Logger.getLogger("org.eclairjs.nashorn.resource.ModuleUtils_js");
 //        if (ModuleUtils.requires[module.modname]) {
@@ -146,44 +183,161 @@ public class ModuleUtils {
 //        }
 //    };
 //
-//    ModuleUtils.getRequiredFile = function(module) {
-//        if (typeof module === "function") {
-//            return ModuleUtils.getRequiredFileByExport(module);
-//        }
-//
-//        var name = typeof module === 'string' ? module : ((module && module.modname) ? module.modname : "");
-//        //print("get requiredFile name: "+name);
-//        //ModuleUtils._printRequires("From getRequiredFile");
-//
-//        var requiredMod = ModuleUtils.requires[name];
-//        if (!requiredMod) {
-//            //print("ModuleUtils.getRequiredFile file not found - going to try and load");
-//            // this could be a worker node - try and load it
-//            requiredMod = ModuleUtils._tryToLoadFile(module);
-//        }
-//        return requiredMod;
-//    };
-//
-//    ModuleUtils.getRequiredFileById = function(modid) {
-//        //print("ModuleUtils.getRequiredFileById for modid: "+modid);
-//        for (var name in ModuleUtils.requires) {
-//            //print("ModuleUtils.getRequiredFileById testing name: "+name);
-//            if (ModuleUtils.requires[name].id === modid) {
-//                return ModuleUtils.requires[name];
-//            }
-//        };
-//    };
-//
-//    function getModIdFromExport(func) {
-//        // This is a little bit of a hack - require is defined in jvm-npm but
-//        // caches any exports for any already required modules. We don't want to add
-//        // exports to the Module's metadata that is stored in ModuleUtils.requires so
-//        // it doesn't get Serialized as part of bound lambda argument.
-//        var cache = require.cache;
-//        if (cache) {
-//            for (var modid in cache) {
-//                if ((typeof cache[modid] === "function") && (cache[modid].toString() === func.toString())) {
+    static ScriptObjectMirror getRequiredFile(Object module) {
+
+        ScriptObjectMirror som=null;
+        String name=null;
+        if (module instanceof ScriptObject)
+        {
+            som= ScriptUtils.wrap((jdk.nashorn.internal.runtime.ScriptObject) module);
+        } else if (module instanceof ScriptObjectMirror)
+            som=(ScriptObjectMirror)module;
+
+        if (som!=null)
+        {
+            if (som.isFunction())
+            {
+                return ModuleUtils.getRequiredFileByExport(som);
+
+            }
+            if (som.hasMember("modname"))
+                name=(String)som.callMember("modname");
+        }
+        else if (module instanceof StaticClass)
+        {
+                return getRequiredFileByExport((StaticClass)module);
+        }
+
+        if (module instanceof String)
+            name=(String)module;
+
+
+        if (name!=null && !"undefined".equals(name))
+        {
+            ScriptObjectMirror requiredMod = ModuleUtils.getRequires(name);
+            if (requiredMod==null) {
+                //print("ModuleUtils.getRequiredFile file not found - going to try and load");
+                // this could be a worker node - try and load it
+//                requiredMod = ModuleUtils._tryToLoadFile(module);
+            }
+            return requiredMod;
+
+        }
+        return null;
+    };
+
+
+    static ScriptObjectMirror _requires;
+    static ScriptObjectMirror requires()
+    {
+        if (_requires!=null)
+            return  _requires;
+        ScriptEngine engine =  NashornEngineSingleton.getEngine();
+
+        try {
+            _requires=(ScriptObjectMirror)engine.eval("ModuleUtils.requires");
+        } catch (ScriptException e) {
+            e.printStackTrace();
+        }
+        return _requires;
+    }
+
+    static ScriptObjectMirror getRequires(String name)
+    {
+        Object obj=requires().getMember(name);
+        if (obj instanceof ScriptObjectMirror)
+            return (ScriptObjectMirror)obj;
+        else
+            return null;
+    }
+
+
+    static ScriptObjectMirror getRequiredFileById(String modid) {
+        ScriptObjectMirror requires = requires();
+
+        //print("ModuleUtils.getRequiredFileById for modid: "+modid);
+        for ( Map.Entry<String,Object> entry : requires.entrySet()) {
+           if (entry.getValue() instanceof ScriptObjectMirror)
+           {
+               ScriptObjectMirror som = (ScriptObjectMirror)entry.getValue();
+               Object o=som.getMember("id");
+               if (modid.equals(o))
+                   return som;
+           }
+            else
+           {
+               throw new RuntimeException("should not happen");
+           }
+        }
+        return null;
+    };
+
+
+    static ScriptObjectMirror _cache;
+    static ScriptObjectMirror cache()
+    {
+        if (_cache!=null)
+            return  _cache;
+        ScriptEngine engine =  NashornEngineSingleton.getEngine();
+
+        try {
+            _cache=(ScriptObjectMirror)engine.eval("require.cache");
+        } catch (ScriptException e) {
+            e.printStackTrace();
+        }
+        return _cache;
+    }
+
+
+    static String fincCacheValue(Object obj) {
+        // This is a little bit of a hack - require is defined in jvm-npm but
+        // caches any exports for any already required modules. We don't want to add
+        // exports to the Module's metadata that is stored in ModuleUtils.requires so
+        // it doesn't get Serialized as part of bound lambda argument.
+
+        ScriptObjectMirror cache = cache();
+        if (cache != null) {
+            for (Map.Entry<String, Object> entry : cache.entrySet()) {
+                if (obj.equals(entry.getValue()))
+                    return entry.getKey();
+            }
+        }
+        return null;
+    }
+
+    static Tuple2<String,String> getModIdFromExport(ScriptObjectMirror func) {
+        // This is a little bit of a hack - require is defined in jvm-npm but
+        // caches any exports for any already required modules. We don't want to add
+        // exports to the Module's metadata that is stored in ModuleUtils.requires so
+        // it doesn't get Serialized as part of bound lambda argument.
+
+        ScriptObjectMirror cache=cache();
+        if (cache!=null) {
+            for ( Map.Entry<String,Object> entry : cache.entrySet()) {
+//                System.out.println(entry.getKey()+"="+entry.getValue());
+                  Object value=entry.getValue();
+                  if (value instanceof ScriptObjectMirror )
+                  {
+                      ScriptObjectMirror som = (ScriptObjectMirror)value;
+                      if (som.isFunction() &&som.equals(func))
+                        return new Tuple2<>(entry.getKey(),null);
 //                    return {modid: modid};
+                      else
+                      {
+                          for ( Map.Entry<String,Object> member : som.entrySet()) {
+
+                              Object o=member.getValue();
+                              if ((o instanceof ScriptObjectMirror) && ((ScriptObjectMirror)o).isFunction()
+                                  && o.equals(func))
+                              return new Tuple2<>(entry.getKey(),member.getKey());
+                              //                            return {modid: modid, expname: exp};
+
+                          }
+
+                      }
+
+                  }
+//                if ((typeof cache[modid] === "function") && (cache[modid].toString() === func.toString())) {
 //                } else if (typeof cache[modid] === "object"){
 //                    for (var exp in cache[modid]) {
 //                        //print("cache[modid][exp]: "+cache[modid][exp]);
@@ -192,24 +346,72 @@ public class ModuleUtils {
 //                        }
 //                    }
 //                }
-//            }
-//        }
-//    }
-//
-//    ModuleUtils.getRequiredFileByExport = function(func) {
-//        //print("ModuleUtils.getRequiredFileByExport func: "+func.toString());
-//        var obj = getModIdFromExport(func) || {},
-//                modid = obj.modid || "",
-//                expname = obj.expname;
-//        //ModuleUtils._printRequires();
-//        //print("ModuleUtils.getRequiredFileByExport modid: "+modid);
-//        var mod = ModuleUtils.getRequiredFileById(modid);
-//        if (mod) {
-//            mod.setExportName(expname);
-//            return mod;
-//        }
-//    };
-//
+            }
+        }
+        return  null;
+    }
+
+    static ScriptObjectMirror getRequiredFileByExport(ScriptObjectMirror func) {
+        if (logger.isDebugEnabled())
+            logger.debug("getRequiredFileByExport"+func.toString());
+        Tuple2<String,String> expModid = getModIdFromExport(func) ;
+        if (expModid!=null)
+        {
+            ScriptObjectMirror mod= ModuleUtils.getRequiredFileById(expModid._1());
+            if (mod!=null) {
+                String exprName=expModid._2();
+                if (exprName!=null)
+                    mod.callMember("setExportName",exprName);
+                return mod;
+            }
+
+        }
+        return null;
+    };
+
+    static ScriptObjectMirror getRequiredFileByExport(StaticClass obj) {
+        if (logger.isDebugEnabled())
+            logger.debug("getRequiredFileByExport"+obj.toString());
+        String modId = fincCacheValue(obj) ;
+        if (modId!=null)
+        {
+            ScriptObjectMirror mod= ModuleUtils.getRequiredFileById(modId);
+                return mod;
+
+        }
+        return null;
+    };
+
+    static boolean customModsAdded;
+    public static void addCustomFiles(SparkContext sc) {
+
+        if (customModsAdded) {
+            logger.debug(ModuleUtils.defaultZipFile + " has already been added for this SparkContext instance");
+            return;
+        }
+
+        List<ScriptObjectMirror> mods = ModuleUtils.getModulesByType("core", false);
+//        logger.debug("addingCustomModules: ",mods.toString());
+        String folder = ".";
+        String zipfile = ModuleUtils.defaultZipFile;
+        List<String> filenames = new ArrayList<>();
+        for (ScriptObjectMirror mod : mods) {
+            String id = mod.get("id").toString();
+            String name = id.substring(id.lastIndexOf("/")+1);
+            filenames.add(name);
+        };
+        logger.debug("SparkContext.addCustomModules folder: "+folder);
+        logger.debug("SparkContext.addCustomModules filenames: "+filenames.toString());
+        try {
+            org.eclairjs.nashorn.Utils.zipFile(folder, zipfile, filenames.toArray(new String[filenames.size()]));
+            sc.addFile(zipfile);
+            customModsAdded = true;
+        } catch (Exception exc) {
+            System.err.println("Cannot add non core modules: " + filenames.toString());
+            exc.printStackTrace();
+        }
+    }
+
 //    ModuleUtils.isModule = function(obj) {
 //        //print("ModuleUtils.isModule obj: "+obj.toString());
 //        if (typeof obj === "function") {
@@ -236,27 +438,31 @@ public class ModuleUtils {
 //    };
 //
 //
-///*
-// * Get any modules that match the given type/attribute.
-// *
-// * For example {type: "core", value: "true"} to find any core modules loaded from
-// * the classpath.
-// */
-//    ModuleUtils.getModulesByType = function(typeobj) {
-//        typeobj = typeobj || {};
-//        var type = typeobj.type;
-//        var value = typeobj.value;
-//        //print("getModuleByType: " + type + ":" + value);
-//        var mods = [];
-//        for (var name in ModuleUtils.requires) {
-//            //print("ModuleUtils.requires["+name+"]["+type+"]: "+ModuleUtils.requires[name][type]);
-//            if (ModuleUtils.requires[name][type] === value) {
-//                mods.push(ModuleUtils.requires[name]);
-//            }
-//        }
-//        return mods;
-//    };
-//
+/*
+ * Get any modules that match the given type/attribute.
+ *
+ * For example {type: "core", value: "true"} to find any core modules loaded from
+ * the classpath.
+ */
+    static List<ScriptObjectMirror> getModulesByType(String type,Object value) {
+        //print("getModuleByType: " + type + ":" + value);
+        List<ScriptObjectMirror> list = new ArrayList<>();
+        ScriptObjectMirror requires = requires();
+
+        //print("ModuleUtils.getRequiredFileById for modid: "+modid);
+        for ( Map.Entry<String,Object> entry : requires.entrySet()) {
+
+            if (entry.getValue() instanceof ScriptObjectMirror)
+            {
+                ScriptObjectMirror som = (ScriptObjectMirror)entry.getValue();
+                Object v = som.getMember(type);
+                if (type.equals(v))
+                    list.add(som);
+            }
+        }
+        return list;
+    };
+
 ///*
 // * On worker node so have to try and manually find and load required required file
 // * into the ScriptEngine (e.g. Nashorn).

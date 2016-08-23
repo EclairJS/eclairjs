@@ -51,7 +51,7 @@ public class SqlDataset {
         TestUtils.evalJSResource(engine, "/sql/dataset.js");
         Object ret = ((Invocable) engine).invokeFunction("intEncoder");
 
-        assertEquals("should be same", "[1,2,3]", ret);
+        assertEquals("should be same", "[2,3,4]", ret);
     }
 
     @Test

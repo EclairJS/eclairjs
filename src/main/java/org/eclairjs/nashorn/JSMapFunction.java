@@ -16,11 +16,16 @@
 
 package org.eclairjs.nashorn;
 
+import org.apache.spark.sql.Encoder;
+
 public class JSMapFunction extends JSBaseFunction implements org.apache.spark.api.java.function.MapFunction {
 
 
-    public JSMapFunction(String func, Object[] o) {
+    private final Encoder encoder;
+
+    public JSMapFunction(String func, Encoder encoder, Object[] o) {
         super(func,o);
+        this.encoder=encoder;
     }
 
     @SuppressWarnings({ "null", "unchecked" })
@@ -28,7 +33,8 @@ public class JSMapFunction extends JSBaseFunction implements org.apache.spark.ap
     public Object call(Object o) throws Exception {
         Object params[] = { o};
         Object ret = callScript( params);
-        return ret;
+
+        return castDataType(ret,encoder);
 
     }
 }

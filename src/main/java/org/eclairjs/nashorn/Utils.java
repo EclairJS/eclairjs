@@ -29,14 +29,18 @@ import jdk.nashorn.internal.runtime.ScriptRuntime;
 import jdk.nashorn.internal.runtime.Undefined;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
+import org.apache.spark.SparkContext;
 import org.apache.spark.SparkFiles;
 import org.apache.spark.mllib.regression.LinearRegressionModel;
 import org.apache.spark.mllib.regression.LabeledPoint;
 import org.apache.spark.rdd.RDD;
+import org.apache.spark.sql.Encoder;
 import org.apache.spark.sql.Row;
 import org.eclairjs.nashorn.wrap.WrappedClass;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import scala.Tuple2;
 import scala.Product;
 import scala.collection.Seq;
@@ -783,6 +787,47 @@ public class Utils {
             e.printStackTrace();
         }
         return obj;
+    }
+
+    public static Object[] convertBindArgs(Object bindArgs,SparkContext sc) {
+
+        if (bindArgs!=null)
+        {
+            boolean inJar=true;
+            Object[] bindArr=(Object[])ScriptUtils.convert(bindArgs,Object[].class);
+            for (int i=0;i<bindArr.length;i++)
+            {
+                if (ModuleUtils.isModule(bindArr[i]))
+                {
+                    ScriptObjectMirror som = ModuleUtils.getRequiredFile(bindArr[i]);
+                    som=(ScriptObjectMirror)ScriptObjectMirror.wrapAsJSONCompatible(som,null);
+                    String j = JSONValue.toJSONString(som);
+                    JSONObject json= null;
+                    try {
+                        json = (JSONObject) new JSONParser().parse(j);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    Object v=json.get("core");
+                    if (v instanceof Boolean && ((Boolean)v).booleanValue())
+                    {}
+                    else
+                        inJar=false;
+                    bindArr[i]=json;
+
+                }
+                else
+                {
+                    bindArr[i]=Utils.jsToJava(bindArr[i]);
+                }
+            }
+            if (!inJar && !sc.isLocal())
+            {
+                ModuleUtils.addCustomFiles(sc);
+            }
+            return bindArr;
+        }
+        return null;
     }
 
     public static Map createJavaHashMap(Object map) {

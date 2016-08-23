@@ -24,6 +24,7 @@ var Tuple5 = require('eclairjs/Tuple5');
 //var ArrayType = sqlTypes.ArrayType;
 //var StructType = require(EclairJS_Globals.NAMESPACE + '/sql/types/StructType');
 //var StructField = require(EclairJS_Globals.NAMESPACE + '/sql/types/StructField');
+var SparkContext = require(EclairJS_Globals.NAMESPACE + '/SparkContext');
 var SparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/SparkSession');
 var SqlTimestamp = require(EclairJS_Globals.NAMESPACE + '/sql/SqlTimestamp');
 //var RowFactory = require(EclairJS_Globals.NAMESPACE + '/sql/RowFactory');
@@ -31,7 +32,10 @@ var SqlTimestamp = require(EclairJS_Globals.NAMESPACE + '/sql/SqlTimestamp');
 //var functions = require(EclairJS_Globals.NAMESPACE + '/sql/functions');
 var SqlDate = require(EclairJS_Globals.NAMESPACE + '/sql/SqlDate');
 //var SqlTimestamp = require(EclairJS_Globals.NAMESPACE + '/sql/SqlTimestamp');
-//var StorageLevel = require(EclairJS_Globals.NAMESPACE + '/storage/StorageLevel');
+var StorageLevel = require(EclairJS_Globals.NAMESPACE + '/storage/StorageLevel');
+var sqlTypes = require(EclairJS_Globals.NAMESPACE + '/sql/types');
+var DataTypes = sqlTypes.DataTypes;
+
 //var SparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/SparkSession');
 //var sql = require('sql');
 //require('sql');
@@ -57,9 +61,9 @@ var stringEncoder = function() {
 
 var intEncoder = function() {
     var ds = sparkSession.createDataset([1,2,3], Encoders.INT());
-    ds =ds.map( function(value) {
+    ds =ds.map( function(value,sparkContext) {
     		return value + 1;
-    	}, Encoders.INT());
+    	}, Encoders.INT(),[SparkContext]);
     return JSON.stringify(ds);
 }
 

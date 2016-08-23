@@ -22,21 +22,24 @@ import javax.script.ScriptEngine;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.spark.api.java.function.FlatMapFunction;
 import jdk.nashorn.api.scripting.ScriptObjectMirror;
+import org.apache.spark.sql.Encoder;
 
 import java.util.*;
 
 
 public class JSFlatMapFunction  extends JSBaseFunction implements FlatMapFunction {
-    public JSFlatMapFunction(String func,  Object[] o) {
-        super(func,o);
-    }
+    Encoder encoder;
 
+    public JSFlatMapFunction(String func, Encoder encoder, Object[] o) {
+        super(func,o);
+        this.encoder=encoder;
+    }
     @SuppressWarnings("unchecked")
 	@Override
     public Iterator call(Object o) throws Exception {
         Object params[] = { o};
 
         Object ret = callScript(params);
-        return toIterator(ret);
+        return toIterator(ret,encoder);
     }
 }
