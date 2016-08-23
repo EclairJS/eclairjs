@@ -15,13 +15,6 @@
 */ 
 
 (function () {
-
-    //var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
-    //var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
-    //var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
-    //var logger = Logger.getLogger("sql.streaming.DataStreamReader_js");
-
-
     
     
     /**
@@ -29,24 +22,12 @@
      * Interface used to load a streaming {@link Dataset} from external storage systems (e.g. file systems,
      * key-value stores, etc). Use {@link readStream} to access this.
      *
-     * @since EclairJS 0.5 Spark  2.0.0
+     * @since EclairJS 0.7 Spark  2.0.0
      * @class DataStreamReader
      * @memberof module:eclairjs/sql/streaming
      */
 
     var DataStreamReader = Java.type('org.eclairjs.nashorn.wrap.sql.streaming.DataStreamReader');
-    //
-    //var DataStreamReader = function() {
-    //
-    //	 this.logger = Logger.getLogger("DataStreamReader_js");
-    //	 JavaWrapper.call(this, jvmObject);
-    //
-    //};
-    //
-    //DataStreamReader.prototype = Object.create(JavaWrapper.prototype);
-    //
-    //DataStreamReader.prototype.constructor = DataStreamReader;
-    //
     
     
     /**
@@ -54,15 +35,10 @@
      * Specifies the input data source format.
      * @function
      * @name module:eclairjs/sql/streaming.DataStreamReader#format
-     * @since EclairJS 0.5 Spark  2.0.0
+     * @since EclairJS 0.7 Spark  2.0.0
      * @param {string} source
      * @returns {module:eclairjs/sql/streaming.DataStreamReader} 
      */
-    //DataStreamReader.prototype.format = function(source) {
-    //throw "not implemented by ElairJS";
-    ////   var javaObject =  this.getJavaObject().format(source);
-    ////   return new DataStreamReader(javaObject);
-    //};
     
     
     /**
@@ -72,16 +48,10 @@
      * skip the schema inference step, and thus speed up data loading.
      * @function
      * @name module:eclairjs/sql/streaming.DataStreamReader#schema
-     * @since EclairJS 0.5 Spark  2.0.0
+     * @since EclairJS 0.7 Spark  2.0.0
      * @param {module:eclairjs/sql/types.StructType} schema
      * @returns {module:eclairjs/sql/streaming.DataStreamReader} 
      */
-    //DataStreamReader.prototype.schema = function(schema) {
-    //throw "not implemented by ElairJS";
-    ////   var schema_uw = Utils.unwrapObject(schema);
-    ////   var javaObject =  this.getJavaObject().schema(schema_uw);
-    ////   return new DataStreamReader(javaObject);
-    //};
     
     
     /**
@@ -89,16 +59,11 @@
      * Adds an input option for the underlying data source.
      * @function
      * @name module:eclairjs/sql/streaming.DataStreamReader#option
-     * @since EclairJS 0.5 Spark  2.0.0
+     * @since EclairJS 0.7 Spark  2.0.0
      * @param {string} key
      * @param {string} value
      * @returns {module:eclairjs/sql/streaming.DataStreamReader} 
      */
-    //DataStreamReader.prototype.option = function(key,value) {
-    //throw "not implemented by ElairJS";
-    ////   var javaObject =  this.getJavaObject().option(key,value);
-    ////   return new DataStreamReader(javaObject);
-    //};
     
     
     /**
@@ -106,16 +71,11 @@
      * Adds an input option for the underlying data source.
      * @function
      * @name module:eclairjs/sql/streaming.DataStreamReader#format
-     * @since EclairJS 0.5 Spark  2.0.0
+     * @since EclairJS 0.7 Spark  2.0.0
      * @param {string} key
      * @param {boolean} value
      * @returns {module:eclairjs/sql/streaming.DataStreamReader} 
      */
-    //DataStreamReader.prototype.option1 = function(key,value) {
-    //throw "not implemented by ElairJS";
-    ////   var javaObject =  this.getJavaObject().option(key,value);
-    ////   return new DataStreamReader(javaObject);
-    //};
     
     
     /**
@@ -123,16 +83,11 @@
      * Adds an input option for the underlying data source.
      * @function
      * @name module:eclairjs/sql/streaming.DataStreamReader#format
-     * @since EclairJS 0.5 Spark  2.0.0
+     * @since EclairJS 0.7 Spark  2.0.0
      * @param {string} key
      * @param {number} value
      * @returns {module:eclairjs/sql/streaming.DataStreamReader} 
      */
-    //DataStreamReader.prototype.option2 = function(key,value) {
-    //throw "not implemented by ElairJS";
-    ////   var javaObject =  this.getJavaObject().option(key,value);
-    ////   return new DataStreamReader(javaObject);
-    //};
     
     
     /**
@@ -140,16 +95,11 @@
      * Adds an input option for the underlying data source.
      * @function
      * @name module:eclairjs/sql/streaming.DataStreamReader#format
-     * @since EclairJS 0.5 Spark  2.0.0
+     * @since EclairJS 0.7 Spark  2.0.0
      * @param {string} key
      * @param {number} value
      * @returns {module:eclairjs/sql/streaming.DataStreamReader} 
      */
-    //DataStreamReader.prototype.option3 = function(key,value) {
-    //throw "not implemented by ElairJS";
-    ////   var javaObject =  this.getJavaObject().option(key,value);
-    ////   return new DataStreamReader(javaObject);
-    //};
     
     
     /**
@@ -157,16 +107,10 @@
      * Adds input options for the underlying data source.
      * @function
      * @name module:eclairjs/sql/streaming.DataStreamReader#optionswithMap
-     * @since EclairJS 0.5 Spark  2.0.0
+     * @since EclairJS 0.7 Spark  2.0.0
      * @param {Map} options
      * @returns {module:eclairjs/sql/streaming.DataStreamReader} 
      */
-    //DataStreamReader.prototype.optionswithMap = function(options) {
-    //throw "not implemented by ElairJS";
-    ////   var options_uw = Utils.unwrapObject(options);
-    ////   var javaObject =  this.getJavaObject().options(options_uw);
-    ////   return new DataStreamReader(javaObject);
-    //};
     
     
     /**
@@ -174,22 +118,11 @@
      * Loads input in as a {@link DataFrame}, for data streams that read from some path.
      * @function
      * @name module:eclairjs/sql/streaming.DataStreamReader#load
-     * @since EclairJS 0.5 Spark  2.0.0
+     * @since EclairJS 0.7 Spark  2.0.0
      * @param {string} [path]
      * @returns {DataFrame} 
      */
-    //DataStreamReader.prototype.load = function(path) {
-    //throw "not implemented by ElairJS";
-    ////
-    ////   if (arguments[0]) {
-    ////   var javaObject =  this.getJavaObject().load(path);
-    ////   return new DataFrame(javaObject);
-    ////   } else {
-    ////   var javaObject =  this.getJavaObject().load();
-    ////   return new DataFrame(javaObject);
-    ////   }
-    //};
-    //
+
     
     /**
      * :: Experimental ::
@@ -226,15 +159,10 @@
      * created by `PERMISSIVE` mode. This overrides `spark.sql.columnNameOfCorruptRecord`.</li>
      * @function
      * @name module:eclairjs/sql/streaming.DataStreamReader#json
-     * @since EclairJS 0.5 Spark  2.0.0
+     * @since EclairJS 0.7 Spark  2.0.0
      * @param {string} path
      * @returns {DataFrame} 
      */
-    //DataStreamReader.prototype.json = function(path) {
-    //throw "not implemented by ElairJS";
-    ////   var javaObject =  this.getJavaObject().json(path);
-    ////   return new DataFrame(javaObject);
-    //};
     
     
     /**
@@ -291,15 +219,10 @@
      * </ul>
      * @function
      * @name module:eclairjs/sql/streaming.DataStreamReader#csv
-     * @since EclairJS 0.5 Spark  2.0.0
+     * @since EclairJS 0.7 Spark  2.0.0
      * @param {string} path
      * @returns {DataFrame} 
      */
-    //DataStreamReader.prototype.csv = function(path) {
-    //throw "not implemented by ElairJS";
-    ////   var javaObject =  this.getJavaObject().csv(path);
-    ////   return new DataFrame(javaObject);
-    //};
     
     
     /**
@@ -314,15 +237,10 @@
      * `spark.sql.parquet.mergeSchema`.</li>
      * @function
      * @name module:eclairjs/sql/streaming.DataStreamReader#parquet
-     * @since EclairJS 0.5 Spark  2.0.0
+     * @since EclairJS 0.7 Spark  2.0.0
      * @param {string} path
      * @returns {DataFrame} 
      */
-    //DataStreamReader.prototype.parquet = function(path) {
-    //throw "not implemented by ElairJS";
-    ////   var javaObject =  this.getJavaObject().parquet(path);
-    ////   return new DataFrame(javaObject);
-    //};
     
     
     /**
@@ -344,15 +262,11 @@
      * considered in every trigger.</li>
      * @function
      * @name module:eclairjs/sql/streaming.DataStreamReader#text
-     * @since EclairJS 0.5 Spark  2.0.0
+     * @since EclairJS 0.7 Spark  2.0.0
      * @param {string} path
      * @returns {DataFrame} 
      */
-    //DataStreamReader.prototype.text = function(path) {
-    //throw "not implemented by ElairJS";
-    ////   var javaObject =  this.getJavaObject().text(path);
-    ////   return new DataFrame(javaObject);
-    //};
+
     
     module.exports = DataStreamReader;
 })();

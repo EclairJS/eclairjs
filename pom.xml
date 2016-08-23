@@ -301,36 +301,36 @@
         <dependency>
           <groupId>org.scala-lang</groupId>
           <artifactId>scala-library</artifactId>
-          <version>2.10.2</version>
+          <version>2.11.0</version>
         </dependency>
         <dependency>
           <groupId>org.apache.spark</groupId>
-          <artifactId>spark-core_2.10</artifactId>
+          <artifactId>spark-core_2.11</artifactId>
           <version>${spark.version}</version>
         </dependency>
         <dependency>
           <groupId>org.apache.spark</groupId>
-          <artifactId>spark-sql_2.10</artifactId>
+          <artifactId>spark-sql_2.11</artifactId>
           <version>${spark.version}</version>
         </dependency>
         <dependency>
           <groupId>org.apache.spark</groupId>
-          <artifactId>spark-catalyst_2.10</artifactId>
+          <artifactId>spark-catalyst_2.11</artifactId>
           <version>${spark.version}</version>
         </dependency>
         <dependency>
           <groupId>org.apache.spark</groupId>
-          <artifactId>spark-hive_2.10</artifactId>
+          <artifactId>spark-hive_2.11</artifactId>
           <version>${spark.version}</version>
         </dependency>
         <dependency>
           <groupId>org.apache.spark</groupId>
-          <artifactId>spark-streaming_2.10</artifactId>
+          <artifactId>spark-streaming_2.11</artifactId>
           <version>${spark.version}</version>
         </dependency>
         <dependency>
           <groupId>org.apache.spark</groupId>
-          <artifactId>spark-mllib_2.10</artifactId>
+          <artifactId>spark-mllib_2.11</artifactId>
           <version>${spark.version}</version>
         </dependency>
       </dependencies>

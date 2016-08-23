@@ -38,7 +38,7 @@ var port = parseInt(args[2]);
 
 var spark = SparkSession
     .builder()
-    .appName("JavaStructuredNetworkWordCount")
+    .appName("structuredNetworkWordCount")
     .getOrCreate();
 
 // Create DataFrame representing the stream of input lines from connection to host:port
