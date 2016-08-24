@@ -18,14 +18,14 @@
  bin/eclairjs.sh examples/ml/vector_slicer_example.js"
  */
 
-function run(sc) {
+function run(spark) {
 
 
     var SQLContext = require('eclairjs/sql/SQLContext');
     var VectorIndexer = require('eclairjs/ml/feature/VectorIndexer');
 
+    var sc = spark.sparkContext();
     var sql = new SQLContext(sc);
-
 
     // $example on$
     var data = sql.read().format("libsvm").load("examples/data/mllib/sample_libsvm_data.txt");
@@ -38,7 +38,7 @@ function run(sc) {
 
     var categoryMaps = indexerModel.categoryMaps();
 
-    var str="Chose " + categoryMaps.size() + " categorical features:";
+    var str="Chose " + categoryMaps.length + " categorical features:";
 
     for (var feature in categoryMaps) {
       str += " " + feature;
@@ -49,24 +49,21 @@ function run(sc) {
     var indexedData = indexerModel.transform(data);
     indexedData.show(20,true);
 
-
-
-
     return indexedData;
-
 }
 
 /*
- check if SparkContext is defined, if it is we are being run from Unit Test
+ check if SparkSession is defined, if it is we are being run from Unit Test
  */
 
-if (typeof sparkContext === 'undefined')  {
-    var SparkConf = require('eclairjs/SparkConf');
-    var SparkContext = require('eclairjs/SparkContext');
-    var sparkConf = new SparkConf().setAppName("JavaScript VectorIndexerExample");
-    var sc = new SparkContext(sparkConf);
-    var result = run(sc);
+if (typeof sparkSession === 'undefined')  {
+    var SparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/SparkSession');
+    var spark = SparkSession
+            .builder()
+            .appName("JavaScript VectorIndexer Example")
+            .getOrCreate();
+    var result = run(spark);
 
     // $example off$
-    sc.stop();
+    spark.stop();
 }

@@ -18,7 +18,7 @@
  bin/eclairjs.sh examples/ml/vector_slicer_example.js"
  */
 
-function run(sc) {
+function run(spark) {
 
 
     var SQLContext = require('eclairjs/sql/SQLContext');
@@ -36,7 +36,7 @@ function run(sc) {
     var Metadata = require('eclairjs/sql/types/Metadata');
     var RowFactory = require('eclairjs/sql/RowFactory');
 
-
+    var sc = spark.sparkContext();
     var sqlContext = new SQLContext(sc);
 
    function LabeledDocument(id, text, label)
@@ -102,15 +102,16 @@ function run(sc) {
 }
 
 /*
- check if SparkContext is defined, if it is we are being run from Unit Test
+ check if SparkSession is defined, if it is we are being run from Unit Test
  */
 
-if (typeof sparkContext === 'undefined')  {
-    var SparkConf = require('eclairjs/SparkConf');
-    var SparkContext = require('eclairjs/SparkContext');
-    var sparkConf = new SparkConf().setAppName("JavaScript SimpleTextClassificationPipeline");
-    var sc = new SparkContext(sparkConf);
-    var result = run(sc);
+if (typeof sparkSession === 'undefined')  {
+    var SparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/SparkSession');
+    var spark = SparkSession
+            .builder()
+            .appName("JavaScript SimpleTextClassificationPipeline Example")
+            .getOrCreate();
+    var result = run(spark);
 
     for (var i=0;i<result.length;i++)
     {
@@ -121,5 +122,5 @@ if (typeof sparkContext === 'undefined')  {
     }
 
     // $example off$
-    sc.stop();
+    spark.stop();
 }

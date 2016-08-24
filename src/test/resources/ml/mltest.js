@@ -16,24 +16,22 @@
 
 
 /*
- * We need to load SparkContext.js and SparkConf.js in order to create SparkContext
- * The SparkContext will load the rest of sparkJS files. So these are the oly two 
- * the user has to explicitly load. 
+ * We need to load SparkSession.js order to create a SparkSession.  The
+ * SparkSession will load the rest of sparkJS files. So this is the only  
+ * one the user has to explicitly load. 
  */
-var SparkConf = require('eclairjs/SparkConf');
 var SparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/SparkSession');
 var sparkSession = SparkSession
     .builder()
     .appName("ml Unit test")
     .master("local[*]")
     .getOrCreate();
-var sparkContext = sparkSession.sparkContext();
 
 
 var Word2VecExample = function() {
 
     load("examples/ml/word2vec_example.js");
-    var rows = run(sparkContext);
+    var rows = run(sparkSession);
     if (rows && rows.length === 3) {
         return "passed";
     } else {
@@ -44,7 +42,7 @@ var Word2VecExample = function() {
 var AFTSurvivalRegressionExample = function() {
 
     load("examples/ml/aft_survival_regression_example.js");
-    var result = run(sparkContext);
+    var result = run(sparkSession);
     if (result) {
         return "passed";
     } else {
@@ -56,7 +54,7 @@ var AFTSurvivalRegressionExample = function() {
 var ALSExample = function() {
 
     load("examples/ml/als_example.js");
-    var result = run(sparkContext);
+    var result = run(sparkSession);
     if (result > 0) {
         return "passed"
     } else {
@@ -68,42 +66,42 @@ var ALSExample = function() {
 var BinarizerExample = function() {
 
     load("examples/ml/binarizer_example.js");
-    var rows = run(sparkContext);
+    var rows = run(sparkSession);
     return JSON.stringify(rows);
 }
 
 var BucketizerExample = function() {
 
     load("examples/ml/bucketizer_example.js");
-    var rows = run(sparkContext).collect();
+    var rows = run(sparkSession).collect();
     return JSON.stringify(rows);
 }
 
 var ChiSqSelectorExample = function() {
 
     load("examples/ml/chi_sq_selector_example.js");
-    var rows = run(sparkContext).collect();
+    var rows = run(sparkSession).collect();
     return JSON.stringify(rows);
 }
 
 var CountVectorizerExample = function() {
 
     load("examples/ml/count_vectorizer_example.js");
-    var rows = run(sparkContext).collect();
+    var rows = run(sparkSession).collect();
     return JSON.stringify(rows);
 }
 
 var DCTExample = function() {
 
     load("examples/ml/dct_example.js");
-    var rows = run(sparkContext).collect();
+    var rows = run(sparkSession).collect();
     return JSON.stringify(rows);
 }
 
 var DecisionTreeClassificationExample = function() {
 
     load("examples/ml/decision_tree_classification_example.js");
-    var result = run(sparkContext);
+    var result = run(sparkSession);
     if (result) {
         return "passed";
     } else {
@@ -114,7 +112,7 @@ var DecisionTreeClassificationExample = function() {
 var DecisionTreeRegressionExample = function() {
 
     load("examples/ml/decision_tree_regression_example.js");
-    var result = run(sparkContext);
+    var result = run(sparkSession);
     if (result) {
         return "passed";
     } else {
@@ -125,14 +123,14 @@ var DecisionTreeRegressionExample = function() {
 var ElementwiseProductExample = function() {
 
     load("examples/ml/elementwise_product_example.js");
-    var result = run(sparkContext);
+    var result = run(sparkSession);
     return JSON.stringify(result.collect());
 }
 
 var EstimatorTransformerParamExample = function() {
 
     load("examples/ml/estimator_transformer_param_example.js");
-    var result = run(sparkContext);
+    var result = run(sparkSession);
     if (result) {
         return "passed";
     } else {
@@ -143,7 +141,7 @@ var EstimatorTransformerParamExample = function() {
 var GradientBoostedTreeClassifierExample = function() {
 
     load("examples/ml/gradient_boosted_tree_classifier_example.js");
-    var result = run(sparkContext);
+    var result = run(sparkSession);
     if (result) {
         return "passed";
     } else {
@@ -154,7 +152,7 @@ var GradientBoostedTreeClassifierExample = function() {
 var GradientBoostedTreeRegressorExample = function() {
 
     load("examples/ml/gradient_boosted_tree_regressor_example.js");
-    var result = run(sparkContext);
+    var result = run(sparkSession);
     if (result) {
         return "passed";
     } else {
@@ -165,21 +163,21 @@ var GradientBoostedTreeRegressorExample = function() {
 var IndexToStringExample = function() {
 
     load("examples/ml/index_to_string_example.js");
-    var result = run(sparkContext);
+    var result = run(sparkSession);
     return JSON.stringify(result.collect());
 }
 
 var KMeansExample = function() {
 
     load("examples/ml/kmeans_example.js");
-    var result = run(sparkContext);
+    var result = run(sparkSession);
     return JSON.stringify(result);
 }
 
 var LDAExample = function() {
 
     load("examples/ml/LDA_example.js");
-    var result = run(sparkContext);
+    var result = run(sparkSession);
     if (result) {
         return "passed";
     } else {
@@ -190,7 +188,7 @@ var LDAExample = function() {
 var LinearRegressionWithElasticNetExample = function() {
 
     load("examples/ml/linear_regression_with_elastic_net_example.js");
-    var result = run(sparkContext);
+    var result = run(sparkSession);
     var str = JSON.stringify(result);
     if (str) {
         return "passed";
@@ -202,7 +200,7 @@ var LinearRegressionWithElasticNetExample = function() {
 var LogisticRegressionSummaryExample = function() {
 
     load("examples/ml/logistic_regression_summary_example.js");
-    var result = run(sparkContext);
+    var result = run(sparkSession);
     var str = JSON.stringify(result);
     if (str) {
         return "passed";
@@ -214,7 +212,7 @@ var LogisticRegressionSummaryExample = function() {
 var LogisticRegressionWithElasticNetExample = function() {
 
     load("examples/ml/logistic_regression_with_elastic_net_example.js");
-    var result = run(sparkContext);
+    var result = run(sparkSession);
     var str = JSON.stringify(result);
     if (str) {
         return "passed";
@@ -226,7 +224,7 @@ var LogisticRegressionWithElasticNetExample = function() {
 var MinMaxScalerExample = function() {
 
     load("examples/ml/min_max_scaler_example.js");
-    var result = run(sparkContext);
+    var result = run(sparkSession);
     var str = JSON.stringify(result);
     if (str) {
         return "passed";
@@ -238,7 +236,7 @@ var MinMaxScalerExample = function() {
 var ModelSelectionViaTrainValidationSplitExample = function() {
 
     load("examples/ml/model_selection_via_train_validation_split_example.js");
-    var result = run(sparkContext);
+    var result = run(sparkSession);
     var str = JSON.stringify(result);
     if (str) {
         return "passed";
@@ -250,7 +248,7 @@ var ModelSelectionViaTrainValidationSplitExample = function() {
 var MultilayerPerceptronClassifierExample = function() {
 
     load("examples/ml/multilayer_perceptron_classifier_example.js");
-    var result = run(sparkContext);
+    var result = run(sparkSession);
     if (result) {
         return "passed";
     } else {
@@ -261,7 +259,7 @@ var MultilayerPerceptronClassifierExample = function() {
 var NaiveBayesExample = function() {
 
     load("examples/ml/naive_bayes_example.js");
-    var result = run(sparkContext);
+    var result = run(sparkSession);
     if (result) {
         return "passed";
     } else {
@@ -272,7 +270,7 @@ var NaiveBayesExample = function() {
 var NGramExample = function() {
 
     load("examples/ml/ngram_example.js");
-    var result = run(sparkContext);
+    var result = run(sparkSession);
     var str = JSON.stringify(result)
     if (str) {
         return "passed";
@@ -284,7 +282,7 @@ var NGramExample = function() {
 var NormalizerExample = function() {
 
     load("examples/ml/normalizer_example.js");
-    var result = run(sparkContext);
+    var result = run(sparkSession);
     var str = JSON.stringify(result)
     if (str) {
         return "passed";
@@ -296,7 +294,7 @@ var NormalizerExample = function() {
 var OneHotEncoderExample = function() {
 
     load("examples/ml/one_hot_encoder_example.js");
-    var result = run(sparkContext);
+    var result = run(sparkSession);
     var str = JSON.stringify(result)
     if (str) {
         return "passed";
@@ -308,14 +306,14 @@ var OneHotEncoderExample = function() {
 var PCAExample = function() {
 
     load("examples/ml/pca_example.js");
-    var rows = run(sparkContext).collect();
+    var rows = run(sparkSession).collect();
     return JSON.stringify(rows);
 }
 
 var PipelineExample = function() {
 
     load("examples/ml/pipeline_example.js");
-    var result = run(sparkContext);
+    var result = run(sparkSession);
     var str = JSON.stringify(result)
     if (str) {
         return "passed";
@@ -327,7 +325,7 @@ var PipelineExample = function() {
 var PolynomialExpansionExample = function() {
 
     load("examples/ml/polynomial_expansion_example.js");
-    var result = run(sparkContext);
+    var result = run(sparkSession);
     var str = JSON.stringify(result)
     if (str) {
         return "passed";
@@ -339,7 +337,7 @@ var PolynomialExpansionExample = function() {
 var QuantileDiscretizerExample = function() {
 
     load("examples/ml/quantile_discretizer_example.js");
-    var result = run(sparkContext);
+    var result = run(sparkSession);
     var str = JSON.stringify(result)
     if (str) {
         return "passed";
@@ -351,7 +349,7 @@ var QuantileDiscretizerExample = function() {
 var RandomForestClassifierExample = function() {
 
     load("examples/ml/random_forest_classifier_example.js");
-    var result = run(sparkContext);
+    var result = run(sparkSession);
     var str = JSON.stringify(result)
     if (str) {
         return "passed";
@@ -363,7 +361,7 @@ var RandomForestClassifierExample = function() {
 var RandomForestRegressorExample = function() {
 
     load("examples/ml/random_forest_regressor_example.js");
-    var result = run(sparkContext);
+    var result = run(sparkSession);
     var str = JSON.stringify(result)
     if (str) {
         return "passed";
@@ -375,7 +373,7 @@ var RandomForestRegressorExample = function() {
 var RFormulaExample = function() {
 
     load("examples/ml/rformula_example.js");
-    var result = run(sparkContext);
+    var result = run(sparkSession);
     var str = JSON.stringify(result)
     if (str) {
         return "passed";

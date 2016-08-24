@@ -529,7 +529,8 @@ public class MlTest {
         TestUtils.evalJSResource(engine, "/ml/mltest.js");
         Object ret = ((Invocable)engine).invokeFunction("KMeansExample");
 
-        String expected = "[{\"values\":[0.1,0.1,0.1]},{\"values\":[9.05,9.05,9.05]},{\"values\":[9.2,9.2,9.2]}]";
+        //String expected = "[{\"values\":[0.1,0.1,0.1]},{\"values\":[9.05,9.05,9.05]},{\"values\":[9.2,9.2,9.2]}]";
+        String expected = "[{\"values\":[1,1,2,3]},{\"values\":[4,1,2,3]}]";
 
         assertEquals("failure - strings are not equal", expected, ret);
 

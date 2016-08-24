@@ -19,7 +19,7 @@
  */
 
 
-function run(sc) {
+function run(spark) {
     var SQLContext = require('eclairjs/sql/SQLContext');
     var StructField = require("eclairjs/sql/types/StructField");
     var StructType = require("eclairjs/sql/types/StructType");
@@ -30,7 +30,7 @@ function run(sc) {
     var Vector = require("eclairjs/ml/linalg/Vector");
     var VectorUDT = require("eclairjs/ml/linalg/VectorUDT");
 
-
+    var sc = spark.sparkContext();
     var sqlContext = new SQLContext(sc);
 
     var inputFile = "examples/data/mllib/sample_lda_data.txt";
@@ -70,19 +70,20 @@ function run(sc) {
 
 
 /*
- check if SparkContext is defined, if it is we are being run from Unit Test
+ check if SparkSession is defined, if it is we are being run from Unit Test
  */
 
-if (typeof sparkContext === 'undefined') {
-    var SparkConf = require('eclairjs/SparkConf');
-    var SparkContext = require('eclairjs/SparkContext');
-    var sparkConf = new SparkConf().setAppName("Example");
-    var sc = new SparkContext(sparkConf);
-    var result = run(sc);
+if (typeof sparkSession === 'undefined') {
+    var SparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/SparkSession');
+    var spark = SparkSession
+            .builder()
+            .appName("JavaScript IDA Example")
+            .getOrCreate();
+    var result = run(spark);
     print(result.logLikelihood);
     print(result.logPerplexity);
-    result.topics.show(false);
-    result.transformed.show(false);
+    result.topics.show(10);
+    result.transformed.show(10);
 
-    sc.stop();
+    spark.stop();
 }

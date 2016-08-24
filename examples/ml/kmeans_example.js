@@ -19,10 +19,10 @@
  */
 
 
-var inputFile = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/kmeans_data.txt";
-var k = 3;
+var inputFile = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/sample_kmeans_data.txt";
+var k = 2;
 
-function run(sc) {
+function run(spark) {
     var SQLContext = require('eclairjs/sql/SQLContext');
     var StructField = require("eclairjs/sql/types/StructField");
     var StructType = require("eclairjs/sql/types/StructType");
@@ -33,8 +33,9 @@ function run(sc) {
     var Vector = require("eclairjs/ml/linalg/Vector");
     var VectorUDT = require("eclairjs/ml/linalg/VectorUDT");
 
-
+    var sc = spark.sparkContext();
     var sqlContext = new SQLContext(sc);
+
     var points = sc.textFile(inputFile).map(function (line, RowFactory, Vectors) {
         var tok = line.split(" ");
         var point = [];
@@ -50,37 +51,38 @@ function run(sc) {
 
     // Trains a k-means model
     var kmeans = new KMeans()
-        .setK(k);
+        .setK(k)
+        .setSeed(1);
     var model = kmeans.fit(dataset);
 
     // Shows the result
     var centers = model.clusterCenters();
 
     return centers;
-
 }
 
 
 /*
- check if SparkContext is defined, if it is we are being run from Unit Test
+ check if SparkSession is defined, if it is we are being run from Unit Test
  */
 
-if (typeof sparkContext === 'undefined') {
+if (typeof sparkSession === 'undefined') {
     if (args.length > 1) {
         inputFile = args[1];
     }
     if (args.length > 2) {
         k = parseInt(args[2]);
     }
-    var SparkConf = require('eclairjs/SparkConf');
-    var SparkContext = require('eclairjs/SparkContext');
-    var sparkConf = new SparkConf().setAppName("KMeans Example");
-    var sc = new SparkContext(sparkConf);
-    var result = run(sc);
+    var SparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/SparkSession');
+    var spark = SparkSession
+            .builder()
+            .appName("JavaScript KMeans Example")
+            .getOrCreate();
+    var result = run(spark);
     print("Cluster Centers: ");
     result.forEach(function (center) {
         print(center);
     });
 
-    sc.stop();
+    spark.stop();
 }

@@ -20,7 +20,7 @@
  */
 
 
-function run(sc) {
+function run(spark) {
 
     var SQLContext = require('eclairjs/sql/SQLContext');
     var StringIndexer = require('eclairjs/ml/feature/StringIndexer');
@@ -30,6 +30,7 @@ function run(sc) {
     var MulticlassClassificationEvaluator = require('eclairjs/ml/evaluation/MulticlassClassificationEvaluator');
     var Pipeline = require('eclairjs/ml/Pipeline');
 
+    var sc = spark.sparkContext();
     var sqlContext = new SQLContext(sc);
     // Load the data stored in LIBSVM format as a DataFrame.
     var data = sqlContext
@@ -94,21 +95,22 @@ function run(sc) {
 }
 
 /*
- check if SparkContext is defined, if it is we are being run from Unit Test
+ check if SparkSession is defined, if it is we are being run from Unit Test
  */
 
-if (typeof sparkContext === 'undefined') {
-    var SparkConf = require('eclairjs/SparkConf');
-    var SparkContext = require('eclairjs/SparkContext');
-    var sparkConf = new SparkConf().setAppName("JavaScript Decision Tree Classification Example");
-    var sc = new SparkContext(sparkConf);
-    var result = run(sc);
+if (typeof sparkSession === 'undefined') {
+    var SparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/SparkSession');
+    var spark = SparkSession
+            .builder()
+            .appName("JavaScript Decision Tree Classification Example")
+            .getOrCreate();
+    var result = run(spark);
 
     // Select example rows to display.
     result.predictions.select("predictedLabel", "label", "features").show(5);
     print("Test Error = " + (1.0 - result.accuracy));
     print("Learned classification tree model:\n" + result.treeModel.toDebugString());;
-    sc.stop();
+    spark.stop();
 }
 
 

@@ -18,13 +18,14 @@
  bin/eclairjs.sh examples/ml/model_selection_via_train_validation_split_example.js"
  */
 
-function run(sc) {
+function run(spark) {
     var SQLContext = require('eclairjs/sql/SQLContext');
     var LinearRegression = require("eclairjs/ml/regression/LinearRegression");
     var ParamGridBuilder = require("eclairjs/ml/tuning/ParamGridBuilder");
     var TrainValidationSplit = require("eclairjs/ml/tuning/TrainValidationSplit");
     var RegressionEvaluator = require("eclairjs/ml/evaluation/RegressionEvaluator");
 
+    var sc = spark.sparkContext();
     var sqlContext = new SQLContext(sc);
 
     var data = sqlContext.read().format("libsvm")
@@ -66,17 +67,17 @@ function run(sc) {
 
 
 /*
- check if SparkContext is defined, if it is we are being run from Unit Test
+ check if SparkSession is defined, if it is we are being run from Unit Test
  */
 
-if (typeof sparkContext === 'undefined') {
-    var SparkConf = require('eclairjs/SparkConf');
-    var SparkContext = require('eclairjs/SparkContext');
-
-    var sparkConf = new SparkConf().setAppName("Example");
-    var sc = new SparkContext(sparkConf);
-    var result = run(sc);
+if (typeof sparkSession === 'undefined') {
+    var SparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/SparkSession');
+    var spark = SparkSession
+            .builder()
+            .appName("JavaScript ModelSelectionViaTrainValidationSplit Example")
+            .getOrCreate();
+    var result = run(spark);
     result.show();
 
-    sc.stop();
+    spark.stop();
 }

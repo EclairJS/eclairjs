@@ -18,14 +18,14 @@
  bin/eclairjs.sh examples/ml/random_forest_regressor_example.js"
  */
 
-function run(sc) {
+function run(spark) {
     var SQLContext = require('eclairjs/sql/SQLContext');
     var VectorIndexer = require("eclairjs/ml/feature/VectorIndexer");
-   var RandomForestRegressor = require("eclairjs/ml/regression/RandomForestRegressor");
-   var RegressionEvaluator = require("eclairjs/ml/evaluation/RegressionEvaluator");
+    var RandomForestRegressor = require("eclairjs/ml/regression/RandomForestRegressor");
+    var RegressionEvaluator = require("eclairjs/ml/evaluation/RegressionEvaluator");
     var Pipeline = require("eclairjs/ml/Pipeline");
 
-
+    var sc = spark.sparkContext();
     var sqlContext = new SQLContext(sc);
 
     // Load and parse the data file, converting it to a DataFrame.
@@ -79,19 +79,20 @@ function run(sc) {
 
 
 /*
- check if SparkContext is defined, if it is we are being run from Unit Test
+ check if SparkSession is defined, if it is we are being run from Unit Test
  */
 
-if (typeof sparkContext === 'undefined') {
-    var SparkConf = require('eclairjs/SparkConf');
-    var SparkContext = require('eclairjs/SparkContext');
+if (typeof sparkSession === 'undefined') {
+    var SparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/SparkSession');
+    var spark = SparkSession
+            .builder()
+            .appName("JavaScript RandomForestRegressor Example")
+            .getOrCreate();
+    var result = run(spark);
 
-    var sparkConf = new SparkConf().setAppName("Example");
-    var sc = new SparkContext(sparkConf);
-    var result = run(sc);
     result.predictionsDF.show(5);
     print("Root Mean Squared Error (RMSE) on test data = " + result.rmse);
     print("Learned regression forest model:\n" + result.rfModel.toDebugString());
 
-    sc.stop();
+    spark.stop();
 }

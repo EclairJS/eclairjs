@@ -18,10 +18,11 @@
  bin/eclairjs.sh examples/ml/min_max_scaler_example.js"
  */
 
-function run(sc) {
+function run(spark) {
     var SQLContext = require('eclairjs/sql/SQLContext');
     var MinMaxScaler = require("eclairjs/ml/feature/MinMaxScaler");
 
+    var sc = spark.sparkContext();
     var sqlContext = new SQLContext(sc);
 
     var dataFrame = sqlContext.read().format("libsvm").load("examples/data/mllib/sample_libsvm_data.txt");
@@ -39,17 +40,18 @@ function run(sc) {
 
 
 /*
- check if SparkContext is defined, if it is we are being run from Unit Test
+ check if SparkSession is defined, if it is we are being run from Unit Test
  */
 
-if (typeof sparkContext === 'undefined') {
-    var SparkConf = require('eclairjs/SparkConf');
-    var SparkContext = require('eclairjs/SparkContext');
+if (typeof sparkSession === 'undefined') {
+    var SparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/SparkSession');
+    var spark = SparkSession
+            .builder()
+            .appName("JavaScript MinMaxScaler Example")
+            .getOrCreate();
 
-    var sparkConf = new SparkConf().setAppName("Example");
-    var sc = new SparkContext(sparkConf);
-    var result = run(sc);
+    var result = run(spark);
     result.show();
 
-    sc.stop();
+    spark.stop();
 }

@@ -19,18 +19,16 @@
  */
 
 
-function run(sc) {
+function run(spark) {
     var DataTypes = require('eclairjs/sql/types/DataTypes');
     var StructField = require('eclairjs/sql/types/StructField');
     var StructType = require('eclairjs/sql/types/StructType');
     var Metadata = require('eclairjs/sql/types/Metadata');
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var RowFactory = require('eclairjs/sql/RowFactory');
     var Vectors = require('eclairjs/ml/linalg/Vectors');
     var VectorUDT = require('eclairjs/ml/linalg/VectorUDT');
     var AFTSurvivalRegression = require('eclairjs/ml/regression/AFTSurvivalRegression');
 
-    var sqlContext = new SQLContext(sc);
     var data = [
         RowFactory.create([1.218, 1.0, Vectors.dense(1.560, -0.605)]),
         RowFactory.create([2.949, 0.0, Vectors.dense(0.346, 2.158)]),
@@ -43,7 +41,7 @@ function run(sc) {
             new StructField("censor", DataTypes.DoubleType, false, Metadata.empty()),
             new StructField("features", new VectorUDT(), false, Metadata.empty())
     ]);
-    var training = sqlContext.createDataFrame(data, schema);
+    var training = spark.createDataFrame(data, schema);
     var quantileProbabilities = [0.3, 0.6];
     var aft = new AFTSurvivalRegression()
         .setQuantileProbabilities(quantileProbabilities)
@@ -58,20 +56,22 @@ function run(sc) {
 }
 
 /*
- check if SparkContext is defined, if it is we are being run from Unit Test
+ check if SparkSession is defined, if it is we are being run from Unit Test
  */
 
-if (typeof sparkContext === 'undefined')  {
-    var SparkConf = require('eclairjs/SparkConf');
-    var SparkContext = require('eclairjs/SparkContext');
-    var sparkConf = new SparkConf().setAppName("JavaScript AFTSurvivalRegressionExample");
-    var sc = new SparkContext(sparkConf);
-    var result = run(sc);
+if (typeof sparkSession === 'undefined')  {
+    var SparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/SparkSession');
+    var spark = SparkSession
+            .builder()
+            .appName("JavaScript AFTSurvivalRegressionExample")
+            .getOrCreate();
+
+    var result = run(spark);
     // Print the coefficients, intercept and scale parameter for AFT survival regression
     print("Coefficients: " + result.model.coefficients() + " Intercept: "
         + result.model.intercept() + " Scale: " + result.model.scale());
-    result.dataframe.show(false);
-    sc.stop();
+    result.dataframe.show(5);
+    spark.stop();
 }
 
 

@@ -18,7 +18,7 @@
  bin/eclairjs.sh examples/ml/polynomial_expansion_example.js"
  */
 
-function run(sc) {
+function run(spark) {
     var SQLContext = require('eclairjs/sql/SQLContext');
     var RowFactory = require('eclairjs/sql/RowFactory');
     var StructType = require("eclairjs/sql/types/StructType");
@@ -29,7 +29,7 @@ function run(sc) {
     var Vectors = require("eclairjs/ml/linalg/Vectors");
     var VectorUDT = require("eclairjs/ml/linalg/VectorUDT");
 
-
+    var sc = spark.sparkContext();
     var sqlContext = new SQLContext(sc);
 
     var polyExpansion = new PolynomialExpansion()
@@ -57,19 +57,19 @@ function run(sc) {
 
 
 /*
- check if SparkContext is defined, if it is we are being run from Unit Test
+ check if SparkSession is defined, if it is we are being run from Unit Test
  */
 
-if (typeof sparkContext === 'undefined') {
-    var SparkConf = require('eclairjs/SparkConf');
-    var SparkContext = require('eclairjs/SparkContext');
-
-    var sparkConf = new SparkConf().setAppName("Example");
-    var sc = new SparkContext(sparkConf);
-    var result = run(sc);
+if (typeof sparkSession === 'undefined') {
+    var SparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/SparkSession');
+    var spark = SparkSession
+            .builder()
+            .appName("JavaScript PolynomialExpansion Example")
+            .getOrCreate();
+    var result = run(spark);
     result.forEach(function (r) {
         print(r.get(0));
     });
 
-    sc.stop();
+    spark.stop();
 }

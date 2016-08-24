@@ -23,7 +23,7 @@
  bin/eclairjs.sh examples/ml/movie_recommender.js"
  */
 
-function run(sc) {
+function run(spark) {
     var start = new Date().getTime();
 
     function parseRating(str) {
@@ -60,28 +60,17 @@ function run(sc) {
         return {movieId:movieId, title: title, genres: genres};
     }
 
-    var SparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/SparkSession');
     var Encoders = require('eclairjs/sql/Encoders');
     var Dataset = require('eclairjs/sql/Dataset');
     var DataTypes = require('eclairjs/sql/types/DataTypes');
     var ALS = require('eclairjs/ml/recommendation/ALS');
     var RegressionEvaluator = require('eclairjs/ml/evaluation/RegressionEvaluator');
 
-
-    //var sqlContext = new SQLContext(sc);
-    var sparkSession = SparkSession
-                             .builder()
-                             .config('spark.sql.crossJoin.enabled', 'true')
-                             .appName("JavaScript Movie")
-                             .master("local[*]")
-                             .getOrCreate();
-    var sparkContext = sparkSession.sparkContext();
-    var sqlContext = sparkSession.sqlContext();
+    var sc = spark.sparkContext();
 
     /*
     load ratings small dataset
      */
-
     var small_ratings_raw_data = sc.textFile('examples/data/mllib/ml-latest-small/ratings.csv');
     var small_ratings_raw_data_header = small_ratings_raw_data.take(1)[0];
     var small_ratings_data_rdd = small_ratings_raw_data.filter(function(line, small_ratings_raw_data_header) {
@@ -93,7 +82,7 @@ function run(sc) {
     var small_ratings_data = small_ratings_data_rdd.collect();
 
     var ratingEncoder=Encoders.json({userId:"Integer", movieId:"Integer", rating:"Float", timestamp:"Double"});
-    var small_ratings_dataset = sparkSession.createDatasetFromJson(small_ratings_data, ratingEncoder);
+    var small_ratings_dataset = spark.createDatasetFromJson(small_ratings_data, ratingEncoder);
 
     //print("small_ratings_dataset " + JSON.stringify(small_ratings_dataset.take(3)));
     small_ratings_dataset.show(5);
@@ -113,7 +102,7 @@ function run(sc) {
     var small_movies_data = small_movies_data_rdd.collect();
 
     var movieEncoder=Encoders.json({movieId:"Integer", title:"String", genres:"String"})
-    var small_movie_dataset = sparkSession.createDatasetFromJson(small_movies_data, movieEncoder);
+    var small_movie_dataset = spark.createDatasetFromJson(small_movies_data, movieEncoder);
 
     //print("small_movie_dataset " + JSON.stringify(small_movie_dataset.take(3)));
     small_movie_dataset.show(5);
@@ -207,21 +196,14 @@ function run(sc) {
  check if SparkContext is defined, if it is we are being run from Unit Test
  */
 
-if (typeof sparkContext === 'undefined')  {
-    //var SparkConf = require('eclairjs/SparkConf');
-    //var SparkContext = require('eclairjs/SparkContext');
-    //var sparkConf = new SparkConf().setAppName("JavaScript Movie");
-    //var sc = new SparkContext(sparkConf);
-
+if (typeof sparkSession === 'undefined')  {
     var SparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/SparkSession');
-    var sparkSession = SparkSession
-                             .builder()
-                             .config('spark.sql.crossJoin.enabled', 'true')
-                             .appName("JavaScript Movie")
-                             .master("local[*]")
-                             .getOrCreate();
-    var sc = sparkSession.sparkContext();
-    var result = run(sc);
-
-    sc.stop();
+    var spark = SparkSession
+            .builder()
+            .config('spark.sql.crossJoin.enabled', 'true')
+            .appName("JavaScript Movie")
+            .master("local[*]")
+            .getOrCreate();
+    var result = run(spark);
+    spark.stop();
 }

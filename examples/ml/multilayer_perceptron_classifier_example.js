@@ -18,12 +18,12 @@
  bin/eclairjs.sh examples/ml/multilayer_perceptron_classifier_example.js"
  */
 
-function run(sc) {
+function run(spark) {
     var SQLContext = require('eclairjs/sql/SQLContext');
     var MultilayerPerceptronClassifier = require("eclairjs/ml/classification/MultilayerPerceptronClassifier");
     var MulticlassClassificationEvaluator = require("eclairjs/ml/evaluation/MulticlassClassificationEvaluator");
 
-
+    var sc = spark.sparkContext();
     var sqlContext = new SQLContext(sc);
 
     var path = "examples/data/mllib/sample_multiclass_classification_data.txt";
@@ -56,17 +56,17 @@ function run(sc) {
 
 
 /*
- check if SparkContext is defined, if it is we are being run from Unit Test
+ check if SparkSession is defined, if it is we are being run from Unit Test
  */
 
-if (typeof sparkContext === 'undefined') {
-    var SparkConf = require('eclairjs/SparkConf');
-    var SparkContext = require('eclairjs/SparkContext');
-
-    var sparkConf = new SparkConf().setAppName("Example");
-    var sc = new SparkContext(sparkConf);
-    var result = run(sc);
+if (typeof sparkSession === 'undefined') {
+    var SparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/SparkSession');
+    var spark = SparkSession
+            .builder()
+            .appName("JavaScript MultilayerPerceptronClassifier Example")
+            .getOrCreate();
+    var result = run(spark);
     print("Precision = " + result);
 
-    sc.stop();
+    spark.stop();
 }

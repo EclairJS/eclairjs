@@ -28,9 +28,10 @@ var RowFactory = require('eclairjs/sql/RowFactory');
 var Word2Vec = require('eclairjs/ml/feature/Word2Vec');
 
 
-function run(sc) {
+function run(spark) {
+    var sc = spark.sparkContext();
     var sqlContext = new SQLContext(sc);
-// Input data: Each row is a bag of words from a sentence or document.
+    // Input data: Each row is a bag of words from a sentence or document.
     var rdd = sc.parallelize([
         RowFactory.create(["Hi I heard about Spark".split(" ")]),
         RowFactory.create(["I wish Java could use case classes".split(" ")]),
@@ -41,7 +42,7 @@ function run(sc) {
     var schema = new StructType(sfa);
     var documentDF = sqlContext.createDataFrame(rdd, schema);
 
-// Learn a mapping from words to Vectors.
+    // Learn a mapping from words to Vectors.
     var word2Vec = new Word2Vec()
         .setInputCol("text")
         .setOutputCol("result")
@@ -54,18 +55,20 @@ function run(sc) {
 }
 
 /*
- check if SparkContext is defined, if it is we are being run from Unit Test
+ check if SparkSession is defined, if it is we are being run from Unit Test
  */
 
-if (typeof sparkContext === 'undefined')  {
-    var SparkConf = require('eclairjs/SparkConf');
-    var SparkContext = require('eclairjs/SparkContext');
-    var sparkConf = new SparkConf().setAppName("JavaScript Word2Vec Example");
-    var sc = new SparkContext(sparkConf);
-    var result = run(sc);
+if (typeof sparkSession === 'undefined')  {
+    var SparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/SparkSession');
+    var spark = SparkSession
+            .builder()
+            .appName("JavaScript Word2Vec Example")
+            .getOrCreate();
+    var result = run(spark);
     result.forEach(function (r) {
         print(r);
     })
+    spark.stop();
 }
 
 

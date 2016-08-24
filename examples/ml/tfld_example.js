@@ -18,12 +18,10 @@
  bin/eclairjs.sh examples/ml/vector_slicer_example.js"
  */
 
-function run(sc) {
+function run(spark) {
 
 
     var SQLContext = require('eclairjs/sql/SQLContext');
-
-    var sqlContext = new SQLContext(sc);
     var RowFactory = require('eclairjs/sql/RowFactory');
     var StructType = require('eclairjs/sql/types/StructType');
     var StructField = require('eclairjs/sql/types/StructField');
@@ -33,7 +31,8 @@ function run(sc) {
     var HashingTF = require('eclairjs/ml/feature/HashingTF');
     var IDF = require('eclairjs/ml/feature/IDF');
 
-
+    var sc = spark.sparkContext();
+    var sqlContext = new SQLContext(sc);
 
     var jrdd = sc.parallelize([
       RowFactory.create(0, "Hi I heard about Spark"),
@@ -64,15 +63,16 @@ function run(sc) {
 }
 
 /*
- check if SparkContext is defined, if it is we are being run from Unit Test
+ check if SparkSession is defined, if it is we are being run from Unit Test
  */
 
-if (typeof sparkContext === 'undefined')  {
-    var SparkConf = require('eclairjs/SparkConf');
-    var SparkContext = require('eclairjs/SparkContext');
-    var sparkConf = new SparkConf().setAppName("JavaScript TfldExample");
-    var sc = new SparkContext(sparkConf);
-    var result = run(sc);
+if (typeof sparkSession === 'undefined')  {
+    var SparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/SparkSession');
+    var spark = SparkSession
+            .builder()
+            .appName("JavaScript Tfld Example")
+            .getOrCreate();
+    var result = run(spark);
 
     for (var i=0; i<result.length; i++) {
         var r=result[i];
@@ -83,5 +83,5 @@ if (typeof sparkContext === 'undefined')  {
     }
 
     // $example off$
-    sc.stop();
+    spark.stop();
 }

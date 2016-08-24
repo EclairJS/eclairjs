@@ -18,8 +18,7 @@
  bin/eclairjs.sh examples/ml/vector_slicer_example.js"
  */
 
-function run(sc) {
-
+function run(spark) {
 
     var SQLContext = require('eclairjs/sql/SQLContext');
     var NumericAttribute = require('eclairjs/ml/attribute/NumericAttribute');
@@ -29,6 +28,7 @@ function run(sc) {
     var StructType = require('eclairjs/sql/types/StructType');
     var VectorSlicer = require('eclairjs/ml/feature/VectorSlicer');
 
+    var sc = spark.sparkContext();
     var sql = new SQLContext(sc);
 
     // $example on$
@@ -59,17 +59,18 @@ function run(sc) {
 }
 
 /*
- check if SparkContext is defined, if it is we are being run from Unit Test
+ check if SparkSession is defined, if it is we are being run from Unit Test
  */
 
-if (typeof sparkContext === 'undefined')  {
-    var SparkConf = require('eclairjs/SparkConf');
-    var SparkContext = require('eclairjs/SparkContext');
-    var sparkConf = new SparkConf().setAppName("JavaScript VectorSlicerExample");
-    var sc = new SparkContext(sparkConf);
-    var result = run(sc);
+if (typeof sparkSession === 'undefined')  {
+    var SparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/SparkSession');
+    var spark = SparkSession
+            .builder()
+            .appName("JavaScript VectorSlicer Example")
+            .getOrCreate();
+    var result = run(spark);
 
     print(result.select("userFeatures", "features").first());
     // $example off$
-    sc.stop();
+    spark.stop();
 }

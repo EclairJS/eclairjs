@@ -18,7 +18,7 @@
  bin/eclairjs.sh examples/ml/vector_slicer_example.js"
  */
 
-function run(sc) {
+function run(spark) {
 
 
     var SQLContext = require('eclairjs/sql/SQLContext');
@@ -35,6 +35,7 @@ function run(sc) {
     var VectorUDT = require('eclairjs/mllib/linalg/VectorUDT');
     var VectorAssembler = require('eclairjs/ml/feature/VectorAssembler');
 
+    var sc = spark.sparkContext();
     var sqlContext = new SQLContext(sc);
 
     var data = sqlContext.read().format("libsvm").load("examples/data/mllib/sample_libsvm_data.txt");
@@ -65,7 +66,7 @@ function run(sc) {
     // 80% of the data will be used for training and the remaining 20% for validation.
     trainValidationSplit.setTrainRatio(0.8);
 
-print("TRAINGIN="+training)
+    print("TRAINGIN="+training);
     // Run train validation split, and choose the best set of parameters.
     var model = trainValidationSplit.fit(training);
 
@@ -80,17 +81,18 @@ print("TRAINGIN="+training)
 }
 
 /*
- check if SparkContext is defined, if it is we are being run from Unit Test
+ check if SparkSession is defined, if it is we are being run from Unit Test
  */
 
-if (typeof sparkContext === 'undefined')  {
-    var SparkConf = require('eclairjs/SparkConf');
-    var SparkContext = require('eclairjs/SparkContext');
-    var sparkConf = new SparkConf().setAppName("JavaScript TrainValidationSplitExample");
-    var sc = new SparkContext(sparkConf);
-    var result = run(sc);
+if (typeof sparkSession === 'undefined')  {
+    var SparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/SparkSession');
+    var spark = SparkSession
+            .builder()
+            .appName("JavaScript TrainValidationSplit Example")
+            .getOrCreate();
+    var result = run(spark);
 
     result.show();
     // $example off$
-    sc.stop();
+    spark.stop();
 }

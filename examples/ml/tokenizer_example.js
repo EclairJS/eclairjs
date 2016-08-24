@@ -18,7 +18,7 @@
  bin/eclairjs.sh examples/ml/tokenizer_example.js"
  */
 
-function run(sc) {
+function run(spark) {
 
 
     var SQLContext = require('eclairjs/sql/SQLContext');
@@ -30,6 +30,7 @@ function run(sc) {
     var Tokenizer = require('eclairjs/ml/feature/Tokenizer');
     var RegexTokenizer = require('eclairjs/ml/feature/RegexTokenizer');
 
+    var sc = spark.sparkContext();
     var sqlContext = new SQLContext(sc);
 
     var jrdd = sc.parallelize([
@@ -51,7 +52,7 @@ function run(sc) {
     var output="";
     var wordList=wordsDataFrame.select("words", "label"). take(3);
 
-print(JSON.stringify(wordList))
+    print(JSON.stringify(wordList))
     for (var i=0;i<wordList.length;i++) {
       var words = wordList[i].getList(0);
         words = words.concat(['cccc', 'yyy']);
@@ -70,17 +71,18 @@ print(JSON.stringify(wordList))
 }
 
 /*
- check if SparkContext is defined, if it is we are being run from Unit Test
+ check if SparkSession is defined, if it is we are being run from Unit Test
  */
 
-if (typeof sparkContext === 'undefined')  {
-    var SparkConf = require('eclairjs/SparkConf');
-    var SparkContext = require('eclairjs/SparkContext');
-    var sparkConf = new SparkConf().setAppName("JavaScript TokenizerExample");
-    var sc = new SparkContext(sparkConf);
-    var result = run(sc);
+if (typeof sparkSession === 'undefined')  {
+    var SparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/SparkSession');
+    var spark = SparkSession
+            .builder()
+            .appName("JavaScript Tokenizer Example")
+            .getOrCreate();
+    var result = run(spark);
 
     print(result);
     // $example off$
-    sc.stop();
+    spark.stop();
 }

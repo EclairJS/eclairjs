@@ -20,7 +20,7 @@
  */
 
 
-function run(sc) {
+function run(spark) {
 
     var SQLContext = require('eclairjs/sql/SQLContext');
     var DataTypes = require('eclairjs/sql/types/DataTypes');
@@ -32,6 +32,7 @@ function run(sc) {
     var Vectors = require('eclairjs/ml/linalg/Vectors');
     var VectorUDT = require('eclairjs/ml/linalg/VectorUDT');
 
+    var sc = spark.sparkContext();
     var sqlContext = new SQLContext(sc);
 
     var rdd = sc.parallelize([
@@ -58,16 +59,17 @@ function run(sc) {
 }
 
 /*
- check if SparkContext is defined, if it is we are being run from Unit Test
+ check if SparkSession is defined, if it is we are being run from Unit Test
  */
 
-if (typeof sparkContext === 'undefined') {
-    var SparkConf = require('eclairjs/SparkConf');
-    var SparkContext = require('eclairjs/SparkContext');
-    var sparkConf = new SparkConf().setAppName("JavaScript Chi Sq Selector Example");
-    var sc = new SparkContext(sparkConf);
-    var result = run(sc);
+if (typeof sparkSession === 'undefined') {
+    var SparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/SparkSession');
+    var spark = SparkSession
+            .builder()
+            .appName("JavaScript Chi Sq Selector Example")
+            .getOrCreate();
+    var result = run(spark);
     result.show();
-    sc.stop();
+    spark.stop();
 }
 
