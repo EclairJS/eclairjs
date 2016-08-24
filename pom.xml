@@ -333,6 +333,11 @@
           <artifactId>spark-mllib_2.11</artifactId>
           <version>${spark.version}</version>
         </dependency>
+        <dependency>
+          <groupId>commons-io</groupId>
+          <artifactId>commons-io</artifactId>
+          <version>2.4</version>
+        </dependency>
       </dependencies>
       <activation>
         <activeByDefault>false</activeByDefault>
