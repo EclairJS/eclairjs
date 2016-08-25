@@ -31,7 +31,7 @@
     
     
     /**
-     * :: Experimental ::
+     * 
      * Specifies the input data source format.
      * @function
      * @name module:eclairjs/sql/streaming.DataStreamReader#format
@@ -42,7 +42,7 @@
     
     
     /**
-     * :: Experimental ::
+     * 
      * Specifies the input schema. Some data sources (e.g. JSON) can infer the input schema
      * automatically from data. By specifying the schema here, the underlying data source can
      * skip the schema inference step, and thus speed up data loading.
@@ -55,7 +55,7 @@
     
     
     /**
-     * :: Experimental ::
+     * 
      * Adds an input option for the underlying data source.
      * @function
      * @name module:eclairjs/sql/streaming.DataStreamReader#option
@@ -67,7 +67,7 @@
     
     
     /**
-     * :: Experimental ::
+     * 
      * Adds an input option for the underlying data source.
      * @function
      * @name module:eclairjs/sql/streaming.DataStreamReader#format
@@ -79,7 +79,7 @@
     
     
     /**
-     * :: Experimental ::
+     * 
      * Adds an input option for the underlying data source.
      * @function
      * @name module:eclairjs/sql/streaming.DataStreamReader#format
@@ -91,7 +91,7 @@
     
     
     /**
-     * :: Experimental ::
+     * 
      * Adds an input option for the underlying data source.
      * @function
      * @name module:eclairjs/sql/streaming.DataStreamReader#format
@@ -103,7 +103,7 @@
     
     
     /**
-     * :: Experimental ::
+     * 
      * Adds input options for the underlying data source.
      * @function
      * @name module:eclairjs/sql/streaming.DataStreamReader#optionswithMap
@@ -114,7 +114,7 @@
     
     
     /**
-     * :: Experimental ::
+     * 
      * Loads input in as a {@link DataFrame}, for data streams that read from some path.
      * @function
      * @name module:eclairjs/sql/streaming.DataStreamReader#load
@@ -125,7 +125,7 @@
 
     
     /**
-     * :: Experimental ::
+     * 
      * Loads a JSON file stream (one object per line) and returns the result as a {@link DataFrame}.
      *
      * This function goes through the input once to determine the input schema. If you know the
@@ -166,7 +166,7 @@
     
     
     /**
-     * :: Experimental ::
+     * 
      * Loads a CSV file stream and returns the result as a {@link DataFrame}.
      *
      * This function will go through the input once to determine the input schema if `inferSchema`
@@ -226,7 +226,7 @@
     
     
     /**
-     * :: Experimental ::
+     * 
      * Loads a Parquet file stream, returning the result as a {@link DataFrame}.
      *
      * You can set the following Parquet-specific option(s) for reading Parquet files:
@@ -244,7 +244,7 @@
     
     
     /**
-     * :: Experimental ::
+     * 
      * Loads text files and returns a {@link DataFrame} whose schema starts with a string column named
      * "value", and followed by partitioned columns if there are any.
      *
