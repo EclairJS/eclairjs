@@ -34,6 +34,10 @@ public class JSFlatMapFunction  extends JSBaseFunction implements FlatMapFunctio
         super(func,o);
         this.encoder=encoder;
     }
+    public JSFlatMapFunction(String func, Object[] o) {
+        super(func,o);
+        this.encoder=null;
+    }
     @SuppressWarnings("unchecked")
 	@Override
     public Iterator call(Object o) throws Exception {

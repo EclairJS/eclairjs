@@ -105,6 +105,8 @@ abstract class JSBaseFunction implements Serializable{
 
     static Object castDataType(Object x, Encoder encoder )
     {
+        if (encoder==null)
+            return x;
         String cls=encoder.clsTag().toString();
         switch (cls)
         {
