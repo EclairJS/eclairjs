@@ -19,7 +19,7 @@
 
     /**
      * @classdesc
-     * :: Experimental ::
+     * 
      * A handle to a query that is executing continuously in the background as new data arrives.
      * All these methods are thread-safe.
      * @since EclairJS 0.7 Spark  2.0.0

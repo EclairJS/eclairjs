@@ -15,7 +15,11 @@ package org.eclairjs.nashorn.wrap.sql.streaming;
 * limitations under the License.                                           
 */ 
 
+import org.apache.spark.api.java.JavaRDDLike;
 import org.apache.spark.sql.streaming.OutputMode;
+import org.eclairjs.nashorn.JSFunction0;
+import org.eclairjs.nashorn.JSFunction;
+import org.eclairjs.nashorn.JSFunction2;
 import org.eclairjs.nashorn.Utils;
 import org.eclairjs.nashorn.wrap.WrappedFunction;
 import org.apache.log4j.Logger;
@@ -133,18 +137,21 @@ public class DataStreamWriter extends WrappedClass {
         }
     };
 
-//    static WrappedFunction F_foreach = new WrappedFunction() {
-//        @Override
-//        public Object call(Object thiz, Object... args) {
-//            logger.debug("foreach");
-//            Object returnValue = null;
-//            org.apache.spark.sql.streaming.DataStreamWriter _dataStreamWriter = (org.apache.spark.sql.streaming.DataStreamWriter) ((DataStreamWriter) thiz).getJavaObject();
-//            org.apache.spark.sql.ForeachWriter writer = (org.apache.spark.sql.ForeachWriter) Utils.toObject(args[0]);
-//            returnValue = _dataStreamWriter.foreach(writer);
-//            return Utils.javaToJs(returnValue);
-//           // return new org.eclairjs.nashorn.wrap.sql.streaming.DataStreamWriter((org.apache.spark.sql.streaming.DataStreamWriter)returnValue);
-//        }
-//    };
+    static WrappedFunction F_foreach = new WrappedFunction() {
+        @Override
+        public Object call(Object thiz, Object... args) {
+            logger.debug("foreach");
+            Object openBindArgs = (args.length > 3) ? args[3] : null;
+            Object processBindArgs = (args.length > 4) ? args[4] : null;
+            Object closeBindArgs = (args.length > 5) ? args[5] : null;
+           org.apache.spark.sql.streaming.DataStreamWriter _dataStreamWriter =
+                    (org.apache.spark.sql.streaming.DataStreamWriter) ((DataStreamWriter) thiz).getJavaObject();
+            Object returnValue = _dataStreamWriter.foreach(new org.eclairjs.nashorn.sql.JSForeachWriter(args[0], args[1], args[2],
+                                                             openBindArgs, processBindArgs, closeBindArgs)
+                                                           );
+            return Utils.javaToJs(returnValue);
+         }
+    };
 
 
     private org.apache.spark.sql.streaming.DataStreamWriter _dataStreamWriter;
@@ -195,8 +202,8 @@ public class DataStreamWriter extends WrappedClass {
                 return F_option;
             case "start":
                 return F_start;
-//            case "foreach":
-//                return F_foreach;
+            case "foreach":
+                return F_foreach;
         }
         return super.getMember(name);
     }
@@ -211,7 +218,7 @@ public class DataStreamWriter extends WrappedClass {
             case "partitionBy":
             case "option":
             case "start":
-//            case "foreach":
+            case "foreach":
                 return true;
         }
         return super.hasMember(name);
