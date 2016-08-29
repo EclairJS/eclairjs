@@ -134,6 +134,26 @@ public class MlTest {
 
     /*
         tests
+        BisectingKMeans()
+        BisectingKMeans.setK(k);
+        BisectingKMeans.fit(dataframe);
+        BisectingKMeansModel.clusterCenters();
+     */
+    @Test
+    public void BisectingKMeansExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("BisectingKMeansExample");
+
+        String expected = "[{\"values\":[1,1,2,3]},{\"values\":[4,1,2,3]}]";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
+
+    /*
+        tests
         Bucketizer()
         Bucketizer.setInputCol("features")
         Bucketizer.setOutputCol("bucketedFeatures")
