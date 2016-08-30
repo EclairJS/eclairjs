@@ -197,12 +197,25 @@
                 }
 
                 unObj.push(Serialize.jsToJava(bindArgs[i]));
-
                 // Add the zipfile of non-JAR zipfiles to SparkContext.
                 if (modNotInJar && sc && !sc.isLocal()) {
                     //print("Found non-core modules and sc is NOT local to sending zipfile of all custom mods");
-                    sc.addCustomModules();
-                }
+                     // If this is the JavaScript version of SparkContext it will have addCustomModules defined
+                      // otheriwse it is Java wrapper and we need to invoke the JavaScript version.
+                      if (sc.addCustomModules) {
+                          sc.addCustomModules();
+                      //} else if (sc instanceof Java.type('jdk.nashorn.api.scripting.ScriptObjectMirror')) {
+                      } else {
+                          //print("Trying to addCustomModules from Java world");
+                          var scJS = Utils.javaToJs(sc);
+                          if (scJS) {
+                              //print("Got JS version....adding custom mods");
+                              scJS.addCustomModules();
+                          } else {
+                              //print("Could not get JS version.....not adding custom mods");
+                          }
+                      }
+                 }
             }
         }
         //return new clazz(func.toString(), bindArgs ? Utils.unwrapObject(bindArgs) : [])

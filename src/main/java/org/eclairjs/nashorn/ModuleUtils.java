@@ -87,6 +87,7 @@ public class ModuleUtils {
     }
      static Object _tryToLoadFile (JSONObject mod,ScriptEngine engine) {
         //print('ModuleUtils._tryToLoadFile: '+mod.toString());
+logger.warn("_tryToLoadFile"+mod);
         try {
             //var e = org.eclairjs.nashorn.NashornEngineSingleton.getEngine();
             boolean doRequire = true;
