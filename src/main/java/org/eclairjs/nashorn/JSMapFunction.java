@@ -21,11 +21,15 @@ import org.apache.spark.sql.Encoder;
 public class JSMapFunction extends JSBaseFunction implements org.apache.spark.api.java.function.MapFunction {
 
 
-    private final Encoder encoder;
+    private Encoder encoder;
 
     public JSMapFunction(String func, Encoder encoder, Object[] o) {
         super(func,o);
         this.encoder=encoder;
+    }
+
+    public JSMapFunction(String func,  Object[] o) {
+        super(func,o);
     }
 
     @SuppressWarnings({ "null", "unchecked" })

@@ -1201,10 +1201,8 @@ var rowCreateFromArray = function(){
 }
 
 var nullSchemaRow = function() {
-    var SparkContext = require(EclairJS_Globals.NAMESPACE + '/SparkContext');
-    var jsc = new SparkContext("local[*]", "dataframe test");
-    jsc.version();
-    var rdd1 = jsc.parallelize([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+
+    var rdd1 = sparkContext.parallelize([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
     var RowFactory = require(EclairJS_Globals.NAMESPACE + '/sql/RowFactory');
     var rdd2 = rdd1.map(function (element, RowFactory){
         return RowFactory.create([element]);

@@ -75,10 +75,16 @@ tests({
     },
 
     testContext : function() {
-        var context = {"sc": rdd.context()}
+        var context = rdd.context();
+        var appName = context.appName(); // app name changes based on which test case creates the sc first as we reuse it.
         var ret = JSON.stringify(context);
-        print("ret " + ret)
-        var expectedClass = "{\"sc\":{\"version\":\"EclairJS-nashorn 0.7-SNAPSHOT Spark 2.0.0\",\"appName\":\"rddtest\",\"master\":\"local[*]\"}}";
+
+        var expected = {
+                "version":"EclairJS-nashorn 0.7-SNAPSHOT Spark 2.0.0",
+                "appName":appName,
+                "master":"local[*]"
+        };
+        var expectedClass = JSON.stringify(expected);
         assertEquals("failure - not an instance of SparkContext", expectedClass, ret);
     },
 

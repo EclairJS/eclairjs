@@ -30,6 +30,10 @@ public class JSMapPartitionsFunction extends JSBaseFunction implements org.apach
         this.encoder=encoder;
     }
 
+    public JSMapPartitionsFunction(String func, Object[] o) {
+        super(func,o);
+    }
+
     @SuppressWarnings({ "null", "unchecked" })
     @Override
     public Iterator call(Iterator  iter) throws Exception {

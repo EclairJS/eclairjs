@@ -70,6 +70,13 @@ var BinarizerExample = function() {
     return JSON.stringify(rows);
 }
 
+var BisectingKMeansExample = function() {
+
+    load("examples/ml/bisecting_kmeans_example.js");
+    var result = run(sparkSession);
+    return JSON.stringify(result);
+}
+
 var BucketizerExample = function() {
 
     load("examples/ml/bucketizer_example.js");
