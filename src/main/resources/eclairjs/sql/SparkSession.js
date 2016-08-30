@@ -72,27 +72,6 @@
      * duplicate invocations may be eliminated or the function may even be invoked more times than
      * it is present in the query.
      *
-     * The following example registers a Scala closure as UDF:
-     * @example 
-     *   sparkSession.udf.register("myUDF", (arg1: Int, arg2: String) => arg2 + arg1)
-     *  
-     *
-     * The following example registers a UDF in Java:
-     * @example 
-     *   sparkSession.udf().register("myUDF",
-     *       new UDF2<Integer, String, String>() {
-     *           @Override
-     *           public String call(Integer arg1, String arg2) {
-     *               return arg2 + arg1;
-     *           }
-     *      }, DataTypes.StringType);
-     *  
-     *
-     * Or, to use Java 8 lambda syntax:
-     * @example 
-     *   sparkSession.udf().register("myUDF",
-     *       (Integer arg1, String arg2) -> arg2 + arg1,
-     *       DataTypes.StringType);
      *  
      *
      * @since EclairJS 0.6 Spark  2.0.0
