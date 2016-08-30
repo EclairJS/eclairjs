@@ -66,7 +66,7 @@
     BisectingKMeansModel.prototype.transform = function(dataset) {
       var dataset_uw = Utils.unwrapObject(dataset);
       var javaObject =  this.getJavaObject().transform(dataset_uw);
-      return new DataFrame(javaObject);
+      return Utils.javaToJs(javaObject);
     };
     
     /**
@@ -78,7 +78,7 @@
     BisectingKMeansModel.prototype.transformSchema = function(schema) {
       var schema_uw = Utils.unwrapObject(schema);
       var javaObject =  this.getJavaObject().transformSchema(schema_uw);
-      return new StructType(javaObject);
+      return Utils.javaToJs(javaObject);
     };
     
     /**

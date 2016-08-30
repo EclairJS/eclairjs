@@ -25,9 +25,12 @@
         LocalLDAModel: require(EclairJS_Globals.NAMESPACE + '/ml/clustering/LocalLDAModel'),
         DistributedLDAModel: require(EclairJS_Globals.NAMESPACE + '/ml/clustering/DistributedLDAModel'),
         KMeans: require(EclairJS_Globals.NAMESPACE + '/ml/clustering/KMeans'),
-        KMeansModel: require(EclairJS_Globals.NAMESPACE + '/ml/clustering/KMeansModel')
+        KMeansModel: require(EclairJS_Globals.NAMESPACE + '/ml/clustering/KMeansModel'),
         BisectingKMeans: require(EclairJS_Globals.NAMESPACE + '/ml/clustering/BisectingKMeans'),
-        BisectingKMeansModel: require(EclairJS_Globals.NAMESPACE + '/ml/clustering/BisectingKMeansModel')
+        BisectingKMeansModel: require(EclairJS_Globals.NAMESPACE + '/ml/clustering/BisectingKMeansModel'),
+        GaussianMixture: require(EclairJS_Globals.NAMESPACE + '/ml/clustering/GaussianMixture'),
+        GaussianMixtureModel: require(EclairJS_Globals.NAMESPACE + '/ml/clustering/GaussianMixtureModel'),
+        GaussianMixtureSummary: require(EclairJS_Globals.NAMESPACE + '/ml/clustering/GaussianMixtureSummary')
 
     }
 

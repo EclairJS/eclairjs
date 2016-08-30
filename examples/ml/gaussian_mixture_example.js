@@ -15,30 +15,30 @@
  */
 /*
  Usage:
- bin/eclairjs.sh examples/ml/bisecting_kmeans_example.js"
+ bin/eclairjs.sh examples/ml/gaussian_mixture_example.js
  */
-
 
 function run(spark) {
     var SQLContext = require('eclairjs/sql/SQLContext');
-    var BisectingKMeans = require("eclairjs/ml/clustering/BisectingKMeans");
+    var GaussianMixture = require("eclairjs/ml/clustering/GaussianMixture");
 
     var sc = spark.sparkContext();
     var sqlContext = new SQLContext(sc);
 
-    // Load the data
+    // Load training data
     var dataset = sqlContext.read().format("libsvm").load("examples/data/mllib/sample_kmeans_data.txt");
 
-    // Trains a bisecting-k-means model
-    var bkm = new BisectingKMeans()
-        .setK(2)
-        .setSeed(1);
-    var model = bkm.fit(dataset);
+    // Trains a GaussianMixture model
+    var gmm = new GaussianMixture()
+        .setK(2);
+    var model = gmm.fit(dataset);
 
     // Shows the result
-    var centers = model.clusterCenters();
+    var ret = {};
+    ret.weights = model.weights();
+    ret.gaussianDF = model.gaussiansDF();
 
-    return centers;
+    return ret;
 }
 
 
@@ -50,13 +50,11 @@ if (typeof sparkSession === 'undefined') {
     var SparkSession = require(EclairJS_Globals.NAMESPACE + '/sql/SparkSession');
     var spark = SparkSession
             .builder()
-            .appName("JavaScript BisectingKMeans Example")
+            .appName("JavaScript GaussianMixture Example")
             .getOrCreate();
     var result = run(spark);
-    print("Cluster Centers: ");
-    result.forEach(function (center) {
-        print(center);
-    });
+    print("weights=", result.weights);
+    result.gaussianDF.show(5);
 
     spark.stop();
 }
