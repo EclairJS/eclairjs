@@ -157,6 +157,18 @@ var GaussianMixtureExample = function() {
     }
 }
 
+var GeneralizedLinearRegressionExample = function() {
+
+    load("examples/ml/generalized_linear_regression_example.js");
+    var result = run(sparkSession);
+    var str = JSON.stringify(result);
+    if (str) {
+        return "passed";
+    } else {
+        return "failed";
+    }
+}
+
 var GradientBoostedTreeClassifierExample = function() {
 
     load("examples/ml/gradient_boosted_tree_classifier_example.js");

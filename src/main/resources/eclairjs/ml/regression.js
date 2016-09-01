@@ -35,7 +35,11 @@
         RandomForestRegressionModel: require(EclairJS_Globals.NAMESPACE + '/ml/regression/RandomForestRegressionModel'),
         LinearRegressionModel: require(EclairJS_Globals.NAMESPACE + '/ml/regression/LinearRegressionModel'),
         LinearRegressionSummary: require(EclairJS_Globals.NAMESPACE + '/ml/regression/LinearRegressionSummary'),
-        LinearRegressionTrainingSummary: require(EclairJS_Globals.NAMESPACE + '/ml/regression/LinearRegressionTrainingSummary')
+        LinearRegressionTrainingSummary: require(EclairJS_Globals.NAMESPACE + '/ml/regression/LinearRegressionTrainingSummary'),
+        GeneralizedLinearRegression: require(EclairJS_Globals.NAMESPACE + '/ml/regression/GeneralizedLinearRegression'),
+        GeneralizedLinearRegressionModel: require(EclairJS_Globals.NAMESPACE + '/ml/regression/GeneralizedLinearRegressionModel'),
+        GeneralizedLinearRegressionSummary: require(EclairJS_Globals.NAMESPACE + '/ml/regression/GeneralizedLinearRegressionSummary'),
+        GeneralizedLinearRegressionTrainingSummary: require(EclairJS_Globals.NAMESPACE + '/ml/regression/GeneralizedLinearRegressionTrainingSummary')
     }
 
 })();

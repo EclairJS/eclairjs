@@ -29,7 +29,7 @@
      */
 
     var MLWriter = function (jvmObject) {
-        this.logger = Logger.getLogger("MLWriter_js");
+        this.logger = Logger.getLogger("ml_util_MLWriter_js");
         JavaWrapper.call(this, jvmObject);
 
     };

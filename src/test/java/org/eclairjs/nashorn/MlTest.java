@@ -444,6 +444,41 @@ public class MlTest {
 
     /*
         tests
+        GeneralizedLinearRegression();
+        GeneralizedLinearRegression.setFamily("gaussian");
+        GeneralizedLinearRegression.setLink("identity");
+        GeneralizedLinearRegression.setMaxIter(10);
+        GeneralizedLinearRegression.setRegParam(0.3);
+        GeneralizedLinearRegression.fit(dataset);
+        GeneralizedLinearRegressionModel.coefficients();
+        GeneralizedLinearRegressionModel.intercept();
+        GeneralizedLinearRegressionModel.summary();
+        GeneralizedLinearRegressionSummary.aic();
+        GeneralizedLinearRegressionSummary.dispersion();
+        GeneralizedLinearRegressionSummary.deviance();
+        GeneralizedLinearRegressionSummary.nullDeviance();
+        GeneralizedLinearRegressionSummary.residualDegreeOfFreedom();
+        GeneralizedLinearRegressionSummary.residualDegreeOfFreedomNull();
+        GeneralizedLinearRegressionSummary.residuals();
+        GeneralizedLinearRegressionTrainingSummary.coefficientStandardErrors();
+        GeneralizedLinearRegressionTrainingSummary.pValues();
+        GeneralizedLinearRegressionTrainingSummary.tValues();
+     */
+    @Test
+    public void GeneralizedLinearRegressionExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("GeneralizedLinearRegressionExample");
+
+        String expected = "passed";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
+
+    /*
+        tests
         StringIndexer()
         StringIndexer.setInputCol("label")
         StringIndexer.setOutputCol("indexedLabel")

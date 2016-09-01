@@ -88,7 +88,7 @@
      * @function
      * @name module:eclairjs/sql/streaming.StreamingQuery#sourceStatuses
      * @since EclairJS 0.7 Spark  2.0.0
-     * @returns {SourceStatus[]} 
+     * @returns {module:eclairjs/sql/streaming.SourceStatus[]}
      */
     
     
