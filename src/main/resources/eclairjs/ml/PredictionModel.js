@@ -89,8 +89,8 @@
      * Transforms dataset by reading from {@link featuresCol}, calling [[predict()]], and storing
      * the predictions as a new column {@link predictionCol}.
      *
-     * @param {module:eclairjs/sql.DataFrame} dataset  input dataset
-     * @returns {module:eclairjs/sql.DataFrame}  transformed dataset with [[predictionCol]] of type [[Double]]
+     * @param {module:eclairjs/sql.Dataset} dataset  input dataset
+     * @returns {module:eclairjs/sql.Dataset}  transformed dataset with [[predictionCol]] of type [[Double]]
      */
     PredictionModel.prototype.transform = function(dataset) {
        var dataset_uw = Utils.unwrapObject(dataset);

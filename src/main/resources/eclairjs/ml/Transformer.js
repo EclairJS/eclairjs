@@ -43,10 +43,10 @@
     
     /**
      * Transforms the dataset with optional parameters
-     * @param {module:eclairjs/sql.DataFrame} dataset  input dataset
+     * @param {module:eclairjs/sql.Dataset} dataset  input dataset
      * @param {module:eclairjs/ml/param.ParamMap | module:eclairjs/ml/param.ParamPair} [params] additional parameters, overwrite embedded params, overwrite embedded params
      * @param {...module:eclairjs/ml/param.ParamPair} [otherParamPairs]  other param pairs, Only used if argument two is {@link module:eclairjs/ml/param.ParamPair}. Overwrite embedded params
-     * @returns {module:eclairjs/sql.DataFrame}  transformed dataset
+     * @returns {module:eclairjs/sql.Dataset}  transformed dataset
      */
     Transformer.prototype.transform = function() {
         var ParamMap = require(EclairJS_Globals.NAMESPACE + '/ml/param/ParamMap');

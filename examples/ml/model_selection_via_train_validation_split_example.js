@@ -26,9 +26,8 @@ function run(spark) {
     var RegressionEvaluator = require("eclairjs/ml/evaluation/RegressionEvaluator");
 
     var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
 
-    var data = sqlContext.read().format("libsvm")
+    var data = spark.read().format("libsvm")
         .load("examples/data/mllib/sample_linear_regression_data.txt");
 
     // Prepare training and test data.

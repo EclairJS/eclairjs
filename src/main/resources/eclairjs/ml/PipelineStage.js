@@ -52,8 +52,10 @@
     
     
     /**
-     * Derives the output schema from the input schema.
-     * @param {module:eclairjs/sql/types.StructType} schema
+     * Check transform validity and derive the output schema from the input schema.
+     *
+     * Typical implementation should first conduct verification on schema change and parameter
+     * validity, including complex parameter interaction checks.     * @param {module:eclairjs/sql/types.StructType} schema
      * @returns {module:eclairjs/sql/types.StructType}
      */
     PipelineStage.prototype.transformSchema = function(schema) {

@@ -95,14 +95,7 @@
     };
 
 
-    /**
-     * validateParams
-     */
-    Pipeline.prototype.validateParams = function() {
-        this.getJavaObject().validateParams();
-    };
-    
-    
+
     /**
      * Fits the pipeline to the input dataset with additional parameters. If a stage is an
      * {@link Estimator}, its [[Estimator#fit]] method will be called on the input dataset to fit a model.
@@ -112,7 +105,7 @@
      * {@link PipelineModel}, which consists of fitted models and transformers, corresponding to the
      * pipeline stages. If there are no stages, the output model acts as an identity transformer.
      *
-     * @param {module:eclairjs/sql.DataFrame} dataset  input dataset
+     * @param {module:eclairjs/sql.Dataset} dataset  input dataset
      * @returns {module:eclairjs/ml.PipelineModel}  fitted pipeline
      */
     Pipeline.prototype.fit = function(dataset) {

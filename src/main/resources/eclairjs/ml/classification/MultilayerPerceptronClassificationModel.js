@@ -140,5 +140,36 @@
         return this.getJavaObject().getPredictionCol();
     };
 
+     /**
+      * @returns {module:eclairjs/ml/util.MLWriter} 
+      */
+     MultilayerPerceptronClassificationModel.prototype.write = function() {
+        var javaObject =  this.getJavaObject().write();
+        return Utils.javaToJs(javaObject);
+     };
+     
+     //
+     // static methods
+     //
+     
+     
+     /**
+      * @returns {module:eclairjs/ml/util.MLReader} 
+      */
+     MultilayerPerceptronClassificationModel.read = function() {
+        var javaObject =  org.apache.spark.ml.classification.MultilayerPerceptronClassificationModel.read();
+        return Utils.javaToJs(javaObject);
+     };
+     
+     
+     /**
+      * @param {string} path
+      * @returns {module:eclairjs/ml/classification.MultilayerPerceptronClassificationModel} 
+      */
+     MultilayerPerceptronClassificationModel.load = function(path) {
+        var javaObject =  org.apache.spark.ml.classification.MultilayerPerceptronClassificationModel.load(path);
+        return new MultilayerPerceptronClassificationModel(javaObject);
+     };
+
     module.exports = MultilayerPerceptronClassificationModel;
 })();

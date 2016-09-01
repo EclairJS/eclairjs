@@ -179,5 +179,39 @@
         return  this.getJavaObject().toDebugString();
     };
 
+    /**
+     * @returns {module:eclairjs/ml/util.MLWriter}
+     */
+    DecisionTreeClassificationModel.prototype.write = function() {
+       var javaObject =  this.getJavaObject().write();
+       return Utils.javaToJs(javaObject);
+    };
+
+    //
+    // static methods
+    //
+
+
+    /**
+     * @returns {module:eclairjs/ml/util.MLReader}
+     * @static
+     */
+    DecisionTreeClassificationModel.read = function() {
+       var javaObject =  org.apache.spark.ml.classification.DecisionTreeClassificationModel.read();
+       return Utils.javaToJs(javaObject);
+    };
+
+
+    /**
+     * @param {string} path
+     * @static
+     * @returns {module:eclairjs/ml/classification.DecisionTreeClassificationModel}
+     */
+    DecisionTreeClassificationModel.load = function(path) {
+       var javaObject =  org.apache.spark.ml.classification.DecisionTreeClassificationModel.load(path);
+       return new DecisionTreeClassificationModel(javaObject);
+    };
+
+
     module.exports = DecisionTreeClassificationModel;
 })();

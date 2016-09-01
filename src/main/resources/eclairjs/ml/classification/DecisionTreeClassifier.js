@@ -272,5 +272,19 @@
         return Utils.javaToJs(this.getJavaObject().setPredictionCol(value));
     };
 
+     //
+     // static methods
+     //
+     
+     
+     /**
+      * @param {string} path
+      * @returns {module:eclairjs/ml/classification.DecisionTreeClassifier} 
+      */
+     DecisionTreeClassifier.load = function(path) {
+       var javaObject =  org.apache.spark.ml.classification.DecisionTreeClassifier.load(path);
+       return new DecisionTreeClassifier(javaObject);
+    };
+    
     module.exports = DecisionTreeClassifier;
 })();

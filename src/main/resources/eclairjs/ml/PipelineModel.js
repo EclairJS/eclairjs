@@ -58,18 +58,11 @@
         return Utils.javaToJs(this.getJavaObject().stages());
     };
 
-    /**
-     * validateParams
-     */
-    PipelineModel.prototype.validateParams = function() {
-    //    this.getJavaObject().validateParams();
-    };
-    
     
     /**
      * Transforms the input dataset.
-     * @param {module:eclairjs/sql.DataFrame} dataset
-     * @returns {module:eclairjs/sql.DataFrame} 
+     * @param {module:eclairjs/sql.Dataset} dataset
+     * @returns {module:eclairjs/sql.Dataset}
      */
     PipelineModel.prototype.transform = function(dataset) {
        var dataset_uw = Utils.unwrapObject(dataset);

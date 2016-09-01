@@ -42,7 +42,7 @@
 
     /**
      * Fits a model to the input data.
-     * @param {module:eclairjs/sql.DataFrame} dataset
+     * @param {module:eclairjs/sql.Dataset} dataset
      * @param {module:eclairjs/ml/param.ParamMap} [paramMap]  Parameter map.
      *                 These values override any specified in this Estimator's embedded ParamMap.
      * @returns {module:eclairjs/ml.Estimator | module:eclairjs/ml/feature.Bucketizer} fitted model

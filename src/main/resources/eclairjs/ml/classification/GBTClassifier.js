@@ -27,6 +27,16 @@
      * learning algorithm for classification.
      * It supports binary labels, as well as both continuous and categorical features.
      * Note: Multiclass labels are not currently supported.
+     *
+     * The implementation is based upon: J.H. Friedman. "Stochastic Gradient Boosting." 1999.
+     *
+     * Notes on Gradient Boosting vs. TreeBoost:
+     *  - This implementation is for Stochastic Gradient Boosting, not for TreeBoost.
+     *  - Both algorithms learn tree ensembles by minimizing loss functions.
+     *  - TreeBoost (Friedman, 1999) additionally modifies the outputs at tree leaf nodes
+     *    based on the loss function, whereas the original gradient boosting method does not.
+     *  - We expect to implement TreeBoost in the future:
+     *    [https://issues.apache.org/jira/browse/SPARK-4240]
      * @class
      * @extends module:eclairjs/ml.Predictor
      * @memberof module:eclairjs/ml/classification
@@ -191,14 +201,17 @@
         return new GBTClassifier(javaObject);
     };
 
-
     /**
-     * @returns {string}
+     * @param {module:eclairjs/ml/param.ParamMap} extra
+     * @returns {module:eclairjs/ml/classification.GBTClassifier}
+     * @function
+     * @name module:eclairjs/ml/classification.GBTClassifier#copy
      */
-    GBTClassifier.prototype.getLossType = function () {
-        return this.getJavaObject().getLossType();
-    };
-
+     GBTClassifier.prototype.copy = function(extra) {
+        var extra_uw = Utils.unwrapObject(extra);
+        var javaObject =  this.getJavaObject().copy(extra_uw);
+        return new GBTClassifier(javaObject);
+     };
 
     /**
      * @param {module:eclairjs/ml/param.ParamMap} extra
@@ -221,6 +234,18 @@
     GBTClassifier.supportedLossTypes = function () {
         return org.apache.spark.ml.classification.GBTClassifier.supportedLossTypes();
     };
+
+    /**
+     * @param {string} path
+     * @returns {module:eclairjs/ml/classification.GBTClassifier}
+     * @function
+     * @name module:eclairjs/ml/classification.GBTClassifier#load
+     * @static
+     */
+     GBTClassifier.load = function(path) {
+        var javaObject =  org.apache.spark.ml.classification.GBTClassifier.load(path);
+        return new GBTClassifier(javaObject);
+     };
 
     module.exports = GBTClassifier;
 })();

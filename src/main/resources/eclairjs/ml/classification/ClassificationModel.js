@@ -68,8 +68,8 @@
      *  - predicted labels as [[predictionCol]] of type {@link Double}
      *  - raw predictions (confidences) as [[rawPredictionCol]] of type {@link Vector}.
      *
-     * @param {module:eclairjs/sql.DataFrame} dataset  input dataset
-     * @returns {module:eclairjs/sql.DataFrame}  transformed dataset
+     * @param {module:eclairjs/sql.Dataset} dataset  input dataset
+     * @returns {module:eclairjs/sql.Dataset}  transformed dataset
      */
     ClassificationModel.prototype.transform = function (dataset) {
         var dataset_uw = Utils.unwrapObject(dataset);

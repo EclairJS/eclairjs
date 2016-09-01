@@ -62,7 +62,7 @@
 
 
     /**
-     * @returns {DecisionTreeModel[]}
+     * @returns {DecisionTreeRegressionModel[]}
      */
     GBTClassificationModel.prototype.trees = function () {
         var javaObject = this.getJavaObject().trees();
@@ -102,6 +102,40 @@
     GBTClassificationModel.prototype.toDebugString = function () {
         return this.getJavaObject().toDebugString();
     };
+    
+    
+    /**
+     * @returns {module:eclairjs/ml/util.MLWriter} 
+     */
+    GBTClassificationModel.prototype.write = function() {
+       var javaObject =  this.getJavaObject().write();
+       return Utils.javaToJs(javaObject);
+    };
+    
+    //
+    // static methods
+    //
+    
+    
+    /**
+     * @returns {module:eclairjs/ml/util.MLReader} 
+     */
+    GBTClassificationModel.read = function() {
+       var javaObject =  org.apache.spark.ml.classification.GBTClassificationModel.read();
+       return Utils.javaToJs(javaObject);
+    };
+    
+    
+    /**
+     * @param {string} path
+     * @returns {module:eclairjs/ml/classification.GBTClassificationModel} 
+     */
+    GBTClassificationModel.load = function(path) {
+       var javaObject =  org.apache.spark.ml.classification.GBTClassificationModel.load(path);
+       return new GBTClassificationModel(javaObject);
+    };
+    
+
 
     module.exports = GBTClassificationModel;
 })();

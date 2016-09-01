@@ -67,13 +67,17 @@
     };
 
     /**
-     * @returns {module:eclairjs/mllib/linalg.Vector} 
-     */
-    LogisticRegressionModel.prototype.weights = function() {
-       var javaObject =  this.getJavaObject().weights();
-       return Utils.javaToJs(javaObject);
-    };
-    
+      * Evaluates the model on a test dataset.
+      * @param {module:eclairjs/sql.Dataset} dataset  Test dataset to evaluate model on.
+      * @returns {module:eclairjs/ml/classification.LogisticRegressionSummary}
+      */
+     LogisticRegressionModel.prototype.evaluate = function(dataset) {
+        var dataset_uw = Utils.unwrapObject(dataset);
+        var javaObject =  this.getJavaObject().evaluate(dataset_uw);
+        return Utils.javaToJs(javaObject);
+     };
+
+
     
     /**
      * @param {float} value
