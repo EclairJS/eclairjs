@@ -172,5 +172,38 @@
         return this.getJavaObject().getPredictionCol();
     };
 
+    
+    /**
+     * @returns {module:eclairjs/ml/util.MLWriter} 
+     */
+    RandomForestClassificationModel.prototype.write = function() {
+       var javaObject =  this.getJavaObject().write();
+       return Utils.javaToJs(javaObject);
+    };
+    
+    //
+    // static methods
+    //
+    
+    
+    /**
+     * @returns {module:eclairjs/ml/util.MLReader} 
+     */
+    RandomForestClassificationModel.read = function() {
+       var javaObject =  org.apache.spark.ml.classification.RandomForestClassificationModel.read();
+       return Utils.javaToJs(javaObject);
+    };
+    
+    
+    /**
+     * @param {string} path
+     * @returns {module:eclairjs/ml/classification.RandomForestClassificationModel} 
+     */
+    RandomForestClassificationModel.load = function(path) {
+       var javaObject =  org.apache.spark.ml.classification.RandomForestClassificationModel.load(path);
+       return new RandomForestClassificationModel(javaObject);
+    };
+    
+
     module.exports = RandomForestClassificationModel;
 })();

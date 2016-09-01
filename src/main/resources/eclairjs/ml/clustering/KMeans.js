@@ -151,7 +151,7 @@
 
 
     /**
-     * @param {module:eclairjs/sql.DataFrame} dataset
+     * @param {module:eclairjs/sql.Dataset} dataset
      * @returns {module:eclairjs/mllib/clustering.KMeansModel}
      */
     KMeans.prototype.fit = function (dataset) {

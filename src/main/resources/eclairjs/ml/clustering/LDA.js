@@ -231,7 +231,7 @@
 
 
     /**
-     * @param {module:eclairjs/sql.DataFrame} dataset
+     * @param {module:eclairjs/sql.Dataset} dataset
      * @returns {module:eclairjs/mllib/clustering.LDAModel}
      */
     LDA.prototype.fit = function (dataset) {
@@ -240,6 +240,16 @@
         return Utils.javaToJs(javaObject);
     };
 
+    /**
+      * @param {boolean} value
+      * @returns {module:eclairjs/mllib/clustering.LDA} 
+      */
+     LDA.prototype.setKeepLastCheckpoint = function(value) {
+     throw "not implemented by ElairJS";
+     //   var javaObject =  this.getJavaObject().setKeepLastCheckpoint(value);
+     //   return new LDA(javaObject);
+     };
+     
 
     /**
      * @param {StructType} schema

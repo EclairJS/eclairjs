@@ -292,6 +292,15 @@
         var javaObject = org.apache.spark.ml.classification.RandomForestClassifier.supportedFeatureSubsetStrategies();
         return Utils.javaToJs(javaObject);
     };
+    
+    /**
+     * @param {string} path
+     * @returns {module:eclairjs/ml/classification.RandomForestClassifier} 
+     */
+    RandomForestClassifier.load = function(path) {
+       var javaObject =  org.apache.spark.ml.classification.RandomForestClassifier.load(path);
+       return new RandomForestClassifier(javaObject);
+    };
 
     module.exports = RandomForestClassifier;
 })();

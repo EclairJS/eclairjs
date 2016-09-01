@@ -62,13 +62,35 @@
 
 
     /**
-     * @param {module:eclairjs/sql.DataFrame} dataset
-     * @returns {module:eclairjs/sql.DataFrame}
+     * @param {string} value
+     * @returns {module:eclairjs/mllib/clustering.KMeansModel}
+     * @function
+     * @name module:eclairjs/ml/clustering.KMeansModel#setFeaturesCol
+     */
+     KMeansModel.prototype.setFeaturesCol = function(value) {
+        var javaObject =  this.getJavaObject().setFeaturesCol(value);
+        return new KMeansModel(javaObject);
+     };
+
+    /**
+     * @param {string} value
+     * @returns {module:eclairjs/mllib/clustering.KMeansModel}
+     * @function
+     * @name module:eclairjs/ml/clustering.KMeansModel#setPredictionCol
+     */
+     KMeansModel.prototype.setPredictionCol = function(value) {
+        var javaObject =  this.getJavaObject().setPredictionCol(value);
+        return new KMeansModel(javaObject);
+     };
+
+    /**
+     * @param {module:eclairjs/sql.Dataset} dataset
+     * @returns {module:eclairjs/sql.Dataset}
      */
     KMeansModel.prototype.transform = function (dataset) {
         var dataset_uw = Utils.unwrapObject(dataset);
         var javaObject = this.getJavaObject().transform(dataset_uw);
-        return new DataFrame(javaObject);
+        return new Dataset(javaObject);
     };
 
 
@@ -95,7 +117,7 @@
     /**
      * Return the K-means cost (sum of squared distances of points to their nearest center) for this
      * model on the given data.
-     * @param {module:eclairjs/sql.DataFrame} dataset
+     * @param {module:eclairjs/sql.Dataset} dataset
      * @returns {number}
      */
     KMeansModel.prototype.computeCost = function (dataset) {
@@ -103,6 +125,28 @@
         return this.getJavaObject().computeCost(dataset_uw);
     };
 
+
+    /**
+     * Return true if there exists summary of model.
+     * @returns {boolean}
+     * @function
+     * @name module:eclairjs/ml/clustering.KMeansModel#hasSummary
+     */
+     KMeansModel.prototype.hasSummary = function() {
+        return  this.getJavaObject().hasSummary();
+     };
+
+    /**
+     * Gets summary of model on training set. An exception is
+     * thrown if `trainingSummary == None`.
+     * @returns {module:eclairjs/ml/clustering.KMeansSummary}
+     * @function
+     * @name module:eclairjs/ml/clustering.KMeansModel#summary
+     */
+     KMeansModel.prototype.summary = function() {
+        var javaObject =  this.getJavaObject().summary();
+        return new KMeansSummary(javaObject);
+     };
 
     /**
      * @returns {module:eclairjs/ml/util.MLWriter}
