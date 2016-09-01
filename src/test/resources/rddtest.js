@@ -336,6 +336,14 @@ tests({
         assertTrue(p4.equals(anotherP4))
     },
 
+    testUserModule :function()  {
+       var addOne = require('examples/simple/addOne');
+        var rdd2 = rdd.flatMap(function(num,addOne){return [addOne(num)]},[addOne]);
+        var ret = JSON.stringify(rdd2.collect());
+        var expected = "[2,3,4]"
+        assertEquals("failure testUserModule", expected, ret);
+        return ret;
+    },
 
     LAST:true
 });

@@ -61,5 +61,9 @@ public class CoreTest {
     }
 
 
+    @Test
+    public void testUserModule() throws Exception {
+
+    }
 
 }

@@ -588,7 +588,8 @@ public class Utils {
     public static void zipFile(String folderToZip, String zipFile, String[] filesToInclude)
         throws FileNotFoundException, IOException {
         Logger logger = Logger.getLogger(Utils.class);
- 
+        logger.debug("zipFile: "+folderToZip);
+
         ZipOutputStream zipOut = new ZipOutputStream(new FileOutputStream(zipFile));    
         boolean excludeContainingFolder = false;
 
@@ -614,10 +615,9 @@ public class Utils {
         FileFilter filter = new FileFilter() {
             public boolean accept(File file) {
                 if (Arrays.asList(filesToInclude).contains(file.getName()) || file.isDirectory()) {
-                    logger.debug("Adding to zipfile: "+file.getName());
                     return true;
                 } else {
-                    logger.debug("Skipping not including in zipfile: "+file.getName());
+//                    logger.debug("Skipping not including in zipfile: "+file.getName());
                 }
                 return false;
             }
@@ -630,6 +630,8 @@ public class Utils {
                 addToZip(filePath, srcFile + "/" + childFile.getName(), zipOut, filesToInclude);
             }
         } else {
+             logger.debug("Adding to zipfile: "+filePath);
+
             zipOut.putNextEntry(new ZipEntry(filePath));
             FileInputStream in = new FileInputStream(srcFile);
 
@@ -800,8 +802,9 @@ public class Utils {
                 if (ModuleUtils.isModule(bindArr[i]))
                 {
                     ScriptObjectMirror som = ModuleUtils.getRequiredFile(bindArr[i]);
-                    som=(ScriptObjectMirror)ScriptObjectMirror.wrapAsJSONCompatible(som,null);
-                    String j = JSONValue.toJSONString(som);
+//                    som=(ScriptObjectMirror)ScriptObjectMirror.wrapAsJSONCompatible(som,null);
+//                    String j = JSONValue.toJSONString(som);
+                    String j = toJSON(som);
                     JSONObject json= null;
                     try {
                         json = (JSONObject) new JSONParser().parse(j);
@@ -821,7 +824,7 @@ public class Utils {
                     bindArr[i]=Utils.jsToJava(bindArr[i]);
                 }
             }
-            if (!inJar && !sc.isLocal())
+            if (!inJar  && !sc.isLocal())
             {
                 ModuleUtils.addCustomFiles(sc);
             }
@@ -829,6 +832,39 @@ public class Utils {
         }
         return null;
     }
+
+    public static String toJSON(ScriptObjectMirror som)
+    {
+        som=(ScriptObjectMirror)ScriptObjectMirror.wrapAsJSONCompatible(som,null);
+        Map hashmap=new HashMap<>();
+        for (Map.Entry<String, Object> entry : som.entrySet()) {
+            String key = entry.getKey().toString();
+            Object value = entry.getValue();
+            boolean ignore=false;
+            if (value!=null)
+            {
+                String clsName=value.getClass().getName().toString();
+                switch (clsName) {
+                    case "java.lang.String":
+                    case "java.lang.Boolean":
+                    case "java.lang.Long":
+                    case "java.lang.Float":
+                    case "java.lang.Double":
+                        ignore=false;
+                        break;
+                    default:
+                        ignore=true;
+
+
+                }
+            }
+            if (!ignore)
+                hashmap.put(key,value);
+        }
+        String j = JSONValue.toJSONString(hashmap);
+        return j;
+    }
+
 
     public static Map createJavaHashMap(Object map) {
 
