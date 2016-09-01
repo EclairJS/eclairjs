@@ -16,6 +16,9 @@
 
 (function () {
 
+    var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
+    var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
+
     //var GaussianMixtureSummary = Java.type('org.apache.spark.ml.clustering.GaussianMixtureSummary');
     
     
@@ -38,6 +41,10 @@
     	 JavaWrapper.call(this, jvmObject);
     
     };
+
+    GaussianMixtureSummary.prototype = Object.create(JavaWrapper.prototype);
+
+    GaussianMixtureSummary.prototype.constructor = GaussianMixtureSummary;
     
     module.exports = GaussianMixtureSummary;
 })();
