@@ -57,6 +57,7 @@ public class ModuleUtils {
     }
 
     public static Object getRequiredFile(JSONObject module,ScriptEngine engine) {
+        logger.debug("getRequiredFile"+module);
         String name = "";
         if (module.containsKey("modname"))
             name=(String)module.get("modname");
@@ -87,6 +88,7 @@ public class ModuleUtils {
     }
      static Object _tryToLoadFile (JSONObject mod,ScriptEngine engine) {
         //print('ModuleUtils._tryToLoadFile: '+mod.toString());
+        logger.debug("_tryToLoadFile"+mod);
         try {
             //var e = org.eclairjs.nashorn.NashornEngineSingleton.getEngine();
             boolean doRequire = true;
@@ -146,6 +148,7 @@ public class ModuleUtils {
                 }
                 //print("About to try and eval/require: "+"require('" + mod.modname + "')"+reqAddOn+";");
                 Object obj=engine.eval("require('" + mod.get("modname") + "')"+reqAddOn+";");
+
                 modules.put((String)mod.get("modname"),obj);
                 return obj;
             }
@@ -391,7 +394,7 @@ public class ModuleUtils {
         }
 
         List<ScriptObjectMirror> mods = ModuleUtils.getModulesByType("core", false);
-//        logger.debug("addingCustomModules: ",mods.toString());
+        logger.debug("addingCustomModules: "+mods.size());
         String folder = ".";
         String zipfile = ModuleUtils.defaultZipFile;
         List<String> filenames = new ArrayList<>();
@@ -456,7 +459,7 @@ public class ModuleUtils {
             {
                 ScriptObjectMirror som = (ScriptObjectMirror)entry.getValue();
                 Object v = som.getMember(type);
-                if (type.equals(v))
+                if (value.equals(v))
                     list.add(som);
             }
         }
