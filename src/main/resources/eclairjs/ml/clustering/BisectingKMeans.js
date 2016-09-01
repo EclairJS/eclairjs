@@ -17,7 +17,6 @@
 (function () {
 
     var Estimator = require(EclairJS_Globals.NAMESPACE + '/ml/Estimator');
-    var BisectingKMeansModel = require(EclairJS_Globals.NAMESPACE + '/ml/clustering/BisectingKMeansModel');
     var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
 
@@ -167,7 +166,7 @@
     BisectingKMeans.prototype.fit = function(dataset) {
         var dataset_uw = Utils.unwrapObject(dataset);
         var javaObject =  this.getJavaObject().fit(dataset_uw);
-        return new BisectingKMeansModel(javaObject);
+        return Utils.javaToJs(javaObject);
     };
     
     /**
@@ -179,7 +178,7 @@
     BisectingKMeans.prototype.transformSchema = function(schema) {
         var schema_uw = Utils.unwrapObject(schema);
         var javaObject =  this.getJavaObject().transformSchema(schema_uw);
-        return new StructType(javaObject);
+        return Utils.javaToJs(javaObject);
     };
 
     //

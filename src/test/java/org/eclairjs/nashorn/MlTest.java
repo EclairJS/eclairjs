@@ -136,7 +136,7 @@ public class MlTest {
         tests
         BisectingKMeans()
         BisectingKMeans.setK(k);
-        BisectingKMeans.fit(dataframe);
+        BisectingKMeans.fit(dataset);
         BisectingKMeansModel.clusterCenters();
      */
     @Test
@@ -146,7 +146,7 @@ public class MlTest {
         TestUtils.evalJSResource(engine, "/ml/mltest.js");
         Object ret = ((Invocable)engine).invokeFunction("BisectingKMeansExample");
 
-        String expected = "[{\"values\":[1,1,2,3]},{\"values\":[4,1,2,3]}]";
+        String expected = "[{\"values\":[0.1,0.1,0.1]},{\"values\":[9.1,9.1,9.1]}]";
 
         assertEquals("failure - strings are not equal", expected, ret);
 
@@ -419,6 +419,28 @@ public class MlTest {
         assertEquals("failure - strings are not equal", expected, ret);
 
     }
+
+    /*
+        tests
+        GaussianMixture()
+        GaussianMixture.setK(k);
+        GaussianMixture.fit(dataset);
+        GaussianMixture.weights();
+        GaussianMixture.gaussiansDF();
+     */
+    /*
+    @Test
+    public void GaussianMixtureExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("GaussianMixtureExample");
+
+        String expected = "passed";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }*/
 
     /*
         tests
