@@ -478,6 +478,7 @@ public class Utils {
                 list.set(i,jsToJava(list.get(i)));
             return list;
         }
+         new RuntimeException().printStackTrace();
          throw new RuntimeException("js2java NOT HANDLED "+packageName);
 //        else if (o instanceof IteratorWrapper) {
 //			ArrayList alist = new ArrayList();

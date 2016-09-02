@@ -8,6 +8,7 @@ import org.apache.spark.SparkContext;
 import org.json.simple.JSONObject;
 import scala.Tuple2;
 
+import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 import java.net.URISyntaxException;
@@ -41,7 +42,9 @@ public class ModuleUtils {
         {
             if (som.isFunction())
             {
+//                System.out.println("is function="+som.toString());
                 Object mod = ModuleUtils.getRequiredFileByExport(som);
+//                System.out.println("mod="+mod);
                 return mod!=null;
 
             }
@@ -233,15 +236,17 @@ public class ModuleUtils {
     static ScriptObjectMirror _requires;
     static ScriptObjectMirror requires()
     {
-        if (_requires!=null)
-            return  _requires;
+//        if (_requires!=null)
+//            return  _requires;
         ScriptEngine engine =  NashornEngineSingleton.getEngine();
 
-        try {
-            _requires=(ScriptObjectMirror)engine.eval("ModuleUtils.requires");
-        } catch (ScriptException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            _requires=(ScriptObjectMirror)engine.eval("ModuleUtils.requires");
+//        } catch (ScriptException e) {
+//            e.printStackTrace();
+//        }
+        ScriptObjectMirror som =(ScriptObjectMirror)engine.get("ModuleUtils");
+        _requires =(ScriptObjectMirror)som.get("requires");
         return _requires;
     }
 
@@ -260,9 +265,14 @@ public class ModuleUtils {
 
         //print("ModuleUtils.getRequiredFileById for modid: "+modid);
         for ( Map.Entry<String,Object> entry : requires.entrySet()) {
-           if (entry.getValue() instanceof ScriptObjectMirror)
+            Object value=entry.getValue();
+           if (value instanceof ScriptObjectMirror || value instanceof ScriptObject)
            {
-               ScriptObjectMirror som = (ScriptObjectMirror)entry.getValue();
+               ScriptObjectMirror som =null;
+               if (value instanceof ScriptObject)
+                 som=ScriptUtils.wrap((ScriptObject)value);
+               else
+                som = (ScriptObjectMirror)value;
                Object o=som.getMember("id");
                if (modid.equals(o))
                    return som;
@@ -276,18 +286,24 @@ public class ModuleUtils {
     };
 
 
-    static ScriptObjectMirror _cache;
+    static ScriptObjectMirror _require;
     static ScriptObjectMirror cache()
     {
-        if (_cache!=null)
-            return  _cache;
+        ScriptObjectMirror _cache=null;
         ScriptEngine engine =  NashornEngineSingleton.getEngine();
+//        if (_require==null)
+//        {
+//            javax.script.Bindings bindings =engine.getBindings(ScriptContext.ENGINE_SCOPE);
 
-        try {
-            _cache=(ScriptObjectMirror)engine.eval("require.cache");
-        } catch (ScriptException e) {
-            e.printStackTrace();
-        }
+            _require=(ScriptObjectMirror)engine.get("require");
+//        }
+
+        _cache = (ScriptObjectMirror)_require.get("cache");
+//        try {
+//            _cache=(ScriptObjectMirror)engine.eval("require.cache");
+//        } catch (ScriptException e) {
+//            e.printStackTrace();
+//        }
         return _cache;
     }
 
@@ -360,6 +376,7 @@ public class ModuleUtils {
         Tuple2<String,String> expModid = getModIdFromExport(func) ;
         if (expModid!=null)
         {
+            logger.debug("getRequiredFileByExport expModid="+expModid);
             ScriptObjectMirror mod= ModuleUtils.getRequiredFileById(expModid._1());
             if (mod!=null) {
                 String exprName=expModid._2();
