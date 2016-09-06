@@ -38,7 +38,7 @@ import java.util.zip.ZipException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public class ClusterTest {
+public class ZClusterTest {
 
     static Process masterProcess;
     static Process workerProcess;
@@ -140,7 +140,6 @@ public class ClusterTest {
 
     @AfterClass
     public static void stopCluster() throws Exception {
-
         masterProcess.destroyForcibly();
         workerProcess.destroyForcibly();
         // delete spark home
@@ -269,7 +268,7 @@ public class ClusterTest {
                 "--master",
                 masterURL,
                 "--class",
-                "org.eclairjs.nashorn.ClusterTest",
+                "org.eclairjs.nashorn.ZClusterTest",
 //                "org.eclairjs.nashorn.SparkJS",
                 "--name",
                 "EclairJSShell",

@@ -171,7 +171,7 @@ function sinkSourceStatusTest() {
             "offsetDesc": sink.offsetDesc().substr(0, 1)
         },
         "source": {
-            "description": source.description().substr(0, 52),
+            "description": source.description().substr(0, 22),
             "offsetDesc": source.offsetDesc().substr(0, 1)
         }
     });
