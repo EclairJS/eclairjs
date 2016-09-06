@@ -171,7 +171,7 @@
         }
     }
 
-    Utils.createLambdaFunction = function (func, clazz, sc, bindArgs) {
+    Utils.createLambdaFunction = function (func, clazz, sc, bindArgs, encoder) {
         //var x = bindArgs ? org.eclairjs.nashorn.Utils.jsToJava(bindArgs) : []
         var unObj = [];
         // If one or more modules are found that are not in JAR we need to send entire
@@ -219,7 +219,12 @@
             }
         }
         //return new clazz(func.toString(), bindArgs ? Utils.unwrapObject(bindArgs) : [])
-        return new clazz(func.toString(), unObj )
+        if (encoder) {
+            return new clazz(func.toString(), encoder, unObj );
+        } else {
+            return new clazz(func.toString(), unObj );
+        }
+
     };
 
     /**

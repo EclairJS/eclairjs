@@ -147,7 +147,6 @@
 	 * Returns an array that contains all of objects in this Dataset.
 	 * @function
      * @name module:eclairjs/sql.Dataset#collect
-	 * @param {string} name
 	 * @returns {object[]}
 	 */
 /*

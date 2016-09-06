@@ -75,10 +75,10 @@ function objectToJsonString(obj) {
     return JSON.stringify(obj);
 }
 
-function createLambdaFunction(func, clazz, sc, bindArgs) {
+function createLambdaFunction(func, clazz, sc, bindArgs, encoder) {
     var Utils = require('eclairjs/Utils');
     var c = Java.type(clazz);
-    return Utils.createLambdaFunction(func, c, sc, bindArgs);
+    return Utils.createLambdaFunction(func, c, sc, bindArgs, encoder);
 }
 
 

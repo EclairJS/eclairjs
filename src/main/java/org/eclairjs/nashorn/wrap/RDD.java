@@ -189,9 +189,9 @@ public class RDD extends WrappedClass {
             if (args.length > 1) {
                 bindArgs = args[1];
             }
-//            JSFlatMapFunction fn = (JSFlatMapFunction)Utils.createLambdaFunction(args[0], "org.eclairjs.nashorn.JSFlatMapFunction", sparkJavaRDD.context(), bindArgs);
-            Object [] bindArr=Utils.convertBindArgs(bindArgs,sparkJavaRDD.context());
-            JSFlatMapFunction fn=new JSFlatMapFunction(args[0].toString(),bindArr);
+           JSFlatMapFunction fn = (JSFlatMapFunction)Utils.createLambdaFunction(args[0], "org.eclairjs.nashorn.JSFlatMapFunction", sparkJavaRDD.context(), bindArgs);
+//            Object [] bindArr=Utils.convertBindArgs(bindArgs,sparkJavaRDD.context());
+//            JSFlatMapFunction fn=new JSFlatMapFunction(args[0].toString(),bindArr);
             Object val = sparkJavaRDD.flatMap(fn);
             return Utils.javaToJs(val, null);
         }
@@ -404,9 +404,9 @@ public class RDD extends WrappedClass {
             if (args.length > 1) {
                 bindArgs = args[1];
             }
-//            JSPairFunction fn = (JSPairFunction)Utils.createLambdaFunction(args[0], "org.eclairjs.nashorn.JSPairFunction", sparkJavaRDD.context(), bindArgs);
-            Object [] bindArr=Utils.convertBindArgs(bindArgs,sparkJavaRDD.context());
-            JSPairFunction fn=new JSPairFunction(args[0].toString(),bindArr);
+           JSPairFunction fn = (JSPairFunction)Utils.createLambdaFunction(args[0], "org.eclairjs.nashorn.JSPairFunction", sparkJavaRDD.context(), bindArgs);
+//            Object [] bindArr=Utils.convertBindArgs(bindArgs,sparkJavaRDD.context());
+//            JSPairFunction fn=new JSPairFunction(args[0].toString(),bindArr);
             Object val = sparkJavaRDD.mapToPair(fn);
             return Utils.javaToJs(val);
         }

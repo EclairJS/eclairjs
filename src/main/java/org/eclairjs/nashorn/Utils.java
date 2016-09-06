@@ -778,6 +778,7 @@ public class Utils {
         return obj;
     }
 
+
     public static Object createLambdaFunction(Object func, Object clazz, Object context, Object bindArgs) {
         /*
         FIXME we might be able to move this from JavaScript to Java once we have converted all the
@@ -793,6 +794,23 @@ public class Utils {
         }
         return obj;
     }
+
+    public static Object createLambdaFunction(Object func, Object clazz, Object context, Object bindArgs, org.apache.spark.sql.Encoder encoder) {
+        /*
+        FIXME we might be able to move this from JavaScript to Java once we have converted all the
+        wrappper objects to Java
+         */
+        Object obj = null;
+        try {
+            Invocable invocable = (Invocable) NashornEngineSingleton.getEngine();
+            Object params[] = {func, clazz, context, bindArgs, encoder};
+            obj = invocable.invokeFunction("createLambdaFunction", params);
+        } catch (java.lang.Exception e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
+
 
     public static Object[] convertBindArgs(Object bindArgs,SparkContext sc) {
 
