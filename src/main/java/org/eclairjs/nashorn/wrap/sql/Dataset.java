@@ -617,11 +617,10 @@ public class Dataset extends WrappedClass {
             if (args.length > 2) {
                 bindArgs = args[2];
             }
-
-//            JSMapFunction func = (JSMapFunction)Utils.createLambdaFunction(args[0], "org.eclairjs.nashorn.JSMapFunction", _dataset.sparkSession().sparkContext(), bindArgs);
             org.apache.spark.sql.Encoder encoder = (org.apache.spark.sql.Encoder) Utils.toObject(args[1]);
-            Object [] bindArr=Utils.convertBindArgs(bindArgs,_dataset.sparkSession().sparkContext());
-            JSMapFunction func = new JSMapFunction(args[0].toString(),encoder,bindArr);
+            JSMapFunction func = (JSMapFunction)Utils.createLambdaFunction(args[0], "org.eclairjs.nashorn.JSMapFunction", _dataset.sparkSession().sparkContext(), bindArgs, encoder);
+//            Object [] bindArr=Utils.convertBindArgs(bindArgs,_dataset.sparkSession().sparkContext());
+//            JSMapFunction func = new JSMapFunction(args[0].toString(),encoder,bindArr);
             returnValue = _dataset.groupByKey(func,encoder);
              return Utils.javaToJs(returnValue);
         }
@@ -947,9 +946,9 @@ public class Dataset extends WrappedClass {
                 bindArgs = args[2];
             }
             org.apache.spark.sql.Encoder encoder = (org.apache.spark.sql.Encoder) Utils.toObject(args[1]);
-            Object [] bindArr=Utils.convertBindArgs(bindArgs,_dataset.sparkSession().sparkContext());
-            JSMapFunction func = new JSMapFunction(args[0].toString(),encoder,bindArr);
-//            JSMapFunction func = (JSMapFunction)Utils.createLambdaFunction(args[0], "org.eclairjs.nashorn.JSMapFunction", _dataset.sparkSession().sparkContext(), encoder,bindArgs);
+//            Object [] bindArr=Utils.convertBindArgs(bindArgs,_dataset.sparkSession().sparkContext());
+//            JSMapFunction func = new JSMapFunction(args[0].toString(),encoder,bindArr);
+            JSMapFunction func = (JSMapFunction)Utils.createLambdaFunction(args[0], "org.eclairjs.nashorn.JSMapFunction", _dataset.sparkSession().sparkContext(), bindArgs, encoder);
             returnValue = _dataset.map(func,encoder);
             return new Dataset((org.apache.spark.sql.Dataset)returnValue);
         }
@@ -966,10 +965,10 @@ public class Dataset extends WrappedClass {
             if (args.length > 2) {
                 bindArgs = args[2];
             }
-//            JSMapPartitionsFunction func = (JSMapPartitionsFunction)Utils.createLambdaFunction(args[0], "org.eclairjs.nashorn.JSMapPartitionsFunction", _dataset.sparkSession().sparkContext(), bindArgs);
             org.apache.spark.sql.Encoder encoder = (org.apache.spark.sql.Encoder) Utils.toObject(args[1]);
-            Object [] bindArr=Utils.convertBindArgs(bindArgs,_dataset.sparkSession().sparkContext());
-            JSMapPartitionsFunction func = new JSMapPartitionsFunction(args[0].toString(),encoder,bindArr);
+            JSMapPartitionsFunction func = (JSMapPartitionsFunction)Utils.createLambdaFunction(args[0], "org.eclairjs.nashorn.JSMapPartitionsFunction", _dataset.sparkSession().sparkContext(), bindArgs, encoder);
+//            Object [] bindArr=Utils.convertBindArgs(bindArgs,_dataset.sparkSession().sparkContext());
+//            JSMapPartitionsFunction func = new JSMapPartitionsFunction(args[0].toString(),encoder,bindArr);
             returnValue = _dataset.mapPartitions(func,encoder);
             return new Dataset((org.apache.spark.sql.Dataset)returnValue);
         }
@@ -987,9 +986,9 @@ public class Dataset extends WrappedClass {
             if (args.length > bindArgsInx) {
                 bindArgs = args[bindArgsInx];
             }
-//            JSFlatMapFunction func = (JSFlatMapFunction)Utils.createLambdaFunction(args[0], "org.eclairjs.nashorn.JSFlatMapFunction", _dataset.sparkSession().sparkContext(), bindArgs);
-            Object [] bindArr=Utils.convertBindArgs(bindArgs,_dataset.sparkSession().sparkContext());
-            JSFlatMapFunction func = new JSFlatMapFunction(args[0].toString(),encoder,bindArr);
+            JSFlatMapFunction func = (JSFlatMapFunction)Utils.createLambdaFunction(args[0], "org.eclairjs.nashorn.JSFlatMapFunction", _dataset.sparkSession().sparkContext(), bindArgs, encoder);
+//            Object [] bindArr=Utils.convertBindArgs(bindArgs,_dataset.sparkSession().sparkContext());
+//            JSFlatMapFunction func = new JSFlatMapFunction(args[0].toString(),encoder,bindArr);
             returnValue = _dataset.flatMap(func,encoder);
             return new Dataset((org.apache.spark.sql.Dataset)returnValue);
         }
