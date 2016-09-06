@@ -16,6 +16,7 @@
 
 package org.eclairjs.nashorn;
 
+import jdk.internal.dynalink.beans.StaticClass;
 import jdk.nashorn.api.scripting.JSObject;
 import jdk.nashorn.api.scripting.ScriptObjectMirror;
 import javax.script.Invocable;
@@ -95,7 +96,6 @@ public class Utils {
             engine = NashornEngineSingleton.getEngine();
         }
         String packageName=o.getClass().getCanonicalName();
-
         switch (packageName)
         {
             case "java.lang.String":
@@ -478,6 +478,8 @@ public class Utils {
                 list.set(i,jsToJava(list.get(i)));
             return list;
         }
+        else if (o instanceof StaticClass)
+            return o;
          new RuntimeException().printStackTrace();
          throw new RuntimeException("js2java NOT HANDLED "+packageName);
 //        else if (o instanceof IteratorWrapper) {
