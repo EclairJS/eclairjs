@@ -96,7 +96,7 @@
     
     
     /**
-     * @param {modue:eclairjs/sql.DataFrame} dataset
+     * @param {modue:eclairjs/sql.Dataset} dataset
      * @returns {number} 
      */
     RegressionEvaluator.prototype.evaluate = function(dataset) {

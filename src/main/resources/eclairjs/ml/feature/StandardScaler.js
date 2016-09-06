@@ -25,7 +25,6 @@
     
     /**
      * @classdesc
-     * :: Experimental ::
      * Standardizes features by removing the mean and scaling to unit variance using column summary
      * statistics on the samples in the training set.
      * @class
@@ -101,7 +100,7 @@
     
     
     /**
-     * @param {module:eclairjs/sql.DataFrame} dataset
+     * @param {module:eclairjs/sql.Dataset} dataset
      * @returns {module:eclairjs/mllib/feature.StandardScalerModel} 
      */
     StandardScaler.prototype.fit = function(dataset) {

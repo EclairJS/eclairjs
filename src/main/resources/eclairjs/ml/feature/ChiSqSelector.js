@@ -116,7 +116,7 @@
     
     
     /**
-     * @param {module:eclairjs/sql.DataFrame} dataset
+     * @param {module:eclairjs/sql.Dataset} dataset
      * @returns {module:eclairjs/ml/feature.ChiSqSelectorModel}
      */
     ChiSqSelector.prototype.fit = function(dataset) {

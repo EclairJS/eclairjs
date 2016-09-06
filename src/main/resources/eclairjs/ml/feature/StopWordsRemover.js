@@ -25,7 +25,6 @@
     
     /**
      * @classdesc
-     * :: Experimental ::
      * A feature transformer that filters out stop words from input.
      * Note: null values from input array are preserved unless adding null to stopWords explicitly.
      * @see [[http://en.wikipedia.org/wiki/Stop_words]]
@@ -118,8 +117,8 @@
     
     
     /**
-     * @param {module:eclairjs/sql.DataFrame} dataset
-     * @returns {module:eclairjs/sql.DataFrame} 
+     * @param {module:eclairjs/sql.Dataset} dataset
+     * @returns {module:eclairjs/sql.Dataset} 
      */
     StopWordsRemover.prototype.transform = function(dataset) {
        var dataset_uw = Utils.unwrapObject(dataset);
@@ -163,5 +162,18 @@
        return new StopWordsRemover(javaObject);
     };
     
+    /**
+     * Loads the default stop words for the given language.
+     * Supported languages: danish, dutch, english, finnish, french, german, hungarian,
+     * italian, norwegian, portuguese, russian, spanish, swedish, turkish
+     * @see [[http://anoncvs.postgresql.org/cvsweb.cgi/pgsql/src/backend/snowball/stopwords/]]
+     * @param {string} language
+     * @returns {string[]} 
+     */
+    StopWordsRemover.loadDefaultStopWords = function(language) {
+       return  org.apache.spark.ml.feature.StopWordsRemover.loadDefaultStopWords(language);
+    };
+    
+
     module.exports = StopWordsRemover;
 })();

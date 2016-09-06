@@ -46,7 +46,7 @@
     /**
      * Evaluates model output and returns a scalar metric (larger is better).
      *
-     * @param {module:eclairjs/sql.DataFrame} dataset  a dataset that contains labels/observations and predictions.
+     * @param {module:eclairjs/sql.Dataset} dataset  a dataset that contains labels/observations and predictions.
      * @param {module:eclairjs/ml/param.ParamMap} [paramMap]  parameter map that specifies the input columns and output metrics
      * @returns {float}  metric
      */

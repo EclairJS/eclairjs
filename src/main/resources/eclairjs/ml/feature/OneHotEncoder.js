@@ -84,6 +84,12 @@
         return new OneHotEncoder(javaObject);
     };
 
+    /**
+       * @returns {boolean}
+      */
+     OneHotEncoder.prototype.getDropLast = function() {
+        return  this.getJavaObject().getDropLast();
+    };
 
     /**
      * @param {string} value

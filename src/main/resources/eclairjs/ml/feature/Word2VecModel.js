@@ -48,8 +48,8 @@
     };
 
     /**
-     * Returns a dataframe with two fields, "word" and "vector", with "word" being a String and and the vector the DenseVector that it is mapped to.
-     * @returns {module:eclairjs/sql.DataFrame}
+     * Returns a Dataset with two fields, "word" and "vector", with "word" being a String and and the vector the DenseVector that it is mapped to.
+     * @returns {module:eclairjs/sql.Dataset}
      */
     Word2VecModel.prototype.getVectors = function () {
         return Utils.javaToJs(this.getJavaObject().getVectors());
@@ -58,11 +58,11 @@
 
     /**
      * Find "num" number of words closest in similarity to the given word or vector representation.
-     * Returns a dataframe with the words and the cosine similarities between the
+     * Returns a Dataset with the words and the cosine similarities between the
      * synonyms and the given word.
      * @param {string | module:eclairjs/mllib/linalg.Vector}
      * @param {integer}
-     * @returns {module:eclairjs/sql.DataFrame}
+     * @returns {module:eclairjs/sql.Dataset}
      *
      */
     Word2VecModel.prototype.findSynonyms = function (word, num) {
@@ -90,8 +90,8 @@
     /**
      * Transform a sentence column to a vector column to represent the whole sentence. The transform
      * is performed by averaging all word vectors it contains.
-     * @param {module:eclairjs/sql.DataFrame}
-     * @returns {module:eclairjs/sql.DataFrame}
+     * @param {module:eclairjs/sql.Dataset}
+     * @returns {module:eclairjs/sql.Dataset}
      *
      */
     Word2VecModel.prototype.transform = function (dataset) {

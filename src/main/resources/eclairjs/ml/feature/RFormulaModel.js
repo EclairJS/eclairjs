@@ -50,8 +50,8 @@
     };
 
     /**
-     * @param {module:eclairjs/sql.DataFrame} dataset
-     * @returns {module:eclairjs/sql.DataFrame}
+     * @param {module:eclairjs/sql. Dataset} dataset
+     * @returns {module:eclairjs/sql. Dataset}
      */
     RFormulaModel.prototype.transform = function (dataset) {
         var dataset_uw = Utils.unwrapObject(dataset);
@@ -95,6 +95,37 @@
      */
     RFormulaModel.prototype.hasLabelCol = function (schema) {
         return this.getJavaObject().hasLabelCol(schema);
+    };
+    
+    /**
+     * @returns {module:eclairjs/ml/util.MLWriter} 
+     */
+    RFormulaModel.prototype.write = function() {
+       var javaObject =  this.getJavaObject().write();
+       return Utils.javaToJs(javaObject);
+    };
+    
+    //
+    // static methods
+    //
+    
+    
+    /**
+     * @returns {module:eclairjs/ml/util.MLReader} 
+     */
+    RFormulaModel.read = function() {
+       var javaObject =  org.apache.spark.ml.feature.RFormulaModel.read();
+       return Utils.javaToJs(javaObject);
+    };
+    
+    
+    /**
+     * @param {string} path
+     * @returns {module:eclairjs/ml/feature.RFormulaModel} 
+     */
+    RFormulaModel.load = function(path) {
+       var javaObject =  org.apache.spark.ml.feature.RFormulaModel.load(path);
+       return new RFormulaModel(javaObject);
     };
 
     module.exports = RFormulaModel;

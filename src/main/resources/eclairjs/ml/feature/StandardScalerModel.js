@@ -25,7 +25,6 @@
     
     /**
      * @classdesc
-     * :: Experimental ::
      * Model fitted by {@link StandardScaler}.
      *
      * @param std Standard deviation of the StandardScalerModel
@@ -72,8 +71,8 @@
     
     
     /**
-     * @param {module:eclairjs/sql.DataFrame} dataset
-     * @returns {module:eclairjs/sql.DataFrame} 
+     * @param {module:eclairjs/sql.Dataset} dataset
+     * @returns {module:eclairjs/sql.Dataset} 
      */
     StandardScalerModel.prototype.transform = function(dataset) {
        var dataset_uw = Utils.unwrapObject(dataset);

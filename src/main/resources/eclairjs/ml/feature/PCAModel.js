@@ -23,7 +23,6 @@
     
     /**
      * @classdesc
-     * :: Experimental ::
      * Model fitted by {@link PCA}.
      *
      * @param pc A principal components Matrix. Each column is one principal component.
@@ -77,8 +76,8 @@
      * Transform a vector by computed Principal Components.
      * NOTE: Vectors to be transformed must be the same length
      * as the source vectors given to [[PCA.fit()]].
-     * @param {module:eclairjs/sql.DataFrame} dataset
-     * @returns {module:eclairjs/sql.DataFrame} 
+     * @param {module:eclairjs/sql.Dataset} dataset
+     * @returns {module:eclairjs/sql.Dataset} 
      */
     PCAModel.prototype.transform = function(dataset) {
        var dataset_uw = Utils.unwrapObject(dataset);

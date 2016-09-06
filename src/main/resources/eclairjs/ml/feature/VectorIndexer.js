@@ -120,7 +120,7 @@
 
 
     /**
-     * @param {module:eclairjs/sql.DataFrame} dataset
+     * @param {module:eclairjs/sql.Dataset} dataset
      * @returns {module:eclairjs/ml/feature.VectorIndexerModel}
      */
     VectorIndexer.prototype.fit = function (dataset) {

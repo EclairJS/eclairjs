@@ -117,15 +117,9 @@
     };
     
     
-    
-    VectorSlicer.prototype.validateParams = function() {
-        this.getJavaObject().validateParams();
-    };
-    
-    
     /**
-     * @param {module:eclairjs/sql.DataFrame} dataset
-     * @returns {module:eclairjs/sql.DataFrame} 
+     * @param {module:eclairjs/sql.Dataset} dataset
+     * @returns {module:eclairjs/sql.Dataset} 
      */
     VectorSlicer.prototype.transform = function(dataset) {
        var dataset_uw = Utils.unwrapObject(dataset);

@@ -89,5 +89,19 @@
         return Utils.javaToJs(javaObject);
     };
     
+    //
+    // static methods
+    //
+    
+    
+    /**
+     * @param {string} path
+     * @returns {module:eclairjs/mllib/feature.ElementwiseProduct} 
+     */
+    ElementwiseProduct.load = function(path) {
+       var javaObject =  org.apache.spark.ml.feature.ElementwiseProduct.load(path);
+       return new ElementwiseProduct(javaObject);
+    };
+    
     module.exports = ElementwiseProduct;
 })();

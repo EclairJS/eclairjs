@@ -22,7 +22,6 @@
 
     /**
      * @classdesc
-     * :: Experimental ::
      * PCA trains a model to project vectors to a low-dimensional space using PCA.
      *
      * @class
@@ -90,7 +89,7 @@
     
     /**
      * Computes a {@link PCAModel} that contains the principal components of the input vectors.
-     * @param {module:eclairjs/sql.DataFrame} dataset
+     * @param {module:eclairjs/sql.Dataset} dataset
      * @returns {module:eclairjs/mllib/feature.PCAModel} 
      */
     PCA.prototype.fit = function(dataset) {

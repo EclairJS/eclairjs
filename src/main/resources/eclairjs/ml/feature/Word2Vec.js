@@ -137,9 +137,18 @@
         return new Word2Vec(this.getJavaObject().setMinCount(value));
     }
 
+    /**
+     * @param {number} value
+     * @returns {module:eclairjs/mllib/feature.Word2Vec} 
+     */
+    Word2Vec.prototype.setMaxSentenceLength = function(value) {
+       var javaObject =  this.getJavaObject().setMaxSentenceLength(value);
+       return new Word2Vec(javaObject);
+    };
+    
 
     /**
-     * @param {module:eclairjs/sql.DataFrame} dataset
+     * @param {module:eclairjs/sql. Dataset} dataset
      * @returns {module:eclairjs/ml/feature.Word2VecModel}
      */
     Word2Vec.prototype.fit = function (dataset) {

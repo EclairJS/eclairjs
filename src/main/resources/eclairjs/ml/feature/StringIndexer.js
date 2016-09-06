@@ -95,7 +95,7 @@
 
 
     /**
-     * @param {module:eclairjs/sql.DataFrame} dataset
+     * @param {module:eclairjs/sql.Dataset} dataset
      * @returns {module:eclairjs/ml/feature.StringIndexerModel}
      */
     StringIndexer.prototype.fit = function (dataset) {

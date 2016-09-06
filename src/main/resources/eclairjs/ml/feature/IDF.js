@@ -25,7 +25,6 @@
     
     /**
      * @classdesc
-     * :: Experimental ::
      * Compute the Inverse Document Frequency (IDF) given a collection of documents.
      * @class
      * @memberof module:eclairjs/ml/feature
@@ -88,7 +87,7 @@
     
     
     /**
-     * @param {module:eclairjs/sql.DataFrame} dataset
+     * @param {module:eclairjs/sql.Dataset} dataset
      * @returns {module:eclairjs/mllib/feature.IDFModel} 
      */
     IDF.prototype.fit = function(dataset) {

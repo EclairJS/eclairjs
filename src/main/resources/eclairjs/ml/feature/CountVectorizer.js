@@ -110,7 +110,7 @@
 
 
     /**
-     * @param {module:eclairjs/sql.DataFrame} dataset
+     * @param {module:eclairjs/sql.Dataset} dataset
      * @returns {module:eclairjs/ml/feature.CountVectorizerModel}
      */
     CountVectorizer.prototype.fit = function (dataset) {
@@ -130,7 +130,15 @@
         return Utils.javaToJs(javaObject);
     };
 
-
+    /**
+     * @param {boolean} value
+     * @returns {module:eclairjs/ml/feature.CountVectorizer} 
+     */
+    CountVectorizer.prototype.setBinary = function(value) {
+       var javaObject =  this.getJavaObject().setBinary(value);
+       return new CountVectorizer(javaObject);
+    };
+    
     /**
      * @param {module:eclairjs/ml/param.ParamMap} extra
      * @returns {module:eclairjs/ml/feature.CountVectorizer}

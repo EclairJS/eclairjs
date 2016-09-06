@@ -24,7 +24,6 @@
     
     /**
      * @classdesc
-     * :: Experimental ::
      * A feature transformer that merges multiple columns into a vector column.
      * @class
      * @memberof module:eclairjs/ml/feature
@@ -80,8 +79,8 @@
     
     
     /**
-     * @param {module:eclairjs/sql.DataFrame} dataset
-     * @returns {module:eclairjs/sql.DataFrame} 
+     * @param {module:eclairjs/sql.Dataset} dataset
+     * @returns {module:eclairjs/sql.Dataset} 
      */
     VectorAssembler.prototype.transform = function(dataset) {
        var dataset_uw = Utils.unwrapObject(dataset);

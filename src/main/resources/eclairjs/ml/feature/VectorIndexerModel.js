@@ -23,7 +23,8 @@
 
     /**
      * @classdesc
-     * Transform categorical features to use 0-based indices instead of their original values.
+     * Model fitted by {@link VectorIndexer}. Transform categorical features to use 0-based indices
+     * instead of their original values.
      *  - Categorical features are mapped to indices.
      *  - Continuous features (columns) are left unchanged.
      * This also appends metadata to the output column, marking features as Numeric (continuous),
@@ -98,8 +99,8 @@
 
 
     /**
-     * @param {module:eclairjs/sql.DataFrame} dataset
-     * @returns {module:eclairjs/sql.DataFrame}
+     * @param {module:eclairjs/sql.Dataset} dataset
+     * @returns {module:eclairjs/sql.Dataset}
      */
     VectorIndexerModel.prototype.transform = function (dataset) {
         var dataset_uw = Utils.unwrapObject(dataset);

@@ -25,6 +25,11 @@
     /**
      * @classdesc
      * Maps a sequence of terms to their term frequencies using the hashing trick.
+     * Currently we use Austin Appleby's MurmurHash 3 algorithm (MurmurHash3_x86_32)
+     * to calculate the hash code value for the term object.
+     * Since a simple modulo is used to transform the hash function to a column index,
+     * it is advisable to use a power of two as the numFeatures parameter;
+     * otherwise the features will not be mapped evenly to the columns.
      * @class
      * @memberof module:eclairjs/ml/feature
      * @extends module:eclairjs/ml.Transformer
@@ -96,10 +101,25 @@
        return new HashingTF(javaObject);
     };
     
+    HashingTF.prototype.getBinary = function() {
+       return  this.getJavaObject().getBinary();
+    };
+    
     
     /**
-     * @param {module:eclairjs/sql.DataFrame} dataset
-     * @returns {module:eclairjs/sql.DataFrame} 
+     * @param {boolean} value
+     * @returns {module:eclairjs/mllib/feature.HashingTF} 
+     */
+    HashingTF.prototype.setBinary = function(value) {
+       var javaObject =  this.getJavaObject().setBinary(value);
+       return new HashingTF(javaObject);
+    };
+    
+    
+    
+    /**
+     * @param {module:eclairjs/sql. Dataset} dataset
+     * @returns {module:eclairjs/sql. Dataset} 
      */
     HashingTF.prototype.transform = function(dataset) {
        var dataset_uw = Utils.unwrapObject(dataset);

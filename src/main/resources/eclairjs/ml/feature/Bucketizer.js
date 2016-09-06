@@ -24,7 +24,6 @@
     
     /**
      * @classdesc
-     * :: Experimental ::
      * `Bucketizer` maps a column of continuous features to a column of feature buckets.
      * @class
      * @memberof module:eclairjs/ml/feature
@@ -108,8 +107,8 @@
     
     
     /**
-     * @param {module:eclairjs/sql.DataFrame} dataset
-     * @returns {module:eclairjs/sql.DataFrame}
+     * @param {module:eclairjs/sql.Dataset} dataset
+     * @returns {module:eclairjs/sql.Dataset}
      */
     Bucketizer.prototype.transform = function(dataset) {
        var dataset_uw = Utils.unwrapObject(dataset);

@@ -26,6 +26,27 @@
      * Implements the transforms required for fitting a dataset against an R model formula. Currently
      * we support a limited subset of the R operators, including '~', '.', ':', '+', and '-'. Also see
      * the R formula docs here: http://stat.ethz.ch/R-manual/R-patched/library/stats/html/formula.html
+     *
+     * The basic operators are:
+     *  - `~` separate target and terms
+     *  - `+` concat terms, "+ 0" means removing intercept
+     *  - `-` remove a term, "- 1" means removing intercept
+     *  - `:` interaction (multiplication for numeric values, or binarized categorical values)
+     *  - `.` all columns except target
+     *
+     * Suppose `a` and `b` are double columns, we use the following simple examples
+     * to illustrate the effect of `RFormula`:
+     *  - `y ~ a + b` means model `y ~ w0 + w1 * a + w2 * b` where `w0` is the intercept and `w1, w2`
+     * are coefficients.
+     *  - `y ~ a + b + a:b - 1` means model `y ~ w1 * a + w2 * b + w3 * a * b` where `w1, w2, w3`
+     * are coefficients.
+     *
+     * RFormula produces a vector column of features and a double or string column of label.
+     * Like when formulas are used in R for linear regression, string input columns will be one-hot
+     * encoded, and numeric columns will be cast to doubles.
+     * If the label column is of type string, it will be first transformed to double with
+     * `StringIndexer`. If the label column does not exist in the  Dataset, the output label column
+     * will be created from the specified response variable in the formula.
      * @class
      * @extends module:eclairjs/ml.Estimator
      * @memberof module:eclairjs/ml/feature
@@ -108,7 +129,7 @@
 
 
     /**
-     * @param {module:eclairjs/sql.DataFrame} dataset
+     * @param {module:eclairjs/sql. Dataset} dataset
      * @returns {module:eclairjs/ml/feature.RFormulaModel}
      */
     RFormula.prototype.fit = function (dataset) {
@@ -154,6 +175,21 @@
     RFormula.prototype.hasLabelCol = function (schema) {
         return this.getJavaObject().hasLabelCol(schema);
     };
+    
+    //
+    // static methods
+    //
+    
+    
+    /**
+     * @param {string} path
+     * @returns {module:eclairjs/ml/feature.RFormula} 
+     */
+    RFormula.load = function(path) {
+       var javaObject =  org.apache.spark.ml.feature.RFormula.load(path);
+       return new RFormula(javaObject);
+    };
+    
 
     module.exports = RFormula;
 })();
