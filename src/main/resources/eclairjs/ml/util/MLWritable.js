@@ -25,7 +25,6 @@
     
     /**
      * @classdesc
-     * :: Experimental ::
      *
      * Trait for classes that provide {@link MLWriter}.
      * @class

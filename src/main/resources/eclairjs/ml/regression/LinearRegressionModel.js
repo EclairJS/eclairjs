@@ -65,14 +65,6 @@
         return Utils.javaToJs(this.getJavaObject().intercept());
     };
 
-    /**
-     * @returns {module:eclairjs/mllib/linalg.Vector}
-     */
-    LinearRegressionModel.prototype.weights = function () {
-        var javaObject = this.getJavaObject().weights();
-        return Utils.javaToJs(javaObject);
-    };
-
 
     /**
      * Gets summary (e.g. residuals, mse, r-squared ) of model on training set. An exception is
@@ -94,6 +86,17 @@
     };
 
 
+    /**
+     * Evaluates the model on a test dataset.
+     * @param {module:eclairjs/sql.Dataset} dataset  Test dataset to evaluate model on.
+     * @returns {module:eclairjs/ml/regression.LinearRegressionSummary} 
+     */
+    LinearRegressionModel.prototype.evaluate = function(dataset) {
+       var dataset_uw = Utils.unwrapObject(dataset);
+       var javaObject =  this.getJavaObject().evaluate(dataset_uw);
+       return new LinearRegressionSummary(javaObject);
+    };
+    
     /**
      * @param {module:eclairjs/ml/param.ParamMap} extra
      * @returns {module:eclairjs/mllib/regression.LinearRegressionModel}

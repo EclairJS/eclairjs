@@ -68,5 +68,16 @@
            return new MLWriter(javaObject);
     };
 
+    /**
+     * @param {module:eclairjs/sql.SparkSession} sparkSession
+     * @returns {module:eclairjs/ml/util.MLWriter} 
+     */
+    MLWriter.prototype.session = function(sparkSession) {
+       var sparkSession_uw = Utils.unwrapObject(sparkSession);
+       var javaObject =  this.getJavaObject().session(sparkSession_uw);
+       return new MLWriter(javaObject);
+    };
+    
+
     module.exports = MLWriter;
 })();

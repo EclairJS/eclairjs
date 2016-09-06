@@ -23,7 +23,6 @@
 
     /**
      * @classdesc
-     * :: Experimental ::
      * Alternating Least Squares (ALS) matrix factorization.
      *
      * ALS attempts to estimate the ratings matrix `R` as the product of two lower-rank matrices,
@@ -44,11 +43,11 @@
      *
      * For implicit preference data, the algorithm used is based on
      * "Collaborative Filtering for Implicit Feedback Datasets", available at
-     * [[http://dx.doi.org/10.1109/ICDM.2008.22]], adapted for the blocked approach used here.
+     * http://dx.doi.org/10.1109/ICDM.2008.22, adapted for the blocked approach used here.
      *
      * Essentially instead of finding the low-rank approximations to the rating matrix `R`,
      * this finds the approximations for a preference matrix `P` where the elements of `P` are 1 if
-     * r > 0 and 0 if r <= 0. The ratings then act as 'confidence' values related to strength of
+     * r &gt; 0 and 0 if r &lt;= 0. The ratings then act as 'confidence' values related to strength of
      * indicated user
      * preferences rather than explicit ratings given to items.
      *
@@ -232,9 +231,29 @@
            return new ALS(javaObject);
     };
 
+    /**
+     * @param {string} value
+     * @returns {module:eclairjs/mllib/recommendation.ALS} 
+     */
+    ALS.prototype.setIntermediateStorageLevel = function(value) {
+       var javaObject =  this.getJavaObject().setIntermediateStorageLevel(value);
+       return new ALS(javaObject);
+    };
+    
+    
+    /**
+     * @param {string} value
+     * @returns {module:eclairjs/mllib/recommendation.ALS} 
+     */
+    ALS.prototype.setFinalStorageLevel = function(value) {
+       var javaObject =  this.getJavaObject().setFinalStorageLevel(value);
+       return new ALS(javaObject);
+    };
+    
+    
 
     /**
-     * @param {module:eclairjs/sql.DataFrame} dataset
+     * @param {module:eclairjs/sql. Dataset} dataset
      * @returns {module:eclairjs/ml/recommendation.ALSModel}
      */
     ALS.prototype.fit = function (dataset) {
@@ -264,6 +283,22 @@
            var javaObject =  this.getJavaObject().copy(extra_uw);
            return new ALS(javaObject);
     };
+    
+    //
+    // static methods
+    //
+    
+    
+    /**
+     * @param {string} path
+     * @returns {module:eclairjs/mllib/recommendation.ALS} 
+     */
+    ALS.load = function(path) {
+       var javaObject =  org.apache.spark.ml.recommendation.ALS.load(path);
+       return new ALS(javaObject);
+    };
+    
+    
 
     module.exports = ALS;
 })();

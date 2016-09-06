@@ -103,9 +103,18 @@
        return new TrainValidationSplit(javaObject);
     };
     
+    /**
+     * @param {number} value
+     * @returns {module:eclairjs/ml/tuning.TrainValidationSplit} 
+     */
+    TrainValidationSplit.prototype.setSeed = function(value) {
+       var javaObject =  this.getJavaObject().setSeed(value);
+       return new TrainValidationSplit(javaObject);
+    };
+    
     
     /**
-     * @param {module:eclairjs/sql.DataFrame} dataset
+     * @param {module:eclairjs/sql.Dataset} dataset
      * @returns {module:eclairjs/ml/tuning.TrainValidationSplitModel} 
      */
     TrainValidationSplit.prototype.fit = function(dataset) {
@@ -126,12 +135,7 @@
     };
     
     
-    
-    TrainValidationSplit.prototype.validateParams = function() {
-        this.getJavaObject().validateParams();
-    };
-    
-    
+
     /**
      * @param {module:eclairjs/ml/param.ParamMap} extra
      * @returns {module:eclairjs/ml/tuning.TrainValidationSplit} 
@@ -141,6 +145,44 @@
        var javaObject =  this.getJavaObject().copy(extra_uw);
        return new TrainValidationSplit(javaObject);
     };
-    
+
+    /**
+     * @returns {module:eclairjs/ml/util.MLWriter}
+     * @function
+     * @name module:eclairjs/ml/tuning.TrainValidationSplit#write
+     */
+     TrainValidationSplit.prototype.write = function() {
+        var javaObject =  this.getJavaObject().write();
+        return Utils.javaToJs(javaObject);
+     };
+
+    //
+    // static methods
+    //
+
+
+    /**
+     * @returns {module:eclairjs/ml/util.MLReader}
+     * @function
+     * @name module:eclairjs/ml/tuning.TrainValidationSplit#read
+     * @static
+     */
+     TrainValidationSplit.read = function() {
+        var javaObject =  org.apache.spark.ml.tuning.TrainValidationSplit.read();
+        return Utils.javaToJs(javaObject);
+     };
+
+    /**
+     * @param {string} path
+     * @returns {module:eclairjs/ml/tuning.TrainValidationSplit}
+     * @function
+     * @name module:eclairjs/ml/tuning.TrainValidationSplit#load
+     * @static
+     */
+     TrainValidationSplit.load = function(path) {
+        var javaObject =  org.apache.spark.ml.tuning.TrainValidationSplit.load(path);
+        return new TrainValidationSplit(javaObject);
+     };
+
     module.exports = TrainValidationSplit;
 })();

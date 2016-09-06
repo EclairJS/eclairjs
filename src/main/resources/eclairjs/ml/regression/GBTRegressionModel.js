@@ -103,5 +103,38 @@
         return this.getJavaObject().toDebugString();
     };
 
+    
+    /**
+     * @returns {module:eclairjs/ml/util.MLWriter} 
+     */
+    GBTRegressionModel.prototype.write = function() {
+       var javaObject =  this.getJavaObject().write();
+       return Utils.javaToJs(javaObject);
+    };
+    
+    //
+    // static methods
+    //
+    
+    
+    /**
+     * @returns {module:eclairjs/ml/util.MLReader} 
+     */
+    GBTRegressionModel.read = function() {
+       var javaObject =  org.apache.spark.ml.regression.GBTRegressionModel.read();
+       return Utils.javaToJs(javaObject);
+    };
+    
+    
+    /**
+     * @param {string} path
+     * @returns {module:eclairjs/ml/regression.GBTRegressionModel} 
+     */
+    GBTRegressionModel.load = function(path) {
+       var javaObject =  org.apache.spark.ml.regression.GBTRegressionModel.load(path);
+       return new GBTRegressionModel(javaObject);
+    };
+
+
     module.exports = GBTRegressionModel;
 })();

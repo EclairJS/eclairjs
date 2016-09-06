@@ -150,7 +150,7 @@
 
 
     /**
-     * @param {module:eclairjs/sql.DataFrame} dataset
+     * @param {module:eclairjs/sql.Dataset} dataset
      * @returns {module:eclairjs/ml/regression.AFTSurvivalRegressionModel}
      */
     AFTSurvivalRegression.prototype.fit = function (dataset) {

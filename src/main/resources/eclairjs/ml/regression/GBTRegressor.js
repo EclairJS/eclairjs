@@ -26,6 +26,18 @@
      * [Gradient-Boosted Trees (GBTs)]{@link http://en.wikipedia.org/wiki/Gradient_boosting}
      * learning algorithm for regression.
      * It supports both continuous and categorical features.
+     *
+     * The implementation is based upon: J.H. Friedman. "Stochastic Gradient Boosting." 1999.
+     *
+     * Notes on Gradient Boosting vs. TreeBoost:
+     *  - This implementation is for Stochastic Gradient Boosting, not for TreeBoost.
+     *  - Both algorithms learn tree ensembles by minimizing loss functions.
+     *  - TreeBoost (Friedman, 1999) additionally modifies the outputs at tree leaf nodes
+     *    based on the loss function, whereas the original gradient boosting method does not.
+     *     - When the loss is SquaredError, these methods give the same result, but they could differ
+     *       for other loss functions.
+     *  - We expect to implement TreeBoost in the future:
+     *    [https://issues.apache.org/jira/browse/SPARK-4240]
      * @class
      * @extends module:eclairjs/ml.Predictor
      * @memberof module:eclairjs/ml/regression
@@ -214,12 +226,17 @@
      */
 
     /**
-     * Accessor for supported loss settings: squared (L2), absolute (L1)
-     * @returns {string[]}
+     * @param {string} path
+     * @returns {module:eclairjs/ml/regression.GBTRegressor}
+     * @function
+     * @name module:eclairjs/ml/regression.GBTRegressor#load
+     * @static
      */
-    GBTRegressor.supportedLossTypes = function () {
-        return org.apache.spark.ml.regression.GBTRegressor.supportedLossTypes();
-    };
+     GBTRegressor.load = function(path) {
+        var javaObject =  org.apache.spark.ml.regression.GBTRegressor.load(path);
+        return new GBTRegressor(javaObject);
+     };
+
 
     module.exports = GBTRegressor;
 })();

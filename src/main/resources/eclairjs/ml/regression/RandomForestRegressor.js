@@ -275,5 +275,20 @@
         return Utils.javaToJs(javaObject);
     };
 
+    //
+    // static methods
+    //
+    
+    
+    /**
+     * @param {string} path
+     * @returns {module:eclairjs/ml/regression.RandomForestRegressor} 
+     */
+    RandomForestRegressor.load = function(path) {
+       var javaObject =  org.apache.spark.ml.regression.RandomForestRegressor.load(path);
+       return new RandomForestRegressor(javaObject);
+    };
+    
+
     module.exports = RandomForestRegressor;
 })();

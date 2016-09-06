@@ -149,6 +149,16 @@
        return new DecisionTreeRegressor(javaObject);
     };
     
+    /**
+     * @param {string} value
+     * @returns {module:eclairjs/ml/regression.DecisionTreeRegressor} 
+     */
+    DecisionTreeRegressor.prototype.setVarianceCol = function(value) {
+       var javaObject =  this.getJavaObject().setVarianceCol(value);
+       return new DecisionTreeRegressor(javaObject);
+    };
+    
+
     
     /**
      * @param {module:eclairjs/ml/param.ParamMap} extra
@@ -232,6 +242,16 @@
     DecisionTreeRegressor.supportedImpurities = function() {
         return org.apache.spark.ml.regression.DecisionTreeRegressor.supportedImpurities();
     }
+
+    /**
+     * @param {string} path
+     * @returns {module:eclairjs/ml/regression.DecisionTreeRegressor} 
+     */
+    DecisionTreeRegressor.load = function(path) {
+       var javaObject =  org.apache.spark.ml.regression.DecisionTreeRegressor.load(path);
+       return new DecisionTreeRegressor(javaObject);
+    };
+    
 
     
     module.exports = DecisionTreeRegressor;

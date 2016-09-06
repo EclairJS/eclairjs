@@ -170,6 +170,40 @@
     RandomForestRegressionModel.prototype.getPredictionCol = function () {
         return this.getJavaObject().getPredictionCol();
     };
+    
+    
+    /**
+     * @returns {module:eclairjs/ml/util.MLWriter} 
+     */
+    RandomForestRegressionModel.prototype.write = function() {
+       var javaObject =  this.getJavaObject().write();
+       return Utils.javaToJs(javaObject);
+    };
+    
+    //
+    // static methods
+    //
+    
+    
+    /**
+     * @returns {module:eclairjs/ml/util.MLReader} 
+     */
+    RandomForestRegressionModel.read = function() {
+       var javaObject =  org.apache.spark.ml.regression.RandomForestRegressionModel.read();
+       return Utils.javaToJs(javaObject);
+    };
+    
+    
+    /**
+     * @param {string} path
+     * @returns {module:eclairjs/ml/regression.RandomForestRegressionModel} 
+     */
+    RandomForestRegressionModel.load = function(path) {
+       var javaObject =  org.apache.spark.ml.regression.RandomForestRegressionModel.load(path);
+       return new RandomForestRegressionModel(javaObject);
+    };
+    
+    
 
     module.exports = RandomForestRegressionModel;
 })();

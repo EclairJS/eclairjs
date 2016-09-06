@@ -69,14 +69,7 @@
        return Utils.javaToJs(this.getJavaObject().validationMetrics());
     };
 
-    /**
-     *
-     */
-    TrainValidationSplitModel.prototype.validateParams = function() {
-        this.getJavaObject().validateParams();
-    };
 
-    
     /**
      * @param {module:eclairjs/ml/param.ParamMap} extra
      * @returns {module:eclairjs/ml/tuning.TrainValidationSplitModel} 
@@ -150,6 +143,39 @@
     TrainValidationSplitModel.prototype.getEvaluator = function() {
         return Utils.javaToJs(this.getJavaObject().getEvaluator());
     };
+
+    
+    /**
+     * @returns {module:eclairjs/ml/util.MLWriter} 
+     */
+    TrainValidationSplitModel.prototype.write = function() {
+       var javaObject =  this.getJavaObject().write();
+       return Utils.javaToJs(javaObject);
+    };
+    
+    //
+    // static methods
+    //
+    
+    
+    /**
+     * @returns {module:eclairjs/ml/util.MLReader} 
+     */
+    TrainValidationSplitModel.read = function() {
+       var javaObject =  org.apache.spark.ml.tuning.TrainValidationSplitModel.read();
+       return Utils.javaToJs(javaObject);
+    };
+    
+    
+    /**
+     * @param {string} path
+     * @returns {module:eclairjs/ml/tuning.TrainValidationSplitModel} 
+     */
+    TrainValidationSplitModel.load = function(path) {
+       var javaObject =  org.apache.spark.ml.tuning.TrainValidationSplitModel.load(path);
+       return new TrainValidationSplitModel(javaObject);
+    };
+    
 
     module.exports = TrainValidationSplitModel;
 })();

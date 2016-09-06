@@ -23,7 +23,6 @@
 
     /**
      * @classdesc
-     * :: Experimental ::
      * Builder for a param grid used in grid search-based model selection.
      * @class
      * @memberof module:eclairjs/ml/tuning

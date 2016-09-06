@@ -43,6 +43,27 @@
     
     DecisionTreeRegressionModel.prototype.constructor = DecisionTreeRegressionModel;
     
+
+    /**
+     * @param {string} value
+     * @returns {module:eclairjs/ml/regression.DecisionTreeRegressionModel} 
+     */
+    DecisionTreeRegressionModel.prototype.setVarianceCol = function(value) {
+       var javaObject =  this.getJavaObject().setVarianceCol(value);
+       return new DecisionTreeRegressionModel(javaObject);
+    };
+    
+    
+    /**
+     * @param {module:eclairjs/sql.Dataset} dataset
+     * @returns {DataFrame} 
+     */
+    DecisionTreeRegressionModel.prototype.transform = function(dataset) {
+       var dataset_uw = Utils.unwrapObject(dataset);
+       var javaObject =  this.getJavaObject().transform(dataset_uw);
+       return new DataFrame(javaObject);
+    };
+    
     
     
     /**
@@ -69,6 +90,38 @@
     DecisionTreeRegressionModel.prototype.toDebugString = function() {
         return  this.getJavaObject().toDebugString();
     };
+    
+    /**
+     * @returns {module:eclairjs/ml/util.MLWriter} 
+     */
+    DecisionTreeRegressionModel.prototype.write = function() {
+       var javaObject =  this.getJavaObject().write();
+       return Utils.javaToJs(javaObject);
+    };
+    
+    //
+    // static methods
+    //
+    
+    
+    /**
+     * @returns {module:eclairjs/ml/util.MLReader} 
+     */
+    DecisionTreeRegressionModel.read = function() {
+       var javaObject =  org.apache.spark.ml.regression.DecisionTreeRegressionModel.read();
+       return Utils.javaToJs(javaObject);
+    };
+    
+    
+    /**
+     * @param {string} path
+     * @returns {module:eclairjs/ml/regression.DecisionTreeRegressionModel} 
+     */
+    DecisionTreeRegressionModel.load = function(path) {
+       var javaObject =  org.apache.spark.ml.regression.DecisionTreeRegressionModel.load(path);
+       return new DecisionTreeRegressionModel(javaObject);
+    };
+    
 
     module.exports = DecisionTreeRegressionModel;
 })();
