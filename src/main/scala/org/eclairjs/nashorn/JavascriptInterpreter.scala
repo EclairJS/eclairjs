@@ -14,6 +14,7 @@ import org.apache.spark.SparkContext
 import org.apache.spark.sql.SQLContext
 import org.apache.toree.kernel.protocol._
 import org.apache.toree.kernel.protocol.v5.MsgData
+import org.eclairjs.nashorn.NashornEngineSingleton
 import play.api.libs.json.{JsString, JsObject, Json}
 
 import scala.concurrent.duration._
@@ -48,13 +49,13 @@ class JavascriptInterpreter() extends org.apache.toree.interpreter.Interpreter {
 
   type CommMap = java.util.HashMap[String, Comm]
 
-  private lazy val engine = {
+  private  val engine = {
 
-    val manager = new ScriptEngineManager()
-    val e = manager.getEngineByName("nashorn")
-    val bootstrap = new SparkBootstrap()
-    bootstrap.load(e)
-System.out.println("Engine created")
+//    val manager = new ScriptEngineManager()
+//    val e = manager.getEngineByName("nashorn")
+//    val bootstrap = new SparkBootstrap()
+//    bootstrap.load(e)
+    val e = NashornEngineSingleton.getEngine
 
 
     e.eval(""" function print(str) {java.lang.System.out.println(str);}""")
@@ -215,9 +216,12 @@ System.out.println("Engine created")
   override def interpret(code: String, silent: Boolean, outputStreamResult: Option[OutputStream]): (Result, Either[ExecuteOutput, ExecuteFailure]) =  {
     System.out.println("EXEC="+code)
 
+    val nashornLoader = classOf[NashornEngineSingleton].getClassLoader
     val futureResult = Future {
       val s=StreamState.withStreams {
 
+        Thread.currentThread().setContextClassLoader(nashornLoader)
+        NashornEngineSingleton.setEngine(engine);
       engine.eval(code) match {
         case res:Object => res.toString()
         case _ => null
