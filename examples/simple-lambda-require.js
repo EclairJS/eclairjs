@@ -22,8 +22,8 @@ var mustache = require('https://raw.githubusercontent.com/janl/mustache.js/maste
 var SparkConf = require('eclairjs/SparkConf');
 var SparkContext = require('eclairjs/SparkContext');
 
-var conf = new SparkConf().setAppName("Simple module binding to lambda function example").setMaster("spark://MacBook-Pro.nc.rr.com:7077");
-//var conf = new SparkConf().setAppName("Simple module binding to lambda function example").setMaster("local[*]");
+//var conf = new SparkConf().setAppName("Simple module binding to lambda function example").setMaster("spark://127.0.0.1:7077");
+var conf = new SparkConf().setAppName("Simple module binding to lambda function example").setMaster("local[*]");
 var sc = new SparkContext(conf);
 
 var doHello = function(){
