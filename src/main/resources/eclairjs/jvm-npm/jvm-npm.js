@@ -32,7 +32,7 @@ module = (typeof module == 'undefined') ? {} :  module;
   function Module(id, parent, core, modname, subdir, fullpath) {
     //print("new Module id: "+id);
     //print("new Module parent: "+parent);
-    this.id = id;
+    this.id = id || "";
     this.core = core || false;
     this.parent = parent;
     this.children = [];
@@ -45,6 +45,7 @@ module = (typeof module == 'undefined') ? {} :  module;
     this.inFolder = subdir ? true : false;
     this.zipfile = "";
     this.exportname = "";
+    this.external = this.fullpath.startsWith("http");
 
     Object.defineProperty( this, 'exports', {
       get: function() {
@@ -101,7 +102,7 @@ module = (typeof module == 'undefined') ? {} :  module;
    * the line numbering gets all thrown off because the script is loaded with the 
    * func.apply() instead of via the ScriptEngine.load()
    */
-  Module._loadJSFile = function(file, parent, core, main, modname, subdir, fullpath) {
+  Module._loadJSFile = function(file, parent, core, main, modname, subdir, fullpath, external) {
     var mod = new Module(file, parent, core, modname, subdir, fullpath);
 
     //var __FILENAME__ = mod.filename;
@@ -111,10 +112,22 @@ module = (typeof module == 'undefined') ? {} :  module;
     //print("***and fullpath: "+mod.fullpath);
     //print("***and core: "+core);
 
+    // Save off previous module exports - if external mod doesn't have module.exports
+    // explicitly defined we need to know and "module" will be whatever was loaded last
+    // into Nashorn.
+    var previous = module && module.exports ? module.exports : "";
+
     // Load the module via it's fullpath and make sure it's exports are properly
     // captured while we have them before any other require is hit.
     load(mod.fullpath);
-    mod.exports = module.exports;
+
+    // A little bit of a hack - return something for exports that can serialize 
+    // if not defined (for external sources that may not have module.exports defined).
+    if (module && module.exports && previous === module.exports) {
+        mod.exports = function(){};
+    } else {
+        mod.exports = module.exports;
+    }
 
     mod.loaded = true;
     mod.main = main;
@@ -122,6 +135,9 @@ module = (typeof module == 'undefined') ? {} :  module;
     // Cache the metadata object in ModuleUtils as only the exports
     // are cached here in require.
     ModuleUtils.addRequiredFile(mod);
+
+    //print("ADDED: "+mod.toString());
+    //print("EXPORTS: "+mod.exports);
 
     return mod.exports;
   };
@@ -164,6 +180,9 @@ module = (typeof module == 'undefined') ? {} :  module;
   function Require(id, parent) {
     var core, native, subdir, fullpath, modname = id, file = Require.resolve(id, parent);
 
+    // Require.resolve() will try and load the file off the local file system.  If that
+    // fails it could be native require or an external source so give an attempt to load 
+    // from both of those places before giving up.
     if (!file) {
       if (typeof NativeRequire.require === 'function') {
         if (Require.debug) {
@@ -171,6 +190,15 @@ module = (typeof module == 'undefined') ? {} :  module;
         }
         native = NativeRequire.require(id);
         if (native) return native;
+      } else {
+        if (Require.debug) {
+            //System.out.println(['Cannot resolve', id, 'attempting to load from external source'].join(' '));
+        }
+        var external = Module._loadJSFile(id, parent, core, false, modname, subdir, id);
+        if (external) {
+            System.out.println([id, 'was loaded from an external source'].join(' '));
+            return external;
+        }
       }
       System.err.println("Cannot find module " + id);
       throw new ModuleError("Cannot find module " + id, "MODULE_NOT_FOUND");

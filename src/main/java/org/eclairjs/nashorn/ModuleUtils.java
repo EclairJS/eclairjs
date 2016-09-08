@@ -51,6 +51,8 @@ public class ModuleUtils {
     }
      static Object _tryToLoadFile (JSONObject mod,ScriptEngine engine) {
         //logger.debug("ModuleUtils._tryToLoadFile: "+mod.toString());
+        //ModuleUtils._printRequires();
+
         try {
             //var e = org.eclairjs.nashorn.NashornEngineSingleton.getEngine();
             boolean doRequire = true;
@@ -281,14 +283,9 @@ public class ModuleUtils {
 //        return id.slice(id.lastIndexOf("\."), id.length);
 //    };
 //
-//    ModuleUtils._printRequires = function(msg) {
-//        var output = "";
-//        for (var name in ModuleUtils.requires) {
-//            output += name + ': ' + ModuleUtils.requires[name]+'; ';
-//        }
-//        print("ModuleUtils.printRequires msg: "+(msg || ""));
-//        print("ModuleUtils.printRequires output: "+output);
-//    };
-//
+    private static void _printRequires() {
+        System.out.println("ModuleUtils._printRequires:");
+        ModuleUtils.modules.forEach((k,v) -> System.out.println("name: " + k + "mod: " + v));
+    };
 
 }

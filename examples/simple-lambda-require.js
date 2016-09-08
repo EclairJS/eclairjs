@@ -16,6 +16,9 @@
 var hello = require('examples/hello');
 var goodbye = require('examples/simple/goodbye');
 var LabeledPoint = require('eclairjs/mllib/regression/LabeledPoint');
+var test = require('https://raw.githubusercontent.com/jtbarbetta/testrepo/master/public/javascript/test-external.js');
+var mustache = require('https://raw.githubusercontent.com/janl/mustache.js/master/mustache.js');
+//require('https://raw.githubusercontent.com/janl/mustache.js/master/mustache.js');
 
 var SparkConf = require('eclairjs/SparkConf');
 var SparkContext = require('eclairjs/SparkContext');
@@ -25,10 +28,13 @@ var conf = new SparkConf().setAppName("Simple module binding to lambda function 
 var sc = new SparkContext(conf);
 
 var doHello = function(){
-    sc.parallelize([1, 2, 3, 4]).foreach(function(x, hello, goodbye, LabeledPoint) {
+    sc.parallelize([1, 2, 3, 4]).foreach(function(x, hello, goodbye, LabeledPoint, test, mustache) {
         hello(x);
         goodbye(1);
-    }, [hello, goodbye, LabeledPoint]);
+        test(2);
+        print('mustache.escapeHtml: ' + Mustache.escape("<span>Hello from mustache!</span>"));
+        print('mustache.version: '+Mustache.version);
+    }, [hello, goodbye, LabeledPoint, test, mustache]);
 }
 
 doHello();
