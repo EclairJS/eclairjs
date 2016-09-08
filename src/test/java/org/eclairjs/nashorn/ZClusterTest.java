@@ -328,6 +328,16 @@ public class ZClusterTest {
         assertEquals("should be same", expected, ret.toString());
 
     }
+    /*
+    @Test
+    public void testExternalModule() throws Exception {
 
+        TestUtils.evalJSResource(getEngine(), "/clusterTest.js");
+        Object ret = ((Invocable) getEngine()).invokeFunction("testExternalModule");
+ 
+        String expected = "[1,2,3]";
+        assertEquals("should be same", expected, ret.toString());
 
+    }
+    */
 }

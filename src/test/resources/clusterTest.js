@@ -52,3 +52,11 @@ function testUserModule() {
         var ret = JSON.stringify(rdd2.collect());
         return ret;
 }
+
+function testExternalModule() {
+        var mustache = require('https://raw.githubusercontent.com/janl/mustache.js/master/mustache.js');
+        var rdd = sparkContext.parallelize([1, 2, 3]);
+        var rdd2 = rdd.flatMap(function(num,mustache){return [Mustache.escape(num)]},[mustache]);
+        var ret = JSON.stringify(rdd2.collect());
+        return ret;
+}
