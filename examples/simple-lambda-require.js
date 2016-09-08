@@ -18,7 +18,6 @@ var goodbye = require('examples/simple/goodbye');
 var LabeledPoint = require('eclairjs/mllib/regression/LabeledPoint');
 var test = require('https://raw.githubusercontent.com/jtbarbetta/testrepo/master/public/javascript/test-external.js');
 var mustache = require('https://raw.githubusercontent.com/janl/mustache.js/master/mustache.js');
-//require('https://raw.githubusercontent.com/janl/mustache.js/master/mustache.js');
 
 var SparkConf = require('eclairjs/SparkConf');
 var SparkContext = require('eclairjs/SparkContext');
