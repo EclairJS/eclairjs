@@ -124,7 +124,8 @@ abstract class GenerateJSBase {
      addNewlines(1,sb)
      generateConstructor(cls,sb)
      addNewlines(1,sb)
-    generateObject(cls,sb)
+     if (!Main.jsForJavaWrapper)
+        generateObject(cls,sb)
 
      cls.members.filter(!_.isConstructor()) foreach( member =>
         member match {
@@ -171,6 +172,9 @@ abstract class GenerateJSBase {
     sb ++= convertToJSDoc(comment,method)
   }
 
+  def commentOut(src:String):String = src.split("\n").map("// "+_).mkString("\n")
+
+
   def generateMethod(method:Method,sb:StringBuilder)  = {
 
     method.getOverloaded()
@@ -181,21 +185,29 @@ abstract class GenerateJSBase {
     // if method has multiple parm lists, generate unique name
     val methodName=method.getDistinctName()
 
-    sb.append(method.parent.name)
+    val sbMethod = new StringBuilder
+    sbMethod.append(method.parent.name)
     if (method.parent.isStatic)
-      sb.append(".")
+      sbMethod.append(".")
     else
-      sb.append(".prototype.")
-    sb.append(methodName).append(" = function(")
+      sbMethod.append(".prototype.")
+    sbMethod.append(methodName).append(" = function(")
       .append(method.parmList()).append(") {\n")
 
-    sb ++= getTemplate("defaultBody")
+    sbMethod ++= getTemplate("defaultBody")
 
     val body =getMethodBody(method)
     if (body.length>0)
-      sb ++= body.split("\n").map("// "+_).mkString("\n")  // body commented out
+      sbMethod ++= commentOut(body)  // body commented out
 
-    sb.append("\n};\n")
+    sbMethod.append("\n};\n")
+
+    if (Main.jsForJavaWrapper)
+      {
+          sb ++=    commentOut(sbMethod.toString())  // body commented out
+      }
+    else
+      sb.append(sbMethod.toString())
 
   }
 
@@ -309,6 +321,15 @@ def convertToJSDoc(comment:String, model:AnyRef):String = {
           jsDoc.endLines+=" * @constructor"
           if (method.parent.comment.length==0)  // no class comment
             addClassInfo(method.parent)
+
+        }
+
+      if (Main.jsForJavaWrapper)
+        {
+          jsDoc.endLines+=" * @function"
+          jsDoc.endLines+=s" * @name ${method.parent.module()}#${method.name}"
+          if (method.parent.isStatic)
+            jsDoc.endLines+=" * @static"
 
         }
     }

@@ -1,6 +1,8 @@
+package test1
 /**
  * Class Comment
  */
+
 
 /**
  * constructor doc.
@@ -9,8 +11,10 @@ class Test1[T](str:String) {
 
 
 
-  def func11(a:Int)(b:Int) : Unit={}
+  def funcThisType(a:Int): this.type={this}
 
+
+  def func11(a:Int)(b:Int) : Unit={}
 
   /**
    * simple function
@@ -86,3 +90,6 @@ class Test1[T](str:String) {
 
   }
 
+  object Test1 {
+    def stFunction(i:List[Int]) :Unit={}
+  }

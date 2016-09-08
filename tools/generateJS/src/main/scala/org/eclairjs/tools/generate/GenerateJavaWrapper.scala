@@ -99,19 +99,6 @@ class GenerateJavaWrapper {
                  |""".stripMargin
     })
 
-    val staticCls=file.classes.find( clazz=> clazz.isStatic && clazz.name==cls.name)
-    if (staticCls.isDefined && staticCls.get.members.filter(!_.isConstructor()).length>0)
-    {
-
-      sbFile.append("\n//\n// static methods\n//\n")
-      staticCls.get.members.filter(!_.isConstructor()) foreach( member =>
-          member match {
-            case method:Method => generateMethodBody(method,true,objName,fullJavaName)
-          }
-          )
-
-
-    }
 
     val moduleName= if (cls.parent.packageName.startsWith(org_apache_spark_))
       cls.parent.packageName.substring(org_apache_spark_.length) + "."+cls.name
@@ -177,6 +164,21 @@ class GenerateJavaWrapper {
       |    }
       |""".stripMargin
 
+    val staticCls=file.classes.find( clazz=> clazz.isStatic && clazz.name==cls.name)
+    if (staticCls.isDefined && staticCls.get.members.filter(!_.isConstructor()).length>0)
+    {
+
+      sbFile.append("\n//\n// static methods\n//\n")
+      staticCls.get.members.filter(!_.isConstructor()) foreach( member =>
+        member match {
+          case method:Method => sbFile.append(generateStaticMethod(method,objName,fullJavaName))
+        }
+        )
+
+
+    }
+
+
     sbFile ++="\n}\n"
     val src :String = sbFile.toString()
 
@@ -193,6 +195,81 @@ class GenerateJavaWrapper {
       //            System.out.println("WRITING: "+toFile)
       scala.tools.nsc.io.File(toFile).writeAll(src)
     }
+  }
+
+
+  def generateStaticMethod(method: Method,objName : String,fullJavaName:String ): String = {
+    val sb=new StringBuilder
+    val returnType=if (isSparkClass(method.returnType))
+       "Object"
+    else
+        javaType(method.returnType)
+    val parmList=method.parms.map( parm=>{
+      val parmType=if (isSparkClass(parm.typ))
+        "Object"
+      else
+        javaType(parm.typ)
+
+      s"$parmType ${parm.name}"
+    })
+    sb ++= s"  public static $returnType ${method.name}( ${parmList.mkString(",")}) {\n"
+
+    val cls=method.parent
+    //    System.out.println("return="+method.getReturnJSType())
+    val hasReturn= method.returnType.isVoid()!=true
+
+    val fullName=fullJavaName+"."+method.name
+
+
+    sb ++=s"""    logger.debug(\"${method.name}\");\n"""
+
+    val parmNames= scala.collection.mutable.ListBuffer.empty[String]
+
+    def addParm(parm:Parm): Unit = {
+      if (parm.isRepeated)
+        sb++=s" %%% deliberate syntax error +++ // TODO: handle repeated parm '${parm.name}'\n"
+
+         if (isSparkClass(parm.typ))
+         {
+           val parmType=javaType(parm.typ)
+           val name=parm.name+"_uw"
+           sb ++= s"    $parmType $name = ($parmType) Utils.toObject(${parm.name});\n"
+           parmNames+=   name
+         }
+         else
+           parmNames+=parm.name
+
+    }
+
+    method.parms.foreach(addParm(_))
+    val callStr=s"$fullName(${parmNames.mkString(",")})"
+
+
+    if (hasReturn) {
+      if (method.returnType.isSparkClass()) {
+        if (!isSparkClass(method.returnType))
+          sb ++=s"return Utils.javaToJs($callStr);\n"
+        else {
+          val typeName =
+            if (method.returnType.name=="this.type")
+              method.parent.name
+            else
+              method.returnType.name
+          sb ++=s"//     return Utils.javaToJs($callStr);\n"
+          sb ++=s"    return new ${wrapperFullName(typeName)}((${javaType(typeName)})$callStr);\n"
+
+        }
+
+      }
+      else
+        sb ++=s"    return $callStr;\n"
+
+    }
+    else
+      sb++=s"    $callStr;\n"
+
+    sb ++=  "\n  }\n\n"
+    sb.toString()
   }
 
 
@@ -217,7 +294,8 @@ class GenerateJavaWrapper {
 
     sb ++=s"Object returnValue = null;\n"
 
-    sb ++=s"$fullJavaName $objName = ($fullJavaName) ((${cls.name}) thiz).getJavaObject();\n"
+    if (!isStatic)
+      sb ++=s"$fullJavaName $objName = ($fullJavaName) ((${cls.name}) thiz).getJavaObject();\n"
 
 
     var inx=0;
@@ -321,7 +399,8 @@ class GenerateJavaWrapper {
         sb ++="return returnValue;\n"
 
     } else
-      sb ++="return null;\n"
+      if (!isStatic)
+        sb ++="return null;\n"
 
     sb.toString()
   }
@@ -378,6 +457,7 @@ class GenerateJavaWrapper {
       case "String" => "String"
       case "Float" => "float"
       case "Double" => "double"
+      case "Unit" => "void"
       case _ => {
         Main.allClasses.get(typ) match {
           case Some(typeClass) => typeClass.fullName();

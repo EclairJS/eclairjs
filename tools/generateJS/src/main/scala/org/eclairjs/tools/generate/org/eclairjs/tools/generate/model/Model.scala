@@ -134,7 +134,7 @@ case class Clazz(name:String, comment:String, var members: List[Member],parents:
   def inModule():String = {
     val sparkPrefix="org.apache.spark"
 
-    val module= if (parent.packageName.length>0 && parent.packageName!="<empty>")
+    val module= if (parent.packageName.startsWith(sparkPrefix))
       parent.packageName.substring(sparkPrefix.length).replace('.','/')
       else ""
     "module:eclairjs"+ module
@@ -316,7 +316,7 @@ case class Parm(name:String,typ:DataType, var isOptional:Boolean, isRepeated:Boo
       case "Boolean" => "boolean"
       case "Long" | "Int"  | "Double"| "Float" | "Byte"=> "number"
       case "String" => "string"
-      case "List" => "[]"
+      case "List" | "JList"=> "[]"
       case "Unit"   => "undefined"
       case "Any" | "AnyRef"   => "object"
 
@@ -354,7 +354,7 @@ case class Parm(name:String,typ:DataType, var isOptional:Boolean, isRepeated:Boo
     if (scalaName=="this.type")
       return true
     val simpleName=scalaName.split("\\.").last
-    var rx="Long|Int|Double|Float|Byte|List|Unit|Any|AnyRef|String|Boolean|Array|Seq".r
+    var rx="Long|Int|Double|Float|Byte|List|JList|Unit|Any|AnyRef|String|Boolean|Array|Seq".r
     rx.findFirstMatchIn(simpleName).isEmpty
   }
 }
@@ -365,28 +365,28 @@ case class ExtendedDataType(name:String,referenceType:String) extends DataType
   {
     scalaName match {
       case "Option" =>  super.getJSType(referenceType)
-      case "List" | "Array" | "Seq" =>  super.getJSType(referenceType) + "[]"
+      case "List" | "JList" | "Array" | "Seq" =>  super.getJSType(referenceType) + "[]"
       case _ => super.getJSType(name)
     }
   }
   override def isSparkClass(scalaName:String=name): Boolean =
   {
     scalaName match {
-      case "Option" | "List" | "Array"  | "Seq" =>  super.isSparkClass(referenceType)
+      case "Option" | "List" | "JList" | "Array"  | "Seq" =>  super.isSparkClass(referenceType)
       case _ =>  super.isSparkClass(scalaName)
     }
 
   }
   override def isArray(scalaName:String=name):Boolean = {
     scalaName match {
-      case "List" | "Array"  | "Seq" =>  true
+      case "List" | "JList" | "Array"  | "Seq" =>  true
       case _ => false
     }
 
   }
   override def refName():String ={
     name match {
-      case "Option" | "List" | "Array"  | "Seq" =>  referenceType.split("\\.").last
+      case "Option" | "List" | "JList"| "Array"  | "Seq" =>  referenceType.split("\\.").last
       case _ =>  super.refName()
     }
 

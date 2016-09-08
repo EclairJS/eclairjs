@@ -143,10 +143,10 @@ import Compiler.syntaxAnalyzer.global._
     if (!mods.isPublic)
       return true;
     val annotations=mods.annotations.toString();
-    if (annotations.contains("new DeveloperApi"))
-      return true;
-    if (comment.contains(":: DeveloperApi"))
-      return true;
+//    if (annotations.contains("new DeveloperApi"))
+//      return true;
+//    if (comment.contains(":: DeveloperApi"))
+//      return true;
     if (comment.contains(" @deprecated"))
       return true;
     return false;

@@ -1,4 +1,6 @@
 
+
+
 import scala.collection.mutable
 import scala.io.Source
 import scala.util.matching.Regex
@@ -69,7 +71,7 @@ object Main extends App{
   //    convertFile(new JFile("/Users/berkland/git2/tmpnb/eclairjs-nashorn/examples/logQuery.js"),new JFile("/Users/berkland/temp/notebooks"))
 //      convertFile(new JFile("/Users/berkland/git2/tmpnb/eclairjs-nashorn/examples/mllib/bisecting_k_means_example.js"),new JFile("/Users/berkland/temp/notebooks"))
 
-  convertDir(new JFile("/Users/berkland/git2/tmpnb/eclairjs-nashorn/examples"),new JFile("/Users/berkland/git2/eclairjs-examples/notebooks"))
+  convertDir(new JFile("/Users/berkland/git2/tmpnb/eclairjs-nashorn/examples"),new JFile("/Users/berkland/git2/eclairjs-examples/notebook-examples/notebooks"))
 
   def convertDir(dir:JFile, outDir:JFile) : Unit=
   {

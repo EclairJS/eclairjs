@@ -21,6 +21,8 @@ object Main extends App {
   var generateNode=false
   var generateJavaWrapper=false
 
+  var jsForJavaWrapper=true;
+
   var pass1=true;
   val allClasses= scala.collection.mutable.Map[String,Clazz]()
 
@@ -219,6 +221,9 @@ object Main extends App {
     }
 
     generateNode = has(genNodeOption)
+
+    if (generateNode)
+      jsForJavaWrapper=false;
 
     generateJavaWrapper = has(genWrapperOption)
 

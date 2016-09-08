@@ -6,12 +6,18 @@ import org.eclairjs.tools.generate.model._
 class GenerateNode  extends  GenerateJSBase {
 
     val NewCodeGen=true;
+  val sparkPrefix="org.apache.spark."
 
 
   override def generateConstructor(cls:Clazz, sb:StringBuilder): Unit = {
     val clsName=cls.name
     var parmlist=""
     var constrBody=""
+
+    cls.parentClass() match {
+      case Some(parentCls) => genInclude(cls,cls.parent)
+      case _ =>
+    }
 
     val constructor=mainConstructor(cls);
 
@@ -22,7 +28,7 @@ class GenerateNode  extends  GenerateJSBase {
           parmlist=", "+parmlist
 
 
-         constrBody=constructor.parms.map(parm=> s"  this.${parm.name} = ${parm.name}").mkString("/n")
+         constrBody=constructor.parms.map(parm=> s"  this.${parm.name} = ${parm.name}").mkString("\n")
 
       }
 
@@ -63,22 +69,53 @@ class GenerateNode  extends  GenerateJSBase {
     val constr = getTemplate("node_defaultRequires",prefix,prefix)
     sb++=constr
 
-    val sparkPrefix="org.apache.spark."
-    file.imports.filter(_.startsWith(sparkPrefix)).foreach( fullName=>{
-        val name=fullName.substring(sparkPrefix.length).replace('.','/')+".js"
-        val file= new java.io.File(Main.generatedDir,name)
-        if  (file.exists())   // check if there is something there before includeing
-        {
-          val varname=fullName.split("\\.").last
-          val filename=prefix+"/"+name
-          sb++=s"""var $varname = require('$filename');\n"""
-        }
-
-
-    })
+//    file.imports.filter(_.startsWith(sparkPrefix)).foreach( fullName=>{
+//        val name=fullName.substring(sparkPrefix.length).replace('.','/')+".js"
+//        val file= new java.io.File(Main.generatedDir,name)
+//        if  (file.exists())   // check if there is something there before includeing
+//        {
+//          val varname=fullName.split("\\.").last
+//          val filename=prefix+"/"+name
+//          sb++=s"""var $varname = require('$filename');\n"""
+//        }
+//
+//
+//    })
 
   }
 
+
+  def genInclude(cls:Clazz,file:File):String =
+  {
+    // determine path to root directory
+    val rootDir="apache/spark/"
+    val inx=file.fileName.indexOf(rootDir)
+    val segments=file.fileName.substring(inx+rootDir.length).split("/").length-1
+    val prefix= if (segments==0) "."
+    else
+    {
+      List("..","..","..","..","..","..","..","..","..","..","..","..").take(segments).mkString("/")
+    }
+    val fullName=cls.fullName()
+    val name=fullName.substring(sparkPrefix.length).replace('.','/')+".js"
+    val jfile= new java.io.File(Main.generatedDir,name)
+    if  (jfile.exists())   // check if there is something there before includeing
+    {
+      val varname=fullName.split("\\.").last
+      val filename=prefix+"/"+name
+      s"""var $varname = require('$filename');\n"""
+    }
+    else ""
+
+  }
+
+  def genInclude(dataType: DataType,file:File):String = {
+    val clsOpt = Main.allClasses.get(dataType.name)
+    clsOpt match {
+      case Some(cls) => genInclude(cls,file)
+      case _ => ""
+    }
+  }
 
   def getMethodBody(method:Method): String =
   {
@@ -86,6 +123,11 @@ class GenerateNode  extends  GenerateJSBase {
 
     val returnType=method.returnType
     val isStatic=method.parent.isStatic
+
+    if (returnType.isSparkClass())
+      {
+          sb ++= genInclude(returnType,method.parent.parent);
+      }
 
 
     if (method.optionalParms().length>0)
@@ -185,11 +227,15 @@ class GenerateNode  extends  GenerateJSBase {
 
       if (!method.parms.isEmpty)
       {
-        sb ++= s"    args: [ \n"
-        sb ++= method.parms.map(getParmEntry(_)).mkString(",\n")
-        sb ++= s"\n    ], \n"
+//        sb ++= s"    args: [ \n"
+//        sb ++= method.parms.map(getParmEntry(_)).mkString(",\n")
+//        sb ++= s"\n    ], \n"
+
+        sb ++= s"    args: Utils.wrapArguments(arguments),\n"
 
       }
+      if (method.parent.isStatic)
+        sb ++= s"    static: true,\n"
 
       if (returnType.isArray() && !returnType.isSparkClass())
         sb++="    stringify: true,\n"
