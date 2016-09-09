@@ -738,6 +738,27 @@ public class MlTest {
 
     /*
         tests
+        MaxAbsScaler()
+        MaxAbsScaler.setInputCol()
+        MaxAbsScaler.setOutputCol();
+        MaxAbsScaler.fit();
+        MaxAbsScalerModel.transform();
+     */
+    @Test
+    public void MaxAbsScalerExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("MaxAbsScalerExample");
+
+        String expected = "passed";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
+
+    /*
+        tests
         LinearRegression();
         LinearRegression.regParam()
         LinearRegression.fitIntercept()
