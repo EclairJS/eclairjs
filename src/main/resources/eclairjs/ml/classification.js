@@ -36,6 +36,8 @@
         MultilayerPerceptronClassificationModel: require(EclairJS_Globals.NAMESPACE + '/ml/classification/MultilayerPerceptronClassificationModel'),
         NaiveBayes: require(EclairJS_Globals.NAMESPACE + '/ml/classification/NaiveBayes'),
         NaiveBayesModel: require(EclairJS_Globals.NAMESPACE + '/ml/classification/NaiveBayesModel'),
+        OneVsRest: require(EclairJS_Globals.NAMESPACE + '/ml/classification/OneVsRest'),
+        OneVsRestModel: require(EclairJS_Globals.NAMESPACE + '/ml/classification/OneVsRestModel'),
         RandomForestClassifier: require(EclairJS_Globals.NAMESPACE + '/ml/classification/RandomForestClassifier'),
         RandomForestClassificationModel: require(EclairJS_Globals.NAMESPACE + '/ml/classification/RandomForestClassificationModel'),
         BinaryLogisticRegressionSummary: require(EclairJS_Globals.NAMESPACE + '/ml/classification/BinaryLogisticRegressionSummary'),

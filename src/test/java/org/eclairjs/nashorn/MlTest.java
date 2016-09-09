@@ -876,6 +876,34 @@ public class MlTest {
         assertEquals("failure - strings are not equal", expected, ret);
 
     }
+
+    /*
+        tests
+        OneVsRest()
+        OneVsRest.setClassifier();
+        OneVsRest.fit();
+        OneVsRestModel.transform();
+        LogisticRegression()
+        LogisticRegression.setMaxIter();
+        LogisticRegression.setTol();
+        LogisticRegression.setFitIntercept();
+        MulticlassClassificationEvaluator()
+        MulticlassClassificationEvaluator.setMetricName();
+        MulticlassClassificationEvaluator.evaluate();
+     */
+    @Test
+    public void OneVsRestExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("OneVsRestExample");
+
+        String expected = "passed";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
+
     /*
         tests
         PCA()

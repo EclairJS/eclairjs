@@ -334,6 +334,18 @@ var OneHotEncoderExample = function() {
     }
 }
 
+var OneVsRestExample = function() {
+
+    load("examples/ml/one_vs_rest_example.js");
+    var result = run(sparkSession);
+    var str = JSON.stringify(result)
+    if (str) {
+        return "passed";
+    } else {
+        return "failed";
+    }
+}
+
 var PCAExample = function() {
 
     load("examples/ml/pca_example.js");
