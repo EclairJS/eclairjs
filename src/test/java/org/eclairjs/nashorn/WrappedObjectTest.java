@@ -47,8 +47,6 @@ public class WrappedObjectTest {
         if(engine == null) {
             engine =  NashornEngineSingleton.getEngine();
 
-            SparkBootstrap b = new SparkBootstrap();
-            b.load(engine);
         }
 
         String src = "function testFunction(){"+String.join("\n", lines)+"\n}\n";

@@ -185,7 +185,7 @@ public class ZClusterTest {
                 "Build flags: -Psparkr -Phadoop-2.3 -Phive -Phive-thriftserver -Pyarn -DzincPort=3033";
         InputStream stream = new ByteArrayInputStream(releaseStr.getBytes(StandardCharsets.UTF_8));
 
-        Files.copy(stream,sparkHomePath.resolve("RELEASE"));
+        Files.copy(stream, sparkHomePath.resolve("RELEASE"));
 
 
         jarFile=File.createTempFile("test",".jar").getAbsolutePath();
@@ -263,7 +263,7 @@ public class ZClusterTest {
 
 //        org.apache.spark.deploy.SparkSubmit --class org.eclairjs.nashorn.SparkJS --name EclairJSShell --driver-java-options '-Dlog4j.configuration=file:"./src/main/resources/conf/log4j.prop"' ./target/eclairjs-nashorn-0.7-SNAPSHOT-jar-with-dependencies.jar ./examples/word_count.js
 
-        System.setProperty("log4j.configuration","file:./src/test/resources/conf/log4j.prop");
+        System.setProperty("log4j.configuration", "file:./src/test/resources/conf/log4j.prop");
         String submitParams[] = new String[]{
                 "--master",
                 masterURL,
@@ -305,7 +305,7 @@ public class ZClusterTest {
 
 
         String expected = "[{\"0\":1,\"1\":2,\"length\":2},{\"0\":2,\"1\":3,\"length\":2},{\"0\":3,\"1\":4,\"length\":2}]";
-        submit("testTuple",expected);
+        submit("testTuple", expected);
 
     }
     @Test
@@ -328,17 +328,15 @@ public class ZClusterTest {
         assertEquals("should be same", expected, ret.toString());
 
     }
-    /*
     @Test
     public void testExternalModule() throws Exception {
 
         TestUtils.evalJSResource(getEngine(), "/clusterTest.js");
         Object ret = ((Invocable) getEngine()).invokeFunction("testExternalModule");
 
-        String expected = "[1,2,3]";
+        String expected = "[\"1\",\"2\",\"3\"]";
         assertEquals("should be same", expected, ret.toString());
 
     }
-    */
 
 }
