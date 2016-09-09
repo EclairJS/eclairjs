@@ -40,8 +40,8 @@ public class TestUtils {
  
             engine.put("kernel", kernel);
 
-            SparkBootstrap b = new SparkBootstrap();
-            b.load(engine);
+//            SparkBootstrap b = new SparkBootstrap();
+//            b.load(engine);
         }
 
         return engine;

@@ -263,7 +263,7 @@ public class ZClusterTest {
 
 //        org.apache.spark.deploy.SparkSubmit --class org.eclairjs.nashorn.SparkJS --name EclairJSShell --driver-java-options '-Dlog4j.configuration=file:"./src/main/resources/conf/log4j.prop"' ./target/eclairjs-nashorn-0.7-SNAPSHOT-jar-with-dependencies.jar ./examples/word_count.js
 
-        System.setProperty("log4j.configuration","file:./src/test/resources/conf/log4j.prop");
+        System.setProperty("log4j.configuration", "file:./src/test/resources/conf/log4j.prop");
         String submitParams[] = new String[]{
                 "--master",
                 masterURL,
@@ -328,16 +328,14 @@ public class ZClusterTest {
         assertEquals("should be same", expected, ret.toString());
 
     }
-    /*
     @Test
     public void testExternalModule() throws Exception {
 
         TestUtils.evalJSResource(getEngine(), "/clusterTest.js");
         Object ret = ((Invocable) getEngine()).invokeFunction("testExternalModule");
  
-        String expected = "[1,2,3]";
+        String expected = "[\"1\",\"2\",\"3\"]";
         assertEquals("should be same", expected, ret.toString());
 
     }
-    */
 }
