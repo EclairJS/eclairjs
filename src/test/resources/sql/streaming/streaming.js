@@ -225,6 +225,7 @@ function queryManagerTest() {
     return queries.length;
 }
 
+var queryEventListenersTestResults;
 function queryEventListenersTest() {
     var ProcessingTime = require('eclairjs/sql/streaming/ProcessingTime');
     var file = "./src/test/resources/data/sql/streaming";
@@ -239,19 +240,86 @@ function queryEventListenersTest() {
         .add("YTDE", "float");
 
     var queryManger = spark.streams();
-    queryEventListenersTestResult = null;
+    queryEventListenersTestResults = "removeListener successful!";;
     var listener = queryManger.addListener(
-        function(queryStartedInfo, queryManger, listener){
+        function(queryStartedInfo){
             //print("queryStartedEvent");
-            queryEventListenersTestResult = queryStartedInfo.name();
-            queryManger.removeListener(listener);
+            queryEventListenersTestResults = "removeListener Failed!";
+
         },
         function(queryProgressInfo){
-            //print("queryProgressEvent" + queryProgressInfo.name());
+            queryEventListenersTestResults = "removeListener Failed!";
+           // print("queryProgressEvent" + queryProgressInfo.name());
         },
         function(queryTerminatedInfo){
-            print("queryTerminatedEvent " + queryTerminatedInfo.name());
-        }, [queryManger, listener]
+            //print("queryTerminatedEvent " + queryTerminatedInfo.name());
+            queryEventListenersTestResults = "removeListener Failed!";
+           // throw("removeListener Failed!");
+        }
+    );
+
+    var csvDF = spark
+        .readStream()
+        //.option("sep", ",")
+        .schema(schema)
+        .csv(file);
+    queryManger.removeListener(listener);
+    var names = csvDF.select("name");
+    query = names.writeStream()
+        .trigger(ProcessingTime.create("10 seconds"))
+        .foreach(function (partitionId, version) {
+                // open connection
+                //print("JS open " + partitionId + ":" + version);
+                return {"connection": "test connection object", "partitionId": partitionId, "version": version};
+            },
+            function (connection, value) {
+                //var t = {"connection": connection, "value": value};
+                //result.push(value);
+                //print("JS process: " + JSON.stringify(t));
+            },
+            function (connection, query) {
+                // close the connection
+                // print("JS close " + JSON.stringify(connection));
+                 stop();
+            })
+        .start();
+
+
+    query.awaitTermination();
+    //print("active " + query.isActive())
+    return queryEventListenersTestResults;
+
+}
+
+
+function queryStopTest() {
+    var ProcessingTime = require('eclairjs/sql/streaming/ProcessingTime');
+    var file = "./src/test/resources/data/sql/streaming";
+//Michael, 29, 1, 1996-03-07 00:00:00, 1200.40, true, 300000000.11
+    var schema = new StructType()
+        .add("name", "string")
+        .add("age", "integer")
+        .add("number", "integer")
+        .add("date", "string")
+        .add("salary", "float")
+        .add("married", "boolean")
+        .add("YTDE", "float");
+
+    var queryManger = spark.streams();
+   // queryEventListenersTestResult = null;
+    var listener = queryManger.addListener(
+        function(queryStartedInfo){
+            //print("queryStartedEvent");
+            //queryEventListenersTestResult = queryStartedInfo.name();
+        },
+        function(queryProgressInfo, queryManger){
+            //print("queryProgressEvent" + queryProgressInfo.name());
+            var q = queryManger.get(queryProgressInfo.id());
+            q.stop();
+        },
+        function(queryTerminatedInfo){
+           // print("queryStopTest " + queryTerminatedInfo.name());
+        }, null, [queryManger]
     );
 
     var csvDF = spark
@@ -276,12 +344,12 @@ function queryEventListenersTest() {
             function (connection) {
                 // close the connection
                 // print("JS close " + JSON.stringify(connection));
-                stop();
+                //stop();
             })
         .start();
 
 
     query.awaitTermination();
-    return queryEventListenersTestResult.substring(0, 5);
+    return query.isActive();
 
 }
