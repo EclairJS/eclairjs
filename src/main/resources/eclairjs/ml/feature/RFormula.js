@@ -129,7 +129,7 @@
 
 
     /**
-     * @param {module:eclairjs/sql. Dataset} dataset
+     * @param {module:eclairjs/sql.Dataset} dataset
      * @returns {module:eclairjs/ml/feature.RFormulaModel}
      */
     RFormula.prototype.fit = function (dataset) {
