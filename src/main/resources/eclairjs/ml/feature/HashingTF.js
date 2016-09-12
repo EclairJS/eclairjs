@@ -91,6 +91,12 @@
        return  this.getJavaObject().getNumFeatures();
     };
     
+    /**
+     * @returns {module:eclairjs/ml/param.Param}
+     */
+    HashingTF.prototype.numFeatures = function() {
+        return Utils.javaToJs(this.getJavaObject().numFeatures());
+    };
     
     /**
      * @param {number} value

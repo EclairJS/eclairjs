@@ -288,6 +288,18 @@ var ModelSelectionViaTrainValidationSplitExample = function() {
     }
 }
 
+var ModelSelectionViaCrossValidationExample = function() {
+
+    load("examples/ml/model_selection_via_cross_validation_example.js");
+    var result = run(sparkSession);
+    var str = JSON.stringify(result);
+    if (str) {
+        return "passed";
+    } else {
+        return "failed";
+    }
+}
+
 var MultilayerPerceptronClassifierExample = function() {
 
     load("examples/ml/multilayer_perceptron_classifier_example.js");
