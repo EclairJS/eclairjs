@@ -66,7 +66,7 @@
      * Find synonyms of a word
      * @param {string | module:eclairjs/mllib/linald.Vector} wordOrVector
      * @param {number} num  number of synonyms to find
-     * @returns {module:eclairjs.Tuple[]}
+     * @returns {module:eclairjs.Tuple2[]}
      */
     Word2VecModel.prototype.findSynonyms = function(word,num) {
         var javaObject =  this.getJavaObject().findSynonyms(word,num);

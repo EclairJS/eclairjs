@@ -47,14 +47,14 @@
      * @param {module:eclairjs/mllib/linalg.Vector} data
      * @param {float} label
      * @param {module:eclairjs/mllib/linalg.Vector} weights
-     * @returns {module:eclairjs.Tuple}
+     * @returns {module:eclairjs.Tuple2}
      */
     Gradient.prototype.compute = function (data,label,weights) {
         var data_uw = Utils.unwrapObject(data);
         var weights_uw = Utils.unwrapObject(weights);
         var javaObject = this.getJavaObject().compute(data_uw,label,weights_uw);
-        Tuple = require('eclairjs/Tuple');
-        return new Tuple(javaObject);
+        Tuple2 = require('eclairjs/Tuple2');
+        return new Tuple2(javaObject);
     };
     
     module.exports = Gradient;

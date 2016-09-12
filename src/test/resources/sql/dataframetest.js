@@ -493,8 +493,7 @@ var dataframeSampleTest = function(file, seed) {
 
 	var peopleDataFrame = buildPeopleTable(file);
 	var peopleDataFrame2 = peopleDataFrame.sort("age");
-    peopleDataFrame2.show();
-	var results = peopleDataFrame2.sample(true, 0.5);
+	var results = peopleDataFrame2.sample(true, 1.0);
     return results.take(10).length > 0 ? "passed" : "failed";
 }
 

@@ -16,7 +16,7 @@
 
 var Duration = require('eclairjs/streaming/Duration');
 var StreamingContext = require('eclairjs/streaming/StreamingContext');
-var Tuple = require('eclairjs/Tuple');
+var Tuple2 = require('eclairjs/Tuple2');
 var SparkConf = require(EclairJS_Globals.NAMESPACE + '/SparkConf');
 
 // Create the context with a 1 second batch size
@@ -40,9 +40,9 @@ for (var i = 0; i < 30; i++) {
 // Create the QueueInputDStream and use it do some processing
 var inputStream = ssc.queueStream(rddQueue);
 var mappedStream = inputStream.mapToPair(
-    function (i, Tuple) {
-        return new Tuple(i % 10, 1);
-    }, [Tuple]);
+    function (i, Tuple2) {
+        return new Tuple2(i % 10, 1);
+    }, [Tuple2]);
 var reducedStream = mappedStream.reduceByKey(
     function (i1, i2) {
         return i1 + i2;

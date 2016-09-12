@@ -574,7 +574,7 @@
 
     /**
      * :: Experimental ::
-     * Joins this Dataset returning a {@link Tuple2} for each pair where `condition` evaluates to
+     * Joins this Dataset returning a {@link module:eclairjs.Tuple2} for each pair where `condition` evaluates to
      * true.
      *
      * This is similar to the relation `join` function with one important difference in the
