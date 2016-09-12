@@ -58,7 +58,7 @@
 
     /**
      * @param {number} maxTermsPerTopic
-     * @returns {module:eclairjs.Tuple[]}
+     * @returns {module:eclairjs.Tuple2[]}
      */
     DistributedLDAModel.prototype.describeTopics = function (maxTermsPerTopic) {
         throw "not implemented by ElairJS";
@@ -73,7 +73,7 @@
      * @param {number} maxDocumentsPerTopic   Maximum number of documents to collect for each topic.
      *          (IDs for the documents, weights of the topic in these documents).
      *          For each topic, documents are sorted in order of decreasing topic weights.
-     * @returns {module:eclairjs.Tuple[]}   Array over topics.  Each element represent as a pair of matching arrays:
+     * @returns {module:eclairjs.Tuple2[]}   Array over topics.  Each element represent as a pair of matching arrays:
      */
     DistributedLDAModel.prototype.topDocumentsPerTopic = function (maxDocumentsPerTopic) {
         throw "not implemented by ElairJS";

@@ -55,7 +55,7 @@
  */
 var Duration = require('eclairjs/streaming/Duration');
 var StreamingContext = require('eclairjs/streaming/StreamingContext');
-var Tuple = require('eclairjs/Tuple');
+var Tuple2 = require('eclairjs/Tuple2');
 var SparkConf = require(EclairJS_Globals.NAMESPACE + '/SparkConf');
 
 if ((typeof args == "undefined") || args.length < 5) {
@@ -97,9 +97,9 @@ function createContext(ip, port, checkpointDirectory, outputPath) {
         return x.split(/\s+/);
     });
     var wordCounts = words.mapToPair(
-        function (s, Tuple) {
+        function (s, Tuple2) {
             return new Tuple(s, 1);
-        }, [Tuple]).reduceByKey(function (i1, i2) {
+        }, [Tuple2]).reduceByKey(function (i1, i2) {
         return i1 + i2;
     });
 

@@ -124,8 +124,8 @@
     
     
     /**
-     * @param {module:eclairjs/sql. Dataset} dataset
-     * @returns {module:eclairjs/sql. Dataset} 
+     * @param {module:eclairjs/sql.Dataset} dataset
+     * @returns {module:eclairjs/sql.Dataset}
      */
     HashingTF.prototype.transform = function(dataset) {
        var dataset_uw = Utils.unwrapObject(dataset);

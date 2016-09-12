@@ -23,7 +23,7 @@ function run(sc) {
     var BinaryClassificationMetrics = require("eclairjs/mllib/evaluation/BinaryClassificationMetrics");
     var Vectors = require("eclairjs/mllib/linalg/Vectors");
     var LabeledPoint = require("eclairjs/mllib/regression/LabeledPoint");
-    var Tuple = require('eclairjs/Tuple');
+    var Tuple2 = require('eclairjs/Tuple2');
 
     var filename = ((typeof args !== "undefined") && (args.length > 1)) ?
         args[1] : "examples/data/mllib/sample_binary_classification_data.txt";
@@ -39,9 +39,9 @@ function run(sc) {
         .setNumClasses(2)
         .run(training);
 
-    var predictionAndLabels = test.mapToPair(function (lp, model, Tuple) {
-        return new Tuple(model.predict(lp.getFeatures()), lp.getLabel());
-    }, [model, Tuple]);
+    var predictionAndLabels = test.mapToPair(function (lp, model, Tuple2) {
+        return new Tuple2(model.predict(lp.getFeatures()), lp.getLabel());
+    }, [model, Tuple2]);
 
     return new BinaryClassificationMetrics(predictionAndLabels);
 

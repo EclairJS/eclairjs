@@ -148,7 +148,7 @@
     
 
     /**
-     * @param {module:eclairjs/sql. Dataset} dataset
+     * @param {module:eclairjs/sql.Dataset} dataset
      * @returns {module:eclairjs/ml/feature.Word2VecModel}
      */
     Word2Vec.prototype.fit = function (dataset) {

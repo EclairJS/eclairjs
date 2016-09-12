@@ -66,7 +66,7 @@
     /**
      * @function
      * @name module:eclairjs/mllib/linalg.SparseVector#values
-     * @returns {module:eclairjs.Tuple}
+     * @returns {module:eclairjs.Tuple2}
      */
     //SparseVector.unapply = function (sv) {
     //       var sv_uw = Utils.unwrapObject(sv);

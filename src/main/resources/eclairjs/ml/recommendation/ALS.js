@@ -253,7 +253,7 @@
     
 
     /**
-     * @param {module:eclairjs/sql. Dataset} dataset
+     * @param {module:eclairjs/sql.Dataset} dataset
      * @returns {module:eclairjs/ml/recommendation.ALSModel}
      */
     ALS.prototype.fit = function (dataset) {

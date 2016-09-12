@@ -39,7 +39,7 @@ var TwitterAuthorization = require('eclairjs/streaming/twitter/TwitterAuthorizat
 var TwitterUtils = require('eclairjs/streaming/twitter/TwitterUtils');
 var Duration = require('eclairjs/streaming/Duration');
 var StreamingContext = require('eclairjs/streaming/StreamingContext');
-var Tuple = require('eclairjs/Tuple');
+var Tuple2 = require('eclairjs/Tuple2');
 var SparkConf = require(EclairJS_Globals.NAMESPACE + '/SparkConf');
 
 if ((typeof args == "undefined")||args.length<5)
@@ -66,26 +66,26 @@ if ((typeof args == "undefined")||args.length<5)
       return s.startsWith("#");
      });
 
-    var topCounts60 = hashTags.mapToPair(function(s, Tuple){
-        return new Tuple(s,1.0);
-    }, [Tuple]).reduceByKeyAndWindow(function(i1,i2){
+    var topCounts60 = hashTags.mapToPair(function(s, Tuple2){
+        return new Tuple2(s,1.0);
+    }, [Tuple2]).reduceByKeyAndWindow(function(i1,i2){
       return i1+i2;
     }, new Duration(60000))
-    .mapToPair(function(tuple, Tuple){
-      return new Tuple(tuple[1],tuple[0]);
-    }, [Tuple]).transformToPair(function (rdd) {
+    .mapToPair(function(tuple, Tuple2){
+      return new Tuple2(tuple[1],tuple[0]);
+    }, [Tuple2]).transformToPair(function (rdd) {
       return rdd.sortByKey(false);
      });
 
 
-    var topCounts10 = hashTags.mapToPair(function(s, Tuple){
-        return new Tuple(s,1.0);
-    }, [Tuple]).reduceByKeyAndWindow(function(i1,i2){
+    var topCounts10 = hashTags.mapToPair(function(s, Tuple2){
+        return new Tuple2(s,1.0);
+    }, [Tuple2]).reduceByKeyAndWindow(function(i1,i2){
       return i1+i2;
     }, new Duration(10000))
-    .mapToPair(function(tuple, Tuple){
-      return new Tuple(tuple[1],tuple[0]);
-    }, [Tuple]).transformToPair(function (rdd) {
+    .mapToPair(function(tuple, Tuple2){
+      return new Tuple2(tuple[1],tuple[0]);
+    }, [Tuple2]).transformToPair(function (rdd) {
       return rdd.sortByKey(false);
      });
 

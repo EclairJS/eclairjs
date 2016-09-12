@@ -72,9 +72,12 @@ class JavascriptInterpreter() extends org.apache.toree.interpreter.Interpreter {
 
 
     val  kernelImpl = kernel.asInstanceOf[Kernel]
+    /*
+    Comms foreachrdd
+     */
     kernelImpl.comm.register("foreachrdd").addOpenHandler {
       (commWriter, commId, targetName, data) =>
-        System.out.println("got comm open")
+        System.out.println("got comm open for foreachrdd")
         System.out.println(data)
 
         comm = new Comm(kernelImpl, commWriter)
@@ -89,7 +92,29 @@ class JavascriptInterpreter() extends org.apache.toree.interpreter.Interpreter {
           .asInstanceOf[CommMap]
           .remove("foreachrdd:"+commId)
     }
+    /*
+    Comms for streamingQueryManagerListener
+     */
+    kernelImpl.comm.register("streamingQueryManagerListener").addOpenHandler {
+      (commWriter, commId, targetName, data) =>
+        System.out.println("got comm open for streamingQueryManagerListener")
+        System.out.println(data)
 
+        comm = new Comm(kernelImpl, commWriter)
+        engine.get("commMap")
+          .asInstanceOf[CommMap]
+          .put("streamingQueryManagerListener:"+commId, comm)
+    }
+    kernelImpl.comm.register("streamingQueryManagerListener").addCloseHandler {
+      (commWriter, commId, data: MsgData) =>
+        System.out.println("got  streamingQueryManagerListener close " + commId)
+        engine.get("commMap")
+          .asInstanceOf[CommMap]
+          .remove("streamingQueryManagerListener:"+commId)
+    }
+    /*
+    Comms for logger
+     */
     kernelImpl.comm.register("logger").addOpenHandler {
       (commWriter, commId, targetName, data) =>
         System.out.println("got logger open")

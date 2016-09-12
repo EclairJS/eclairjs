@@ -75,7 +75,7 @@
 
     /**
      * @param {number} maxTermsPerTopic
-     * @returns {module:eclairjs.Tuple[]}
+     * @returns {module:eclairjs.Tuple2[]}
      */
     LocalLDAModel.prototype.describeTopics = function (maxTermsPerTopic) {
         throw "not implemented by ElairJS";
