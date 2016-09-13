@@ -19,6 +19,8 @@ import org.eclairjs.nashorn.Utils;
 import org.eclairjs.nashorn.wrap.WrappedFunction;
 import org.apache.log4j.Logger;
 import org.eclairjs.nashorn.wrap.WrappedClass;
+import scala.collection.Iterator;
+import scala.collection.mutable.WrappedArray;
 
 
 public class StreamingQueryInfo extends WrappedClass {
@@ -30,8 +32,8 @@ public class StreamingQueryInfo extends WrappedClass {
         public Object call(Object thiz, Object... args) {
             logger.debug("name");
             Object returnValue = null;
-            org.apache.spark.sql.streaming.StreamingQueryInfo _streamingQuery = (org.apache.spark.sql.streaming.StreamingQueryInfo) ((StreamingQueryInfo) thiz).getJavaObject();
-            returnValue = _streamingQuery.name();
+            //org.apache.spark.sql.streaming.StreamingQueryInfo _streamingQuery = (org.apache.spark.sql.streaming.StreamingQueryInfo) ((StreamingQueryInfo) thiz).getJavaObject();
+            returnValue = ((StreamingQueryInfo) thiz).name();
             return returnValue;
         }
     };
@@ -41,8 +43,8 @@ public class StreamingQueryInfo extends WrappedClass {
         public Object call(Object thiz, Object... args) {
             logger.debug("id");
             Object returnValue = null;
-            org.apache.spark.sql.streaming.StreamingQueryInfo _streamingQuery = (org.apache.spark.sql.streaming.StreamingQueryInfo) ((StreamingQueryInfo) thiz).getJavaObject();
-            returnValue = _streamingQuery.id();
+            //org.apache.spark.sql.streaming.StreamingQueryInfo _streamingQuery = (org.apache.spark.sql.streaming.StreamingQueryInfo) ((StreamingQueryInfo) thiz).getJavaObject();
+            returnValue = ((StreamingQueryInfo) thiz).id();
             return returnValue;
         }
     };
@@ -51,9 +53,9 @@ public class StreamingQueryInfo extends WrappedClass {
         public Object call(Object thiz, Object... args) {
             logger.debug("sourceStatuses");
             Object returnValue = null;
-            org.apache.spark.sql.streaming.StreamingQueryInfo _streamingQuery = (org.apache.spark.sql.streaming.StreamingQueryInfo) ((StreamingQueryInfo) thiz).getJavaObject();
-            returnValue = _streamingQuery.sourceStatuses();
-            return Utils.javaToJs(returnValue);
+           // org.apache.spark.sql.streaming.StreamingQueryInfo _streamingQuery = (org.apache.spark.sql.streaming.StreamingQueryInfo) ((StreamingQueryInfo) thiz).getJavaObject();
+            return ((StreamingQueryInfo) thiz).sourceStatuses();
+            //return Utils.javaToJs(returnValue);
         }
     };
 
@@ -62,9 +64,9 @@ public class StreamingQueryInfo extends WrappedClass {
         public Object call(Object thiz, Object... args) {
             logger.debug("sinkStatus");
             Object returnValue = null;
-            org.apache.spark.sql.streaming.StreamingQueryInfo _streamingQuery = (org.apache.spark.sql.streaming.StreamingQueryInfo) ((StreamingQueryInfo) thiz).getJavaObject();
-            returnValue = _streamingQuery.sinkStatus();
-            return Utils.javaToJs(returnValue);
+            //org.apache.spark.sql.streaming.StreamingQueryInfo _streamingQuery = (org.apache.spark.sql.streaming.StreamingQueryInfo) ((StreamingQueryInfo) thiz).getJavaObject();
+            return ((StreamingQueryInfo) thiz).sinkStatus();
+            //return Utils.javaToJs(returnValue);
             //return new org.eclairjs.nashorn.wrap.sql.streaming.SinkStatus((org.apache.spark.sql.streaming.SinkStatus)returnValue);
         }
     };
@@ -89,10 +91,52 @@ public class StreamingQueryInfo extends WrappedClass {
         return _streamingQueryInfo;
     }
 
+    private long id() {
+        org.apache.spark.sql.streaming.StreamingQueryInfo _streamingQuery = (org.apache.spark.sql.streaming.StreamingQueryInfo) this.getJavaObject();
+        return _streamingQuery.id();
+
+    }
+
+    private String name() {
+        org.apache.spark.sql.streaming.StreamingQueryInfo _streamingQuery = (org.apache.spark.sql.streaming.StreamingQueryInfo) this.getJavaObject();
+        return _streamingQuery.name();
+    }
+
+    private Object sinkStatus() {
+        org.apache.spark.sql.streaming.StreamingQueryInfo _streamingQuery = (org.apache.spark.sql.streaming.StreamingQueryInfo) this.getJavaObject();
+        return Utils.javaToJs(_streamingQuery.sinkStatus());
+    }
+
+    private Object sourceStatuses() {
+        org.apache.spark.sql.streaming.StreamingQueryInfo _streamingQuery = (org.apache.spark.sql.streaming.StreamingQueryInfo) this.getJavaObject();
+        return Utils.javaToJs(_streamingQuery.sourceStatuses());
+    }
+
     @Override
     public String toString() {
 
         return _streamingQueryInfo.toString();
+    }
+
+    @Override
+    public String toJSON() {
+        SinkStatus sink = (SinkStatus) this.sinkStatus();
+        org.apache.spark.sql.streaming.StreamingQueryInfo _streamingQuery = (org.apache.spark.sql.streaming.StreamingQueryInfo) this.getJavaObject();
+        WrappedArray a = (WrappedArray) _streamingQuery.sourceStatuses();
+       // Object s[] = a.array().length;
+        String ssStr = "[";
+        Iterator iterator = a.iterator();
+        while (iterator.hasNext()) {
+            SourceStatus ss = (SourceStatus)Utils.javaToJs(iterator.next());
+            ssStr += ss.toJSON();
+        }
+        ssStr += "]";
+        return "{" +
+                    "\"id\":"+this.id()+
+                    ",\"name\":\""+this.name()+"\""+
+                    ",\"sinkStatus\":"+sink.toJSON()+
+                    ",\"sourceStatuses\":"+ssStr+
+                "}";
     }
 
     public String getClassName() {
