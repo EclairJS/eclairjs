@@ -51,7 +51,7 @@ Serialize.javaMap = function (javaObj) {
 
         map.toJSON = function (){
             var jsonObj = {};
-            for( k in this) {
+            for(var k in this) {
                 var o = this[k];
                 if (typeof o != "function"){
                     var str = JSON.stringify(o);
