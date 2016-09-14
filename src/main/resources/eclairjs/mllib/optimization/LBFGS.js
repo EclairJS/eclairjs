@@ -58,7 +58,7 @@
      * @param {integer} maxNumIterations - - Maximal number of iterations that L-BFGS can be run.
      * @param {float} regParam - - Regularization parameter
      * @param {module:eclairjs/mllib/linalg.Vector} initialWeights - (undocumented)
-     * @returns {module:eclairjs.Tuple} A tuple containing two elements. The first element is a column matrix containing weights for every feature,
+     * @returns {module:eclairjs.Tuple2} A tuple containing two elements. The first element is a column matrix containing weights for every feature,
      * and the second element is an array containing the loss computed for every iteration.
      * @param testData
      */

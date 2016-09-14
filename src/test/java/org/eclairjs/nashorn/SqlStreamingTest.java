@@ -81,9 +81,19 @@ public class SqlStreamingTest {
         TestUtils.evalJSResource(engine, "/sql/streaming/streaming.js");
         Object ret = ((Invocable) engine).invokeFunction("queryEventListenersTest");
 
-        assertEquals("should be same", "query", ret);
+        assertEquals("should be same", "removeListener successful!", ret);
     }
 
+    @Test
+    public void queryStopTest() throws Exception {
+
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/sql/streaming/streaming.js");
+        Object ret = ((Invocable) engine).invokeFunction("queryStopTest");
+
+        assertEquals("should be same", false, ret);
+    }
 
 
 }

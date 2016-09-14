@@ -91,6 +91,12 @@
        return  this.getJavaObject().getNumFeatures();
     };
     
+    /**
+     * @returns {module:eclairjs/ml/param.Param}
+     */
+    HashingTF.prototype.numFeatures = function() {
+        return Utils.javaToJs(this.getJavaObject().numFeatures());
+    };
     
     /**
      * @param {number} value
@@ -118,8 +124,8 @@
     
     
     /**
-     * @param {module:eclairjs/sql. Dataset} dataset
-     * @returns {module:eclairjs/sql. Dataset} 
+     * @param {module:eclairjs/sql.Dataset} dataset
+     * @returns {module:eclairjs/sql.Dataset}
      */
     HashingTF.prototype.transform = function(dataset) {
        var dataset_uw = Utils.unwrapObject(dataset);

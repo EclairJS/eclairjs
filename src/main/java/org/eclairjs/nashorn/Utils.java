@@ -184,6 +184,22 @@ public class Utils {
                 return new  org.eclairjs.nashorn.wrap.sql.streaming.DataStreamWriter(
                         (org.apache.spark.sql.streaming.DataStreamWriter)o
                 );
+            case "org.apache.spark.sql.streaming.SinkStatus":
+                return new  org.eclairjs.nashorn.wrap.sql.streaming.SinkStatus(
+                        (org.apache.spark.sql.streaming.SinkStatus)o
+                );
+            case "org.apache.spark.sql.streaming.SourceStatus":
+                return new  org.eclairjs.nashorn.wrap.sql.streaming.SourceStatus(
+                        (org.apache.spark.sql.streaming.SourceStatus)o
+                );
+            case "org.apache.spark.sql.streaming.StreamingQueryInfo":
+                return new  org.eclairjs.nashorn.wrap.sql.streaming.StreamingQueryInfo(
+                        (org.apache.spark.sql.streaming.StreamingQueryInfo)o
+                );
+            case "org.apache.spark.sql.streaming.StreamingQueryManager":
+                return new  org.eclairjs.nashorn.wrap.sql.streaming.StreamingQueryManager(
+                        (org.apache.spark.sql.streaming.StreamingQueryManager)o
+                );
             case "org.apache.spark.sql.streaming.StreamingQuery":
             case "org.apache.spark.sql.execution.streaming.StreamExecution":
                 return new  org.eclairjs.nashorn.wrap.sql.streaming.StreamingQuery(

@@ -57,15 +57,14 @@
      * @param {float} stepSize - - step size across iterations
      * @param {integer} iter - - Iteration number
      * @param {float} regParam - - Regularization parameter
-     * @returns {module:eclairjs.Tuple} A tuple of 2 elements. The first element is a column matrix containing updated weights,
+     * @returns {module:eclairjs.Tuple2} A tuple of 2 elements. The first element is a column matrix containing updated weights,
      * and the second element is the regularization value computed using updated weights.
      */
     SquaredL2Updater.prototype.compute = function (weightsOld,gradient,stepSize,iter,regParam) {
         var weightsOld_uw = Utils.unwrapObject(weightsOld);
         var gradient_uw = Utils.unwrapObject(gradient);
         var javaObject = this.getJavaObject().compute(weightsOld_uw,gradient_uw,stepSize,iter,regParam);
-        var Tuple = require('eclairjs/Tuple');
-        return new Tuple(javaObject);
+        return Utils.javaToJs(javaObject);
     };
 
     module.exports = SquaredL2Updater;

@@ -22,7 +22,8 @@
      * @module eclairjs/ml/evaluation
      */
     module.exports = {
-        Evaluator: require(EclairJS_Globals.NAMESPACE + '/ml/evaluation/Evaluator'),
+        BinaryClassificationEvaluator: require(EclairJS_Globals.NAMESPACE + '/ml/evaluation/BinaryClassificationEvaluator'),
+        //Evaluator: require(EclairJS_Globals.NAMESPACE + '/ml/evaluation/Evaluator'),
         RegressionEvaluator: require(EclairJS_Globals.NAMESPACE + '/ml/evaluation/RegressionEvaluator'),
         MulticlassClassificationEvaluator: require(EclairJS_Globals.NAMESPACE + '/ml/evaluation/MulticlassClassificationEvaluator')
     }

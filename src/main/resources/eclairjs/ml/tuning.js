@@ -6,12 +6,10 @@
      * @module eclairjs/ml/tuning
      */
     module.exports = {
-      // CrossValidatorModel: require(EclairJS_Globals.NAMESPACE + '/ml/tuning/CrossValidatorModel'),
-        TrainValidationSplitModel: require(EclairJS_Globals.NAMESPACE + '/ml/tuning/TrainValidationSplitModel'),
-       // CrossValidator: require(EclairJS_Globals.NAMESPACE + '/ml/tuning/CrossValidator'),
+        CrossValidator: require(EclairJS_Globals.NAMESPACE + '/ml/tuning/CrossValidator'),
+        CrossValidatorModel: require(EclairJS_Globals.NAMESPACE + '/ml/tuning/CrossValidatorModel'),
         ParamGridBuilder: require(EclairJS_Globals.NAMESPACE + '/ml/tuning/ParamGridBuilder'),
-       // CrossValidator: require(EclairJS_Globals.NAMESPACE + '/ml/tuning/CrossValidator'),
-       // CrossValidatorModel: require(EclairJS_Globals.NAMESPACE + '/ml/tuning/CrossValidatorModel'),
         TrainValidationSplit: require(EclairJS_Globals.NAMESPACE + '/ml/tuning/TrainValidationSplit')
+        TrainValidationSplitModel: require(EclairJS_Globals.NAMESPACE + '/ml/tuning/TrainValidationSplitModel')
     }
 })();

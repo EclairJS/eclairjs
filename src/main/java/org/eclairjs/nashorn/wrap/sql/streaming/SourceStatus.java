@@ -29,8 +29,8 @@ public class SourceStatus extends WrappedClass {
         public Object call(Object thiz, Object... args) {
             logger.debug("F_description");
             Object returnValue = null;
-            org.apache.spark.sql.streaming.SourceStatus _sourceStatus = (org.apache.spark.sql.streaming.SourceStatus) ((SourceStatus) thiz).getJavaObject();
-            returnValue = _sourceStatus.description ();
+            //org.apache.spark.sql.streaming.SourceStatus _sourceStatus = (org.apache.spark.sql.streaming.SourceStatus) ((SourceStatus) thiz).getJavaObject();
+            returnValue = ((SourceStatus) thiz).description(); // _sourceStatus.description ();
             // return Utils.javaToJs(returnValue);
             return returnValue;
         }
@@ -41,8 +41,8 @@ public class SourceStatus extends WrappedClass {
         public Object call(Object thiz, Object... args) {
             logger.debug("F_offsetDesc");
             Object returnValue = null;
-            org.apache.spark.sql.streaming.SourceStatus _sourceStatus = (org.apache.spark.sql.streaming.SourceStatus) ((SourceStatus) thiz).getJavaObject();
-            returnValue = _sourceStatus.offsetDesc().toString();
+            //org.apache.spark.sql.streaming.SourceStatus _sourceStatus = (org.apache.spark.sql.streaming.SourceStatus) ((SourceStatus) thiz).getJavaObject();
+             returnValue = ((SourceStatus) thiz).offsetDesc(); //_sourceStatus.offsetDesc().toString();
             // return Utils.javaToJs(returnValue);
             return returnValue;
         }
@@ -68,10 +68,29 @@ public class SourceStatus extends WrappedClass {
         return _sourceStatus;
     }
 
+    private String description() {
+        org.apache.spark.sql.streaming.SourceStatus _sourceStatus = (org.apache.spark.sql.streaming.SourceStatus) this.getJavaObject();
+        return _sourceStatus.description();
+    }
+
+    private String offsetDesc() {
+        org.apache.spark.sql.streaming.SourceStatus _sourceStatus = (org.apache.spark.sql.streaming.SourceStatus) this.getJavaObject();
+        return _sourceStatus.offsetDesc().toString();
+    }
+
     @Override
     public String toString() {
 
         return _sourceStatus.toString();
+    }
+
+    @Override
+    public String toJSON() {
+
+        return "{" +
+                    "\"description\": \"" + this.description() +
+                    "\", \"offsetDesc\": \"" + this.offsetDesc() +
+                "\"}";
     }
 
     public String getClassName() {

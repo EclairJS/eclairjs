@@ -759,6 +759,46 @@ public class MlTest {
 
     /*
         tests
+        Tokenizer()
+        Tokenizer.setInputCol();
+        Tokenizer.setOutputCol();
+        HashingTF()
+        HashingTF.numFeatures();
+        HashingTF.setNumFeatures();
+        HashingTF.setInputCol();
+        HashingTF.setOutputCol();
+        LogisticRegression()
+        LogisticRegression.regParam();
+        LogisticRegression.setMaxIter();
+        LogisticRegression.setRegParam();
+        Pipeline()
+        Pipeline.setStages();
+        ParamGridBuilder()
+        ParamGridBuilder.addGrid();
+        ParamGridBuilder.build();
+        BinaryClassificationEvaluator()
+        CrossValidator()
+        CrossValidator.setEstimator();
+        CrossValidator.setEvaluator();
+        CrossValidator.setEstimatorParamMaps();
+        CrossValidator.fit();
+        CrossValidatorModel.transform();
+     */
+    @Test
+    public void ModelSelectionViaCrossValidationExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("ModelSelectionViaCrossValidationExample");
+
+        String expected = "passed";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+
+    }
+
+    /*
+        tests
         LinearRegression();
         LinearRegression.regParam()
         LinearRegression.fitIntercept()

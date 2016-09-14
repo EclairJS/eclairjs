@@ -30,8 +30,8 @@ public class SinkStatus extends WrappedClass {
         public Object call(Object thiz, Object... args) {
             logger.debug("F_description");
             Object returnValue = null;
-            org.apache.spark.sql.streaming.SinkStatus _sinkStatus = (org.apache.spark.sql.streaming.SinkStatus) ((SinkStatus) thiz).getJavaObject();
-            returnValue = _sinkStatus.description ();
+           // org.apache.spark.sql.streaming.SinkStatus _sinkStatus = (org.apache.spark.sql.streaming.SinkStatus) ((SinkStatus) thiz).getJavaObject();
+            returnValue = ((SinkStatus) thiz).description ();
             // return Utils.javaToJs(returnValue);
             return returnValue;
         }
@@ -42,8 +42,8 @@ public class SinkStatus extends WrappedClass {
         public Object call(Object thiz, Object... args) {
             logger.debug("F_offsetDesc");
             Object returnValue = null;
-            org.apache.spark.sql.streaming.SinkStatus _sinkStatus = (org.apache.spark.sql.streaming.SinkStatus) ((SinkStatus) thiz).getJavaObject();
-            returnValue = _sinkStatus.offsetDesc ();
+            //org.apache.spark.sql.streaming.SinkStatus _sinkStatus = (org.apache.spark.sql.streaming.SinkStatus) ((SinkStatus) thiz).getJavaObject();
+            returnValue = ((SinkStatus) thiz).offsetDesc ();
             // return Utils.javaToJs(returnValue);
             return returnValue;
         }
@@ -55,6 +55,16 @@ public class SinkStatus extends WrappedClass {
     {
        logger.debug("constructor");
        this._sinkStatus = _sinkStatus;
+    }
+
+    private String description() {
+        org.apache.spark.sql.streaming.SinkStatus _sinkStatus = (org.apache.spark.sql.streaming.SinkStatus) this.getJavaObject();
+        return _sinkStatus.description();
+    }
+
+    private String offsetDesc() {
+        org.apache.spark.sql.streaming.SinkStatus _sinkStatus = (org.apache.spark.sql.streaming.SinkStatus) this.getJavaObject();
+        return _sinkStatus.offsetDesc().toString();
     }
 
     static public String getModuleName() {
@@ -73,6 +83,15 @@ public class SinkStatus extends WrappedClass {
     public String toString() {
 
         return _sinkStatus.toString();
+    }
+
+    @Override
+    public String toJSON() {
+
+        return "{" +
+                "\"description\": \"" + this.description() +
+                "\", \"offsetDesc\": \"" + this.offsetDesc() +
+                "\"}";
     }
 
     public String getClassName() {

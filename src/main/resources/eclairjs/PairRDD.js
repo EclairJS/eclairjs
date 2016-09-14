@@ -282,7 +282,7 @@
     /**
      * @function
      * @name module:eclairjs.PairRDD#first
-     * @returns {module:eclairjs.Tuple}
+     * @returns {module:eclairjs.module:eclairjs.Tuple2}
      */
     //PairRDD.prototype.first = function () {
     //    var javaObject = this.getJavaObject().first();

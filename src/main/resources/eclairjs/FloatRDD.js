@@ -386,7 +386,7 @@
      * @name module:eclairjs.FloatRDD#histogram
      * @param {float[] | integer} buckets
      * @param {boolean} [evenBuckets]
-     * @returns {number[] | Tuple}
+     * @returns {number[] | module:eclairjs.Tuple2}
      */
     //FloatRDD.prototype.histogram = function (buckets, evenBuckets) {
     //    var javaObj;

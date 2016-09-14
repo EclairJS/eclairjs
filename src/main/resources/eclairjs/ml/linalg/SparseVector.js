@@ -45,7 +45,7 @@
     /**
      * @function
      * @name module:eclairjs/ml/linalg.SparseVector#values
-     * @returns {module:eclairjs.Tuple}
+     * @returns {module:eclairjs.Tuple2}
      */
 
 
