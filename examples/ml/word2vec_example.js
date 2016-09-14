@@ -29,18 +29,16 @@ var Word2Vec = require('eclairjs/ml/feature/Word2Vec');
 
 
 function run(spark) {
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
     // Input data: Each row is a bag of words from a sentence or document.
-    var rdd = sc.parallelize([
+    var rows = [
         RowFactory.create(["Hi I heard about Spark".split(" ")]),
         RowFactory.create(["I wish Java could use case classes".split(" ")]),
         RowFactory.create(["Logistic regression models are neat".split(" ")])
-    ]);
+    ] ;
     var sf = new StructField("text", new ArrayType(DataTypes.StringType, true), false, Metadata.empty());
     var sfa = [sf];
     var schema = new StructType(sfa);
-    var documentDF = sqlContext.createDataFrame(rdd, schema);
+    var documentDF = spark.createDataFrame(rows, schema);
 
     // Learn a mapping from words to Vectors.
     var word2Vec = new Word2Vec()
