@@ -30,21 +30,18 @@ function run(spark) {
     var Tokenizer = require('eclairjs/ml/feature/Tokenizer');
     var RegexTokenizer = require('eclairjs/ml/feature/RegexTokenizer');
 
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
-
-    var jrdd = sc.parallelize([
+    var rows = [
       RowFactory.create(0, "Hi I heard about Spark"),
       RowFactory.create(1, "I wish Java could use case classes"),
       RowFactory.create(2, "Logistic,regression,models,are,neat")
-    ]);
+    ];
 
     var schema = new StructType([
       new StructField("label", DataTypes.IntegerType, false, Metadata.empty()),
       new StructField("sentence", DataTypes.StringType, false, Metadata.empty())
     ]);
 
-    var sentenceDataFrame = sqlContext.createDataFrame(jrdd, schema);
+    var sentenceDataFrame = spark.createDataFrame(rows, schema);
 
     var tokenizer = new Tokenizer().setInputCol("sentence").setOutputCol("words");
 

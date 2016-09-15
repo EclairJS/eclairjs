@@ -21,7 +21,6 @@
 function run(spark) {
 
 
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var RowFactory = require('eclairjs/sql/RowFactory');
     var StructType = require('eclairjs/sql/types/StructType');
     var StructField = require('eclairjs/sql/types/StructField');
@@ -31,20 +30,18 @@ function run(spark) {
     var HashingTF = require('eclairjs/ml/feature/HashingTF');
     var IDF = require('eclairjs/ml/feature/IDF');
 
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
 
-    var jrdd = sc.parallelize([
+    var data = [
       RowFactory.create(0, "Hi I heard about Spark"),
       RowFactory.create(0, "I wish Java could use case classes"),
       RowFactory.create(1, "Logistic regression models are neat")
-    ]);
+    ];
     var schema = new StructType([
       new StructField("label", DataTypes.DoubleType, false, Metadata.empty()),
       new StructField("sentence", DataTypes.StringType, false, Metadata.empty())
     ]);
 
-    var sentenceData = sqlContext.createDataFrame(jrdd, schema);
+    var sentenceData = spark.createDataFrame(data, schema);
     var tokenizer = new Tokenizer().setInputCol("sentence").setOutputCol("words");
     var wordsData = tokenizer.transform(sentenceData);
     var numFeatures = 20;
@@ -53,6 +50,7 @@ function run(spark) {
       .setOutputCol("rawFeatures")
       .setNumFeatures(numFeatures);
     var featurizedData = hashingTF.transform(wordsData);
+    // alternatively, CountVectorizer can also be used to get term frequency vectors
     var idf = new IDF().setInputCol("rawFeatures").setOutputCol("features");
     var idfModel = idf.fit(featurizedData);
     var rescaledData = idfModel.transform(featurizedData);

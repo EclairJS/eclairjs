@@ -21,8 +21,6 @@
 function run(spark) {
 
 
-    var SQLContext = require('eclairjs/sql/SQLContext');
-
 
     var Tokenizer = require('eclairjs/ml/feature/Tokenizer');
     var HashingTF = require('eclairjs/ml/feature/HashingTF');
@@ -36,8 +34,6 @@ function run(spark) {
     var Metadata = require('eclairjs/sql/types/Metadata');
     var RowFactory = require('eclairjs/sql/RowFactory');
 
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
 
    function LabeledDocument(id, text, label)
    {
@@ -58,7 +54,7 @@ function run(spark) {
       new LabeledDocument(1 , "b d", 0.0),
       new LabeledDocument(2 , "spark f g h", 1.0),
       new LabeledDocument(3 , "hadoop mapreduce", 0.0)];
-    var training = sqlContext.createDataFrameFromJson(sc.parallelize(localTraining), {
+    var training = spark.createDataFrameFromJson(localTraining, {
         id:"Integer",
         text:"String",
         label:"Double"
@@ -89,7 +85,7 @@ function run(spark) {
       new Document(5, "l m n"),
       new Document(6, "spark hadoop spark"),
       new Document(7, "apache hadoop")];
-    var test = sqlContext.createDataFrameFromJson(sc.parallelize(localTest), {
+    var test = spark.createDataFrameFromJson(localTest, {
         id:"Integer",
         text:"String"
     });

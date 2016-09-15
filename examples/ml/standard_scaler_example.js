@@ -21,13 +21,9 @@
 function run(spark) {
 
 
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var StandardScaler = require('eclairjs/ml/feature/StandardScaler');
 
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
-
-    var dataFrame = sqlContext.read().format("libsvm").load("examples/data/mllib/sample_libsvm_data.txt");
+    var dataFrame = spark.read().format("libsvm").load("examples/data/mllib/sample_libsvm_data.txt");
 
     var scaler = new StandardScaler()
       .setInputCol("features")

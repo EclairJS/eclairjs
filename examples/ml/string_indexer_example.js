@@ -21,28 +21,24 @@
 function run(spark) {
 
 
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var RowFactory = require('eclairjs/sql/RowFactory');
     var StructType = require('eclairjs/sql/types/StructType');
     var DataTypes = require('eclairjs/sql/types').DataTypes;
     var StringIndexer = require('eclairjs/ml/feature/StringIndexer');
 
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
-
-    var jrdd = sc.parallelize([
+    var data = [
       RowFactory.create(0, "a"),
       RowFactory.create(1, "b"),
       RowFactory.create(2, "c"),
       RowFactory.create(3, "a"),
       RowFactory.create(4, "a"),
       RowFactory.create(5, "c")
-    ]);
+    ];
     var schema = new StructType([
       DataTypes.createStructField("id", DataTypes.IntegerType, false),
       DataTypes.createStructField("category", DataTypes.StringType, false)
     ]);
-    var df = sqlContext.createDataFrame(jrdd, schema);
+    var df = spark.createDataFrame(data, schema);
     var indexer = new StringIndexer()
       .setInputCol("category")
       .setOutputCol("categoryIndex");

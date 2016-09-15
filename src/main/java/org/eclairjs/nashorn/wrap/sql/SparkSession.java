@@ -335,7 +335,6 @@ public class SparkSession extends WrappedClass {
             org.apache.spark.sql.SparkSession _sparkSession = (org.apache.spark.sql.SparkSession) ((SparkSession) thiz).getJavaObject();
 
 
-            org.apache.spark.api.java.JavaRDD rdd = ( org.apache.spark.api.java.JavaRDD) Utils.toObject(args[0]);
             ScriptObjectMirror jsonSchema= (ScriptObjectMirror)args[1];
             List<Tuple2<String,DataType>> fieldNames=new ArrayList<>();
             List<StructField> fields=new ArrayList<>();
@@ -352,7 +351,7 @@ public class SparkSession extends WrappedClass {
                     case "Boolean":
                         schemaType=DataTypes.BooleanType; break;
                     case "Double":
-                        schemaType=DataTypes.DoubleType;
+                        schemaType=DataTypes.DoubleType; break;
 //                    case "Array":
 //                        schemaType=DataTypes.ArrayType;
                     default:
@@ -365,9 +364,26 @@ public class SparkSession extends WrappedClass {
                 fieldNames.add(new Tuple2<String, DataType>(name,schemaType));
 
             }
+
             StructType schema = DataTypes.createStructType(fields);
-            rdd = rdd.map(new JSONMapFunction(fieldNames));
-            returnValue = _sparkSession.createDataFrame(rdd, schema);
+
+            Object arg1 = Utils.jsToJava(args[0]);
+            if (arg1 instanceof JavaRDD) {
+                JavaRDD rdd = (JavaRDD) arg1;
+                rdd = rdd.map(new JSONMapFunction(fieldNames));
+                returnValue = _sparkSession.createDataFrame(rdd, schema);
+            }
+            else
+            {
+                Object [] arr = (Object[]) arg1;
+
+                List list = new ArrayList<>(arr.length);
+                for (int i=0;i<arr.length;i++)
+                    list.add(scriptObjectToRow(arr[i],fieldNames));
+                returnValue = _sparkSession.createDataFrame(list, schema);
+            }
+
+
 
             return Utils.javaToJs(returnValue);
         }

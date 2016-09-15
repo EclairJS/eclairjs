@@ -21,7 +21,6 @@
 function run(spark) {
 
 
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var RowFactory = require('eclairjs/sql/RowFactory');
     var StructType = require('eclairjs/sql/types/StructType');
     var StructField = require('eclairjs/sql/types/StructField');
@@ -29,20 +28,18 @@ function run(spark) {
     var Metadata = require('eclairjs/sql/types/Metadata');
     var SQLTransformer = require('eclairjs/ml/feature/SQLTransformer');
 
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
 
     // $example on$
-    var jrdd = sc.parallelize([
+    var data = [
       RowFactory.create([0, 1.0, 3.0]),
       RowFactory.create([2, 2.0, 5.0])
-    ]);
+    ];
     var schema = new StructType( [
       new StructField("id", DataTypes.IntegerType, false, Metadata.empty()),
       new StructField("v1", DataTypes.DoubleType, false, Metadata.empty()),
       new StructField("v2", DataTypes.DoubleType, false, Metadata.empty())
     ]);
-    var df = sqlContext.createDataFrame(jrdd, schema);
+    var df = spark.createDataFrame(data, schema);
 
     var sqlTrans = new SQLTransformer().setStatement(
       "SELECT *, (v1 + v2) AS v3, (v1 * v2) AS v4 FROM __THIS__");

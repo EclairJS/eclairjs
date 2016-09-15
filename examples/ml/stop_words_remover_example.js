@@ -21,7 +21,6 @@
 function run(spark) {
 
 
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var StopWordsRemover = require('eclairjs/ml/feature/StopWordsRemover');
     var StructType = require('eclairjs/sql/types/StructType');
     var StructField = require('eclairjs/sql/types/StructField');
@@ -29,24 +28,21 @@ function run(spark) {
     var Metadata = require('eclairjs/sql/types/Metadata');
     var RowFactory = require('eclairjs/sql/RowFactory');
 
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
-
     var remover = new StopWordsRemover()
       .setInputCol("raw")
       .setOutputCol("filtered");
 
-    var rdd = sc.parallelize([
+    var data = [
       RowFactory.create([["I", "saw", "the", "red", "baloon"]]),
       RowFactory.create([["Mary", "had", "a", "little", "lamb"]])
-    ]);
+    ];
 
     var schema = new StructType([
       new StructField(
         "raw", DataTypes.createArrayType(DataTypes.StringType), false, Metadata.empty())
     ]);
 
-    var dataset = sqlContext.createDataFrame(rdd, schema);
+    var dataset = spark.createDataFrame(data, schema);
     remover.transform(dataset).show();
 
 
