@@ -86,7 +86,7 @@ Serialize.scalaTuple = function (javaObj) {
     if (javaObj instanceof Serialize.scalaProductClass) {
         if (javaObj.getClass().getName().indexOf("scala.Tuple2") > -1) {
             Serialize.logger.debug("Tuple - " , javaObj);
-            var Tuple2 = require('eclairjs/Tuple2')
+            var Tuple2 = require('eclairjs/Tuple2');
             ret = new Tuple2(javaObj);
         } else if (javaObj.getClass().getName().indexOf("scala.Tuple3") > -1) {
             Serialize.logger.debug("Tuple - " , javaObj);
@@ -256,9 +256,7 @@ Serialize.javaSparkObject = function (javaObj) {
     }
 
     Serialize.logger.debug("javaSparkObject we have a className = ",className);
-    //return eval("new " + className + "(javaObj)");
 
-    var req = "";
     packageName = packageName.replace(/org.apache.spark/i, EclairJS_Globals.NAMESPACE );
     packageName = packageName.replace(/\./g, "/");
 
@@ -274,8 +272,7 @@ Serialize.javaSparkObject = function (javaObj) {
         packageName = EclairJS_Globals.NAMESPACE+"/streaming/dstream";
     }
 
-    var tmp = packageName+'/'+className;
-    req = 'var ' + className + ' = require("'+packageName+'/'+className+'");'
+    var req = 'var ' + className + ' = require("'+packageName+'/'+className+'");'
 
     var ret = false;
     try {
@@ -283,10 +280,10 @@ Serialize.javaSparkObject = function (javaObj) {
         // module before giving up - this could be on worker node
         var cmd = req + " return new " + className + "(javaObj)";
         Serialize.logger.debug(cmd);
-        var wrapperObjectFunction = new Function("javaObj", cmd); // better closer, keep require our of the global space
+        var wrapperObjectFunction = new Function("javaObj", cmd); // better closer, keep require out of the global space
         ret = wrapperObjectFunction(javaObj);
     } catch(se) {
-        Serialize.logger.error("Exception in trying to create SparkObject.");
+        Serialize.logger.error("Exception in trying to create SparkObject: " + req);
         Serialize.logger.error(se);
     }
 

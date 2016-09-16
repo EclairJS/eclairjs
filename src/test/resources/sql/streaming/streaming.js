@@ -61,7 +61,7 @@ function streamingTest() {
         function (connection, value) {
             //var t = {"connection": connection, "value": value};
             result.push(value);
-            //print("JS process: " + JSON.stringify(t));
+            //print("JS process: " + JSON.stringify(value));
         },
         function (connection) {
             // close the connection
