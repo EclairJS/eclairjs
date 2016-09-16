@@ -19,15 +19,12 @@
  */
 
 function run(spark) {
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var LogisticRegression = require('eclairjs/ml/classification/LogisticRegression');
     var OneVsRest = require('eclairjs/ml/classification/OneVsRest');
     var MulticlassClassificationEvaluator = require('eclairjs/ml/evaluation/MulticlassClassificationEvaluator');
 
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
 
-    var inputdata = sqlContext.read().format("libsvm")
+    var inputdata = spark.read().format("libsvm")
         .load("examples/data/mllib/sample_multiclass_classification_data.txt");
 
     // Split the data into train and test

@@ -19,7 +19,6 @@
  */
 
 function run(spark) {
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var RowFactory = require('eclairjs/sql/RowFactory');
     var StructType = require("eclairjs/sql/types/StructType");
     var StructField = require("eclairjs/sql/types/StructField");
@@ -27,14 +26,11 @@ function run(spark) {
     var Metadata = require("eclairjs/sql/types/Metadata");
     var NGram = require("eclairjs/ml/feature/NGram");
 
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
-
-    var rdd = sc.parallelize([
+    var data = [
         RowFactory.create(0.0, ["Hi", "I", "heard", "about", "Spark"]),
         RowFactory.create(1.0, ["I", "wish", "Java", "could", "use", "case", "classes"]),
         RowFactory.create(2.0, ["Logistic", "regression", "models", "are", "neat"])
-    ]);
+    ];
 
     var schema = new StructType([
         new StructField("label", DataTypes.DoubleType, false, Metadata.empty()),
@@ -42,7 +38,7 @@ function run(spark) {
             "words", DataTypes.createArrayType(DataTypes.StringType), false, Metadata.empty())
     ]);
 
-    var wordDataFrame = sqlContext.createDataFrame(rdd, schema);
+    var wordDataFrame = spark.createDataFrame(data, schema);
 
     var ngramTransformer = new NGram().setInputCol("words").setOutputCol("ngrams");
 

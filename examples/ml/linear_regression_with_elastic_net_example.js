@@ -20,15 +20,12 @@
 
 
 function run(spark) {
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var LinearRegression = require("eclairjs/ml/regression/LinearRegression");
     var Vectors = require("eclairjs/mllib/linalg/Vectors");
 
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
 
     // Load training data
-    var training = sqlContext.read().format("libsvm")
+    var training = spark.read().format("libsvm")
         .load("examples/data/mllib/sample_linear_regression_data.txt");
 
     var lr = new LinearRegression()

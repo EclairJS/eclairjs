@@ -19,13 +19,10 @@
  */
 
 function run(spark) {
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var LinearRegression = require("eclairjs/ml/regression/LinearRegression");
     var ParamGridBuilder = require("eclairjs/ml/tuning/ParamGridBuilder");
     var TrainValidationSplit = require("eclairjs/ml/tuning/TrainValidationSplit");
     var RegressionEvaluator = require("eclairjs/ml/evaluation/RegressionEvaluator");
-
-    var sc = spark.sparkContext();
 
     var data = spark.read().format("libsvm")
         .load("examples/data/mllib/sample_linear_regression_data.txt");

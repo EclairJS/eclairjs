@@ -20,16 +20,12 @@
  */
 
 function run(spark) {
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var functions = require('eclairjs/sql/functions');
     var LogisticRegression = require("eclairjs/ml/classification/LogisticRegression");
     //var Vectors = require("eclairjs/mllib/linalg/Vectors");
 
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
-
     // Load training data
-    var training = sqlContext.read().format("libsvm")
+    var training = spark.read().format("libsvm")
         .load("examples/data/mllib/sample_libsvm_data.txt");
 
     var lr = new LogisticRegression()

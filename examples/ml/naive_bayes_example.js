@@ -19,15 +19,11 @@
  */
 
 function run(spark) {
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var NaiveBayes = require("eclairjs/ml/classification/NaiveBayes");
     var MulticlassClassificationEvaluator = require("eclairjs/ml/evaluation/MulticlassClassificationEvaluator");
 
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
-
     // Load training data
-    var dataFrame = sqlContext.read().format("libsvm").load("examples/data/mllib/sample_libsvm_data.txt");
+    var dataFrame = spark.read().format("libsvm").load("examples/data/mllib/sample_libsvm_data.txt");
     // Split the data into train and test
     var splits = dataFrame.randomSplit([0.6, 0.4], 1234);
     var train = splits[0];

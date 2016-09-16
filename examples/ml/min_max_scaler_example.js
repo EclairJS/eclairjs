@@ -19,13 +19,10 @@
  */
 
 function run(spark) {
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var MinMaxScaler = require("eclairjs/ml/feature/MinMaxScaler");
 
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
 
-    var dataFrame = sqlContext.read().format("libsvm").load("examples/data/mllib/sample_libsvm_data.txt");
+    var dataFrame = spark.read().format("libsvm").load("examples/data/mllib/sample_libsvm_data.txt");
     var scaler = new MinMaxScaler()
         .setInputCol("features")
         .setOutputCol("scaledFeatures");

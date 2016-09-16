@@ -19,13 +19,9 @@
  */
 
 function run(spark) {
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var Normalizer = require("eclairjs/ml/feature/Normalizer");
 
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
-
-    var dataFrame = sqlContext.read().format("libsvm").load("examples/data/mllib/sample_libsvm_data.txt");
+    var dataFrame = spark.read().format("libsvm").load("examples/data/mllib/sample_libsvm_data.txt");
 
     // Normalize each Vector using $L^1$ norm.
     var normalizer = new Normalizer()
