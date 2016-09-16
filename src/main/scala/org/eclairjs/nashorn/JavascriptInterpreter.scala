@@ -113,6 +113,26 @@ class JavascriptInterpreter() extends org.apache.toree.interpreter.Interpreter {
           .remove("streamingQueryManagerListener:"+commId)
     }
     /*
+   Comms for dataStreamWriterForeach
+    */
+    kernelImpl.comm.register("dataStreamWriterForeach").addOpenHandler {
+      (commWriter, commId, targetName, data) =>
+        System.out.println("got comm open for dataStreamWriterForeach")
+        System.out.println(data)
+
+        comm = new Comm(kernelImpl, commWriter)
+        engine.get("commMap")
+          .asInstanceOf[CommMap]
+          .put("dataStreamWriterForeach:"+commId, comm)
+    }
+    kernelImpl.comm.register("dataStreamWriterForeach").addCloseHandler {
+      (commWriter, commId, data: MsgData) =>
+        System.out.println("got  dataStreamWriterForeach close " + commId)
+        engine.get("commMap")
+          .asInstanceOf[CommMap]
+          .remove("dataStreamWriterForeach:"+commId)
+    }
+    /*
     Comms for logger
      */
     kernelImpl.comm.register("logger").addOpenHandler {

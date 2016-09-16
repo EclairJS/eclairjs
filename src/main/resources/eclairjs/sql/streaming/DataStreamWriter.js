@@ -147,16 +147,18 @@
      * @name module:eclairjs/sql/streaming.DataStreamWriter#foreach
      *
      * @example
-     * var query = counts.writeStream().foreach(function(partitionId, version, webSocket) {
+     * var query = counts.writeStream().foreach(function(partitionId, version) {
      *       // open connection
-     *      var connection = webSocket.open(....);
-     *      return connection;
-     *  },[webSocket],
-     *  function(connection, value) {
-     *     connection.send(value);
+     *      var socket = new java.net.Socket(serverAddress, port);
+     *      return socket;
+     *  },
+     *  function(socket, value) {
+     *     var out = new java.io.PrintWriter(socket.getOutputStream(), true);
+     *     out.print(JSON.stringify(value));
+     *     out.close();
      *   },
-     *  function(connection) {
-     *     connection.close();
+     *  function(socket) {
+     *     socket.close();
      *  }).start();
      *  
      *

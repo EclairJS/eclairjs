@@ -68,21 +68,7 @@ import java.util.zip.ZipOutputStream;
 
 public class Utils {
 
-    /*
-    public static Object javaToJs(Object o) {
-        if(o instanceof Tuple2) {
-            Tuple2 t = (Tuple2)o;
-            ArrayList l = new ArrayList();
-            l.add(t._1());
-            l.add(t._2());
-            return l.toArray();
-        } else
-            return o;
-    }
-    */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-
-      static  	Logger logger = Logger.getLogger(Utils.class);
+  static  	Logger logger = Logger.getLogger(Utils.class);
 
     public static Object javaToJs(Object o) {
         ScriptEngine engine = NashornEngineSingleton.getEngine();
@@ -272,133 +258,6 @@ public class Utils {
        // return o;
     }
 
-//	 public static Object javaToJs(Object o, ScriptEngine engine) {
-//    	Logger logger = Logger.getLogger(Utils.class);
-//    	String packageName = null;
-// 		if(o != null) {
-//			logger.debug("javaToJs className " + o.getClass().getName());
-//			Package pack = o.getClass().getPackage();
-//			if (pack != null) {
-//	    		packageName = pack.getName();
-//	    	}
-//		}
-// 		/*
-// 		 * Any object that belongs to Spark we will wrapper it with a JavaScript object
-// 		 * If we don't have a JavaScript wrapper for it then we will catch the
-// 		 * exception and just use the wrapObject method.
-// 		 */
-//		if ((packageName != null) && (packageName.indexOf("org.apache.spark") > -1)) {
-//			logger.debug("spark object");
-//			String className = o.getClass().getSimpleName();
-//    		try {
-// 	  			Invocable invocable = (Invocable) engine;
-// 	  			if (className.endsWith("$")) {
-// 	  				//anonymous class
-// 	  				logger.debug("getSuperClass for " + className);
-// 	  				className = o.getClass().getSuperclass().getSimpleName();
-// 	  			}
-// 	  			if ( className.equals("JavaRDD")) {
-// 	  				 /*
-// 	  				 * Map JavaRDD to RDD for JavaScript
-// 	  				 /*
-// 	  				className = "RDD"; //o.getClass().getSimpleName();
-// 	  			} else if ( className.equals("JavaDoubleRDD")) {
-// 	  				 /*
-// 	  				 * Map JavaDoubleRDD to FloatRDD for JavaScript
-// 	  				 */
-//                    className = "FloatRDD"; //o.getClass().getSimpleName();
-//                } else if ( className.equals("JavaPairRDD")) {
-// 	  				 /*
-// 	  				 * Map JavaPairRDD to PairRDD for JavaScript
-// 	  				 */
-//                    className = "PairRDD"; //o.getClass().getSimpleName();
-//                } else if (className.equals("Word2Vec") || className.equals("Word2VecModel")) {
-//					if (packageName.indexOf("org.apache.spark.ml") > -1) {
-//						/*
-//							ML
-//						 */
-//						className = "ML" + o.getClass().getSimpleName();
-//					}
-//
-//				}
-// 	  			logger.debug("create " + className);
-//	  			Object params[] = {className, o};
-//	  			Object parm = invocable.invokeFunction("createJavaWrapperObject", params);
-//	  			logger.debug(parm);
-//	  			return parm;
-//  			} catch (Exception e) {
-//    			logger.warn(className + " convertion error, will just wrapObject " + e);
-//    			logger.debug(className + " javaToJs instanceof  " + o.getClass());
-//    			return wrapObject(o);
-//    		}
-//
-//    	} else if(o == null) {
-//			return o;
-//    	} else if ((o instanceof Product) && (o.getClass().getName().indexOf("scala.Tuple") > -1))  {
-//            Product t = (Product)o;
-//			logger.info("Tuple3 - " + t.toString());
-//            Invocable invocable = (Invocable) engine;
-//			Object params[] = {"Tuple", o};
-//
-//            try {
-//                Object parm = invocable.invokeFunction("createJavaWrapperObject", params);
-//                logger.debug("Tuple3= " + parm.toString());
-//                return parm;
-//            } catch  (ScriptException | NoSuchMethodException e) {
-//                logger.error(" Tuple conversion " + e);
-//            }
-//            return null;
-//
-//		} else if (o instanceof IteratorWrapper) {
-//            logger.debug("Iterator " + o.toString());
-//        	ArrayList alist = new ArrayList();
-//        	while(((IteratorWrapper) o).hasMoreElements()) {
-//        		alist.add(javaToJs(((IteratorWrapper) o).nextElement(),engine));
-//        	}
-//        	return wrapObject(alist);
-//        } else if (o instanceof IterableWrapper) {
-//            logger.debug("Iterable " + o.toString());
-//            ArrayList alist = new ArrayList();
-//            Iterator iter=((IterableWrapper) o).iterator();
-//            while(iter.hasNext()) {
-//                alist.add(javaToJs(iter.next(),engine));
-//            }
-//            return wrapObject(alist);
-//        } else if (o.getClass().isArray()) {
-//			Object[] arr = (Object[])o;
-//			logger.debug("Array " + o.toString());
-//			ArrayList alist = new ArrayList();
-//			for(int i=0; i<arr.length; i++) {
-//				alist.add(javaToJs(arr[i], engine));
-//			}
-//			Object er = null;
-//			try {
-//				Object params[] = {alist};
-//				er = ((Invocable)engine).invokeFunction("createJavaScriptArray", params);
-//			} catch (ScriptException | NoSuchMethodException e) {
-//				logger.error(" Array conversion " + e);
-//			}
-//
-//			return er;
-//			//return wrapObject(alist);
-//		} else if (o instanceof JSONObject) {
-//        	Object er = null;
-//        	try {
-//        		logger.debug("JSONObject " + o.toString());
-//				Invocable invocable = (Invocable) engine;
-//				 Object params[] = {o.toString()};
-//				 er  = invocable.invokeFunction("convertJavaJSONObject",params);
-//			} catch (ScriptException | NoSuchMethodException e) {
-//				logger.error(" JSONObject convertion " + e);
-//			}
-//        	return er;
-//        } else {
-//        	logger.debug(" jsToJava wrapObject " + o);
-//            return wrapObject(o);
-//        }
-//
-//
-//    }
 
      public static Object jsToJava(Object o) {
 		if(o != null && !(o instanceof Undefined )) {
@@ -494,59 +353,15 @@ public class Utils {
                 list.set(i,jsToJava(list.get(i)));
             return list;
         }
-        else if (o instanceof StaticClass)
+        else if (o instanceof StaticClass) {
             return o;
-         new RuntimeException().printStackTrace();
-         throw new RuntimeException("js2java NOT HANDLED "+packageName);
-//        else if (o instanceof IteratorWrapper) {
-//			ArrayList alist = new ArrayList();
-//			while(((IteratorWrapper) o).hasMoreElements()) {
-//				alist.add(jsToJava(((IteratorWrapper) o).nextElement()));
-//			}
-//			 return alist;
-//		} else if (o instanceof IterableWrapper) {
-//			ArrayList alist = new ArrayList();
-//			Iterator iter=((IterableWrapper) o).iterator();
-//			while(iter.hasNext()) {
-//				alist.add(jsToJava(iter.next()));
-//			}
-//			return alist;
-//		} else if(o.getClass().isArray()) {
-//			Object[] arr = (Object[])o;
-//
-//			for(int i=0; i<arr.length; i++) {
-//				Object item = arr[i];
-//				arr[i] = jsToJava(item);
-//			}
-//
-//			return arr;
-//    	} else if(o instanceof JSObject) {
-//            Object obj = ScriptObjectMirror.wrapAsJSONCompatible(o, null);
-//            String j = JSONValue.toJSONString(obj);
-//            return JSONValue.parse(j);
-//        }
-//
-//        return o;
+        }
+         logger.warn("js2java NOT HANDLED "+packageName);
+         return o; // Just return the Java object, it might user created like java.net.Socket
+         //new RuntimeException().printStackTrace();
+         //throw new RuntimeException("js2java NOT HANDLED "+packageName);
+
     }
-
-   /* public static String getUniqeFunctionName() {
-        return "EXPORTEDFUNCTION" + java.util.UUID.randomUUID().toString().replace("-", "_");
-    }*/
-
-    /*public static ScriptEngine addScopeVarsToEngine(HashMap scopeVars, ScriptEngine engine) {
-
-    	Logger logger = Logger.getLogger(Utils.class);
-    	logger.debug("addScopeVarsToEngine");
-    	if (scopeVars != null) {
-        	Iterator it = scopeVars.entrySet().iterator();
-            while (it.hasNext()) {
-                Map.Entry pair = (Map.Entry)it.next();
-                logger.debug("adding " + pair.getKey() + " value " + pair.getValue());
-                engine.put((String)pair.getKey(), pair.getValue());
-            }
-    	}
-    	return engine;
-    }*/
 
     private static Object wrapObject(Object o) {
     	Logger logger = Logger.getLogger(Utils.class);
