@@ -21,16 +21,12 @@
 function run(spark) {
 
 
-    var SQLContext = require('eclairjs/sql/SQLContext');
-
     var LabeledPoint = require('eclairjs/mllib/regression/LabeledPoint');
     var Vectors = require('eclairjs/mllib/linalg/Vectors');
     var LogisticRegression = require('eclairjs/ml/classification/LogisticRegression');
     var ParamMap = require('eclairjs/ml/param/ParamMap');
     var VectorUDT = require('eclairjs/mllib/linalg/VectorUDT');
 
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
 
     // Prepare training data.
     // We use LabeledPoint, which is a JavaBean.  Spark SQL can convert RDDs of JavaBeans
@@ -40,7 +36,7 @@ function run(spark) {
       new LabeledPoint(0.0, Vectors.dense(2.0, 1.0, -1.0)),
       new LabeledPoint(0.0, Vectors.dense(2.0, 1.3, 1.0)),
       new LabeledPoint(1.0, Vectors.dense(0.0, 1.2, -0.5))];
-    var training = sqlContext.createDataFrameFromJson(sc.parallelize(localTraining), {
+    var training = spark.createDataFrameFromJson(localTraining, {
       "label" : "Double",
       "features" : new VectorUDT()
     });
@@ -84,7 +80,7 @@ function run(spark) {
         new LabeledPoint(1.0, Vectors.dense(-1.0, 1.5, 1.3)),
         new LabeledPoint(0.0, Vectors.dense(3.0, 2.0, -0.1)),
         new LabeledPoint(1.0, Vectors.dense(0.0, 2.2, -1.5))];
-    var test = sqlContext.createDataFrameFromJson(sc.parallelize(localTest), {
+    var test = spark.createDataFrameFromJson(localTest, {
       "label" : "Double",
       "features" : new VectorUDT()
     });

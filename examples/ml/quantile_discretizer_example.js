@@ -19,7 +19,6 @@
  */
 
 function run(spark) {
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var RowFactory = require('eclairjs/sql/RowFactory');
     var StructType = require("eclairjs/sql/types/StructType");
     var StructField = require("eclairjs/sql/types/StructField");
@@ -30,24 +29,24 @@ function run(spark) {
     var VectorUDT = require("eclairjs/mllib/linalg/VectorUDT");
     var QuantileDiscretizer = require("eclairjs/ml/feature/QuantileDiscretizer");
 
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
-
-    var rdd = sc.parallelize([
+    var data = [
             RowFactory.create(0, 18.0),
             RowFactory.create(1, 19.0),
             RowFactory.create(2, 8.0),
             RowFactory.create(3, 5.0),
             RowFactory.create(4, 2.2)
-        ]
-    );
+        ];
 
     var schema = new StructType([
         new StructField("id", DataTypes.IntegerType, false, Metadata.empty()),
         new StructField("hour", DataTypes.DoubleType, false, Metadata.empty())
     ]);
 
-    var df = sqlContext.createDataFrame(rdd, schema);
+    var df = spark.createDataFrame(data, schema);
+    // Output of QuantileDiscretizer for such small datasets can depend on the number of
+    // partitions. Here we force a single partition to ensure consistent results.
+    // Note this is not necessary for normal use cases
+    df = df.repartition(1);
 
     var discretizer = new QuantileDiscretizer()
         .setInputCol("hour")

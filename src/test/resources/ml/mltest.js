@@ -449,6 +449,18 @@ var RFormulaExample = function() {
     }
 }
 
+var SimpleParamsExample = function() {
+
+    load("examples/ml/simple_params_example.js");
+    var result = run(sparkSession);
+    var str = JSON.stringify(result)
+    if (str) {
+        return "passed";
+    } else {
+        return "failed";
+    }
+}
+
 var vectorsDense = function() {
     var Vectors = require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Vectors');
     var v = Vectors.dense(1.0, 2.0);

@@ -19,7 +19,6 @@
  */
 
 function run(spark) {
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var RowFactory = require('eclairjs/sql/RowFactory');
     var StructType = require("eclairjs/sql/types/StructType");
     var StructField = require("eclairjs/sql/types/StructField");
@@ -29,25 +28,22 @@ function run(spark) {
     var Vectors = require("eclairjs/ml/linalg/Vectors");
     var VectorUDT = require("eclairjs/ml/linalg/VectorUDT");
 
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
-
     var polyExpansion = new PolynomialExpansion()
         .setInputCol("features")
         .setOutputCol("polyFeatures")
         .setDegree(3);
 
-    var data = sc.parallelize([
+    var data = [
         RowFactory.create(Vectors.dense(-2.0, 2.3)),
         RowFactory.create(Vectors.dense(0.0, 0.0)),
         RowFactory.create(Vectors.dense(0.6, -1.1))
-    ]);
+    ];
 
     var schema = new StructType([
         new StructField("features", new VectorUDT(), false, Metadata.empty())
     ]);
 
-    var df = sqlContext.createDataFrame(data, schema);
+    var df = spark.createDataFrame(data, schema);
     var polyDF = polyExpansion.transform(df);
 
     return polyDF.select("polyFeatures").take(3);

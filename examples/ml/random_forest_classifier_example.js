@@ -19,7 +19,6 @@
  */
 
 function run(spark) {
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var StringIndexer = require("eclairjs/ml/feature/StringIndexer");
     var VectorIndexer = require("eclairjs/ml/feature/VectorIndexer");
     var IndexToString = require("eclairjs/ml/feature/IndexToString");
@@ -27,11 +26,9 @@ function run(spark) {
     var MulticlassClassificationEvaluator = require("eclairjs/ml/evaluation/MulticlassClassificationEvaluator");
     var Pipeline = require("eclairjs/ml/Pipeline");
 
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
 
     var data =
-        sqlContext.read().format("libsvm").load("examples/data/mllib/sample_libsvm_data.txt");
+        spark.read().format("libsvm").load("examples/data/mllib/sample_libsvm_data.txt");
 
     // Index labels, adding metadata to the label column.
     // Fit on whole dataset to include all labels in index.

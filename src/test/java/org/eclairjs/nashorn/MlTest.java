@@ -1154,6 +1154,20 @@ public class MlTest {
         assertEquals("failure - strings are not equal", expected, ret);
     }
 
+
+//  JAVA EXAMPLE DOES NOT WORK
+//    @Test
+//    public void SimpleParamsExample() throws Exception {
+//        ScriptEngine engine = TestUtils.getEngine();
+//
+//        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+//        Object ret = ((Invocable)engine).invokeFunction("SimpleParamsExample");
+//
+//        String expected = "passed";
+//
+//        assertEquals("failure - strings are not equal", expected, ret);
+//    }
+
     @Test
     public void vectorsDense() throws Exception {
         ScriptEngine engine = TestUtils.getEngine();
