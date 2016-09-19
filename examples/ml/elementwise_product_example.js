@@ -29,10 +29,10 @@ function run(spark) {
     var ElementwiseProduct = require('eclairjs/ml/feature/ElementwiseProduct');
 
     // Create some vector data; also works for sparse vectors
-    var rdd = spark.sparkContext().parallelize([
+    var data = [
         RowFactory.create(["a", Vectors.dense([1.0, 2.0, 3.0])]),
         RowFactory.create(["b", Vectors.dense([4.0, 5.0, 6.0])])
-    ]);
+    ];
 
     var fields = [
         DataTypes.createStructField("id", DataTypes.StringType, false),
@@ -41,7 +41,7 @@ function run(spark) {
 
     var schema = DataTypes.createStructType(fields);
 
-    var dataFrame = spark.createDataFrame(rdd, schema);
+    var dataFrame = spark.createDataFrame(data, schema);
 
     var transformingVector = Vectors.dense([0.0, 1.0, 2.0]);
 

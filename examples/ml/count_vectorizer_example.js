@@ -34,14 +34,14 @@ function run(spark) {
     var VectorUDT = require('eclairjs/mllib/linalg/VectorUDT');
 
     // Input data: Each row is a bag of words from a sentence or document.
-    var rdd = spark.sparkContext().parallelize([
+    var data = [
         RowFactory.create([["a", "b", "c"]]),
         RowFactory.create([["a", "b", "b", "c", "a"]])
-    ]);
+    ];
     var schema = new StructType([
         new StructField("text", new ArrayType(DataTypes.StringType, true), false, Metadata.empty())
     ]);
-    var df = spark.createDataFrame(rdd, schema);
+    var df = spark.createDataFrame(data, schema);
 
     // fit a CountVectorizerModel from the corpus
     var cvModel = new CountVectorizer()

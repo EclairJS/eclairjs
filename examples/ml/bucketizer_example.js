@@ -31,12 +31,12 @@ function run(spark) {
 
     var splits = [Number.NEGATIVE_INFINITY, -0.5, 0.0, 0.5, Number.POSITIVE_INFINITY];
 
-    var data = spark.sparkContext().parallelize([
+    var data = [
         RowFactory.create([-0.5]),
         RowFactory.create([-0.3]),
         RowFactory.create([0.0]),
         RowFactory.create([0.2])
-    ]);
+    ];
     var schema = new StructType([
         new StructField("features", DataTypes.DoubleType, false, Metadata.empty())
     ]);

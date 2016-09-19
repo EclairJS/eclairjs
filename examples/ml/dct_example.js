@@ -32,11 +32,11 @@ function run(spark) {
     var Vectors = require('eclairjs/ml/linalg/Vectors');
     var VectorUDT = require('eclairjs/ml/linalg/VectorUDT');
 
-    var  data = spark.sparkContext().parallelize([
+    var  data = [
         RowFactory.create([Vectors.dense([0.0, 1.0, -2.0, 3.0])]),
         RowFactory.create([Vectors.dense([-1.0, 2.0, 4.0, -7.0])]),
         RowFactory.create([Vectors.dense([14.0, -2.0, -5.0, 1.0])])
-    ]);
+    ];
     var schema = new StructType([
         new StructField("features", new VectorUDT(), false, Metadata.empty())
     ]);
