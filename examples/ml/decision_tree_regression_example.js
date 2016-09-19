@@ -23,16 +23,13 @@
 
 function run(spark) {
 
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var VectorIndexer = require('eclairjs/ml/feature/VectorIndexer');
     var DecisionTreeRegressor = require('eclairjs/ml/regression/DecisionTreeRegressor');
     var RegressionEvaluator = require('eclairjs/ml/evaluation/RegressionEvaluator');
     var Pipeline = require('eclairjs/ml/Pipeline');
 
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
     // Load the data stored in LIBSVM format as a DataFrame.
-    var data = sqlContext.read().format("libsvm")
+    var data = spark.read().format("libsvm")
         .load("examples/data/mllib/sample_libsvm_data.txt");
 
     // Automatically identify categorical features, and index them.
@@ -79,7 +76,7 @@ function run(spark) {
 }
 
 /*
- check if SparkContext is defined, if it is we are being run from Unit Test
+ check if SparkSession is defined, if it is we are being run from Unit Test
  */
 
 if (typeof sparkSession === 'undefined') {
