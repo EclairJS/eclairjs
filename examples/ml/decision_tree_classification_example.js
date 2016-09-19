@@ -22,7 +22,6 @@
 
 function run(spark) {
 
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var StringIndexer = require('eclairjs/ml/feature/StringIndexer');
     var IndexToString = require('eclairjs/ml/feature/IndexToString');
     var VectorIndexer = require('eclairjs/ml/feature/VectorIndexer');
@@ -30,10 +29,8 @@ function run(spark) {
     var MulticlassClassificationEvaluator = require('eclairjs/ml/evaluation/MulticlassClassificationEvaluator');
     var Pipeline = require('eclairjs/ml/Pipeline');
 
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
     // Load the data stored in LIBSVM format as a DataFrame.
-    var data = sqlContext
+    var data = spark
         .read()
         .format("libsvm")
         .load("examples/data/mllib/sample_libsvm_data.txt");

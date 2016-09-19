@@ -22,7 +22,6 @@
 
 function run(spark) {
 
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var DataTypes = require('eclairjs/sql/types/DataTypes');
     var ArrayType = require('eclairjs/sql/types/ArrayType');
     var StructField = require('eclairjs/sql/types/StructField');
@@ -34,18 +33,15 @@ function run(spark) {
     var Vectors = require('eclairjs/mllib/linalg/Vectors');
     var VectorUDT = require('eclairjs/mllib/linalg/VectorUDT');
 
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
-
     // Input data: Each row is a bag of words from a sentence or document.
-    var rdd = sc.parallelize([
+    var rdd = spark.sparkContext().parallelize([
         RowFactory.create([["a", "b", "c"]]),
         RowFactory.create([["a", "b", "b", "c", "a"]])
     ]);
     var schema = new StructType([
         new StructField("text", new ArrayType(DataTypes.StringType, true), false, Metadata.empty())
     ]);
-    var df = sqlContext.createDataFrame(rdd, schema);
+    var df = spark.createDataFrame(rdd, schema);
 
     // fit a CountVectorizerModel from the corpus
     var cvModel = new CountVectorizer()
