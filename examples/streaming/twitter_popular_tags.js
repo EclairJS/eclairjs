@@ -39,7 +39,7 @@ var TwitterAuthorization = require('eclairjs/streaming/twitter/TwitterAuthorizat
 var TwitterUtils = require('eclairjs/streaming/twitter/TwitterUtils');
 var Duration = require('eclairjs/streaming/Duration');
 var StreamingContext = require('eclairjs/streaming/StreamingContext');
-var Tuple = require('eclairjs/Tuple');
+var Tuple2 = require('eclairjs/Tuple2');
 var SparkConf = require(EclairJS_Globals.NAMESPACE + '/SparkConf');
 
 if ((typeof args == "undefined")||args.length<5)
@@ -54,7 +54,7 @@ if ((typeof args == "undefined")||args.length<5)
     var conf = new SparkConf().setAppName("Javascript Twitter Popular Tags");
     var jssc = new StreamingContext(conf, new Duration(2000));
 
-    var filters = (args.length>5)? args[5] : [];
+    var filters = (args.length>5)? Java.from(args).slice(5) : [];
 
 
     var auth=new TwitterAuthorization(args[1],args[2],args[3],args[4]);
@@ -66,26 +66,26 @@ if ((typeof args == "undefined")||args.length<5)
       return s.startsWith("#");
      });
 
-    var topCounts60 = hashTags.mapToPair(function(s, Tuple){
-        return new Tuple(s,1.0);
-    }, [Tuple]).reduceByKeyAndWindow(function(i1,i2){
+    var topCounts60 = hashTags.mapToPair(function(s, Tuple2){
+        return new Tuple2(s,1.0);
+    }, [Tuple2]).reduceByKeyAndWindow(function(i1,i2){
       return i1+i2;
     }, new Duration(60000))
-    .mapToPair(function(tuple, Tuple){
-      return new Tuple(tuple[1],tuple[0]);
-    }, [Tuple]).transformToPair(function (rdd) {
+    .mapToPair(function(tuple, Tuple2){
+      return new Tuple2(tuple._2(),tuple._1());
+    }, [Tuple2]).transformToPair(function (rdd) {
       return rdd.sortByKey(false);
      });
 
 
-    var topCounts10 = hashTags.mapToPair(function(s, Tuple){
-        return new Tuple(s,1.0);
-    }, [Tuple]).reduceByKeyAndWindow(function(i1,i2){
+    var topCounts10 = hashTags.mapToPair(function(s, Tuple2){
+        return new Tuple2(s,1.0);
+    }, [Tuple2]).reduceByKeyAndWindow(function(i1,i2){
       return i1+i2;
     }, new Duration(10000))
-    .mapToPair(function(tuple, Tuple){
-      return new Tuple(tuple[1],tuple[0]);
-    }, [Tuple]).transformToPair(function (rdd) {
+    .mapToPair(function(tuple, Tuple2){
+      return new Tuple2(tuple._2(),tuple._1());
+    }, [Tuple2]).transformToPair(function (rdd) {
       return rdd.sortByKey(false);
      });
 
@@ -96,7 +96,7 @@ if ((typeof args == "undefined")||args.length<5)
       print("\nPopular topics in last 60 seconds ("+rdd.count()+" total):");
       for(var i=0;i<topList.length;i++) {
         var tuple=topList[i];
-        print(tuple[1]+" ("+tuple[0]+" tweets)");
+        print(tuple._2()+" ("+tuple._1()+" tweets)");
       }
     });
 
@@ -106,7 +106,7 @@ if ((typeof args == "undefined")||args.length<5)
       print("\nPopular topics in last 10 seconds ("+rdd.count()+" total):");
       for(var i=0;i<topList.length;i++) {
         var tuple=topList[i];
-        print(tuple[1]+" ("+tuple[0]+" tweets)");
+        print(tuple._2()+" ("+tuple._1()+" tweets)");
       }
     });
 
