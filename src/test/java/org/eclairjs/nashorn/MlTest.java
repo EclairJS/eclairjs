@@ -1057,17 +1057,6 @@ public class MlTest {
     }
 
     @Test
-    public void trainValidationSplitExample() throws Exception {
-        ScriptEngine engine = TestUtils.getEngine();
-
-        TestUtils.evalJSResource(engine, "/ml/mltest.js");
-        Object ret = ((Invocable)engine).invokeFunction("trainValidationSplitExample");
-
-        String expected = "FIXME this example is not complete";
-        assertEquals("failure - strings are not equal", expected, ret);
-    }
-
-    @Test
     public void vectorAssemblerExample() throws Exception {
         ScriptEngine engine = TestUtils.getEngine();
 

@@ -459,15 +459,6 @@ var tokenizerExample = function() {
 
 }
 
-var trainValidationSplitExample = function() {
-
-    load("examples/ml/train_validation_split_example.js");
-    var result = run(sparkContext);
-    var str = JSON.stringify(result);
-    return str;
-
-}
-
 var vectorAssemblerExample = function() {
 
     load("examples/ml/vector_assembler_example.js");
