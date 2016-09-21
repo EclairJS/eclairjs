@@ -1074,7 +1074,7 @@ public class MlTest {
         TestUtils.evalJSResource(engine, "/ml/mltest.js");
         Object ret = ((Invocable)engine).invokeFunction("vectorIndexerExample");
 
-        String expected = "FIXME this example is not complete";
+        String expected = "passed";
         assertEquals("failure - strings are not equal", expected, ret);
     }
 
