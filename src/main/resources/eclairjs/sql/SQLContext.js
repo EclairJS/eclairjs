@@ -290,9 +290,10 @@
            {
              var value;
              var name=fieldNames[i];
-             if (obj.hasOwnProperty(name))
+             var value = obj[name]
+//             if (typeof value != "undefined")
+             if (value !=null && typeof value != "undefined")
              {
-                 var value = obj[name]
                  //   if it is getter function, call to get value
                  if (typeof value == "function")
                  {
@@ -307,7 +308,7 @@
                  //   if it is getter function, call to get value
                  if (typeof value == "function")
                  {
-                   value=value.apply(obj);
+                   value=obj[name]();
                  }
              }
              values.push(value);
