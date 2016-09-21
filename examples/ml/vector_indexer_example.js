@@ -36,22 +36,8 @@ function run(sc) {
       .setMaxCategories(10);
     var indexerModel = indexer.fit(data);
 
-    var categoryMaps = indexerModel.categoryMaps();
-
-    var str="Chose " + categoryMaps.size() + " categorical features:";
-
-    for (var feature in categoryMaps) {
-      str += " " + feature;
-    }
-    print(str);
-
     // Create new column "indexed" with categorical values transformed to indices
     var indexedData = indexerModel.transform(data);
-    indexedData.show(20,true);
-
-
-
-
     return indexedData;
 
 }
@@ -66,7 +52,7 @@ if (typeof sparkContext === 'undefined')  {
     var sparkConf = new SparkConf().setAppName("JavaScript VectorIndexerExample");
     var sc = new SparkContext(sparkConf);
     var result = run(sc);
+    result.show(20,true);
 
-    // $example off$
     sc.stop();
 }

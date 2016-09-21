@@ -1052,18 +1052,7 @@ public class MlTest {
         TestUtils.evalJSResource(engine, "/ml/mltest.js");
         Object ret = ((Invocable)engine).invokeFunction("tokenizerExample");
 
-        String expected = "FIXME this example is not complete";
-        assertEquals("failure - strings are not equal", expected, ret);
-    }
-
-    @Test
-    public void trainValidationSplitExample() throws Exception {
-        ScriptEngine engine = TestUtils.getEngine();
-
-        TestUtils.evalJSResource(engine, "/ml/mltest.js");
-        Object ret = ((Invocable)engine).invokeFunction("trainValidationSplitExample");
-
-        String expected = "FIXME this example is not complete";
+        String expected = "{\"tokenizedResult\":[{\"values\":[\"Hi I heard about Spark\",[\"hi\",\"i\",\"heard\",\"about\",\"spark\"],5],\"schema\":{\"fields\":[{\"name\":\"sentence\",\"dataType\":\"string\",\"nullable\":false},{\"name\":\"words\",\"dataType\":\"array<string>\",\"nullable\":true},{\"name\":\"tokens\",\"dataType\":\"integer\",\"nullable\":true}]}},{\"values\":[\"I wish Java could use case classes\",[\"i\",\"wish\",\"java\",\"could\",\"use\",\"case\",\"classes\"],7],\"schema\":{\"fields\":[{\"name\":\"sentence\",\"dataType\":\"string\",\"nullable\":false},{\"name\":\"words\",\"dataType\":\"array<string>\",\"nullable\":true},{\"name\":\"tokens\",\"dataType\":\"integer\",\"nullable\":true}]}},{\"values\":[\"Logistic,regression,models,are,neat\",[\"logistic,regression,models,are,neat\"],1],\"schema\":{\"fields\":[{\"name\":\"sentence\",\"dataType\":\"string\",\"nullable\":false},{\"name\":\"words\",\"dataType\":\"array<string>\",\"nullable\":true},{\"name\":\"tokens\",\"dataType\":\"integer\",\"nullable\":true}]}}],\"regexTokenizedResult\":[{\"values\":[\"Hi I heard about Spark\",[\"hi\",\"i\",\"heard\",\"about\",\"spark\"],5],\"schema\":{\"fields\":[{\"name\":\"sentence\",\"dataType\":\"string\",\"nullable\":false},{\"name\":\"words\",\"dataType\":\"array<string>\",\"nullable\":true},{\"name\":\"tokens\",\"dataType\":\"integer\",\"nullable\":true}]}},{\"values\":[\"I wish Java could use case classes\",[\"i\",\"wish\",\"java\",\"could\",\"use\",\"case\",\"classes\"],7],\"schema\":{\"fields\":[{\"name\":\"sentence\",\"dataType\":\"string\",\"nullable\":false},{\"name\":\"words\",\"dataType\":\"array<string>\",\"nullable\":true},{\"name\":\"tokens\",\"dataType\":\"integer\",\"nullable\":true}]}},{\"values\":[\"Logistic,regression,models,are,neat\",[\"logistic\",\"regression\",\"models\",\"are\",\"neat\"],5],\"schema\":{\"fields\":[{\"name\":\"sentence\",\"dataType\":\"string\",\"nullable\":false},{\"name\":\"words\",\"dataType\":\"array<string>\",\"nullable\":true},{\"name\":\"tokens\",\"dataType\":\"integer\",\"nullable\":true}]}}]}";
         assertEquals("failure - strings are not equal", expected, ret);
     }
 
@@ -1085,7 +1074,7 @@ public class MlTest {
         TestUtils.evalJSResource(engine, "/ml/mltest.js");
         Object ret = ((Invocable)engine).invokeFunction("vectorIndexerExample");
 
-        String expected = "FIXME this example is not complete";
+        String expected = "passed";
         assertEquals("failure - strings are not equal", expected, ret);
     }
 
