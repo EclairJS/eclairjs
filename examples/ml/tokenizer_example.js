@@ -29,6 +29,7 @@ function run(sc) {
     var DataTypes = require('eclairjs/sql/types').DataTypes;
     var Tokenizer = require('eclairjs/ml/feature/Tokenizer');
     var RegexTokenizer = require('eclairjs/ml/feature/RegexTokenizer');
+    var functions = require('eclairjs/sql/functions');
 
     var sqlContext = new SQLContext(sc);
 
@@ -47,17 +48,27 @@ function run(sc) {
 
     var tokenizer = new Tokenizer().setInputCol("sentence").setOutputCol("words");
 
-    var wordsDataFrame = tokenizer.transform(sentenceDataFrame);
-
-    var wordList=wordsDataFrame.select("words", "label"). take(3);
-
     var regexTokenizer = new RegexTokenizer()
       .setInputCol("sentence")
       .setOutputCol("words")
       .setPattern("\\W");  // alternatively .setPattern("\\w+").setGaps(false);
 
+    sqlContext.udf().register("countTokens", function(words){
+        return words.length;
+    }, DataTypes.IntegerType);
 
-    return wordList;
+    var tokenized = tokenizer.transform(sentenceDataFrame);
+    var tokenizedResult = tokenized.select("sentence", "words")
+        .withColumn("tokens", functions.callUDF("countTokens", functions.col("words")));
+
+    var regexTokenized = regexTokenizer.transform(sentenceDataFrame);
+    var regexTokenizedResult = regexTokenized.select("sentence", "words")
+        .withColumn("tokens", functions.callUDF("countTokens", functions.col("words")));
+
+    return {
+                "tokenizedResult": tokenizedResult,
+                "regexTokenizedResult": regexTokenizedResult
+            };
 
 }
 
@@ -70,15 +81,9 @@ if (typeof sparkContext === 'undefined')  {
     var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("JavaScript TokenizerExample");
     var sc = new SparkContext(sparkConf);
-    var wordList = run(sc);
-    var output="";
-    for (var i=0;i<wordList.length;i++) {
-        var words = wordList[i].getList(0);
-        words = words.concat(['cccc', 'yyy']);
-        for (var inx=0;inx<words.length;inx++) output+=words[inx] + " ";
-        output+="\n";
-    }
-    print(output);
+    var results = run(sc);
+    results.tokenizedResult.show(false);
+    results.regexTokenizedResult.show(false);
 
     sc.stop();
 }
