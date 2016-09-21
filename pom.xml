@@ -266,7 +266,10 @@
       <artifactId>spark-streaming-twitter_2.10</artifactId>
       <version>${spark.version}</version>
     </dependency>
--->
+--><dependency>
+      <groupId>org.apache.bahir</groupId>
+      <artifactId>spark-streaming-twitter_2.11</artifactId>
+      <version>2.0.0-preview</version></dependency>
     <dependency>
       <!-- needed to support OpenStack Object Store swift:// -->
       <groupId>org.apache.hadoop</groupId>

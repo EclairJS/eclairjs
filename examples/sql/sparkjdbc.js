@@ -18,23 +18,30 @@
  * The example requires a mySQL database "eclairjstesting" with a people table
  * the JDBC drivers must be added to the java class path
  * 
- * Note to run this example you must include the JDBC jar file in the SPARK_CLASSPATH 
- * as described https://spark.apache.org/docs/latest/sql-programming-guide.html#jdbc-to-other-databases
+ * Note to run this example you must include the JDBC driver class must be visible to the primordial class loader
+ * on the client session and on all executors. This is because Java’s DriverManager class does a security check
+ * that results in it ignoring all drivers not visible to the primordial class loader when one goes to open a connection.
+ * as described https://spark.apache.org/docs/latest/sql-programming-guide.html#jdbc-to-other-databases and http://stackoverflow.com/questions/29552799/spark-unable-to-find-jdbc-driver
  * Another option is to include the --driver-class-path option on the command line for example:
- * <path to EclairJS>/bin/eclairjs.sh  --jars <path to JDBC jar file> --driver-class-path <path to JDBC jar file> <path to EclairJS>/examples/sql/sparkjdbc.js
+ * <path to EclairJS>/bin/eclairjs.sh  --conf spark.executor.extraClassPath= <path to JDBC jar file> --driver-class-path <path to JDBC jar file> <path to EclairJS>/examples/sql/sparkjdbc.js
  */
 var SparkConf = require('eclairjs/SparkConf');
 var SparkContext = require('eclairjs/SparkContext');
 var SQLContext = require('eclairjs/sql/SQLContext');
-var sparkContext = new SparkContext("local[*]", "dataframe");
-var sqlContext = new SQLContext(sparkContext);
+
+var SparkSession = require('eclairjs/sql/SparkSession');
+var spark = SparkSession
+    .builder()
+    .appName("JavaScript Spark JDBC Example")
+    .getOrCreate();
+
 var url="jdbc:mysql://localhost:3306/eclairjstesting";
 var prop = {};
 prop["user"] = "root";
 prop["password"] = "eclairjstestPW";
-var peopleDF = sqlContext.read().jdbc(url, "people", prop);
+var peopleDF = spark.read().jdbc(url, "people", prop);
 peopleDF.show();
-var peopleDF = sqlContext.read().jdbc(url, "people", ["age > 20"], prop);
+var peopleDF = spark.read().jdbc(url, "people", ["age > 20"], prop);
 peopleDF.show();
 var writer = peopleDF.write();
 try {

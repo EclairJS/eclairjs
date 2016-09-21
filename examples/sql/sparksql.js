@@ -29,7 +29,7 @@ var jsonFile = ((typeof args !== "undefined") && (args.length > 2)) ? args[2] :"
 
 var spark = SparkSession
       .builder()
-      .appName("Java Spark SQL Example")
+      .appName("JavaScript Spark SQL Example")
       .config("spark.some.config.option", "some-value")
       .getOrCreate();
 
