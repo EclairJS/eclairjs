@@ -46,7 +46,7 @@ function run(sc) {
     ]);
 
     var dataset = sqlContext.createDataFrame(rdd, schema);
-    remover.transform(dataset).show();
+    return remover.transform(dataset);//.show();
 
 
 
@@ -62,7 +62,7 @@ if (typeof sparkContext === 'undefined')  {
     var sparkConf = new SparkConf().setAppName("JavaScript StopWordsRemoverExample");
     var sc = new SparkContext(sparkConf);
     var result = run(sc);
-
+    result.show();
     // $example off$
     sc.stop();
 }

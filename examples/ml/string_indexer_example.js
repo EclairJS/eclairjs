@@ -47,8 +47,6 @@ function run(sc) {
       .setInputCol("category")
       .setOutputCol("categoryIndex");
     var indexed = indexer.fit(df).transform(df);
-    indexed.show();
-
 
     return indexed;
 
@@ -64,7 +62,7 @@ if (typeof sparkContext === 'undefined')  {
     var sparkConf = new SparkConf().setAppName("JavaScript StringIndexerExample");
     var sc = new SparkContext(sparkConf);
     var result = run(sc);
-
+    result.show();
 
     // $example off$
     sc.stop();

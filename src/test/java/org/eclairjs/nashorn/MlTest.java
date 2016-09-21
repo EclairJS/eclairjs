@@ -25,28 +25,6 @@ import static org.junit.Assert.assertEquals;
 
 public class MlTest {
 
-    /*
-        tests
-        Word2Vec()
-        Word2Vec.setInputCol("text")
-        Word2Vec.setOutputCol("result")
-        Word2Vec.setVectorSize(3)
-        Word2Vec.setMinCount(0)
-        Word2Vec.fit(documentDF)
-        Word2VecModel.transform()
-     */
-	@Test
-    public void Word2VecExample() throws Exception {
-        ScriptEngine engine = TestUtils.getEngine();
-
-        TestUtils.evalJSResource(engine, "/ml/mltest.js");
-        Object ret = ((Invocable)engine).invokeFunction("Word2VecExample");
-        
-        String expected = "passed";
-
-        assertEquals("failure - strings are not equal", expected, ret);
-
-    }
 
     /*
         tests
@@ -985,6 +963,164 @@ public class MlTest {
         String expected = "passed";
 
         assertEquals("failure - strings are not equal", expected, ret);
+    }
+
+    @Test
+    public void simpleParamsExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("simpleParamsExample");
+
+        String expected = "passed";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+    }
+
+    @Test
+    public void simpleTextClassificationPipeline() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("simpleTextClassificationPipeline");
+
+        String expected = "passed";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+    }
+
+    @Test
+    public void sqlTransformerExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("sqlTransformerExample");
+
+        String expected = "[{\"values\":[0,1,3,4,3],\"schema\":{\"fields\":[{\"name\":\"id\",\"dataType\":\"integer\",\"nullable\":false},{\"name\":\"v1\",\"dataType\":\"double\",\"nullable\":false},{\"name\":\"v2\",\"dataType\":\"double\",\"nullable\":false},{\"name\":\"v3\",\"dataType\":\"double\",\"nullable\":false},{\"name\":\"v4\",\"dataType\":\"double\",\"nullable\":false}]}},{\"values\":[2,2,5,7,10],\"schema\":{\"fields\":[{\"name\":\"id\",\"dataType\":\"integer\",\"nullable\":false},{\"name\":\"v1\",\"dataType\":\"double\",\"nullable\":false},{\"name\":\"v2\",\"dataType\":\"double\",\"nullable\":false},{\"name\":\"v3\",\"dataType\":\"double\",\"nullable\":false},{\"name\":\"v4\",\"dataType\":\"double\",\"nullable\":false}]}}]";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+    }
+
+    @Test
+    public void standardScalerExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("standardScalerExample");
+
+        String expected = "passed";
+        assertEquals("failure - strings are not equal", expected, ret);
+    }
+
+    @Test
+    public void stopWordsRemoverExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("stopWordsRemoverExample");
+
+        String expected = "[{\"values\":[[\"I\",\"saw\",\"the\",\"red\",\"baloon\"],[\"saw\",\"red\",\"baloon\"]],\"schema\":{\"fields\":[{\"name\":\"raw\",\"dataType\":\"array<string>\",\"nullable\":false},{\"name\":\"filtered\",\"dataType\":\"array<string>\",\"nullable\":true}]}},{\"values\":[[\"Mary\",\"had\",\"a\",\"little\",\"lamb\"],[\"Mary\",\"little\",\"lamb\"]],\"schema\":{\"fields\":[{\"name\":\"raw\",\"dataType\":\"array<string>\",\"nullable\":false},{\"name\":\"filtered\",\"dataType\":\"array<string>\",\"nullable\":true}]}}]";
+        assertEquals("failure - strings are not equal", expected, ret);
+    }
+
+    @Test
+    public void stringIndexerExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("stringIndexerExample");
+
+        String expected = "[{\"values\":[0,\"a\",0],\"schema\":{\"fields\":[{\"name\":\"id\",\"dataType\":\"integer\",\"nullable\":false},{\"name\":\"category\",\"dataType\":\"string\",\"nullable\":false},{\"name\":\"categoryIndex\",\"dataType\":\"double\",\"nullable\":true}]}},{\"values\":[1,\"b\",2],\"schema\":{\"fields\":[{\"name\":\"id\",\"dataType\":\"integer\",\"nullable\":false},{\"name\":\"category\",\"dataType\":\"string\",\"nullable\":false},{\"name\":\"categoryIndex\",\"dataType\":\"double\",\"nullable\":true}]}},{\"values\":[2,\"c\",1],\"schema\":{\"fields\":[{\"name\":\"id\",\"dataType\":\"integer\",\"nullable\":false},{\"name\":\"category\",\"dataType\":\"string\",\"nullable\":false},{\"name\":\"categoryIndex\",\"dataType\":\"double\",\"nullable\":true}]}},{\"values\":[3,\"a\",0],\"schema\":{\"fields\":[{\"name\":\"id\",\"dataType\":\"integer\",\"nullable\":false},{\"name\":\"category\",\"dataType\":\"string\",\"nullable\":false},{\"name\":\"categoryIndex\",\"dataType\":\"double\",\"nullable\":true}]}},{\"values\":[4,\"a\",0],\"schema\":{\"fields\":[{\"name\":\"id\",\"dataType\":\"integer\",\"nullable\":false},{\"name\":\"category\",\"dataType\":\"string\",\"nullable\":false},{\"name\":\"categoryIndex\",\"dataType\":\"double\",\"nullable\":true}]}},{\"values\":[5,\"c\",1],\"schema\":{\"fields\":[{\"name\":\"id\",\"dataType\":\"integer\",\"nullable\":false},{\"name\":\"category\",\"dataType\":\"string\",\"nullable\":false},{\"name\":\"categoryIndex\",\"dataType\":\"double\",\"nullable\":true}]}}]";
+        assertEquals("failure - strings are not equal", expected, ret);
+    }
+
+    @Test
+    public void tfldExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("tfldExample");
+
+        String expected = "[{\"values\":[{\"type\":0,\"size\":20,\"indices\":[5,6,9],\"values\":[0,0.6931471805599453,1.3862943611198906]},0],\"schema\":{\"fields\":[{\"name\":\"features\",\"dataType\":\"vector\",\"nullable\":true},{\"name\":\"label\",\"dataType\":\"double\",\"nullable\":false}]}},{\"values\":[{\"type\":0,\"size\":20,\"indices\":[3,5,12,14,18],\"values\":[1.3862943611198906,0,0.28768207245178085,0.28768207245178085,0.28768207245178085]},0],\"schema\":{\"fields\":[{\"name\":\"features\",\"dataType\":\"vector\",\"nullable\":true},{\"name\":\"label\",\"dataType\":\"double\",\"nullable\":false}]}},{\"values\":[{\"type\":0,\"size\":20,\"indices\":[5,12,14,18],\"values\":[0,0.5753641449035617,0.28768207245178085,0.28768207245178085]},1],\"schema\":{\"fields\":[{\"name\":\"features\",\"dataType\":\"vector\",\"nullable\":true},{\"name\":\"label\",\"dataType\":\"double\",\"nullable\":false}]}}]";
+        assertEquals("failure - strings are not equal", expected, ret);
+    }
+
+    @Test
+    public void tokenizerExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("tokenizerExample");
+
+        String expected = "FIXME this example is not complete";
+        assertEquals("failure - strings are not equal", expected, ret);
+    }
+
+    @Test
+    public void trainValidationSplitExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("trainValidationSplitExample");
+
+        String expected = "FIXME this example is not complete";
+        assertEquals("failure - strings are not equal", expected, ret);
+    }
+
+    @Test
+    public void vectorAssemblerExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("vectorAssemblerExample");
+
+        String expected = "[{\"values\":[0,18,1,{\"type\":1,\"values\":[0,10,0.5]},1,{\"type\":1,\"values\":[18,1,0,10,0.5]}],\"schema\":{\"fields\":[{\"name\":\"id\",\"dataType\":\"integer\",\"nullable\":false},{\"name\":\"hour\",\"dataType\":\"integer\",\"nullable\":false},{\"name\":\"mobile\",\"dataType\":\"double\",\"nullable\":false},{\"name\":\"userFeatures\",\"dataType\":\"vector\",\"nullable\":false},{\"name\":\"clicked\",\"dataType\":\"double\",\"nullable\":false},{\"name\":\"features\",\"dataType\":\"vector\",\"nullable\":true}]}}]";
+        assertEquals("failure - strings are not equal", expected, ret);
+    }
+
+    @Test
+    public void vectorIndexerExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("vectorIndexerExample");
+
+        String expected = "FIXME this example is not complete";
+        assertEquals("failure - strings are not equal", expected, ret);
+    }
+
+    @Test
+    public void vectorSlicerExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("vectorSlicerExample");
+
+        String expected = "[{\"values\":[{\"type\":0,\"size\":3,\"indices\":[0,1],\"values\":[-2,2.3]},{\"type\":0,\"size\":2,\"indices\":[0],\"values\":[2.3]}],\"schema\":{\"fields\":[{\"name\":\"userFeatures\",\"dataType\":\"vector\",\"nullable\":false},{\"name\":\"features\",\"dataType\":\"vector\",\"nullable\":true}]}},{\"values\":[{\"type\":1,\"values\":[-2,2.3,0]},{\"type\":1,\"values\":[2.3,0]}],\"schema\":{\"fields\":[{\"name\":\"userFeatures\",\"dataType\":\"vector\",\"nullable\":false},{\"name\":\"features\",\"dataType\":\"vector\",\"nullable\":true}]}}]";
+        assertEquals("failure - strings are not equal", expected, ret);
+    }
+
+    /*
+        tests
+        Word2Vec()
+        Word2Vec.setInputCol("text")
+        Word2Vec.setOutputCol("result")
+        Word2Vec.setVectorSize(3)
+        Word2Vec.setMinCount(0)
+        Word2Vec.fit(documentDF)
+        Word2VecModel.transform()
+     */
+    @Test
+    public void Word2VecExample() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+
+        TestUtils.evalJSResource(engine, "/ml/mltest.js");
+        Object ret = ((Invocable)engine).invokeFunction("Word2VecExample");
+
+        String expected = "passed";
+
+        assertEquals("failure - strings are not equal", expected, ret);
+
     }
 
     @Test

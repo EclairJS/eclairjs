@@ -48,16 +48,8 @@ function run(sc) {
     var tokenizer = new Tokenizer().setInputCol("sentence").setOutputCol("words");
 
     var wordsDataFrame = tokenizer.transform(sentenceDataFrame);
-    var output="";
-    var wordList=wordsDataFrame.select("words", "label"). take(3);
 
-print(JSON.stringify(wordList))
-    for (var i=0;i<wordList.length;i++) {
-      var words = wordList[i].getList(0);
-        words = words.concat(['cccc', 'yyy']);
-      for (var inx=0;inx<words.length;inx++) output+=words[inx] + " ";
-      output+="\n";
-    }
+    var wordList=wordsDataFrame.select("words", "label"). take(3);
 
     var regexTokenizer = new RegexTokenizer()
       .setInputCol("sentence")
@@ -65,7 +57,7 @@ print(JSON.stringify(wordList))
       .setPattern("\\W");  // alternatively .setPattern("\\w+").setGaps(false);
 
 
-    return output;
+    return wordList;
 
 }
 
@@ -78,9 +70,15 @@ if (typeof sparkContext === 'undefined')  {
     var SparkContext = require('eclairjs/SparkContext');
     var sparkConf = new SparkConf().setAppName("JavaScript TokenizerExample");
     var sc = new SparkContext(sparkConf);
-    var result = run(sc);
+    var wordList = run(sc);
+    var output="";
+    for (var i=0;i<wordList.length;i++) {
+        var words = wordList[i].getList(0);
+        words = words.concat(['cccc', 'yyy']);
+        for (var inx=0;inx<words.length;inx++) output+=words[inx] + " ";
+        output+="\n";
+    }
+    print(output);
 
-    print(result);
-    // $example off$
     sc.stop();
 }

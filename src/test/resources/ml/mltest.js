@@ -378,6 +378,123 @@ var RFormulaExample = function() {
     }
 }
 
+var simpleParamsExample = function() {
+
+    load("examples/ml/simple_params_example.js");
+    var result = run(sparkContext);
+    var str = JSON.stringify(result)
+    if (str) {
+        return "passed";
+    } else {
+        return "failed";
+    }
+}
+
+var simpleTextClassificationPipeline = function() {
+
+    load("examples/ml/simple_text_classification_pipeline.js");
+    var result = run(sparkContext);
+    var str = JSON.stringify(result)
+    if (str) {
+        return "passed";
+    } else {
+        return "failed";
+    }
+}
+
+var sqlTransformerExample = function() {
+
+    load("examples/ml/sql_transformer_example.js");
+    var result = run(sparkContext);
+    return JSON.stringify(result)
+
+}
+
+var standardScalerExample = function() {
+
+    load("examples/ml/standard_scaler_example.js");
+    var result = run(sparkContext);
+    var str = JSON.stringify(result);
+    if (str) {
+        return "passed";
+    } else {
+        return "failed";
+    }
+
+}
+
+var stopWordsRemoverExample = function() {
+
+    load("examples/ml/stop_words_remover_example.js");
+    var result = run(sparkContext);
+    var str = JSON.stringify(result);
+    return str;
+
+}
+
+var stringIndexerExample = function() {
+
+    load("examples/ml/string_indexer_example.js");
+    var result = run(sparkContext);
+    var str = JSON.stringify(result);
+    return str;
+
+}
+
+var tfldExample = function() {
+
+    load("examples/ml/tfld_example.js");
+    var result = run(sparkContext);
+    var str = JSON.stringify(result);
+    return str;
+
+}
+
+var tokenizerExample = function() {
+
+    load("examples/ml/tokenizer_example.js");
+    var result = run(sparkContext);
+    var str = JSON.stringify(result);
+    return str;
+
+}
+
+var trainValidationSplitExample = function() {
+
+    load("examples/ml/train_validation_split_example.js");
+    var result = run(sparkContext);
+    var str = JSON.stringify(result);
+    return str;
+
+}
+
+var vectorAssemblerExample = function() {
+
+    load("examples/ml/vector_assembler_example.js");
+    var result = run(sparkContext);
+    var str = JSON.stringify(result);
+    return str;
+
+}
+
+var vectorIndexerExample = function() {
+
+    load("examples/ml/vector_indexer_example.js");
+    var result = run(sparkContext);
+    var str = JSON.stringify(result);
+    return str;
+
+}
+
+var vectorSlicerExample = function() {
+
+    load("examples/ml/vector_slicer_example.js");
+    var result = run(sparkContext);
+    var str = JSON.stringify(result);
+    return str;
+
+}
+
 var vectorsDense = function() {
     var Vectors = require(EclairJS_Globals.NAMESPACE + '/mllib/linalg/Vectors');
     var v = Vectors.dense(1.0, 2.0);
