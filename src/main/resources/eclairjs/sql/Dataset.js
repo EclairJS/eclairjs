@@ -872,8 +872,8 @@
 	 * Displays the Dataset rows in a tabular form.
 	 * @function
      * @name module:eclairjs/sql.Dataset#show
-	 * @param {interger} [numberOfRows] defaults to 20.
-	 * @param {boolean] [truncate] defaults to false, Whether truncate long strings. If true, strings more than 20 characters will be
+	 * @param {interger | boolean} [numberOfRowsOrTruncate] defaults to 20.
+	 * @param {boolean} [truncate] defaults to false, Whether truncate long strings. If true, strings more than 20 characters will be
  * truncated and all cells will be aligned right
  */
 /*

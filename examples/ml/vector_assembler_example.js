@@ -23,10 +23,10 @@ function run(spark) {
 
     var SQLContext = require('eclairjs/sql/SQLContext');
     var RowFactory = require('eclairjs/sql/RowFactory');
-    var Vectors = require('eclairjs/mllib/linalg/Vectors');
+    var Vectors = require('eclairjs/ml/linalg/Vectors');
     var StructField = require('eclairjs/sql/types/StructField');
     var DataTypes = require('eclairjs/sql/types').DataTypes;
-    var VectorUDT = require('eclairjs/mllib/linalg/VectorUDT');
+    var VectorUDT = require('eclairjs/ml/linalg/VectorUDT');
     var VectorAssembler = require('eclairjs/ml/feature/VectorAssembler');
 
     var sc = spark.sparkContext();

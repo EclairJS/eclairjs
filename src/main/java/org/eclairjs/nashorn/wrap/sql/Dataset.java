@@ -143,8 +143,13 @@ public class Dataset extends WrappedClass {
                 _dataset.show();
             else if (args.length==1)
             {
-                int numRows = Utils.toInt(args[0]);
-                _dataset.show(numRows);
+                if(args[0] instanceof Boolean) {
+                    _dataset.show((boolean) args[0]);
+                } else {
+                    int numRows = Utils.toInt(args[0]);
+                    _dataset.show(numRows);
+                }
+
             }
             else
             {

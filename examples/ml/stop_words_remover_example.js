@@ -43,7 +43,7 @@ function run(spark) {
     ]);
 
     var dataset = spark.createDataFrame(data, schema);
-    remover.transform(dataset).show();
+    return remover.transform(dataset);
 
 
 
@@ -60,7 +60,7 @@ if (typeof sparkSession === 'undefined')  {
             .appName("JavaScript StopWordsRemover Example")
             .getOrCreate();
     var result = run(spark);
-
+    result.show();
     // $example off$
     spark.stop();
 }
