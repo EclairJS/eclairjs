@@ -66,12 +66,10 @@ function run(spark) {
     var ALS = require('eclairjs/ml/recommendation/ALS');
     var RegressionEvaluator = require('eclairjs/ml/evaluation/RegressionEvaluator');
 
-    var sc = spark.sparkContext();
-
     /*
     load ratings small dataset
      */
-    var small_ratings_raw_data = sc.textFile('examples/data/mllib/ml-latest-small/ratings.csv');
+    var small_ratings_raw_data = spark.read().textFile('examples/data/mllib/ml-latest-small/ratings.csv').toRDD();
     var small_ratings_raw_data_header = small_ratings_raw_data.take(1)[0];
     var small_ratings_data_rdd = small_ratings_raw_data.filter(function(line, small_ratings_raw_data_header) {
             // filters out the header
@@ -92,7 +90,7 @@ function run(spark) {
     load movie dataset small
      */
 
-    var small_movies_raw_data = sc.textFile('examples/data/mllib/ml-latest-small/movies.csv');
+    var small_movies_raw_data = spark.read().textFile('examples/data/mllib/ml-latest-small/movies.csv').toRDD();
     var small_movies_raw_data_header = small_movies_raw_data.take(1)[0];
     var small_movies_data_rdd = small_movies_raw_data.filter(function(line, small_movies_raw_data_header) {
             // filters out the header
