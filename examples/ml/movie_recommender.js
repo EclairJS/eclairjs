@@ -191,7 +191,7 @@ function run(spark) {
 }
 
 /*
- check if SparkContext is defined, if it is we are being run from Unit Test
+ check if SparkSession is defined, if it is we are being run from Unit Test
  */
 
 if (typeof sparkSession === 'undefined')  {
