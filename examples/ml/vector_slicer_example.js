@@ -20,16 +20,12 @@
 
 function run(spark) {
 
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var NumericAttribute = require('eclairjs/ml/attribute/NumericAttribute');
     var AttributeGroup = require('eclairjs/ml/attribute/AttributeGroup');
     var RowFactory = require('eclairjs/sql/RowFactory');
     var Vectors = require('eclairjs/ml/linalg/Vectors');
     var StructType = require('eclairjs/sql/types/StructType');
     var VectorSlicer = require('eclairjs/ml/feature/VectorSlicer');
-
-    var sc = spark.sparkContext();
-    var sql = new SQLContext(sc);
 
     // $example on$
     var attrs = [
@@ -45,7 +41,7 @@ function run(spark) {
       RowFactory.create(Vectors.dense([-2.0, 2.3, 0.0]))
     ];
 
-    var dataset = sql.createDataFrame(data, (new StructType()).add(group.toStructField()));
+    var dataset = spark.createDataFrame(data, (new StructType()).add(group.toStructField()));
 
     var vectorSlicer = new VectorSlicer()
       .setInputCol("userFeatures").setOutputCol("features");

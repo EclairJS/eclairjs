@@ -21,16 +21,11 @@
 function run(spark) {
 
 
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var RowFactory = require('eclairjs/sql/RowFactory');
     var Vectors = require('eclairjs/ml/linalg/Vectors');
-    var StructField = require('eclairjs/sql/types/StructField');
     var DataTypes = require('eclairjs/sql/types').DataTypes;
     var VectorUDT = require('eclairjs/ml/linalg/VectorUDT');
     var VectorAssembler = require('eclairjs/ml/feature/VectorAssembler');
-
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
 
     var schema = DataTypes.createStructType([
       DataTypes.createStructField("id", DataTypes.IntegerType, false),
@@ -40,8 +35,7 @@ function run(spark) {
       DataTypes.createStructField("clicked", DataTypes.DoubleType, false)
     ]);
     var row = RowFactory.create([0, 18, 1.0, Vectors.dense([0.0, 10.0, 0.5]), 1.0]);
-    var rdd = sc.parallelize([row]);
-    var dataset = sqlContext.createDataFrame(rdd, schema);
+    var dataset = spark.createDataFrame([row], schema);
 
     var assembler = new VectorAssembler()
       .setInputCols(["hour", "mobile", "userFeatures"])

@@ -20,18 +20,8 @@
 
 
 function run(spark) {
-    var SQLContext = require('eclairjs/sql/SQLContext');
-    var StructField = require("eclairjs/sql/types/StructField");
-    var StructType = require("eclairjs/sql/types/StructType");
     var Metadata = require("eclairjs/sql/types/Metadata");
-    var RowFactory = require("eclairjs/sql/RowFactory");
-    var Vectors = require("eclairjs/ml/linalg/Vectors");
     var LDA = require("eclairjs/ml/clustering/LDA");
-    var Vector = require("eclairjs/ml/linalg/Vector");
-    var VectorUDT = require("eclairjs/ml/linalg/VectorUDT");
-
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
 
     var dataset = spark.read().format("libsvm")
       .load("examples/data/mllib/sample_lda_libsvm_data.txt");
