@@ -255,18 +255,18 @@
       <version>${spark.version}</version>
       <scope>provided</scope>
     </dependency>
-<!--
     <dependency>
       <groupId>org.apache.spark</groupId>
-      <artifactId>spark-streaming-kafka_2.10</artifactId>
+      <artifactId>spark-streaming-kafka-0-8_2.11</artifactId>
       <version>${spark.version}</version>
     </dependency>
-    <dependency>
-      <groupId>org.apache.spark</groupId>
-      <artifactId>spark-streaming-twitter_2.10</artifactId>
-      <version>${spark.version}</version>
-    </dependency>
--->
+    <!--
+        <dependency>
+          <groupId>org.apache.spark</groupId>
+          <artifactId>spark-streaming-twitter_2.10</artifactId>
+          <version>${spark.version}</version>
+        </dependency>
+    -->
     <dependency>
       <!-- needed to support OpenStack Object Store swift:// -->
       <groupId>org.apache.hadoop</groupId>
@@ -362,7 +362,34 @@
           <version>${toree.version}</version>
           <scope>provided</scope>
         </dependency>
+        <dependency>
+          <groupId>org.apache.kafka</groupId>
+          <artifactId>kafka-log4j-appender</artifactId>
+          <version>0.10.0.0</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.kafka</groupId>
+          <artifactId>kafka-clients</artifactId>
+          <version>0.10.0.0</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.kafka</groupId>
+          <artifactId>kafka_2.11</artifactId>
+          <version>0.10.0.0</version>
+        </dependency>
+        <dependency>
+          <groupId>org.http4s</groupId>
+          <artifactId>http4s-blaze-client_2.11</artifactId>
+          <version>0.12.1</version>
+        </dependency>
         <!--
+        <dependency>
+          <groupId>com.ibm</groupId>
+          <artifactId>messagehub.login</artifactId>
+          <version>1.0</version>
+          <scope>system</scope>
+          <systemPath>${project.basedir}/lib/messagehub.login-1.0.0.jar</systemPath>
+        </dependency>
         <dependency>
           <groupId>org.apache.toree</groupId>
           <artifactId>toree</artifactId>

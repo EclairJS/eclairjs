@@ -16,9 +16,23 @@
 
 (function () {
 
+    function sslTrustStore() {
+        var javaHome = java.lang.System.getProperty("java.home") + java.io.File.separator + "lib" + java.io.File.separator + "security" + java.io.File.separator + "cacerts";
+        print("default location of ssl Trust store is: " + javaHome);
+        return javaHome;
+    }
+    var KAFKA_TOPIC = "kafka.topic";    //Key for name of the kafka topic holding used for publishing events
+    var KAFKA_USER_NAME = "kafka.user.name";
+    var KAFKA_USER_PASSWORD = "kafka.user.password";
+
+    var MESSAGEHUB_API_KEY = "api_key";
+    var MESSAGEHUB_REST_URL = "kafka_rest_url";
+
+
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
 
     var JavaKakfaUtils = Java.type("org.apache.spark.streaming.kafka.KafkaUtils");
+    var KafkaInputDStream = Java.type("org.eclairjs.nashorn.KafkaInputDStream");
 
     /**
      * @memberof module:eclairjs/streaming/kafka
@@ -30,7 +44,45 @@
     var Class = Java.type("java.lang.Class");
     var StringClass = Class.forName("java.lang.String");
     var StringDecoderClass = Class.forName("kafka.serializer.StringDecoder");
+    var StorageLevel = Java.type("org.apache.spark.storage.StorageLevel");
+    var CommonClientConfigs = Java.type("org.apache.kafka.clients.CommonClientConfigs");
+    var SslConfigs = Java.type("org.apache.kafka.common.config.SslConfigs");
 
+
+    KafkaUtils.createMessageHubStream = function(ssc, brokers, topic, username, password, api_key) {
+        var kafkaProps = new java.util.HashMap();
+        kafkaProps.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+        kafkaProps.put(CommonClientConfigs.CLIENT_ID_CONFIG, "demo.watson.twitter.messagehub");
+        kafkaProps.put("auto.offset.reset", "latest"),
+        kafkaProps.put("acks", "-1"),
+        kafkaProps.put("retries", "0"),
+        kafkaProps.put("batch.size", "16384"),
+        kafkaProps.put("linger.ms", "1"),
+        kafkaProps.put("buffer.memory", "33554432"),
+        kafkaProps.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer"),
+        kafkaProps.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer"),
+        kafkaProps.put(SslConfigs.SSL_PROTOCOL_CONFIG, "TLSv1.2"),
+        kafkaProps.put(SslConfigs.SSL_ENABLED_PROTOCOLS_CONFIG, "TLSv1.2"),
+        kafkaProps.put(SslConfigs.SSL_TRUSTSTORE_TYPE_CONFIG, "JKS"),
+        kafkaProps.put(SslConfigs.SSL_TRUSTSTORE_LOCATION_CONFIG, sslTrustStore()),
+        kafkaProps.put(SslConfigs.SSL_TRUSTSTORE_PASSWORD_CONFIG, "changeit"),
+        kafkaProps.put(SslConfigs.SSL_ENDPOINT_IDENTIFICATION_ALGORITHM_CONFIG, "HTTPS"),
+        kafkaProps.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_SSL" ),
+
+        kafkaProps.put(KAFKA_TOPIC, topic);
+        kafkaProps.put(KAFKA_USER_NAME, username);
+        kafkaProps.put(KAFKA_USER_PASSWORD, password);
+        kafkaProps.put(MESSAGEHUB_API_KEY, api_key);
+        kafkaProps.put("bootstrap.servers",brokers);
+        kafkaProps.put(MESSAGEHUB_REST_URL, "https://kafka-rest-prod01.messagehub.services.us-south.bluemix.net:443");
+        kafkaProps.put("sasl.mechanism","PLAIN");
+
+        var dstream = new KafkaInputDStream(
+            ssc.getJavaObject().ssc(), kafkaProps, topic, StorageLevel.MEMORY_AND_DISK()
+        );
+
+        return Utils.javaToJs(dstream);
+    };
 
     /**
      * Create an input stream that pulls messages from Kafka Brokers.
