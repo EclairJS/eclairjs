@@ -22,7 +22,6 @@
 
 function run(spark) {
 
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var DataTypes = require('eclairjs/sql/types/DataTypes');
     var ArrayType = require('eclairjs/sql/types/ArrayType');
     var StructField = require('eclairjs/sql/types/StructField');
@@ -33,17 +32,15 @@ function run(spark) {
     var Vectors = require('eclairjs/ml/linalg/Vectors');
     var VectorUDT = require('eclairjs/ml/linalg/VectorUDT');
 
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
-    var  data = sc.parallelize([
+    var  data = [
         RowFactory.create([Vectors.dense([0.0, 1.0, -2.0, 3.0])]),
         RowFactory.create([Vectors.dense([-1.0, 2.0, 4.0, -7.0])]),
         RowFactory.create([Vectors.dense([14.0, -2.0, -5.0, 1.0])])
-    ]);
+    ];
     var schema = new StructType([
         new StructField("features", new VectorUDT(), false, Metadata.empty())
     ]);
-    var df = sqlContext.createDataFrame(data, schema);
+    var df = spark.createDataFrame(data, schema);
     var dct = new DCT()
         .setInputCol("features")
         .setOutputCol("featuresDCT")

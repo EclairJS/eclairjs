@@ -20,14 +20,11 @@
 
 
 function run(spark) {
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var BisectingKMeans = require("eclairjs/ml/clustering/BisectingKMeans");
 
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
 
     // Load the data
-    var dataset = sqlContext.read().format("libsvm").load("examples/data/mllib/sample_kmeans_data.txt");
+    var dataset = spark.read().format("libsvm").load("examples/data/mllib/sample_kmeans_data.txt");
 
     // Trains a bisecting-k-means model
     var bkm = new BisectingKMeans()

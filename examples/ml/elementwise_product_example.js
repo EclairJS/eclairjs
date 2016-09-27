@@ -22,20 +22,17 @@
 
 function run(spark) {
 
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var RowFactory = require('eclairjs/sql/RowFactory');
     var DataTypes = require('eclairjs/sql/types/DataTypes');
     var Vectors = require('eclairjs/ml/linalg/Vectors');
     var VectorUDT = require('eclairjs/ml/linalg/VectorUDT');
     var ElementwiseProduct = require('eclairjs/ml/feature/ElementwiseProduct');
 
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
     // Create some vector data; also works for sparse vectors
-    var rdd = sc.parallelize([
+    var data = [
         RowFactory.create(["a", Vectors.dense([1.0, 2.0, 3.0])]),
         RowFactory.create(["b", Vectors.dense([4.0, 5.0, 6.0])])
-    ]);
+    ];
 
     var fields = [
         DataTypes.createStructField("id", DataTypes.StringType, false),
@@ -44,7 +41,7 @@ function run(spark) {
 
     var schema = DataTypes.createStructType(fields);
 
-    var dataFrame = sqlContext.createDataFrame(rdd, schema);
+    var dataFrame = spark.createDataFrame(data, schema);
 
     var transformingVector = Vectors.dense([0.0, 1.0, 2.0]);
 

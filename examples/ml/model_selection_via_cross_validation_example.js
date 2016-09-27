@@ -19,7 +19,6 @@
  */
 
 function run(spark) {
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var Pipeline = require('eclairjs/ml/Pipeline');
     var PipelineStage = require('eclairjs/ml/PipelineStage');
     var LogisticRegression = require('eclairjs/ml/classification/LogisticRegression');
@@ -30,9 +29,6 @@ function run(spark) {
     var CrossValidator = require('eclairjs/ml/tuning/CrossValidator');
     var CrossValidatorModel = require('eclairjs/ml/tuning/CrossValidatorModel');
     var ParamGridBuilder = require('eclairjs/ml/tuning/ParamGridBuilder');
-
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
 
     function LabeledDocument(id, text, label)
     {
@@ -62,7 +58,7 @@ function run(spark) {
         new LabeledDocument(10 , "spark compile", 1.0),
         new LabeledDocument(11 , "hadoop software", 0.0)
     ];
-    var training = sqlContext.createDataFrameFromJson(sc.parallelize(localTraining), {
+    var training = spark.createDataFrameFromJson(localTraining, {
         id:"Integer",
         text:"String",
         label:"Double"
@@ -109,7 +105,7 @@ function run(spark) {
         new Document(5, "l m n"),
         new Document(6, "mapreduce spark"),
         new Document(7, "apache hadoop")];
-    var test = sqlContext.createDataFrameFromJson(sc.parallelize(localTest), {
+    var test = spark.createDataFrameFromJson(localTest, {
         id:"Integer",
         text:"String"
     });

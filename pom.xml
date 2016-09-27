@@ -255,19 +255,11 @@
       <version>${spark.version}</version>
       <scope>provided</scope>
     </dependency>
-    <dependency>
+    <!--dependency>
       <groupId>org.apache.spark</groupId>
       <artifactId>spark-streaming-kafka-0-8_2.11</artifactId>
       <version>${spark.version}</version>
-    </dependency>
-    <!--
-        <dependency>
-          <groupId>org.apache.spark</groupId>
-          <artifactId>spark-streaming-twitter_2.10</artifactId>
-          <version>${spark.version}</version>
-        </dependency>
-    -->
-    <dependency>
+    </dependency-->
       <!-- needed to support OpenStack Object Store swift:// -->
       <groupId>org.apache.hadoop</groupId>
       <artifactId>hadoop-openstack</artifactId>

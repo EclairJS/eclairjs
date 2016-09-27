@@ -63,7 +63,7 @@
      * @since EclairJS 0.6 Spark  2.0.0
      * @function
      * @name module:eclairjs/sql.SparkSession#sparkContext
-     * @returns {module:eclairjs/SparkContext}
+     * @returns {module:eclairjs.SparkContext}
      */
 
     /**
@@ -291,13 +291,13 @@
 
     
     /**
-     * Returns the specified table as a {@link DataFrame}.
+     * Returns the specified table as a {@link module:eclairjs/sql.Dataset}.
      *
      * @since EclairJS 0.6 Spark  2.0.0
      * @function
      * @name module:eclairjs/sql.SparkSession#table
      * @param {string} tableName
-     * @returns {DataFrame} 
+     * @returns {module:eclairjs/sql.Dataset}
      */
 /*
     SparkSession.prototype.table = function(tableName) {
@@ -308,14 +308,14 @@
 
     
     /**
-     * Executes a SQL query using Spark, returning the result as a {@link DataFrame}.
+     * Executes a SQL query using Spark, returning the result as a {@link module:eclairjs/sql.Dataset}.
      * The dialect that is used for SQL parsing can be configured with 'spark.sql.dialect'.
      *
      * @since EclairJS 0.6 Spark  2.0.0
      * @function
      * @name module:eclairjs/sql.SparkSession#sql
      * @param {string} sqlText
-     * @returns {DataFrame} 
+     * @returns {module:eclairjs/sql.Dataset}
      */
 /*
     SparkSession.prototype.sql = function(sqlText) {
@@ -367,7 +367,7 @@
     */
     
     /**
-     * Stop the underlying {@link SparkContext}.
+     * Stop the underlying {@link module:eclairjs.SparkContext}.
      *
      * @function
      * @name module:eclairjs/sql.SparkSession#stop
@@ -380,7 +380,7 @@
     
     
     /**
-     * Creates a [[SparkSessionBuilder]] for constructing a {@link SparkSession}.
+     * Creates a [[module:eclairjs/sql.SparkSessionBuilder]] for constructing a {@link module:eclairjs/sql.SparkSession}.
      *
      * @since EclairJS 0.6 Spark  2.0.0
      * @function

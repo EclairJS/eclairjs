@@ -19,15 +19,11 @@
  */
 
 function run(spark) {
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var MultilayerPerceptronClassifier = require("eclairjs/ml/classification/MultilayerPerceptronClassifier");
     var MulticlassClassificationEvaluator = require("eclairjs/ml/evaluation/MulticlassClassificationEvaluator");
 
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
-
     var path = "examples/data/mllib/sample_multiclass_classification_data.txt";
-    var dataFrame = sqlContext.read().format("libsvm").load(path);
+    var dataFrame = spark.read().format("libsvm").load(path);
     // Split the data into train and test
     var splits = dataFrame.randomSplit([0.6, 0.4], 1234);
     var train = splits[0];
@@ -66,7 +62,7 @@ if (typeof sparkSession === 'undefined') {
             .appName("JavaScript MultilayerPerceptronClassifier Example")
             .getOrCreate();
     var result = run(spark);
-    print("Precision = " + result);
+    print("Accuracy = " + result);
 
     spark.stop();
 }

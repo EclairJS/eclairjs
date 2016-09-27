@@ -34,7 +34,6 @@ function run(spark) {
         return RowFactory.create([userId, movieId, rating, timestamp]);
     }
 
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var DataTypes = require('eclairjs/sql/types/DataTypes');
     var StructField = require('eclairjs/sql/types/StructField');
     var StructType = require('eclairjs/sql/types/StructType');
@@ -42,11 +41,8 @@ function run(spark) {
     var ALS = require('eclairjs/ml/recommendation/ALS');
     var RegressionEvaluator = require('eclairjs/ml/evaluation/RegressionEvaluator');
 
-
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
-
-    var ratingsRDD = sc.textFile("examples/data/mllib/als/sample_movielens_ratings.txt")
+    var ratingsRDD = spark
+        .read().textFile("examples/data/mllib/als/sample_movielens_ratings.txt").toRDD()
         .map(parseRating);
 
     var schema = new StructType([
@@ -55,7 +51,7 @@ function run(spark) {
         new StructField("rating", DataTypes.FloatType, false, Metadata.empty()),
         new StructField("timestamp", DataTypes.DoubleType, false, Metadata.empty())
     ]);
-    var ratings = sqlContext.createDataFrame(ratingsRDD, schema);
+    var ratings = spark.createDataFrame(ratingsRDD, schema);
     var splits = ratings.randomSplit([0.8, 0.2]);
     var training = splits[0];
     var test = splits[1];

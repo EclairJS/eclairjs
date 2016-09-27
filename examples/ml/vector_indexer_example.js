@@ -21,14 +21,10 @@
 function run(spark) {
 
 
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var VectorIndexer = require('eclairjs/ml/feature/VectorIndexer');
 
-    var sc = spark.sparkContext();
-    var sql = new SQLContext(sc);
-
     // $example on$
-    var data = sql.read().format("libsvm").load("examples/data/mllib/sample_libsvm_data.txt");
+    var data = spark.read().format("libsvm").load("examples/data/mllib/sample_libsvm_data.txt");
 
     var indexer = new VectorIndexer()
       .setInputCol("features")

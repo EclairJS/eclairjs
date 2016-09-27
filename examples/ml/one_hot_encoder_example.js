@@ -19,7 +19,6 @@
  */
 
 function run(spark) {
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var RowFactory = require('eclairjs/sql/RowFactory');
     var StructType = require("eclairjs/sql/types/StructType");
     var StructField = require("eclairjs/sql/types/StructField");
@@ -28,24 +27,21 @@ function run(spark) {
     var StringIndexer = require("eclairjs/ml/feature/StringIndexer");
     var OneHotEncoder = require("eclairjs/ml/feature/OneHotEncoder");
 
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
-
-    var rdd = sc.parallelize([
+    var data = [
         RowFactory.create(0.0, "a"),
         RowFactory.create(1.0, "b"),
         RowFactory.create(2.0, "c"),
         RowFactory.create(3.0, "a"),
         RowFactory.create(4.0, "a"),
         RowFactory.create(5.0, "c")
-    ]);
+    ];
 
     var schema = new StructType([
         new StructField("id", DataTypes.DoubleType, false, Metadata.empty()),
         new StructField("category", DataTypes.StringType, false, Metadata.empty())
     ]);
 
-    var df = sqlContext.createDataFrame(rdd, schema);
+    var df = spark.createDataFrame(data, schema);
 
     var indexer = new StringIndexer()
         .setInputCol("category")

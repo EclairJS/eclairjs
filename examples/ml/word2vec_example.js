@@ -23,7 +23,6 @@ var DataTypes = require('eclairjs/sql/types/DataTypes');
 var StructField = require('eclairjs/sql/types/StructField');
 var StructType = require('eclairjs/sql/types/StructType');
 var Metadata = require('eclairjs/sql/types/Metadata');
-var SQLContext = require('eclairjs/sql/SQLContext');
 var RowFactory = require('eclairjs/sql/RowFactory');
 var Word2Vec = require('eclairjs/ml/feature/Word2Vec');
 

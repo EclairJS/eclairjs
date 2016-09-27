@@ -21,7 +21,6 @@
 
 function run(spark) {
 
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var StringIndexer = require('eclairjs/ml/feature/StringIndexer');
     var VectorIndexer = require('eclairjs/ml/feature/VectorIndexer');
     var GBTClassifier = require('eclairjs/ml/classification/GBTClassifier');
@@ -30,11 +29,9 @@ function run(spark) {
     var MulticlassClassificationEvaluator = require('eclairjs/ml/evaluation/MulticlassClassificationEvaluator');
 
     var result = {};
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
 
     // Load and parse the data file, converting it to a DataFrame.
-    var data = sqlContext.read().format("libsvm")
+    var data = spark.read().format("libsvm")
         .load("examples/data/mllib/sample_libsvm_data.txt");
 
     // Index labels, adding metadata to the label column.

@@ -19,13 +19,9 @@
  */
 
 function run(spark) {
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var DataTypes = require("eclairjs/sql/types/DataTypes");
     var RowFactory = require("eclairjs/sql/RowFactory");
     var RFormula = require("eclairjs/ml/feature/RFormula");
-
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
 
     var schema = DataTypes.createStructType([
         DataTypes.createStructField("id", DataTypes.IntegerType, false),
@@ -34,13 +30,13 @@ function run(spark) {
         DataTypes.createStructField("clicked", DataTypes.DoubleType, false)
     ]);
 
-    var rdd = sc.parallelize([
+    var data = [
         RowFactory.create(7, "US", 18, 1.0),
         RowFactory.create(8, "CA", 12, 0.0),
         RowFactory.create(9, "NZ", 15, 0.0)
-    ]);
+    ];
 
-    var dataset = sqlContext.createDataFrame(rdd, schema);
+    var dataset = spark.createDataFrame(data, schema);
     var formula = new RFormula()
         .setFormula("clicked ~ country + hour")
         .setFeaturesCol("features")

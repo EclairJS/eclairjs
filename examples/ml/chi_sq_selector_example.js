@@ -22,7 +22,6 @@
 
 function run(spark) {
 
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var DataTypes = require('eclairjs/sql/types/DataTypes');
     var StructField = require('eclairjs/sql/types/StructField');
     var StructType = require('eclairjs/sql/types/StructType');
@@ -32,14 +31,11 @@ function run(spark) {
     var Vectors = require('eclairjs/ml/linalg/Vectors');
     var VectorUDT = require('eclairjs/ml/linalg/VectorUDT');
 
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
-
-    var rdd = sc.parallelize([
+    var data = [
         RowFactory.create([7, Vectors.dense(0.0, 0.0, 18.0, 1.0), 1.0]),
         RowFactory.create([8, Vectors.dense(0.0, 1.0, 12.0, 0.0), 0.0]),
         RowFactory.create([9, Vectors.dense(1.0, 0.0, 15.0, 0.1), 0.0])
-    ]);
+    ];
     var schema = new StructType(
     [
         new StructField("id", DataTypes.IntegerType, false, Metadata.empty()),
@@ -47,7 +43,7 @@ function run(spark) {
             new StructField("clicked", DataTypes.DoubleType, false, Metadata.empty())
     ]);
 
-    var df = sqlContext.createDataFrame(rdd, schema);
+    var df = spark.createDataFrame(data, schema);
 
     var selector = new ChiSqSelector()
         .setNumTopFeatures(1)

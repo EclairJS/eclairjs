@@ -22,7 +22,6 @@
 
 function run(spark) {
 
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var RowFactory = require('eclairjs/sql/RowFactory');
     var DataTypes = require('eclairjs/sql/types/DataTypes');
     var Vectors = require('eclairjs/ml/linalg/Vectors');
@@ -32,8 +31,6 @@ function run(spark) {
     var LogisticRegression = require('eclairjs/ml/classification/LogisticRegression');
 
     var result = {};
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
     var fields = [
         DataTypes.createStructField("label", DataTypes.DoubleType, false),
         DataTypes.createStructField("features", new VectorUDT(), true)
@@ -43,7 +40,7 @@ function run(spark) {
 
     // Prepare training data.
     // DataFrames, where it uses the bean metadata to infer the schema.
-    var training = sqlContext.createDataFrame(
+    var training = spark.createDataFrame(
         [
             RowFactory.create(1.0, Vectors.dense(0.0, 1.1, 0.1)),
             RowFactory.create(0.0, Vectors.dense(2.0, 1.1, -1.0)),
@@ -85,7 +82,7 @@ function run(spark) {
 
 
     // Prepare test documents.
-   var test = sqlContext.createDataFrame([
+   var test = spark.createDataFrame([
         RowFactory.create(1.0, Vectors.dense(-1.0, 1.5, 1.3)),
         RowFactory.create(0.0, Vectors.dense(3.0, 2.0, -0.1)),
         RowFactory.create(1.0, Vectors.dense(0.0, 2.2, -1.5))

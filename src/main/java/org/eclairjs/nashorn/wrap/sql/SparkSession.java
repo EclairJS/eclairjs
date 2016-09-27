@@ -339,26 +339,34 @@ public class SparkSession extends WrappedClass {
             List<Tuple2<String,DataType>> fieldNames=new ArrayList<>();
             List<StructField> fields=new ArrayList<>();
             for (Map.Entry<String, Object> entry : jsonSchema.entrySet()) {
-                String type=entry.getValue().toString();
+                Object type=entry.getValue();
 
                 String name=entry.getKey();
                 DataType schemaType;
-                switch (type) {
-                    case "String":
-                        schemaType=DataTypes.StringType; break;
-                    case "Integer":
-                        schemaType=DataTypes.IntegerType; break;
-                    case "Boolean":
-                        schemaType=DataTypes.BooleanType; break;
-                    case "Double":
-                        schemaType=DataTypes.DoubleType; break;
+                if (type instanceof String)
+                {
+                    switch ((String)type) {
+                        case "String":
+                            schemaType = DataTypes.StringType;
+                            break;
+                        case "Integer":
+                            schemaType = DataTypes.IntegerType;
+                            break;
+                        case "Boolean":
+                            schemaType = DataTypes.BooleanType;
+                            break;
+                        case "Double":
+                            schemaType = DataTypes.DoubleType;
+                            break;
 //                    case "Array":
 //                        schemaType=DataTypes.ArrayType;
-                    default:
-                    {
-                        schemaType=(DataType) Utils.toObject(type);
+                        default: {
+                            throw new RuntimeException("type "+type+" not handled for field "+name);
+                        }
                     }
-
+                }
+                else {
+                    schemaType = (DataType) Utils.toObject(type);
                 }
                 fields.add(DataTypes.createStructField(name, schemaType, true));
                 fieldNames.add(new Tuple2<String, DataType>(name,schemaType));
@@ -778,10 +786,15 @@ org.apache.spark.sql.SparkSession session_uw = (org.apache.spark.sql.SparkSessio
     static Row scriptObjectToRow( Object obj, List<Tuple2<String,DataType>> fieldsNames )
     {
         ScriptObjectMirror jsObject=null;
+        WrappedClass wrappedClass=null;
         if (obj instanceof jdk.nashorn.internal.runtime.ScriptObject)
             jsObject=ScriptUtils.wrap((jdk.nashorn.internal.runtime.ScriptObject) obj);
         else if (obj instanceof ScriptObjectMirror)
             jsObject = (ScriptObjectMirror)obj;
+        else if (obj instanceof WrappedClass)
+        {
+            wrappedClass=(WrappedClass)obj;
+        }
         else
             throw new RuntimeException("not a script object");
 
@@ -791,11 +804,25 @@ org.apache.spark.sql.SparkSession session_uw = (org.apache.spark.sql.SparkSessio
         {
             Object value = null;
             String name=tuple._1();
-            if (jsObject.containsKey(name))
+            if (jsObject!=null)
             {
-                value=jsObject.get(name);
-                //   if it is getter function, call to get value
-                value = castDataType(value,tuple._2());
+                if (jsObject.containsKey(name))
+                {
+                    value=jsObject.get(name);
+                    //   if it is getter function, call to get value
+                    value = castDataType(value,tuple._2());
+
+                }
+            } else {
+                String memberName="get"+Character.toUpperCase(name.charAt(0))+name.substring(1);
+                if (wrappedClass.hasMember(memberName))
+                {
+                    WrappedFunction func = (WrappedFunction)wrappedClass.getMember(memberName);
+                    value=func.call(obj);
+                    //   if it is getter function, call to get value
+                    value = castDataType(value, tuple._2());
+
+                }
 
             }
             values.add(value);

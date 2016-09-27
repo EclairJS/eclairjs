@@ -22,7 +22,6 @@
 
 
 function run(spark) {
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var DataTypes = require('eclairjs/sql/types/DataTypes');
     var StructField = require('eclairjs/sql/types/StructField');
     var StructType = require('eclairjs/sql/types/StructType');
@@ -30,21 +29,18 @@ function run(spark) {
     var Metadata = require('eclairjs/sql/types/Metadata');
     var Bucketizer = require('eclairjs/ml/feature/Bucketizer');
 
-    var sc = spark.sparkContext();
-    var sql = new SQLContext(sc);
-
     var splits = [Number.NEGATIVE_INFINITY, -0.5, 0.0, 0.5, Number.POSITIVE_INFINITY];
 
-    var data = sc.parallelize([
+    var data = [
         RowFactory.create([-0.5]),
         RowFactory.create([-0.3]),
         RowFactory.create([0.0]),
         RowFactory.create([0.2])
-    ]);
+    ];
     var schema = new StructType([
         new StructField("features", DataTypes.DoubleType, false, Metadata.empty())
     ]);
-    var dataFrame = sql.createDataFrame(data, schema);
+    var dataFrame = spark.createDataFrame(data, schema);
 
     var bucketizer = new Bucketizer()
         .setInputCol("features")

@@ -21,7 +21,6 @@
 
 
 function run(spark) {
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var DataTypes = require('eclairjs/sql/types/DataTypes');
     var StructField = require('eclairjs/sql/types/StructField');
     var StructType = require('eclairjs/sql/types/StructType');
@@ -29,18 +28,16 @@ function run(spark) {
     var Metadata = require('eclairjs/sql/types/Metadata');
     var Binarizer = require('eclairjs/ml/feature/Binarizer');
 
-    var sc = spark.sparkContext();
-    var sql = new SQLContext(sc);
-    var rdd = sc.parallelize([
+    var data = [
         RowFactory.create([0, 0.1]),
         RowFactory.create([1, 0.8]),
         RowFactory.create([2, 0.2])
-    ]);
+    ];
     var schema = new StructType([
         new StructField("label", DataTypes.DoubleType, false, Metadata.empty()),
         new StructField("feature", DataTypes.DoubleType, false, Metadata.empty())
     ]);
-    var continuousDataFrame = sql.createDataFrame(rdd, schema);
+    var continuousDataFrame = spark.createDataFrame(data, schema);
     var binarizer = new Binarizer()
         .setInputCol("feature")
         .setOutputCol("binarized_feature")

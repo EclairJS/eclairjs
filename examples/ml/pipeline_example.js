@@ -19,7 +19,6 @@
  */
 
 function run(spark) {
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var RowFactory = require('eclairjs/sql/RowFactory');
     var StructType = require("eclairjs/sql/types/StructType");
     var StructField = require("eclairjs/sql/types/StructField");
@@ -30,8 +29,6 @@ function run(spark) {
     var LogisticRegression = require("eclairjs/ml/classification/LogisticRegression");
     var Pipeline = require("eclairjs/ml/Pipeline");
 
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
 
     var schema = new StructType([
         new StructField("id", DataTypes.IntegerType, false, Metadata.empty()),
@@ -40,7 +37,7 @@ function run(spark) {
     ]);
 
     // Prepare training documents, which are labeled.
-    var training = sqlContext.createDataFrame([
+    var training = spark.createDataFrame([
         RowFactory.create(0, "a b c d e spark", 1.0),
         RowFactory.create(1, "b d", 0.0),
         RowFactory.create(2, "spark f g h", 1.0),
@@ -70,7 +67,7 @@ function run(spark) {
     ]);
 
     // Prepare test documents, which are unlabeled.
-    var test = sqlContext.createDataFrame([
+    var test = spark.createDataFrame([
         RowFactory.create(4, "spark i j k"),
         RowFactory.create(5, "l m n"),
         RowFactory.create(6, "mapreduce spark"),

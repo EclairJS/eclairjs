@@ -23,37 +23,16 @@ var inputFile = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] :
 var k = 2;
 
 function run(spark) {
-    var SQLContext = require('eclairjs/sql/SQLContext');
-    var StructField = require("eclairjs/sql/types/StructField");
-    var StructType = require("eclairjs/sql/types/StructType");
-    var Metadata = require("eclairjs/sql/types/Metadata");
-    var RowFactory = require("eclairjs/sql/RowFactory");
-    var Vectors = require("eclairjs/ml/linalg/Vectors");
     var KMeans = require("eclairjs/ml/clustering/KMeans");
-    var Vector = require("eclairjs/ml/linalg/Vector");
-    var VectorUDT = require("eclairjs/ml/linalg/VectorUDT");
 
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
 
-    var points = sc.textFile(inputFile).map(function (line, RowFactory, Vectors) {
-        var tok = line.split(" ");
-        var point = [];
-        for (var i = 0; i < tok.length; ++i) {
-            point[i] = parseFloat(tok[i]);
-        }
-        var points = Vectors.dense(point);
-        return RowFactory.create(points);
-    }, [RowFactory, Vectors]);
-    var fields = [new StructField("features", new VectorUDT(), false, Metadata.empty())];
-    var schema = new StructType(fields);
-    var dataset = sqlContext.createDataFrame(points, schema);
+    // Loads data.
+    var dataset = spark.read().format("libsvm").load(inputFile);
 
-    // Trains a k-means model
-    var kmeans = new KMeans()
-        .setK(k)
-        .setSeed(1);
+    // Trains a k-means model.
+    var kmeans = new KMeans().setK(k).setSeed(1);
     var model = kmeans.fit(dataset);
+
 
     // Shows the result
     var centers = model.clusterCenters();

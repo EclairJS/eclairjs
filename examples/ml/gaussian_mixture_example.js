@@ -19,14 +19,11 @@
  */
 
 function run(spark) {
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var GaussianMixture = require("eclairjs/ml/clustering/GaussianMixture");
 
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
 
     // Load training data
-    var dataset = sqlContext.read().format("libsvm").load("examples/data/mllib/sample_kmeans_data.txt");
+    var dataset = spark.read().format("libsvm").load("examples/data/mllib/sample_kmeans_data.txt");
 
     // Trains a GaussianMixture model
     var gmm = new GaussianMixture()

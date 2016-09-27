@@ -36,6 +36,7 @@ function run(spark) {
         RowFactory.create([0.273, 1.0, Vectors.dense(0.520, 1.151)]),
         RowFactory.create([4.199, 0.0, Vectors.dense(0.795, -0.226)])
     ];
+
     var schema = new StructType([
         new StructField("label", DataTypes.DoubleType, false, Metadata.empty()),
             new StructField("censor", DataTypes.DoubleType, false, Metadata.empty()),

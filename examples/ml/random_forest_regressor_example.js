@@ -19,18 +19,15 @@
  */
 
 function run(spark) {
-    var SQLContext = require('eclairjs/sql/SQLContext');
     var VectorIndexer = require("eclairjs/ml/feature/VectorIndexer");
     var RandomForestRegressor = require("eclairjs/ml/regression/RandomForestRegressor");
     var RegressionEvaluator = require("eclairjs/ml/evaluation/RegressionEvaluator");
     var Pipeline = require("eclairjs/ml/Pipeline");
 
-    var sc = spark.sparkContext();
-    var sqlContext = new SQLContext(sc);
 
     // Load and parse the data file, converting it to a DataFrame.
     var data =
-        sqlContext.read().format("libsvm").load("examples/data/mllib/sample_libsvm_data.txt");
+        spark.read().format("libsvm").load("examples/data/mllib/sample_libsvm_data.txt");
 
     // Automatically identify categorical features, and index them.
     // Set maxCategories so features with > 4 distinct values are treated as continuous.
@@ -55,7 +52,7 @@ function run(spark) {
         .setStages([featureIndexer, rf]);
 
     // Train model.  This also runs the indexer.
-    var model = pipeline.fit(trainingData);
+    var model   = pipeline.fit(trainingData);
 
     // Make predictions.
     var predictions = model.transform(testData);
