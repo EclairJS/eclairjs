@@ -261,6 +261,7 @@
       <version>${spark.version}</version>
     </dependency-->
       <!-- needed to support OpenStack Object Store swift:// -->
+    <dependency>
       <groupId>org.apache.hadoop</groupId>
       <artifactId>hadoop-openstack</artifactId>
       <version>${hadoop.version}</version>
