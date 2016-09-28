@@ -261,7 +261,7 @@ public class ZClusterTest {
         String cp = System.getProperties().getProperty("java.class.path");
 
 
-//        org.apache.spark.deploy.SparkSubmit --class org.eclairjs.nashorn.SparkJS --name EclairJSShell --driver-java-options '-Dlog4j.configuration=file:"./src/main/resources/conf/log4j.prop"' ./target/eclairjs-nashorn-0.7-SNAPSHOT-jar-with-dependencies.jar ./examples/word_count.js
+//        org.apache.spark.deploy.SparkSubmit --class org.eclairjs.nashorn.SparkJS --name EclairJSShell --driver-java-options '-Dlog4j.configuration=file:"./src/main/resources/conf/log4j.prop"' ./target/eclairjs-nashorn-0.8-SNAPSHOT-jar-with-dependencies.jar ./examples/word_count.js
 
         System.setProperty("log4j.configuration", "file:./src/test/resources/conf/log4j.prop");
         String submitParams[] = new String[]{

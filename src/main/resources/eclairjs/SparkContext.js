@@ -564,7 +564,7 @@
             // versions is 2.0 or greater
         }
         
-        return "EclairJS-nashorn 0.7-SNAPSHOT Spark " + sparkVersion;
+        return "EclairJS-nashorn 0.8-SNAPSHOT Spark " + sparkVersion;
     };
 
     /**

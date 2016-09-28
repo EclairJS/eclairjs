@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.eclairjs</groupId>
   <artifactId>eclairjs-nashorn</artifactId>
-  <version>0.7-SNAPSHOT</version>
+  <version>0.8-SNAPSHOT</version>
 
   <name>EclairJS Nashorn</name>
   <description>JavaScript API for Apache Spark</description>
