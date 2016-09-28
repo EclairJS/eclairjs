@@ -170,6 +170,27 @@
           <autoReleaseAfterClose>true</autoReleaseAfterClose>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>scala-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>scala-compile-first</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>add-source</goal>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>scala-test-compile</id>
+            <phase>process-test-resources</phase>
+            <goals>
+              <goal>testCompile</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
     <pluginManagement>
       <plugins>
@@ -283,6 +304,41 @@
       <version>2.4</version>
       <scope>test</scope>
     </dependency>
+
+
+    <dependency>
+      <groupId>org.apache.toree.kernel</groupId>
+      <artifactId>toree-kernel-api_2.11</artifactId>
+      <version>${toree.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.toree.kernel</groupId>
+      <artifactId>toree-kernel_2.11</artifactId>
+      <version>${toree.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.kafka</groupId>
+      <artifactId>kafka-log4j-appender</artifactId>
+      <version>0.10.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.kafka</groupId>
+      <artifactId>kafka-clients</artifactId>
+      <version>0.10.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.kafka</groupId>
+      <artifactId>kafka_2.11</artifactId>
+      <version>0.10.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.http4s</groupId>
+      <artifactId>http4s-blaze-client_2.11</artifactId>
+      <version>0.12.1</version>
+    </dependency>
   </dependencies>
   <profiles>
     <profile>
@@ -339,85 +395,6 @@
           <value>local</value>
         </property>
       </activation>
-    </profile>
-    <profile>
-      <id>notebook</id>
-      <dependencies>
-        <dependency>
-          <groupId>org.apache.toree.kernel</groupId>
-          <artifactId>toree-kernel-api_2.11</artifactId>
-          <version>${toree.version}</version>
-          <scope>provided</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.toree.kernel</groupId>
-          <artifactId>toree-kernel_2.11</artifactId>
-          <version>${toree.version}</version>
-          <scope>provided</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.kafka</groupId>
-          <artifactId>kafka-log4j-appender</artifactId>
-          <version>0.10.0.0</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.kafka</groupId>
-          <artifactId>kafka-clients</artifactId>
-          <version>0.10.0.0</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.kafka</groupId>
-          <artifactId>kafka_2.11</artifactId>
-          <version>0.10.0.0</version>
-        </dependency>
-        <dependency>
-          <groupId>org.http4s</groupId>
-          <artifactId>http4s-blaze-client_2.11</artifactId>
-          <version>0.12.1</version>
-        </dependency>
-        <!--
-        <dependency>
-          <groupId>com.ibm</groupId>
-          <artifactId>messagehub.login</artifactId>
-          <version>1.0</version>
-          <scope>system</scope>
-          <systemPath>${project.basedir}/lib/messagehub.login-1.0.0.jar</systemPath>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.toree</groupId>
-          <artifactId>toree</artifactId>
-          <version>${toree.version}</version>
-          <scope>system</scope>
-          <systemPath>/Users/bburns/dev/incubator-toree/dist/toree/lib/toree-assembly-0.1.0.dev9-incubating-SNAPSHOT.jar</systemPath>
-          </dependency>
-        -->
-
-      </dependencies>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>net.alchim31.maven</groupId>
-            <artifactId>scala-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>scala-compile-first</id>
-                <phase>initialize</phase>
-                <goals>
-                  <goal>add-source</goal>
-                  <goal>compile</goal>
-                </goals>
-              </execution>
-              <execution>
-                <id>scala-test-compile</id>
-                <phase>process-test-resources</phase>
-                <goals>
-                  <goal>testCompile</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
     </profile>
     <profile>
       <id>docs</id>
