@@ -1,0 +1,99 @@
+/*
+ * Copyright 2016 IBM Corp.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/*
+ Usage:
+ bin/eclairjs.sh examples/mllib/random_forest_regression_example.js [file]
+ */
+
+function run(sc) {
+    var MLUtils = require("eclairjs/mllib/MLUtils");
+    var RandomForest = require('eclairjs/mllib/tree/RandomForest');
+    var Tuple2 = require('eclairjs/Tuple2');
+
+    var datapath = ((typeof args !== "undefined") && (args.length > 1)) ? args[1] : "examples/data/mllib/sample_libsvm_data.txt";
+
+    var data = MLUtils.loadLibSVMFile(sc, datapath);
+
+// Split the data into training and test sets (30% held out for testing)
+    var splits = data.randomSplit([0.7, 0.3]);
+    var trainingData = splits[0];
+    var testData = splits[1];
+
+// Set parameters.
+// Empty categoricalFeaturesInfo indicates all features are continuous.
+    var categoricalFeaturesInfo = {};
+    var numTrees = 3; // Use more in practice.
+    var featureSubsetStrategy = "auto"; // Let the algorithm choose.
+    var impurity = "variance";
+    var maxDepth = 4;
+    var maxBins = 32;
+    var seed = 12345;
+
+// Train a RandomForest model.
+    var model = RandomForest.trainRegressor(
+        trainingData,
+        categoricalFeaturesInfo,
+        numTrees,
+        featureSubsetStrategy,
+        impurity,
+        maxDepth,
+        maxBins,
+        seed
+    );
+
+// Evaluate model on test instances and compute test error
+    var predictionAndLabel = testData.mapToPair(function (p, model, Tuple2) {
+        return new Tuple2(model.predict(p.getFeatures()), p.getLabel());
+    }, [model, Tuple2]);
+
+    var testMSE = predictionAndLabel.map(function (tup) {
+            var diff = tup._1() - tup._2();
+            return diff * diff;
+        }).reduce(function (a, b) {
+            return a + b;
+        }) / testData.count();
+
+    var ret = {};
+    ret.testMSE = testMSE;
+    ret.model = model;
+    return ret;
+}
+
+/*
+ check if SparkContext is defined, if it is we are being run from Unit Test
+ */
+
+if (typeof sparkContext === 'undefined') {
+    var SparkConf = require('eclairjs/SparkConf');
+    var SparkContext = require('eclairjs/SparkContext');
+    var sparkConf = new SparkConf().setAppName("Random Forest Regression Example");
+    var sc = new SparkContext(sparkConf);
+    var result = run(sc);
+    print("Test Mean Squared Error: " + result.testMSE);
+    print("Learned regression forest model:\n" + result.model.toDebugString());
+
+// Save and load model
+    result.model.save(sc, "target/tmp/myRandomForestRegressionModel");
+    var RandomForestModel = require('eclairjs/mllib/tree/model/RandomForestModel');
+    var sameModel = RandomForestModel.load(
+        sc,
+        "target/tmp/myRandomForestRegressionModel"
+    );
+
+    sc.stop();
+}
+
+

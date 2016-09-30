@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: eclairjs/PairRDD.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: eclairjs/PairRDD.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*
+ * Copyright 2016 IBM Corp.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+(function () {
+
+    //var JavaWrapper = require(EclairJS_Globals.NAMESPACE + '/JavaWrapper');
+    //var Logger = require(EclairJS_Globals.NAMESPACE + '/Logger');
+    //var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
+    //var RDD = require(EclairJS_Globals.NAMESPACE + '/RDD');
+
+    /**
+     * @param {module:eclairjs.RDD} rdd of [Tuple(value, value)]{@link module:eclairjs.Tuple}.
+     *  @class PairRDD
+     *  @memberof module:eclairjs
+     *  @extends module:eclairjs.RDD
+     */
+    var PairRDD = Java.type('org.eclairjs.nashorn.wrap.PairRDD');
+    //var PairRDD = function (rdd, kClassTag, vClassTag) {
+    //
+    //    RDD.call(this, Utils.unwrapObject(rdd));
+    //    this.className = "PairRDD_js";
+    //    this.logger = Logger.getLogger("PairRDD_js");
+    //    this.logger.debug("constructor")
+    //
+    //};
+
+
+    //PairRDD.prototype = Object.create(RDD.prototype);
+    //
+    //PairRDD.prototype.constructor = PairRDD;
+
+    /**
+     * @function
+     * @name module:eclairjs.PairRDD#wrapRDD
+     * @param {module:eclairjs.RDD} rdd
+     * @returns {module:eclairjs.PairRDD}
+     */
+    //PairRDD.prototype.wrapRDD = function (rdd) {
+    //    var rdd_uw = Utils.unwrapObject(rdd);
+    //    var javaObject = this.getJavaObject().wrapRDD(rdd_uw);
+    //    return new PairRDD(javaObject);
+    //};
+
+
+    /**
+     * @function
+     * @name module:eclairjs.PairRDD#persist
+     * Set this RDD's storage level to persist its values across operations after the first time
+     * it is computed. Can only be called once on each RDD.
+     * @param {module:eclairjs/storage.StorageLevel} newLevel
+     * @returns {module:eclairjs.PairRDD}
+     */
+    //PairRDD.prototype.persist = function (newLevel) {
+    //    var newLevel_uw = Utils.unwrapObject(newLevel);
+    //    var javaObject = this.getJavaObject().persist(newLevel_uw);
+    //    return new PairRDD(javaObject);
+    //};
+
+
+    /**
+     * @function
+     * @name module:eclairjs.PairRDD#unpersist
+     * Mark the RDD as non-persistent, and remove all blocks for it from memory and disk.
+     *
+     * @param {boolean} [blocking]  Whether to block until all blocks are deleted.
+     * @returns {module:eclairjs.PairRDD}
+     */
+    //PairRDD.prototype.unpersist = function (blocking) {
+    //
+    //    if (arguments[0]) {
+    //        var javaObject = this.getJavaObject().unpersist(blocking);
+    //        return new PairRDD(javaObject);
+    //    } else {
+    //        var javaObject = this.getJavaObject().unpersist();
+    //        return new PairRDD(javaObject);
+    //    }
+    //};
+
+
+    /**
+     * @function
+     * @name module:eclairjs.PairRDD#distinct
+     * Return a new RDD containing the distinct elements in this RDD.
+     * @param {number} [numPartitions]
+     * @returns {module:eclairjs.PairRDD}
+     */
+    //PairRDD.prototype.distinct = function (numPartitions) {
+    //    var javaObject
+    //    if (arguments[0]) {
+    //        javaObject = this.getJavaObject().distinct(numPartitions);
+    //
+    //    } else {
+    //        javaObject = this.getJavaObject().distinct();
+    //
+    //    }
+    //    return new PairRDD(javaObject);
+    //};
+
+
+    /**
+     * @function
+     * @name module:eclairjs.PairRDD#filter
+     * Return a new PairRDD containing only the elements that satisfy a predicate.
+     * @param {function} func
+     * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
+     * @returns {module:eclairjs.PairRDD}
+     */
+    //PairRDD.prototype.filter = function (func, bindArgs) {
+    //    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
+    //    var javaObject = this.getJavaObject().filter(fn);
+    //    return new PairRDD(javaObject);
+    //};
+
+    /**
+     * @function
+     * @name module:eclairjs.PairRDD#cache
+     * Persist this RDD with the default storage level (`MEMORY_ONLY`).
+     * @returns {module:eclairjs.RDD}
+     */
+    //PairRDD.prototype.cache = function () {
+    //    return new PairRDD(this.getJavaObject().cache());
+    //};
+
+    /**
+     * @function
+     * @name module:eclairjs.PairRDD#coalesce
+     * Return a new RDD that is reduced into `numPartitions` partitions.
+     * @param {number} numPartitions
+     * @param {boolean} [shuffle]
+     * @returns {module:eclairjs.PairRDD}
+     */
+    //PairRDD.prototype.coalesce = function (numPartitions, shuffle) {
+    //
+    //    if (arguments[1]) {
+    //        var javaObject = this.getJavaObject().coalesce(numPartitions, shuffle);
+    //        return new PairRDD(javaObject);
+    //    } else {
+    //        var javaObject = this.getJavaObject().coalesce(numPartitions);
+    //        return new PairRDD(javaObject);
+    //    }
+    //};
+
+
+    /**
+     * @function
+     * @name module:eclairjs.PairRDD#repartition
+     * Return a new RDD that has exactly numPartitions partitions.
+     *
+     * Can increase or decrease the level of parallelism in this RDD. Internally, this uses
+     * a shuffle to redistribute data.
+     *
+     * If you are decreasing the number of partitions in this RDD, consider using `coalesce`,
+     * which can avoid performing a shuffle.
+     * @param {number} numPartitions
+     * @returns {module:eclairjs.PairRDD}
+     */
+    //PairRDD.prototype.repartition = function (numPartitions) {
+    //    var javaObject = this.getJavaObject().repartition(numPartitions);
+    //    return new PairRDD(javaObject);
+    //};
+
+
+    /**
+     * @function
+     * @name module:eclairjs.PairRDD#sample
+     * Return a sampled subset of this RDD.
+     * @param {boolean} withReplacement
+     * @param {number} fraction
+     * @param {number} [seed]
+     * @returns {module:eclairjs.PairRDD}
+     */
+    //PairRDD.prototype.sample = function (withReplacement, fraction, seed) {
+    //
+    //    if (arguments[2]) {
+    //        var javaObject = this.getJavaObject().sample(withReplacement, fraction, seed);
+    //        return new PairRDD(javaObject);
+    //    } else {
+    //        var javaObject = this.getJavaObject().sample(withReplacement, fraction);
+    //        return new PairRDD(javaObject);
+    //    }
+    //};
+
+
+    /**
+     * Return a subset of this RDD sampled by key (via stratified sampling).
+     *
+     * Create a sample of this RDD using variable sampling rates for different keys as specified by
+     * `fractions`, a key to sampling rate map, via simple random sampling with one pass over the
+     * RDD, to produce a sample of size that's approximately equal to the sum of
+     * math.ceil(numItems * samplingRate) over all key values.
+     * @function
+     * @name module:eclairjs.PairRDD#sampleByKey
+     * @param {boolean} withReplacement
+     * @param {object} fractions key, value pair object Hash Map
+     * @param {number} [seed]
+     * @returns {module:eclairjs.PairRDD}
+     */
+    //PairRDD.prototype.sampleByKey = function (withReplacement, fractions, seed) {
+    //    var fractions_uw = Utils.createJavaHashMap(fractions);
+    //
+    //    if (arguments[2]) {
+    //        var javaObject = this.getJavaObject().sampleByKey(withReplacement, fractions_uw, seed);
+    //        return new PairRDD(javaObject);
+    //    } else {
+    //        var javaObject = this.getJavaObject().sampleByKey(withReplacement, fractions_uw);
+    //        return new PairRDD(javaObject);
+    //    }
+    //};
+
+
+    /**
+     * Return a subset of this RDD sampled by key (via stratified sampling) containing exactly
+     * math.ceil(numItems * samplingRate) for each stratum (group of pairs with the same key).
+     *
+     * This method differs from {@link sampleByKey} in that we make additional passes over the RDD to
+     * create a sample size that's exactly equal to the sum of math.ceil(numItems * samplingRate)
+     * over all key values with a 99.99% confidence. When sampling without replacement, we need one
+     * additional pass over the RDD to guarantee sample size; when sampling with replacement, we need
+     * two additional passes.
+     * @function
+     * @name module:eclairjs.PairRDD#sampleByKeyExact
+     * @param {boolean} withReplacement
+     * @param {object} fractions key, value pair object Hash Map
+     * @param {number} [seed]
+     * @returns {module:eclairjs.PairRDD}
+     */
+    //PairRDD.prototype.sampleByKeyExact = function (withReplacement, fractions, seed) {
+    //    var fractions_uw = Utils.createJavaHashMap(fractions);
+    //
+    //    if (arguments[2]) {
+    //        var javaObject = this.getJavaObject().sampleByKeyExact(withReplacement, fractions_uw, seed);
+    //        return new PairRDD(javaObject);
+    //    } else {
+    //        var javaObject = this.getJavaObject().sampleByKeyExact(withReplacement, fractions_uw);
+    //        return new PairRDD(javaObject);
+    //    }
+    //};
+    //
+
+    /**
+     * Return the union of this RDD and another one. Any identical elements will appear multiple
+     * times (use `.distinct()` to eliminate them).
+     * @function
+     * @name module:eclairjs.PairRDD#union
+     * @param {module:eclairjs.PairRDD} other
+     * @returns {module:eclairjs.PairRDD}
+     */
+    //PairRDD.prototype.union = function (other) {
+    //    var other_uw = Utils.unwrapObject(other);
+    //    var javaObject = this.getJavaObject().union(other_uw);
+    //    return new PairRDD(javaObject);
+    //};
+
+    /**
+     * Return the intersection of this RDD and another one. The output will not contain any duplicate
+     * elements, even if the input RDDs did.
+     * @function
+     * @name module:eclairjs.PairRDD#intersection
+     * Note that this method performs a shuffle internally.
+     * @param {module:eclairjs.PairRDD} other
+     * @returns {module:eclairjs.PairRDD}
+     */
+    //PairRDD.prototype.intersection = function (other) {
+    //    var other_uw = Utils.unwrapObject(other);
+    //    var javaObject = this.getJavaObject().intersection(other_uw);
+    //    return new PairRDD(javaObject);
+    //};
+
+
+    /**
+     * @function
+     * @name module:eclairjs.PairRDD#first
+     * @returns {module:eclairjs.module:eclairjs.Tuple2}
+     */
+    //PairRDD.prototype.first = function () {
+    //    var javaObject = this.getJavaObject().first();
+    //    return Utils.javaToJs(javaObject);
+    //};
+
+
+    /**
+     * Simplified version of combineByKey that hash-partitions the output RDD and uses map-side
+     * aggregation.
+     * @function
+     * @name module:eclairjs.PairRDD#combineByKey
+     * @param {func} createCombiner
+     * @param {func} mergeValue
+     * @param {func} mergeCombiners
+     * @param {number} numPartitions
+     * @returns {module:eclairjs.PairRDD}
+     */
+    //PairRDD.prototype.combineByKey = function (createCombiner, mergeValue, mergeCombiners, numPartitions, bindArgs) {
+    //    var fn = Utils.createLambdaFunction(createCombiner, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
+    //    var fn2 = Utils.createLambdaFunction(mergeValue, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
+    //    var fn3 = Utils.createLambdaFunction(mergeCombiners, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
+    //
+    //    var javaObject = this.getJavaObject().combineByKey(fn, fn2, fn3);
+    //    return new PairRDD(javaObject);
+    //};
+
+
+    /**
+     * Merge the values for each key using an associative reduce function. This will also perform
+     * the merging locally on each mapper before sending results to a reducer, similarly to a
+     * "combiner" in MapReduce.
+     * @function
+     * @name module:eclairjs.PairRDD#reduceByKey
+     * @param {func} func
+     * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
+     * @returns {module:eclairjs.PairRDD}
+     */
+    //PairRDD.prototype.reduceByKey = function (func, bindArgs) {
+    //    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
+    //    var result = this.getJavaObject().reduceByKey(fn);
+    //    return new PairRDD(result);
+    //};
+
+
+    /**
+     * Merge the values for each key using an associative reduce function, but return the results
+     * immediately to the master as a Map. This will also perform the merging locally on each mapper
+     * before sending results to a reducer, similarly to a "combiner" in MapReduce.
+     * @function
+     * @name module:eclairjs.PairRDD#reduceByKeyLocally
+     * @param {func} func
+     * @returns {Object} Key value pair hashmap
+     */
+    //PairRDD.prototype.reduceByKeyLocally = function (func, bindArgs) {
+    //    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
+    //    var javaObject = this.getJavaObject().reduceByKeyLocally(fn);
+    //    return new Utils.javaToJs(javaObject);
+    //};
+
+    /**
+     * @function
+     * @name module:eclairjs.PairRDD#countByKey
+     * @returns {object} key, value hash map
+     */
+    //PairRDD.prototype.countByKey = function () {
+    //    var javaObject = this.getJavaObject().countByKey();
+    //    return Utils.javaToJs(javaObject);
+    //};
+
+
+    /**
+     * Approximate version of countByKey that can return a partial result if it does
+     * not finish within a timeout.
+     * @function
+     * @name module:eclairjs.PairRDD#countByKeyApprox
+     * @param {number} timeout
+     * @param {number} [confidence]
+     * @returns {module:eclairjs/partial.PartialResult}
+     */
+    //PairRDD.prototype.countByKeyApprox = function (timeout, confidence) {
+    //    var javaObject;
+    //    if (arguments[1]) {
+    //        javaObject = this.getJavaObject().countByKeyApprox(timeout, confidence);
+    //    } else {
+    //        javaObject = this.getJavaObject().countByKeyApprox(timeout);
+    //    }
+    //    return Utils.javaToJs(javaObject);
+    //};
+
+
+    /**
+     * Aggregate the values of each key, using given combine functions and a neutral "zero value".
+     * This function can return a different result type, U, than the type of the values in this RDD,
+     * V. Thus, we need one operation for merging a V into a U and one operation for merging two U's,
+     * as in scala.TraversableOnce. The former operation is used for merging values within a
+     * partition, and the latter is used for merging values between partitions. To avoid memory
+     * allocation, both of these functions are allowed to modify and return their first argument
+     * instead of creating a new U.
+     * @example
+     * var Serializable = require(EclairJS_Globals.NAMESPACE + '/Serializable');
+     * var s = new Serializable();
+     *  var result = pairRdd.aggregateByKey(s,
+     *   function(hashSetA, b) {
+     *      hashSetA[b] = hashSetA[b] ? hashSetA[b] + 1 : 1;
+     *      return hashSetA;
+     *  },
+     *  function(setA, setB){
+     *     for (var k in setA) {
+     *        if (setB.hasOwnProperty(k)) {
+     *             setA[k] += setB[k];
+     *           }
+     *      }
+     *      return setA;
+     *  });
+     * @function
+     * @name module:eclairjs.PairRDD#aggregateByKey
+     * @param {module:eclairjs.Serializable} zeroValue
+     * @param {func} seqFunc
+     * @param {func} combFunc
+     * @param {number} [numPartitions]
+     * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
+     * @returns {module:eclairjs.PairRDD}
+     */
+    //PairRDD.prototype.aggregateByKey = function (zeroValue, seqFunc, combFunc, numPartitions, bindArgs) {
+    //    var zeroValue_uw = Utils.unwrapObject(zeroValue);
+    //    var fn = Utils.createLambdaFunction(seqFunc, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
+    //    var fn2 = Utils.createLambdaFunction(combFunc, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
+    //    var javaObject;
+    //    if (numPartitions) {
+    //        javaObject = this.getJavaObject().aggregateByKey(zeroValue_uw, numPartitions, fn, fn2);
+    //    } else {
+    //        javaObject = this.getJavaObject().aggregateByKey(zeroValue_uw, fn, fn2);
+    //    }
+    //    return new PairRDD(javaObject);
+    //};
+
+    /**
+     * Merge the values for each key using an associative function and a neutral "zero value" which
+     * may be added to the result an arbitrary number of times, and must not change the result
+     * (e.g ., Nil for list concatenation, 0 for addition, or 1 for multiplication.).
+     * @function
+     * @name module:eclairjs.PairRDD#foldByKey
+     * @param {module:eclairjs.Serializable | number} zeroValue
+     * @param {func} func
+     * @param {integer} [numPartitions]
+     * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
+     * @returns {module:eclairjs.PairRDD}
+     */
+    //PairRDD.prototype.foldByKey = function (zeroValue, func, numPartitions, bindArgs) {
+    //    var zeroValue_uw = Utils.unwrapObject(zeroValue);
+    //    var fn = Utils.createLambdaFunction(func, org.eclairjs.nashorn.JSFunction2, this.context(), bindArgs);
+    //    var javaObject;
+    //    if (numPartitions) {
+    //        javaObject = this.getJavaObject().foldByKey(zeroValue_uw, numPartitions, fn);
+    //    } else {
+    //        javaObject = this.getJavaObject().foldByKey(zeroValue_uw, fn);
+    //    }
+    //
+    //    return new PairRDD(javaObject);
+    //};
+
+    /**
+     * Group the values for each key in the RDD into a single sequence. Allows controlling the
+     * partitioning of the resulting key-value pair RDD by passing a Partitioner.
+     *
+     * Note: If you are grouping in order to perform an aggregation (such as a sum or average) over
+     * each key, using [[PairRDD.reduceByKey]] or {@link combineByKey}
+     * will provide much better performance.
+     * @function
+     * @name module:eclairjs.PairRDD#groupByKey
+     * @param {integer} [number] or number of partitions
+     * @returns {module:eclairjs.PairRDD}
+     */
+    //PairRDD.prototype.groupByKey = function (number) {
+    //    var javaObject;
+    //    if (number) {
+    //        javaObject = this.getJavaObject().groupByKey(number);
+    //    } else {
+    //        javaObject = this.getJavaObject().groupByKey();
+    //    }
+    //
+    //    return new PairRDD(javaObject);
+    //};
+
+    /**
+     * Return an RDD with the elements from `this` that are not in `other`.
+     * @function
+     * @name module:eclairjs.PairRDD#subtract
+     * @param {module:eclairjs.PairRDD} other
+     * @param {integer} [numPartitions]
+     * @returns {module:eclairjs.PairRDD}
+     */
+    //PairRDD.prototype.subtract = function (other, numPartitions) {
+    //    var other_uw = Utils.unwrapObject(other);
+    //    var javaObject;
+    //    if (numPartitions) {
+    //        javaObject = this.getJavaObject().subtract(other_uw, numPartitions);
+    //    } else {
+    //        javaObject = this.getJavaObject().subtract(other_uw);
+    //    }
+    //    return new PairRDD(javaObject);
+    //};
+
+    /**
+     * @function
+     * @name module:eclairjs.PairRDD#subtractByKey
+     * @param {module:eclairjs.PairRDD} other
+     * @param {integer} [numPartitions]
+     * @returns {module:eclairjs.PairRDD}
+     */
+    //PairRDD.prototype.subtractByKey = function (other, numPartitions) {
+    //    var other_uw = Utils.unwrapObject(other);
+    //    var javaObject;
+    //    if (numPartitions) {
+    //        javaObject = this.getJavaObject().subtractByKey(other_uw, numPartitions);
+    //    } else {
+    //        javaObject = this.getJavaObject().subtractByKey(other_uw);
+    //    }
+    //    return new PairRDD(javaObject);
+    //};
+
+    /**
+     * Merge the values for each key using an associative reduce function. This will also perform
+     * the merging locally on each mapper before sending results to a reducer, similarly to a
+     * "combiner" in MapReduce.
+     * @function
+     * @name module:eclairjs.PairRDD#join
+     * @param {module:eclairjs.PairRDD} other
+     * @param {integer} [numPartitions]
+     * @returns {module:eclairjs.PairRDD}
+     */
+    //PairRDD.prototype.join = function (other, numPartitions) {
+    //    var other_uw = Utils.unwrapObject(other);
+    //    var javaObject = numPartitions ? this.getJavaObject().join(other_uw, numPartitions) :
+    //        this.getJavaObject().join(other_uw);
+    //    return new PairRDD(javaObject);
+    //};
+
+
+    /**
+     * Perform a left outer join of `this` and `other`. For each element (k, v) in `this`, the
+     * resulting RDD will either contain all pairs (k, (v, Some(w))) for w in `other`, or the
+     * pair (k, (v, None)) if no elements in `other` have key k.
+     * @function
+     * @name module:eclairjs.PairRDD#leftOuterJoin
+     * @param {module:eclairjs.PairRDD} other
+     * @param {integer} [numPartitions]
+     * @returns {module:eclairjs.PairRDD}
+     */
+    //PairRDD.prototype.leftOuterJoin = function (other, numPartitions) {
+    //    var other_uw = Utils.unwrapObject(other);
+    //    var javaObject = numPartitions ? this.getJavaObject().leftOuterJoin(other_uw, numPartitions) :
+    //        this.getJavaObject().leftOuterJoin(other_uw);
+    //    return new PairRDD(javaObject);
+    //};
+
+
+    /**
+     * Perform a right outer join of `this` and `other`. For each element (k, w) in `other`, the
+     * resulting RDD will either contain all pairs (k, (Some(v), w)) for v in `this`, or the
+     * pair (k, (None, w)) if no elements in `this` have key k.
+     * @function
+     * @name module:eclairjs.PairRDD#rightOuterJoin
+     * @param {module:eclairjs.PairRDD} other
+     * @param {integer} [numPartitions]
+     * @returns {module:eclairjs.PairRDD}
+     */
+    //PairRDD.prototype.rightOuterJoin = function (other, numPartitions) {
+    //    var other_uw = Utils.unwrapObject(other);
+    //    var javaObject = numPartitions ? this.getJavaObject().rightOuterJoin(other_uw, numPartitions) :
+    //        this.getJavaObject().rightOuterJoin(other_uw);
+    //    return new PairRDD(javaObject);
+    //};
+
+
+    /**
+     * Perform a full outer join of `this` and `other`. For each element (k, v) in `this`, the
+     * resulting RDD will either contain all pairs (k, (Some(v), Some(w))) for w in `other`, or
+     * the pair (k, (Some(v), None)) if no elements in `other` have key k. Similarly, for each
+     * element (k, w) in `other`, the resulting RDD will either contain all pairs
+     * (k, (Some(v), Some(w))) for v in `this`, or the pair (k, (None, Some(w))) if no elements
+     * in `this` have key k.
+     * @function
+     * @name module:eclairjs.PairRDD#fullOuterJoin
+     * @param {module:eclairjs.PairRDD} other
+     * @param {integer} [numPartitions]
+     * @returns {module:eclairjs.PairRDD}
+     */
+    //PairRDD.prototype.fullOuterJoin = function (other, numPartitions) {
+    //    var other_uw = Utils.unwrapObject(other);
+    //    var javaObject = numPartitions ? this.getJavaObject().fullOuterJoin(other_uw, numPartitions) :
+    //        this.getJavaObject().fullOuterJoin(other_uw);
+    //    return new PairRDD(javaObject);
+    //};
+
+    /**
+     * Return the key-value pairs in this RDD to the master as a Map.
+     * @function
+     * @name module:eclairjs.PairRDD#collectAsMap
+     * @returns {object} key, value hash map
+     */
+    //PairRDD.prototype.collectAsMap = function () {
+    //    var javaObject = this.getJavaObject().collectAsMap();
+    //    return Utils.javaToJs(javaObject);
+    //};
+
+
+    /**
+     * Pass each value in the key-value pair RDD through a map function without changing the keys;
+     * this also retains the original RDD's partitioning.
+     * @function
+     * @name module:eclairjs.PairRDD#mapValues
+     * @param {func} f
+     * @param {object[]} [bindArgs]
+     * @returns {module:eclairjs.PairRDD}
+     */
+    //PairRDD.prototype.mapValues = function (f, bindArgs) {
+    //    var fn = Utils.createLambdaFunction(f, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
+    //    var javaObject = this.getJavaObject().mapValues(fn);
+    //    return new PairRDD(javaObject);
+    //};
+
+
+    /**
+     * Pass each value in the key-value pair RDD through a flatMap function without changing the
+     * keys; this also retains the original RDD's partitioning.
+     * @function
+     * @name module:eclairjs.PairRDD#flatMapValues
+     * @param {func} f
+     * @param {object[]} [bindArgs]
+     * @returns {module:eclairjs.PairRDD}
+     */
+    //PairRDD.prototype.flatMapValues = function (f, bindArgs) {
+    //    var fn = Utils.createLambdaFunction(f, org.eclairjs.nashorn.JSFunction, this.context(), bindArgs);
+    //    var javaObject = this.getJavaObject().flatMapValues(fn);
+    //    return new PairRDD(javaObject);
+    //};
+
+
+    /**
+     * For each key k in `this` or `other`, return a resulting RDD that contains a tuple with the
+     * list of values for that key in `this` as well as `other`.
+     * @function
+     * @name module:eclairjs.PairRDD#cogroup
+     * @param {module:eclairjs.PairRDD} other1
+     * @param {module:eclairjs.PairRDD} [other2]
+     * @param {module:eclairjs.PairRDD} [other3]
+     * @param {integer} [numPartitions]
+     * @returns {module:eclairjs.PairRDD}
+     */
+    //PairRDD.prototype.cogroup = function (other1, other2, other3, numPartitions) {
+    //    var other1_uw = Utils.unwrapObject(other1);
+    //    var other2_uw = Utils.unwrapObject(other2);
+    //    var other3_uw = Utils.unwrapObject(other3);
+    //    var javaObject;
+    //    if (numPartitions) {
+    //        if (other3_uw) {
+    //            javaObject = this.getJavaObject().cogroup(other1_uw, other2_uw, other3_uw, numPartitions);
+    //        } else if (other2_uw) {
+    //            javaObject = this.getJavaObject().cogroup(other1_uw, other2_uw, numPartitions);
+    //        } else {
+    //            javaObject = this.getJavaObject().cogroup(other1_uw, numPartitions);
+    //        }
+    //    } else {
+    //        if (other3_uw) {
+    //            javaObject = this.getJavaObject().cogroup(other1_uw, other2_uw, other3_uw);
+    //        } else if (other2_uw) {
+    //            javaObject = this.getJavaObject().cogroup(other1_uw, other2_uw);
+    //        } else {
+    //            javaObject = this.getJavaObject().cogroup(other1_uw);
+    //        }
+    //    }
+    //    return new PairRDD(javaObject);
+    //};
+
+    /**
+     * @function
+     * @name module:eclairjs.PairRDD#groupWith
+     * @param {module:eclairjs.PairRDD} other1
+     * @param {module:eclairjs.PairRDD} [other2]
+     * @param {module:eclairjs.PairRDD} [other3]
+     * @returns {module:eclairjs.PairRDD}
+     */
+    //PairRDD.prototype.groupWith = function (other1, other2, other3) {
+    //    var other1_uw = Utils.unwrapObject(other1);
+    //    var other2_uw = Utils.unwrapObject(other2);
+    //    var other3_uw = Utils.unwrapObject(other3);
+    //    var javaObject;
+    //    if (other3_uw) {
+    //        javaObject = this.getJavaObject().groupWith(other1_uw, other2_uw, other3_uw);
+    //    } else if (other2_uw) {
+    //        javaObject = this.getJavaObject().groupWith(other1_uw, other2_uw);
+    //    } else {
+    //        javaObject = this.getJavaObject().groupWith(other1_uw);
+    //    }
+    //    return new PairRDD(javaObject);
+    //};
+
+
+    /**
+     * Return the list of values in the RDD for key `key`. This operation is done efficiently if the
+     * RDD has a known partitioner by only searching the partition that the key maps to.
+     * @function
+     * @name module:eclairjs.PairRDD#lookup
+     * @param {object} key
+     * @returns {object[]}
+     */
+    //PairRDD.prototype.lookup = function (key) {
+    //    var key_uw = Utils.unwrapObject(key);
+    //    return Utils.javaToJs(this.getJavaObject().lookup(key_uw));
+    //};
+
+
+    /**
+     * Sort the RDD by key, so that each partition contains a sorted range of the elements. Calling
+     * `collect` or `save` on the resulting RDD will return or output an ordered list of records
+     * (in the `save` case, they will be written to multiple `part-X` files in the filesystem, in
+     * order of the keys).
+     * @function
+     * @name module:eclairjs.PairRDD#sortByKey
+     * @param {boolean} [ascending] defaults to false
+     * @param {number} [numPartitions]
+     * @returns {module:eclairjs.PairRDD}
+     */
+    //PairRDD.prototype.sortByKey = function (ascending, numPartitions) {
+    //    var javaObject;
+    //    if (numPartitions) {
+    //        javaObject = this.getJavaObject().sortByKey(ascending, numPartitions);
+    //    } else {
+    //        javaObject = this.getJavaObject().sortByKey(ascending);
+    //    }
+    //    return new PairRDD(javaObject);
+    //};
+
+
+    /**
+     * @function
+     * @name module:eclairjs.PairRDD#keys
+     * Return an RDD with the keys of each tuple.
+     * @returns {module:eclairjs.PairRDD}
+     */
+    //PairRDD.prototype.keys = function () {
+    //    var javaObject = this.getJavaObject().keys();
+    //    return new JavaRDD(javaObject);
+    //};
+
+
+    /**
+     * @function
+     * @name module:eclairjs.PairRDD#values
+     * Return an RDD with the values of each tuple.
+     * @returns {module:eclairjs.RDD}
+     */
+    //PairRDD.prototype.values = function () {
+    //    var javaObject = this.getJavaObject().values();
+    //    return new RDD(javaObject);
+    //};
+    
+    /**
+     * Return approximate number of distinct values for each key in this RDD.
+     *
+     * The algorithm used is based on streamlib's implementation of "HyperLogLog in Practice:
+     * Algorithmic Engineering of a State of The Art Cardinality Estimation Algorithm", available
+     * &lt;a href="http://dx.doi.org/10.1145/2452376.2452456">here&lt;/a>.
+     * @function
+     * @name module:eclairjs.countApproxDistinctByKey#values
+     * @param {float} relativeSD  Relative accuracy. Smaller values create counters that require more space.
+     *                   It must be greater than 0.000017.
+     * @param {integer} [numPartitions]  number of partitions of the resulting RDD.
+     * @returns {module:eclairjs.PairRDD}
+     */
+    //PairRDD.prototype.countApproxDistinctByKey = function (relativeSD, numPartitions) {
+    //    var javaObject = numPartitions ? this.getJavaObject().countApproxDistinctByKey(relativeSD, numPartitions) :
+    //        this.getJavaObject().countApproxDistinctByKey(relativeSD);
+    //    return new PairRDD(javaObject);
+    //};
+
+    /**
+     * @function
+     * @name module:eclairjs.countApproxDistinctByKey#setName
+     * @param {string} name
+     * @returns {module:eclairjs.PairRDD}
+     */
+    //PairRDD.prototype.setName = function (name) {
+    //    var javaObject = this.getJavaObject().setName(name);
+    //    return new PairRDD(javaObject);
+    //};
+
+    /**
+     * @function
+     * @name module:eclairjs.countApproxDistinctByKey#setName
+     * @returns {module:eclairjs.RDD}
+     */
+    //PairRDD.prototype.rdd = function () {
+    //    var javaObject = this.getJavaObject().rdd();
+    //    return new RDD(javaObject);
+    //};
+
+//
+// static methods
+//
+
+    /**
+     * @function
+     * @name module:eclairjs.countApproxDistinctByKey#toRDD
+     * @param {module:eclairjs.PairRDD} rdd
+     * @returns {module:eclairjs.RDD}
+     */
+    //PairRDD.toRDD = function (rdd) {
+    //    var rdd_uw = Utils.unwrapObject(rdd);
+    //    var javaObject = org.apache.spark.api.java.JavaPairRDD.toRDD(rdd_uw);
+    //    return new RDD(javaObject);
+    //};
+
+
+    /**
+     * @function
+     * @name module:eclairjs.countApproxDistinctByKey#fromRDD
+     * @param {module:eclairjs.RDD} rdd
+     * @returns {module:eclairjs.PairRDD}
+     */
+    //PairRDD.fromRDD = function (rdd) {
+    //    var rdd_uw = Utils.unwrapObject(rdd);
+    //    var javaObject = org.apache.spark.api.java.JavaPairRDD.fromJavaRDD(rdd_uw);
+    //    return new PairRDD(javaObject);
+    //};
+
+    module.exports = PairRDD;
+
+})();</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-eclairjs.html">eclairjs</a></li><li><a href="module-eclairjs_broadcast.html">eclairjs/broadcast</a></li><li><a href="module-eclairjs_ml.html">eclairjs/ml</a></li><li><a href="module-eclairjs_ml_attribute.html">eclairjs/ml/attribute</a></li><li><a href="module-eclairjs_ml_classification.html">eclairjs/ml/classification</a></li><li><a href="module-eclairjs_ml_clustering.html">eclairjs/ml/clustering</a></li><li><a href="module-eclairjs_ml_evaluation.html">eclairjs/ml/evaluation</a></li><li><a href="module-eclairjs_ml_feature.html">eclairjs/ml/feature</a></li><li><a href="module-eclairjs_ml_linalg.html">eclairjs/ml/linalg</a></li><li><a href="module-eclairjs_ml_param.html">eclairjs/ml/param</a></li><li><a href="module-eclairjs_ml_recommendation.html">eclairjs/ml/recommendation</a></li><li><a href="module-eclairjs_ml_regression.html">eclairjs/ml/regression</a></li><li><a href="module-eclairjs_ml_tuning.html">eclairjs/ml/tuning</a></li><li><a href="module-eclairjs_ml_util.html">eclairjs/ml/util</a></li><li><a href="module-eclairjs_mllib.html">eclairjs/mllib</a></li><li><a href="module-eclairjs_mllib_classification.html">eclairjs/mllib/classification</a></li><li><a href="module-eclairjs_mllib_clustering.html">eclairjs/mllib/clustering</a></li><li><a href="module-eclairjs_mllib_evaluation.html">eclairjs/mllib/evaluation</a></li><li><a href="module-eclairjs_mllib_feature.html">eclairjs/mllib/feature</a></li><li><a href="module-eclairjs_mllib_fpm.html">eclairjs/mllib/fpm</a></li><li><a href="module-eclairjs_mllib_linalg.html">eclairjs/mllib/linalg</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.html">eclairjs/mllib/linalg/distributed</a></li><li><a href="module-eclairjs_mllib_optimization.html">eclairjs/mllib/optimization</a></li><li><a href="module-eclairjs_mllib_random.html">eclairjs/mllib/random</a></li><li><a href="module-eclairjs_mllib_recommendation.html">eclairjs/mllib/recommendation</a></li><li><a href="module-eclairjs_mllib_regression.html">eclairjs/mllib/regression</a></li><li><a href="module-eclairjs_mllib_tree.html">eclairjs/mllib/tree</a></li><li><a href="module-eclairjs_mllib_tree_configuration.html">eclairjs/mllib/tree/configuration</a></li><li><a href="module-eclairjs_mllib_tree_loss.html">eclairjs/mllib/tree/loss</a></li><li><a href="module-eclairjs_mllib_tree_model.html">eclairjs/mllib/tree/model</a></li><li><a href="module-eclairjs_partial.html">eclairjs/partial</a></li><li><a href="module-eclairjs_sql.html">eclairjs/sql</a></li><li><a href="module-eclairjs_sql_execution.html">eclairjs/sql/execution</a></li><li><a href="module-eclairjs_sql_streaming.html">eclairjs/sql/streaming</a></li><li><a href="module-eclairjs_sql_types.html">eclairjs/sql/types</a></li><li><a href="module-eclairjs_storage.html">eclairjs/storage</a></li><li><a href="module-eclairjs_streaming.html">eclairjs/streaming</a></li><li><a href="module-eclairjs_streaming_dstream.html">eclairjs/streaming/dstream</a></li><li><a href="module-eclairjs_streaming_kafka.html">eclairjs/streaming/kafka</a></li><li><a href="module-eclairjs_streaming_twitter.html">eclairjs/streaming/twitter</a></li><li><a href="module-eclairjs_util.html">eclairjs/util</a></li></ul><h3>Classes</h3><ul><li><a href="module-eclairjs.Accumulable.html">Accumulable</a></li><li><a href="module-eclairjs.AccumulableParam.html">AccumulableParam</a></li><li><a href="module-eclairjs.Accumulator.html">Accumulator</a></li><li><a href="module-eclairjs.FloatAccumulatorParam.html">FloatAccumulatorParam</a></li><li><a href="module-eclairjs.FloatRDD.html">FloatRDD</a></li><li><a href="module-eclairjs.FutureAction.html">FutureAction</a></li><li><a href="module-eclairjs.HashPartitioner.html">HashPartitioner</a></li><li><a href="module-eclairjs.IntAccumulatorParam.html">IntAccumulatorParam</a></li><li><a href="module-eclairjs.List.html">List</a></li><li><a href="module-eclairjs.Logger.html">Logger</a></li><li><a href="module-eclairjs.PairRDD.html">PairRDD</a></li><li><a href="module-eclairjs.Partitioner.html">Partitioner</a></li><li><a href="module-eclairjs.RangePartitioner.html">RangePartitioner</a></li><li><a href="module-eclairjs.RDD.html">RDD</a></li><li><a href="module-eclairjs.Serializable.html">Serializable</a></li><li><a href="module-eclairjs.SparkConf.html">SparkConf</a></li><li><a href="module-eclairjs.SparkContext.html">SparkContext</a></li><li><a href="module-eclairjs.SparkFiles.html">SparkFiles</a></li><li><a href="module-eclairjs.SparkJobInfo.html">SparkJobInfo</a></li><li><a href="module-eclairjs.SparkStageInfo.html">SparkStageInfo</a></li><li><a href="module-eclairjs.SparkStatusTracker.html">SparkStatusTracker</a></li><li><a href="module-eclairjs.Tuple2.html">Tuple2</a></li><li><a href="module-eclairjs.Tuple3.html">Tuple3</a></li><li><a href="module-eclairjs.Tuple4.html">Tuple4</a></li><li><a href="module-eclairjs.Tuple5.html">Tuple5</a></li><li><a href="module-eclairjs_broadcast.Broadcast.html">Broadcast</a></li><li><a href="module-eclairjs_broadcast.TorrentBroadcast.html">TorrentBroadcast</a></li><li><a href="module-eclairjs_ml.Estimator.html">Estimator</a></li><li><a href="module-eclairjs_ml.Model.html">Model</a></li><li><a href="module-eclairjs_ml.Pipeline.html">Pipeline</a></li><li><a href="module-eclairjs_ml.PipelineModel.html">PipelineModel</a></li><li><a href="module-eclairjs_ml.PipelineStage.html">PipelineStage</a></li><li><a href="module-eclairjs_ml.PredictionModel.html">PredictionModel</a></li><li><a href="module-eclairjs_ml.Predictor.html">Predictor</a></li><li><a href="module-eclairjs_ml.Transformer.html">Transformer</a></li><li><a href="module-eclairjs_ml.UnaryTransformer.html">UnaryTransformer</a></li><li><a href="module-eclairjs_ml_attribute.AttributeGroup.html">AttributeGroup</a></li><li><a href="module-eclairjs_ml_attribute.NumericAttribute.html">NumericAttribute</a></li><li><a href="module-eclairjs_ml_classification.BinaryLogisticRegressionSummary.html">BinaryLogisticRegressionSummary</a></li><li><a href="module-eclairjs_ml_classification.BinaryLogisticRegressionTrainingSummary.html">BinaryLogisticRegressionTrainingSummary</a></li><li><a href="module-eclairjs_ml_classification.ClassificationModel.html">ClassificationModel</a></li><li><a href="module-eclairjs_ml_classification.Classifier.html">Classifier</a></li><li><a href="module-eclairjs_ml_classification.DecisionTreeClassificationModel.html">DecisionTreeClassificationModel</a></li><li><a href="module-eclairjs_ml_classification.DecisionTreeClassifier.html">DecisionTreeClassifier</a></li><li><a href="module-eclairjs_ml_classification.GBTClassificationModel.html">GBTClassificationModel</a></li><li><a href="module-eclairjs_ml_classification.GBTClassifier.html">GBTClassifier</a></li><li><a href="module-eclairjs_ml_classification.LogisticRegression.html">LogisticRegression</a></li><li><a href="module-eclairjs_ml_classification.LogisticRegressionModel.html">LogisticRegressionModel</a></li><li><a href="module-eclairjs_ml_classification.LogisticRegressionSummary.html">LogisticRegressionSummary</a></li><li><a href="module-eclairjs_ml_classification.LogisticRegressionTrainingSummary.html">LogisticRegressionTrainingSummary</a></li><li><a href="module-eclairjs_ml_classification.MultilayerPerceptronClassificationModel.html">MultilayerPerceptronClassificationModel</a></li><li><a href="module-eclairjs_ml_classification.MultilayerPerceptronClassifier.html">MultilayerPerceptronClassifier</a></li><li><a href="module-eclairjs_ml_classification.NaiveBayes.html">NaiveBayes</a></li><li><a href="module-eclairjs_ml_classification.NaiveBayesModel.html">NaiveBayesModel</a></li><li><a href="module-eclairjs_ml_classification.OneVsRestModel.html">OneVsRestModel</a></li><li><a href="module-eclairjs_ml_classification.ProbabilisticClassificationModel.html">ProbabilisticClassificationModel</a></li><li><a href="module-eclairjs_ml_classification.ProbabilisticClassifier.html">ProbabilisticClassifier</a></li><li><a href="module-eclairjs_ml_classification.RandomForestClassificationModel.html">RandomForestClassificationModel</a></li><li><a href="module-eclairjs_ml_classification.RandomForestClassifier.html">RandomForestClassifier</a></li><li><a href="module-eclairjs_ml_clustering.BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="module-eclairjs_ml_clustering.DistributedLDAModel.html">DistributedLDAModel</a></li><li><a href="module-eclairjs_ml_clustering.GaussianMixtureModel.html">GaussianMixtureModel</a></li><li><a href="module-eclairjs_ml_clustering.GaussianMixtureSummary.html">GaussianMixtureSummary</a></li><li><a href="module-eclairjs_ml_clustering.KMeans.html">KMeans</a></li><li><a href="module-eclairjs_ml_clustering.KMeansModel.html">KMeansModel</a></li><li><a href="module-eclairjs_ml_clustering.LDA.html">LDA</a></li><li><a href="module-eclairjs_ml_clustering.LDAModel.html">LDAModel</a></li><li><a href="module-eclairjs_ml_clustering.LocalLDAModel.html">LocalLDAModel</a></li><li><a href="module-eclairjs_ml_evaluation.Evaluator.html">Evaluator</a></li><li><a href="module-eclairjs_ml_evaluation.MulticlassClassificationEvaluator.html">MulticlassClassificationEvaluator</a></li><li><a href="module-eclairjs_ml_evaluation.RegressionEvaluator.html">RegressionEvaluator</a></li><li><a href="module-eclairjs_ml_feature.Binarizer.html">Binarizer</a></li><li><a href="module-eclairjs_ml_feature.Bucketizer.html">Bucketizer</a></li><li><a href="module-eclairjs_ml_feature.ChiSqSelector.html">ChiSqSelector</a></li><li><a href="module-eclairjs_ml_feature.ChiSqSelectorModel.html">ChiSqSelectorModel</a></li><li><a href="module-eclairjs_ml_feature.CountVectorizer.html">CountVectorizer</a></li><li><a href="module-eclairjs_ml_feature.CountVectorizerModel.html">CountVectorizerModel</a></li><li><a href="module-eclairjs_ml_feature.DCT.html">DCT</a></li><li><a href="module-eclairjs_ml_feature.ElementwiseProduct.html">ElementwiseProduct</a></li><li><a href="module-eclairjs_ml_feature.HashingTF.html">HashingTF</a></li><li><a href="module-eclairjs_ml_feature.IDFModel.html">IDFModel</a></li><li><a href="module-eclairjs_ml_feature.IndexToString.html">IndexToString</a></li><li><a href="module-eclairjs_ml_feature.MaxAbsScalerModel.html">MaxAbsScalerModel</a></li><li><a href="module-eclairjs_ml_feature.MinMaxScaler.html">MinMaxScaler</a></li><li><a href="module-eclairjs_ml_feature.MinMaxScalerModel.html">MinMaxScalerModel</a></li><li><a href="module-eclairjs_ml_feature.NGram.html">NGram</a></li><li><a href="module-eclairjs_ml_feature.Normalizer.html">Normalizer</a></li><li><a href="module-eclairjs_ml_feature.OneHotEncoder.html">OneHotEncoder</a></li><li><a href="module-eclairjs_ml_feature.PCA.html">PCA</a></li><li><a href="module-eclairjs_ml_feature.PCAModel.html">PCAModel</a></li><li><a href="module-eclairjs_ml_feature.PolynomialExpansion.html">PolynomialExpansion</a></li><li><a href="module-eclairjs_ml_feature.QuantileDiscretizer.html">QuantileDiscretizer</a></li><li><a href="module-eclairjs_ml_feature.RFormula.html">RFormula</a></li><li><a href="module-eclairjs_ml_feature.RFormulaModel.html">RFormulaModel</a></li><li><a href="module-eclairjs_ml_feature.StandardScalerModel.html">StandardScalerModel</a></li><li><a href="module-eclairjs_ml_feature.StringIndexer.html">StringIndexer</a></li><li><a href="module-eclairjs_ml_feature.StringIndexerModel.html">StringIndexerModel</a></li><li><a href="module-eclairjs_ml_feature.VectorIndexer.html">VectorIndexer</a></li><li><a href="module-eclairjs_ml_feature.VectorIndexerModel.html">VectorIndexerModel</a></li><li><a href="module-eclairjs_ml_feature.VectorSlicer.html">VectorSlicer</a></li><li><a href="module-eclairjs_ml_feature.Word2Vec.html">Word2Vec</a></li><li><a href="module-eclairjs_ml_feature.Word2VecModel.html">Word2VecModel</a></li><li><a href="module-eclairjs_ml_linalg.DenseVector.html">DenseVector</a></li><li><a href="module-eclairjs_ml_linalg.SparseVector.html">SparseVector</a></li><li><a href="module-eclairjs_ml_linalg.Vector.html">Vector</a></li><li><a href="module-eclairjs_ml_linalg.Vectors.html">Vectors</a></li><li><a href="module-eclairjs_ml_linalg.VectorUDT.html">VectorUDT</a></li><li><a href="module-eclairjs_ml_param.BooleanParam.html">BooleanParam</a></li><li><a href="module-eclairjs_ml_param.DoubleParam.html">DoubleParam</a></li><li><a href="module-eclairjs_ml_param.IntArrayParam.html">IntArrayParam</a></li><li><a href="module-eclairjs_ml_param.IntParam.html">IntParam</a></li><li><a href="module-eclairjs_ml_param.Param.html">Param</a></li><li><a href="module-eclairjs_ml_param.ParamMap.html">ParamMap</a></li><li><a href="module-eclairjs_ml_param.ParamPair.html">ParamPair</a></li><li><a href="module-eclairjs_ml_param.StringArrayParam.html">StringArrayParam</a></li><li><a href="module-eclairjs_ml_recommendation.ALS.html">ALS</a></li><li><a href="module-eclairjs_ml_recommendation.ALSModel.html">ALSModel</a></li><li><a href="module-eclairjs_ml_regression.AFTSurvivalRegression.html">AFTSurvivalRegression</a></li><li><a href="module-eclairjs_ml_regression.AFTSurvivalRegressionModel.html">AFTSurvivalRegressionModel</a></li><li><a href="module-eclairjs_ml_regression.DecisionTreeRegressionModel.html">DecisionTreeRegressionModel</a></li><li><a href="module-eclairjs_ml_regression.DecisionTreeRegressor.html">DecisionTreeRegressor</a></li><li><a href="module-eclairjs_ml_regression.GBTRegressionModel.html">GBTRegressionModel</a></li><li><a href="module-eclairjs_ml_regression.GBTRegressor.html">GBTRegressor</a></li><li><a href="module-eclairjs_ml_regression.GeneralizedLinearRegressionModel.html">GeneralizedLinearRegressionModel</a></li><li><a href="module-eclairjs_ml_regression.GeneralizedLinearRegressionSummary.html">GeneralizedLinearRegressionSummary</a></li><li><a href="module-eclairjs_ml_regression.GeneralizedLinearRegressionTrainingSummary.html">GeneralizedLinearRegressionTrainingSummary</a></li><li><a href="module-eclairjs_ml_regression.LinearRegression.html">LinearRegression</a></li><li><a href="module-eclairjs_ml_regression.LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="module-eclairjs_ml_regression.LinearRegressionSummary.html">LinearRegressionSummary</a></li><li><a href="module-eclairjs_ml_regression.LinearRegressionTrainingSummary.html">LinearRegressionTrainingSummary</a></li><li><a href="module-eclairjs_ml_regression.RandomForestRegressionModel.html">RandomForestRegressionModel</a></li><li><a href="module-eclairjs_ml_regression.RandomForestRegressor.html">RandomForestRegressor</a></li><li><a href="module-eclairjs_ml_regression.RegressionModel.html">RegressionModel</a></li><li><a href="module-eclairjs_ml_tuning.ParamGridBuilder.html">ParamGridBuilder</a></li><li><a href="module-eclairjs_ml_tuning.TrainValidationSplit.html">TrainValidationSplit</a></li><li><a href="module-eclairjs_ml_tuning.TrainValidationSplitModel.html">TrainValidationSplitModel</a></li><li><a href="module-eclairjs_ml_util.DefaultParamsWritable.html">DefaultParamsWritable</a></li><li><a href="module-eclairjs_ml_util.MLReader.html">MLReader</a></li><li><a href="module-eclairjs_ml_util.MLWritable.html">MLWritable</a></li><li><a href="module-eclairjs_ml_util.MLWriter.html">MLWriter</a></li><li><a href="module-eclairjs_mllib.MLUtils.html">MLUtils</a></li><li><a href="module-eclairjs_mllib_classification.ClassificationModel.html">ClassificationModel</a></li><li><a href="module-eclairjs_mllib_classification.LogisticRegressionModel.html">LogisticRegressionModel</a></li><li><a href="module-eclairjs_mllib_classification.LogisticRegressionWithLBFGS.html">LogisticRegressionWithLBFGS</a></li><li><a href="module-eclairjs_mllib_classification.LogisticRegressionWithSGD.html">LogisticRegressionWithSGD</a></li><li><a href="module-eclairjs_mllib_classification.NaiveBayes.html">NaiveBayes</a></li><li><a href="module-eclairjs_mllib_classification.NaiveBayesModel.html">NaiveBayesModel</a></li><li><a href="module-eclairjs_mllib_classification.SVMModel.html">SVMModel</a></li><li><a href="module-eclairjs_mllib_classification.SVMWithSGD.html">SVMWithSGD</a></li><li><a href="module-eclairjs_mllib_clustering.BisectingKMeans.html">BisectingKMeans</a></li><li><a href="module-eclairjs_mllib_clustering.BisectingKMeansModel.html">BisectingKMeansModel</a></li><li><a href="module-eclairjs_mllib_clustering.DistributedLDAModel.html">DistributedLDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.KMeans.html">KMeans</a></li><li><a href="module-eclairjs_mllib_clustering.KMeansModel.html">KMeansModel</a></li><li><a href="module-eclairjs_mllib_clustering.LDA.html">LDA</a></li><li><a href="module-eclairjs_mllib_clustering.LDAModel.html">LDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.LocalLDAModel.html">LocalLDAModel</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClustering.html">PowerIterationClustering</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClusteringAssignment.html">PowerIterationClusteringAssignment</a></li><li><a href="module-eclairjs_mllib_clustering.PowerIterationClusteringModel.html">PowerIterationClusteringModel</a></li><li><a href="module-eclairjs_mllib_evaluation.BinaryClassificationMetrics.html">BinaryClassificationMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.MulticlassMetrics.html">MulticlassMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.MultilabelMetrics.html">MultilabelMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.RankingMetrics.html">RankingMetrics</a></li><li><a href="module-eclairjs_mllib_evaluation.RegressionMetrics.html">RegressionMetrics</a></li><li><a href="module-eclairjs_mllib_feature.Word2Vec.html">Word2Vec</a></li><li><a href="module-eclairjs_mllib_feature.Word2VecModel.html">Word2VecModel</a></li><li><a href="module-eclairjs_mllib_fpm.AssociationRules.html">AssociationRules</a></li><li><a href="module-eclairjs_mllib_fpm.FPGrowth.html">FPGrowth</a></li><li><a href="module-eclairjs_mllib_fpm.FPGrowthModel.html">FPGrowthModel</a></li><li><a href="module-eclairjs_mllib_fpm.FreqItemset.html">FreqItemset</a></li><li><a href="module-eclairjs_mllib_fpm.PrefixSpan.html">PrefixSpan</a></li><li><a href="module-eclairjs_mllib_fpm.PrefixSpanFreqSequence.html">PrefixSpanFreqSequence</a></li><li><a href="module-eclairjs_mllib_fpm.PrefixSpanModel.html">PrefixSpanModel</a></li><li><a href="module-eclairjs_mllib_fpm.Rule.html">Rule</a></li><li><a href="module-eclairjs_mllib_linalg.DenseMatrix.html">DenseMatrix</a></li><li><a href="module-eclairjs_mllib_linalg.DenseVector.html">DenseVector</a></li><li><a href="module-eclairjs_mllib_linalg.Matrices.html">Matrices</a></li><li><a href="module-eclairjs_mllib_linalg.Matrix.html">Matrix</a></li><li><a href="module-eclairjs_mllib_linalg.QRDecomposition.html">QRDecomposition</a></li><li><a href="module-eclairjs_mllib_linalg.SingularValueDecomposition.html">SingularValueDecomposition</a></li><li><a href="module-eclairjs_mllib_linalg.SparseMatrix.html">SparseMatrix</a></li><li><a href="module-eclairjs_mllib_linalg.SparseVector.html">SparseVector</a></li><li><a href="module-eclairjs_mllib_linalg.Vector.html">Vector</a></li><li><a href="module-eclairjs_mllib_linalg.Vectors.html">Vectors</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.DistributedMatrix.html">DistributedMatrix</a></li><li><a href="module-eclairjs_mllib_linalg_distributed.RowMatrix.html">RowMatrix</a></li><li><a href="module-eclairjs_mllib_optimization.Gradient.html">Gradient</a></li><li><a href="module-eclairjs_mllib_optimization.LBFGS.html">LBFGS</a></li><li><a href="module-eclairjs_mllib_optimization.LogisticGradient.html">LogisticGradient</a></li><li><a href="module-eclairjs_mllib_optimization.SquaredL2Updater.html">SquaredL2Updater</a></li><li><a href="module-eclairjs_mllib_optimization.Updater.html">Updater</a></li><li><a href="module-eclairjs_mllib_random.RandomRDDs.html">RandomRDDs</a></li><li><a href="module-eclairjs_mllib_recommendation.ALS.html">ALS</a></li><li><a href="module-eclairjs_mllib_recommendation.MatrixFactorizationModel.html">MatrixFactorizationModel</a></li><li><a href="module-eclairjs_mllib_recommendation.Rating.html">Rating</a></li><li><a href="module-eclairjs_mllib_regression.GeneralizedLinearModel.html">GeneralizedLinearModel</a></li><li><a href="module-eclairjs_mllib_regression.LabeledPoint.html">LabeledPoint</a></li><li><a href="module-eclairjs_mllib_regression.LinearRegressionModel.html">LinearRegressionModel</a></li><li><a href="module-eclairjs_mllib_regression.LinearRegressionWithSGD.html">LinearRegressionWithSGD</a></li><li><a href="module-eclairjs_mllib_tree.DecisionTree.html">DecisionTree</a></li><li><a href="module-eclairjs_mllib_tree.GradientBoostedTrees.html">GradientBoostedTrees</a></li><li><a href="module-eclairjs_mllib_tree.RandomForest.html">RandomForest</a></li><li><a href="module-eclairjs_mllib_tree_configuration.BoostingStrategy.html">BoostingStrategy</a></li><li><a href="module-eclairjs_mllib_tree_configuration.Strategy.html">Strategy</a></li><li><a href="module-eclairjs_mllib_tree_loss.Loss.html">Loss</a></li><li><a href="module-eclairjs_mllib_tree_model.DecisionTreeModel.html">DecisionTreeModel</a></li><li><a href="module-eclairjs_mllib_tree_model.GradientBoostedTreesModel.html">GradientBoostedTreesModel</a></li><li><a href="module-eclairjs_mllib_tree_model.RandomForestModel.html">RandomForestModel</a></li><li><a href="module-eclairjs_partial.PartialResult.html">PartialResult</a></li><li><a href="module-eclairjs_sql.Column.html">Column</a></li><li><a href="module-eclairjs_sql.DataFrameHolder.html">DataFrameHolder</a></li><li><a href="module-eclairjs_sql.DataFrameNaFunctions.html">DataFrameNaFunctions</a></li><li><a href="module-eclairjs_sql.DataFrameReader.html">DataFrameReader</a></li><li><a href="module-eclairjs_sql.DataFrameStatFunctions.html">DataFrameStatFunctions</a></li><li><a href="module-eclairjs_sql.DataFrameWriter.html">DataFrameWriter</a></li><li><a href="module-eclairjs_sql.Dataset.html">Dataset</a></li><li><a href="module-eclairjs_sql.Encoder.html">Encoder</a></li><li><a href="module-eclairjs_sql.functions.html">functions</a></li><li><a href="module-eclairjs_sql.RelationalGroupedDataset.html">RelationalGroupedDataset</a></li><li><a href="module-eclairjs_sql.Row.html">Row</a></li><li><a href="module-eclairjs_sql.RowFactory.html">RowFactory</a></li><li><a href="module-eclairjs_sql.SparkSession.html">SparkSession</a></li><li><a href="module-eclairjs_sql.SparkSessionBuilder.html">SparkSessionBuilder</a></li><li><a href="module-eclairjs_sql.SQLContext.html">SQLContext</a></li><li><a href="module-eclairjs_sql.SqlDate.html">SqlDate</a></li><li><a href="module-eclairjs_sql.SqlTimestamp.html">SqlTimestamp</a></li><li><a href="module-eclairjs_sql.UDFRegistration.html">UDFRegistration</a></li><li><a href="module-eclairjs_sql_execution.QueryExecution.html">QueryExecution</a></li><li><a href="module-eclairjs_sql_streaming.DataStreamReader.html">DataStreamReader</a></li><li><a href="module-eclairjs_sql_streaming.DataStreamWriter.html">DataStreamWriter</a></li><li><a href="module-eclairjs_sql_streaming.ProcessingTime.html">ProcessingTime</a></li><li><a href="module-eclairjs_sql_streaming.SinkStatus.html">SinkStatus</a></li><li><a href="module-eclairjs_sql_streaming.SourceStatus.html">SourceStatus</a></li><li><a href="module-eclairjs_sql_streaming.StreamingQuery.html">StreamingQuery</a></li><li><a href="module-eclairjs_sql_streaming.StreamingQueryInfo.html">StreamingQueryInfo</a></li><li><a href="module-eclairjs_sql_streaming.StreamingQueryListener.html">StreamingQueryListener</a></li><li><a href="module-eclairjs_sql_streaming.StreamingQueryManager.html">StreamingQueryManager</a></li><li><a href="module-eclairjs_sql_types.ArrayType.html">ArrayType</a></li><li><a href="module-eclairjs_sql_types.BinaryType.html">BinaryType</a></li><li><a href="module-eclairjs_sql_types.BooleanType.html">BooleanType</a></li><li><a href="module-eclairjs_sql_types.CalendarIntervalType.html">CalendarIntervalType</a></li><li><a href="module-eclairjs_sql_types.DataType.html">DataType</a></li><li><a href="module-eclairjs_sql_types.DataTypes.html">DataTypes</a></li><li><a href="module-eclairjs_sql_types.DateType.html">DateType</a></li><li><a href="module-eclairjs_sql_types.DoubleType.html">DoubleType</a></li><li><a href="module-eclairjs_sql_types.FloatType.html">FloatType</a></li><li><a href="module-eclairjs_sql_types.IntegerType.html">IntegerType</a></li><li><a href="module-eclairjs_sql_types.MapType.html">MapType</a></li><li><a href="module-eclairjs_sql_types.Metadata.html">Metadata</a></li><li><a href="module-eclairjs_sql_types.NullType.html">NullType</a></li><li><a href="module-eclairjs_sql_types.NumericType.html">NumericType</a></li><li><a href="module-eclairjs_sql_types.StringType.html">StringType</a></li><li><a href="module-eclairjs_sql_types.StructField.html">StructField</a></li><li><a href="module-eclairjs_sql_types.StructType.html">StructType</a></li><li><a href="module-eclairjs_sql_types.TimestampType.html">TimestampType</a></li><li><a href="module-eclairjs_storage.StorageLevel.html">StorageLevel</a></li><li><a href="module-eclairjs_streaming.Duration.html">Duration</a></li><li><a href="module-eclairjs_streaming.StreamingContext.html">StreamingContext</a></li><li><a href="module-eclairjs_streaming.Time.html">Time</a></li><li><a href="module-eclairjs_streaming_dstream.DStream.html">DStream</a></li><li><a href="module-eclairjs_streaming_dstream.PairDStream.html">PairDStream</a></li><li><a href="module-eclairjs_streaming_kafka.KafkaUtils.html">KafkaUtils</a></li><li><a href="module-eclairjs_streaming_twitter.TwitterAuthorization.html">TwitterAuthorization</a></li><li><a href="module-eclairjs_streaming_twitter.TwitterUtils.html">TwitterUtils</a></li><li><a href="module-eclairjs_util.StatCounter.html">StatCounter</a></li></ul><h3>Global</h3><ul><li><a href="global.html#module">module</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Mon Sep 12 2016 14:02:57 GMT-0400 (EDT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
