@@ -1,8 +1,8 @@
 {
-  "display_name": "Spark 1.6.0 (Javascript)",
+  "display_name": "Spark 2.0.0 (Javascript)",
   "language": "javascript",
   "argv": [
-    "/usr/local/share/jupyter/kernels/apache_toree_scala/bin/run.sh",
+    "/toree/bin/run.sh",
     "--interpreter-plugin",
     "eclair:org.eclairjs.nashorn.JavascriptInterpreter",
     "--default-interpreter",
