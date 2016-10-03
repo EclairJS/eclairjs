@@ -9,7 +9,7 @@
         CrossValidator: require(EclairJS_Globals.NAMESPACE + '/ml/tuning/CrossValidator'),
         CrossValidatorModel: require(EclairJS_Globals.NAMESPACE + '/ml/tuning/CrossValidatorModel'),
         ParamGridBuilder: require(EclairJS_Globals.NAMESPACE + '/ml/tuning/ParamGridBuilder'),
-        TrainValidationSplit: require(EclairJS_Globals.NAMESPACE + '/ml/tuning/TrainValidationSplit')
+        TrainValidationSplit: require(EclairJS_Globals.NAMESPACE + '/ml/tuning/TrainValidationSplit'),
         TrainValidationSplitModel: require(EclairJS_Globals.NAMESPACE + '/ml/tuning/TrainValidationSplitModel')
     }
 })();

@@ -58,7 +58,7 @@ describe('ml Test', function() {
     it("should return the expected result", function(done) {
       this.timeout(100000);
 
-      var test = require('../../../examples/ml/als');
+      var test = require('../../../../examples/ml/als');
       test(sparkSession, spark).then(function(results) {
         expect(results).to.be.an('Number');
         done();
@@ -70,7 +70,7 @@ describe('ml Test', function() {
     it("should return the expected result", function(done) {
       this.timeout(100000);
 
-      var test = require('../../../examples/ml/aftsurvivalregression');
+      var test = require('../../../../examples/ml/aftsurvivalregression');
       test(sparkSession, spark).then(function(results) {
         expect(results.length).equals(3);
         done();
@@ -82,7 +82,7 @@ describe('ml Test', function() {
     it("should return the expected result", function(done) {
       this.timeout(100000);
 
-      var test = require('../../../examples/ml/binarizer');
+      var test = require('../../../../examples/ml/binarizer');
       test(sparkSession, spark).then(function(results) {
         expect(results.length).equals(3);
 
@@ -105,7 +105,7 @@ describe('ml Test', function() {
     it("should return the expected result", function(done) {
       this.timeout(100000);
 
-      var test = require('../../../examples/ml/bucketizer');
+      var test = require('../../../../examples/ml/bucketizer');
       test(sparkSession, spark).then(function(results) {
         expect(results.length).equals(4);
         done();
@@ -117,7 +117,7 @@ describe('ml Test', function() {
     it("should return the expected result", function(done) {
       this.timeout(100000);
 
-      var test = require('../../../examples/ml/chisqselector');
+      var test = require('../../../../examples/ml/chisqselector');
       test(sparkSession, spark).then(function(results) {
         expect(results.length).equals(3);
         done();
@@ -129,7 +129,7 @@ describe('ml Test', function() {
     it("should return the expected result", function(done) {
       this.timeout(100000);
 
-      var test = require('../../../examples/ml/countvectorizer');
+      var test = require('../../../../examples/ml/countvectorizer');
       test(sparkSession, spark).then(function(results) {
         expect(results.length).equals(2);
         done();
@@ -141,7 +141,7 @@ describe('ml Test', function() {
     it("should return the expected result", function(done) {
       this.timeout(100000);
 
-      var test = require('../../../examples/ml/dct');
+      var test = require('../../../../examples/ml/dct');
       test(sparkSession, spark).then(function(results) {
         expect(results.length).equals(3);
         done();
@@ -153,7 +153,7 @@ describe('ml Test', function() {
     it("should return the expected result", function(done) {
       this.timeout(100000);
 
-      var test = require('../../../examples/ml/decisiontreeclassification');
+      var test = require('../../../../examples/ml/decisiontreeclassification');
       test(sparkSession, spark).then(function(results) {
         expect(results.length).equals(2);
         expect(results[1]).to.be.an('Number');
@@ -166,7 +166,7 @@ describe('ml Test', function() {
     it("should return the expected result", function(done) {
       this.timeout(100000);
 
-      var test = require('../../../examples/ml/decisiontreeregression');
+      var test = require('../../../../examples/ml/decisiontreeregression');
       test(sparkSession, spark).then(function(results) {
         expect(results.length).equals(2);
         expect(results[1]).to.be.an('Number');
@@ -179,7 +179,7 @@ describe('ml Test', function() {
     it("should return the expected result", function(done) {
       this.timeout(100000);
 
-      var test = require('../../../examples/ml/elementwiseproduct');
+      var test = require('../../../../examples/ml/elementwiseproduct');
       test(sparkSession, spark).then(function(results) {
         expect(results.length).equals(2);
         done();
@@ -191,7 +191,7 @@ describe('ml Test', function() {
     it("should return the expected result", function(done) {
       this.timeout(100000);
 
-      var test = require('../../../examples/ml/estimatortransformerparam');
+      var test = require('../../../../examples/ml/estimatortransformerparam');
       test(sparkSession, spark).then(function(results) {
         expect(results.length).equals(2);
         expect(results[1]).to.be.an('Number');
@@ -204,7 +204,7 @@ describe('ml Test', function() {
     it("should return the expected result", function(done) {
       this.timeout(100000);
 
-      var test = require('../../../examples/ml/gradientboostedtreeclassifier');
+      var test = require('../../../../examples/ml/gradientboostedtreeclassifier');
       test(sparkSession, spark).then(function(results) {
         expect(results.length).equals(2);
         expect(results[0]).to.be.an('Number');
@@ -218,7 +218,7 @@ describe('ml Test', function() {
     it("should return the expected result", function(done) {
       this.timeout(100000);
 
-      var test = require('../../../examples/ml/gradientboostedtreeregressor');
+      var test = require('../../../../examples/ml/gradientboostedtreeregressor');
       test(sparkSession, spark).then(function(results) {
         expect(results.length).equals(2);
         expect(results[0]).to.be.an('Number');
@@ -232,7 +232,7 @@ describe('ml Test', function() {
     it("should return the expected result", function(done) {
       this.timeout(100000);
 
-      var test = require('../../../examples/ml/indextostring');
+      var test = require('../../../../examples/ml/indextostring');
       test(sparkSession, spark).then(function(results) {
         expect(results).to.be.an('Number');
         done();
@@ -244,7 +244,7 @@ describe('ml Test', function() {
     it("should return the expected result", function(done) {
       this.timeout(100000);
 
-      var test = require('../../../examples/ml/kmeans');
+      var test = require('../../../../examples/ml/kmeans');
       test(sparkSession, spark).then(function(results) {
         expect(results.length).equals(3);
         done();
@@ -256,7 +256,7 @@ describe('ml Test', function() {
     it("should return the expected result", function(done) {
       this.timeout(100000);
 
-      var test = require('../../../examples/ml/lda');
+      var test = require('../../../../examples/ml/lda');
       test(sparkSession, spark).then(function(results) {
         expect(results.length).equals(2);
         expect(results[0]).to.be.an('Number');
@@ -270,7 +270,7 @@ describe('ml Test', function() {
     it("should return the expected result", function(done) {
       this.timeout(100000);
 
-      var test = require('../../../examples/ml/linearregressionwithelasticnet');
+      var test = require('../../../../examples/ml/linearregressionwithelasticnet');
       test(sparkSession, spark).then(function(results) {
         expect(results.length).equals(5);
         done();
@@ -282,7 +282,7 @@ describe('ml Test', function() {
     it("should return the expected result", function(done) {
       this.timeout(100000);
 
-      var test = require('../../../examples/ml/logisticregressionsummary');
+      var test = require('../../../../examples/ml/logisticregressionsummary');
       test(sparkSession, spark).then(function(results) {
         expect(results.length).equals(1);
         done();
@@ -294,7 +294,7 @@ describe('ml Test', function() {
     it("should return the expected result", function(done) {
       this.timeout(100000);
 
-      var test = require('../../../examples/ml/logisticregressionwithelasticnet');
+      var test = require('../../../../examples/ml/logisticregressionwithelasticnet');
       test(sparkSession, spark).then(function(results) {
         expect(results.length).equals(2);
         done();
@@ -306,7 +306,7 @@ describe('ml Test', function() {
     it("should return the expected result", function(done) {
       this.timeout(100000);
 
-      var test = require('../../../examples/ml/minmaxscaler');
+      var test = require('../../../../examples/ml/minmaxscaler');
       test(sparkSession, spark).then(function(results) {
         expect(results.length).equals(10);
         done();
@@ -318,7 +318,7 @@ describe('ml Test', function() {
     it("should return the expected result", function(done) {
       this.timeout(100000);
 
-      var test = require('../../../examples/ml/modelselectionviatrainvalidationsplit');
+      var test = require('../../../../examples/ml/modelselectionviatrainvalidationsplit');
       test(sparkSession, spark).then(function(results) {
         expect(results.length).equals(10);
         done();
@@ -330,7 +330,7 @@ describe('ml Test', function() {
     it("should return the expected result", function(done) {
       this.timeout(100000);
 
-      var test = require('../../../examples/ml/multilayerperceptronclassifier');
+      var test = require('../../../../examples/ml/multilayerperceptronclassifier');
       test(sparkSession, spark).then(function(results) {
         expect(results).to.be.an('Number');
         done();
@@ -342,7 +342,7 @@ describe('ml Test', function() {
     it("should return the expected result", function(done) {
       this.timeout(100000);
 
-      var test = require('../../../examples/ml/naivebayes');
+      var test = require('../../../../examples/ml/naivebayes');
       test(sparkSession, spark).then(function(results) {
         expect(results).to.be.an('Number');
         done();
@@ -354,7 +354,7 @@ describe('ml Test', function() {
     it("should return the expected result", function(done) {
       this.timeout(100000);
 
-      var test = require('../../../examples/ml/ngram');
+      var test = require('../../../../examples/ml/ngram');
       test(sparkSession, spark).then(function(results) {
         expect(results.length).equals(3);
         done();
@@ -366,7 +366,7 @@ describe('ml Test', function() {
     it("should return the expected result", function(done) {
       this.timeout(100000);
 
-      var test = require('../../../examples/ml/normalizer');
+      var test = require('../../../../examples/ml/normalizer');
       test(sparkSession, spark).then(function(results) {
         expect(results).to.be.an('String');
         done();
@@ -378,7 +378,7 @@ describe('ml Test', function() {
     it("should return the expected result", function(done) {
       this.timeout(100000);
 
-      var test = require('../../../examples/ml/onehotencoder');
+      var test = require('../../../../examples/ml/onehotencoder');
       test(sparkSession, spark).then(function(results) {
         expect(results.length).equals(6);
         done();
@@ -390,7 +390,7 @@ describe('ml Test', function() {
     it("should return the expected result", function(done) {
       this.timeout(100000);
 
-      var test = require('../../../examples/ml/pca');
+      var test = require('../../../../examples/ml/pca');
       test(sparkSession, spark).then(function(results) {
         expect(results.length).equals(3);
         done();
@@ -402,7 +402,7 @@ describe('ml Test', function() {
     it("should return the expected result", function(done) {
       this.timeout(100000);
 
-      var test = require('../../../examples/ml/pipeline');
+      var test = require('../../../../examples/ml/pipeline');
       test(sparkSession, spark).then(function(results) {
         expect(results.length).equals(4);
         done();
@@ -414,7 +414,7 @@ describe('ml Test', function() {
     it("should return the expected result", function(done) {
       this.timeout(100000);
 
-      var test = require('../../../examples/ml/polynomialexpansion');
+      var test = require('../../../../examples/ml/polynomialexpansion');
       test(sparkSession, spark).then(function(results) {
         expect(results.length).equals(3);
         done();
@@ -426,7 +426,7 @@ describe('ml Test', function() {
     it("should return the expected result", function(done) {
       this.timeout(100000);
 
-      var test = require('../../../examples/ml/quantilediscretizer');
+      var test = require('../../../../examples/ml/quantilediscretizer');
       test(sparkSession, spark).then(function(results) {
         expect(results.length).equals(5);
         done();
@@ -438,7 +438,7 @@ describe('ml Test', function() {
     it("should return the expected result", function(done) {
       this.timeout(100000);
 
-      var test = require('../../../examples/ml/randomforestregressor');
+      var test = require('../../../../examples/ml/randomforestregressor');
       test(sparkSession, spark).then(function(results) {
         expect(results).to.be.an('Number');
         done();
@@ -450,7 +450,7 @@ describe('ml Test', function() {
     it("should return the expected result", function(done) {
       this.timeout(100000);
 
-      var test = require('../../../examples/ml/randomforestclassifier');
+      var test = require('../../../../examples/ml/randomforestclassifier');
       test(sparkSession, spark).then(function(results) {
         expect(results).to.be.an('Number');
         done();

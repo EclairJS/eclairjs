@@ -89,7 +89,7 @@ function buildRockstarsTable(file, callback) {
   });
 }
 
-var fileName = path.resolve(__dirname+'/../../../examples/rockers.txt');
+var fileName = path.resolve(__dirname+'/../../data/rockers.txt');
 
 var dataFrame, firstrow;
 

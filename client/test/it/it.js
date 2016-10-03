@@ -36,7 +36,7 @@ global.SESSION = sparkSession;
 global.SC = sc;
 global.SPARK = spark;
 
-describe('SparkContext Integration Test', function() {
+describe('EclairJS Integration Tests', function() {
   before(function(done) {
     this.timeout(100000);
 
