@@ -25,7 +25,7 @@
     "lib/"
   ],
   "scripts": {
-    "test": "mocha --harmony test/*.js",
+    "test": "mocha --harmony test/test.js",
     "integration-test": "mocha --harmony test/it/it.js"
   },
   "license": "Apache-2.0",

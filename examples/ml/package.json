@@ -1,0 +1,8 @@
+{
+  "name": "eclairjs-example-ml",
+  "version": "0.0.1",
+  "description": "EclairJS ML Examples",
+  "dependencies": {
+    "eclairjs": "*"
+  }
+}

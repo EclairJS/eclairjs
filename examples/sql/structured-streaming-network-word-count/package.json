@@ -1,0 +1,8 @@
+{
+  "name": "eclairjs-example-sql-structured-network-word-count",
+  "version": "0.0.1",
+  "description": "EclairJS SQL Structured Streaming Word Count Example",
+  "dependencies": {
+    "eclairjs": "*"
+  }
+}
