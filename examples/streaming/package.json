@@ -1,8 +1,0 @@
-{
-  "name": "eclairjs-example-streaming",
-  "version": "0.0.1",
-  "description": "EclairJS Streaming Examples",
-  "dependencies": {
-    "eclairjs": "*"
-  }
-}

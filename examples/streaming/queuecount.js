@@ -28,7 +28,6 @@ function stop(e) {
   }
 }
 
-//var eclairjs = require('../../client/lib');
 var eclairjs = require('eclairjs');
 var spark = new eclairjs();
 

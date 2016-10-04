@@ -38,8 +38,7 @@ function stop(e) {
   sc.stop().then(exit).catch(exit);
 }
 
-//var eclairjs = require('../../client/lib');
-  var eclairjs = require('eclairjs');
+//var eclairjs = require('../../client/lib');  var eclairjs = require('eclairjs');
   var spark = new eclairjs();
   var sc =  new spark.SparkContext("local[*]", "Word2Vec");
 

@@ -39,7 +39,6 @@ var topic = 'tlog';
 var topicMap = {};
 topicMap[topic] = 2;
 
-//var eclairjs = require('../../client/lib');
 var eclairjs = require('eclairjs');
 var spark = new eclairjs();
 

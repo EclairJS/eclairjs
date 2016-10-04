@@ -1,0 +1,8 @@
+{
+  "name": "eclairjs",
+  "version": "0.8.0",
+  "description": "EclairJS",
+  "dependencies": {
+    "eclairjs": "./client"
+  }
+}

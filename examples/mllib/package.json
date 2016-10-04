@@ -1,8 +1,0 @@
-{
-  "name": "eclairjs-example-mllib",
-  "version": "0.0.1",
-  "description": "EclairJS MLLib Examples",
-  "dependencies": {
-    "eclairjs": "*"
-  }
-}

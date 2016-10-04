@@ -62,7 +62,6 @@ if (global.SC) {
   // we are being run as part of a test
   module.exports = run;
 } else {
-  //var eclairjs = require('../../client/lib');
   var eclairjs = require('eclairjs');
   var spark = new eclairjs();
   var sc =  new spark.SparkContext("local[*]", "Isotonic Regression");

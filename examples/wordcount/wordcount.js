@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-//var eclairjs = require('../../client/lib/index.js');
 var eclairjs = require('eclairjs');
 var spark = new eclairjs();
 

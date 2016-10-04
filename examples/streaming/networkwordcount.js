@@ -36,7 +36,6 @@ var server = net.createServer(function(socket) {
   }, 1000);
 }).listen(4000);
 
-//var eclairjs = require('../../client/lib');
 var eclairjs = require('eclairjs');
 var spark = new eclairjs();
 
