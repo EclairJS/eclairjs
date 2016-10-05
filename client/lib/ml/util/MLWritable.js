@@ -32,23 +32,6 @@ function MLWritable(kernelP, refIdP) {
 	 throw "Can't instantiate abstract class - MLWritable";
 }
 
-
-
-/**
- * @returns {??}
- */
-MLWritable.prototype.$init$ = function() {
-  var args ={
-    target: this,
-    method: '$init$',
-    returnType: ??
-
-  };
-
-  return Utils.generate(args);
-};
-
-
 /**
  * Returns an {@link MLWriter} instance for this ML instance.
  * @returns {MLWriter}
