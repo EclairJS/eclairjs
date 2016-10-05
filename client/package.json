@@ -6,7 +6,7 @@
   "main": "./lib/index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/EclairJS/eclairjs-node.git"
+    "url": "git://github.com/EclairJS/eclairjs.git"
   },
   "dependencies": {
     "jupyter-js-services": "^0.19.0",
