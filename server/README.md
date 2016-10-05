@@ -1,17 +1,17 @@
-EclairJS Nashorn
+EclairJS Server
 ===================
-The **EclairJS Nashorn** API exposes the [Spark](http://spark.apache.org/) programming model to JavaScript.  **EclairJS Nashorn** is built on top of [Spark's Java API](http://spark.apache.org/docs/latest/api/java/index.html). For a NodeJS implementation of the Spark programming model visit the [eclairjs-node](https://github.com/EclairJS/eclairjs-node) project. More detailed information is available in the Eclair Nashorn [Wiki](https://github.com/EclairJS/eclairjs-nashorn/wikis/home).
-
+The **EclairJS Server** API exposes the [Spark](http://spark.apache.org/) programming model to JavaScript.  **EclairJS Server** is built on top of [Spark's Java API](http://spark.apache.org/docs/latest/api/java/index.html). 
 ## Build from source
 **Prerequisites**
 
  - [Java 8 SE](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
- - [Spark](http://spark.apache.org/downloads.html) (V1.6.0 built for Hadoop 2.6.0 and later)
+ - [Spark](http://spark.apache.org/downloads.html) (V2.0.0 built for Hadoop 2.6.0 and later)
  - [git](http://git-scm.com/)
  - [Maven](https://maven.apache.org/)
 
 ```bash
-git clone git@github.com:EclairJS/eclairjs-nashorn.git
+git clone git@github.com:EclairJS/eclairjs.git
+cd server
 mvn package
 export SPARK_HOME=<location of Spark binary distribution>
 ```
@@ -85,7 +85,7 @@ Instructions:
 
 7. Start jupyter ```ipython notebook```
 
-8. A browser will open ```http://localhost:8888/tree``` select the *new->Spark 1.6.0 (EclairJS)*
+8. A browser will open ```http://localhost:8888/tree``` select the *new->Spark 2.0.0 (EclairJS)*
 
 9. Enter the following code in notebook cell and run
  ```javascript
@@ -96,4 +96,4 @@ Instructions:
  ```
 
 ## Versions
-It should be noted that the master branch is used for development and although every effort is made to keep it stable it could be in a slight state of flux depending on what is going on.  Please see our [releases page](https://github.com/EclairJS/eclairjs-nashorn/releases) if you would like to download a stable version.
+It should be noted that the master branch is used for development and although every effort is made to keep it stable it could be in a slight state of flux depending on what is going on.
