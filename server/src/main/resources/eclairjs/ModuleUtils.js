@@ -75,16 +75,12 @@ function getModIdFromExport(func) {
     var cache = require.cache;
     if (cache) {
         for (var modid in cache) {
-            var funcSig =  func.getModuleName ? func.getModuleName() : func.toString();
-            var cacheFuncSig = cache[modid].getModuleName ? cache[modid].getModuleName() : cache[modid].toString();
-            if ((typeof cache[modid] === "function") && (/*cache[modid].toString()*/ cacheFuncSig === funcSig /*func.toString()*/)) {
+            if ((typeof cache[modid] === "function") && ( cache[modid] == func )) {
                 return {modid: modid};
             } else if (typeof cache[modid] === "object"){
                 for (var exp in cache[modid]) {
-                    //print("cache["+modid+"]["+exp+"]: "+cache[modid][exp]);
                     if (cache[modid][exp]) {
-                        cacheFuncSig = cache[modid][exp].getModuleName ? cache[modid][exp].getModuleName() : cache[modid][exp].toString();
-                        if (typeof cache[modid][exp] === "function" && /*cache[modid][exp].toString()*/ cacheFuncSig === funcSig /*func.toString()*/) {
+                        if ((typeof cache[modid][exp] === "function") && (cache[modid][exp] == func) ) {
                             return {modid: modid, expname: exp};
                         }
                     }
@@ -96,7 +92,7 @@ function getModIdFromExport(func) {
 }
 
 ModuleUtils.getRequiredFileByExport = function(func) {
-    //print("ModuleUtils.getRequiredFileByExport func: "+func.toString());
+   // print("ModuleUtils.getRequiredFileByExport func: "+func.toString());
     var obj = getModIdFromExport(func) || {},
         modid = obj.modid || "",
         expname = obj.expname;
