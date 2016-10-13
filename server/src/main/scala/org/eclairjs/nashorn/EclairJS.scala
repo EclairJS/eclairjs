@@ -29,10 +29,13 @@ class EclairJS extends CellMagic
 
   @Init def initMethod() = {
     engine.put("toreeJavaSparkContext", kernel.javaSparkContext)
+    engine.put("toreeSparkSession", kernel.sparkSession)
     engine.eval(
       """
         |var SparkContext = require('eclairjs/SparkContext');
+        |var SparkSession = require('eclairjs/sql/SparkSession');
         |var sc = new SparkContext(toreeJavaSparkContext);
+        |var sparkSession = new SparkSession(toreeSparkSession);
       """.stripMargin)
   }
 
