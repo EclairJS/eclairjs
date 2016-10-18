@@ -276,11 +276,12 @@
       <version>${spark.version}</version>
       <scope>provided</scope>
     </dependency>
-    <!--dependency>
+    <!-- Still need spark-streaming-kafka-0-8_2.11 for Spark 2.0 KafkaUtils -->
+    <dependency>
       <groupId>org.apache.spark</groupId>
       <artifactId>spark-streaming-kafka-0-8_2.11</artifactId>
       <version>${spark.version}</version>
-    </dependency-->
+    </dependency>
     <dependency>
       <groupId>org.apache.bahir</groupId>
       <artifactId>spark-streaming-twitter_2.11</artifactId>
