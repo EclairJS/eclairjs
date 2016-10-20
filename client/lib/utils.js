@@ -639,7 +639,7 @@ Utils.wrapArray = function(arr, sparkType) {
     arr.forEach(function(item) {
       var type;
 
-      if (sparkType && item instanceof sparkType) {
+      if (sparkType && Utils.instanceOf(item, sparkType)) {
         type = sparkType;
       } else if (item === null) {
       } else {
@@ -749,6 +749,10 @@ Utils.error = function(msg, e) {
   if (process.env.ECLAIRJS_VERBOSE) {
     console.error('\n'+msg, e);
   }
+};
+
+Utils.instanceOf = function(obj, clazz) {
+  return obj.constructor.name == clazz.name;
 };
 
 module.exports = Utils;
