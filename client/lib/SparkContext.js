@@ -43,7 +43,7 @@ module.exports = function(kernelP, server) {
         if (arguments.length == 2) {
           server.start(arguments[1]);
         } else {
-          if (arguments[0] instanceof SparkConf) {
+          if (Utils.instanceOf(arguments[0], SparkConf)) {
             var appName = arguments[0].getAppName();
             if (appName) {
               server.start(appName);

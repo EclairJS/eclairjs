@@ -66,7 +66,7 @@ IsotonicRegressionModel.prototype.predict = function(testData) {
     target: this,
     method: 'predict',
     args: Utils.wrapArguments(arguments),
-    returnType: testData instanceof RDD ? RDD : testData instanceof FloatRDD ? FloatRDD : Number
+    returnType: Utils.instanceOf(testData, RDD) ? RDD : Utils.instanceOf(testData, FloatRDD) ? FloatRDD : Number
   };
 
   return Utils.generate(args);

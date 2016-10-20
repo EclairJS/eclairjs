@@ -1620,18 +1620,15 @@ Dataset.prototype.createOrReplaceTempView = function(viewName) {
  * @returns {module:eclairjs/sql.DatasetWriter}
  */
 Dataset.prototype.write = function() {
-  throw "not implemented by ElairJS";
-// var DataFrameWriter = require('../sql/DataFrameWriter.js');
-//   var args = {
-//     target: this,
-//     method: 'write',
-//     returnType: DataFrameWriter
-//
-//   };
-//
-//   return Utils.generate(args);
-};
+  var DataFrameWriter = require('../sql/DataFrameWriter.js');
+  var args = {
+    target: this,
+    method: 'write',
+    returnType: DataFrameWriter
+  };
 
+  return Utils.generate(args);
+};
 
 /**
  * :: Experimental ::
