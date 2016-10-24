@@ -276,10 +276,9 @@
       <version>${spark.version}</version>
       <scope>provided</scope>
     </dependency>
-    <!-- Still need spark-streaming-kafka-0-8_2.11 for Spark 2.0 KafkaUtils -->
     <dependency>
       <groupId>org.apache.spark</groupId>
-      <artifactId>spark-streaming-kafka-0-8_2.11</artifactId>
+      <artifactId>spark-streaming-kafka-0-10_2.11</artifactId>
       <version>${spark.version}</version>
     </dependency>
     <dependency>
@@ -324,7 +323,6 @@
       <version>${toree.version}</version>
       <scope>provided</scope>
     </dependency>
-
     <dependency>
       <groupId>org.apache.kafka</groupId>
       <artifactId>kafka-log4j-appender</artifactId>

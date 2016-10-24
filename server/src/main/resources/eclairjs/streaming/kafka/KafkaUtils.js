@@ -31,8 +31,11 @@
 
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
 
-    var JavaKakfaUtils = Java.type("org.apache.spark.streaming.kafka.KafkaUtils");
+    var JavaKakfaUtils = Java.type("org.apache.spark.streaming.kafka010.KafkaUtils");
     var KafkaInputDStream = Java.type("org.eclairjs.nashorn.KafkaInputDStream");
+
+    var JavaLocationStrategies = Java.type("org.apache.spark.streaming.kafka010.LocationStrategies");
+    var JavaConsumerStrategies = Java.type("org.apache.spark.streaming.kafka010.ConsumerStrategies");
 
     /**
      * @memberof module:eclairjs/streaming/kafka
@@ -141,14 +144,44 @@
      */
     KafkaUtils.createDirectStream = function (ssc, kafkaParams, topics) {
         var ssc_uw = Utils.unwrapObject(ssc);
+
         var kafkaParams_uw = Utils.createJavaHashMap(kafkaParams);
+        // TODO: Make sure all streaming examples to use new prop name of "bootstrap.servers"
+        // instead of "metadata.broker.list".
+        kafkaParams_uw.put("bootstrap.servers", kafkaParams["bootstrap.servers"] || "unused");
+        // Remove the reference to "metadata.broker.list" so we don't get Config warning
+        // TODO: We won't need to do this any more once examples are updated.
+        kafkaParams_uw.remove("metadata.broker.list");
+        kafkaParams_uw.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer"),
+        kafkaParams_uw.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+        kafkaParams_uw.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+        kafkaParams_uw.put("enable.auto.commit", new java.lang.Boolean(false));
+        //kafkaParams_uw.put("auto.offset.reset", "latest");
+        kafkaParams_uw.put("auto.offset.reset", "earliest");
+        kafkaParams_uw.put("group.id", kafkaParams["groub.id"] || "example");
+
         var topics_uw = Utils.createJavaSet(topics);
+
+        // Old signiture pre-kafka010
+        /*
         var javaObject = JavaKakfaUtils.createDirectStream(ssc_uw,
             StringClass,
             StringClass,
             StringDecoderClass,
             StringDecoderClass,
             kafkaParams_uw, topics_uw);
+        */
+
+        // Use PreferConsistent in most cases as it consistently distributes partitions across all executors.
+        // Use PreferBrokers if your executors are on the same hosts as your Kafka brokers.
+        //var preferredHosts = ssc_uw.sparkContext().isLocal() ?
+            //JavaLocationStrategies.PreferBrokers() : JavaLocationStrategies.PreferConsistent();
+        var preferredHosts = JavaLocationStrategies.PreferBrokers();
+
+        var javaObject = JavaKakfaUtils.createDirectStream(ssc_uw,
+            preferredHosts,
+            JavaConsumerStrategies.Subscribe(topics_uw, kafkaParams_uw));
+
         return Utils.javaToJs(javaObject, ssc);
     };
 
