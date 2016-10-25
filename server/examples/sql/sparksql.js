@@ -33,10 +33,10 @@ var spark = SparkSession
       .config("spark.some.config.option", "some-value")
       .getOrCreate();
 
-//runBasicDataFrameExample(spark);
-//runDatasetCreationExample(spark);
+runBasicDataFrameExample(spark);
+runDatasetCreationExample(spark);
 runInferSchemaExample(spark);
-//runProgrammaticSchemaExample(spark);
+runProgrammaticSchemaExample(spark);
 
 spark.stop();
 
@@ -197,8 +197,8 @@ function runInferSchemaExample( spark) {
 
 function runProgrammaticSchemaExample( spark) {
 	// Create an RDD
-	var peopleRDD = spark.sparkContext()
-	  .textFile(filename, 1)
+	var peopleRDD = spark.read()
+	  .textFile(filename)
 	  .rdd();
 
 	// The schema is encoded in a string
@@ -206,8 +206,9 @@ function runProgrammaticSchemaExample( spark) {
 
 	// Generate the schema based on the string of schema
 	var fields = [];
-	for (var fieldName in schemaString.split(" ")) {
-	  var field = DataTypes.createStructField(fieldName, DataTypes.StringType, true);
+	var schemaParts=schemaString.split(" ");
+	for (var inx in schemaParts) {
+	  var field = DataTypes.createStructField(schemaParts[inx], DataTypes.StringType, true);
 	  fields.push(field);
 	}
 	var schema = DataTypes.createStructType(fields);

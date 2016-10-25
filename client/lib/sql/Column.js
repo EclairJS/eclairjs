@@ -675,6 +675,33 @@ Column.prototype.or = function(other) {
   return Utils.generate(args);
 };
 
+  /**
+     * Sum of this expression and another expression.
+     * @example
+     *   // Scala: The following selects the sum of a person's height and weight.
+     *   people.select( people("height") + people("weight") )
+     *
+     *   // Java:
+     *   people.select( people("height").plus(people("weight")) );
+     *
+     *
+     * @since EclairJS 0.7 Spark  1.3.0
+     * @param {object} other
+     * @returns {module:eclairjs/sql.Column}
+     * @function
+     * @name module:eclairjs/sql.Column#plus
+     */
+Column.prototype.plus = function(other) {
+  var args = {
+    target: this,
+    method: 'plus',
+    args: Utils.wrapArguments(arguments),
+    returnType: Column
+  };
+
+  return Utils.generate(args);
+};
+
 /**
  * Evaluates a list of conditions and returns one of multiple possible result expressions.
  * If otherwise is not defined at the end, null is returned for unmatched conditions.

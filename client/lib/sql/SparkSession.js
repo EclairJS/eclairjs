@@ -213,6 +213,28 @@ module.exports = function(kernelP, server) {
 
 
     /**
+     * Creates a {@link Dataset} from RDD of JSON
+     * @param {{module:eclairjs.RDD<object>}    RDD of JSON
+     * @param {object} schema - object with keys corresponding to JSON field names (or getter functions), and values indicating Datatype
+     * @returns {module:eclairjs/sql.Dataset}
+     * @example
+     * var df = sqlSession.createDataFrame([{id:1,"name":"jim"},{id:2,"name":"tom"}], {"id":"Integer","name","String"});
+     *
+     */
+    SparkSession.prototype.createDatasetFromJson = function(rowRDD, encoder) {
+      var Dataset = require('./Dataset');
+      var args = {
+        target: this,
+        method: 'createDatasetFromJson',
+        args: Utils.wrapArguments(arguments),
+        returnType: Dataset
+      };
+
+      return Utils.generate(args);
+    };
+
+
+    /**
      * Convert a [[BaseRelation]] created for external data sources into a {@link DataFrame}.
      *
      * @since EclairJS 0.6 Spark  2.0.0
