@@ -204,6 +204,7 @@ var java2wrapper = {
     "JavaPairRDD": "PairRDD",
     "JavaDStream": "DStream",
     "JavaInputDStream": "DStream",
+    "KafkaInputDStream": "DStream",
     "JavaReceiverInputDStream": "DStream",
     "JavaMapWithStateDStream": "DStream",
     "JavaPairDStream": "PairDStream",
@@ -236,7 +237,8 @@ Serialize.javaSparkObject = function (javaObj) {
     var pack = javaObj.getClass().getPackage();
     var packageName = pack ? pack.getName() : null;
 
-    if (packageName == null || packageName.indexOf("org.apache.spark") == -1) {
+    if (packageName == null ||
+        packageName.indexOf("org.apache.spark") == -1 ) {
         return false;
     }
 
@@ -264,7 +266,8 @@ Serialize.javaSparkObject = function (javaObj) {
 
     packageName = (javaPackageMap[packageName]) ? javaPackageMap[packageName] : packageName;
 
-    if (className === "DStream" || className === "PairDStream") {
+    print("className = " + className);
+    if (className === "DStream" || className === "PairDStream" || className == "KafkaInputDStream") {
         /*
         Java dstream objects are not in the dstream package so we have to force the correct
         module path for us.
@@ -280,6 +283,7 @@ Serialize.javaSparkObject = function (javaObj) {
         // module before giving up - this could be on worker node
         var cmd = req + " return new " + className + "(javaObj)";
         Serialize.logger.debug(cmd);
+        print(cmd);
         var wrapperObjectFunction = new Function("javaObj", cmd); // better closer, keep require out of the global space
         ret = wrapperObjectFunction(javaObj);
     } catch(se) {
