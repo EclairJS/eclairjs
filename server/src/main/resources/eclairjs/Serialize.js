@@ -266,7 +266,6 @@ Serialize.javaSparkObject = function (javaObj) {
 
     packageName = (javaPackageMap[packageName]) ? javaPackageMap[packageName] : packageName;
 
-    print("className = " + className);
     if (className === "DStream" || className === "PairDStream" || className == "KafkaInputDStream") {
         /*
         Java dstream objects are not in the dstream package so we have to force the correct
