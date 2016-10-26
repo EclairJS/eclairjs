@@ -125,7 +125,7 @@
      *
      * @param {module:eclairjs/streaming.StreamingContext} ssc  StreamingContext object
      * @param {object} kafkaParams  map of Kafka options (key, value). Kafka <a href="http://kafka.apache.org/documentation.html#configuration">
-     *   configuration parameters</a>. Requires "metadata.broker.list" or "bootstrap.servers"
+     *   configuration parameters</a>. Requires "bootstrap.servers"
      *   to be set with Kafka broker(s) (NOT zookeeper servers), specified in
      *   host1:port1,host2:port2 form.
      *   If not starting from a checkpoint, "auto.offset.reset" may be set to "largest" or "smallest"
@@ -134,6 +134,8 @@
      * @returns {module:eclairjs/streaming/dstream.DStream}  DStream of (Kafka message key, Kafka message value)
      */
     KafkaUtils.createDirectStream = function (ssc, kafkaParams, topics) {
+        throw "not implemented by ElairJS";
+
         // TODO: Not working with toree spark 2.0, kafka 0.10. Commenting Out.
         // Works fine standalone.
 
