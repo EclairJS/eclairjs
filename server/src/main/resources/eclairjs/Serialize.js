@@ -204,6 +204,7 @@ var java2wrapper = {
     "JavaPairRDD": "PairRDD",
     "JavaDStream": "DStream",
     "JavaInputDStream": "DStream",
+    "KafkaInputDStream": "DStream",
     "JavaReceiverInputDStream": "DStream",
     "JavaMapWithStateDStream": "DStream",
     "JavaPairDStream": "PairDStream",
@@ -236,7 +237,8 @@ Serialize.javaSparkObject = function (javaObj) {
     var pack = javaObj.getClass().getPackage();
     var packageName = pack ? pack.getName() : null;
 
-    if (packageName == null || packageName.indexOf("org.apache.spark") == -1) {
+    if (packageName == null ||
+        packageName.indexOf("org.apache.spark") == -1 ) {
         return false;
     }
 
@@ -264,7 +266,7 @@ Serialize.javaSparkObject = function (javaObj) {
 
     packageName = (javaPackageMap[packageName]) ? javaPackageMap[packageName] : packageName;
 
-    if (className === "DStream" || className === "PairDStream") {
+    if (className === "DStream" || className === "PairDStream" || className == "KafkaInputDStream") {
         /*
         Java dstream objects are not in the dstream package so we have to force the correct
         module path for us.
