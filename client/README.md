@@ -49,11 +49,11 @@ EclairJS Client provides a Docker container that contains all of its dependencie
 [Dockerhub](https://hub.docker.com/r/eclairjs/minimal-gateway/).
 
 The Docker image supports the latest released version of EclairJS Client and may not work with `master`.   You can 
-simply check out the appropriate branch (` git checkout branch-0.8` for example).
+simply check out the appropriate branch (` git checkout branch-0.9` for example).
 
 ```bash
-docker pull eclairjs/minimal-gateway:0.8
-docker run -p 8888:8888 eclairjs/minimal-gateway:0.8
+docker pull eclairjs/minimal-gateway:0.9
+docker run -p 8888:8888 eclairjs/minimal-gateway:0.9
 ```
 
 After retrieving Docker's IP address (`docker-machine ip`), you will need to set two environment variables:
@@ -108,8 +108,9 @@ Contributions are always welcome via pull requests.
 Our goal is to keep the EclairJS master branch up to date with the latest version of Spark. When new versions of Spark require code changes, we create a separate branch. The table below shows what is available now.
 
 |EclairJS Version/Tag | Apache Spark Version |
-| ---------------| ----- |
-| 0.1            | 1.5.1 |
-| 0.2 - 0.7      | 1.6.0 |
-| 0.8            | 2.0.0 |
-| 0.9 (master)   | 2.0.0 |
+| ----------------| ----- |
+| 0.1             | 1.5.1 |
+| 0.2 - 0.7       | 1.6.0 |
+| 0.8             | 2.0.0 |
+| 0.9             | 2.0.0 |
+| 0.10 (master)   | 2.0.0 |

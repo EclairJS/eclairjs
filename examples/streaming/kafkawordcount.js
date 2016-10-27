@@ -33,11 +33,8 @@ function stop(e) {
   }
 }
 
-var kafkaHost = '192.168.99.100:2181';
+var kafkaHost = 'localhost:9092';
 var topic = 'tlog';
-
-var topicMap = {};
-topicMap[topic] = 2;
 
 var eclairjs = require('eclairjs');
 var spark = new eclairjs();
@@ -45,7 +42,7 @@ var spark = new eclairjs();
 var sparkContext = new spark.SparkContext("local[*]", "Kafka Word Count");
 var ssc = new spark.streaming.StreamingContext(sparkContext, new spark.streaming.Duration(2000));
 
-var messages = spark.streaming.kafka.KafkaUtils.createStream(ssc, kafkaHost, topic, topicMap);
+var messages = spark.streaming.kafka.KafkaUtils.createStream(ssc, "wordcount", kafkaHost, topic);
 
 var lines = messages.map(function(tuple2) {
   return tuple2._2();

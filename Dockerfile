@@ -38,7 +38,7 @@ COPY incubator-toree/dist/toree /toree
 
 
 #Eclair JS
-ENV ECLAIRJS_VERSION 0.8
+ENV ECLAIRJS_VERSION 0.9
 
 RUN wget -q http://repo2.maven.org/maven2/org/eclairjs/eclairjs-nashorn/${ECLAIRJS_VERSION}/eclairjs-nashorn-${ECLAIRJS_VERSION}-jar-with-dependencies.jar && \
     mkdir -p /opt/nashorn/lib && \

@@ -59,8 +59,7 @@
 
     var Utils = require(EclairJS_Globals.NAMESPACE + '/Utils');
 
-    var JavaKakfaUtils = Java.type("org.apache.spark.streaming.kafka.KafkaUtils");
-    var KafkaInputDStream = Java.type("org.eclairjs.nashorn.KafkaInputDStream");
+    var EclairJsKafkaUtils = Java.type("org.eclairjs.nashorn.EclairJsKafkaUtils");
 
     /**
      * @memberof module:eclairjs/streaming/kafka
@@ -69,26 +68,35 @@
     var KafkaUtils = function () {
     };
 
-    var Class = Java.type("java.lang.Class");
-    var StringClass = Class.forName("java.lang.String");
-    var StringDecoderClass = Class.forName("kafka.serializer.StringDecoder");
     var StorageLevel = Java.type("org.apache.spark.storage.StorageLevel");
     var CommonClientConfigs = Java.type("org.apache.kafka.clients.CommonClientConfigs");
     var SslConfigs = Java.type("org.apache.kafka.common.config.SslConfigs");
 
+    function createKafkaStream(ssc, group, brokers, topic, kafkaProps) {
 
-    KafkaUtils.createMessageHubStream = function(ssc, brokers, topic, username, password, api_key) {
-        var kafkaProps = new java.util.HashMap();
         kafkaProps.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-        kafkaProps.put(CommonClientConfigs.CLIENT_ID_CONFIG, "demo.watson.twitter.messagehub");
-        kafkaProps.put("auto.offset.reset", "latest"),
-        kafkaProps.put("acks", "-1"),
-        kafkaProps.put("retries", "0"),
-        kafkaProps.put("batch.size", "16384"),
-        kafkaProps.put("linger.ms", "1"),
-        kafkaProps.put("buffer.memory", "33554432"),
-        kafkaProps.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer"),
-        kafkaProps.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer"),
+        kafkaProps.put("group.id", group);
+        kafkaProps.put("auto.offset.reset", "latest");
+        kafkaProps.put("acks", "-1");
+        kafkaProps.put("retries", "0");
+        kafkaProps.put("batch.size", "16384");
+        kafkaProps.put("linger.ms", "1");
+        kafkaProps.put("buffer.memory", "33554432");
+        kafkaProps.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+        kafkaProps.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+        kafkaProps.put(KAFKA_TOPIC, topic);
+        kafkaProps.put("bootstrap.servers",brokers);
+
+        var dstream = EclairJsKafkaUtils.createJavaStream(
+            ssc.getJavaObject(), kafkaProps, topic, StorageLevel.MEMORY_AND_DISK()
+        );
+
+        return Utils.javaToJs(dstream);
+    }
+
+    KafkaUtils.createMessageHubStream = function(ssc, group, brokers, topic, username, password, api_key) {
+        var kafkaProps = new java.util.HashMap();
+
         kafkaProps.put(SslConfigs.SSL_PROTOCOL_CONFIG, "TLSv1.2"),
         kafkaProps.put(SslConfigs.SSL_ENABLED_PROTOCOLS_CONFIG, "TLSv1.2"),
         kafkaProps.put(SslConfigs.SSL_TRUSTSTORE_TYPE_CONFIG, "JKS"),
@@ -97,42 +105,28 @@
         kafkaProps.put(SslConfigs.SSL_ENDPOINT_IDENTIFICATION_ALGORITHM_CONFIG, "HTTPS"),
         kafkaProps.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_SSL" ),
 
-        kafkaProps.put(KAFKA_TOPIC, topic);
         kafkaProps.put(KAFKA_USER_NAME, username);
         kafkaProps.put(KAFKA_USER_PASSWORD, password);
         kafkaProps.put(MESSAGEHUB_API_KEY, api_key);
-        kafkaProps.put("bootstrap.servers",brokers);
         kafkaProps.put(MESSAGEHUB_REST_URL, "https://kafka-rest-prod01.messagehub.services.us-south.bluemix.net:443");
         kafkaProps.put("sasl.mechanism","PLAIN");
 
-        var dstream = new KafkaInputDStream(
-            ssc.getJavaObject().ssc(), kafkaProps, topic, StorageLevel.MEMORY_AND_DISK()
-        );
-
-        return Utils.javaToJs(dstream);
+        return createKafkaStream(ssc, group, brokers, topic, kafkaProps);
     };
 
     /**
      * Create an input stream that pulls messages from Kafka Brokers.
      * Storage level of the data will be the default StorageLevel.MEMORY_AND_DISK_SER_2.
-     * @param {treamingContext} jssc       StreamingContext object
-     * @param {string} zkQuorum   Zookeeper quorum (hostname:port,hostname:port,..)
-     * @param {string} groupId    The group id for this consumer
-     * @param {object} topics     Map of (topic_name -> numPartitions) to consume. Each partition is consumed
-     *                  in its own thread
-     * @returns {module:eclairjs/streaming/dstream.DStream}  DStream of (Kafka message key, Kafka message value)
+     * @param {StreamingContext} jssc       StreamingContext object
+     * @param {string} group      The group id for this consumer
+     * @param {string} brokers    Kafka Brokers "hostname:port,hostname:port,.."
+     * @param {string} topics     Kafka Topic
+     * @returns {module:eclairjs/streaming/dstream.PairDStream}  PairDStream of (Kafka message key, Kafka message value)
      */
-    KafkaUtils.createStream = function (ssc, zkQuorum, group, topics) {
-        var m = Utils.createJavaHashMap(topics, undefined, function (key, value) {
-            return new java.lang.Integer(value);
-        });
-        return Utils.javaToJs(JavaKakfaUtils.createStream(ssc.getJavaObject(),
-            zkQuorum,
-            group,
-            m),
-            ssc);
+    KafkaUtils.createStream = function(ssc, group, brokers, topic) {
+        var kafkaProps = new java.util.HashMap();
+        return createKafkaStream(ssc, group, brokers, topic, kafkaProps);
     };
-
 
     /**
      *  NOTE: This currently only works on Kafka key/values which are Strings
@@ -159,7 +153,7 @@
      *
      * @param {module:eclairjs/streaming.StreamingContext} ssc  StreamingContext object
      * @param {object} kafkaParams  map of Kafka options (key, value). Kafka &lt;a href="http://kafka.apache.org/documentation.html#configuration">
-     *   configuration parameters&lt;/a>. Requires "metadata.broker.list" or "bootstrap.servers"
+     *   configuration parameters&lt;/a>. Requires "bootstrap.servers"
      *   to be set with Kafka broker(s) (NOT zookeeper servers), specified in
      *   host1:port1,host2:port2 form.
      *   If not starting from a checkpoint, "auto.offset.reset" may be set to "largest" or "smallest"
@@ -168,16 +162,47 @@
      * @returns {module:eclairjs/streaming/dstream.DStream}  DStream of (Kafka message key, Kafka message value)
      */
     KafkaUtils.createDirectStream = function (ssc, kafkaParams, topics) {
+        throw "not implemented by ElairJS";
+
+        // TODO: Not working with toree spark 2.0, kafka 0.10. Commenting Out.
+        // Works fine standalone.
+
+        /*
+        //var JavaKakfaUtils = Java.type("org.apache.spark.streaming.kafka010.KafkaUtils");
+        //var JavaLocationStrategies = Java.type("org.apache.spark.streaming.kafka010.LocationStrategies");
+        //var JavaConsumerStrategies = Java.type("org.apache.spark.streaming.kafka010.ConsumerStrategies");
+
         var ssc_uw = Utils.unwrapObject(ssc);
+
         var kafkaParams_uw = Utils.createJavaHashMap(kafkaParams);
+        // TODO: Make sure all streaming examples to use new prop name of "bootstrap.servers"
+        // instead of "metadata.broker.list".
+        kafkaParams_uw.put("bootstrap.servers", kafkaParams["bootstrap.servers"] || "unused");
+        // Remove the reference to "metadata.broker.list" so we don't get Config warning
+        // TODO: We won't need to do this any more once examples are updated.
+        kafkaParams_uw.remove("metadata.broker.list");
+        kafkaParams_uw.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer"),
+        kafkaParams_uw.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+        kafkaParams_uw.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+        kafkaParams_uw.put("enable.auto.commit", new java.lang.Boolean(false));
+        //kafkaParams_uw.put("auto.offset.reset", "latest");
+        kafkaParams_uw.put("auto.offset.reset", "earliest");
+        kafkaParams_uw.put("group.id", kafkaParams["groub.id"] || "example");
+
         var topics_uw = Utils.createJavaSet(topics);
+
+        // Use PreferConsistent in most cases as it consistently distributes partitions across all executors.
+        // Use PreferBrokers if your executors are on the same hosts as your Kafka brokers.
+        //var preferredHosts = ssc_uw.sparkContext().isLocal() ?
+            //JavaLocationStrategies.PreferBrokers() : JavaLocationStrategies.PreferConsistent();
+        var preferredHosts = JavaLocationStrategies.PreferBrokers();
+
         var javaObject = JavaKakfaUtils.createDirectStream(ssc_uw,
-            StringClass,
-            StringClass,
-            StringDecoderClass,
-            StringDecoderClass,
-            kafkaParams_uw, topics_uw);
+            preferredHosts,
+            JavaConsumerStrategies.Subscribe(topics_uw, kafkaParams_uw));
+
         return Utils.javaToJs(javaObject, ssc);
+        */
     };
 
     module.exports = KafkaUtils;
@@ -199,7 +224,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Mon Oct 03 2016 15:08:26 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Thu Oct 27 2016 11:17:46 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>
