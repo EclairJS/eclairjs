@@ -23,6 +23,10 @@
  * Example:
  *    $ bin/eclairjs.sh examples/streaming/direct_kafka_word_count.js  broker1-host:port,broker2-host:port topic1,topic2
  */
+
+print("TODO: Kafka Direct Streaming Not Implemented!");
+java.lang.System.exit(0);
+
 var KafkaUtils = require('eclairjs/streaming/kafka/KafkaUtils');
 var Duration = require('eclairjs/streaming/Duration');
 var StreamingContext = require('eclairjs/streaming/StreamingContext');
