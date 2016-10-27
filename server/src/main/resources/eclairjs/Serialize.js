@@ -282,7 +282,6 @@ Serialize.javaSparkObject = function (javaObj) {
         // module before giving up - this could be on worker node
         var cmd = req + " return new " + className + "(javaObj)";
         Serialize.logger.debug(cmd);
-        print(cmd);
         var wrapperObjectFunction = new Function("javaObj", cmd); // better closer, keep require out of the global space
         ret = wrapperObjectFunction(javaObj);
     } catch(se) {

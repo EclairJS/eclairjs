@@ -72,32 +72,32 @@ class KafkaReceiver[
     }
 
     //Create the jaas configuration
-      var is:InputStream = null
-      try{
-        is = this.getClass.getResourceAsStream("/jaas.conf");
-        System.out.println("*********" + is);
-        val confString = Source.fromInputStream( is ).mkString
-          .replace( "$USERNAME", userName)
-          .replace( "$PASSWORD", password )
+    var is:InputStream = null
+    try{
+      is = this.getClass.getResourceAsStream("/jaas.conf");
+      System.out.println("*********" + is);
+      val confString = Source.fromInputStream( is ).mkString
+        .replace( "$USERNAME", userName)
+        .replace( "$PASSWORD", password )
 
-        val confDir= new File( System.getProperty("java.io.tmpdir") + File.separator + fixPath( userName ) )
-        confDir.mkdirs
-        val confFile = new File( confDir, "jaas.conf");
-        val fw = new FileWriter( confFile );
-        fw.write( confString )
-        fw.close
+      val confDir= new File( System.getProperty("java.io.tmpdir") + File.separator + fixPath( userName ) )
+      confDir.mkdirs
+      val confFile = new File( confDir, "jaas.conf");
+      val fw = new FileWriter( confFile );
+      fw.write( confString )
+      fw.close
 
-        //Set the jaas login config property
-        //logInfo("Registering JaasConfiguration: " + confFile.getAbsolutePath)
-        System.setProperty(JaasUtils.JAVA_LOGIN_CONFIG_PARAM, confFile.getAbsolutePath )
-      }catch{
-        case e:Throwable => {
-          //logError( e.getMessage, e)
-          throw e
-        }
-      }finally{
-        if ( is != null ) is.close
+      //Set the jaas login config property
+      //logInfo("Registering JaasConfiguration: " + confFile.getAbsolutePath)
+      System.setProperty(JaasUtils.JAVA_LOGIN_CONFIG_PARAM, confFile.getAbsolutePath )
+    }catch{
+      case e:Throwable => {
+        //logError( e.getMessage, e)
+        throw e
       }
+    }finally{
+      if ( is != null ) is.close
+    }
   }
 
   def onStop() {
