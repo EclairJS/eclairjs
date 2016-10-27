@@ -34,14 +34,13 @@ var StreamingContext = require('eclairjs/streaming/StreamingContext');
 var Tuple2 = require('eclairjs/Tuple2');
 var SparkConf = require(EclairJS_Globals.NAMESPACE + '/SparkConf');
 
-if ((typeof args == "undefined")||args.length<5)
+if ((typeof args == "undefined")||args.length<4)
 {
           print(
-          "Usage: bin/eclairjs.sh examples/streaming/kafka_word_count.js  <zkQuorum> <group> <topics> <numThreads>\n" +
-          "  <zkQuorum> is a list of one or more zookeeper servers that make quorum\n" +
+          "Usage: bin/eclairjs.sh examples/streaming/kafka_word_count.js  <brokers> <group> <topic>\n" +
+          "  <brokers> is a list of one or more zookeeper servers that make quorum\n" +
           "  <group> is the name of kafka consumer group\n" +
-          "  <topics> is a list of one or more kafka topics to consume from\n" +
-          "  <numThreads> is the number of threads the kafka consumer should use\n\n");
+          "  <topic> is a kafka topic to consume from\n\n");
           java.lang.System.exit(-1);
 }
 
@@ -49,19 +48,11 @@ if ((typeof args == "undefined")||args.length<5)
     var conf = new SparkConf().setAppName("Javascript Kafka Word Count");
     var jssc = new StreamingContext(conf, new Duration(2000));
 
-
-    var numThreads = parseInt(args[4]);
-    var topicMap = {};
-    var topics = args[3].split(",");
-    for (var i=0;i<topics.length;i++) {
-      topicMap[topics[i]]=numThreads;
-    }
-
     var messages =
-            KafkaUtils.createStream(jssc, args[1], args[2], topicMap);
+            KafkaUtils.createStream(jssc, args[2], args[1], args[3]);
 
     var lines = messages.map(function(tuple2) {
-        return tuple2[1];
+        return tuple2._2();
     });
 
     var words = lines.flatMap(function( x) {
@@ -75,8 +66,6 @@ if ((typeof args == "undefined")||args.length<5)
       });
 
     wordCounts.print();
-
-
 
     // Start the computation
     jssc.start();
