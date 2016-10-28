@@ -34,7 +34,7 @@ function run(sparkSession, spark) {
 
     var root = process.env.EXAMPLE_ROOT || __dirname + "/.."
     // Loads data.
-    var dataset = sparkSession.read().format("libsvm").load(root+"/mllib/data/sample_kmeans_data.txt');
+    var dataset = sparkSession.read().format("libsvm").load(root+"/mllib/data/sample_kmeans_data.txt");
 
 
     // Trains a k-means model
