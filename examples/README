@@ -1,0 +1,4 @@
+Run the examples. User the --docker flag if running through the docker 
+container.
+
+./run.sh --docker ml/generalizedlinearregression.js
