@@ -4,4 +4,19 @@ EclairJS provides JavaScript and Node.js developers with an API for [Apache Spar
 
 The apps directory contains a number of relatively full-function example applications that include UIs, Node.js applications using the EclairJS client, plus the EclairJS server and Spark. The examples directory contains smaller code examples that demonstrate how-to take advantage of various Spark capabilities such as streaming, ML, from a JavaScript or a Node.js environment. There is also an examples/server directory that contains smaller code examples that can be run directly on the EclairJS server.
 
+## Try The Examples
+EclairJS provides a Docker container for the server.
+
+```bash
+docker run -p 8888:8888 eclairjs/minimal-gateway
+```
+
+To run the examples
+
+```bash
+cd examples
+npm install
+./run.sh --docker wordcount/wordcount.js
+```
+
 Note: This repository supports Apache Spark 2.0, and it supercedes an set of repositories ([EclairJS/eclairjs-node](https://github.com/EclairJS/eclairjs-node) and [EclairJS/eclairjs-nashorn](https://github.com/EclairJS/eclairjs-nashorn)) that supported an earlier version of Spark, namely 1.6. The focus of the EclairJS work going forward will be on supporting Spark 2.0.

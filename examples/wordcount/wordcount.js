@@ -21,7 +21,9 @@ var session = spark.sql.SparkSession.builder()
   .appName("Word Count")
   .getOrCreate();
 
-var file = __dirname + '/../data/dream.txt';
+
+var root = process.env.EXAMPLE_ROOT || __dirname + '/..';
+var file = root+'/data/dream.txt';
 
 // first argument is a new filename
 if (process.argv.length > 2) {
