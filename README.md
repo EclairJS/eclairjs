@@ -11,12 +11,19 @@ EclairJS provides a Docker container for the server.
 docker run -p 8888:8888 eclairjs/minimal-gateway
 ```
 
-To run the examples
+To run the examples:
 
 ```bash
 cd examples
 npm install
 ./run.sh --docker wordcount/wordcount.js
+```
+
+Please not that if you are running the docker container in a docker-machine environment or on another server, make sure you set the following environment variables:
+
+```bash
+export JUPYTER_HOST=<docker host ip, defaults to 127.0.0.1>
+export JUPYTER_PORT=<container ip, defaults to 8888>
 ```
 
 Note: This repository supports Apache Spark 2.0, and it supercedes an set of repositories ([EclairJS/eclairjs-node](https://github.com/EclairJS/eclairjs-node) and [EclairJS/eclairjs-nashorn](https://github.com/EclairJS/eclairjs-nashorn)) that supported an earlier version of Spark, namely 1.6. The focus of the EclairJS work going forward will be on supporting Spark 2.0.
