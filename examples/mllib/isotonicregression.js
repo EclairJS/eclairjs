@@ -28,7 +28,7 @@ function stop(e) {
 function run(sc, spark) {
   return new Promise(function(resolve, reject) {
     var root = process.env.EXAMPLE_ROOT || __dirname + "/.."
-    var data = sc.textFile(__dirname + root+"/mllib/data/sample_isotonic_regression_data.txt");
+    var data = sc.textFile(root+"/mllib/data/sample_isotonic_regression_data.txt");
 
     // Create label, feature, weight tuples from input data with weight set to default value 1.0.
     var parsedData = data.map(function(line, Tuple3) {
