@@ -38,7 +38,8 @@ var eclairjs = require('eclairjs');
 var spark = new eclairjs();
 var sc =  new spark.SparkContext("local[*]", "ALS");
 
-var lines = sc.textFile(__dirname + "/data/alsdata.txt");
+var root = process.env.EXAMPLE_ROOT || __dirname + "/.."
+var lines = sc.textFile(root + "/mllib/data/alsdata.txt");
 
 var ratings = lines.map(function(line, Rating){
   var tok = line.split(",");

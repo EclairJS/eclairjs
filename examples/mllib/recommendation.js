@@ -27,7 +27,8 @@ function stop(e) {
 
 function run(sc, spark) {
   return new Promise(function(resolve, reject) {
-    var data = sc.textFile(__dirname + "/data/alsdata.txt");
+    var root = process.env.EXAMPLE_ROOT || __dirname + "/.."
+    var data = sc.textFile(root+"/mllib/data/alsdata.txt");
 
     var ratings = data.map(function(s, Rating) {
       var sarray = s.split(",");

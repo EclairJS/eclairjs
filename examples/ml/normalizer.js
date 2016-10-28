@@ -29,7 +29,8 @@ function stop(e) {
 
 function run(sparkSession, spark) {
   return new Promise(function(resolve, reject) {
-    var dataFrame = sparkSession.read().format("libsvm").load(__dirname+"/../mllib/data/sample_libsvm_data.txt");
+    var root = process.env.EXAMPLE_ROOT || __dirname + "/.."
+    var dataFrame = sparkSession.read().format("libsvm").load(root+"/mllib/data/sample_libsvm_data.txt");
 
     // Normalize each Vector using $L^1$ norm.
     var normalizer = new spark.ml.feature.Normalizer()

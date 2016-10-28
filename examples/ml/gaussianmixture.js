@@ -29,9 +29,9 @@ function stop(e) {
 
 function run(sparkSession, spark) {
   return new Promise(function(resolve, reject) {
-
+    var root = process.env.EXAMPLE_ROOT || __dirname + "/.."
     // Loads training data
-    var dataset = sparkSession.read().format("libsvm").load(__dirname + '/../mllib/data/sample_kmeans_data.txt');
+    var dataset = sparkSession.read().format("libsvm").load(root+"/mllib/data/sample_kmeans_data.txt');
 
     // Trains a GaussianMixture model
     var gmm = new spark.ml.clustering.GaussianMixture().setK(2);

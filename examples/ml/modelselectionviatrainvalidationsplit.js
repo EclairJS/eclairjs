@@ -30,9 +30,10 @@ function stop(e) {
 function run(sparkSession, spark) {
   return new Promise(function(resolve, reject) {
 
+    var root = process.env.EXAMPLE_ROOT || __dirname + "/.."
     // Load training data
     var data = sparkSession.read().format("libsvm")
-      .load(__dirname+"/../mllib/data/sample_linear_regression_data.txt");
+      .load(root+"/mllib/data/sample_linear_regression_data.txt");
 
 
     // Prepare training and test data.

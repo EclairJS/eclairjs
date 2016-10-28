@@ -43,8 +43,9 @@ function run(sparkSession, spark) {
       return RowFactory.create([userId, movieId, rating, timestamp]);
     }
 
+    var root = process.env.EXAMPLE_ROOT || __dirname + "/.."
     var ratingsRDD = sparkSession
-        .read().textFile(__dirname + '/data/sample_movielens_ratings.txt').toRDD()
+        .read().textFile(root+'/ml/data/sample_movielens_ratings.txt').toRDD()
         .map(parseRating, [spark.sql.RowFactory]);
 
     var schema = new spark.sql.types.StructType([

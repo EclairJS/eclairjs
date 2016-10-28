@@ -30,7 +30,8 @@ function run(sc, spark) {
     var minSupport = 0.3;
     var numPartition = 1;
 
-    var data = sc.textFile(__dirname + "/data/sample_fpgrowth.txt");
+    var root = process.env.EXAMPLE_ROOT || __dirname + "/.."
+    var data = sc.textFile(root+"/mllib/data/sample_fpgrowth.txt");
 
     var transactions = data.map(function(s, List) {
       return new List(s.split(" "));

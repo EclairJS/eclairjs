@@ -30,7 +30,8 @@ function run(sc, spark) {
     var k = 3;
     var iterations = 10;
     var runs = 1;
-    var data =  spark.mllib.util.MLUtils.loadLibSVMFile(sc, __dirname + "/data/sample_libsvm_data.txt");
+    var root = process.env.EXAMPLE_ROOT || __dirname + "/.."
+    var data =  spark.mllib.util.MLUtils.loadLibSVMFile(sc, root+"/mllib/data/sample_libsvm_data.txt");
 
     data.randomSplit([0.7, 0.3]).then(function(splits) {
       var trainingData = splits[0];

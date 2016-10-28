@@ -27,7 +27,8 @@ function stop(e) {
 
 function run(sc, spark) {
   return new Promise(function(resolve, reject) {
-    var data = sc.textFile(__dirname + "/data/lpsa.txt");
+    var root = process.env.EXAMPLE_ROOT || __dirname + "/.."
+    var data = sc.textFile(root+"/mllib/data/lpsa.txt");
 
     var parsedData = data.map(function (s, LabeledPoint, DenseVector) {
       var parts = s.split(",");

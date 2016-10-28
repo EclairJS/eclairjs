@@ -37,7 +37,8 @@ function run(sc, spark) {
   return new Promise(function(resolve, reject) {
     var Vectors = spark.mllib.linalg.Vectors;
 
-    var data = sc.textFile(__dirname + "/data/random.data");
+    var root = process.env.EXAMPLE_ROOT || __dirname + "/.."
+    var data = sc.textFile(root+"/mllib/data/random.data");
 
     var rowsList = [Vectors.dense([1.12, 2.05, 3.12]), Vectors.dense([5.56, 6.28, 8.94]), Vectors.dense([10.2, 8.0, 20.5])];
 

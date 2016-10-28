@@ -29,7 +29,8 @@ function stop(e) {
 
 
 
-var fileName = path.resolve(__dirname+'/../mllib/data/sample_multiclass_classification_data.txt');
+var root = process.env.EXAMPLE_ROOT || __dirname + "/.."
+var fileName = path.resolve(root+"/mllib/data/sample_multiclass_classification_data.txt');
 
 function run(sparkSession, spark) {
   return new Promise(function(resolve, reject) {

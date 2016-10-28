@@ -28,7 +28,8 @@ function stop(e) {
 
 function run(sc, spark) {
   return new Promise(function(resolve, reject) {
-    var examples = spark.mllib.util.MLUtils.loadLibSVMFile(sc, __dirname + "/data/sample_binary_classification_data.txt");
+    var root = process.env.EXAMPLE_ROOT || __dirname + "/.."
+    var examples = spark.mllib.util.MLUtils.loadLibSVMFile(sc, root+"/mllib/data/sample_binary_classification_data.txt");
 
     examples.count().then(function(numExamples) {
       if (numExamples > 0) {

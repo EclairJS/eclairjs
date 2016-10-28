@@ -30,8 +30,9 @@ function stop(e) {
 function run(sparkSession, spark) {
   return new Promise(function(resolve, reject) {
 
+    var root = process.env.EXAMPLE_ROOT || __dirname + "/.."
     // Load and parse the data file, converting it to a DataFrame.
-    var data = sparkSession.read().format("libsvm").load(__dirname+"/..//mllib/data/sample_libsvm_data.txt");
+    var data = sparkSession.read().format("libsvm").load(root+"/mllib/data/sample_libsvm_data.txt");
 
     // Index labels, adding metadata to the label column.
     // Fit on whole dataset to include all labels in index.

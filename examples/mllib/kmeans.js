@@ -31,7 +31,8 @@ function run(sc, spark) {
     var iterations = 10;
     var runs = 1;
 
-    var data = sc.textFile(__dirname + "/data/kmeans_data.txt");
+    var root = process.env.EXAMPLE_ROOT || __dirname + "/.."
+    var data = sc.textFile(root+"/mllib/data/kmeans_data.txt");
 
     var points = data.map(function(line, Vectors) {
       var tok = line.split(" ");

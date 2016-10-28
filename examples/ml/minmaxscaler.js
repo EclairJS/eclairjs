@@ -30,9 +30,10 @@ function stop(e) {
 function run(sparkSession, spark) {
   return new Promise(function(resolve, reject) {
 
+    var root = process.env.EXAMPLE_ROOT || __dirname + "/.."
     // Load training data
     var training = sparkSession.read().format("libsvm")
-      .load(__dirname+"/../mllib/data/sample_libsvm_data.txt");
+      .load(root+"/mllib/data/sample_libsvm_data.txt");
 
     var scaler = new spark.ml.feature.MinMaxScaler()
       .setInputCol("features")

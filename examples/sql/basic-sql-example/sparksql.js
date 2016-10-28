@@ -27,12 +27,13 @@ function stop(e) {
   sparkSession.stop().then(exit).catch(exit);
 }
 
+var root = process.env.EXAMPLE_ROOT || __dirname + "/../.."
 
 function runBasicDataFrameExample(sparkSession, spark)
 {
   return new Promise(function(resolve, reject) {
     // Load a text file and convert each line to a JavaScript Object.
-    var df = sparkSession.read().json(__dirname + '/../../data/people.json');
+    var df = sparkSession.read().json(root+'/data/people.json');
     var promises = [];
 
   // Displays the content of the DataFrame
@@ -114,7 +115,7 @@ function runProgrammaticSchemaExample(sparkSession, spark)
 {
   return new Promise(function(resolve, reject) {
     // Load a text file and convert each line to a JavaScript Object.
-    var rdd = sparkSession.read().textFile(__dirname + '/../../data/people.txt').rdd();
+    var rdd = sparkSession.read().textFile(root+'/data/people.txt').rdd();
     var people = rdd.map(function(line) {
       var parts = line.split(",");
       return person = {
@@ -164,7 +165,7 @@ function runInferSchemaExample(sparkSession, spark)
 {
   return new Promise(function(resolve, reject) {
     // Load a text file and convert each line to a JavaScript Object.
-    var rdd = sparkSession.read().textFile(__dirname + '/../../data/people.txt').rdd();
+    var rdd = sparkSession.read().textFile(root+'/data/people.txt').rdd();
     var peopleRDD = rdd.map(function(line) {
       var parts = line.split(",");
       return person = {

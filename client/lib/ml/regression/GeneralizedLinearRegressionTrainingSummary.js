@@ -19,6 +19,8 @@ module.exports = function(kernelP) {
 
     var Utils = require('../../utils.js');
 
+    var gKernelP = kernelP;
+
     var GeneralizedLinearRegressionSummary = require('./GeneralizedLinearRegressionSummary')();
 
     /**

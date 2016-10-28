@@ -32,8 +32,10 @@ var k = 3;
 function run(sparkSession, spark) {
   return new Promise(function(resolve, reject) {
 
+    var root = process.env.EXAMPLE_ROOT || __dirname + "/.."
+
     var dataset = sparkSession.read().format("libsvm")
-      .load(__dirname+"/../mllib/data/sample_lda_libsvm_data.txt");
+      .load(root + "/mllib/data/sample_lda_libsvm_data.txt");
 
     // Trains a LDA model
     var lda = new spark.ml.clustering.LDA()

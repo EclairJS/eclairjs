@@ -31,7 +31,8 @@ var runs = 1;
 
 function run(sc, spark) {
   return new Promise(function(resolve, reject) {
-    var data =  spark.mllib.util.MLUtils.loadLibSVMFile(sc, __dirname + "/data/sample_libsvm_data.txt");
+    var root = process.env.EXAMPLE_ROOT || __dirname + "/.."
+    var data =  spark.mllib.util.MLUtils.loadLibSVMFile(sc, root+"/mllib/data/sample_libsvm_data.txt");
 
     data.randomSplit([0.7, 0.3]).then(function(splits) {
       var trainingData = splits[0];

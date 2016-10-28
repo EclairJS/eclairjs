@@ -30,7 +30,8 @@ function stop(e) {
 function run(sparkSession, spark) {
   return new Promise(function(resolve, reject) {
     // Load and parse the data file, converting it to a DataFrame.
-    var data = sparkSession.read().format("libsvm").load(__dirname+"/../mllib/data/sample_libsvm_data.txt");
+    var root = process.env.EXAMPLE_ROOT || __dirname + "/.."
+    var data = sparkSession.read().format("libsvm").load(root+"/mllib/data/sample_libsvm_data.txt");
 
     // Automatically identify categorical features, and index them.
     // Set maxCategories so features with > 4 distinct values are treated as continuous.

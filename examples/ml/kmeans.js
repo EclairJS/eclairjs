@@ -32,8 +32,9 @@ var k = 3;
 function run(sparkSession, spark) {
   return new Promise(function(resolve, reject) {
 
+    var root = process.env.EXAMPLE_ROOT || __dirname + "/.."
     // Loads data.
-    var dataset = sparkSession.read().format("libsvm").load(__dirname + '/../mllib/data/sample_kmeans_data.txt');
+    var dataset = sparkSession.read().format("libsvm").load(root+"/mllib/data/sample_kmeans_data.txt');
 
 
     // Trains a k-means model

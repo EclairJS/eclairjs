@@ -27,7 +27,8 @@ function stop(e) {
 
 function run(sc, spark) {
   return new Promise(function(resolve, reject) {
-    var data = spark.mllib.util.MLUtils.loadLibSVMFile(sc, __dirname + "/data/sample_binary_classification_data.txt");
+    var root = process.env.EXAMPLE_ROOT || __dirname + "/.."
+    var data = spark.mllib.util.MLUtils.loadLibSVMFile(sc, root+"/mllib/data/sample_binary_classification_data.txt");
 
     var ret = {};
 

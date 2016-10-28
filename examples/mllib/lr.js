@@ -36,7 +36,8 @@ function createResulPromise(label, promise) {
 
 function run(sc, spark) {
   return new Promise(function(resolve, reject) {
-    var data = sc.textFile(__dirname + "/data/random.data");
+    var root = process.env.EXAMPLE_ROOT || __dirname + "/.."
+    var data = sc.textFile(root+"/mllib/data/random.data");
 
     var points = data.map(function (line, LabeledPoint, Vectors) {
       var parts = line.split(",");

@@ -27,7 +27,8 @@ function stop(e) {
 
 function run(sc, spark) {
   return new Promise(function(resolve, reject) {
-    var data = sc.textFile(__dirname + "/data/sample_linear_regression_data.txt");
+    var root = process.env.EXAMPLE_ROOT || __dirname + "/.."
+    var data = sc.textFile(root+"/mllib/data/sample_linear_regression_data.txt");
 
     var parsedData = data.map(function(line, LabeledPoint, Vectors) {
       var arr = line.split(" ");

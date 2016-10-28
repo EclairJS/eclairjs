@@ -28,9 +28,10 @@ function stop(e) {
 function run(sparkSession, spark) {
   return new Promise(function(resolve, reject) {
 
+    var root = process.env.EXAMPLE_ROOT || __dirname + "/.."
     // Load training data
     var data = sparkSession.read().format("libsvm")
-      .load(__dirname+"/../mllib/data/sample_libsvm_data.txt");
+      .load(root+"/mllib/data/sample_libsvm_data.txt");
 
     // Prepare training and test data.
     data.randomSplit([0.6, 0.4], 1234).then(function(splits) {
