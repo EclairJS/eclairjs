@@ -107,7 +107,7 @@ function _getURL(jobName) {
     if (JUPYTER_HOST != ELAIRJS_HOST) {
       var hostURL = JUPYTER_HOST + ":" + JUPYTER_PORT;
       resolve({
-        baseUrl: 'https://' + hostURL, 
+        baseUrl: 'http://' + hostURL, 
         wsUrl: 'ws://' + hostURL, 
         kernelName: 'eclair',
         path: jobName
@@ -123,7 +123,7 @@ function _getURL(jobName) {
           var hostURL = ELAIRJS_HOST + userPath;
           // console.log(hostURL)
           resolve({
-            baseUrl: 'https://' + hostURL, 
+            baseUrl: 'http://' + hostURL, 
             wsUrl: 'ws://' + hostURL, 
             kernelName: 'eclair',
             path: jobName
