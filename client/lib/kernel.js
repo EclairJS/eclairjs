@@ -94,7 +94,7 @@ Kernel.resetVariables = function() {
   variableCounter = {};
 };
 
-function _getURL() {
+function _getURL(jobName) {
   // special processing for eclairjs.cloudet.xyz to follow redirect
   //  to spawned kernel
   var JUPYTER_HOST = process.env.JUPYTER_HOST || "127.0.0.1";
@@ -105,7 +105,13 @@ function _getURL() {
 
   return new Promise(function(resolve, reject) {
     if (JUPYTER_HOST != ELAIRJS_HOST) {
-      resolve(JUPYTER_HOST + ":" + JUPYTER_PORT);
+      var hostURL = JUPYTER_HOST + ":" + JUPYTER_PORT;
+      resolve({
+        baseUrl: 'https://' + hostURL, 
+        wsUrl: 'ws://' + hostURL, 
+        kernelName: 'eclair',
+        path: jobName
+      });
     } else {
       request({
         followAllRedirects: true,
@@ -116,7 +122,12 @@ function _getURL() {
           var userPath = response.request.path.split('/').slice(0, 3).join('/');
           var hostURL = ELAIRJS_HOST + userPath;
           // console.log(hostURL)
-          resolve(hostURL);
+          resolve({
+            baseUrl: 'https://' + hostURL, 
+            wsUrl: 'ws://' + hostURL, 
+            kernelName: 'eclair',
+            path: jobName
+          });
         }
         else
           reject(error);
@@ -125,31 +136,41 @@ function _getURL() {
   });
 }
 
+function __getServerURL(jobName) {
+
+  var vcap = Utils.vcapBluemixServer();
+  if(!vcap)
+    return _getURL(jobName);
+
+  var tenant_id = vcap.credentials.tenant_id;
+  var instance_id = vcap.credentials.instance_id;
+  var tenant_secret = vcap.credentials.tenant_secret;
+  var host = vcap.credentials.cluster_master;
+
+  var url ='//'+ tenant_id +'_'+ instance_id +':'+ tenant_secret +'@'+ host +'/jupyter/v2'
+
+  return Promise.resolve({
+    baseUrl: 'https:'+url, 
+    wsUrl: 'wss:'+url, 
+    kernelName: 'scala-spark20',
+    ajaxSettings: {
+      user: tenant_id + '_' + instance_id,
+      password: tenant_secret
+    },
+    path: jobName
+  });
+}
+
+
 Kernel.createKernelSession = function(jobName) {
   return new Promise(function(resolve, reject) {
     // We build our Spark Kernel connection here and share it when any classes that need it
-    _getURL().then(function(hostURL) {
+    __getServerURL(jobName).then(function(serverInfo) {
       //start the kernel
-      /*
-       jjs.startNewKernel({
-       baseUrl: "http://" + hostURL,
-       wsUrl: "ws://" + hostURL,
-       name: "eclair"
-       }).then(function(k) {
-       console.log("got kernel");
-       //when we have kernel info we know the spark kernel is ready.
-       k.kernelInfo().then(function(info) {
-       kernelPResolve(k);
-       });
-       });
-       */
-
-      jjs.startNewSession({
-        baseUrl: "http://" + hostURL,
-        wsUrl: "ws://" + hostURL,
-        kernelName: "eclair",
-        path: jobName
-      }).then(function(session) {
+      console.log(serverInfo);
+      jjs.startNewSession(
+        serverInfo
+      ).then(function(session) {
         //when we have kernel info we know the spark kernel is ready.
         session.kernel.kernelInfo().then(function(info) {
           if (process.env.ECLAIRJS_VERBOSE) {

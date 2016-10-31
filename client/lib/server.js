@@ -30,7 +30,18 @@ function Server() {
   this.kernelP = new Promise(function(resolve, reject) {
     scope.kernelPResolve = function(kernelSession) {
       scope.session = kernelSession;
-      resolve(kernelSession.kernel)
+
+      if (Utils.vcapBluemixServer()) {
+        var c = kernelSession.kernel.execute({code: '%AddJar --magic '+ Utils.eclairjsJar()});
+        kernel.verifyKernelExecution(c, function() {
+          resolve(kernelSession.kernel);
+        }, function(e) {
+          console.error(e);
+          reject(e);
+        });
+      } else {
+        resolve(kernelSession.kernel);
+      }
     };
 
     scope.kernelPReject = function(e) {

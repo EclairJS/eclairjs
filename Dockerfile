@@ -1,5 +1,5 @@
 # Copyright (c) IBM.
-FROM jupyter/minimal-kernel
+FROM jupyter/base-notebook
 
 
 USER root
