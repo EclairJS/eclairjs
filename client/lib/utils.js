@@ -14,11 +14,22 @@
  * limitations under the License.
  */
 
+function __vcapBluemixServer() {
+  if(!process.env.VCAP_SERVICES)
+    return null;
+
+  var vcap = JSON.parse(process.env.VCAP_SERVICES);
+  if(vcap.spark)
+    return vcap.spark[0];
+  else
+    return null;
+}
+
+
 function initCode() {
   //if (process.env.ECLAIRJS_ADD_MAGIC_JAR) {
-  if (process.env.VCAP_SERVICES && 
-      process.env.VCAP_SERVICES.spark) {
-    return '%%eclairjs\n';
+  if (__vcapBluemixServer()) {
+    return '%%eclairjs ';
   } else {
     return '';
   }
@@ -771,14 +782,7 @@ Utils.eclairjsJar = function() {
 }
 
 Utils.vcapBluemixServer = function() {
-  if(!process.env.VCAP_SERVICES)
-    return null;
-
-  var vcap = JSON.parse(process.env.VCAP_SERVICES);
-  if(vcap.spark)
-    return vcap.spark[0];
-  else
-    return null;
+  return __vcapBluemixServer();
 }
 
 module.exports = Utils;
