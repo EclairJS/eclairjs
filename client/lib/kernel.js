@@ -109,7 +109,7 @@ function _getURL(jobName) {
       resolve({
         baseUrl: 'http://' + hostURL, 
         wsUrl: 'ws://' + hostURL, 
-        kernelName: 'eclair',
+        name: 'eclair',
         path: jobName
       });
     } else {
@@ -125,7 +125,7 @@ function _getURL(jobName) {
           resolve({
             baseUrl: 'http://' + hostURL, 
             wsUrl: 'ws://' + hostURL, 
-            kernelName: 'eclair',
+            name: 'eclair',
             path: jobName
           });
         }
@@ -145,7 +145,7 @@ function __getServerURL(jobName) {
   var tenant_id = vcap.credentials.tenant_id;
   var instance_id = vcap.credentials.instance_id;
   var tenant_secret = vcap.credentials.tenant_secret;
-  var host = vcap.credentials.cluster_master;
+  var host = 'spark.bluemix.net'; //vcap.credentials.cluster_master_url;
 
   var url ='//'+ tenant_id +'_'+ instance_id +':'+ tenant_secret +'@'+ host +'/jupyter/v2'
 
@@ -157,7 +157,7 @@ function __getServerURL(jobName) {
       user: tenant_id + '_' + instance_id,
       password: tenant_secret
     },
-    path: jobName
+    notebookPath: jobName
   });
 }
 

@@ -229,8 +229,8 @@
     </pluginManagement>
   </build>
   <properties>
-    <spark.version>2.0.0</spark.version>
-    <hadoop.version>2.6.0</hadoop.version>
+    <spark.version>2.0.1</spark.version>
+    <hadoop.version>2.7.3</hadoop.version>
     <toree.version>0.2.0.dev1-incubating-SNAPSHOT</toree.version>
   </properties>
   <dependencies>
