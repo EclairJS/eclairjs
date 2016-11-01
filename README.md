@@ -10,6 +10,7 @@ The [eclairs-examples](https://github.com/eclairjs/eclairjs-examples), repositor
 EclairJS provides a Docker container for the server.
 
 ```bash
+docker pull eclairjs/minimal-gateway
 docker run -p 8888:8888 eclairjs/minimal-gateway
 ```
 

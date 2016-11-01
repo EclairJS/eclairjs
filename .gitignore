@@ -13,3 +13,4 @@ java/dependency-reduced-pom.xml
 .DS_Store
 jupyter-js-services
 examples/airline/public/data/2008bd.json/*
+incubator-toree/*
