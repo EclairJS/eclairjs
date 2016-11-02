@@ -25,6 +25,11 @@ list_kernels()
     https://${TENANT_ID}_${INSTANCE_ID}:${TENANT_SECRET}@spark.bluemix.net/jupyter/v2/api/kernels
 }
 
+get_kernel() {
+  curl -v -X GET \
+    https://${TENANT_ID}_${INSTANCE_ID}:${TENANT_SECRET}@spark.bluemix.net/jupyter/v2/api/kernels/$1
+}
+
 delete_kernel()
 {
   curl -v -X DELETE \
@@ -35,4 +40,10 @@ list_kernel_specs()
 {
   curl -v -X GET \
     https://${TENANT_ID}_${INSTANCE_ID}:${TENANT_SECRET}@spark.bluemix.net/jupyter/v2/api/kernelspecs
+}
+
+list_sessions()
+{
+  curl -v -X GET \
+    https://${TENANT_ID}_${INSTANCE_ID}:${TENANT_SECRET}@spark.bluemix.net/jupyter/v2/api/sessions
 }
