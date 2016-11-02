@@ -108,8 +108,8 @@ function _getURL(jobName) {
       var hostURL = JUPYTER_HOST + ":" + JUPYTER_PORT;
       resolve({
         baseUrl: 'http://' + hostURL, 
-        wsUrl: 'ws://' + hostURL, 
-        name: 'eclair',
+        wsUrl: 'ws://' + hostURL,
+        kernelName: 'eclair',
         path: jobName
       });
     } else {
@@ -124,8 +124,8 @@ function _getURL(jobName) {
           // console.log(hostURL)
           resolve({
             baseUrl: 'http://' + hostURL, 
-            wsUrl: 'ws://' + hostURL, 
-            name: 'eclair',
+            wsUrl: 'ws://' + hostURL,
+            kernelName: 'eclair',
             path: jobName
           });
         }
@@ -160,7 +160,6 @@ function __getServerURL(jobName) {
     notebookPath: jobName
   });
 }
-
 
 Kernel.createKernelSession = function(jobName) {
   return new Promise(function(resolve, reject) {
