@@ -19,4 +19,10 @@ npm install
 ./run.sh --docker wordcount/wordcount.js
 ```
 
+## Documentation
+* [Developing with EclairJS](https://github.com/EclairJS/eclairjs/wiki/Developing-With-EclairJS-Client)
+* [API Docs](https://eclairjs.github.io/eclairjs/client/docs/jsdoc/index.html)
+* [API Examples](https://github.com/EclairJS/eclairjs/tree/master/examples)
+* [Example Applications](https://github.com/EclairJS/eclairjs-examples)
+
 Note: This repository supports Apache Spark 2.0, and it supercedes an set of repositories ([EclairJS/eclairjs-node](https://github.com/EclairJS/eclairjs-node) and [EclairJS/eclairjs-nashorn](https://github.com/EclairJS/eclairjs-nashorn)) that supported an earlier version of Spark, namely 1.6. The focus of the EclairJS work going forward will be on supporting Spark 2.0.
