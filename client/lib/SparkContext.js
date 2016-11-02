@@ -57,16 +57,21 @@ module.exports = function(kernelP, server) {
 
         var fArgs = arguments;
 
+        var refId = 'sc';
+
         this.kernelP = new Promise(function(resolve, reject) {
           gKernelP.then(function(kernel) {
             var args = {
               target: SparkContext,
               args: Utils.wrapArguments(fArgs),
-              refId: 'jsc',
+              refId: refId,
               kernelP: gKernelP
             };
 
-            Utils.generateConstructor(args).then(function(refId) {
+            // In bluemix we have a spark context already created
+            var constructorP = Utils.vcapBluemixServer() ? Promise.resolve(refId): Utils.generateConstructor(args);
+
+            constructorP.then(function(refId) {
               var args = {
                 target: {kernelP: gKernelP, refIdP: Promise.resolve(refId)},
                 method: 'version',
@@ -89,7 +94,7 @@ module.exports = function(kernelP, server) {
 
         this.refIdP = new Promise(function(resolve, reject) {
           this.kernelP.then(function() {
-            resolve('jsc');
+            resolve(refId);
           }).catch(reject);
         }.bind(this));
       }
