@@ -4,25 +4,30 @@ EclairJS provides JavaScript and Node.js developers with an API for [Apache Spar
 
 The examples directory contains smaller code examples that demonstrate how-to take advantage of various Spark capabilities such as streaming, ML, from a Node.js environment. There is also an examples/server directory that contains smaller code examples that can be run directly on the EclairJS server.
 
-The [eclairs-examples](https://github.com/eclairjs/eclairjs-examples), repository contains a number of relatively full-function example Node.js applications that include UIs using the EclairJS client, plus the EclairJS server and Spark. 
+The [eclairs-examples](https://github.com/eclairjs/eclairjs-examples) repository contains a number of relatively full-function example Node.js applications that include UIs using the EclairJS client, plus the EclairJS server and Spark. 
 
 ## Try The Examples
-EclairJS provides a Docker container for the server.
+To try the examples, you will need the example code, a client, and a server. An easy way to obtain the code and a client is to download a copy of the EclairJS repository by clicking the "Clone or download" button above. Then bring up a command line and do the following to install a client:
+
+```bash
+cd repository-root-dir/examples
+npm install
+```
+
+We have provided the server in a Docker container which you can obtain and run with:
 
 ```bash
 docker pull eclairjs/minimal-gateway
 docker run -p 8888:8888 eclairjs/minimal-gateway
 ```
 
-To run the examples:
+Now you can run any of the examples using the run.sh script from the examples directory, e.g.:
 
 ```bash
-cd examples
-npm install
 ./run.sh --docker wordcount/wordcount.js
 ```
 
-Please not that if you are running the docker container in a docker-machine environment or on another server, make sure you set the following environment variables:
+Please note that if you are running the docker container in a docker-machine environment or on another server, make sure you set the following environment variables:
 
 ```bash
 export JUPYTER_HOST=<docker host ip, defaults to 127.0.0.1>
