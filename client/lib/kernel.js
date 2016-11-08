@@ -109,7 +109,7 @@ function _getURL(jobName) {
       resolve({
         baseUrl: 'http://' + hostURL, 
         wsUrl: 'ws://' + hostURL,
-        kernelName: 'eclair',
+        name: 'eclair',
         path: jobName
       });
     } else {
@@ -125,7 +125,7 @@ function _getURL(jobName) {
           resolve({
             baseUrl: 'http://' + hostURL, 
             wsUrl: 'ws://' + hostURL,
-            kernelName: 'eclair',
+            name: 'eclair',
             path: jobName
           });
         }
@@ -152,7 +152,7 @@ function __getServerURL(jobName) {
   return Promise.resolve({
     baseUrl: 'https:'+url, 
     wsUrl: 'wss:'+url, 
-    kernelName: 'scala-spark20',
+    name: 'scala-spark20',
     ajaxSettings: {
       user: tenant_id + '_' + instance_id,
       password: tenant_secret
@@ -167,6 +167,18 @@ Kernel.createKernelSession = function(jobName) {
     __getServerURL(jobName).then(function(serverInfo) {
       //start the kernel
       console.log(serverInfo);
+
+      jjs.startNewKernel(serverInfo).then(function(k) {
+        console.log("got kernel");
+        //when we have kernel info we know the spark kernel is ready.
+        k.kernelInfo().then(function(info) {
+          resolve(k);
+        });
+      }).catch(function(e) {
+        console.error('Failed to connect to Jupyter instance', e);
+        reject(e);
+      });
+/*
       jjs.startNewSession(
         serverInfo
       ).then(function(session) {
@@ -181,6 +193,7 @@ Kernel.createKernelSession = function(jobName) {
         console.error('Failed to start Jupyter session', e);
         reject(err);
       });
+      */
     }).catch(function(e) {
       console.error('Failed to connect to Jupyter instance', e);
       reject(e);
