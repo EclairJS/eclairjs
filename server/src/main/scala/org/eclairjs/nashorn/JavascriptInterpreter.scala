@@ -44,6 +44,12 @@ class Comm(val kernel: Kernel, val commWriter:CommWriter = null) {
   }
 }
 
+class Magics(val kernel: Kernel) {
+  def addJar(jar: String): Unit = {
+    kernel.magics.AddJar(jar)
+  }
+}
+
 
 class JavascriptInterpreter() extends org.apache.toree.interpreter.Interpreter {
 
@@ -160,6 +166,7 @@ class JavascriptInterpreter() extends org.apache.toree.interpreter.Interpreter {
 
     engine.put("kernel", kernel)
     engine.put("commMap", new CommMap())
+    engine.put("magics", new Magics(kernelImpl))
 
     System.out.println("END kernel init")
 
