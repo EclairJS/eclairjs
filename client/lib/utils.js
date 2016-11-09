@@ -755,4 +755,16 @@ Utils.instanceOf = function(obj, clazz) {
   return obj.constructor.name == clazz.name;
 };
 
+Utils.addSparkJar = function(kernelP, path) {
+  var protocol = require('./kernel.js');
+
+  var code = 'magics.addJar("'+path+'")';
+
+  return new Promise(function(resolve, reject) {
+    kernelP.then(function(kernel) {
+      protocol.verifyKernelExecution(kernel.execute({code: code}), resolve, reject);
+    });
+  });
+};
+
 module.exports = Utils;
