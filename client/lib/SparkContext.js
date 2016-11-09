@@ -630,7 +630,55 @@ module.exports = function(kernelP, server) {
 
       return Utils.generate(args);
     };
+    
+    /**
+     * Set the value of the name property of the Hadoop Configuration for the Hadoop code (e.g. file systems) that we reuse.
+     * '''Note:''' As it will be reused in all Hadoop RDDs, it's better not to modify it unless you plan to set some global configurations for all Hadoop RDDs.
+     * @example
+     *  sparkContext.setHadoopConfiguration("fs.swift.service.softlayer.auth.url", "https://identity.open.softlayer.com/v3/auth/tokens");
+     *  sparkContext.setHadoopConfiguration("fs.swift.service.softlayer.auth.endpoint.prefix", "endpoints");
+     *  sparkContext.setHadoopConfiguration("fs.swift.service.softlayer.tenant", "productid"); // IBM BlueMix Object Store product id
+     *  sparkContext.setHadoopConfiguration("fs.swift.service.softlayer.username", "userid"); // IBM BlueMix Object Store user id
+     *  sparkContext.setHadoopConfiguration("fs.swift.service.softlayer.password", "secret"); // IBM BlueMix Object Store password
+     *  sparkContext.setHadoopConfiguration("fs.swift.service.softlayer.apikey", "secret"); // IBM BlueMix Object Store password
+     *
+     *  var rdd = sparkContext.textFile("swift://wordcount.softlayer/dream.txt").cache();
+     *
+     * @param key
+     * @param value
+     * @returns {Promise.<Void>} A Promise that resolves to nothing.
+     */
+    SparkContext.prototype.setHadoopConfiguration = function(key, value) {
+      var args = {
+        target: this,
+        method: 'setHadoopConfiguration',
+        args: Utils.wrapArguments(arguments),
+        returnType: Object
+      };
 
+      return Utils.generate(args);
+    };
+    
+    /**
+    /**
+     * Get the value of the name property of the Hadoop Configuration for the Hadoop code (e.g. file systems) that we reuse.
+     * '''Note:''' As it will be reused in all Hadoop RDDs, it's better not to modify it unless you plan to set some global configurations for all Hadoop RDDs.
+     * , null if no such property exists.
+     * @param key
+     * @param [defaultValue]
+     * @returns {Promise.<Object>} A Promise that resolves to nothing.
+     */
+    SparkContext.prototype.getHadoopConfiguration = function(key, defaultValue) {
+      var args = {
+        target: this,
+        method: 'getHadoopConfiguration',
+        args: Utils.wrapArguments(arguments),
+        returnType: Object
+      };
+
+      return Utils.generate(args);
+    };
+    
     SparkContext.moduleLocation = '/SparkContext';
 
     return SparkContext;
