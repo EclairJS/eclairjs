@@ -144,10 +144,16 @@ Kernel.createKernelSession = function(jobName) {
        });
        */
 
+      var kernelName = 'eclair';
+
+      if (process.env.ECLAIRJS_KERNEL_NAME) {
+        kernelName = process.env.ECLAIRJS_KERNEL_NAME;
+      }
+
       jjs.startNewSession({
         baseUrl: "http://" + hostURL,
         wsUrl: "ws://" + hostURL,
-        kernelName: "eclair",
+        kernelName: kernelName,
         path: jobName
       }).then(function(session) {
         //when we have kernel info we know the spark kernel is ready.
