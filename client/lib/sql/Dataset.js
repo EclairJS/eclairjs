@@ -656,16 +656,25 @@ Dataset.prototype.selectExpr = function() {
  *
  *
  * @since EclairJS 0.7 Spark  1.6.0
- * @param {string | module:eclairjs/sql.Column}
+ * @param {function | module:eclairjs/sql.Column}
+ * @param {Object[]} [bindArgs] - array whose values will be added to func's argument list.
  * @returns {module:eclairjs/sql.Dataset}
  */
-Dataset.prototype.filter = function() {
+Dataset.prototype.filter = function(func, bindArgs) {
   var args = {
     target: this,
     method: 'filter',
-    args: Utils.wrapArguments(arguments),
     returnType: Dataset
   };
+
+  if (typeof(func) == 'function') {
+    args.args = [
+      {value: func, type: 'lambda'},
+      {value: Utils.wrapBindArgs(bindArgs), optional: true}
+    ];
+  } else {
+    args.args = Utils.wrapArguments(arguments);
+  }
 
   return Utils.generate(args);
 };

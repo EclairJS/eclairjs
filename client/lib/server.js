@@ -23,14 +23,25 @@ var kernelPResolve;
 var kernelPReject;
 
 function Server() {
-  this.session = null;
+  this.kernel = null;
 
   var scope = this;
 
   this.kernelP = new Promise(function(resolve, reject) {
-    scope.kernelPResolve = function(kernelSession) {
-      scope.session = kernelSession;
-      resolve(kernelSession.kernel)
+    scope.kernelPResolve = function(kernelObj) {
+      scope.kernel = kernelObj;
+
+      if (Utils.vcapBluemixServer()) {
+        var c = kernelObj.execute({code: '%AddJar --magic '+ Utils.eclairjsJar()});
+        kernel.verifyKernelExecution(c, function() {
+          resolve(kernelObj);
+        }, function(e) {
+          console.error(e);
+          reject(e);
+        });
+      } else {
+        resolve(kernelObj);
+      }
     };
 
     scope.kernelPReject = function(e) {
@@ -52,7 +63,7 @@ Server.prototype.stop = function() {
 
   return new Promise(function(resolve, reject) {
     scope.kernelP.then(function(kernel) {
-      scope.session.shutdown().then(resolve).catch(reject);
+      scope.kernel.shutdown().then(resolve).catch(reject);
     });
   });
 };

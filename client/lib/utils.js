@@ -14,6 +14,27 @@
  * limitations under the License.
  */
 
+function __vcapBluemixServer() {
+  if(!process.env.VCAP_SERVICES)
+    return null;
+
+  var vcap = JSON.parse(process.env.VCAP_SERVICES);
+  if(vcap.spark)
+    return vcap.spark[0];
+  else
+    return null;
+}
+
+
+function initCode() {
+  //if (process.env.ECLAIRJS_ADD_MAGIC_JAR) {
+  if (__vcapBluemixServer()) {
+    return '%%eclairjs ';
+  } else {
+    return '';
+  }
+}
+
 var Utils = {};
 
 Utils.processTemplate = function(templateStr, replacements) {
@@ -300,7 +321,7 @@ Utils.generate = function(args) {
         protocol.verifyKernelExecution(kernel.execute({code: refId+".length;"}), _countResolve, reject);
       }
 
-      var code = '';
+      var code = initCode();
 
       // For static calls, we need to make sure we generate the require for the class.
       if (type == 'staticMethodCall') {
@@ -407,7 +428,7 @@ Utils.handleConstructor = function(context, callArgs, kernelP) {
     var refIdP = new Promise(function(resolve, reject) {
       Promise.all(promises).then(function(values) {
         var kernel = values[0];
-        var code = '';
+        var code = initCode();
 
         // get the class name of the target
         var moduleLocation = context.moduleLocation ? context.moduleLocation : context.constructor ? context.constructor.moduleLocation : null;
@@ -468,7 +489,7 @@ Utils.generateConstructor = function(args) {
   var refIdP = new Promise(function(resolve, reject) {
     Promise.all(promises).then(function(values) {
       var kernel = values[0];
-      var code = '';
+      var code = initCode();
 
       // get the class name of the target
       var moduleLocation = target.moduleLocation ? target.moduleLocation : target.constructor ? target.constructor.moduleLocation : null;
@@ -700,7 +721,7 @@ Utils.wrapBindArgs = function(bindArgs) {
 Utils.execute = function(args) {
   var protocol = require('./kernel.js');
 
-  var code = args.code;
+  var code = initCode() + args.code;
   var returnType = args.returnType;
   var kernelP = args.kernelP;
 
@@ -754,5 +775,14 @@ Utils.error = function(msg, e) {
 Utils.instanceOf = function(obj, clazz) {
   return obj.constructor.name == clazz.name;
 };
+
+Utils.eclairjsJar = function() {
+ //return 'http://repo1.maven.org/maven2/org/eclairjs/eclairjs-nashorn/0.9/eclairjs-nashorn-0.9-jar-with-dependencies.jar';
+ return 'http://cfa.cloudet.xyz/eclairjs-nashorn-0.9-jar-with-dependencies.jar';
+}
+
+Utils.vcapBluemixServer = function() {
+  return __vcapBluemixServer();
+}
 
 module.exports = Utils;

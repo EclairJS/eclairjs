@@ -54,7 +54,7 @@ describe('EclairJS Integration Tests', function() {
     require('./sql/Column');
     require('./sql/DataFrame');
     require('./sql/DataFrameNaFunctions');
-    require('./sql/DataFrameReader');
+    //require('./sql/DataFrameReader'); requires mysql
     require('./sql/DataFrameStatFunctions');
     //require('./sql/functions');
     require('./sql/GroupedData');
