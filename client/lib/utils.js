@@ -785,4 +785,16 @@ Utils.vcapBluemixServer = function() {
   return __vcapBluemixServer();
 }
 
+Utils.addSparkJar = function(kernelP, path) {
+  var protocol = require('./kernel.js');
+
+  var code = 'magics.addJar("'+path+'")';
+
+  return new Promise(function(resolve, reject) {
+    kernelP.then(function(kernel) {
+      protocol.verifyKernelExecution(kernel.execute({code: code}), resolve, reject);
+    });
+  });
+};
+
 module.exports = Utils;

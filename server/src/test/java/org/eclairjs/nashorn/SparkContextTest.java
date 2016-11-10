@@ -157,4 +157,16 @@ public class SparkContextTest {
         assertEquals("failure - values are not equal", "[\"Rating(0,260,9.0)\"]", ret);
 
     };
+
+    @Test
+    public void setHadoopConfiguration() throws Exception {
+        ScriptEngine engine = TestUtils.getEngine();
+        // String file = TestUtils.resourceToFile("/dream.txt");
+
+        TestUtils.evalJSResource(engine, "/sparkcontexttests.js");
+        Object ret = ((Invocable)engine).invokeFunction("setHadoopConfiguration");
+
+        assertEquals("failure - values are not equal", "{\"user_id\":\"userid\",\"port\":8080,\"public\":false,\"float\":1.100000023841858}", ret);
+
+    };
 }
