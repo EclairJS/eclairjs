@@ -24,6 +24,10 @@ import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
 public class NashornEngineSingleton {
+    static {
+        System.out.println("********** classloader = " + NashornEngineSingleton.class.getClassLoader());
+    }
+
 	//public static ScriptEngineManager engineManager = new ScriptEngineManager();
 	static ScriptEngine engine = null;
     static Boolean sparkJSLoaded = false;
@@ -32,6 +36,7 @@ public class NashornEngineSingleton {
         if(engine == null) {
             ScriptEngineManager engineManager = new ScriptEngineManager();
             engine = engineManager.getEngineByName("nashorn");
+            engine.put("eclairjsLoader", NashornEngineSingleton.class.getClassLoader());
         }
 
         loadSparkJS();

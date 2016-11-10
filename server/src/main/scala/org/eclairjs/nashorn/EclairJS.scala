@@ -16,36 +16,45 @@ class EclairJS extends CellMagic
   with IncludeKernel {
 
   private  val engine = {
-    val nashornLoader = classOf[NashornEngineSingleton].getClassLoader
-    Thread.currentThread().setContextClassLoader(nashornLoader)
+    //val nashornLoader = classOf[NashornEngineSingleton].getClassLoader
+    //Thread.currentThread().setContextClassLoader(nashornLoader)
+
     val e = NashornEngineSingleton.getEngine
-    e.eval(
-      """
-        |function print(str) {java.lang.System.out.println(str);}
-      """.stripMargin)
+    //e.eval(
+    //  """
+    //    |function print(str) {java.lang.System.out.println(str);}
+    //  """.stripMargin)
 
     e
   }
 
   @Init def initMethod() = {
+    System.out.println("thread context loader = " + Thread.currentThread().getContextClassLoader())
+    System.out.println("engine class loader = " + engine.getClass().getClassLoader());
+    val loader = classOf[NashornEngineSingleton].getClassLoader();
+    System.out.println("loader = " + loader);
     engine.put("toreeJavaSparkContext", kernel.javaSparkContext)
     engine.put("toreeSparkSession", kernel.sparkSession)
+    //engine.put("eclairjsLoader", loader)
     engine.eval(
       """
+        |print('loader from eval = ' + eclairjsLoader);
         |var SparkContext = require('eclairjs/SparkContext');
         |var SparkSession = require('eclairjs/sql/SparkSession');
         |var sc = new SparkContext(toreeJavaSparkContext);
         |var sparkSession = new SparkSession(toreeSparkSession);
+        |var rdd = sc.parallelize([1,2,3,4,5]);
       """.stripMargin)
   }
 
   @Event(name = "eclairjs")
   override def execute(code: String): CellMagicOutput = {
 
-    val nashornLoader = classOf[NashornEngineSingleton].getClassLoader
-    Thread.currentThread().setContextClassLoader(nashornLoader)
-    NashornEngineSingleton.setEngine(engine);
+    //val nashornLoader = classOf[NashornEngineSingleton].getClassLoader
+    //Thread.currentThread().setContextClassLoader(nashornLoader)
+    //NashornEngineSingleton.setEngine(engine);
 
+    System.out.println("engine class loader execute = " + engine.getClass().getClassLoader());
     engine.eval(code) match {
       case res:Object => CellMagicOutput(MIMEType.PlainText -> res.toString())
       case _ => CellMagicOutput()

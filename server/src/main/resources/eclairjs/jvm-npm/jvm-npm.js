@@ -388,7 +388,8 @@ module = (typeof module == 'undefined') ? {} :  module;
     if (debugJSSourceLocation != null) {
       resource = debugJSSourceLocation + "/" + name;
     } else {
-      var classloader = java.lang.Thread.currentThread().getContextClassLoader();
+      //var classloader = java.lang.Thread.currentThread().getContextClassLoader();
+      var classloader = eclairjsLoader;
       resource = classloader.getResource(name);
     }
 
@@ -411,7 +412,8 @@ module = (typeof module == 'undefined') ? {} :  module;
     var input;
     try {
       if (core) {
-        var classloader = java.lang.Thread.currentThread().getContextClassLoader();
+        //var classloader = java.lang.Thread.currentThread().getContextClassLoader();
+        var classloader = eclairjsLoader;
         input = classloader.getResourceAsStream(filename);
       } else {
         input = new File(filename);

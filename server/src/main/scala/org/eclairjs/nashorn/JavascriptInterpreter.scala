@@ -272,8 +272,8 @@ class JavascriptInterpreter() extends org.apache.toree.interpreter.Interpreter {
     val futureResult = Future {
       val s=StreamState.withStreams {
 
-        Thread.currentThread().setContextClassLoader(nashornLoader)
-        NashornEngineSingleton.setEngine(engine);
+        //Thread.currentThread().setContextClassLoader(nashornLoader)
+        //NashornEngineSingleton.setEngine(engine);
       engine.eval(code) match {
         case res:Object => res.toString()
         case _ => null
