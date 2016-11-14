@@ -8,9 +8,21 @@ The **EclairJS Server** API exposes the [Spark](http://spark.apache.org/) progra
  - [Spark](http://spark.apache.org/downloads.html) (V2.0.0 built for Hadoop 2.6.0 and later)
  - [git](http://git-scm.com/)
  - [Maven](https://maven.apache.org/)
+ - [SBT](http://www.scala-sbt.org/) (Only if building Toree)
 
+**Build Toree**
 ```bash
-git clone git@github.com:EclairJS/eclairjs.git
+git clone https://github.com/apache/incubator-toree
+cd incubator-toree
+git checkout 15327b589fcd2fcd64c9689a6e4b491e72b643cc
+make dist
+make sbt-publishM2
+```
+Please note, the last step of publishing to your local maven repository may produce an error, however it can be ignored. 
+
+**Build EclairJS Jar**
+```bash
+git clone https://github.com/eclairjs/eclairjs
 cd server
 mvn package
 export SPARK_HOME=<location of Spark binary distribution>
