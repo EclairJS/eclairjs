@@ -76,30 +76,26 @@ list.count();
 **Prerequisites**
 
 - [Jupyter](http://jupyter.org/)
-- [Apache Toree](https://github.com/apache/incubator-toree) Install Toree  ````pip install toree==0.1.0.dev7```` Note where the ````site-packages```` are located for example ````/Library/Python/2.7/site-packages````
 Instructions:
 
-1.  Rebuild ````mvn package -Pnotebook````
-
-3. Edit kernel.json and update the following:
+1. Edit kernel.json and update the following:
  ```bash
- <path to Pyton/sitepagages>/toree/bin/run.sh
+ <path to incubator-toree clone>/dist/toree/bin/run.sh
  "SPARK_OPTS": --jars file:<path to nashorn jar>
- "SPARK_HOME": <path to spark 1.6.0 distribution>
+ "SPARK_HOME": <path to spark 2.0.0 distribution>
  ```
 
-4. Copy kernel.json to ```~/.ipython/kernels/eclair/kernel.json```
- * Gateway 4.0.0 and higher uses ```~/Library/Jupyter/kernels/eclair```
+2. Copy kernel.json to jupyter's data directory ```jupyter --data-dir```
 
-5. Create a directory for your notebook ```mkdir ~/jsNotebook```
+3. Create a directory for your notebook ```mkdir ~/jsNotebook```
 
-6. Change to that directory ```cd ~/jsNotebook```
+4. Change to that directory ```cd ~/jsNotebook```
 
-7. Start jupyter ```ipython notebook```
+5. Start jupyter ```jupyter notebook```
 
-8. A browser will open ```http://localhost:8888/tree``` select the *new->Spark 2.0.0 (EclairJS)*
+6. A browser will open ```http://localhost:8888/tree``` select the *new->Spark 2.0.0 (EclairJS)*
 
-9. Enter the following code in notebook cell and run
+7. Enter the following code in notebook cell and run
  ```javascript
  var SparkContext = require('eclairjs/SparkContext');
  var sc = new SparkContext("local[*]", "myapp");
