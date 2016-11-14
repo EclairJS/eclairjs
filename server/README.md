@@ -14,7 +14,7 @@ The **EclairJS Server** API exposes the [Spark](http://spark.apache.org/) progra
 ```bash
 git clone https://github.com/apache/incubator-toree
 cd incubator-toree
-git checkout 15327b589fcd2fcd64c9689a6e4b491e72b643cc
+git checkout e8ecd0623c65ad104045b1797fb27f69b8dfc23f
 make dist
 make sbt-publishM2
 ```
