@@ -32,7 +32,7 @@ var words = textFile.flatMap(function(sentence) {
 
 var wordsWithCount = words.mapToPair(function(word, Tuple2) {
   return new Tuple2(word, 1);
-}, [eclairjs.Tuple2]);
+}, [spark.Tuple2]);
 
 var reducedWordsWithCount = wordsWithCount.reduceByKey(function(value1, value2) {
   return value1 + value2;
