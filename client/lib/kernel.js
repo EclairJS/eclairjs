@@ -103,13 +103,15 @@ function _getURL(jobName) {
   // used for remote urls where we need to handle redirects
   var ELAIRJS_HOST = process.env.ECLAIRJS_HOST || "";
 
+  var kernelName = process.env.ECLAIRJS_KERNEL_NAME || 'eclair';
+
   return new Promise(function(resolve, reject) {
     if (JUPYTER_HOST != ELAIRJS_HOST) {
       var hostURL = JUPYTER_HOST + ":" + JUPYTER_PORT;
       resolve({
         baseUrl: 'http://' + hostURL, 
         wsUrl: 'ws://' + hostURL,
-        name: 'eclair',
+        name: kernelName,
         path: jobName
       });
     } else {
@@ -125,7 +127,7 @@ function _getURL(jobName) {
           resolve({
             baseUrl: 'http://' + hostURL, 
             wsUrl: 'ws://' + hostURL,
-            name: 'eclair',
+            name: kernelName,
             path: jobName
           });
         }
@@ -151,7 +153,7 @@ function __getServerURL(jobName) {
 
   return Promise.resolve({
     baseUrl: 'https:'+url, 
-    wsUrl: 'wss:'+url, 
+    wsUrl: 'uwss:'+url,
     name: 'scala-spark20',
     ajaxSettings: {
       user: tenant_id + '_' + instance_id,
