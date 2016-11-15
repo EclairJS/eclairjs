@@ -2,12 +2,11 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.eclairjs</groupId>
-  <artifactId>eclairjs-nashorn</artifactId>
+  <artifactId>eclairjs-kafka</artifactId>
   <version>0.9</version>
 
-  <name>EclairJS Nashorn</name>
-  <description>JavaScript API for Apache Spark</description>
-  <url>https://github.com/EclairJS/eclairjs-nashorn</url>
+  <name>EclairJS Kafka Streaming</name>
+  <description>EclairJS Module for Kafka and MessageHub</description>
 
   <licenses>
     <license>
@@ -26,9 +25,9 @@
   </developers>
 
   <scm>
-    <connection>scm:git:git@github.com:eclairjs/eclairjs-nashorn.git</connection>
-    <developerConnection>scm:git:git@github.com:eclairjs/eclairjs-nashorn.git</developerConnection>
-    <url>git@github.com:eclairjs/eclairjs-nashorn.git</url>
+    <connection>scm:git:git@github.com:eclairjs/eclairjs.git</connection>
+    <developerConnection>scm:git:git@github.com:eclairjs/eclairjs.git</developerConnection>
+    <url>git@github.com:eclairjs/eclairjs.git</url>
   </scm>
 
   <distributionManagement>
@@ -192,46 +191,9 @@
         </executions>
       </plugin>
     </plugins>
-    <pluginManagement>
-      <plugins>
-        <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-        <plugin>
-          <groupId>org.eclipse.m2e</groupId>
-          <artifactId>lifecycle-mapping</artifactId>
-          <version>1.0.0</version>
-          <configuration>
-            <lifecycleMappingMetadata>
-              <pluginExecutions>
-                <pluginExecution>
-                  <pluginExecutionFilter>
-                    <groupId>
-                      com.phasebash.jsdoc
-                    </groupId>
-                    <artifactId>
-                      jsdoc3-maven-plugin
-                    </artifactId>
-                    <versionRange>
-                      [1.1.0,)
-                    </versionRange>
-                    <goals>
-                      <goal>jsdoc3</goal>
-                    </goals>
-                  </pluginExecutionFilter>
-                  <action>
-                    <ignore></ignore>
-                  </action>
-                </pluginExecution>
-              </pluginExecutions>
-            </lifecycleMappingMetadata>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
   </build>
   <properties>
     <spark.version>2.0.1</spark.version>
-    <hadoop.version>2.7.3</hadoop.version>
-    <toree.version>0.2.0.dev1-incubating-SNAPSHOT</toree.version>
   </properties>
   <dependencies>
     <dependency>
@@ -248,39 +210,15 @@
     </dependency>
     <dependency>
       <groupId>org.apache.spark</groupId>
-      <artifactId>spark-sql_2.11</artifactId>
-      <version>${spark.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.spark</groupId>
-      <artifactId>spark-catalyst_2.11</artifactId>
-      <version>${spark.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.spark</groupId>
-      <artifactId>spark-hive_2.11</artifactId>
-      <version>${spark.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.spark</groupId>
       <artifactId>spark-streaming_2.11</artifactId>
       <version>${spark.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>org.apache.spark</groupId>
-      <artifactId>spark-mllib_2.11</artifactId>
-      <version>${spark.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    <!-- needed to support OpenStack Object Store swift:// -->
-    <dependency>
       <groupId>com.googlecode.json-simple</groupId>
       <artifactId>json-simple</artifactId>
       <version>1.1</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -295,18 +233,25 @@
       <scope>test</scope>
     </dependency>
 
-
     <dependency>
-      <groupId>org.apache.toree.kernel</groupId>
-      <artifactId>toree-kernel-api_2.11</artifactId>
-      <version>${toree.version}</version>
-      <scope>provided</scope>
+      <groupId>org.apache.kafka</groupId>
+      <artifactId>kafka-log4j-appender</artifactId>
+      <version>0.10.0.1</version>
     </dependency>
     <dependency>
-      <groupId>org.apache.toree.kernel</groupId>
-      <artifactId>toree-kernel_2.11</artifactId>
-      <version>${toree.version}</version>
-      <scope>provided</scope>
+      <groupId>org.apache.kafka</groupId>
+      <artifactId>kafka-clients</artifactId>
+      <version>0.10.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.kafka</groupId>
+      <artifactId>kafka_2.11</artifactId>
+      <version>0.10.0.1</version>
+      </dependency>
+    <dependency>
+      <groupId>org.http4s</groupId>
+      <artifactId>http4s-blaze-client_2.11</artifactId>
+      <version>0.12.1</version>
     </dependency>
   </dependencies>
   <profiles>
@@ -328,27 +273,7 @@
         </dependency>
         <dependency>
           <groupId>org.apache.spark</groupId>
-          <artifactId>spark-sql_2.11</artifactId>
-          <version>${spark.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.spark</groupId>
-          <artifactId>spark-catalyst_2.11</artifactId>
-          <version>${spark.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.spark</groupId>
-          <artifactId>spark-hive_2.11</artifactId>
-          <version>${spark.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.spark</groupId>
           <artifactId>spark-streaming_2.11</artifactId>
-          <version>${spark.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.spark</groupId>
-          <artifactId>spark-mllib_2.11</artifactId>
           <version>${spark.version}</version>
         </dependency>
         <dependency>
@@ -389,7 +314,6 @@
               <outputDirectory>docs/jsdoc</outputDirectory>
             </configuration>
           </plugin>
-
         </plugins>
       </build>
     </profile>
