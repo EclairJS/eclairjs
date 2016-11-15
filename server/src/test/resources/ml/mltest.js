@@ -202,7 +202,11 @@ var KMeansExample = function() {
 
     load("examples/ml/kmeans_example.js");
     var result = run(sparkSession);
-    return JSON.stringify(result);
+    if (result) {
+        return "passed";
+    } else {
+        return "failed";
+    }
 }
 
 var LDAExample = function() {
