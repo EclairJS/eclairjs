@@ -56,6 +56,10 @@ function EclairJS() {
 
     getUtils: function() {
       return Utils;
+    },
+
+    getKernelP: function() {
+      return kernelP;
     }
   }
 }

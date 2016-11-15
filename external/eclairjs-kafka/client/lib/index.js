@@ -22,11 +22,8 @@
  */
 function EclairJSKafka(spark, jarUrl) {
   var kafkaPromise = new Promise(function (resolve, reject) {
-    // load the jar
-
-    var kafkaPromise = spark.addJar(jarUrl);
-    kafkaPromise.then(function() {
-      resolve(kernelP)
+    spark.addJar(jarUrl).then(function() {
+      resolve(spark.getKernelP());
     }).catch(reject);
   });
 
