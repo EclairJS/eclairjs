@@ -276,7 +276,6 @@
       <version>${spark.version}</version>
       <scope>provided</scope>
     </dependency>
-    <!-- needed to support OpenStack Object Store swift:// -->
     <dependency>
       <groupId>com.googlecode.json-simple</groupId>
       <artifactId>json-simple</artifactId>
