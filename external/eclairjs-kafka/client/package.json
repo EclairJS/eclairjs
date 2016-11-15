@@ -1,0 +1,9 @@
+{
+  "name": "eclairjs-kafka",
+  "version": "0.1.0",
+  "description": "EclairJS Kafka Bindings",
+  "author": "EclairJS <info@eclairjs.org>",
+  "main": "./lib/index.js",
+  "license": "Apache-2.0",
+  "engine": "node >= 0.12"
+}

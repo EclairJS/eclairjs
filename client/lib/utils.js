@@ -779,16 +779,17 @@ Utils.instanceOf = function(obj, clazz) {
 Utils.eclairjsJar = function() {
  //return 'http://repo1.maven.org/maven2/org/eclairjs/eclairjs-nashorn/0.9/eclairjs-nashorn-0.9-jar-with-dependencies.jar';
  return 'http://cfa.cloudet.xyz/eclairjs-nashorn-0.9-jar-with-dependencies.jar';
-}
+};
 
 Utils.vcapBluemixServer = function() {
   return __vcapBluemixServer();
-}
+};
 
 Utils.addSparkJar = function(kernelP, path) {
   var protocol = require('./kernel.js');
 
-  var code = 'magics.addJar("'+path+'")';
+  var code = initCode() + 'var Utils = require(EclairJS_Globals.NAMESPACE + "/Utils.js");\n';
+  code += 'Utils.addJar("'+path+'")';
 
   return new Promise(function(resolve, reject) {
     kernelP.then(function(kernel) {
