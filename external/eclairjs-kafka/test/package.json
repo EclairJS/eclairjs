@@ -1,0 +1,8 @@
+{
+  "name": "eclairjstest",
+  "version": "0.9.0",
+  "description": "EclairJS kafka test",
+  "dependencies": {
+    "eclairjs": "../../../client"
+  }
+}

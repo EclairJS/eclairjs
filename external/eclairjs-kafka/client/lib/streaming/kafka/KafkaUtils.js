@@ -36,6 +36,19 @@ module.exports = function(spark, kafkaPromise) {
       return spark.getUtils().generate(args);
     };
 
+    KafkaUtils.createMessageHubStream = function(ssc, group, brokers, topic, username, password, api_key) {
+      var args = {
+        target: KafkaUtils,
+        method: 'createMessageHubStream',
+        kernelP: kafkaPromise,
+        static: true,
+        args: spark.getUtils().wrapArguments(arguments),
+        returnType: spark.streaming.dstream.DStream
+      };
+
+      return spark.getUtils().generate(args);
+    };
+
     /**
      *  NOTE: This currently only works on Kafka key/values which are Strings
      *
