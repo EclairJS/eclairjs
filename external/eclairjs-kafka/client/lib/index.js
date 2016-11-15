@@ -21,11 +21,7 @@
  * @module eclairjs-kafka
  */
 function EclairJSKafka(spark, jarUrl) {
-  var kafkaPromise = new Promise(function (resolve, reject) {
-    spark.addJar(jarUrl).then(function() {
-      resolve(spark.getKernelP());
-    }).catch(reject);
-  });
+  var kafkaPromise = spark.addJar(jarUrl);
 
   return {
     KafkaUtils: require('./streaming/kafka/KafkaUtils.js')(spark, kafkaPromise),

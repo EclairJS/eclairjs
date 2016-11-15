@@ -24,16 +24,14 @@ module.exports = function(spark, kafkaPromise) {
     }
 
     KafkaUtils.createStream = function (ssc, zk, consumer_group, topic) {
-      var args = {
-        target: KafkaUtils,
+      return spark.executeMethod({
+        target: this,
         method: 'createStream',
-        kernelP: kafkaPromise,
         static: true,
         args: spark.getUtils().wrapArguments(arguments),
-        returnType: spark.streaming.dstream.DStream
-      };
-
-      return spark.getUtils().generate(args);
+        returnType: spark.streaming.dstream.DStream,
+        waitFor: [kafkaPromise]
+      });
     };
 
     KafkaUtils.createMessageHubStream = function(ssc, group, brokers, topic, username, password, api_key) {

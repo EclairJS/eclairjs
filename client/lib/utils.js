@@ -199,6 +199,7 @@ Utils.generate = function(args) {
   var returnType = args.returnType;
   var callArgs = args.args ? args.args : null;
   var customResolver = args.resolver;
+  var waitFor = args.waitFor;
 
   var type;
 
@@ -244,7 +245,7 @@ Utils.generate = function(args) {
   var kernelP;
 
   if (args.static) {
-    // static alls pass in a kernelP through args
+    // stati calls pass in a kernelP through args
     type = 'staticMethodCall';
     promises.push(args.kernelP);
 
@@ -260,6 +261,10 @@ Utils.generate = function(args) {
   }
 
   promises.push(handleArguments(callArgs));
+
+  if (waitFor) {
+    promises.push(Promise.all(waitFor));
+  }
 
   var refId;
 
@@ -334,7 +339,7 @@ Utils.generate = function(args) {
       }
 
       if (callArgs) {
-        var requires = values[values.length - 1].requires;
+        var requires = values[args.static ? 1 : 2].requires;
 
         code += generateRequires(requires, kernel);
       }
@@ -360,7 +365,7 @@ Utils.generate = function(args) {
 
       // arguments
       if (callArgs) {
-        var finalArgs = values[values.length-1].args;
+        var finalArgs = values[args.static ? 1 : 2].args;
 
         code += finalArgs.join(', ')
       }
@@ -438,7 +443,7 @@ Utils.handleConstructor = function(context, callArgs, kernelP) {
 
         // requires from arguments
         if (callArgs) {
-          var requires = values[values.length - 1].requires;
+          var requires = values[1].requires;
 
           code += generateRequires(requires, kernel);
         }
@@ -447,7 +452,7 @@ Utils.handleConstructor = function(context, callArgs, kernelP) {
 
         // arguments
         if (callArgs) {
-          var finalArgs = values[values.length-1].args;
+          var finalArgs = values[1].args;
 
           code += finalArgs.join(', ')
         }
@@ -501,7 +506,7 @@ Utils.generateConstructor = function(args) {
 
       // requires from arguments
       if (callArgs) {
-        var requires = values[values.length - 1].requires;
+        var requires = values[1].requires;
 
         code += generateRequires(requires, kernel);
       }
@@ -510,7 +515,7 @@ Utils.generateConstructor = function(args) {
 
       // arguments
       if (callArgs) {
-        var finalArgs = values[values.length-1].args;
+        var finalArgs = values[1].args;
 
         code += finalArgs.join(', ')
       }
@@ -796,6 +801,18 @@ Utils.addSparkJar = function(kernelP, path) {
       protocol.verifyKernelExecution(kernel.execute({code: code}), resolve, reject);
     });
   });
+};
+
+Utils.executeMethod = function(kernelP, args) {
+  var newArgs = {};
+
+  for (var key in args) {
+    newArgs[key] = args[key];
+  }
+
+  newArgs.kernelP = kernelP;
+
+  return Utils.generate(newArgs);
 };
 
 module.exports = Utils;
