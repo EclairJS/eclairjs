@@ -17,7 +17,7 @@ tests({
 
     version : function() {
         var ver= sparkContext.version();
-        assertEquals("failure - strings are not equal", "EclairJS-nashorn 0.9 Spark 2.0.0", ver);
+        assertEquals("failure - strings are not equal", "EclairJS-nashorn 0.9 Spark 2.0.1", ver);
 
     },
 
@@ -81,7 +81,7 @@ tests({
         var ret = JSON.stringify(context);
 
         var expected = {
-                "version":"EclairJS-nashorn 0.9 Spark 2.0.0",
+                "version":"EclairJS-nashorn 0.9 Spark 2.0.1",
                 "appName":appName,
                 "master":master
         };
