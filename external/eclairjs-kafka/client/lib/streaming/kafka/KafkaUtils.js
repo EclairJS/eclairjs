@@ -29,11 +29,11 @@ module.exports = function(spark, kafkaPromise) {
         method: 'createStream',
         kernelP: kafkaPromise,
         static: true,
-        args: Utils.wrapArguments(arguments),
-        returnType: spark.DStream
+        args: spark.getUtils().wrapArguments(arguments),
+        returnType: spark.streaming.dstream.DStream
       };
 
-      return Utils.generate(args);
+      return spark.getUtils().generate(args);
     };
 
     /**
@@ -75,11 +75,11 @@ module.exports = function(spark, kafkaPromise) {
         method: 'createDirectStream',
         kernelP: kafkaPromise,
         static: true,
-        args: Utils.wrapArguments(arguments),
-        returnType: spark.DStream
+        args: spark.getUtils().wrapArguments(arguments),
+        returnType: spark.streaming.dstream.DStream
       };
 
-      return Utils.generate(args);
+      return spark.getUtils().generate(args);
     };
 
     KafkaUtils.moduleLocation = '/streaming/kafka/KafkaUtils';

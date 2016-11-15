@@ -52,6 +52,10 @@ function EclairJS() {
 
     addJar: function(jar) {
       return Utils.addSparkJar(kernelP, jar);
+    },
+
+    getUtils: function() {
+      return Utils;
     }
   }
 }
