@@ -60,7 +60,7 @@ printUsage()
 # Check for eclairJS-nashorn jar
 #
 if [ -z "$ECLAIRJS_JAR" ]; then
-	export ECLAIRJS_JAR=./target/eclairjs-nashorn-0.8-jar-with-dependencies.jar
+	export ECLAIRJS_JAR=./target/eclairjs-nashorn-0.9-jar-with-dependencies.jar
 fi
 
 #
@@ -109,5 +109,5 @@ done
 #
 #./spark-submit.sh --vcap ./vcap.json --deploy-mode cluster --files /Users/billreed/eclairjs_dev/eclairjs-nashorn/examples/test.js --class org.eclairjs.nashorn.SparkJS --master https://spark.bluemix.net ./target/eclairjs-nashorn-0.8-jar-with-dependencies.jar file://test.js
 
-exec "${BLUEMIX_SPARK_SUMIT_SH}" --class org.eclairjs.nashorn.SparkJS $options $ECLAIRJS_JAR  $proargs
+exec "${BLUEMIX_SPARK_SUMIT_SH}" --conf spark.service.spark_version=2.0 --class org.eclairjs.nashorn.SparkJS $options $ECLAIRJS_JAR  $proargs
 
