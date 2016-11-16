@@ -657,7 +657,9 @@ module.exports = function(kernelP, server) {
       var args = {
         target: this,
         method: 'setHadoopConfiguration',
-        args: Utils.wrapArguments(arguments),
+        //args: Utils.wrapArguments(arguments),
+        args: [{value: key, type: 'string'},
+               {value: value, type: 'string'}],
         returnType: Object
       };
 

@@ -20,14 +20,40 @@
  * var ejsKafka = require('eclairjs-swift');
  * @module eclairjs-kafka
  */
-function EclairJSSwift(spark, jarUrl) {
-  var kafkaPromise = new Promise(function (resolve, reject) {
-    spark.addJar(jarUrl).then(function() {
-      resolve(spark.getKernelP());
+function EclairJSSwift(obj) {
+  var jarUrl = obj.jarUrl 
+    ? obj.jarUrl 
+    : ""
+
+  var credentials = {};
+  if(obj.credentials) {
+    credentials = obj.credentials;
+  } else if(process.env.VCAP_SERVICES) {
+    var vcap = JSON.parse(process.env.VCAP_SERVICES);   
+    if(vcap['Object-Storage']) {
+      credentials = vcap['Object-Storage'][0]['credentials'];
+    }
+  }
+
+  var swiftPromise = new Promise(function (resolve, reject) {
+    obj.eclairjs.addJar(jarUrl).then(function() {
+      var prefix = "fs.swift.service."+obj.service+".";
+      var sc = obj.sparkSession.sparkContext();
+      var p = Promise.all([
+      obj.eclairjs.getKernelP(),
+      sc.setHadoopConfiguration(prefix+"auth.url", credentials.auth_url + "/v3/auth/tokens"),
+      sc.setHadoopConfiguration(prefix+"auth.endpoint.prefix", "endpoints"),
+      sc.setHadoopConfiguration(prefix+"tenant", credentials.projectId),
+      sc.setHadoopConfiguration(prefix+"username", credentials.userId),
+      sc.setHadoopConfiguration(prefix+"password", credentials.password),
+      sc.setHadoopConfiguration(prefix+"apikey", credentials.password)
+      ]);
+
+      resolve(p)
     }).catch(reject);
   });
 
-  return {};
+  return swiftPromise;
 }
 
 module.exports = EclairJSSwift;
