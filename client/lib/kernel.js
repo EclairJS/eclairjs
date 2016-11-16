@@ -168,10 +168,10 @@ Kernel.createKernelSession = function(jobName) {
     // We build our Spark Kernel connection here and share it when any classes that need it
     __getServerURL(jobName).then(function(serverInfo) {
       //start the kernel
-      console.log(serverInfo);
+      //console.log(serverInfo);
 
       jjs.startNewKernel(serverInfo).then(function(k) {
-        console.log("got kernel");
+        //console.log("got kernel");
         //when we have kernel info we know the spark kernel is ready.
         k.kernelInfo().then(function(info) {
           resolve(k);

@@ -58,10 +58,6 @@ function EclairJS() {
       return Utils;
     },
 
-    getKernelP: function() {
-      return kernelP;
-    },
-
     executeMethod: function(args) {
       return Utils.executeMethod(kernelP, args);
     }
