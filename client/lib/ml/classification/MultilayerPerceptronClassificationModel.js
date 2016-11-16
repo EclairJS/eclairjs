@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-module.exports = function(kernelP) {
-  return (function() {
+module.exports = function (kernelP) {
+  return (function () {
     var Utils = require('../../utils.js');
 
     var PredictionModel = require('../PredictionModel')();
@@ -48,7 +48,7 @@ module.exports = function(kernelP) {
      * An immutable unique ID for the object and its derivatives.
      * @returns {Promise.<string>}
      */
-    MultilayerPerceptronClassificationModel.prototype.uid = function() {
+    MultilayerPerceptronClassificationModel.prototype.uid = function () {
       var args = {
         target: this,
         method: 'uid',
@@ -63,7 +63,7 @@ module.exports = function(kernelP) {
      *
      * @returns {Promise.<number>}
      */
-    MultilayerPerceptronClassificationModel.prototype.layers = function() {
+    MultilayerPerceptronClassificationModel.prototype.layers = function () {
       var args = {
         target: this,
         method: 'layers',
@@ -78,7 +78,7 @@ module.exports = function(kernelP) {
      *
      * @returns {module:eclairjs/mllib/linalg.Vector}
      */
-    MultilayerPerceptronClassificationModel.prototype.weights = function() {
+    MultilayerPerceptronClassificationModel.prototype.weights = function () {
       var args = {
         target: this,
         method: 'weights',
@@ -93,7 +93,7 @@ module.exports = function(kernelP) {
      * @param {module:eclairjs/ml/param.ParamMap} extra
      * @returns {module:eclairjs/ml/classification.MultilayerPerceptronClassificationModel}
      */
-    MultilayerPerceptronClassificationModel.prototype.copy = function(extra) {
+    MultilayerPerceptronClassificationModel.prototype.copy = function (extra) {
       var args = {
         target: this,
         method: 'copy',
@@ -112,7 +112,7 @@ module.exports = function(kernelP) {
      * E.g., {@link module:eclairjs/sql/types.VectorUDT}for vector features
      * @returns {module:eclairjs/sql/types.StructType}
      */
-    MultilayerPerceptronClassificationModel.prototype.validateAndTransformSchema = function(schema, fitting, featuresDataType) {
+    MultilayerPerceptronClassificationModel.prototype.validateAndTransformSchema = function (schema, fitting, featuresDataType) {
       var args = {
         target: this,
         method: 'validateAndTransformSchema',
@@ -127,7 +127,7 @@ module.exports = function(kernelP) {
      * Param for label column name.
      * @returns {module:eclairjs/ml/param.Param}
      */
-    MultilayerPerceptronClassificationModel.prototype.labelCol = function() {
+    MultilayerPerceptronClassificationModel.prototype.labelCol = function () {
       var args = {
         target: this,
         method: 'labelCol',
@@ -141,7 +141,7 @@ module.exports = function(kernelP) {
     /**
      * @returns {Promise.<string>}
      */
-    MultilayerPerceptronClassificationModel.prototype.getLabelCol = function() {
+    MultilayerPerceptronClassificationModel.prototype.getLabelCol = function () {
       var args = {
         target: this,
         method: 'getLabelCol',
@@ -156,7 +156,7 @@ module.exports = function(kernelP) {
      * Param for features column name.
      * @returns {module:eclairjs/ml/param.Param}
      */
-    MultilayerPerceptronClassificationModel.prototype.featuresCol = function() {
+    MultilayerPerceptronClassificationModel.prototype.featuresCol = function () {
       var args = {
         target: this,
         method: 'featuresCol',
@@ -170,7 +170,7 @@ module.exports = function(kernelP) {
     /**
      * @returns {Promise.<string>}
      */
-    MultilayerPerceptronClassificationModel.prototype.getFeaturesCol = function() {
+    MultilayerPerceptronClassificationModel.prototype.getFeaturesCol = function () {
       var args = {
         target: this,
         method: 'getFeaturesCol',
@@ -185,7 +185,7 @@ module.exports = function(kernelP) {
      * Param for prediction column name.
      * @returns {module:eclairjs/ml/param.Param}
      */
-    MultilayerPerceptronClassificationModel.prototype.predictionCol = function() {
+    MultilayerPerceptronClassificationModel.prototype.predictionCol = function () {
       var args = {
         target: this,
         method: 'predictionCol',
@@ -199,7 +199,7 @@ module.exports = function(kernelP) {
     /**
      * @returns {Promise.<string>}
      */
-    MultilayerPerceptronClassificationModel.prototype.getPredictionCol = function() {
+    MultilayerPerceptronClassificationModel.prototype.getPredictionCol = function () {
       var args = {
         target: this,
         method: 'getPredictionCol',
@@ -213,9 +213,9 @@ module.exports = function(kernelP) {
     /**
      * @returns {MLWriter}
      */
-    MultilayerPerceptronClassificationModel.prototype.write = function() {
-    var MLWriter = require('../../ml/util/MLWriter.js');
-      var args ={
+    MultilayerPerceptronClassificationModel.prototype.write = function () {
+      var MLWriter = require('../../ml/util/MLWriter.js');
+      var args = {
         target: this,
         method: 'write',
         returnType: MLWriter
@@ -233,38 +233,35 @@ module.exports = function(kernelP) {
     /**
      * @returns {MLReader}
      */
-    MultilayerPerceptronClassificationModel.read = function() {
-    var MLReader = require('../../ml/util/MLReader.js');
-      var args ={
+    MultilayerPerceptronClassificationModel.read = function () {
+      var MLReader = require('../../ml/util/MLReader.js');
+      var args = {
         target: MultilayerPerceptronClassificationModel,
         method: 'read',
+        kernelP: gKernelP,
         static: true,
         returnType: MLReader
-
       };
 
       return Utils.generate(args);
     };
-
 
     /**
      * @param {string} path
      * @returns {MultilayerPerceptronClassificationModel}
      */
-    MultilayerPerceptronClassificationModel.load = function(path) {
-    var MultilayerPerceptronClassificationModel = require('../../ml/classification/MultilayerPerceptronClassificationModel.js');
-      var args ={
+    MultilayerPerceptronClassificationModel.load = function (path) {
+      var args = {
         target: MultilayerPerceptronClassificationModel,
         method: 'load',
+        kernelP: gKernelP,
         args: Utils.wrapArguments(arguments),
         static: true,
         returnType: MultilayerPerceptronClassificationModel
-
       };
 
       return Utils.generate(args);
     };
-
 
     MultilayerPerceptronClassificationModel.moduleLocation = '/ml/classification/MultilayerPerceptronClassificationModel';
 
