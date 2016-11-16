@@ -14,12 +14,13 @@ var swift = require('../client/lib/index.js')({
   service: 'salesdemodata'
 }).then(function() {
 
-  var ds = sparkSession.sparkContext().textFile('swift://sales.salesdemodata/part-00000.dat');
+  var ds = sparkSession.sparkContext().textFile('swift2d://sales.salesdemodata/part-00000.dat');
+  //var ds = sparkSession.sparkContext().textFile('swift://wordcount.softlayer/dream.txt');
 
   ds.collect(10).then(function(res) {
     res.forEach(function(r) { console.log(r); });
   }).catch(function(err) {
-    console.log(err);
+    console.log("error = " + err);
   });
 }).catch(function(err) {
   console.log(err);
