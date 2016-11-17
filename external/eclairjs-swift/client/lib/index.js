@@ -21,59 +21,47 @@
  * @module eclairjs-kafka
  */
 function EclairJSSwift(obj) {
-  var jarUrl = obj.jarUrl 
-    ? obj.jarUrl 
+
+  this.eclairjs = obj.eclairjs;
+  this.service = obj.service;
+
+  this.jar = obj.jar
+    ? obj.jar
     : ""
 
-  var credentials = {};
+  this.credentials = {};
   if(obj.credentials) {
-    credentials = obj.credentials;
+    this.credentials = obj.credentials;
   } else if(process.env.VCAP_SERVICES) {
     var vcap = JSON.parse(process.env.VCAP_SERVICES);   
     if(vcap['Object-Storage']) {
-      credentials = vcap['Object-Storage'][0]['credentials'];
+      this.credentials = vcap['Object-Storage'][0]['credentials'];
     }
   }
 
-  var swiftPromise = new Promise(function (resolve, reject) {
-    obj.eclairjs.addJar(jarUrl).then(function() {
-      var prefix = "fs.swift2d.service."+obj.service+".";
-      var sc = obj.sparkSession.sparkContext();
-      var p = Promise.all([
-      /*
-      sc.setHadoopConfiguration("fs.swift.service.softlayer.auth.url",
-                                "https://identity.open.softlayer.com/v3/auth/tokens"),
-      sc.setHadoopConfiguration("fs.swift.service.softlayer.auth.endpoint.prefix", "endpoints"),
-      sc.setHadoopConfiguration("fs.swift.service.softlayer.tenant", "7b5e2b3ed2e44429b0777516795d2d12"),
-      sc.setHadoopConfiguration("fs.swift.service.softlayer.username", "ab3090cf06a34585aeed150043052836"),
-      sc.setHadoopConfiguration("fs.swift.service.softlayer.password", "R0fF.Pn~dKbb5HaP"),
-      sc.setHadoopConfiguration("fs.swift.service.softlayer.apikey", "R0fF.Pn~dKbb5HaP"),
-      sc.setHadoopConfiguration("fs.swift.service.softlayer.region", "dallas")
-      */
-      /*
-      sc.setHadoopConfiguration(prefix+"auth.url", credentials.auth_url + "/v3/auth/tokens"),
-      sc.setHadoopConfiguration(prefix+"auth.endpoint.prefix", "endpoints"),
-      sc.setHadoopConfiguration(prefix+"tenant", credentials.projectId),
-      sc.setHadoopConfiguration(prefix+"username", credentials.userId),
-      sc.setHadoopConfiguration(prefix+"password", credentials.password),
-      sc.setHadoopConfiguration(prefix+"region", credentials.region),
-      sc.setHadoopConfiguration(prefix+"apikey", credentials.password)
-      */
-      sc.setHadoopConfiguration("fs.swift2d.impl", "com.ibm.stocator.fs.ObjectStoreFileSystem"), 
-      sc.setHadoopConfiguration(prefix+"auth.url", credentials.auth_url + "/v3/auth/tokens"),
-      sc.setHadoopConfiguration(prefix+"tenant", credentials.projectId),
-      sc.setHadoopConfiguration(prefix+"public", "true"),
-      sc.setHadoopConfiguration(prefix+"username", credentials.userId),
-      sc.setHadoopConfiguration(prefix+"password", credentials.password),
-      sc.setHadoopConfiguration(prefix+"region", credentials.region),
-      sc.setHadoopConfiguration(prefix+"auth.method", "keystoneV3"),
-      ]);
+  console.log("jar = " + this.jar);
+}
 
-      resolve(p)
+EclairJSSwift.prototype.init = function(sparkContext) {
+  console.log('in init');
+  var swift = this;
+  return new Promise(function (resolve, reject) {
+    swift.eclairjs.addJar(swift.jar).then(function() {
+      console.log('1');
+      var prefix = "fs.swift2d.service."+swift.service+".";
+      var sc = sparkContext;
+      var p = Promise.all([
+        sc.setHadoopConfiguration("fs.swift2d.impl", "com.ibm.stocator.fs.ObjectStoreFileSystem"), 
+        sc.setHadoopConfiguration(prefix+"auth.url", swift.credentials.auth_url + "/v3/auth/tokens"),
+        sc.setHadoopConfiguration(prefix+"tenant", swift.credentials.projectId),
+        sc.setHadoopConfiguration(prefix+"public", "true"),
+        sc.setHadoopConfiguration(prefix+"username", swift.credentials.userId),
+        sc.setHadoopConfiguration(prefix+"password", swift.credentials.password),
+        sc.setHadoopConfiguration(prefix+"region", swift.credentials.region),
+        sc.setHadoopConfiguration(prefix+"auth.method", "keystoneV3"),
+      ]).then(resolve).catch(reject);
     }).catch(reject);
   });
-
-  return swiftPromise;
 }
 
 module.exports = EclairJSSwift;
