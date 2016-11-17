@@ -45,7 +45,28 @@ module.exports = function(kernelP, server) {
      */
 
     function SparkSession() {
-      Utils.handleConstructor(this, arguments, gKernelP);
+      if (arguments.length == 2 && arguments[0] instanceof Promise) {
+        // Someone created an instance of this class for us
+        this.kernelP = arguments[0];
+        this.refIdP = arguments[1];
+
+        if (!server.modulesLoaded) {
+          var sc = this.sparkContext();
+
+          var myThis = this;
+          var kernelP = this.kernelP;
+
+          this.kernelP = new Promise(function(resolve, reject) {
+            kernelP.then(function(kernel) {
+              server.loadModules(sc).then(function() {
+                resolve(kernel);
+              }).catch(reject);
+            }).catch(reject);
+          });
+        }
+      } else {
+        Utils.handleConstructor(this, arguments, gKernelP);
+      }
     }
 
     /**

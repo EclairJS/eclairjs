@@ -25,6 +25,7 @@ var kernelPReject;
 function Server() {
   this.kernel = null;
   this.modules = [];
+  this.modulesLoaded = false;
 
   var scope = this;
 
@@ -56,6 +57,8 @@ Server.prototype.addModule = function(module) {
 };
 
 Server.prototype.loadModules = function(sparkContext) {
+  this.modulesLoaded = true;
+
   var myThis = this;
   return new Promise(function(resolve, reject) {
     var p = [];
