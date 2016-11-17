@@ -24,6 +24,7 @@ var kernelPReject;
 
 function Server() {
   this.kernel = null;
+  this.modules = [];
 
   var scope = this;
 
@@ -49,6 +50,23 @@ function Server() {
     };
   });
 }
+
+Server.prototype.addModule = function(module) {
+  this.modules.push(module);
+};
+
+Server.prototype.loadModules = function(sparkContext) {
+  var myThis = this;
+  return new Promise(function(resolve, reject) {
+    var p = [];
+
+    myThis.modules.forEach(function(module) {
+      p.push(module.init(sparkContext))
+    });
+
+    Promise.all(p).then(resolve).catch(reject);
+  });
+};
 
 Server.prototype.getKernelPromise = function() {
   return this.kernelP;

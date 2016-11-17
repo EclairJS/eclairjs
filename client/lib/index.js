@@ -60,6 +60,10 @@ function EclairJS() {
 
     executeMethod: function(args) {
       return Utils.executeMethod(kernelP, args);
+    },
+
+    addModule: function(module) {
+      server.addModule(module);
     }
   }
 }

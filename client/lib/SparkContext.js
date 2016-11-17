@@ -79,7 +79,12 @@ module.exports = function(kernelP, server) {
               };
 
               Utils.generate(args).then(function(version) {
-                resolve(kernel);
+                var context = new SparkContext(Promise.resolve(kernel), Promise.resolve(refId));
+
+                server.loadModules(context).then(function() {
+                  resolve(kernel);
+                }).catch(reject);
+
                 /*if (version === 'EclairJS-nashorn 0.7-SNAPSHOT Spark 1.6.0' ||
                     version === 'EclairJS-nashorn 0.6 Spark 1.6.0') {
                   // correct version
@@ -694,6 +699,20 @@ module.exports = function(kernelP, server) {
      */
     SparkContext.prototype.addSparkJar = function(path) {
       return Utils.addSparkJar(this.kernelP, path)
+    };
+
+    /**
+     * The version of EclairJS and Spark on which this application is running.
+     * @returns {Promise.<string>}
+     */
+    SparkContext.prototype.version = function () {
+      var args = {
+        target: this,
+        method: 'version',
+        returnType: String
+      };
+
+      return Utils.generate(args);
     };
 
     SparkContext.moduleLocation = '/SparkContext';
