@@ -66,7 +66,7 @@
         return Utils.javaToJs(dstream);
     }
 
-    KafkaUtils.createMessageHubStream = function(ssc, group, brokers, topic, username, password, api_key) {
+    KafkaUtils.createMessageHubStream = function(ssc, group, topic, brokers, username, password, api_key) {
         var kafkaProps = new java.util.HashMap();
 
         kafkaProps.put(SslConfigs.SSL_PROTOCOL_CONFIG, "TLSv1.2"),
