@@ -153,7 +153,7 @@ function __getServerURL(jobName) {
 
   return Promise.resolve({
     baseUrl: 'https:'+url, 
-    wsUrl: 'uwss:'+url,
+    wsUrl: 'wss:'+url,
     name: 'scala-spark20',
     ajaxSettings: {
       user: tenant_id + '_' + instance_id,

@@ -5,7 +5,8 @@ import javax.script.ScriptEngineManager
 
 import org.apache.toree.global.StreamState
 import org.apache.toree.comm.{CommRegistrar, CommWriter}
-import org.apache.toree.interpreter.{Interpreter, LanguageInfo, _}
+//import org.apache.toree.interpreter.{Interpreter, LanguageInfo, _}
+import org.apache.toree.interpreter.{Interpreter, _}
 import org.apache.toree.interpreter.Results.Result
 import org.apache.toree.kernel.api.KernelLike
 import org.apache.toree.kernel.api.Kernel
@@ -63,7 +64,7 @@ class JavascriptInterpreter() extends org.apache.toree.interpreter.Interpreter {
 
   //private var register:CommRegistrar = null
 
-  override def languageInfo = LanguageInfo("scala", "ES5", fileExtension = Some(".scala"))
+  //override def languageInfo = LanguageInfo("scala", "ES5", fileExtension = Some(".scala"))
 
   override def init(kernel: KernelLike) = {
  System.out.println("Start kernel init")
