@@ -782,8 +782,8 @@ Utils.instanceOf = function(obj, clazz) {
 };
 
 Utils.eclairjsJar = function() {
- //return 'http://repo1.maven.org/maven2/org/eclairjs/eclairjs-nashorn/0.9/eclairjs-nashorn-0.9-jar-with-dependencies.jar';
- return 'http://cfa.cloudet.xyz/eclairjs-nashorn-0.9-jar-with-dependencies.jar';
+ return 'http://repo1.maven.org/maven2/org/eclairjs/eclairjs-nashorn/0.9/eclairjs-nashorn-0.9-jar-with-dependencies.jar';
+ //return 'http://cfa.cloudet.xyz/eclairjs-nashorn-0.9-jar-with-dependencies.jar';
 };
 
 Utils.vcapBluemixServer = function() {
