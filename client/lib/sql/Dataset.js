@@ -1667,7 +1667,8 @@ Dataset.prototype.toJSON = function() {
   var args = {
     target: this,
     method: 'toJSON',
-    returnType: Dataset
+    //returnType: Dataset
+    returnType: String
   };
 
   return Utils.generate(args);

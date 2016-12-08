@@ -1,6 +1,6 @@
 {
   "name": "eclairjs",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "description": "Node.js API for Apache Spark with Remote Client",
   "author": "EclairJS <info@eclairjs.org>",
   "main": "./client/lib/index.js",
