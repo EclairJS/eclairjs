@@ -35,9 +35,9 @@ function Server() {
 
       if (Utils.vcapBluemixServer()) {
         var code = '%AddJar --magic ' + Utils.eclairjsJar();
-        var c = kernelObj.execute({code: code});
+        var c = kernelObj.requestExecute({code: code});
         kernel.verifyKernelExecution(c, function() {
-          kernelObj.execute({code: 'sc.addJar("'+Utils.eclairjsJar()+'");'});
+          kernelObj.requestExecute({code: 'sc.addJar("'+Utils.eclairjsJar()+'");'});
           resolve(kernelObj);
         }, function(e) {
           console.error(e);
