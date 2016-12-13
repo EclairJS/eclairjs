@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-var jjs = require('jupyter-js-services');
+var jjs = require('@jupyterlab/services');
 var request = require('request');
 var Utils = require('./utils.js');
 
@@ -170,10 +170,10 @@ Kernel.createKernelSession = function(jobName) {
       //start the kernel
       //console.log(serverInfo);
 
-      jjs.startNewKernel(serverInfo).then(function(k) {
+      jjs.Kernel.startNew(serverInfo).then(function(k) {
         //console.log("got kernel");
         //when we have kernel info we know the spark kernel is ready.
-        k.kernelInfo().then(function(info) {
+        k.requestKernelInfo().then(function(info) {
           resolve(k);
         });
       }).catch(function(e) {

@@ -323,7 +323,7 @@ Utils.generate = function(args) {
         }
 
         // now that we generated the array, get the length of the array
-        protocol.verifyKernelExecution(kernel.execute({code: refId+".length;"}), _countResolve, reject);
+        protocol.verifyKernelExecution(kernel.requestExecute({code: refId+".length;"}), _countResolve, reject);
       }
 
       var code = initCode();
@@ -380,13 +380,13 @@ Utils.generate = function(args) {
       Utils.log('Executing: ' + code);
 
       if (executionType == EXECUTION.RESULT_TYPE || executionType == EXECUTION.RESULT_NATIVE_ARRAY_TYPE) {
-        protocol.verifyKernelExecution(kernel.execute({code: code}), _resultTypeResolver, reject);
+        protocol.verifyKernelExecution(kernel.requestExecute({code: code}), _resultTypeResolver, reject);
       } else if (executionType == EXECUTION.RESULT_ARRAY_TYPE) {
-        protocol.verifyKernelExecution(kernel.execute({code: code}), _resultArrayResolver, reject);
+        protocol.verifyKernelExecution(kernel.requestExecute({code: code}), _resultArrayResolver, reject);
       } else if (executionType == EXECUTION.VOID_TYPE) {
-        protocol.verifyKernelExecution(kernel.execute({code: code}), resolve, reject);
+        protocol.verifyKernelExecution(kernel.requestExecute({code: code}), resolve, reject);
       } else if (executionType == EXECUTION.ASSIGNMENT_TYPE) {
-        protocol.verifyKernelExecution(kernel.execute({code: code, silent: false}), resolve, reject, [refId]);
+        protocol.verifyKernelExecution(kernel.requestExecute({code: code, silent: false}), resolve, reject, [refId]);
       }
     }).catch(reject);
   });
@@ -461,7 +461,7 @@ Utils.handleConstructor = function(context, callArgs, kernelP) {
 
         Utils.log('Executing: ' + code);
 
-        protocol.verifyKernelExecution(kernel.execute({code: code, silent: false}), resolve, reject, [refId]);
+        protocol.verifyKernelExecution(kernel.requestExecute({code: code, silent: false}), resolve, reject, [refId]);
       }).catch(reject);
     });
 
@@ -524,7 +524,7 @@ Utils.generateConstructor = function(args) {
 
       Utils.log('Executing: ' + code);
 
-      protocol.verifyKernelExecution(kernel.execute({code: code, silent: false}), resolve, reject, [refId]);
+      protocol.verifyKernelExecution(kernel.requestExecute({code: code, silent: false}), resolve, reject, [refId]);
     }).catch(reject);
   });
 
@@ -737,7 +737,7 @@ Utils.execute = function(args) {
     Promise.all(promises).then(function(values) {
       var kernel = values[0];
 
-      protocol.verifyKernelExecution(kernel.execute({code: code}), resolve, reject);
+      protocol.verifyKernelExecution(kernel.requestExecute({code: code}), resolve, reject);
     }).catch(reject);
   });
 
@@ -798,7 +798,7 @@ Utils.addSparkJar = function(kernelP, path) {
 
   return new Promise(function(resolve, reject) {
     kernelP.then(function(kernel) {
-      protocol.verifyKernelExecution(kernel.execute({code: code}), resolve, reject);
+      protocol.verifyKernelExecution(kernel.requestExecute({code: code}), resolve, reject);
     });
   });
 };
