@@ -323,7 +323,7 @@ Utils.generate = function(args) {
         }
 
         // now that we generated the array, get the length of the array
-        protocol.verifyKernelExecution(kernel.requestExecute({code: refId+".length;"}), _countResolve, reject);
+        protocol.verifyKernelExecution(kernel.requestExecute({code: initCode()+refId+".length;"}), _countResolve, reject);
       }
 
       var code = initCode();
