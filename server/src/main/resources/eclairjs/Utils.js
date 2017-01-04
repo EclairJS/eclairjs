@@ -239,6 +239,46 @@
         } catch (e){
             print(e);
         }
+    };
+
+    function getSparkLoader(cl) {
+
+            if(cl instanceof org.apache.spark.util.MutableURLClassLoader) {
+                return cl;
+            }
+
+            if(cl == null) {
+                return null;
+            }
+
+            return getSparkLoader(cl.getParent());
+    }
+
+    function printLoaders(cl) {
+
+            if(cl == null) {
+                return;
+            }
+
+            java.lang.System.out.println(cl);
+            printLoaders(cl.getParent());
+    }
+
+    function getContextLoader() {
+        return java.lang.Thread.currentThread().getContextClassLoader();
+    }
+
+    function setContextLoader(cl) {
+        java.lang.Thread.currentThread().setContextClassLoader(cl);
+    }
+
+    Utils.addJar = function(jar) {
+        var cl = getSparkLoader(getContextLoader());
+        cl.addURL(new java.net.URL(jar));
+    };
+
+    Utils.printLoaders = function() {
+        printLoaders(getContextLoader());
     }
 
     module.exports = Utils;

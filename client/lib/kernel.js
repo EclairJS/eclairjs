@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-var jjs = require('jupyter-js-services');
+var jjs = require('@jupyterlab/services');
 var request = require('request');
 var Utils = require('./utils.js');
 
@@ -94,7 +94,7 @@ Kernel.resetVariables = function() {
   variableCounter = {};
 };
 
-function _getURL() {
+function _getURL(jobName) {
   // special processing for eclairjs.cloudet.xyz to follow redirect
   //  to spawned kernel
   var JUPYTER_HOST = process.env.JUPYTER_HOST || "127.0.0.1";
@@ -103,9 +103,17 @@ function _getURL() {
   // used for remote urls where we need to handle redirects
   var ELAIRJS_HOST = process.env.ECLAIRJS_HOST || "";
 
+  var kernelName = process.env.ECLAIRJS_KERNEL_NAME || 'eclair';
+
   return new Promise(function(resolve, reject) {
     if (JUPYTER_HOST != ELAIRJS_HOST) {
-      resolve(JUPYTER_HOST + ":" + JUPYTER_PORT);
+      var hostURL = JUPYTER_HOST + ":" + JUPYTER_PORT;
+      resolve({
+        baseUrl: 'http://' + hostURL, 
+        wsUrl: 'ws://' + hostURL,
+        name: kernelName,
+        path: jobName
+      });
     } else {
       request({
         followAllRedirects: true,
@@ -116,7 +124,12 @@ function _getURL() {
           var userPath = response.request.path.split('/').slice(0, 3).join('/');
           var hostURL = ELAIRJS_HOST + userPath;
           // console.log(hostURL)
-          resolve(hostURL);
+          resolve({
+            baseUrl: 'http://' + hostURL, 
+            wsUrl: 'ws://' + hostURL,
+            name: kernelName,
+            path: jobName
+          });
         }
         else
           reject(error);
@@ -125,31 +138,52 @@ function _getURL() {
   });
 }
 
+function __getServerURL(jobName) {
+
+  var vcap = Utils.vcapBluemixServer();
+  if(!vcap)
+    return _getURL(jobName);
+
+  var tenant_id = vcap.credentials.tenant_id;
+  var instance_id = vcap.credentials.instance_id;
+  var tenant_secret = vcap.credentials.tenant_secret;
+  var host = 'spark.bluemix.net'; //vcap.credentials.cluster_master_url;
+
+  var url ='//'+ tenant_id +'_'+ instance_id +':'+ tenant_secret +'@'+ host +'/jupyter/v2'
+
+  return Promise.resolve({
+    baseUrl: 'https:'+url, 
+    wsUrl: 'wss:'+url,
+    name: 'scala-spark20',
+    ajaxSettings: {
+      user: tenant_id + '_' + instance_id,
+      password: tenant_secret
+    },
+    notebookPath: jobName
+  });
+}
+
 Kernel.createKernelSession = function(jobName) {
   return new Promise(function(resolve, reject) {
     // We build our Spark Kernel connection here and share it when any classes that need it
-    _getURL().then(function(hostURL) {
+    __getServerURL(jobName).then(function(serverInfo) {
       //start the kernel
-      /*
-       jjs.startNewKernel({
-       baseUrl: "http://" + hostURL,
-       wsUrl: "ws://" + hostURL,
-       name: "eclair"
-       }).then(function(k) {
-       console.log("got kernel");
-       //when we have kernel info we know the spark kernel is ready.
-       k.kernelInfo().then(function(info) {
-       kernelPResolve(k);
-       });
-       });
-       */
+      //console.log(serverInfo);
 
-      jjs.startNewSession({
-        baseUrl: "http://" + hostURL,
-        wsUrl: "ws://" + hostURL,
-        kernelName: "eclair",
-        path: jobName
-      }).then(function(session) {
+      jjs.Kernel.startNew(serverInfo).then(function(k) {
+        //console.log("got kernel");
+        //when we have kernel info we know the spark kernel is ready.
+        k.requestKernelInfo().then(function(info) {
+          resolve(k);
+        });
+      }).catch(function(e) {
+        console.error('Failed to connect to Jupyter instance', e);
+        reject(e);
+      });
+/*
+      jjs.startNewSession(
+        serverInfo
+      ).then(function(session) {
         //when we have kernel info we know the spark kernel is ready.
         session.kernel.kernelInfo().then(function(info) {
           if (process.env.ECLAIRJS_VERBOSE) {
@@ -161,6 +195,7 @@ Kernel.createKernelSession = function(jobName) {
         console.error('Failed to start Jupyter session', e);
         reject(err);
       });
+      */
     }).catch(function(e) {
       console.error('Failed to connect to Jupyter instance', e);
       reject(e);

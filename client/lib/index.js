@@ -48,7 +48,23 @@ function EclairJS() {
     storage: require('./storage/module.js')(kernelP),
     streaming: require('./streaming/module.js')(kernelP),
 
-    forceFloat: Utils.forceFloat
+    forceFloat: Utils.forceFloat,
+
+    addJar: function(jar) {
+      return Utils.addSparkJar(kernelP, jar);
+    },
+
+    getUtils: function() {
+      return Utils;
+    },
+
+    executeMethod: function(args) {
+      return Utils.executeMethod(kernelP, args);
+    },
+
+    addModule: function(module) {
+      server.addModule(module);
+    }
   }
 }
 

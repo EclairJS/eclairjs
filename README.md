@@ -27,8 +27,7 @@ Now you can run any of the examples using the run.sh script from the examples di
 ./run.sh --docker wordcount/wordcount.js
 ```
 
-Please note that if you are running the docker container in a docker-machine environment or on another server, make sure you set the following environment variables:
-
+Please not that if you are running the docker container in a docker-machine environment or on another server, make sure you set the following environment variables:
 ```bash
 export JUPYTER_HOST=<docker host ip, defaults to 127.0.0.1>
 export JUPYTER_PORT=<container ip, defaults to 8888>

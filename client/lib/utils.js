@@ -14,6 +14,27 @@
  * limitations under the License.
  */
 
+function __vcapBluemixServer() {
+  if(!process.env.VCAP_SERVICES)
+    return null;
+
+  var vcap = JSON.parse(process.env.VCAP_SERVICES);
+  if(vcap.spark)
+    return vcap.spark[0];
+  else
+    return null;
+}
+
+
+function initCode() {
+  //if (process.env.ECLAIRJS_ADD_MAGIC_JAR) {
+  if (__vcapBluemixServer()) {
+    return '%%eclairjs ';
+  } else {
+    return '';
+  }
+}
+
 var Utils = {};
 
 Utils.processTemplate = function(templateStr, replacements) {
@@ -178,6 +199,7 @@ Utils.generate = function(args) {
   var returnType = args.returnType;
   var callArgs = args.args ? args.args : null;
   var customResolver = args.resolver;
+  var waitFor = args.waitFor;
 
   var type;
 
@@ -223,7 +245,7 @@ Utils.generate = function(args) {
   var kernelP;
 
   if (args.static) {
-    // static alls pass in a kernelP through args
+    // stati calls pass in a kernelP through args
     type = 'staticMethodCall';
     promises.push(args.kernelP);
 
@@ -239,6 +261,10 @@ Utils.generate = function(args) {
   }
 
   promises.push(handleArguments(callArgs));
+
+  if (waitFor) {
+    promises.push(Promise.all(waitFor));
+  }
 
   var refId;
 
@@ -297,10 +323,10 @@ Utils.generate = function(args) {
         }
 
         // now that we generated the array, get the length of the array
-        protocol.verifyKernelExecution(kernel.execute({code: refId+".length;"}), _countResolve, reject);
+        protocol.verifyKernelExecution(kernel.requestExecute({code: initCode()+refId+".length;"}), _countResolve, reject);
       }
 
-      var code = '';
+      var code = initCode();
 
       // For static calls, we need to make sure we generate the require for the class.
       if (type == 'staticMethodCall') {
@@ -313,7 +339,7 @@ Utils.generate = function(args) {
       }
 
       if (callArgs) {
-        var requires = values[values.length - 1].requires;
+        var requires = values[args.static ? 1 : 2].requires;
 
         code += generateRequires(requires, kernel);
       }
@@ -339,7 +365,7 @@ Utils.generate = function(args) {
 
       // arguments
       if (callArgs) {
-        var finalArgs = values[values.length-1].args;
+        var finalArgs = values[args.static ? 1 : 2].args;
 
         code += finalArgs.join(', ')
       }
@@ -354,13 +380,13 @@ Utils.generate = function(args) {
       Utils.log('Executing: ' + code);
 
       if (executionType == EXECUTION.RESULT_TYPE || executionType == EXECUTION.RESULT_NATIVE_ARRAY_TYPE) {
-        protocol.verifyKernelExecution(kernel.execute({code: code}), _resultTypeResolver, reject);
+        protocol.verifyKernelExecution(kernel.requestExecute({code: code}), _resultTypeResolver, reject);
       } else if (executionType == EXECUTION.RESULT_ARRAY_TYPE) {
-        protocol.verifyKernelExecution(kernel.execute({code: code}), _resultArrayResolver, reject);
+        protocol.verifyKernelExecution(kernel.requestExecute({code: code}), _resultArrayResolver, reject);
       } else if (executionType == EXECUTION.VOID_TYPE) {
-        protocol.verifyKernelExecution(kernel.execute({code: code}), resolve, reject);
+        protocol.verifyKernelExecution(kernel.requestExecute({code: code}), resolve, reject);
       } else if (executionType == EXECUTION.ASSIGNMENT_TYPE) {
-        protocol.verifyKernelExecution(kernel.execute({code: code, silent: false}), resolve, reject, [refId]);
+        protocol.verifyKernelExecution(kernel.requestExecute({code: code, silent: false}), resolve, reject, [refId]);
       }
     }).catch(reject);
   });
@@ -407,7 +433,7 @@ Utils.handleConstructor = function(context, callArgs, kernelP) {
     var refIdP = new Promise(function(resolve, reject) {
       Promise.all(promises).then(function(values) {
         var kernel = values[0];
-        var code = '';
+        var code = initCode();
 
         // get the class name of the target
         var moduleLocation = context.moduleLocation ? context.moduleLocation : context.constructor ? context.constructor.moduleLocation : null;
@@ -417,7 +443,7 @@ Utils.handleConstructor = function(context, callArgs, kernelP) {
 
         // requires from arguments
         if (callArgs) {
-          var requires = values[values.length - 1].requires;
+          var requires = values[1].requires;
 
           code += generateRequires(requires, kernel);
         }
@@ -426,7 +452,7 @@ Utils.handleConstructor = function(context, callArgs, kernelP) {
 
         // arguments
         if (callArgs) {
-          var finalArgs = values[values.length-1].args;
+          var finalArgs = values[1].args;
 
           code += finalArgs.join(', ')
         }
@@ -435,7 +461,7 @@ Utils.handleConstructor = function(context, callArgs, kernelP) {
 
         Utils.log('Executing: ' + code);
 
-        protocol.verifyKernelExecution(kernel.execute({code: code, silent: false}), resolve, reject, [refId]);
+        protocol.verifyKernelExecution(kernel.requestExecute({code: code, silent: false}), resolve, reject, [refId]);
       }).catch(reject);
     });
 
@@ -468,7 +494,7 @@ Utils.generateConstructor = function(args) {
   var refIdP = new Promise(function(resolve, reject) {
     Promise.all(promises).then(function(values) {
       var kernel = values[0];
-      var code = '';
+      var code = initCode();
 
       // get the class name of the target
       var moduleLocation = target.moduleLocation ? target.moduleLocation : target.constructor ? target.constructor.moduleLocation : null;
@@ -480,7 +506,7 @@ Utils.generateConstructor = function(args) {
 
       // requires from arguments
       if (callArgs) {
-        var requires = values[values.length - 1].requires;
+        var requires = values[1].requires;
 
         code += generateRequires(requires, kernel);
       }
@@ -489,7 +515,7 @@ Utils.generateConstructor = function(args) {
 
       // arguments
       if (callArgs) {
-        var finalArgs = values[values.length-1].args;
+        var finalArgs = values[1].args;
 
         code += finalArgs.join(', ')
       }
@@ -498,7 +524,7 @@ Utils.generateConstructor = function(args) {
 
       Utils.log('Executing: ' + code);
 
-      protocol.verifyKernelExecution(kernel.execute({code: code, silent: false}), resolve, reject, [refId]);
+      protocol.verifyKernelExecution(kernel.requestExecute({code: code, silent: false}), resolve, reject, [refId]);
     }).catch(reject);
   });
 
@@ -700,7 +726,7 @@ Utils.wrapBindArgs = function(bindArgs) {
 Utils.execute = function(args) {
   var protocol = require('./kernel.js');
 
-  var code = args.code;
+  var code = initCode() + args.code;
   var returnType = args.returnType;
   var kernelP = args.kernelP;
 
@@ -711,7 +737,7 @@ Utils.execute = function(args) {
     Promise.all(promises).then(function(values) {
       var kernel = values[0];
 
-      protocol.verifyKernelExecution(kernel.execute({code: code}), resolve, reject);
+      protocol.verifyKernelExecution(kernel.requestExecute({code: code}), resolve, reject);
     }).catch(reject);
   });
 
@@ -753,6 +779,40 @@ Utils.error = function(msg, e) {
 
 Utils.instanceOf = function(obj, clazz) {
   return obj.constructor.name == clazz.name;
+};
+
+Utils.eclairjsJar = function() {
+  return 'http://repo2.maven.org/maven2/org/eclairjs/eclairjs-nashorn/0.10/eclairjs-nashorn-0.10-jar-with-dependencies.jar';
+ //return 'http://cfa.cloudet.xyz/eclairjs-nashorn-0.9-jar-with-dependencies.jar';
+};
+
+Utils.vcapBluemixServer = function() {
+  return __vcapBluemixServer();
+};
+
+Utils.addSparkJar = function(kernelP, path) {
+  var protocol = require('./kernel.js');
+
+  var code = initCode() + 'var Utils = require(EclairJS_Globals.NAMESPACE + "/Utils.js");\n';
+  code += 'Utils.addJar("'+path+'")';
+
+  return new Promise(function(resolve, reject) {
+    kernelP.then(function(kernel) {
+      protocol.verifyKernelExecution(kernel.requestExecute({code: code}), resolve, reject);
+    });
+  });
+};
+
+Utils.executeMethod = function(kernelP, args) {
+  var newArgs = {};
+
+  for (var key in args) {
+    newArgs[key] = args[key];
+  }
+
+  newArgs.kernelP = kernelP;
+
+  return Utils.generate(newArgs);
 };
 
 module.exports = Utils;

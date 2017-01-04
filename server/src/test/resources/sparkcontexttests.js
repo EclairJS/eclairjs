@@ -139,4 +139,21 @@ var  textFile = function() {
 
 }
 
+var  setHadoopConfiguration = function() {
+    var prefix = "fs.swift.service.test";
+    sparkContext.setHadoopConfiguration(prefix + ".username", "userid");
+    sparkContext.setHadoopConfiguration(prefix + ".http.port", 8080);
+    sparkContext.setHadoopConfiguration(prefix + ".public", false);
+    sparkContext.setHadoopConfiguration(prefix + ".float", 1.1);
+
+    var result = {};
+    result.user_id = sparkContext.getHadoopConfiguration(prefix + ".username");
+    result.port =sparkContext.getHadoopConfiguration(prefix + ".http.port", 8080);
+    result.public =sparkContext.getHadoopConfiguration(prefix + ".public", false);
+    result.float =sparkContext.getHadoopConfiguration(prefix + ".float", 1.1);
+
+    return JSON.stringify(result);
+
+}
+
 

@@ -4,25 +4,23 @@ import java.net.URL
 import javax.script.ScriptEngineManager
 
 import org.apache.toree.global.StreamState
-import org.apache.toree.comm.{CommWriter, CommRegistrar}
-import org.apache.toree.interpreter._
-import org.apache.toree.interpreter.Interpreter
+import org.apache.toree.comm.{CommRegistrar, CommWriter}
+//import org.apache.toree.interpreter.{Interpreter, LanguageInfo, _}
+import org.apache.toree.interpreter.{Interpreter, _}
 import org.apache.toree.interpreter.Results.Result
 import org.apache.toree.kernel.api.KernelLike
 import org.apache.toree.kernel.api.Kernel
 import org.apache.spark.SparkContext
 import org.apache.spark.sql.SQLContext
+import org.apache.toree.kernel.BuildInfo
 import org.apache.toree.kernel.protocol._
 import org.apache.toree.kernel.protocol.v5.MsgData
 import org.eclairjs.nashorn.NashornEngineSingleton
-import play.api.libs.json.{JsString, JsObject, Json}
+import play.api.libs.json.{JsObject, JsString, Json}
 
 import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
-
-
 import scala.tools.nsc.interpreter.{InputStream, OutputStream}
-
 import scala.concurrent.ExecutionContext.Implicits.global
 
 class Comm(val kernel: Kernel, val commWriter:CommWriter = null) {
@@ -65,6 +63,8 @@ class JavascriptInterpreter() extends org.apache.toree.interpreter.Interpreter {
   private var comm:Comm = null
 
   //private var register:CommRegistrar = null
+
+  //override def languageInfo = LanguageInfo("scala", "ES5", fileExtension = Some(".scala"))
 
   override def init(kernel: KernelLike) = {
  System.out.println("Start kernel init")

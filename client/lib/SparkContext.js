@@ -57,16 +57,21 @@ module.exports = function(kernelP, server) {
 
         var fArgs = arguments;
 
+        var refId = 'sc';
+
         this.kernelP = new Promise(function(resolve, reject) {
           gKernelP.then(function(kernel) {
             var args = {
               target: SparkContext,
               args: Utils.wrapArguments(fArgs),
-              refId: 'jsc',
+              refId: refId,
               kernelP: gKernelP
             };
 
-            Utils.generateConstructor(args).then(function(refId) {
+            // In bluemix we have a spark context already created
+            var constructorP = Utils.vcapBluemixServer() ? Promise.resolve(refId): Utils.generateConstructor(args);
+
+            constructorP.then(function(refId) {
               var args = {
                 target: {kernelP: gKernelP, refIdP: Promise.resolve(refId)},
                 method: 'version',
@@ -74,7 +79,12 @@ module.exports = function(kernelP, server) {
               };
 
               Utils.generate(args).then(function(version) {
-                resolve(kernel);
+                var context = new SparkContext(Promise.resolve(kernel), Promise.resolve(refId));
+
+                server.loadModules(context).then(function() {
+                  resolve(kernel);
+                }).catch(reject);
+
                 /*if (version === 'EclairJS-nashorn 0.7-SNAPSHOT Spark 1.6.0' ||
                     version === 'EclairJS-nashorn 0.6 Spark 1.6.0') {
                   // correct version
@@ -89,7 +99,7 @@ module.exports = function(kernelP, server) {
 
         this.refIdP = new Promise(function(resolve, reject) {
           this.kernelP.then(function() {
-            resolve('jsc');
+            resolve(refId);
           }).catch(reject);
         }.bind(this));
       }
@@ -626,6 +636,80 @@ module.exports = function(kernelP, server) {
         method: "wholeTextFiles",
         args: Utils.wrapArguments(arguments),
         returnType: RDD
+      };
+
+      return Utils.generate(args);
+    };
+
+    /**
+     * Set the value of the name property of the Hadoop Configuration for the Hadoop code (e.g. file systems) that we reuse.
+     * '''Note:''' As it will be reused in all Hadoop RDDs, it's better not to modify it unless you plan to set some global configurations for all Hadoop RDDs.
+     * @example
+     *  sparkContext.setHadoopConfiguration("fs.swift.service.softlayer.auth.url", "https://identity.open.softlayer.com/v3/auth/tokens");
+     *  sparkContext.setHadoopConfiguration("fs.swift.service.softlayer.auth.endpoint.prefix", "endpoints");
+     *  sparkContext.setHadoopConfiguration("fs.swift.service.softlayer.tenant", "productid"); // IBM BlueMix Object Store product id
+     *  sparkContext.setHadoopConfiguration("fs.swift.service.softlayer.username", "userid"); // IBM BlueMix Object Store user id
+     *  sparkContext.setHadoopConfiguration("fs.swift.service.softlayer.password", "secret"); // IBM BlueMix Object Store password
+     *  sparkContext.setHadoopConfiguration("fs.swift.service.softlayer.apikey", "secret"); // IBM BlueMix Object Store password
+     *
+     *  var rdd = sparkContext.textFile("swift://wordcount.softlayer/dream.txt").cache();
+     *
+     * @param key
+     * @param value
+     * @returns {Promise.<Void>} A Promise that resolves to nothing.
+     */
+    SparkContext.prototype.setHadoopConfiguration = function(key, value) {
+      var args = {
+        target: this,
+        method: 'setHadoopConfiguration',
+        //args: Utils.wrapArguments(arguments),
+        args: [{value: key, type: 'string'},
+               {value: value, type: 'string'}],
+        returnType: Object
+      };
+
+      return Utils.generate(args);
+    };
+
+    /**
+     * Get the value of the name property of the Hadoop Configuration for the Hadoop code (e.g. file systems) that we reuse.
+     * '''Note:''' As it will be reused in all Hadoop RDDs, it's better not to modify it unless you plan to set some global configurations for all Hadoop RDDs.
+     * , null if no such property exists.
+     * @param key
+     * @param [defaultValue]
+     * @returns {Promise.<Object>} A Promise that resolves to nothing.
+     */
+    SparkContext.prototype.getHadoopConfiguration = function(key, defaultValue) {
+      var args = {
+        target: this,
+        method: 'getHadoopConfiguration',
+        args: Utils.wrapArguments(arguments),
+        returnType: Object
+      };
+
+      return Utils.generate(args);
+    };
+
+    /**
+     * Adds a JAR dependency for all tasks to be executed on this SparkContext in the future.
+     * The `path` passed can be either a local file, a file in HDFS (or other Hadoop-supported
+     * filesystems), an HTTP, HTTPS or FTP URI, or local:/path for a file on every worker node.
+     * @param {string} path
+     * @returns {Promise.<Void>} A Promise that resolves to nothing.
+     */
+    SparkContext.prototype.addSparkJar = function(path) {
+      return Utils.addSparkJar(this.kernelP, path)
+    };
+
+    /**
+     * The version of EclairJS and Spark on which this application is running.
+     * @returns {Promise.<string>}
+     */
+    SparkContext.prototype.version = function () {
+      var args = {
+        target: this,
+        method: 'version',
+        returnType: String
       };
 
       return Utils.generate(args);

@@ -23,14 +23,29 @@ var kernelPResolve;
 var kernelPReject;
 
 function Server() {
-  this.session = null;
+  this.kernel = null;
+  this.modules = [];
+  this.modulesLoaded = false;
 
   var scope = this;
 
   this.kernelP = new Promise(function(resolve, reject) {
-    scope.kernelPResolve = function(kernelSession) {
-      scope.session = kernelSession;
-      resolve(kernelSession.kernel)
+    scope.kernelPResolve = function(kernelObj) {
+      scope.kernel = kernelObj;
+
+      if (Utils.vcapBluemixServer()) {
+        var code = '%AddJar --magic ' + Utils.eclairjsJar();
+        var c = kernelObj.requestExecute({code: code});
+        kernel.verifyKernelExecution(c, function() {
+          kernelObj.requestExecute({code: 'sc.addJar("'+Utils.eclairjsJar()+'");'});
+          resolve(kernelObj);
+        }, function(e) {
+          console.error(e);
+          reject(e);
+        });
+      } else {
+        resolve(kernelObj);
+      }
     };
 
     scope.kernelPReject = function(e) {
@@ -38,6 +53,25 @@ function Server() {
     };
   });
 }
+
+Server.prototype.addModule = function(module) {
+  this.modules.push(module);
+};
+
+Server.prototype.loadModules = function(sparkContext) {
+  this.modulesLoaded = true;
+
+  var myThis = this;
+  return new Promise(function(resolve, reject) {
+    var p = [];
+
+    myThis.modules.forEach(function(module) {
+      p.push(module.init(sparkContext))
+    });
+
+    Promise.all(p).then(resolve).catch(reject);
+  });
+};
 
 Server.prototype.getKernelPromise = function() {
   return this.kernelP;
@@ -52,7 +86,7 @@ Server.prototype.stop = function() {
 
   return new Promise(function(resolve, reject) {
     scope.kernelP.then(function(kernel) {
-      scope.session.shutdown().then(resolve).catch(reject);
+      scope.kernel.shutdown().then(resolve).catch(reject);
     });
   });
 };

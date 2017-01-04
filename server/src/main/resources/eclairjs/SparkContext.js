@@ -564,7 +564,7 @@
             // versions is 2.0 or greater
         }
         
-        return "EclairJS-nashorn 0.9 Spark " + sparkVersion;
+        return "EclairJS-nashorn 0.10 Spark " + sparkVersion;
     };
 
     /**
@@ -673,17 +673,47 @@
      * @returns {void}
      */
     SparkContext.prototype.setHadoopConfiguration = function (key, value) {
-        this.getJavaObject().hadoopConfiguration().set(key, value);
+        if (value instanceof java.lang.Integer) {
+            this.getJavaObject().hadoopConfiguration().setInt(key, value);
+        } if (value instanceof java.lang.Double) {
+            this.getJavaObject().hadoopConfiguration().setFloat(key, value);
+        } if (value instanceof java.lang.Boolean) {
+            this.getJavaObject().hadoopConfiguration().setBoolean(key, value);
+        } else {
+            this.getJavaObject().hadoopConfiguration().set(key, value);
+        }
+
     };
     /**
      * Get the value of the name property of the Hadoop Configuration for the Hadoop code (e.g. file systems) that we reuse.
      * '''Note:''' As it will be reused in all Hadoop RDDs, it's better not to modify it unless you plan to set some global configurations for all Hadoop RDDs.
      * , null if no such property exists.
      * @param key
+     * @param [defaultValue]
      * @returns {string}
      */
-    SparkContext.prototype.getHadoopConfiguration = function (key) {
-        return this.getJavaObject().hadoopConfiguration().get(key);
+    SparkContext.prototype.getHadoopConfiguration = function (key, defaultValue) {
+        try {
+            return this.getJavaObject().hadoopConfiguration().getInt(key, defaultValue | 0);
+        } catch (e) {
+            try {
+                return this.getJavaObject().hadoopConfiguration().getFloat(key, defaultValue | 0.0);
+            } catch (e) {
+                try {
+                    var boolValue = this.getJavaObject().hadoopConfiguration().getBoolean(key, defaultValue | false);
+                    var strValue =  this.getJavaObject().hadoopConfiguration().get(key, defaultValue);
+                    if ("" + boolValue == strValue) {
+                        return boolValue;
+                    } else {
+                        return strValue;
+                    }
+                } catch (e) {
+                    return this.getJavaObject().hadoopConfiguration().get(key, defaultValue);
+                }
+            }
+
+        }
+
     };
 
     SparkContext.prototype.toJSON = function () {

@@ -199,6 +199,22 @@ DataFrameReader.prototype.json = function(input) {
 };
 
 /**
+ * Loads a CSV file and returns the result as a Dataset.
+ * @parma {...string} paths
+ * @returns {module:eclairjs/sql.DataFrame}
+ */
+DataFrameReader.prototype.csv = function(input) {
+  var args = {
+    target: this,
+    method: 'csv',
+    args: Utils.wrapArguments(arguments),
+    returnType: DataFrame
+  };
+
+  return Utils.generate(args);
+};
+
+/**
  * Loads a Parquet file, returning the result as a {@link DataFrame}. This function returns an empty
  * {@link DataFrame} if no paths are passed in.
  *

@@ -22,7 +22,7 @@
      * @module eclairjs/streaming/kafka
      */
     module.exports = {
-        KafkaUtils: require(EclairJS_Globals.NAMESPACE + '/streaming/kafka/KafkaUtils')
+        KafkaUtils: require('eclairjs/streaming/kafka/KafkaUtils')
     }
 
 })();
