@@ -97,11 +97,22 @@ Kernel.resetVariables = function() {
 function _getURL(jobName) {
   // special processing for eclairjs.cloudet.xyz to follow redirect
   //  to spawned kernel
-  var JUPYTER_HOST = process.env.JUPYTER_HOST || "127.0.0.1";
+  var JUPYTER_HOST = process.env.JUPYTER_HOST || '127.0.0.1';
   var JUPYTER_PORT = process.env.JUPYTER_PORT || 8888;
+  var JUPYTER_TOKEN = process.env.JUPYTER_TOKEN || null;
+
+  // full url that includes a token (http://localhost:8888/?token=13ba94615de47b7ad3cdb3f8482ae38eb882735259568a62)
+  var JUPYTER_URL = process.env.JUPYTER_URL || null;
+  if (JUPYTER_URL) {
+    const url = require('url');
+    var parsed = url.parse(JUPYTER_URL, true);
+    JUPYTER_HOST = parsed.hostname;
+    JUPYTER_PORT = parsed.port;
+    JUPYTER_TOKEN = parsed.query && parsed.query.token ? parsed.query.token : null;
+  }
 
   // used for remote urls where we need to handle redirects
-  var ELAIRJS_HOST = process.env.ECLAIRJS_HOST || "";
+  var ELAIRJS_HOST = process.env.ECLAIRJS_HOST || '';
 
   var kernelName = process.env.ECLAIRJS_KERNEL_NAME || 'eclair';
 
@@ -109,15 +120,16 @@ function _getURL(jobName) {
     if (JUPYTER_HOST != ELAIRJS_HOST) {
       var hostURL = JUPYTER_HOST + ":" + JUPYTER_PORT;
       resolve({
-        baseUrl: 'http://' + hostURL, 
+        baseUrl: 'http://' + hostURL,
         wsUrl: 'ws://' + hostURL,
         name: kernelName,
-        path: jobName
+        path: jobName,
+        token: JUPYTER_TOKEN
       });
     } else {
       request({
         followAllRedirects: true,
-        url: "http://" + ELAIRJS_HOST + "/spawn"
+        url: 'http://' + ELAIRJS_HOST + '/spawn'
       }, function(error, response, body) {
         if (!error) {
           // console.log(response.request.path);
@@ -128,7 +140,8 @@ function _getURL(jobName) {
             baseUrl: 'http://' + hostURL, 
             wsUrl: 'ws://' + hostURL,
             name: kernelName,
-            path: jobName
+            path: jobName,
+            token: JUPYTER_TOKEN
           });
         }
         else
