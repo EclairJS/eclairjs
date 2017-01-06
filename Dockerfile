@@ -1,6 +1,8 @@
 # Copyright (c) IBM.
 FROM jupyter/base-notebook
 
+RUN pip uninstall -y notebook
+RUN pip install notebook==4.3.0
 
 USER root
 
@@ -14,7 +16,7 @@ RUN update-java-alternatives -s java-1.8.0-openjdk-amd64
 
 
 # Spark dependencies
-ENV APACHE_SPARK_VERSION 2.0.0
+ENV APACHE_SPARK_VERSION 2.0.1
 RUN apt-get update && apt-get install -yq --no-install-recommends wget
 
 RUN apt-get -y update && \
@@ -38,7 +40,7 @@ COPY incubator-toree/dist/toree /toree
 
 
 #Eclair JS
-ENV ECLAIRJS_VERSION 0.9
+ENV ECLAIRJS_VERSION 0.10
 
 #RUN wget -q http://repo2.maven.org/maven2/org/eclairjs/eclairjs-nashorn/${ECLAIRJS_VERSION}/eclairjs-nashorn-${ECLAIRJS_VERSION}-jar-with-dependencies.jar && \
 RUN wget -q https://oss.sonatype.org/service/local/repositories/releases/content/org/eclairjs/eclairjs-nashorn/${ECLAIRJS_VERSION}/eclairjs-nashorn-${ECLAIRJS_VERSION}-jar-with-dependencies.jar && \
@@ -52,4 +54,4 @@ COPY kernel.json /usr/local/share/jupyter/kernels/eclair/
 # data for examples
 COPY examples/ /tmp/
 
-CMD ["jupyter", "notebook", "--no-browser", "--NotebookApp.ip=0.0.0.0"]
+CMD ["jupyter", "notebook", "--no-browser", "--NotebookApp.ip=0.0.0.0", "--NotebookApp.token=''"]
