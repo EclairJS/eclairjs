@@ -186,9 +186,7 @@ Kernel.createKernelSession = function(jobName) {
       jjs.Kernel.startNew(serverInfo).then(function(k) {
         //console.log("got kernel");
         //when we have kernel info we know the spark kernel is ready.
-        k.requestKernelInfo().then(function(info) {
-          resolve(k);
-        });
+        resolve(k);
       }).catch(function(e) {
         console.error('Failed to connect to Jupyter instance', e);
         reject(e);
