@@ -47,7 +47,7 @@ FakeKernel.prototype.removeExecuteListener = function(listener) {
   this._listener = null;
 }
 
-FakeKernel.prototype.execute = function(msg) {
+FakeKernel.prototype.requestExecute = function(msg) {
   if (this._listener) {
     this._listener(msg);
   }
@@ -84,6 +84,12 @@ FakeServer.prototype.start = function(appName) {
 };
 
 FakeServer.prototype.stop = function() {
+  return new Promise(function(resolve, reject) {
+    resolve();
+  });
+};
+
+FakeServer.prototype.loadModules = function() {
   return new Promise(function(resolve, reject) {
     resolve();
   });
