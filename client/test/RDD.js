@@ -73,7 +73,7 @@ describe('Top 10 Test', function() {
           rdd = sc.textFile("/tmp/examples/dream.txt");
           onceDone(rdd).then(callback);
         }, function(result) {
-          expect(result).equals('var rdd1 = jsc.textFile("/tmp/examples/dream.txt");');
+          expect(result).equals('var rdd1 = sc.textFile("/tmp/examples/dream.txt");');
         },
         done
       );

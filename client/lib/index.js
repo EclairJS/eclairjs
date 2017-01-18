@@ -20,51 +20,82 @@ global.WebSocket = require('ws');
 var Utils = require('./utils.js');
 var Server = require('./server');
 
+var EJSCache = {};
+
 /**
  * eclairjs module.
  * @example
  * var eclairjs = require('eclairjs');
  * @module eclairjs
  */
-function EclairJS() {
-  var server = new Server();
-  var kernelP = server.getKernelPromise();
+function EclairJS(sessionName) {
+  if (sessionName && EJSCache[sessionName]) {
+    console.log("got hit")
+    return EJSCache[sessionName].ejs;
+  } else {
+    var server = new Server();
+    var kernelP = server.getKernelPromise();
 
-  return {
-    Accumulable: require('./Accumulable.js')(kernelP),
-    AccumulableParam: require('./AccumulableParam.js')(kernelP),
-    List: require('./List.js')(kernelP),
-    Tuple: require('./Tuple.js')(kernelP),
-    Tuple2: require('./Tuple2.js')(kernelP),
-    Tuple3: require('./Tuple3.js')(kernelP),
-    Tuple4: require('./Tuple4.js')(kernelP),
-    SparkConf: require('./SparkConf.js')(kernelP),
-    SparkContext: require('./SparkContext.js')(kernelP, server),
+    var instance = {
+      Accumulable: require('./Accumulable.js')(kernelP),
+      AccumulableParam: require('./AccumulableParam.js')(kernelP),
+      List: require('./List.js')(kernelP),
+      Tuple: require('./Tuple.js')(kernelP),
+      Tuple2: require('./Tuple2.js')(kernelP),
+      Tuple3: require('./Tuple3.js')(kernelP),
+      Tuple4: require('./Tuple4.js')(kernelP),
+      SparkConf: require('./SparkConf.js')(kernelP),
+      SparkContext: require('./SparkContext.js')(kernelP, server),
 
-    ml: require('./ml/module.js')(kernelP),
-    mllib: require('./mllib/module.js')(kernelP),
-    rdd: require('./rdd/module.js')(kernelP),
-    sql: require('./sql/module.js')(kernelP, server),
-    storage: require('./storage/module.js')(kernelP),
-    streaming: require('./streaming/module.js')(kernelP),
+      ml: require('./ml/module.js')(kernelP),
+      mllib: require('./mllib/module.js')(kernelP),
+      rdd: require('./rdd/module.js')(kernelP),
+      sql: require('./sql/module.js')(kernelP, server),
+      storage: require('./storage/module.js')(kernelP),
+      streaming: require('./streaming/module.js')(kernelP),
 
-    forceFloat: Utils.forceFloat,
+      forceFloat: Utils.forceFloat,
 
-    addJar: function(jar) {
-      return Utils.addSparkJar(kernelP, jar);
-    },
+      addJar: function (jar) {
+        return Utils.addSparkJar(kernelP, jar);
+      },
 
-    getUtils: function() {
-      return Utils;
-    },
+      getUtils: function () {
+        return Utils;
+      },
 
-    executeMethod: function(args) {
-      return Utils.executeMethod(kernelP, args);
-    },
+      executeMethod: function (args) {
+        return Utils.executeMethod(kernelP, args);
+      },
 
-    addModule: function(module) {
-      server.addModule(module);
+      addModule: function (module) {
+        server.addModule(module);
+      }
+    };
+
+    if (sessionName) {
+      EJSCache[sessionName] = {ejs: instance, server: server};
     }
+
+    return instance;
+  }
+}
+
+EclairJS.listSessions = function() {
+  var sessions = [];
+
+  for (sessionName in EJSCache) {
+    sessions.push(sessionName);
+  }
+
+  return sessions;
+}
+
+EclairJS.killSession = function(sessionName) {
+  if (EJSCache[sessionName]) {
+    var p = EJSCache[sessionName].server.stop();
+    delete EJSCache[sessionName];
+    return p;
   }
 }
 

@@ -26,6 +26,7 @@ function Server() {
   this.kernel = null;
   this.modules = [];
   this.modulesLoaded = false;
+  this.started = false;
 
   var scope = this;
 
@@ -78,7 +79,12 @@ Server.prototype.getKernelPromise = function() {
 };
 
 Server.prototype.start = function(appName) {
-  kernel.createKernelSession(appName).then(this.kernelPResolve).catch(this.kernelPReject);
+  if (this.started) {
+    // do nothing, we already created teh kernel
+  } else {
+    this.started = true;
+    kernel.createKernelSession(appName).then(this.kernelPResolve).catch(this.kernelPReject);
+  }
 };
 
 Server.prototype.stop = function() {
@@ -86,7 +92,10 @@ Server.prototype.stop = function() {
 
   return new Promise(function(resolve, reject) {
     scope.kernelP.then(function(kernel) {
-      scope.kernel.shutdown().then(resolve).catch(reject);
+      scope.kernel.shutdown().then(function() {
+        scope.started = false;
+        resolve();
+      }).catch(reject);
     });
   });
 };

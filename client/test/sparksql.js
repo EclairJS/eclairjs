@@ -59,7 +59,7 @@ describe('SQL Test', function() {
         function() {
           sqlContext = new spark.sql.SQLContext(ctx);
         }, function(msg) {
-          expect(msg.code).equals('var SQLContext = require(EclairJS_Globals.NAMESPACE + \'/sql/SQLContext\');\nvar sqlcontext1 = new SQLContext(jsc);');
+          expect(msg.code).equals('var SQLContext = require(EclairJS_Globals.NAMESPACE + \'/sql/SQLContext\');\nvar sqlcontext1 = new SQLContext(sc);');
         },
         done
       );
@@ -72,7 +72,7 @@ describe('SQL Test', function() {
         function() {
           rdd = ctx.textFile("examples/data/people.txt");
         }, function(msg) {
-          expect(msg.code).equals('var rdd1 = jsc.textFile("examples/data/people.txt");');
+          expect(msg.code).equals('var rdd1 = sc.textFile("examples/data/people.txt");');
         },
         done
       );
