@@ -9,7 +9,7 @@
     "url": "git://github.com/EclairJS/eclairjs.git"
   },
   "dependencies": {
-    "@jupyterlab/services": "0.34.2",
+    "@jupyterlab/services": "0.35.1",
     "request": "2.74.0",
     "xmlhttprequest": "^1.8.0",
     "ws": "^1.1.1"
