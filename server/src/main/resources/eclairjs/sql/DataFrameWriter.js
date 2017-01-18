@@ -92,6 +92,21 @@
         return new DataFrameWriter(javaObject);
     };
 
+    /**
+     * Adds output options for the underlying data source.
+     *
+     * @since EclairJS 0.1 Spark  1.4.0
+     * @param {Map} map
+     * If object, the object is expected to be a HashMap, the key of the map is type: 'String'
+     * The value must be of the following type: `String`.
+     * @returns {module:eclairjs/sql.DataFrameWriter}
+     */
+    DataFrameWriter.prototype.options = function (map) {
+        var jmap = Utils.createJavaHashMap(map);
+        var javaObject = this.getJavaObject().options(jmap);
+        return new DataFrameWriter(javaObject);
+    };
+
 
     /**
      * Partitions the output by the given columns on the file system. If specified, the output is
