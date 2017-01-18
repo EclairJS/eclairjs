@@ -15,7 +15,7 @@
 */
 (function () {
 
-  var StreamingQueryInfo = Java.type('org.eclairjs.nashorn.wrap.sql.streaming.StreamingQueryInfo');
+  var StreamingQueryStatus = Java.type('org.eclairjs.nashorn.wrap.sql.streaming.StreamingQueryStatus');
     
     
     /**
@@ -65,5 +65,5 @@
      * @returns {module:eclairjs/sql/streaming.SinkStatus}
      */
 
-    module.exports = StreamingQueryInfo;
+    module.exports = StreamingQueryStatus;
 })();

@@ -40,7 +40,7 @@ COPY incubator-toree/dist/toree /toree
 
 
 #Eclair JS
-ENV ECLAIRJS_VERSION 0.10
+ENV ECLAIRJS_VERSION 0.10.1
 
 #RUN wget -q http://repo2.maven.org/maven2/org/eclairjs/eclairjs-nashorn/${ECLAIRJS_VERSION}/eclairjs-nashorn-${ECLAIRJS_VERSION}-jar-with-dependencies.jar && \
 RUN wget -q https://oss.sonatype.org/service/local/repositories/releases/content/org/eclairjs/eclairjs-nashorn/${ECLAIRJS_VERSION}/eclairjs-nashorn-${ECLAIRJS_VERSION}-jar-with-dependencies.jar && \
@@ -54,4 +54,4 @@ COPY kernel.json /usr/local/share/jupyter/kernels/eclair/
 # data for examples
 COPY examples/ /tmp/
 
-CMD ["jupyter", "notebook", "--no-browser", "--NotebookApp.ip=0.0.0.0", "--NotebookApp.token=''"]
+CMD ["jupyter", "notebook", "--no-browser", "--NotebookApp.ip=0.0.0.0", "--NotebookApp.token=''", "--NotebookApp.disable_check_xsrf=True"]

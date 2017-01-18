@@ -782,7 +782,7 @@ Utils.instanceOf = function(obj, clazz) {
 };
 
 Utils.eclairjsJar = function() {
-  return 'http://repo2.maven.org/maven2/org/eclairjs/eclairjs-nashorn/0.10/eclairjs-nashorn-0.10-jar-with-dependencies.jar';
+  return 'http://repo2.maven.org/maven2/org/eclairjs/eclairjs-nashorn/0.10.1/eclairjs-nashorn-0.10.1-jar-with-dependencies.jar';
  //return 'http://cfa.cloudet.xyz/eclairjs-nashorn-0.9-jar-with-dependencies.jar';
 };
 

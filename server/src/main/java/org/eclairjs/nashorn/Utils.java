@@ -179,8 +179,8 @@ public class Utils {
                         (org.apache.spark.sql.streaming.SourceStatus)o
                 );
             case "org.apache.spark.sql.streaming.StreamingQueryInfo":
-                return new  org.eclairjs.nashorn.wrap.sql.streaming.StreamingQueryInfo(
-                        (org.apache.spark.sql.streaming.StreamingQueryInfo)o
+                return new  org.eclairjs.nashorn.wrap.sql.streaming.StreamingQueryStatus(
+                        (org.apache.spark.sql.streaming.StreamingQueryStatus)o
                 );
             case "org.apache.spark.sql.streaming.StreamingQueryManager":
                 return new  org.eclairjs.nashorn.wrap.sql.streaming.StreamingQueryManager(

@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.eclairjs</groupId>
   <artifactId>eclairjs-nashorn</artifactId>
-  <version>0.10</version>
+  <version>0.10.1</version>
 
   <name>EclairJS Nashorn</name>
   <description>JavaScript API for Apache Spark</description>
@@ -229,7 +229,7 @@
     </pluginManagement>
   </build>
   <properties>
-    <spark.version>2.0.1</spark.version>
+    <spark.version>2.0.2</spark.version>
     <hadoop.version>2.7.3</hadoop.version>
     <toree.version>0.2.0.dev1-incubating-SNAPSHOT</toree.version>
   </properties>

@@ -23,9 +23,9 @@ import scala.collection.Iterator;
 import scala.collection.mutable.WrappedArray;
 
 
-public class StreamingQueryInfo extends WrappedClass {
+public class StreamingQueryStatus extends WrappedClass {
 
- static Logger logger = Logger.getLogger(StreamingQueryInfo.class);
+ static Logger logger = Logger.getLogger(StreamingQueryStatus.class);
 
     static WrappedFunction F_name = new WrappedFunction() {
         @Override
@@ -33,7 +33,7 @@ public class StreamingQueryInfo extends WrappedClass {
             logger.debug("name");
             Object returnValue = null;
             //org.apache.spark.sql.streaming.StreamingQueryInfo _streamingQuery = (org.apache.spark.sql.streaming.StreamingQueryInfo) ((StreamingQueryInfo) thiz).getJavaObject();
-            returnValue = ((StreamingQueryInfo) thiz).name();
+            returnValue = ((StreamingQueryStatus) thiz).name();
             return returnValue;
         }
     };
@@ -44,7 +44,7 @@ public class StreamingQueryInfo extends WrappedClass {
             logger.debug("id");
             Object returnValue = null;
             //org.apache.spark.sql.streaming.StreamingQueryInfo _streamingQuery = (org.apache.spark.sql.streaming.StreamingQueryInfo) ((StreamingQueryInfo) thiz).getJavaObject();
-            returnValue = ((StreamingQueryInfo) thiz).id();
+            returnValue = ((StreamingQueryStatus) thiz).id();
             return returnValue;
         }
     };
@@ -54,7 +54,7 @@ public class StreamingQueryInfo extends WrappedClass {
             logger.debug("sourceStatuses");
             Object returnValue = null;
            // org.apache.spark.sql.streaming.StreamingQueryInfo _streamingQuery = (org.apache.spark.sql.streaming.StreamingQueryInfo) ((StreamingQueryInfo) thiz).getJavaObject();
-            return ((StreamingQueryInfo) thiz).sourceStatuses();
+            return ((StreamingQueryStatus) thiz).sourceStatuses();
             //return Utils.javaToJs(returnValue);
         }
     };
@@ -65,18 +65,18 @@ public class StreamingQueryInfo extends WrappedClass {
             logger.debug("sinkStatus");
             Object returnValue = null;
             //org.apache.spark.sql.streaming.StreamingQueryInfo _streamingQuery = (org.apache.spark.sql.streaming.StreamingQueryInfo) ((StreamingQueryInfo) thiz).getJavaObject();
-            return ((StreamingQueryInfo) thiz).sinkStatus();
+            return ((StreamingQueryStatus) thiz).sinkStatus();
             //return Utils.javaToJs(returnValue);
             //return new org.eclairjs.nashorn.wrap.sql.streaming.SinkStatus((org.apache.spark.sql.streaming.SinkStatus)returnValue);
         }
     };
 
-    private org.apache.spark.sql.streaming.StreamingQueryInfo _streamingQueryInfo;
+    private org.apache.spark.sql.streaming.StreamingQueryStatus _streamingQueryStatus;
 
-    public StreamingQueryInfo(org.apache.spark.sql.streaming.StreamingQueryInfo _streamingQueryInfo)
+    public StreamingQueryStatus(org.apache.spark.sql.streaming.StreamingQueryStatus _streamingQueryStatus)
     {
        logger.debug("constructor");
-       this._streamingQueryInfo = _streamingQueryInfo;
+       this._streamingQueryStatus = _streamingQueryStatus;
     }
 
     static public String getModuleName() {
@@ -84,52 +84,52 @@ public class StreamingQueryInfo extends WrappedClass {
     }
 
     public boolean checkInstance(Object other) {
-        return other instanceof StreamingQueryInfo;
+        return other instanceof StreamingQueryStatus;
     }
 
     public Object getJavaObject() {
-        return _streamingQueryInfo;
+        return _streamingQueryStatus;
     }
 
     private long id() {
-        org.apache.spark.sql.streaming.StreamingQueryInfo _streamingQuery = (org.apache.spark.sql.streaming.StreamingQueryInfo) this.getJavaObject();
+        org.apache.spark.sql.streaming.StreamingQueryStatus _streamingQuery = (org.apache.spark.sql.streaming.StreamingQueryStatus) this.getJavaObject();
         return _streamingQuery.id();
 
     }
 
     private String name() {
-        org.apache.spark.sql.streaming.StreamingQueryInfo _streamingQuery = (org.apache.spark.sql.streaming.StreamingQueryInfo) this.getJavaObject();
+        org.apache.spark.sql.streaming.StreamingQueryStatus _streamingQuery = (org.apache.spark.sql.streaming.StreamingQueryStatus) this.getJavaObject();
         return _streamingQuery.name();
     }
 
     private Object sinkStatus() {
-        org.apache.spark.sql.streaming.StreamingQueryInfo _streamingQuery = (org.apache.spark.sql.streaming.StreamingQueryInfo) this.getJavaObject();
+        org.apache.spark.sql.streaming.StreamingQueryStatus _streamingQuery = (org.apache.spark.sql.streaming.StreamingQueryStatus) this.getJavaObject();
         return Utils.javaToJs(_streamingQuery.sinkStatus());
     }
 
     private Object sourceStatuses() {
-        org.apache.spark.sql.streaming.StreamingQueryInfo _streamingQuery = (org.apache.spark.sql.streaming.StreamingQueryInfo) this.getJavaObject();
+        org.apache.spark.sql.streaming.StreamingQueryStatus _streamingQuery = (org.apache.spark.sql.streaming.StreamingQueryStatus) this.getJavaObject();
         return Utils.javaToJs(_streamingQuery.sourceStatuses());
     }
 
     @Override
     public String toString() {
 
-        return _streamingQueryInfo.toString();
+        return _streamingQueryStatus.toString();
     }
 
     @Override
     public String toJSON() {
         SinkStatus sink = (SinkStatus) this.sinkStatus();
-        org.apache.spark.sql.streaming.StreamingQueryInfo _streamingQuery = (org.apache.spark.sql.streaming.StreamingQueryInfo) this.getJavaObject();
-        WrappedArray a = (WrappedArray) _streamingQuery.sourceStatuses();
-       // Object s[] = a.array().length;
+        org.apache.spark.sql.streaming.StreamingQueryStatus _streamingQuery = (org.apache.spark.sql.streaming.StreamingQueryStatus) this.getJavaObject();
+        //WrappedArray a = (WrappedArray) _streamingQuery.sourceStatuses();
+        Object[] a =  _streamingQuery.sourceStatuses();
         String ssStr = "[";
-        Iterator iterator = a.iterator();
-        while (iterator.hasNext()) {
-            SourceStatus ss = (SourceStatus)Utils.javaToJs(iterator.next());
+        for (Object status : a) {
+            SourceStatus ss = (SourceStatus)Utils.javaToJs(status);
             ssStr += ss.toJSON();
         }
+       // Object s[] = a.array().length;
         ssStr += "]";
         return "{" +
                     "\"id\":"+this.id()+

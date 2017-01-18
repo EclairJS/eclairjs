@@ -58,7 +58,7 @@ public class SqlStreamingTest {
         TestUtils.evalJSResource(engine, "/sql/streaming/streaming.js");
         Object ret = ((Invocable) engine).invokeFunction("sinkSourceStatusTest");
 
-        String expected = "{\"sink\":{\"description\":\"org.apache.spark.sql.execution.streaming.ForeachSink\",\"offsetDesc\":\"[\"},\"source\":{\"description\":\"FileStreamSource[file:\",\"offsetDesc\":\"S\"}}";
+        String expected = "{\"sink\":{\"description\":\"org.apache.spark.sql.execution.streaming.ForeachSink\",\"offsetDesc\":\"[\"},\"source\":{\"description\":\"FileStreamSource[file:\",\"offsetDesc\":\"#\"}}";
         assertEquals("should be same", expected, ret.toString());
     }
 

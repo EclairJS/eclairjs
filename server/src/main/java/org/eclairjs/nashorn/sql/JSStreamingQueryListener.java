@@ -31,27 +31,27 @@ public class JSStreamingQueryListener extends StreamingQueryListener {
     }
 
     @Override
-    public void onQueryStarted(StreamingQueryListener.QueryStarted queryStarted) {
+    public void onQueryStarted(StreamingQueryListener.QueryStartedEvent queryStarted) {
         try {
-            this.onQueryStartedFn.call(queryStarted.queryInfo());
+            this.onQueryStartedFn.call(queryStarted.queryStatus());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void onQueryProgress(StreamingQueryListener.QueryProgress queryProgress) {
+    public void onQueryProgress(StreamingQueryListener.QueryProgressEvent queryProgress) {
         try {
-            this.onQueryProgressFn.call(queryProgress.queryInfo());
+            this.onQueryProgressFn.call(queryProgress.queryStatus());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void onQueryTerminated(StreamingQueryListener.QueryTerminated queryTerminated) {
+    public void onQueryTerminated(StreamingQueryListener.QueryTerminatedEvent queryTerminated) {
         try {
-            this.onQueryTerminatedFn.call(queryTerminated.queryInfo());
+            this.onQueryTerminatedFn.call(queryTerminated.queryStatus());
         } catch (Exception e) {
             e.printStackTrace();
         }
