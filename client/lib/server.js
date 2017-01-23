@@ -34,7 +34,9 @@ function Server() {
     scope.kernelPResolve = function(kernelObj) {
       scope.kernel = kernelObj;
 
-      if (Utils.vcapBluemixServer()) {
+      if (process.env.ECLAIRJS_USE_INTERPRETER) {
+        resolve(kernelObj);
+      } else {
         var code = '%AddJar --magic ' + Utils.eclairjsJar();
         var c = kernelObj.requestExecute({code: code});
         kernel.verifyKernelExecution(c, function() {
@@ -44,8 +46,6 @@ function Server() {
           console.error(e);
           reject(e);
         });
-      } else {
-        resolve(kernelObj);
       }
     };
 

@@ -5,7 +5,7 @@ The **EclairJS Server** API exposes the [Spark](http://spark.apache.org/) progra
 **Prerequisites**
 
  - [Java 8 SE](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
- - [Spark](http://spark.apache.org/downloads.html) (V2.0.0 built for Hadoop 2.6.0 and later)
+ - [Spark](http://spark.apache.org/downloads.html) (V2.0.2 built for Hadoop 2.7 and later)
  - [git](http://git-scm.com/)
  - [Maven](https://maven.apache.org/)
  - [SBT](http://www.scala-sbt.org/) (Only if building Toree)
