@@ -25,13 +25,11 @@ function __vcapBluemixServer() {
     return null;
 }
 
-
 function initCode() {
-  //if (process.env.ECLAIRJS_ADD_MAGIC_JAR) {
-  if (__vcapBluemixServer()) {
-    return '%%eclairjs ';
-  } else {
+  if (process.env.ECLAIRJS_USE_INTERPRETER) {
     return '';
+  } else {
+    return '%%eclairjs ';
   }
 }
 
