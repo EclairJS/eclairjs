@@ -64,7 +64,7 @@ class JavascriptInterpreter() extends org.apache.toree.interpreter.Interpreter {
 
   //private var register:CommRegistrar = null
 
-  //override def languageInfo = LanguageInfo("scala", "ES5", fileExtension = Some(".scala"))
+  override def languageInfo = LanguageInfo("javascript", "ES5", fileExtension = Some(".js"))
 
   override def init(kernel: KernelLike) = {
  System.out.println("Start kernel init")
