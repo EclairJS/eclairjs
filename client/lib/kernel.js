@@ -114,7 +114,7 @@ function _getURL(jobName) {
   // used for remote urls where we need to handle redirects
   var ELAIRJS_HOST = process.env.ECLAIRJS_HOST || '';
 
-  var kernelName = process.env.ECLAIRJS_KERNEL_NAME || 'eclair';
+  var kernelName = process.env.ECLAIRJS_KERNEL_NAME || 'toree';
 
   return new Promise(function(resolve, reject) {
     if (JUPYTER_HOST != ELAIRJS_HOST) {
