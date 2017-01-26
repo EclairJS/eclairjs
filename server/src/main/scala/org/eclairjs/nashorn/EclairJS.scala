@@ -12,6 +12,25 @@ import org.apache.toree.utils.ArgumentParsingSupport
 import play.api.libs.json.Json
 
 
+class Comm(val kernel: Kernel, val commWriter:CommWriter = null) {
+
+  def open(target: String): Comm = {
+    new Comm(kernel, kernel.comm.open(target))
+  }
+
+  def send(target: String, msg: String): Unit = {
+    val jsValue = Json.parse(msg)
+    //commWriter.writeMsg(JsObject(Seq(
+    //  "repsonse" -> jsValue
+    //)))
+    commWriter.writeMsg(jsValue)
+  }
+
+  def close(): Unit = {
+    commWriter.close()
+  }
+}
+
 /**
   * Created by bburns on 10/4/16.
   */

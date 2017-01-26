@@ -1,3 +1,4 @@
+/*
 package org.eclairjs.nashorn
 
 import java.net.URL
@@ -72,9 +73,7 @@ class JavascriptInterpreter() extends org.apache.toree.interpreter.Interpreter {
 
 
     val  kernelImpl = kernel.asInstanceOf[Kernel]
-    /*
-    Comms foreachrdd
-     */
+    //Comms foreachrdd
     kernelImpl.comm.register("foreachrdd").addOpenHandler {
       (commWriter, commId, targetName, data) =>
         System.out.println("got comm open for foreachrdd")
@@ -92,9 +91,9 @@ class JavascriptInterpreter() extends org.apache.toree.interpreter.Interpreter {
           .asInstanceOf[CommMap]
           .remove("foreachrdd:"+commId)
     }
-    /*
-    Comms for streamingQueryManagerListener
-     */
+
+    //Comms for streamingQueryManagerListener
+
     kernelImpl.comm.register("streamingQueryManagerListener").addOpenHandler {
       (commWriter, commId, targetName, data) =>
         System.out.println("got comm open for streamingQueryManagerListener")
@@ -112,9 +111,7 @@ class JavascriptInterpreter() extends org.apache.toree.interpreter.Interpreter {
           .asInstanceOf[CommMap]
           .remove("streamingQueryManagerListener:"+commId)
     }
-    /*
    Comms for dataStreamWriterForeach
-    */
     kernelImpl.comm.register("dataStreamWriterForeach").addOpenHandler {
       (commWriter, commId, targetName, data) =>
         System.out.println("got comm open for dataStreamWriterForeach")
@@ -132,9 +129,7 @@ class JavascriptInterpreter() extends org.apache.toree.interpreter.Interpreter {
           .asInstanceOf[CommMap]
           .remove("dataStreamWriterForeach:"+commId)
     }
-    /*
-    Comms for logger
-     */
+    //Comms for logger
     kernelImpl.comm.register("logger").addOpenHandler {
       (commWriter, commId, targetName, data) =>
         System.out.println("got logger open")
@@ -148,15 +143,6 @@ class JavascriptInterpreter() extends org.apache.toree.interpreter.Interpreter {
       (commWriter, commId, data: MsgData) =>
         System.out.println("got logger close " + commId)
     }
-    /*
-    kernelImpl.comm.register("foreachrdd").addMsgHandler {
-      (commWriter, commId, data: MsgData) =>
-        System.out.println("got comm message");
-        commWriter.writeMsg(JsObject(Seq(
-          "response" -> data
-        )))
-    }
-    */
 
     engine.put("kernel", kernel)
     engine.put("commMap", new CommMap())
@@ -177,18 +163,6 @@ class JavascriptInterpreter() extends org.apache.toree.interpreter.Interpreter {
    * @return The return value of body
    */
   override def doQuietly[T](body: => T): T = ???
-
-  /*
-  override def bindSparkContext(sparkContext: SparkContext) = {
-    System.out.println("************HERE***************")
-    System.out.println(sparkContext)
-    engine.put("sc", sparkContext)
-  }
-
-  override def bindSqlContext(sqlContext: SQLContext) = {
-    engine.put("kernelSqlContext", sqlContext)
-  }
-  */
 
   /**
    * Stops the interpreter, removing any previous internal state.
@@ -297,3 +271,4 @@ class JavascriptInterpreter() extends org.apache.toree.interpreter.Interpreter {
   override def completion(code: String, pos: Int): (Int, scala.List[String]) = ???
 
 }
+*/
