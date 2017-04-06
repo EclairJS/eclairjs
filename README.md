@@ -1,7 +1,3 @@
-## Announcement
-
-There has been a team here in IBM working on EclairJS for about a year now. Unfortunately from the team's perspective, the project has not gained traction and so they are going to discontinue work on it. The eclairjs.org domain name will continue to exist for a while longer although there will a few other changes such as shuttering this (largely unused) Slack channel. If you are interested in taking a more active role in EclairJS, please post your interest on the EclairJS Google channel  , or you can contact the IBM team at eclairjs at us dot ibm dot com.
-
 # EclairJS
 
 EclairJS provides JavaScript and Node.js developers with an API for [Apache Spark](http://spark.apache.org/), and enables them to take advantage of Spark's unique data-processing environment that includes streaming, SQL, Machine Learning, and a graph database. Using EclairJS, developers can write applications entirely in JavaScript, some of which will be executed in the local JavaScript environment such as Node.js, and some of which will be executed on Spark. EclairJS is composed of a client component that runs in the local JavaScript environment, and can be simply installed from npm, and server components that can be remote from the client and handle JavaScript in Spark.
